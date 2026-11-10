@@ -1,0 +1,13 @@
+---
+// The status control used in lists: the same hexagon as a map tile. Each click moves the
+// skill to its next status.
+interface Props {
+  id: string;
+  name: string;
+}
+const { id, name } = Astro.props;
+---
+
+<button type="button" class="hx" data-cycle={id} data-name={name} data-status-for={id} aria-label={`${name}: not started. Change status`}>
+  <svg viewBox="0 0 22 25" aria-hidden="true"><path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z"></path></svg>
+</button>

@@ -1,7 +1,7 @@
 # Shared by setup.sh (first deploy) and deploy.sh (later deploys). Same pattern as scroller.pro.
 # Override any of these in the environment: REMOTE_HOST, REMOTE_DIR, SITE_DOMAIN, ...
 
-REMOTE_HOST="${REMOTE_HOST:-productengineer.pro}"
+REMOTE_HOST="${REMOTE_HOST:-secondary}" # ssh alias for the VPS
 REMOTE_DIR="${REMOTE_DIR:-/var/www/html/productengineer.pro/website}"
 SITE_DOMAIN="${SITE_DOMAIN:-productengineer.pro}"
 SITE_CONF_NAME="${SITE_CONF_NAME:-productengineer.pro.conf}"

@@ -1,33 +1,30 @@
 ---
-// The full-screen explorer. Without JavaScript it is the static world map with links to every
-// territory; with JavaScript it zooms between levels, keeps each level in the URL, and accepts
-// ?lit=id,id to light nodes and join them with a route.
+// The explorer: map and index side by side, at the same size. Without JavaScript it is the
+// static world map and the territory index, both linking to every page. With JavaScript it
+// zooms between levels, keeps each level in the URL, and accepts ?lit=id,id to light skills
+// and join them with a route.
 import Base from '../../layouts/Base.astro';
-import { atlas, mapSvg, path } from '../../lib/atlas.ts';
+import TerritoryRows from '../../components/TerritoryRows.astro';
+import { atlas, mapSvg } from '../../lib/atlas.ts';
 
 const a = atlas();
-const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
+const svg = mapSvg({ width: 760, height: 700 });
 ---
 
-<Base title="Atlas" description="Explore the whole map of product engineering: ten territories, 72 capabilities and every skill beneath them." bodyClass="is-explorer" searchable={false}>
+<Base title="Atlas" description="Explore the map of product engineering: ten territories, 72 capabilities and every skill beneath them." bodyClass="is-explorer" searchable={false}>
   <div class="explorer" id="explorer">
     <div class="ex-map" id="ex-map" set:html={svg} />
     <aside class="ex-panel" id="ex-panel" aria-live="polite">
       <nav class="crumbs" id="ex-crumbs" aria-label="Map level"><span aria-current="page">World</span></nav>
-      <h1 id="ex-title">The Skill Atlas</h1>
-      <p id="ex-text" class="ex-text">Ten territories of product engineering and the waters around them. Pick a territory to zoom in.</p>
-      <div id="ex-actions"></div>
-      <div id="ex-lit"></div>
-      <h2 id="ex-list-title" class="ex-h">Territories</h2>
-      <ul class="ex-list" id="ex-list">
-        {
-          a.territories.map((t) => (
-            <li>
-              <a href={path(t)}>{t.name}</a>
-            </li>
-          ))
-        }
-      </ul>
+      <div class="ex-head">
+        <div class="code-big" id="ex-code">Atlas · {a.skills.length} skills</div>
+        <h1 class="ex-title" id="ex-title">The Skill Atlas</h1>
+        <p class="ex-text" id="ex-text">Ten territories and the capabilities that cut across them. Pick one to zoom in.</p>
+        <div id="ex-actions"></div>
+        <div id="ex-lit"></div>
+      </div>
+      <div class="pane-head ex-listhead"><span class="label" id="ex-list-title">Territories</span><span class="label" id="ex-list-count"></span></div>
+      <div id="ex-list"><TerritoryRows territories={a.territories} /></div>
     </aside>
   </div>
 </Base>
@@ -38,14 +35,13 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
   }
   .explorer {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 360px;
-    height: calc(100dvh - 57px);
-    min-height: 480px;
+    grid-template-columns: minmax(0, 1.1fr) minmax(380px, 1fr);
+    height: calc(100dvh - var(--head));
+    min-height: 520px;
   }
   .ex-map {
     position: relative;
     overflow: hidden;
-    background: var(--bg);
     touch-action: manipulation;
   }
   .ex-map svg {
@@ -53,92 +49,54 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
     height: 100%;
   }
   .ex-map .pm text,
-  .ex-map .pm .n,
-  .ex-map .pm .tl {
+  .ex-map .pm .sl-g {
     transition: opacity 0.18s ease;
   }
-  .ex-map.is-zooming .pm .n,
-  .ex-map.is-zooming .pm .tl,
+  .ex-map.is-zooming .pm text,
   .ex-map.is-zooming .pm .route,
-  .ex-map.is-zooming .pm .route-ink {
+  .ex-map.is-zooming .pm .route-halo,
+  .ex-map.is-zooming .pm .route-dot {
     opacity: 0 !important;
   }
-  .ex-map.is-entering .pm .n,
-  .ex-map.is-entering .pm .tl {
+  .ex-map.is-entering .pm text {
     opacity: 0;
   }
   .ex-panel {
-    border-left: 1px solid var(--line);
-    background: var(--surface);
+    border-left: 1px solid var(--ink);
     overflow-y: auto;
-    padding: 6px 20px 28px;
+    padding: 0 var(--gutter) 40px 28px;
   }
-  .ex-panel h1 {
-    font-size: 1.6rem;
-    margin-bottom: 6px;
+  .ex-head {
+    padding: 18px 0 22px;
+    display: grid;
+    gap: 12px;
+  }
+  .ex-title {
+    font-size: clamp(30px, 3vw, 46px);
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
   .ex-text {
-    color: var(--text-2);
-    font-size: 0.95rem;
-  }
-  .ex-h {
-    font-size: 0.82rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text-3);
-    margin: 22px 0 8px;
-  }
-  .ex-list {
-    list-style: none;
-    padding: 0;
+    color: var(--ink-2);
     margin: 0;
-    display: grid;
-    gap: 2px;
+    font-size: 16px;
+    max-width: 52ch;
   }
-  .ex-list li {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    gap: 10px;
-    align-items: center;
+  .ex-listhead {
+    border-top: 1px solid var(--ink);
+    padding-top: 12px;
+    margin-bottom: 0;
   }
-  .ex-list button,
-  .ex-list > li > a {
-    font: inherit;
-    text-align: left;
-    background: none;
-    border: 0;
-    padding: 7px 4px;
-    color: var(--text);
-    cursor: pointer;
-    border-radius: 6px;
-    text-decoration: none;
+  .ex-zoom {
+    position: absolute;
+    left: 16px;
+    top: 16px;
   }
-  .ex-list button:hover,
-  .ex-list button.is-sel {
-    background: var(--surface-2);
+  .ex-zoom .btn {
+    background: var(--bg);
   }
-  .ex-list .page {
-    font-size: 0.8rem;
-    color: var(--text-3);
-  }
-  .ex-list .pip {
-    margin-top: 0;
-  }
-  .ex-list .rollup {
-    grid-column: 2 / 4;
-    margin: -6px 0 4px 4px;
-  }
-  .ex-panel .seg {
-    display: flex;
-    width: 100%;
-  }
-  .ex-panel .seg label {
-    flex: 1;
-    text-align: center;
-  }
-  .ex-panel .seg span {
-    padding: 7px 6px;
-    font-size: 0.86rem;
+  .ex-zoom .btn:hover {
+    background: var(--ink);
   }
   .lit-chips {
     display: flex;
@@ -147,49 +105,40 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
     margin: 6px 0 10px;
   }
   .chip {
-    font-size: 0.82rem;
-    padding: 2px 10px;
-    border-radius: 999px;
-    background: var(--lit-soft);
-    color: var(--text);
-    border: 1px solid color-mix(in srgb, var(--lit) 40%, transparent);
+    font: 500 12px/1 var(--mono);
+    padding: 7px 9px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
   }
-  .ex-zoom {
-    position: absolute;
-    left: 12px;
-    top: 12px;
-    display: flex;
-    gap: 6px;
+  .chip:hover {
+    background: var(--ink);
+    color: var(--bg);
   }
-  .ex-zoom .btn {
-    background: var(--surface);
-    box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
-  }
-  @media (max-width: 860px) {
+  @media (max-width: 900px) {
     .explorer {
       grid-template-columns: minmax(0, 1fr);
       height: auto;
     }
     .ex-map {
-      height: 58dvh;
-      min-height: 320px;
+      height: 62dvh;
+      min-height: 340px;
+      border-bottom: 1px solid var(--ink);
     }
     .ex-panel {
       border-left: 0;
-      border-top: 1px solid var(--line);
+      padding: 0 var(--gutter) 40px;
     }
   }
 </style>
 
 <script>
-  import { renderMap, computeView, type MapAtlas } from '../../atlas/render.ts';
+  import { renderMap, computeView, nodeCodes, type MapAtlas } from '../../atlas/render.ts';
   import type { Geometry } from '../../atlas/geometry.ts';
-  import type { MapStyle } from '../../atlas/map-css.ts';
   import { load, setStatus, applyProgress, onChange } from '../../scripts/progress.ts';
   import { track } from '../../scripts/track.ts';
 
   type Data = {
-    style: MapStyle;
     territories: (MapAtlas['territories'][number] & { tagline: string; question: string })[];
     capabilities: (MapAtlas['capabilities'][number] & { description: string })[];
     skills: (MapAtlas['skills'][number] & { summary: string })[];
@@ -201,8 +150,10 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
   const $ = (id: string) => document.getElementById(id)!;
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const HEX = '<path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z"></path>';
 
   let data: Data;
+  let codes = new Map<string, string>();
   const T = new Map<string, Data['territories'][number]>();
   const C = new Map<string, Data['capabilities'][number]>();
   const S = new Map<string, Data['skills'][number]>();
@@ -211,18 +162,16 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
     at: string;
     lit: string[];
   }
-  let state: ExState = readUrl();
+  let state: ExState = { at: '', lit: [] };
 
   function readUrl(): ExState {
     const q = new URLSearchParams(location.search);
     const alias = (id: string) => data?.aliases?.[id] ?? id;
-    const lit = (q.get('lit') ?? '')
-      .split(',')
-      .map((s) => alias(s.trim()))
-      .filter(Boolean);
-    return { at: alias(q.get('at') ?? ''), lit };
+    return {
+      at: alias(q.get('at') ?? ''),
+      lit: (q.get('lit') ?? '').split(',').map((s) => alias(s.trim())).filter(Boolean),
+    };
   }
-
   function urlFor(s: ExState) {
     const q = new URLSearchParams();
     if (s.at) q.set('at', s.at);
@@ -230,7 +179,6 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
     const qs = q.toString().replace(/%2C/g, ',');
     return `/atlas/${qs ? `?${qs}` : ''}`;
   }
-
   const pagePath = (id: string) => {
     const s = S.get(id);
     if (s) return `/atlas/${s.territory}/${s.capability}/${s.id}/`;
@@ -238,56 +186,44 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
     if (c) return `/atlas/${c.territory}/${c.id}/`;
     return `/atlas/${id}/`;
   };
+  const nameOf = (id: string) => T.get(id)?.name ?? C.get(id)?.name ?? S.get(id)?.name ?? id;
+  const codeOf = (id: string) => codes.get(id) ?? '';
+  const upOf = (id: string) => (S.has(id) ? S.get(id)!.capability : C.has(id) ? C.get(id)!.territory : '');
+  const levelKey = (at: string) => (S.has(at) ? S.get(at)!.capability : at);
 
   function size() {
     const r = mapEl.getBoundingClientRect();
-    return { width: Math.max(320, Math.round(r.width)), height: Math.max(280, Math.round(r.height)) };
+    return { width: Math.max(320, Math.round(r.width)), height: Math.max(300, Math.round(r.height)) };
   }
-
   function options() {
     const { width, height } = size();
-    const valid = state.lit.filter((id) => S.has(id) || C.has(id) || T.has(id));
-    const selected = S.has(state.at) ? state.at : null;
+    const lit = state.lit.filter((id) => S.has(id) || C.has(id) || T.has(id));
     return {
       focus: state.at,
       width,
       height,
-      style: data.style,
-      idPrefix: 'ex',
-      scale: width < 520 ? 0.82 : 1,
-      state: { progress: load(data.aliases).progress, lit: valid, route: valid.length > 1, selected },
+      scale: width < 520 ? 0.85 : 1,
+      state: { progress: load(data.aliases).progress, lit, route: lit.length > 1, selected: S.has(state.at) ? state.at : null },
     };
   }
-
   function draw() {
     mapEl.innerHTML = renderMap(data, data.geometry, options());
-    addZoomButtons();
-  }
-
-  function addZoomButtons() {
-    if (!state.at) return;
-    const parent = upOf(state.at);
-    const div = document.createElement('div');
-    div.className = 'ex-zoom';
-    div.innerHTML = `<button class="btn" type="button" data-up>← ${esc(parent ? nameOf(parent) : 'World')}</button>`;
-    div.querySelector('button')!.addEventListener('click', () => go({ ...state, at: parent }));
-    mapEl.append(div);
-  }
-
-  const nameOf = (id: string) => T.get(id)?.name ?? C.get(id)?.name ?? S.get(id)?.name ?? id;
-  function upOf(id: string): string {
-    if (S.has(id)) return S.get(id)!.capability;
-    if (C.has(id)) return C.get(id)!.territory === 'cross-cutting' ? 'cross-cutting' : C.get(id)!.territory;
-    return '';
+    if (state.at) {
+      const up = upOf(state.at);
+      const div = document.createElement('div');
+      div.className = 'ex-zoom';
+      div.innerHTML = `<button class="btn small" type="button">← ${esc(up ? `${codeOf(up)} ${nameOf(up)}` : 'World')}</button>`;
+      div.querySelector('button')!.addEventListener('click', () => go({ ...state, at: up }));
+      mapEl.append(div);
+    }
   }
 
   const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-
   async function zoomTo(next: ExState) {
     const svg = mapEl.querySelector('svg');
-    const sameLevel = levelKey(next.at) === levelKey(state.at);
+    const same = levelKey(next.at) === levelKey(state.at);
     state = next;
-    if (!svg || reduceMotion || sameLevel) return draw();
+    if (!svg || reduceMotion || same) return draw();
     const from = svg.viewBox.baseVal;
     const start = [from.x, from.y, from.width, from.height];
     const box = computeView(data, data.geometry, options()).box;
@@ -296,12 +232,10 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
     mapEl.querySelector('.ex-zoom')?.remove();
     await new Promise<void>((resolve) => {
       const t0 = performance.now();
-      const dur = 520;
       const step = (now: number) => {
-        const t = Math.min(1, (now - t0) / dur);
+        const t = Math.min(1, (now - t0) / 480);
         const e = ease(t);
-        const v = start.map((s, i) => s + (end[i] - s) * e);
-        svg.setAttribute('viewBox', v.join(' '));
+        svg.setAttribute('viewBox', start.map((s, i) => s + (end[i] - s) * e).join(' '));
         if (t < 1) requestAnimationFrame(step);
         else resolve();
       };
@@ -313,100 +247,80 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
     requestAnimationFrame(() => requestAnimationFrame(() => mapEl.classList.remove('is-entering')));
   }
 
-  /** Territory, capability or world: a skill shares its capability's zoom. */
-  function levelKey(at: string) {
-    return S.has(at) ? S.get(at)!.capability : at;
-  }
-
   function go(next: ExState, push = true) {
     if (push) history.pushState(next, '', urlFor(next));
     zoomTo(next).then(panel);
     track('Map zoom', { level: S.has(next.at) ? 'skill' : C.has(next.at) ? 'capability' : T.has(next.at) ? 'territory' : 'world' });
   }
 
-  // ---- panel: the list equivalent of the current map, with the same states
-  function rollupHtml(ids: string[]) {
-    return `<span class="rollup" data-rollup="${ids.join(' ')}"><span class="bar" aria-hidden="true"></span><span class="txt">${ids.length} skills</span></span>`;
-  }
-  const territorySkills = (tid: string) => T.get(tid)!.capabilities.flatMap((c) => C.get(c)!.skills);
+  // ---- the index: the same rows as the static pages
+  const strip = (ids: string[]) =>
+    `<span class="strip" aria-hidden="true">${ids.map((id) => `<a href="${pagePath(id)}" data-status-for="${id}" title="${codeOf(id)} ${esc(nameOf(id))}" tabindex="-1"></a>`).join('')}</span><span class="count" data-rollup="${ids.join(' ')}">${ids.length} skills</span>`;
+  const outline = `<svg viewBox="0 0 22 25" width="22" height="25" aria-hidden="true"><path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z" fill="none" stroke="currentColor" stroke-width="1.2"></path></svg>`;
+  const rowGroup = (id: string, sub: string, ids: string[]) =>
+    `<li><div class="row" data-id="${id}">${outline}<span class="code">${codeOf(id)}</span><button class="name" type="button" data-go="${id}">${esc(nameOf(id))}</button><a class="go" href="${pagePath(id)}" aria-label="Open the ${esc(nameOf(id))} page">→</a><span class="sub">${esc(sub)}</span><span class="meta">${strip(ids)}</span></div></li>`;
+  const rowSkill = (id: string, selected: boolean) =>
+    `<li><div class="row${selected ? ' is-sel' : ''}" data-id="${id}" data-status-for="${id}"><button type="button" class="hx" data-cycle="${id}" data-name="${esc(nameOf(id))}" data-status-for="${id}"><svg viewBox="0 0 22 25" aria-hidden="true">${HEX}</svg></button><span class="code">${codeOf(id)}</span><button class="name" type="button" data-go="${id}">${esc(nameOf(id))}</button><a class="go" href="${pagePath(id)}" aria-label="Open the ${esc(nameOf(id))} page">→</a><span class="sub">${esc(S.get(id)!.summary)}</span></div></li>`;
+  const tSkills = (tid: string) => T.get(tid)!.capabilities.flatMap((c) => C.get(c)!.skills);
 
   function panel() {
     const at = state.at;
-    const crumbs: string[] = [];
-    const crumb = (id: string, label: string) => `<a href="${urlFor({ ...state, at: id })}" data-go="${id}">${esc(label)}</a>`;
-    let title = 'The Skill Atlas';
-    let text = 'Ten territories of product engineering and the waters around them. Pick a territory to zoom in.';
-    let actions = '';
-    let listTitle = 'Territories';
-    let list = '';
-
     const skill = S.get(at);
     const cap = C.get(skill ? skill.capability : at);
     const terr = T.get(cap ? cap.territory : at);
+    const crumb = (id: string, label: string) => `<a href="${urlFor({ ...state, at: id })}" data-go="${id}">${esc(label)}</a>`;
+    const sep = '<span class="sep" aria-hidden="true">/</span>';
+    const crumbs = ['<a href="/atlas/" data-go="">World</a>'];
+    if (terr) crumbs.push(crumb(terr.id, `${codeOf(terr.id)} ${terr.name}`));
+    if (cap) crumbs.push(crumb(cap.id, `${codeOf(cap.id)} ${cap.name}`));
+    $('ex-crumbs').innerHTML = crumbs.join(sep);
 
-    if (terr) crumbs.push(crumb('', 'World'));
-    if (cap) crumbs.push(crumb(terr!.id, terr!.name));
-    if (skill) crumbs.push(crumb(cap!.id, cap!.name));
+    let code = `Atlas · ${data.skills.length} skills`;
+    let title = 'The Skill Atlas';
+    let text = 'Ten territories and the capabilities that cut across them. Pick one to zoom in.';
+    let actions = '';
+    let listTitle = 'Territories';
+    let list = data.territories.map((t) => rowGroup(t.id, t.question, tSkills(t.id))).join('');
 
-    if (!terr) {
-      list = data.territories
-        .map(
-          (t) =>
-            `<li><span class="pip cap" aria-hidden="true"></span><button type="button" data-go="${t.id}">${esc(t.name)}</button><a class="page" href="${pagePath(t.id)}">page</a>${rollupHtml(territorySkills(t.id))}</li>`,
-        )
-        .join('');
-    } else if (!cap) {
+    if (terr && !cap) {
+      code = `${codeOf(terr.id)} · ${terr.crossCutting ? 'Cross-cutting' : 'Territory'} · ${terr.tagline}`;
       title = terr.name;
-      text = `<span style="font-family:var(--hand);color:var(--accent);font-size:1.1rem">${esc(terr.question)}</span>`;
-      actions = `<a class="btn" href="${pagePath(terr.id)}">Open the ${esc(terr.name)} page</a>`;
+      text = esc(terr.question);
+      actions = `<a class="btn small" href="${pagePath(terr.id)}">Open the territory page →</a>`;
       listTitle = `${terr.capabilities.length} capabilities`;
-      list = terr.capabilities
-        .map((id) => C.get(id)!)
-        .map(
-          (c) =>
-            `<li><span class="pip cap" aria-hidden="true"></span><button type="button" data-go="${c.id}">${esc(c.name)}</button><a class="page" href="${pagePath(c.id)}">page</a>${rollupHtml(c.skills)}</li>`,
-        )
-        .join('');
-    } else {
+      list = terr.capabilities.map((id) => rowGroup(id, C.get(id)!.description, C.get(id)!.skills)).join('');
+    } else if (cap) {
+      code = skill ? `${codeOf(skill.id)} · Skill in ${cap.name}` : `${codeOf(cap.id)} · Capability in ${terr!.name}`;
       title = skill ? skill.name : cap.name;
       text = esc(skill ? skill.summary : cap.description);
-      if (skill) {
-        actions = `<fieldset class="status" style="margin:10px 0"><legend>Your status</legend><div class="seg">${(
-          [
-            ['none', 'Not started'],
-            ['learning', 'Learning'],
-            ['comfortable', 'Comfortable'],
-          ] as const
-        )
-          .map(
-            ([v, l]) =>
-              `<label><input type="radio" name="ex-status" value="${v}" data-status-input="${skill.id}"><span>${l}</span></label>`,
+      actions = skill
+        ? `<div class="seg" role="radiogroup" aria-label="Your status">${(
+            [
+              ['none', 'Not started', ''],
+              ['learning', 'Learning', 'l'],
+              ['comfortable', 'Comfortable', 'c'],
+            ] as const
           )
-          .join('')}</div></fieldset><a class="btn" href="${pagePath(skill.id)}">Open the skill page</a>`;
-      } else {
-        actions = `<a class="btn" href="${pagePath(cap.id)}">Open the ${esc(cap.name)} page</a>`;
-      }
-      listTitle = `${cap.skills.length} skills in ${cap.name}`;
-      list = cap.skills
-        .map((id) => S.get(id)!)
-        .map(
-          (s) =>
-            `<li data-status-for="${s.id}"><span class="pip" aria-hidden="true"></span><button type="button" data-go="${s.id}" class="${s.id === at ? 'is-sel' : ''}">${esc(s.name)}</button><a class="page" href="${pagePath(s.id)}">page</a></li>`,
-        )
-        .join('');
+            .map(([v, l, c]) => `<label><input type="radio" name="ex-status" value="${v}" data-status-input="${skill.id}"><span class="${c}"><svg viewBox="0 0 22 25" aria-hidden="true">${HEX}</svg>${l}</span></label>`)
+            .join('')}</div><div class="btn-row" style="margin-top:4px"><a class="btn small" href="${pagePath(skill.id)}">Open the skill page →</a></div>`
+        : `<a class="btn small" href="${pagePath(cap.id)}">Open the capability page →</a>`;
+      listTitle = `${cap.skills.length} skills`;
+      list = cap.skills.map((id) => rowSkill(id, id === at)).join('');
     }
 
-    $('ex-crumbs').innerHTML = crumbs.length ? `${crumbs.join(' <span aria-hidden="true">/</span> ')}` : '<span aria-current="page">World</span>';
+    $('ex-code').textContent = code;
     $('ex-title').textContent = title;
     $('ex-text').innerHTML = text;
     $('ex-actions').innerHTML = actions;
     $('ex-list-title').textContent = listTitle;
-    $('ex-list').innerHTML = list;
+    $('ex-list-count').textContent = cap && !skill ? 'Click a hexagon to set your status' : '';
+    $('ex-list').innerHTML = `<ul class="index${cap ? ' big' : ''}">${list}</ul>`;
 
-    // lit nodes: shareable as a link, separate from progress
     const lit = state.lit.filter((id) => S.has(id) || C.has(id) || T.has(id));
     $('ex-lit').innerHTML = lit.length
-      ? `<h2 class="ex-h">Lit on this map</h2><div class="lit-chips">${lit.map((id) => `<a class="chip" href="${urlFor({ ...state, at: id })}" data-go="${id}">${esc(nameOf(id))}</a>`).join('')}</div><div class="btn-row"><button class="btn" type="button" id="ex-copy">Copy link</button><button class="btn" type="button" id="ex-clear">Clear</button></div>`
+      ? `<div class="label">Lit on this map, in order</div><div class="lit-chips">${lit
+          .map((id) => `<a class="chip" href="${urlFor({ ...state, at: id })}" data-go="${id}">${codeOf(id)} ${esc(nameOf(id))}</a>`)
+          .join('')}</div><div class="btn-row"><button class="btn small" type="button" id="ex-copy">Copy link</button><button class="btn small" type="button" id="ex-clear">Clear</button></div>`
       : '';
     $('ex-copy')?.addEventListener('click', async () => {
       try {
@@ -417,7 +331,6 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
       }
     });
     $('ex-clear')?.addEventListener('click', () => go({ ...state, lit: [] }));
-
     document.querySelectorAll<HTMLInputElement>('input[name="ex-status"]').forEach((input) =>
       input.addEventListener('change', () => {
         if (!input.checked) return;
@@ -430,51 +343,40 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
 
   // ---- events
   document.addEventListener('click', (e) => {
+    const me = e as MouseEvent;
+    if (me.metaKey || me.ctrlKey || me.shiftKey || !data) return;
     const target = e.target as Element;
-    if ((e as MouseEvent).metaKey || (e as MouseEvent).ctrlKey || (e as MouseEvent).shiftKey) return;
-    const go_ = target.closest<HTMLElement>('[data-go]');
-    if (go_ && document.getElementById('ex-panel')!.contains(go_)) {
+    if (target.closest('button[data-cycle], a.go, .strip a')) return;
+    const goEl = target.closest<HTMLElement>('#ex-panel [data-go]');
+    if (goEl) {
       e.preventDefault();
-      go({ ...state, at: go_.dataset.go! });
+      go({ ...state, at: goEl.dataset.go! });
       return;
     }
     const node = target.closest<SVGElement>('#ex-map [data-id]');
     if (node) {
       e.preventDefault();
-      const id = node.dataset.id!;
-      if (id === state.at && C.has(id)) return;
-      go({ ...state, at: id });
+      go({ ...state, at: node.dataset.id! });
     }
   });
-
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape' || !state.at) return;
-    const t = e.target as Element;
-    if (t.closest('input, textarea')) return;
+    if (e.key !== 'Escape' || !state.at || (e.target as Element).closest('input, textarea')) return;
     go({ ...state, at: upOf(state.at) });
   });
-
-  window.addEventListener('popstate', () => {
-    zoomTo(readUrl()).then(panel);
-  });
+  window.addEventListener('popstate', () => data && zoomTo(readUrl()).then(panel));
 
   let resizeTimer: number | undefined;
   new ResizeObserver(() => {
     clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => data && draw(), 120);
   }).observe(mapEl);
-
-  onChange(() => {
-    if (data) {
-      draw();
-      applyProgress();
-    }
-  });
+  onChange(() => data && draw());
 
   fetch('/atlas-data.json')
     .then((r) => r.json())
     .then((d: Data) => {
       data = d;
+      codes = nodeCodes(d);
       d.territories.forEach((t) => T.set(t.id, t));
       d.capabilities.forEach((c) => C.set(c.id, c));
       d.skills.forEach((s) => S.set(s.id, s));

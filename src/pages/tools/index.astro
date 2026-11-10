@@ -6,43 +6,36 @@ import { usersOf } from '../../atlas/model.ts';
 
 const a = atlas();
 const tools = a.tools.map((t) => ({ ...t, used: usersOf(a, 'tools', t.id) }));
-const PRICING: Record<string, string> = { 'open-source': 'open source', free: 'free', freemium: 'freemium', paid: 'paid' };
+const PRICING: Record<string, string> = { 'open-source': 'Open source', free: 'Free', freemium: 'Freemium', paid: 'Paid' };
 ---
 
 <Base title="Tools" description="Tools used across product engineering, each linked to the skills it serves.">
   <div class="wrap">
-    <Crumbs items={[{ label: 'Tools' }]} />
-    <h1>Tools</h1>
-    <p class="lede">
-      Tools that product engineers use, each linked to the skills it serves. Widely used options first, with an open-source or free
-      option where one exists. No affiliate links.
-    </p>
+    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { label: 'Tools' }]} />
+    <header class="page-head">
+      <div class="code-big">{tools.length} tools</div>
+      <h1 class="title">Tools</h1>
+      <p class="lede">
+        What product engineers use, each linked to the skills it serves. Widely used first, with an open-source or free option where
+        one exists. No affiliate links.
+      </p>
+    </header>
     {
       tools.length ? (
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Tool</th>
-                <th>What it does</th>
-                <th>Pricing</th>
-                <th>Used for</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tools.map((t) => (
-                <tr>
-                  <td><a href={`/tools/${t.id}/`}>{t.name}</a></td>
-                  <td>{t.what}</td>
-                  <td><span class="tag">{PRICING[t.pricing]}</span></td>
-                  <td style="color:var(--text-2)">{t.used.length} {t.used.length === 1 ? 'topic' : 'topics'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ul class="index big" style="border-top:1px solid var(--ink)">
+          {tools.map((t) => (
+            <li>
+              <div class="row" style="grid-template-columns:120px minmax(0,1fr) auto">
+                <span class="code">{PRICING[t.pricing]}</span>
+                <a class="name" href={`/tools/${t.id}/`}>{t.name}</a>
+                <span class="go" aria-hidden="true">{t.used.length} →</span>
+                <span class="sub" style="grid-column:2 / 4">{t.what}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
       ) : (
-        <p class="empty-note">The tools index fills in as the research pass covers each territory.</p>
+        <p class="empty">The tools index fills in as the research pass covers each territory.</p>
       )
     }
   </div>

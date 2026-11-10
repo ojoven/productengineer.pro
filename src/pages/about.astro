@@ -7,50 +7,82 @@ const a = atlas();
 ---
 
 <Base title="About" description="What the Skill Atlas is, how resources are chosen and checked, and what comes next.">
-  <div class="wrap prose">
+  <div class="wrap">
     <Crumbs items={[{ label: 'About' }]} />
-    <h1>About the atlas</h1>
-    <p class="lede">
-      ProductEngineer.pro is a general reference for product engineering, laid out as a map. Every territory, capability and skill
-      has a short description, a few resources worth the time, and the tools people use for it.
-    </p>
+    <header class="page-head">
+      <div class="code-big">About</div>
+      <h1 class="title">A reference, drawn as a map.</h1>
+      <p class="lede">
+        ProductEngineer.pro is a general reference for product engineering. Every territory, capability and skill has a short
+        description, a few resources worth the time, and the tools people use for it.
+      </p>
+    </header>
 
-    <h2>Three levels</h2>
-    <p>
-      The atlas has {a.territories.length - 1} territories, plus a group of cross-cutting capabilities drawn as the waters around the
-      land. Under them sit {a.capabilities.length} capabilities and {a.skills.length} skills. Every skill has one home on the map;
-      when it matters elsewhere, other pages link to it instead of repeating it.
-    </p>
-    <p>
-      The taxonomy is a proposed framework, not an industry certification. Not every skill needs the same depth: a product engineer
-      should do the core work independently, make informed decisions in the wider areas, and go deep selectively.
-    </p>
+    <section class="section">
+      <div class="section-head"><h2>Three levels</h2><span class="label">01</span></div>
+      <div class="cols">
+        <div class="prose">
+          <p>
+            The atlas has {a.territories.length - 1} territories, plus a group of cross-cutting capabilities. Under them sit
+            {a.capabilities.length} capabilities and {a.skills.length} skills. Each skill is one tile on the map and has one home;
+            when it matters elsewhere, other pages link to it instead of repeating it.
+          </p>
+          <p>
+            The taxonomy is a proposed framework, not an industry certification. Not every skill needs the same depth: a product
+            engineer should do the core work independently, make informed decisions in the wider areas, and go deep selectively.
+          </p>
+        </div>
+        <div class="prose">
+          <p>
+            Codes such as <span class="mono">06.4.5</span> read territory, capability, skill. They follow the order of the
+            taxonomy and are there to help you find your way. Links use permanent ids, so a renamed skill keeps its old address.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    <h2>How resources are chosen</h2>
-    <ul>
-      <li>Written or recorded by practitioners or recognised sources, and the primary source over a summary of it.</li>
-      <li>Free to read or watch. A paid book or course appears only when it is the standard reference, and is marked as paid.</li>
-      <li>Still accurate, in English, and dated.</li>
-      <li>No link is written from memory. Each one is opened and checked before it is saved, and a link checker re-runs on a schedule.</li>
-      <li>Tools: widely used ones, with an open-source or free option where one exists. No affiliate links.</li>
-    </ul>
-    <p>Two good links beat a full quota, so some topics have fewer.</p>
+    <section class="section">
+      <div class="section-head"><h2>How resources are chosen</h2><span class="label">02</span></div>
+      <ol class="index compact">
+        {
+          [
+            'Written or recorded by practitioners or recognised sources, and the primary source over a summary of it.',
+            'Free to read or watch. A paid book or course appears only when it is the standard reference, and is marked as paid.',
+            'Still accurate, in English, and dated.',
+            'No link is written from memory. Each one is opened and checked before it is saved, and a link checker re-runs every week.',
+            'Tools: widely used ones, with an open-source or free option where one exists. No affiliate links.',
+            'Two good links beat a full quota, so some topics have fewer.',
+          ].map((t, i) => (
+            <li>
+              <div class="row" style="grid-template-columns:40px minmax(0,1fr)">
+                <span class="code">{String(i + 1).padStart(2, '0')}</span>
+                <span style="font-size:16px">{t}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
 
-    <h2>Your progress</h2>
-    <p>
-      You can mark each skill as learning or comfortable. That status is stored only in your browser. There is no account and nothing
-      is sent to a server. Export a file from <a href="/me/">your map</a> to keep a copy.
-    </p>
-
-    <h2>Lit maps</h2>
-    <p>
-      A link can light any set of nodes and join them with a route, for example
-      <a href="/atlas/?lit=user-interviews,hypotheses,sample-size,funnel-analysis">/atlas/?lit=user-interviews,hypotheses,sample-size,funnel-analysis</a>.
-      It is a way to show which parts of the discipline a piece of work exercised. Later versions will light the map from experiments
-      run on real products.
-    </p>
-
-    <h2>Privacy</h2>
-    <p>Page analytics, when enabled, are cookieless and collect no personal data. Videos load from YouTube only when you press play.</p>
+    <section class="section">
+      <div class="section-head"><h2>Your progress and privacy</h2><span class="label">03</span></div>
+      <div class="cols">
+        <div class="prose">
+          <p>
+            You can mark each skill as learning or comfortable. That status is stored only in your browser. There is no account
+            and nothing is sent to a server. Export a file from <a href="/me/">your map</a> to keep a copy.
+          </p>
+          <p>Page analytics, when enabled, are cookieless and collect no personal data. Videos load from YouTube only when you press play.</p>
+        </div>
+        <div class="prose">
+          <p>
+            A link can light any set of skills and join them with a route, for example
+            <a href="/atlas/?lit=user-interviews,hypotheses,sample-size,funnel-analysis">user interviews to funnels</a>. It shows
+            which parts of the discipline a piece of work exercised. Later versions will light the map from experiments run on real
+            products.
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </Base>

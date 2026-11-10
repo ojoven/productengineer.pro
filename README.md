@@ -19,10 +19,10 @@ npm run test:visual    # one Playwright snapshot of the map (after a build)
 | `src/content/atlas/<territory>.yaml` | The taxonomy: one file per territory with its capabilities and skills. One review batch each. |
 | `src/content/resources/*.yaml` | Resources, keyed by id. Grouped by the territory where first used; any node can point to any resource. |
 | `src/content/tools/tools.yaml` | Tools, keyed by id. |
-| `src/atlas/geometry.json` | Territory outlines and every node's position. Generated once, then frozen. |
+| `src/atlas/geometry.json` | The hex-tile layout: one tile per skill, clusters per capability. Generated once, then frozen. |
 | `src/atlas/render.ts` | `(content, geometry, state) -> SVG`. Used by static pages, the explorer and social images. |
 | `src/atlas/ids.lock` | Every id ever published. Never remove a line. |
-| `src/site.ts` | Site settings, including the map style (`ink` or `illustrated`). |
+| `src/site.ts` | Site settings (name, URL, analytics). |
 
 ## Common tasks
 
@@ -31,7 +31,7 @@ npm run test:visual    # one Playwright snapshot of the map (after a build)
 **Add a skill.** Add it under its capability, then:
 
 ```sh
-npm run layout       # places only the new node; existing positions never move
+npm run layout       # gives the new skill a free tile next to its cluster; existing tiles never move
 npm run lock-ids     # records the new id
 ```
 
@@ -47,9 +47,6 @@ from memory. YouTube links: check with
 `deploy/linkcheck.cron` runs it weekly.
 
 **Social images.** `node --experimental-strip-types scripts/og.ts` writes `public/og/*.jpg`.
-
-**Change the map style.** Set `mapStyle` in `src/site.ts` and the `STYLE` constant in
-`scripts/og.ts`. `/prototype/` compares both.
 
 **Deploy.** `./deploy/setup.sh` once (Apache vhost and TLS), then `./deploy/deploy.sh`. Both test
 and build locally and sync `dist/` to the server.

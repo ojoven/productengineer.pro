@@ -6,7 +6,10 @@ import Crumbs from '../components/Crumbs.astro';
 <Base title="Search" description="Search every territory, capability, skill, tool and resource." searchable={false}>
   <div class="wrap">
     <Crumbs items={[{ label: 'Search' }]} />
-    <h1>Search</h1>
+    <header class="page-head">
+      <div class="code-big">Search</div>
+      <h1 class="title">Find a skill</h1>
+    </header>
     <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
     <div id="search" class="search-box"></div>
     <noscript><p>Search needs JavaScript. The <a href="/atlas/">atlas</a> lists every page without it.</p></noscript>
@@ -17,7 +20,7 @@ import Crumbs from '../components/Crumbs.astro';
 <script is:inline>
   window.addEventListener('DOMContentLoaded', () => {
     if (!window.PagefindUI) {
-      document.getElementById('search').innerHTML = '<p class="empty-note">The search index is built with the production build (npm run build).</p>';
+      document.getElementById('search').innerHTML = '<p class="empty">The search index is built with the production build (npm run build).</p>';
       return;
     }
     const ui = new PagefindUI({ element: '#search', showSubResults: true, showImages: false, resetStyles: false });

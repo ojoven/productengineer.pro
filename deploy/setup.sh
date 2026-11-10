@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # First-time production setup: Apache vhost, TLS, first deploy.
 #
-# Prerequisites: `ssh productengineer.pro` works (BatchMode) and DNS points the domain at
+# Prerequisites: `ssh secondary` works (BatchMode) and DNS points the domain at
 # the server (needed for TLS).
 #
 # Usage:
@@ -23,6 +23,7 @@ sudo a2ensite ${SITE_CONF_NAME} >/dev/null
 sudo apache2ctl configtest
 sudo systemctl reload apache2
 sudo certbot --apache -d ${SITE_DOMAIN} -d www.${SITE_DOMAIN} --redirect --non-interactive --agree-tos || echo "certbot failed: run it by hand"
+sudo apache2ctl configtest && sudo systemctl reload apache2
 REMOTE
 
 remote_healthcheck

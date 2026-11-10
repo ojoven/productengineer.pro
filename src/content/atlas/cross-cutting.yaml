@@ -1,17 +1,17 @@
-# Cross-cutting capabilities: the waters around the land.
-# Review batch 11 of 11. These belong to no territory; on the map they are islands in the sea.
+# Cross-cutting capabilities. They belong to no territory and apply in all of them.
+# Review batch 11 of 11. On the map they sit in their own band below the territories.
 
 id: cross-cutting
 order: 11
 crossCutting: true
-name: The Waters
+name: Cross-cutting
 tagline: Skills that connect the whole atlas
 question: How do you think, decide and work with others across every territory?
 description: >-
   Some capabilities do not belong to one territory because they show up in all of them. Critical
   thinking matters in discovery and in reading an experiment. Communication matters when writing a
-  problem statement and when handling an incident. On the map they sit in the waters around the
-  land, because every territory touches them.
+  problem statement and when handling an incident. They sit apart on the map because every
+  territory depends on them.
 expected: >-
   Bring sound judgment, clear communication and responsible choices to work in any territory, and
   use AI tools without giving up ownership of the result.

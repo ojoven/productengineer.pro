@@ -2,7 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import MapFigure from '../components/MapFigure.astro';
-import { atlas, path, skillIds } from '../lib/atlas.ts';
+import TerritoryRows from '../components/TerritoryRows.astro';
+import { atlas } from '../lib/atlas.ts';
 
 const a = atlas();
 ---
@@ -10,115 +11,96 @@ const a = atlas();
 <Base title="My map" description="Your progress across the atlas, stored only in this browser." searchable={false} noindex>
   <div class="wrap">
     <Crumbs items={[{ label: 'My map' }]} />
-    <h1 id="me-title">My map</h1>
-    <p class="lede">
-      Mark each skill as learning or comfortable, on its page or a whole capability at once. Your map colours in here. Everything
-      stays in this browser: there is no account and nothing is sent anywhere.
-    </p>
+    <header class="page-head">
+      <div class="code-big" id="me-count" data-rollup={a.skills.map((s) => s.id).join(' ')}>{a.skills.length} skills</div>
+      <h1 class="title" id="me-title">My map</h1>
+      <p class="lede">
+        Every tile is one skill. Mark skills on their pages, in any list, or a whole capability at once, and your map fills in.
+        It stays in this browser: there is no account and nothing is sent anywhere.
+      </p>
+    </header>
 
-    <MapFigure caption="Rings around each place fill as you mark its skills: soft for learning, strong for comfortable." collapsible={false} />
-
-    <div class="layout-2">
-      <div>
-        <h2 style="margin-top:0">Totals per territory</h2>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Territory</th><th>Progress</th></tr></thead>
-            <tbody>
-              {
-                a.territories.map((t) => (
-                  <tr>
-                    <td><a href={path(t)}>{t.name}</a></td>
-                    <td>
-                      <span class="rollup" data-rollup={skillIds(t).join(' ')}>
-                        <span class="bar" aria-hidden="true" />
-                        <span class="txt">{skillIds(t).length} skills</span>
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-            <tfoot>
-              <tr>
-                <td><strong>All skills</strong></td>
-                <td>
-                  <span class="rollup" data-rollup={a.skills.map((s) => s.id).join(' ')}>
-                    <span class="bar" aria-hidden="true" />
-                    <span class="txt">{a.skills.length} skills</span>
-                  </span>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+    <div class="split">
+      <div class="pane">
+        <div class="sticky-map">
+          <div class="pane-head"><span class="label">Your map</span><span class="label">1 tile = 1 skill</span></div>
+          <MapFigure width={660} height={560} />
         </div>
-
-        <h2>Skills you are learning</h2>
-        <ul class="node-list" id="learning-list"><li class="empty-note">Nothing marked as learning yet.</li></ul>
       </div>
-
-      <aside class="aside">
-        <h2>Display name</h2>
-        <form id="name-form" class="btn-row">
-          <label class="visually-hidden" for="display-name">Display name</label>
-          <input id="display-name" name="name" maxlength="60" placeholder="Optional" class="btn" style="flex:1;min-width:0;border-radius:8px" />
-          <button class="btn" type="submit">Save</button>
-        </form>
-
-        <h2 style="margin-top:22px">Your data</h2>
-        <p style="font-size:.9rem;color:var(--text-2)">
-          Progress lives in this browser's storage. Clearing site data, or using a private window, loses it. Export a file to keep a
-          copy or move it to another browser.
-        </p>
-        <div class="btn-row">
-          <button class="btn" type="button" id="export">Export</button>
-          <label class="btn" style="cursor:pointer">Import<input type="file" id="import" accept="application/json,.json" class="visually-hidden" /></label>
-          <button class="btn" type="button" id="reset">Reset</button>
-        </div>
-        <p id="data-msg" role="status" style="font-size:.85rem;color:var(--text-3);margin-top:10px"></p>
-      </aside>
+      <div class="pane">
+        <div class="pane-head"><span class="label">Totals</span><span class="label">{a.territories.length} groups</span></div>
+        <TerritoryRows territories={a.territories} />
+      </div>
     </div>
+
+    <section class="section">
+      <div class="cols">
+        <div>
+          <div class="section-head"><h2>Learning now</h2><span class="label" id="learning-count"></span></div>
+          <ul class="index" id="learning-list"><li><p class="empty">Nothing marked as learning yet.</p></li></ul>
+        </div>
+        <div>
+          <div class="section-head"><h2>Your data</h2><span class="label">Local only</span></div>
+          <form id="name-form" class="btn-row" style="margin-bottom:18px">
+            <label class="visually-hidden" for="display-name">Display name</label>
+            <input id="display-name" name="name" maxlength="60" placeholder="Display name (optional)" class="btn" style="flex:1;min-width:0;text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:15px" />
+            <button class="btn" type="submit">Save</button>
+          </form>
+          <p class="muted" style="font-size:15px">
+            Progress lives in this browser's storage. Clearing site data, or using a private window, loses it. Export a file to keep
+            a copy or to move it to another browser.
+          </p>
+          <div class="btn-row">
+            <button class="btn" type="button" id="export">Export</button>
+            <label class="btn" style="cursor:pointer">Import<input type="file" id="import" accept="application/json,.json" class="visually-hidden" /></label>
+            <button class="btn" type="button" id="reset">Reset</button>
+          </div>
+          <p id="data-msg" role="status" class="label" style="margin-top:12px"></p>
+        </div>
+      </div>
+    </section>
   </div>
 </Base>
 
 <script>
-  import { load, setName, exportFile, importFile, reset, onChange } from '../scripts/progress.ts';
+  import { load, setName, exportFile, importFile, reset, onChange, applyProgress } from '../scripts/progress.ts';
+  import { nodeCodes } from '../atlas/render.ts';
   import { track } from '../scripts/track.ts';
 
   type Skill = { id: string; name: string; summary: string; capability: string; territory: string };
-  type Cap = { id: string; name: string };
   let skills: Skill[] = [];
-  let caps = new Map<string, Cap>();
   let aliases: Record<string, string> = {};
+  let codes = new Map<string, string>();
   const msg = document.getElementById('data-msg')!;
-  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const HEX = '<svg viewBox="0 0 22 25" aria-hidden="true"><path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z"></path></svg>';
 
   function render() {
     const data = load(aliases);
-    const title = document.getElementById('me-title')!;
-    title.textContent = data.name ? `${data.name}'s map` : 'My map';
+    document.getElementById('me-title')!.textContent = data.name ? `${data.name}'s map` : 'My map';
     (document.getElementById('display-name') as HTMLInputElement).value = data.name ?? '';
-    const list = document.getElementById('learning-list')!;
     const learning = skills.filter((s) => data.progress[s.id] === 'learning');
-    list.innerHTML = learning.length
+    document.getElementById('learning-count')!.textContent = learning.length ? `${learning.length} skills` : '';
+    document.getElementById('learning-list')!.innerHTML = learning.length
       ? learning
           .map(
             (s) =>
-              `<li><a class="node-card" href="/atlas/${s.territory}/${s.capability}/${s.id}/" data-status="learning"><span class="pip" aria-hidden="true"></span><span class="name">${esc(s.name)}</span><span class="sub">${esc(s.summary)}</span><span class="meta">${esc(caps.get(s.capability)?.name ?? '')}</span></a></li>`,
+              `<li><div class="row" data-id="${s.id}" data-status-for="${s.id}"><button type="button" class="hx" data-cycle="${s.id}" data-name="${esc(s.name)}" data-status-for="${s.id}">${HEX}</button><span class="code">${codes.get(s.id) ?? ''}</span><a class="name" href="/atlas/${s.territory}/${s.capability}/${s.id}/">${esc(s.name)}</a><span class="go" aria-hidden="true">→</span><span class="sub">${esc(s.summary)}</span></div></li>`,
           )
           .join('')
-      : '<li class="empty-note">Nothing marked as learning yet. Open any skill and set its status.</li>';
+      : '<li><p class="empty">Nothing marked as learning yet. Click a hexagon next to any skill.</p></li>';
+    applyProgress(document.getElementById('learning-list')!);
   }
 
   fetch('/atlas-data.json')
     .then((r) => r.json())
     .then((d) => {
       skills = d.skills;
-      caps = new Map(d.capabilities.map((c: Cap) => [c.id, c]));
       aliases = d.aliases;
+      codes = nodeCodes(d);
       render();
     });
-  onChange(render);
+  onChange(() => skills.length && render());
 
   document.getElementById('name-form')!.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -140,16 +122,17 @@ const a = atlas();
       msg.textContent = (err as Error).message || 'Could not read that file.';
     }
   });
-  document.getElementById('reset')!.addEventListener('click', () => {
-    if (document.getElementById('reset')!.dataset.armed) {
+  const resetBtn = document.getElementById('reset')!;
+  resetBtn.addEventListener('click', () => {
+    if (resetBtn.dataset.armed) {
       reset();
       msg.textContent = 'Progress cleared.';
-      delete document.getElementById('reset')!.dataset.armed;
-      document.getElementById('reset')!.textContent = 'Reset';
+      delete resetBtn.dataset.armed;
+      resetBtn.textContent = 'Reset';
       return;
     }
-    document.getElementById('reset')!.dataset.armed = '1';
-    document.getElementById('reset')!.textContent = 'Click again to erase';
+    resetBtn.dataset.armed = '1';
+    resetBtn.textContent = 'Click again to erase';
     msg.textContent = 'This erases every status in this browser. Export first if you want a copy.';
   });
 </script>

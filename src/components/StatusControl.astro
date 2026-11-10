@@ -6,25 +6,28 @@ interface Props {
 }
 const { id, name } = Astro.props;
 const options = [
-  { value: 'none', label: 'Not started' },
-  { value: 'learning', label: 'Learning' },
-  { value: 'comfortable', label: 'Comfortable' },
+  { value: 'none', label: 'Not started', cls: '' },
+  { value: 'learning', label: 'Learning', cls: 'l' },
+  { value: 'comfortable', label: 'Comfortable', cls: 'c' },
 ];
 ---
 
 <fieldset class="status" data-pagefind-ignore>
-  <legend>Your status for {name}</legend>
+  <legend class="label">Your status · {name}</legend>
   <div class="seg" role="radiogroup">
     {
       options.map((o) => (
         <label>
           <input type="radio" name={`status-${id}`} value={o.value} data-status-input={id} checked={o.value === 'none'} />
-          <span>{o.label}</span>
+          <span class={o.cls}>
+            <svg viewBox="0 0 22 25" aria-hidden="true"><path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z" /></svg>
+            {o.label}
+          </span>
         </label>
       ))
     }
   </div>
-  <p class="note">Saved in this browser only. See <a href="/me/">your map</a>.</p>
+  <p class="note">Saved in this browser only. It colours this skill's tile on <a href="/me/">your map</a>.</p>
 </fieldset>
 
 <script>
@@ -34,7 +37,7 @@ const options = [
     input.addEventListener('change', () => {
       if (!input.checked) return;
       setStatus(input.dataset.statusInput!, input.value as 'none' | 'learning' | 'comfortable');
-      track('Status set', { status: input.value });
+      track('Status set', { status: input.value, from: 'page' });
     });
   });
 </script>

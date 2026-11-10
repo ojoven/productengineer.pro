@@ -92,13 +92,20 @@ export function validateAtlas(atlas: Atlas, src: AtlasSources, geometry?: Geomet
 
   if (geometry) {
     for (const t of atlas.territories) {
-      if (!t.crossCutting && !geometry.territories[t.id]) errors.push(`territory ${t.id} has no outline`);
+      if (!geometry.territories[t.id]) errors.push(`territory ${t.id} has no label position`);
+    }
+    for (const s of atlas.skills) {
+      if (!geometry.cells[s.id]) errors.push(`skill ${s.id} has no tile on the map`);
     }
     for (const n of [...atlas.capabilities, ...atlas.skills]) {
       if (!geometry.points[n.id]) errors.push(`${n.level} ${n.id} has no position on the map`);
     }
-    for (const id of Object.keys(geometry.points)) {
-      if (!atlas.nodes.has(id)) warnings.push(`geometry has a position for unknown id "${id}"`);
+    const taken = new Map<string, string>();
+    for (const [id, h] of Object.entries(geometry.cells)) {
+      if (!atlas.nodes.has(id)) warnings.push(`geometry has a tile for unknown id "${id}"`);
+      const key = h.join(',');
+      if (taken.has(key)) errors.push(`${id} and ${taken.get(key)} share a tile`);
+      taken.set(key, id);
     }
   }
 

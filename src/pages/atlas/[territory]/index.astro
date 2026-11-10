@@ -2,8 +2,8 @@
 import Base from '../../../layouts/Base.astro';
 import Crumbs from '../../../components/Crumbs.astro';
 import MapFigure from '../../../components/MapFigure.astro';
-import CapabilityList from '../../../components/CapabilityList.astro';
-import { atlas, capability, skillIds } from '../../../lib/atlas.ts';
+import CapabilityRows from '../../../components/CapabilityRows.astro';
+import { atlas, capability, skillIds, code } from '../../../lib/atlas.ts';
 import type { Territory } from '../../../atlas/model.ts';
 
 export function getStaticPaths() {
@@ -12,31 +12,40 @@ export function getStaticPaths() {
 const a = atlas();
 const t = a.nodes.get(Astro.props.id) as Territory;
 const caps = t.capabilities.map(capability);
-const land = a.territories.filter((x) => !x.crossCutting);
 const ids = skillIds(t);
 ---
 
 <Base title={t.name} description={`${t.name}: ${t.question} ${t.description}`.slice(0, 300)} image={`/og/${t.id}.jpg`}>
   <div class="wrap">
-    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { label: t.name }]} />
-    <header class="topic-head">
-      <div class="kicker">{t.crossCutting ? 'Cross-cutting capabilities' : `Territory ${t.order} of ${land.length}`} · {t.tagline}</div>
-      <h1>{t.name}</h1>
+    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { label: `${code(t.id)} ${t.name}` }]} />
+    <header class="page-head">
+      <div class="code-big">{code(t.id)} · {t.crossCutting ? 'Cross-cutting' : 'Territory'} · {t.tagline}</div>
+      <h1 class="title">{t.name}</h1>
       <p class="question">{t.question}</p>
     </header>
 
-    <MapFigure focus={t.id} caption={t.crossCutting ? 'These capabilities sit in the waters around the land, because every territory touches them.' : undefined} />
-
-    <div class="prose">
-      <p class="lede">{t.description}</p>
-      <h2>What a product engineer should be able to do here</h2>
-      <p>{t.expected}</p>
+    <div class="split">
+      <div class="pane">
+        <div class="sticky-map">
+          <div class="pane-head"><span class="label">Map</span><span class="label" data-rollup={ids.join(' ')}>{ids.length} skills</span></div>
+          <MapFigure focus={t.id} width={660} height={600} />
+        </div>
+      </div>
+      <div class="pane">
+        <div class="pane-head"><span class="label">{caps.length} capabilities</span><span class="label">Click a tile to open a skill</span></div>
+        <CapabilityRows capabilities={caps} />
+      </div>
     </div>
 
-    <h2>{caps.length} capabilities</h2>
-    <p class="rollup" data-rollup={ids.join(' ')} style="margin-bottom:14px">
-      <span class="bar" aria-hidden="true"></span><span class="txt">{ids.length} skills</span>
-    </p>
-    <CapabilityList capabilities={caps} />
+    <section class="section">
+      <div class="section-head"><h2>About {t.name}</h2><span class="label">{code(t.id)}</span></div>
+      <div class="cols">
+        <div class="prose"><p class="lede">{t.description}</p></div>
+        <div>
+          <div class="label" style="margin-bottom:8px">What a product engineer should be able to do here</div>
+          <p style="font-family:var(--cond);font-size:22px;line-height:1.3;font-weight:500">{t.expected}</p>
+        </div>
+      </div>
+    </section>
   </div>
 </Base>

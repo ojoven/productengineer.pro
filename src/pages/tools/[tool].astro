@@ -1,9 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import { atlas, path, territory, capability } from '../../lib/atlas.ts';
+import SkillRows from '../../components/SkillRows.astro';
+import CapabilityRows from '../../components/CapabilityRows.astro';
+import { atlas } from '../../lib/atlas.ts';
 import { usersOf } from '../../atlas/model.ts';
-import type { Tool } from '../../atlas/model.ts';
+import type { Capability, Skill, Tool } from '../../atlas/model.ts';
 
 export function getStaticPaths() {
   return atlas().tools.map((t) => ({ params: { tool: t.id }, props: { id: t.id } }));
@@ -11,31 +13,30 @@ export function getStaticPaths() {
 const a = atlas();
 const t = a.toolsById.get(Astro.props.id) as Tool;
 const used = usersOf(a, 'tools', t.id);
+const caps = used.filter((n): n is Capability => n.level === 'capability');
+const skills = used.filter((n): n is Skill => n.level === 'skill');
 const PRICING: Record<string, string> = { 'open-source': 'Open source', free: 'Free', freemium: 'Freemium', paid: 'Paid' };
 ---
 
 <Base title={t.name} description={`${t.name}: ${t.what}`}>
   <div class="wrap">
     <Crumbs items={[{ href: '/tools/', label: 'Tools' }, { label: t.name }]} />
-    <h1>{t.name}</h1>
-    <p class="lede">{t.what}</p>
-    <p><span class="tag">{PRICING[t.pricing]}</span> <a href={t.url} rel="noopener" target="_blank">{new URL(t.url).hostname.replace(/^www\./, '')}</a></p>
-    <h2>Skills it serves</h2>
-    <ul class="node-list">
-      {
-        used.map((n) => (
-          <li>
-            <a class="node-card" href={path(n)} data-status-for={n.level === 'skill' ? n.id : undefined}>
-              <span class:list={['pip', { cap: n.level === 'capability' }]} aria-hidden="true" />
-              <span class="name">{n.name}</span>
-              <span class="meta">
-                {n.level === 'skill' ? `${capability(n.capability).name}, ${territory(n.territory).name}` : `Capability in ${territory(n.territory).name}`}
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <p style="margin-top:20px;font-size:.85rem;color:var(--text-3)">Link checked {t.checked}.</p>
+    <header class="page-head">
+      <div class="code-big">Tool · {PRICING[t.pricing]}</div>
+      <h1 class="title">{t.name}</h1>
+      <p class="lede">{t.what}</p>
+      <div class="btn-row"><a class="btn" href={t.url} rel="noopener" target="_blank">{new URL(t.url).hostname.replace(/^www\./, '')} ↗</a></div>
+    </header>
+    <div class="cols">
+      <div>
+        <div class="section-head"><h2>Skills it serves</h2><span class="label">{skills.length}</span></div>
+        {skills.length ? <SkillRows skills={skills} /> : <p class="empty">Listed for whole capabilities only.</p>}
+      </div>
+      <div>
+        <div class="section-head"><h2>Capabilities</h2><span class="label">{caps.length}</span></div>
+        {caps.length ? <CapabilityRows capabilities={caps} descriptions={false} /> : <p class="empty">Listed for single skills only.</p>}
+      </div>
+    </div>
+    <p class="label" style="margin-top:28px">Link checked {t.checked}</p>
   </div>
 </Base>

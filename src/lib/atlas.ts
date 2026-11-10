@@ -1,22 +1,25 @@
 // Build-time access to the atlas for pages. Cached for the build; re-read on every request in
 // dev so content edits show up on reload.
 import { loadAtlas, loadGeometry } from '../atlas/load.ts';
-import { renderMap, type MapState } from '../atlas/render.ts';
+import { renderMap, nodeCodes, type MapState } from '../atlas/render.ts';
 import type { Atlas, AtlasNode, Capability, Skill, Territory } from '../atlas/model.ts';
 import { nodePath, skillsOf } from '../atlas/model.ts';
 import type { Geometry } from '../atlas/geometry.ts';
-import type { MapStyle } from '../atlas/map-css.ts';
-import { SITE } from '../site.ts';
 
-let cached: { atlas: Atlas; geometry: Geometry } | undefined;
+let cached: { atlas: Atlas; geometry: Geometry; codes: Map<string, string> } | undefined;
 
 export function data() {
-  if (!cached || import.meta.env.DEV) cached = { atlas: loadAtlas(), geometry: loadGeometry() };
+  if (!cached || import.meta.env.DEV) {
+    const atlas = loadAtlas();
+    cached = { atlas, geometry: loadGeometry(), codes: nodeCodes(atlas) };
+  }
   return cached;
 }
 
 export const atlas = () => data().atlas;
 export const geometry = () => data().geometry;
+/** Catalogue code of a node: 06, 06.4 or 06.4.5. */
+export const code = (id: string) => data().codes.get(id) ?? '';
 
 export function node(id: string): AtlasNode {
   const n = atlas().nodes.get(id);
@@ -34,8 +37,6 @@ export interface MapOptions {
   width?: number;
   height?: number;
   state?: MapState;
-  idPrefix?: string;
-  style?: MapStyle;
   scale?: number;
   labels?: boolean;
   links?: boolean;
@@ -44,14 +45,13 @@ export interface MapOptions {
 
 export function mapSvg(opts: MapOptions = {}): string {
   const { atlas: a, geometry: g } = data();
-  return renderMap(a, g, { style: SITE.mapStyle, ...opts });
+  return renderMap(a, g, opts);
 }
 
 /** Compact data for the browser: what the explorer and the profile page need. */
 export function clientData() {
   const { atlas: a, geometry: g } = data();
   return {
-    style: SITE.mapStyle,
     territories: a.territories.map((t) => ({
       id: t.id,
       name: t.name,

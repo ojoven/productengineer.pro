@@ -2,11 +2,12 @@
 import Base from '../../../../layouts/Base.astro';
 import Crumbs from '../../../../components/Crumbs.astro';
 import MapFigure from '../../../../components/MapFigure.astro';
-import SkillList from '../../../../components/SkillList.astro';
+import SkillRows from '../../../../components/SkillRows.astro';
+import CapabilityRows from '../../../../components/CapabilityRows.astro';
 import BulkStatus from '../../../../components/BulkStatus.astro';
-import ResourceList from '../../../../components/ResourceList.astro';
-import ToolList from '../../../../components/ToolList.astro';
-import { atlas, skill, territory, path } from '../../../../lib/atlas.ts';
+import Refs from '../../../../components/Refs.astro';
+import ToolRefs from '../../../../components/ToolRefs.astro';
+import { atlas, skill, territory, path, code } from '../../../../lib/atlas.ts';
 import { relatedNodes } from '../../../../atlas/model.ts';
 import type { Capability } from '../../../../atlas/model.ts';
 
@@ -25,48 +26,65 @@ const siblings = t.capabilities.filter((id) => id !== c.id).map((id) => a.nodes.
 
 <Base title={c.name} description={`${c.name} (${t.name}): ${c.description}`} image={`/og/${c.id}.jpg`}>
   <div class="wrap">
-    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { href: path(t), label: t.name }, { label: c.name }]} />
-    <header class="topic-head">
-      <div class="kicker">Capability in {t.name}</div>
-      <h1>{c.name}</h1>
+    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { href: path(t), label: `${code(t.id)} ${t.name}` }, { label: `${code(c.id)} ${c.name}` }]} />
+    <header class="page-head">
+      <div class="code-big">{code(c.id)} · Capability in {t.name}</div>
+      <h1 class="title">{c.name}</h1>
       <p class="lede">{c.description}</p>
     </header>
 
-    <MapFigure focus={c.id} />
-
-    <div class="layout-2">
-      <div>
-        <h2 style="margin-top:0">{skills.length} skills</h2>
-        <SkillList skills={skills} />
-        <BulkStatus ids={c.skills} name={c.name} />
-
-        <h2>Where to start</h2>
-        <ResourceList resources={resources} />
-
-        <h2>Tools</h2>
-        <ToolList tools={tools} />
+    <div class="split">
+      <div class="pane">
+        <div class="sticky-map">
+          <div class="pane-head"><span class="label">Map</span><span class="label" data-rollup={c.skills.join(' ')}>{c.skills.length} skills</span></div>
+          <MapFigure focus={c.id} width={660} height={560} />
+        </div>
       </div>
-      <aside class="aside" aria-label="Related">
+      <div class="pane">
+        <div class="pane-head"><span class="label">{skills.length} skills</span><span class="label">Click a hexagon to set your status</span></div>
+        <SkillRows skills={skills} big />
+        <BulkStatus ids={c.skills} name={c.name} />
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="cols">
+        <div>
+          <div class="section-head"><h2>Where to start</h2><span class="label">{resources.length} resources</span></div>
+          <Refs resources={resources} />
+        </div>
+        <div>
+          <div class="section-head"><h2>Tools</h2><span class="label">{tools.length} tools</span></div>
+          <ToolRefs tools={tools} />
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="cols">
+        <div>
+          <div class="section-head"><h2>Also in {t.name}</h2><span class="label">{code(t.id)}</span></div>
+          <CapabilityRows capabilities={siblings} descriptions={false} />
+        </div>
         {
           related.length > 0 && (
-            <>
-              <h2>Related elsewhere</h2>
-              <ul class="node-list" style="gap:6px">
+            <div>
+              <div class="section-head"><h2>Related elsewhere</h2><span class="label">{related.length}</span></div>
+              <ul class="index compact">
                 {related.map((n) => (
                   <li>
-                    <a href={path(n)}>{n.name}</a>
-                    <span style="color:var(--text-3);font-size:.85rem"> · {n.level === 'skill' ? territory(n.territory).name : n.level}</span>
+                    <div class="row" data-id={n.id} style="grid-template-columns:64px minmax(0,1fr) auto">
+                      <span class="code">{code(n.id)}</span>
+                      <a class="name" href={path(n)}>{n.name}</a>
+                      <span class="go" aria-hidden="true">→</span>
+                    </div>
                   </li>
                 ))}
               </ul>
-            </>
+            </div>
           )
         }
-        <h2 style={related.length ? 'margin-top:18px' : ''}>Also in {t.name}</h2>
-        <ul class="node-list" style="gap:6px">
-          {siblings.map((s) => <li><a href={path(s)}>{s.name}</a></li>)}
-        </ul>
-      </aside>
-    </div>
+      </div>
+    </section>
   </div>
 </Base>

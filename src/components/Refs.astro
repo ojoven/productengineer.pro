@@ -1,0 +1,67 @@
+---
+// Resources: what it is, who made it, and one line on why it is worth the time.
+import type { Resource } from '../atlas/model.ts';
+
+interface Props {
+  resources: Resource[];
+  emptyText?: string;
+}
+const { resources, emptyText = 'Resources for this topic are being researched. Every link is opened and checked before it is listed.' } = Astro.props;
+
+function youtubeId(url: string): string | undefined {
+  const u = new URL(url);
+  if (u.hostname === 'youtu.be') return u.pathname.slice(1);
+  if (u.hostname.endsWith('youtube.com')) return u.searchParams.get('v') ?? undefined;
+}
+const order = { intro: 0, deep: 1 } as const;
+const sorted = [...resources].sort((a, b) => order[a.level] - order[b.level]);
+---
+
+{
+  sorted.length ? (
+    <ul class="refs">
+      {sorted.map((r) => {
+        const yt = r.type === 'video' ? youtubeId(r.url) : undefined;
+        return (
+          <li class="ref">
+            <span class="kind">
+              <b>{r.type}</b>
+              {r.level === 'intro' ? 'Start here' : 'Go deeper'}
+              {r.paid && <span class="paid"> · Paid</span>}
+            </span>
+            <div>
+              <a class="t" href={r.url} rel="noopener" target="_blank">{r.title} ↗</a>
+              <div class="by">
+                {r.author}
+                {r.year && <> · {r.year}</>}
+                {r.length && <> · {r.length}</>}
+              </div>
+              <p class="why">{r.why}</p>
+              {yt && (
+                <div class="play" data-yt={yt}>
+                  <button class="btn small" type="button">▶ Play here · loads YouTube</button>
+                </div>
+              )}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  ) : (
+    <p class="empty">{emptyText}</p>
+  )
+}
+
+<script>
+  // Click to load: nothing comes from YouTube until the visitor asks for it.
+  document.querySelectorAll<HTMLElement>('.play[data-yt]').forEach((box) => {
+    box.querySelector('button')?.addEventListener('click', () => {
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(box.dataset.yt!)}?autoplay=1`;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture';
+      f.allowFullscreen = true;
+      f.title = 'Video';
+      box.replaceChildren(f);
+    });
+  });
+</script>

@@ -3,9 +3,10 @@ import Base from '../../../../layouts/Base.astro';
 import Crumbs from '../../../../components/Crumbs.astro';
 import MapFigure from '../../../../components/MapFigure.astro';
 import StatusControl from '../../../../components/StatusControl.astro';
-import ResourceList from '../../../../components/ResourceList.astro';
-import ToolList from '../../../../components/ToolList.astro';
-import { atlas, capability, territory, path } from '../../../../lib/atlas.ts';
+import SkillRows from '../../../../components/SkillRows.astro';
+import Refs from '../../../../components/Refs.astro';
+import ToolRefs from '../../../../components/ToolRefs.astro';
+import { atlas, capability, territory, path, code, skill } from '../../../../lib/atlas.ts';
 import { relatedNodes } from '../../../../atlas/model.ts';
 import type { Skill } from '../../../../atlas/model.ts';
 
@@ -22,41 +23,50 @@ const t = territory(s.territory);
 const related = relatedNodes(a, s);
 const resources = s.resources.map((id) => a.resourcesById.get(id)!);
 const tools = s.tools.map((id) => a.toolsById.get(id)!);
-const i = c.skills.indexOf(s.id);
-const prev = i > 0 ? (a.nodes.get(c.skills[i - 1]) as Skill) : undefined;
-const next = i < c.skills.length - 1 ? (a.nodes.get(c.skills[i + 1]) as Skill) : undefined;
 const capResources = resources.length ? [] : c.resources.map((id) => a.resourcesById.get(id)!);
+const i = c.skills.indexOf(s.id);
+const prev = i > 0 ? skill(c.skills[i - 1]) : undefined;
+const next = i < c.skills.length - 1 ? skill(c.skills[i + 1]) : undefined;
 ---
 
 <Base title={s.name} description={`${s.name}: ${s.summary} ${s.description}`.slice(0, 300)} image={`/og/${c.id}.jpg`}>
   <div class="wrap">
-    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { href: path(t), label: t.name }, { href: path(c), label: c.name }, { label: s.name }]} />
-    <div class="layout-2">
+    <Crumbs
+      items={[
+        { href: '/atlas/', label: 'Atlas' },
+        { href: path(t), label: `${code(t.id)} ${t.name}` },
+        { href: path(c), label: `${code(c.id)} ${c.name}` },
+        { label: `${code(s.id)} ${s.name}` },
+      ]}
+    />
+    <div class="cols" style="margin-top:8px">
       <div>
-        <header class="topic-head">
-          <div class="kicker">Skill in {c.name}</div>
-          <h1>{s.name}</h1>
+        <header class="page-head">
+          <div class="code-big">{code(s.id)} · Skill in {c.name}</div>
+          <h1 class="title">{s.name}</h1>
           <p class="lede">{s.summary}</p>
         </header>
-        <div class="prose">
-          <p>{s.description}</p>
-        </div>
+        <div class="prose"><p style="font-size:18px;line-height:1.6;color:var(--ink)">{s.description}</p></div>
 
         <StatusControl id={s.id} name={s.name} />
 
-        <h2>Resources</h2>
-        <ResourceList resources={resources} />
-        {
-          capResources.length > 0 && (
-            <>
-              <h3 style="margin-top:18px">Overview for {c.name}</h3>
-              <ResourceList resources={capResources} />
-            </>
-          )
-        }
+        <section class="section">
+          <div class="section-head"><h2>Resources</h2><span class="label">{resources.length || 'none yet'}</span></div>
+          <Refs resources={resources} />
+          {
+            capResources.length > 0 && (
+              <>
+                <div class="label" style="margin:24px 0 8px">Overview for {c.name}</div>
+                <Refs resources={capResources} />
+              </>
+            )
+          }
+        </section>
 
-        <h2>Tools</h2>
-        <ToolList tools={tools} />
+        <section class="section">
+          <div class="section-head"><h2>Tools</h2><span class="label">{tools.length || 'none yet'}</span></div>
+          <ToolRefs tools={tools} />
+        </section>
 
         <nav class="btn-row" style="margin-top:32px" aria-label="Skills in this capability" data-pagefind-ignore>
           {prev && <a class="btn" href={path(prev)}>← {prev.name}</a>}
@@ -64,24 +74,31 @@ const capResources = resources.length ? [] : c.resources.map((id) => a.resources
         </nav>
       </div>
 
-      <aside class="aside" aria-label="Where it sits">
-        <h2>Where it sits</h2>
-        <MapFigure focus={s.id} selected={s.id} width={300} height={260} scale={0.82} collapsible={false} small />
-        {
-          related.length > 0 && (
-            <>
-              <h2 style="margin-top:6px">Related skills</h2>
-              <ul class="node-list" style="gap:6px">
-                {related.map((n) => (
-                  <li>
-                    <a href={path(n)} data-status-for={n.level === 'skill' ? n.id : undefined}>{n.name}</a>
-                    <span style="color:var(--text-3);font-size:.85rem"> · {n.level === 'skill' ? capability(n.capability).name : n.level}</span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )
-        }
+      <aside aria-label="Where it sits" style="padding-top:28px">
+        <div>
+          <div class="pane-head"><span class="label">Where it sits</span><span class="label">{code(c.id)}</span></div>
+          <MapFigure focus={s.id} selected={s.id} width={520} height={400} legend={false} />
+          <div class="label" style="margin:22px 0 4px">{c.skills.length} skills in {c.name}</div>
+          <SkillRows skills={c.skills.map(skill)} compact />
+          {
+            related.length > 0 && (
+              <>
+                <div class="label" style="margin:22px 0 4px">Related</div>
+                <ul class="index compact">
+                  {related.map((n) => (
+                    <li>
+                      <div class="row" data-id={n.id} style="grid-template-columns:64px minmax(0,1fr) auto">
+                        <span class="code">{code(n.id)}</span>
+                        <a class="name" href={path(n)}>{n.name}</a>
+                        <span class="go" aria-hidden="true">→</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )
+          }
+        </div>
       </aside>
     </div>
   </div>

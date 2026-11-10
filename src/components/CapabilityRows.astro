@@ -1,0 +1,36 @@
+---
+// The list equivalent of a territory's map: each capability with every one of its skills as
+// a tile, so progress reads the same here as on the map.
+import type { Capability } from '../atlas/model.ts';
+import { path, code, skill } from '../lib/atlas.ts';
+import Strip from './Strip.astro';
+
+interface Props {
+  capabilities: Capability[];
+  descriptions?: boolean;
+  big?: boolean;
+}
+const { capabilities, descriptions = true, big = false } = Astro.props;
+---
+
+<ul class:list={['index', { big }]}>
+  {
+    capabilities.map((c) => (
+      <li>
+        <div class="row" data-id={c.id}>
+          <svg class="hx-static" viewBox="0 0 22 25" width="22" height="25" aria-hidden="true">
+            <path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z" fill="none" stroke="currentColor" stroke-width="1.2" />
+          </svg>
+          <span class="code">{code(c.id)}</span>
+          <a class="name" href={path(c)}>{c.name}</a>
+          <span class="go" aria-hidden="true">→</span>
+          {descriptions && <span class="sub">{c.description}</span>}
+          <span class="meta">
+            <Strip skills={c.skills.map(skill)} />
+            <span class="count" data-rollup={c.skills.join(' ')}>{c.skills.length} skills</span>
+          </span>
+        </div>
+      </li>
+    ))
+  }
+</ul>

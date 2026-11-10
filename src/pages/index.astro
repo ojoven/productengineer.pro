@@ -1,11 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import MapFigure from '../components/MapFigure.astro';
-import { atlas, path, skillIds } from '../lib/atlas.ts';
+import TerritoryRows from '../components/TerritoryRows.astro';
+import { atlas } from '../lib/atlas.ts';
 
 const a = atlas();
 const land = a.territories.filter((t) => !t.crossCutting);
-const cross = a.territories.find((t) => t.crossCutting)!;
 const cycle = [
   ['Discover', 'Find a real user problem.'],
   ['Decide', 'Choose a valuable opportunity and a proportionate investment.'],
@@ -18,70 +18,82 @@ const example = '/atlas/?lit=user-interviews,hypotheses,sample-size,funnel-analy
 ---
 
 <Base>
+  <section class="wrap hero">
+    <div class="label">The Skill Atlas · v1.0</div>
+    <h1 class="display">Everything a product engineer does, on one map.</h1>
+    <p class="lede">
+      A product engineer finds a problem worth solving, builds the solution, ships it, checks whether it worked and keeps it
+      useful. Each tile below is one skill that takes. Each has a short description, checked resources and the tools people use.
+    </p>
+    <div class="btn-row">
+      <a class="btn primary" href="/atlas/">Open the atlas</a>
+      <a class="btn" href="/me/">Mark what you know</a>
+    </div>
+    <div class="stats">
+      <div><b>{land.length}</b><span class="label">Territories</span></div>
+      <div><b>{a.capabilities.length}</b><span class="label">Capabilities</span></div>
+      <div><b>{a.skills.length}</b><span class="label">Skills</span></div>
+    </div>
+  </section>
+
   <div class="wrap">
-    <section class="hero">
-      <h1>The map of product engineering</h1>
-      <p class="lede">
-        A product engineer finds a problem worth solving, builds the solution, ships it, measures whether it worked, and keeps it
-        useful. This site maps everything that takes: {land.length} territories, {a.capabilities.length} capabilities
-        and {a.skills.length} skills, each with a short description, resources and tools.
-      </p>
-      <div class="btn-row">
-        <a class="btn primary" href="/atlas/">Explore the atlas</a>
-        <a class="btn" href="/me/">Mark what you already know</a>
+    <div class="split">
+      <div class="pane">
+        <div class="sticky-map">
+          <div class="pane-head"><span class="label">Map</span><span class="label">1 tile = 1 skill</span></div>
+          <MapFigure width={660} height={560} />
+        </div>
       </div>
-    </section>
+      <div class="pane">
+        <div class="pane-head"><span class="label">Index</span><span class="label">{a.territories.length} groups</span></div>
+        <TerritoryRows territories={a.territories} big />
+      </div>
+    </div>
+  </div>
 
-    <MapFigure caption="The Skill Atlas. Click a territory to open it, or open the explorer to zoom in." />
+  <section class="wrap section">
+    <div class="section-head"><h2>How to use it</h2><span class="label">4 steps</span></div>
+    <ol class="steps">
+      <li><span class="n">01</span><h3>Find your way</h3><p>Open a territory, then a capability. Every level is a page, a map and a list.</p></li>
+      <li><span class="n">02</span><h3>Read a skill</h3><p>What it is, why a product engineer needs it, and a few resources and tools worth the time.</p></li>
+      <li><span class="n">03</span><h3>Mark it</h3><p>Click a hexagon to set learning or comfortable, or a whole capability at once. Your map fills in.</p></li>
+      <li><span class="n">04</span><h3>Light a map</h3><p>A link can light any set of skills and join them in order, <a href={example}>like this</a>.</p></li>
+    </ol>
+  </section>
 
-    <div class="layout-2">
+  <section class="wrap section">
+    <div class="section-head"><h2>What a product engineer is</h2><span class="label">Definition</span></div>
+    <div class="cols">
       <div class="prose">
-        <h2 style="margin-top:0">What a product engineer is</h2>
-        <p>
-          A product engineer is a software engineer who also owns the product side of the work: talking to users, deciding what is
-          worth building, shipping it in small steps and checking whether it helped. The job is not to be an expert in every
-          discipline on this map. It is deep technical skill, good product judgment, and enough range to own the whole cycle and
-          work well with specialists.
+        <p class="lede" style="margin-bottom:1em">
+          A software engineer who also owns the product side of the work: talking to users, deciding what is worth building,
+          shipping it in small steps and checking whether it helped.
         </p>
         <p>
-          For an experienced engineer the biggest gains are usually not another framework. They are discovery, prioritization,
+          The job is not to be an expert in every discipline on this map. It is deep technical skill, good product judgment, and
+          enough range to own the whole cycle and work well with specialists.
+        </p>
+        <p>
+          For an experienced engineer the biggest gains are rarely another framework. They are discovery, prioritization,
           experimentation, user behavior and business judgment. The map makes those gaps visible.
         </p>
-        <h2>The cycle behind the map</h2>
-        <ol class="steps" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
-          {cycle.map(([n, d]) => <li><strong>{n}</strong><br /><span style="color:var(--text-2)">{d}</span></li>)}
-        </ol>
-        <p style="margin-top:14px;color:var(--text-2)">These steps repeat and overlap. The map is not a course to follow in order.</p>
       </div>
-      <aside class="aside">
-        <h2>How to use it</h2>
-        <ol style="padding-left:18px;margin:0;display:grid;gap:8px">
-          <li>Open a territory and read its capabilities.</li>
-          <li>Each skill page explains what it is and why it matters, with checked resources and tools.</li>
-          <li>Set a status on each skill, or a whole capability at once. <a href="/me/">Your map</a> colours in.</li>
-          <li>Share a lit map: a link can light any set of skills, like <a href={example}>this one</a>.</li>
-        </ol>
-        <p style="margin:12px 0 0;font-size:.85rem;color:var(--text-3)">No account. Progress stays in this browser.</p>
-      </aside>
+      <ol class="index compact">
+        {
+          cycle.map(([n, d], i) => (
+            <li>
+              <div class="row" style="grid-template-columns:28px minmax(0,1fr)">
+                <span class="code">{String(i + 1).padStart(2, '0')}</span>
+                <span>
+                  <strong style="font-family:var(--cond);font-size:19px;font-weight:600">{n}</strong>
+                  <br />
+                  <span class="muted" style="font-size:14.5px">{d}</span>
+                </span>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
     </div>
-
-    <h2>The territories</h2>
-    <ul class="node-list cols">
-      {
-        [...land, cross].map((t) => (
-          <li>
-            <a class="node-card" href={path(t)}>
-              <span class="pip cap" aria-hidden="true" />
-              <span class="name">{t.name}</span>
-              <span class="sub">{t.question}</span>
-              <span class="meta rollup" data-rollup={skillIds(t).join(' ')}>
-                <span class="bar" aria-hidden="true" />
-                <span class="txt">{skillIds(t).length} skills</span>
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  </section>
 </Base>

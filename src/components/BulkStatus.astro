@@ -1,6 +1,6 @@
 ---
-// Set every skill under a capability (or territory) in one action, so an experienced engineer
-// can mark what they already know in seconds.
+// Set every skill of a capability in one action, so an experienced engineer can mark what
+// they already know in seconds.
 interface Props {
   ids: string[];
   name: string;
@@ -8,14 +8,11 @@ interface Props {
 const { ids, name } = Astro.props;
 ---
 
-<div class="status" data-pagefind-ignore data-bulk={ids.join(' ')}>
-  <div style="font-weight:650;font-size:.95rem">Mark all {ids.length} skills in {name}</div>
-  <div class="btn-row" style="margin-top:8px">
-    <button class="btn" type="button" data-set="comfortable">Comfortable</button>
-    <button class="btn" type="button" data-set="learning">Learning</button>
-    <button class="btn" type="button" data-set="none">Clear</button>
-    <span class="rollup" data-rollup={ids.join(' ')}><span class="bar" aria-hidden="true"></span><span class="txt">{ids.length} skills</span></span>
-  </div>
+<div class="btn-row" data-pagefind-ignore data-bulk={ids.join(' ')} style="padding:16px 0 4px">
+  <span class="label" style="margin-right:6px">Mark all {ids.length}</span>
+  <button class="btn small" type="button" data-set="comfortable" aria-label={`Mark all skills in ${name} as comfortable`}>Comfortable</button>
+  <button class="btn small" type="button" data-set="learning" aria-label={`Mark all skills in ${name} as learning`}>Learning</button>
+  <button class="btn small" type="button" data-set="none" aria-label={`Clear the status of all skills in ${name}`}>Clear</button>
 </div>
 
 <script>

@@ -3,12 +3,15 @@ import Base from '../layouts/Base.astro';
 ---
 
 <Base title="Not found" searchable={false} noindex>
-  <div class="wrap prose" style="padding-top:48px">
-    <h1>Off the map</h1>
-    <p class="lede">This page does not exist. It may have been renamed.</p>
-    <div class="btn-row">
-      <a class="btn primary" href="/atlas/">Open the atlas</a>
-      <a class="btn" href="/search/">Search</a>
-    </div>
+  <div class="wrap">
+    <header class="page-head" style="padding-top:64px">
+      <div class="code-big">404</div>
+      <h1 class="display">Not on the map.</h1>
+      <p class="lede">This page does not exist. It may have been renamed.</p>
+      <div class="btn-row">
+        <a class="btn primary" href="/atlas/">Open the atlas</a>
+        <a class="btn" href="/search/">Search</a>
+      </div>
+    </header>
   </div>
 </Base>

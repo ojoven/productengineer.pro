@@ -1,0 +1,37 @@
+---
+// The list equivalent of the world map.
+import type { Territory } from '../atlas/model.ts';
+import { path, code, skillIds, skill } from '../lib/atlas.ts';
+import Strip from './Strip.astro';
+
+interface Props {
+  territories: Territory[];
+  big?: boolean;
+}
+const { territories, big = false } = Astro.props;
+---
+
+<ul class:list={['index', { big }]}>
+  {
+    territories.map((t) => {
+      const ids = skillIds(t);
+      return (
+        <li>
+          <div class="row" data-id={t.id}>
+            <svg viewBox="0 0 22 25" width="22" height="25" aria-hidden="true">
+              <path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z" fill="none" stroke="currentColor" stroke-width="1.2" />
+            </svg>
+            <span class="code">{code(t.id)}</span>
+            <a class="name" href={path(t)}>{t.name}</a>
+            <span class="go" aria-hidden="true">→</span>
+            <span class="sub">{t.question}</span>
+            <span class="meta">
+              <Strip skills={ids.map(skill)} />
+              <span class="count" data-rollup={ids.join(' ')}>{ids.length} skills</span>
+            </span>
+          </div>
+        </li>
+      );
+    })
+  }
+</ul>

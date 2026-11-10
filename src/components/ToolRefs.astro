@@ -1,0 +1,34 @@
+---
+import type { Tool } from '../atlas/model.ts';
+
+interface Props {
+  tools: Tool[];
+  emptyText?: string;
+}
+const { tools, emptyText = 'Tools for this topic are being researched.' } = Astro.props;
+const PRICING: Record<string, string> = { 'open-source': 'Open source', free: 'Free', freemium: 'Freemium', paid: 'Paid' };
+---
+
+{
+  tools.length ? (
+    <ul class="refs">
+      {tools.map((t) => (
+        <li class="ref">
+          <span class="kind">
+            <b>Tool</b>
+            {PRICING[t.pricing]}
+          </span>
+          <div>
+            <a class="t" href={`/tools/${t.id}/`}>{t.name}</a>
+            <div class="by">
+              <a href={t.url} rel="noopener" target="_blank">{new URL(t.url).hostname.replace(/^www\./, '')} ↗</a>
+            </div>
+            <p class="why">{t.what}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="empty">{emptyText}</p>
+  )
+}

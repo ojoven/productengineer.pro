@@ -1,0 +1,29 @@
+---
+// The list equivalent of a capability's map, with the same status on every row.
+import type { Skill } from '../atlas/model.ts';
+import { path, code } from '../lib/atlas.ts';
+import HexButton from './HexButton.astro';
+
+interface Props {
+  skills: Skill[];
+  compact?: boolean;
+  big?: boolean;
+}
+const { skills, compact = false, big = false } = Astro.props;
+---
+
+<ul class:list={['index', { compact, big }]}>
+  {
+    skills.map((s) => (
+      <li>
+        <div class="row" data-id={s.id} data-status-for={s.id}>
+          <HexButton id={s.id} name={s.name} />
+          <span class="code">{code(s.id)}</span>
+          <a class="name" href={path(s)}>{s.name}</a>
+          <span class="go" aria-hidden="true">→</span>
+          {!compact && <span class="sub">{s.summary}</span>}
+        </div>
+      </li>
+    ))
+  }
+</ul>

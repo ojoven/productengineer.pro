@@ -1,6 +1,6 @@
 # ProductEngineer.pro — website plan
 
-Status: revised 2026-11-10. Built: phase 0 (both style prototypes at `/prototype/`, style choice pending), phase 1, phase 3, phase 4 except going live. Phase 2: Measurement piloted, the other territories still to research. See `README.md`.
+Status: revised 2026-11-10. Built: phase 0 (both prototype styles were rejected; the map is now a plain hex-tile atlas, one tile per skill), phase 1, phase 3, phase 4 except going live. Phase 2: Measurement piloted, the other territories still to research. See `README.md`.
 
 ## 1. What this is
 

@@ -12,7 +12,6 @@ import { loadAtlas, loadGeometry, ROOT } from '../src/atlas/load.ts';
 import { renderMap } from '../src/atlas/render.ts';
 import { mapCss } from '../src/atlas/map-css.ts';
 
-const STYLE = 'ink' as const; // keep in step with SITE.mapStyle in src/site.ts
 const atlas = loadAtlas();
 const geometry = loadGeometry();
 const out = join(ROOT, 'public', 'og');
@@ -23,23 +22,25 @@ const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 function card(kicker: string, title: string, line: string, map: string) {
   return `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="${font('kalam/400.css')}"><link rel="stylesheet" href="${font('kalam/700.css')}">
+${['ibm-plex-sans/400.css', 'ibm-plex-sans/500.css', 'ibm-plex-sans/600.css', 'ibm-plex-sans-condensed/600.css', 'ibm-plex-mono/400.css', 'ibm-plex-mono/500.css'].map((c) => `<link rel="stylesheet" href="${font(c)}">`).join('')}
 <style>${mapCss('light')}
-html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#fbfaf6;font-family:system-ui,sans-serif}
-.map{position:absolute;right:0;top:0;width:720px;height:630px;border-left:1.5px solid #1f3a9c}
-.map svg{width:720px;height:630px}
-.panel{position:absolute;left:48px;top:0;bottom:0;width:400px;display:flex;flex-direction:column;justify-content:center}
-.k{font:600 18px/1.2 system-ui;color:#5a6fbf;letter-spacing:.08em;text-transform:uppercase}
-.t{font:700 54px/1.05 'Kalam',cursive;color:#1f3a9c;margin:6px 0 8px}
-.l{font:22px/1.35 system-ui;color:#2a3150}
-.brand{position:absolute;left:48px;top:36px;font:700 26px 'Kalam',cursive;color:#1f3a9c}
-</style></head><body><div class="map">${map}</div><div class="brand">ProductEngineer.pro</div>
+html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#f2f0ea;color:#141412;font-family:'IBM Plex Sans',sans-serif}
+.map{position:absolute;right:0;top:0;width:700px;height:630px;border-left:2px solid #141412}
+.map svg{width:700px;height:630px}
+.panel{position:absolute;left:48px;top:0;bottom:0;width:410px;display:flex;flex-direction:column;justify-content:center}
+.k{font:500 17px/1.2 'IBM Plex Mono',monospace;color:#c23400;letter-spacing:.02em}
+.t{font:600 64px/1 'IBM Plex Sans Condensed',sans-serif;letter-spacing:-.02em;margin:14px 0 14px}
+.l{font:22px/1.35 'IBM Plex Sans',sans-serif;color:#3d3b36}
+.brand{position:absolute;left:48px;top:40px;font:600 20px 'IBM Plex Sans Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase;display:flex;gap:10px;align-items:center}
+.brand span{color:#76736a}
+.foot{position:absolute;left:48px;bottom:40px;font:500 14px 'IBM Plex Mono',monospace;color:#76736a;letter-spacing:.06em;text-transform:uppercase}
+</style></head><body><div class="map">${map}</div><div class="brand"><svg width="24" height="26" viewBox="0 0 22 24"><path d="M11 1 21 6.75v11.5L11 23 1 18.25V6.75Z" fill="none" stroke="#141412" stroke-width="1.8"/><path d="M11 7.5 15.5 10v5L11 17.5 6.5 15v-5Z" fill="#ff4d12"/></svg><span>ProductEngineer<span>.pro</span></span></div>
 <div class="panel"><div class="k">${esc(kicker)}</div><div class="t">${esc(title)}</div><div class="l">${esc(line)}</div></div></body></html>`;
 }
 
 const jobs: { file: string; html: string }[] = [];
 const map = (focus: string, lit: string[] = []) =>
-  renderMap(atlas, geometry, { style: STYLE, focus, width: 720, height: 630, links: false, state: { lit, selected: focus || null } });
+  renderMap(atlas, geometry, { focus, width: 700, height: 630, links: false, state: { lit, selected: focus || null } });
 
 jobs.push({
   file: 'default.jpg',

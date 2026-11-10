@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { loadAtlas, loadGeometry, loadSources, ROOT } from '../src/atlas/load.ts';
 import { validateAtlas } from '../src/atlas/validate.ts';
-import { pointInPolygon } from '../src/atlas/geometry.ts';
+import { hexDistance, hexKey, isConnected } from '../src/atlas/geometry.ts';
 import { relatedNodes, resolveNode, skillsOf } from '../src/atlas/model.ts';
 
 const atlas = loadAtlas();
@@ -62,30 +62,26 @@ describe('stable ids', () => {
 });
 
 describe('geometry', () => {
-  it('places every capability inside its own territory', () => {
-    for (const t of atlas.territories.filter((x) => !x.crossCutting)) {
-      for (const c of t.capabilities) {
-        expect(pointInPolygon(geometry.points[c], geometry.territories[t.id].outline), `${c} in ${t.id}`).toBe(true);
+  it('gives every skill its own tile', () => {
+    const seen = new Set<string>();
+    for (const sk of atlas.skills) {
+      const h = geometry.cells[sk.id];
+      expect(h, sk.id).toBeDefined();
+      expect(seen.has(hexKey(h)), `${sk.id} shares a tile`).toBe(false);
+      seen.add(hexKey(h));
+    }
+  });
+
+  it('keeps every capability in one connected cluster', () => {
+    for (const c of atlas.capabilities) expect(isConnected(c.skills.map((sk) => geometry.cells[sk])), c.id).toBe(true);
+  });
+
+  it('keeps territories apart, with at least one empty tile between them', () => {
+    for (const a of atlas.skills)
+      for (const b of atlas.skills) {
+        if (a.territory === b.territory) continue;
+        expect(hexDistance(geometry.cells[a.id], geometry.cells[b.id]), `${a.id} / ${b.id}`).toBeGreaterThanOrEqual(2);
       }
-    }
-  });
-
-  it('puts every cross-cutting capability on an island at sea', () => {
-    const cross = atlas.territories.find((t) => t.crossCutting)!;
-    for (const c of cross.capabilities) {
-      expect(geometry.islands[c], c).toBeDefined();
-      expect(pointInPolygon(geometry.points[c], geometry.coast), `${c} must not be on the continent`).toBe(false);
-    }
-  });
-
-  it('keeps skills of one capability apart', () => {
-    for (const c of atlas.capabilities) {
-      const pts = c.skills.map((s) => geometry.points[s]);
-      for (let i = 0; i < pts.length; i++)
-        for (let j = i + 1; j < pts.length; j++) {
-          expect(Math.hypot(pts[i][0] - pts[j][0], pts[i][1] - pts[j][1]), `${c.skills[i]} / ${c.skills[j]}`).toBeGreaterThan(12);
-        }
-    }
   });
 });
 

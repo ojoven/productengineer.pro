@@ -1,0 +1,14 @@
+---
+// One mini tile per skill, in map order, showing its status.
+import type { Skill } from '../atlas/model.ts';
+import { path, code } from '../lib/atlas.ts';
+
+interface Props {
+  skills: Skill[];
+}
+const { skills } = Astro.props;
+---
+
+<span class="strip" aria-hidden="true">
+  {skills.map((s) => <a href={path(s)} data-status-for={s.id} title={`${code(s.id)} ${s.name}`} tabindex="-1" />)}
+</span>

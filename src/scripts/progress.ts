@@ -102,41 +102,46 @@ export function onChange(fn: () => void) {
   });
 }
 
+/** Moves a skill to its next status: not started, learning, comfortable, then back. */
+export function cycleStatus(id: string): Status | 'none' {
+  const current = (load().progress[id] as Status | undefined) ?? 'none';
+  const next = current === 'none' ? 'learning' : current === 'learning' ? 'comfortable' : 'none';
+  setStatus(id, next);
+  return next;
+}
+
+const LABEL: Record<string, string> = { none: 'not started', learning: 'learning', comfortable: 'comfortable' };
+
 /**
- * Applies progress to whatever is on the page: map nodes, list items, roll-ups and status
- * controls. Static pages ship without progress; this fills it in.
+ * Applies progress to whatever is on the page: map tiles, list rows, tile strips, counts and
+ * status controls. Static pages ship without progress; this fills it in.
  */
 export function applyProgress(root: ParentNode = document) {
   const { progress } = load();
   const st = (id: string) => progress[id] ?? 'none';
 
-  root.querySelectorAll<SVGElement>('.pm .n-s[data-id]').forEach((el) => {
-    el.classList.remove('st-learning', 'st-comfortable');
-    const s = progress[el.dataset.id!];
-    if (s) el.classList.add(`st-${s}`);
-  });
-
-  root.querySelectorAll<SVGElement>('.pm .n-c[data-skills]').forEach((el) => {
-    const ids = el.dataset.skills!.split(' ');
-    const comf = ids.filter((i) => progress[i] === 'comfortable').length;
-    const learn = ids.filter((i) => progress[i] === 'learning').length;
-    el.querySelector('.roll')?.setAttribute('stroke-dasharray', `${(comf / ids.length) * 100} 100`);
-    el.querySelector('.roll-l')?.setAttribute('stroke-dasharray', `${((comf + learn) / ids.length) * 100} 100`);
+  root.querySelectorAll<SVGElement>('.pm [data-skill]').forEach((el) => {
+    const s = progress[el.dataset.skill!];
+    el.classList.toggle('st-learning', s === 'learning');
+    el.classList.toggle('st-comfortable', s === 'comfortable');
   });
 
   root.querySelectorAll<HTMLElement>('[data-status-for]').forEach((el) => {
     el.dataset.status = st(el.dataset.statusFor!);
   });
 
+  root.querySelectorAll<HTMLButtonElement>('button[data-cycle]').forEach((b) => {
+    const s = st(b.dataset.cycle!);
+    b.setAttribute('aria-label', `${b.dataset.name ?? 'Status'}: ${LABEL[s]}. Change status`);
+    b.title = `Status: ${LABEL[s]} (click to change)`;
+  });
+
   root.querySelectorAll<HTMLElement>('[data-rollup]').forEach((el) => {
     const ids = el.dataset.rollup!.split(' ').filter(Boolean);
     const comf = ids.filter((i) => progress[i] === 'comfortable').length;
     const learn = ids.filter((i) => progress[i] === 'learning').length;
-    const n = ids.length;
-    const bar = el.querySelector('.bar');
-    if (bar) bar.innerHTML = `<i class="c" style="width:${(comf / n) * 100}%"></i><i class="l" style="width:${(learn / n) * 100}%"></i>`;
-    const text = el.querySelector('.txt');
-    if (text) text.textContent = comf || learn ? `${comf}/${n} comfortable${learn ? `, ${learn} learning` : ''}` : `${n} skills`;
+    el.textContent =
+      comf || learn ? `${comf}/${ids.length} comfortable${learn ? ` · ${learn} learning` : ''}` : `${ids.length} skills`;
   });
 
   root.querySelectorAll<HTMLInputElement>('input[data-status-input]').forEach((input) => {
