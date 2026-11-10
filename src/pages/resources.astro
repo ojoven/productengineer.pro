@@ -66,6 +66,10 @@ const types = [...new Set(rows.map((r) => r.type))].sort();
               </li>
             ))}
           </ul>
+          <div class="empty res-empty" id="res-empty" role="status" hidden>
+            <span id="res-empty-msg">No resources match these filters yet.</span>
+            <button type="button" class="btn small" id="res-clear">Clear filters</button>
+          </div>
         </>
       ) : (
         <p class="empty">Resources are added territory by territory during the research pass.</p>
@@ -78,15 +82,39 @@ const types = [...new Set(rows.map((r) => r.type))].sort();
   const form = document.getElementById('res-filter') as HTMLFormElement | null;
   const items = [...document.querySelectorAll<HTMLElement>('#res-list > li')];
   const count = document.getElementById('res-count');
-  form?.addEventListener('change', () => {
-    const type = (form.elements.namedItem('type') as HTMLSelectElement).value;
-    const terr = (form.elements.namedItem('territory') as HTMLSelectElement).value;
+  const empty = document.getElementById('res-empty');
+  const emptyMsg = document.getElementById('res-empty-msg');
+
+  function update() {
+    if (!form) return;
+    const typeSel = form.elements.namedItem('type') as HTMLSelectElement;
+    const terrSel = form.elements.namedItem('territory') as HTMLSelectElement;
+    const type = typeSel.value;
+    const terr = terrSel.value;
     let shown = 0;
     for (const li of items) {
       const ok = (!type || li.dataset.type === type) && (!terr || li.dataset.territories!.split(' ').includes(terr));
       li.hidden = !ok;
       if (ok) shown++;
     }
-    if (count) count.textContent = `${shown} resources`;
+    if (count) count.textContent = `${shown} ${shown === 1 ? 'resource' : 'resources'}`;
+    if (empty) empty.hidden = shown > 0;
+    if (emptyMsg && shown === 0) {
+      // Option text is "05 Shipping"; drop the code for the sentence.
+      const terrName = terrSel.selectedOptions[0]?.text.replace(/^\d+\s+/, '') ?? '';
+      emptyMsg.textContent =
+        type && terr
+          ? `No ${type} resources in ${terrName} yet.`
+          : type
+            ? `No ${type} resources yet.`
+            : `No resources in ${terrName} yet.`;
+    }
+  }
+
+  form?.addEventListener('change', update);
+  document.getElementById('res-clear')?.addEventListener('click', () => {
+    form?.reset();
+    update();
+    (form?.elements.namedItem('type') as HTMLSelectElement | null)?.focus();
   });
 </script>
