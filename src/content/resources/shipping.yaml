@@ -1,0 +1,196 @@
+# Resources first used in Shipping. Every URL was opened and confirmed live and on topic on the
+# `checked` date.
+
+dora-capabilities:
+  url: https://dora.dev/capabilities/
+  title: DORA capabilities catalog
+  author: DORA (Google Cloud)
+  type: docs
+  length: index
+  level: intro
+  why: The practices that a decade of State of DevOps research links to fast, stable delivery.
+  checked: 2026-11-10
+
+dora-small-batches:
+  url: https://dora.dev/capabilities/working-in-small-batches/
+  title: Working in small batches
+  author: DORA (Google Cloud)
+  type: docs
+  length: 7 min
+  year: 2025
+  level: intro
+  why: Why small changes predict better delivery, and how to split work so each piece ships in hours.
+  checked: 2026-11-10
+
+dora-wip:
+  url: https://dora.dev/capabilities/wip-limits/
+  title: Work in process limits
+  author: DORA (Google Cloud)
+  type: docs
+  length: 5 min
+  level: intro
+  why: How limiting work in progress shortens lead time and makes bottlenecks visible.
+  checked: 2026-11-10
+
+dora-continuous-delivery:
+  url: https://dora.dev/capabilities/continuous-delivery/
+  title: Continuous delivery
+  author: DORA (Google Cloud)
+  type: docs
+  length: 10 min
+  level: intro
+  why: What it takes for releasing to become routine, low-risk and possible at any time.
+  checked: 2026-11-10
+
+dora-ci:
+  url: https://dora.dev/capabilities/continuous-integration/
+  title: Continuous integration
+  author: DORA (Google Cloud)
+  type: docs
+  length: 7 min
+  level: intro
+  why: The habits behind real continuous integration, including merging to trunk at least daily.
+  checked: 2026-11-10
+
+dora-deployment-automation:
+  url: https://dora.dev/capabilities/deployment-automation/
+  title: Deployment automation
+  author: DORA (Google Cloud)
+  type: docs
+  length: 7 min
+  level: intro
+  why: How to remove the manual steps from releasing, and the common pitfalls on the way.
+  checked: 2026-11-10
+
+dora-trunk-based:
+  url: https://dora.dev/capabilities/trunk-based-development/
+  title: Trunk-based development
+  author: DORA (Google Cloud)
+  type: docs
+  length: 7 min
+  level: deep
+  why: Short-lived branches and frequent merges, and how to tell whether your team really does it.
+  checked: 2026-11-10
+
+sre-release-engineering:
+  url: https://sre.google/sre-book/release-engineering/
+  title: Release engineering (Site Reliability Engineering, chapter 8)
+  author: Google SRE
+  type: book
+  length: 15 min
+  level: deep
+  why: How Google makes builds and releases repeatable, hermetic and self-service.
+  checked: 2026-11-10
+
+fowler-blue-green:
+  url: https://martinfowler.com/bliki/BlueGreenDeployment.html
+  title: Blue green deployment
+  author: Martin Fowler
+  type: article
+  length: 4 min
+  level: intro
+  why: Two production environments and a switch between them, for releases and rollbacks in seconds.
+  checked: 2026-11-10
+
+fowler-canary:
+  url: https://martinfowler.com/bliki/CanaryRelease.html
+  title: Canary release
+  author: Danilo Sato (martinfowler.com)
+  type: article
+  length: 5 min
+  level: intro
+  why: Expose a new version to a small group first and widen it only while it stays healthy.
+  checked: 2026-11-10
+
+sre-canarying:
+  url: https://sre.google/workbook/canarying-releases/
+  title: Canarying releases (The Site Reliability Workbook, chapter 16)
+  author: Google SRE
+  type: book
+  length: 25 min
+  level: deep
+  why: How big a canary should be, how long to wait, and which metrics decide whether to continue.
+  checked: 2026-11-10
+
+fowler-dark-launching:
+  url: https://martinfowler.com/bliki/DarkLaunching.html
+  title: Dark launching
+  author: Martin Fowler
+  type: article
+  length: 2 min
+  level: intro
+  why: Run new backend code on real traffic without showing results, to test load before announcing.
+  checked: 2026-11-10
+
+intercom-beta:
+  url: https://www.intercom.com/blog/how-to-run-a-successful-beta
+  title: How to run a successful beta in 7 steps
+  author: Intercom
+  type: article
+  length: 10 min
+  year: 2018
+  level: intro
+  why: A product team's walkthrough of planning, recruiting and learning from a beta.
+  checked: 2026-11-10
+
+pmalliance-beta:
+  url: https://www.productmarketingalliance.com/how-to-establish-a-successful-beta-program/
+  title: How to establish a successful beta program
+  author: Product Marketing Alliance
+  type: article
+  length: 7 min
+  year: 2024
+  level: deep
+  why: Setting goals and exit criteria for a beta, so you know when it has done its job.
+  checked: 2026-11-10
+
+sre-reliable-launches:
+  url: https://sre.google/sre-book/reliable-product-launches/
+  title: Reliable product launches at scale (Site Reliability Engineering, chapter 27)
+  author: Google SRE
+  type: book
+  length: 30 min
+  level: deep
+  why: How Google coordinates launches, from capacity planning to gradual rollouts and checklists.
+  checked: 2026-11-10
+
+sre-launch-checklist:
+  url: https://sre.google/sre-book/launch-checklist/
+  title: Launch coordination checklist
+  author: Google SRE
+  type: docs
+  length: 3 min
+  level: intro
+  why: The questions to answer before a significant launch, each one earned by a past failure.
+  checked: 2026-11-10
+
+keep-a-changelog:
+  url: https://keepachangelog.com/en/1.1.0/
+  title: Keep a changelog
+  author: Olivier Lacan
+  type: docs
+  length: 10 min
+  level: intro
+  why: A simple convention for writing change logs for humans, not dumping commit messages.
+  checked: 2026-11-10
+
+xebia-forecasting:
+  url: https://xebia.com/blog/accurate-forecasting-without-estimation/
+  title: Accurate forecasting without estimation
+  author: Xebia
+  type: article
+  length: 8 min
+  year: 2017
+  level: deep
+  why: Forecasting delivery from past throughput with a Monte Carlo simulation instead of estimating every task.
+  checked: 2026-11-10
+
+prokanban-forecasting:
+  url: https://prokanban.org/kanban-playbook/forecasting-delivery
+  title: When can I start telling customers when work will be done?
+  author: ProKanban
+  type: article
+  length: 5 min
+  level: intro
+  why: Answering "when will it be done" with a range and a confidence level, not a single date.
+  checked: 2026-11-10

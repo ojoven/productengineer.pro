@@ -1,0 +1,566 @@
+# Resources first used in Engineering. Every URL was opened and confirmed live and on topic on
+# the `checked` date.
+
+mdn-learn-web:
+  url: https://developer.mozilla.org/en-US/docs/Learn_web_development
+  title: Learn web development
+  author: MDN Web Docs
+  type: course
+  length: free course
+  level: intro
+  why: The most trusted free path through HTML, CSS and JavaScript, maintained by Mozilla.
+  checked: 2026-11-10
+
+mdn-server-side:
+  url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side
+  title: Server-side website programming
+  author: MDN Web Docs
+  type: course
+  length: free course
+  level: intro
+  why: How servers, frameworks and databases fit together, with hands-on tutorials.
+  checked: 2026-11-10
+
+twelve-factor:
+  url: https://12factor.net/
+  title: The twelve-factor app
+  author: Adam Wiggins (Heroku)
+  type: article
+  length: 30 min
+  level: intro
+  why: Twelve short rules for building services that deploy and scale cleanly, still the common baseline.
+  checked: 2026-11-10
+
+google-aip-121:
+  url: https://google.aip.dev/121
+  title: 'AIP-121: resource-oriented design'
+  author: Google API Improvement Proposals
+  type: docs
+  length: 7 min
+  level: deep
+  why: How Google designs APIs around resources and a few standard methods, and why not to mirror your database.
+  checked: 2026-11-10
+
+kcd-state:
+  url: https://kentcdodds.com/blog/application-state-management-with-react
+  title: Application state management with React
+  author: Kent C. Dodds
+  type: article
+  length: 15 min
+  level: intro
+  why: Keep state close to where it is used and server data in a cache; most apps need far less global state than they have.
+  checked: 2026-11-10
+
+fowler-event-driven:
+  url: https://martinfowler.com/articles/201701-event-driven.html
+  title: What do you mean by "event-driven"?
+  author: Martin Fowler
+  type: article
+  length: 9 min
+  year: 2017
+  level: deep
+  why: Four different things people mean by event-driven, and the trade-offs of each.
+  checked: 2026-11-10
+
+fowler-layering:
+  url: https://martinfowler.com/bliki/PresentationDomainDataLayering.html
+  title: Presentation domain data layering
+  author: Martin Fowler
+  type: article
+  length: 7 min
+  level: intro
+  why: The most common way to separate concerns in an application, and why to organize by feature at the top level.
+  checked: 2026-11-10
+
+fowler-monolith-first:
+  url: https://martinfowler.com/bliki/MonolithFirst.html
+  title: Monolith first
+  author: Martin Fowler
+  type: article
+  length: 6 min
+  year: 2015
+  level: intro
+  why: Why most successful systems start as one well-structured application and split only when boundaries are clear.
+  checked: 2026-11-10
+
+nygard-adr:
+  url: https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions
+  title: Documenting architecture decisions
+  author: Michael Nygard
+  type: article
+  length: 6 min
+  year: 2011
+  level: intro
+  why: The original proposal for short architecture decision records, so trade-offs stay visible later.
+  checked: 2026-11-10
+
+system-design-primer:
+  url: https://github.com/donnemartin/system-design-primer
+  title: The system design primer
+  author: Donne Martin
+  type: course
+  length: free guide
+  level: deep
+  why: 'A broad, free tour of scaling techniques: caching, replication, queues, load balancing and their trade-offs.'
+  checked: 2026-11-10
+
+ddia:
+  url: https://dataintensive.net/
+  title: Designing data-intensive applications
+  author: Martin Kleppmann
+  type: book
+  length: 600 pages
+  level: deep
+  paid: true
+  why: The standard book on data systems, consistency and scale. Read it when a product's data starts to hurt.
+  checked: 2026-11-10
+
+use-the-index-luke:
+  url: https://use-the-index-luke.com/
+  title: Use the index, Luke
+  author: Markus Winand
+  type: book
+  length: free online book
+  level: deep
+  why: SQL indexing explained for developers, across the major databases. It prevents most slow queries.
+  checked: 2026-11-10
+
+fowler-evodb:
+  url: https://martinfowler.com/articles/evodb.html
+  title: Evolutionary database design
+  author: Pramod Sadalage and Martin Fowler
+  type: article
+  length: 40 min
+  level: deep
+  why: How to change a database schema in small, safe steps alongside the code that uses it.
+  checked: 2026-11-10
+
+fowler-parallel-change:
+  url: https://martinfowler.com/bliki/ParallelChange.html
+  title: Parallel change
+  author: Danilo Sato (martinfowler.com)
+  type: article
+  length: 6 min
+  level: intro
+  why: Expand, migrate, contract. The pattern behind changing schemas and APIs without breaking running code.
+  checked: 2026-11-10
+
+fowler-test-pyramid:
+  url: https://martinfowler.com/articles/practical-test-pyramid.html
+  title: The practical test pyramid
+  author: Ham Vocke (martinfowler.com)
+  type: article
+  length: 55 min
+  year: 2018
+  level: deep
+  why: A thorough, code-heavy guide to unit, integration and end-to-end tests and how many of each to write.
+  checked: 2026-11-10
+
+kcd-testing-trophy:
+  url: https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications
+  title: The testing trophy and testing classifications
+  author: Kent C. Dodds
+  type: article
+  length: 8 min
+  level: intro
+  why: An argument for leaning on integration tests in product code, where they give the most confidence per test.
+  checked: 2026-11-10
+
+fowler-testing-culture:
+  url: https://martinfowler.com/articles/testing-culture.html
+  title: Goto fail, Heartbleed, and unit testing culture
+  author: Mike Bland (martinfowler.com)
+  type: article
+  length: 60 min
+  year: 2014
+  level: deep
+  why: How two famous security bugs would have been caught by ordinary unit tests, and how Google built a testing culture.
+  checked: 2026-11-10
+
+google-code-review:
+  url: https://google.github.io/eng-practices/review/
+  title: Google engineering practices, code review
+  author: Google
+  type: docs
+  length: 30 min
+  level: intro
+  why: How Google reviews code, from what reviewers look for to how authors should write small changes.
+  checked: 2026-11-10
+
+jvns-debugging:
+  url: https://jvns.ca/blog/2022/12/08/a-debugging-manifesto/
+  title: A debugging manifesto
+  author: Julia Evans
+  type: article
+  length: 4 min
+  year: 2022
+  level: intro
+  why: Short principles for debugging well, from trusting nobody to reading the actual error message.
+  checked: 2026-11-10
+
+refactoring-com:
+  url: https://refactoring.com/
+  title: Refactoring
+  author: Martin Fowler
+  type: book
+  length: catalog
+  level: deep
+  paid: true
+  why: The standard book on improving code without changing behavior. The site has a free catalog of the refactorings.
+  checked: 2026-11-10
+
+fowler-tech-debt-quadrant:
+  url: https://martinfowler.com/bliki/TechnicalDebtQuadrant.html
+  title: Technical debt quadrant
+  author: Martin Fowler
+  type: article
+  length: 4 min
+  year: 2009
+  level: intro
+  why: 'Not all debt is bad: deliberate and prudent debt is a choice, reckless debt is a mess.'
+  checked: 2026-11-10
+
+webdev-vitals:
+  url: https://web.dev/articles/vitals
+  title: Web vitals
+  author: web.dev (Google)
+  type: article
+  length: 12 min
+  year: 2020
+  level: intro
+  why: The three metrics Google uses for loading, responsiveness and visual stability, and their thresholds.
+  checked: 2026-11-10
+
+webdev-top-cwv:
+  url: https://web.dev/articles/top-cwv
+  title: The most effective ways to improve Core Web Vitals
+  author: web.dev (Google)
+  type: article
+  length: 18 min
+  year: 2024
+  level: deep
+  why: The short list of fixes that make the biggest difference, ranked by the Chrome team.
+  checked: 2026-11-10
+
+webdev-optimize-lcp:
+  url: https://web.dev/articles/optimize-lcp
+  title: Optimize largest contentful paint
+  author: web.dev (Google)
+  type: article
+  length: 25 min
+  year: 2020
+  level: deep
+  why: Breaks page load time into its parts so you can see which one to fix first.
+  checked: 2026-11-10
+
+gregg-flame-graphs:
+  url: https://www.brendangregg.com/flamegraphs.html
+  title: Flame graphs
+  author: Brendan Gregg
+  type: article
+  length: 20 min
+  level: deep
+  why: 'From the person who invented them: how to read a flame graph and find where CPU time really goes.'
+  checked: 2026-11-10
+
+napkin-math:
+  url: https://github.com/sirupsen/napkin-math
+  title: Napkin math
+  author: Simon Eskildsen
+  type: docs
+  length: 15 min
+  level: intro
+  why: Reference numbers for latency and throughput, so you can estimate a design before you build it.
+  checked: 2026-11-10
+
+mdn-http-caching:
+  url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching
+  title: HTTP caching
+  author: MDN Web Docs
+  type: docs
+  length: 25 min
+  level: deep
+  why: Everything about Cache-Control and revalidation, the cheapest performance win on the web.
+  checked: 2026-11-10
+
+webdev-http-cache:
+  url: https://web.dev/articles/http-cache
+  title: Prevent unnecessary network requests with the HTTP cache
+  author: web.dev (Google)
+  type: article
+  length: 12 min
+  year: 2018
+  level: intro
+  why: A practical starting point for setting cache headers on assets and pages.
+  checked: 2026-11-10
+
+owasp-top10:
+  url: https://top10.owasp.org/
+  title: OWASP Top 10
+  author: OWASP
+  type: docs
+  length: 30 min
+  level: intro
+  why: The most common serious web application risks, the shared starting point for secure coding.
+  checked: 2026-11-10
+
+owasp-authentication:
+  url: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+  title: Authentication cheat sheet
+  author: OWASP
+  type: docs
+  length: 25 min
+  level: deep
+  why: What a sound login, password and session setup needs, checked by security practitioners.
+  checked: 2026-11-10
+
+owasp-authorization:
+  url: https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+  title: Authorization cheat sheet
+  author: OWASP
+  type: docs
+  length: 20 min
+  level: deep
+  why: Deny by default, check on the server, on every request. The rules that prevent broken access control.
+  checked: 2026-11-10
+
+owasp-threat-modeling:
+  url: https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html
+  title: Threat modeling cheat sheet
+  author: OWASP
+  type: docs
+  length: 13 min
+  level: intro
+  why: A lightweight way to ask what could go wrong with a design, using the STRIDE categories.
+  checked: 2026-11-10
+
+owasp-crypto-storage:
+  url: https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html
+  title: Cryptographic storage cheat sheet
+  author: OWASP
+  type: docs
+  length: 14 min
+  level: deep
+  why: How to store sensitive data safely, and which algorithms and key handling to use.
+  checked: 2026-11-10
+
+owasp-secrets:
+  url: https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html
+  title: Secrets management cheat sheet
+  author: OWASP
+  type: docs
+  length: 35 min
+  level: deep
+  why: Keeping keys and passwords out of code, rotating them, and giving each service only what it needs.
+  checked: 2026-11-10
+
+claude-prompt-engineering:
+  url: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview
+  title: Prompt engineering overview
+  author: Anthropic docs
+  type: docs
+  length: 5 min
+  level: intro
+  why: Where to start when a model's output is not good enough, before changing models or adding complexity.
+  checked: 2026-11-10
+
+claude-structured-outputs:
+  url: https://platform.claude.com/docs/en/build-with-claude/structured-outputs
+  title: Structured outputs
+  author: Anthropic docs
+  type: docs
+  length: 15 min
+  level: intro
+  why: Getting responses that always match a JSON schema, so your code can rely on them.
+  checked: 2026-11-10
+
+claude-tool-use:
+  url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+  title: Tool use with Claude
+  author: Anthropic docs
+  type: docs
+  length: 10 min
+  level: intro
+  why: How a model calls functions you define, and how your code runs them and returns results.
+  checked: 2026-11-10
+
+anthropic-effective-agents:
+  url: https://www.anthropic.com/research/building-effective-agents
+  title: Building effective AI agents
+  author: Anthropic
+  type: article
+  length: 12 min
+  year: 2024
+  level: intro
+  why: When a simple workflow beats an agent, and the handful of patterns that cover most real systems.
+  checked: 2026-11-10
+
+anthropic-writing-tools:
+  url: https://www.anthropic.com/research/writing-tools-for-agents
+  title: Writing effective tools for AI agents
+  author: Anthropic
+  type: article
+  length: 15 min
+  year: 2025
+  level: deep
+  why: How to design tools an agent can use well, and how to evaluate and improve them.
+  checked: 2026-11-10
+
+anthropic-context-engineering:
+  url: https://www.anthropic.com/research/effective-context-engineering-for-ai-agents
+  title: Effective context engineering for AI agents
+  author: Anthropic
+  type: article
+  length: 14 min
+  year: 2025
+  level: deep
+  why: Choosing what goes into a model's limited context, and loading the rest only when needed.
+  checked: 2026-11-10
+
+anthropic-contextual-retrieval:
+  url: https://www.anthropic.com/research/contextual-retrieval
+  title: Contextual retrieval
+  author: Anthropic
+  type: article
+  length: 11 min
+  year: 2024
+  level: deep
+  why: 'A measured improvement to RAG: add context to each chunk before indexing, combine with keyword search and reranking.'
+  checked: 2026-11-10
+
+mcp-intro:
+  url: https://modelcontextprotocol.io/docs/getting-started/intro
+  title: What is the Model Context Protocol?
+  author: Model Context Protocol docs
+  type: docs
+  length: 9 min
+  level: intro
+  why: The open standard for connecting AI applications to tools and data, from its official docs.
+  checked: 2026-11-10
+
+hamel-evals:
+  url: https://hamel.dev/blog/posts/evals/
+  title: Your AI product needs evals
+  author: Hamel Husain
+  type: article
+  length: 18 min
+  year: 2024
+  level: intro
+  why: The practical case for evals, built from a real product, from simple assertions to human review of traces.
+  checked: 2026-11-10
+
+hamel-field-guide:
+  url: https://hamel.dev/blog/posts/field-guide/
+  title: A field guide to rapidly improving AI products
+  author: Hamel Husain
+  type: article
+  length: 28 min
+  year: 2025
+  level: deep
+  why: 'Error analysis first: read real traces, find what fails, then measure it.'
+  checked: 2026-11-10
+
+hamel-llm-judge:
+  url: https://hamel.dev/blog/posts/llm-judge/
+  title: 'Using LLM-as-a-judge for evaluation: a complete guide'
+  author: Hamel Husain
+  type: article
+  length: 35 min
+  year: 2024
+  level: deep
+  why: How to build a model-based grader and check it against human judgment before trusting it.
+  checked: 2026-11-10
+
+hamel-evals-faq:
+  url: https://hamel.dev/blog/posts/evals-faq/
+  title: 'AI evals: everything you need to know'
+  author: Hamel Husain and Shreya Shankar
+  type: article
+  length: 80 min
+  year: 2026
+  level: deep
+  why: Answers to the questions teams ask most about evals, from two people who teach it.
+  checked: 2026-11-10
+
+owasp-llm-top10:
+  url: https://genai.owasp.org/llm-top-10/
+  title: OWASP top 10 for LLM applications
+  author: OWASP GenAI Security Project
+  type: docs
+  length: index
+  level: intro
+  why: The main security risks of LLM features, with prompt injection at the top.
+  checked: 2026-11-10
+
+owasp-prompt-injection:
+  url: https://genai.owasp.org/glossary/prompt-injection/
+  title: Prompt injection
+  author: OWASP GenAI Security Project
+  type: docs
+  length: 5 min
+  year: 2026
+  level: intro
+  why: Why prompt injection cannot be patched away, and the controls that limit the damage.
+  checked: 2026-11-10
+
+willison-prompt-injection:
+  url: https://simonwillison.net/series/prompt-injection/
+  title: Prompt injection (series)
+  author: Simon Willison
+  type: article
+  length: series
+  level: deep
+  why: The clearest ongoing writing on prompt injection, from the person who named it.
+  checked: 2026-11-10
+
+diataxis:
+  url: https://diataxis.fr/
+  title: Diátaxis
+  author: Daniele Procida
+  type: docs
+  length: free guide
+  level: intro
+  why: Four kinds of documentation (tutorials, how-to guides, reference, explanation) and why mixing them fails.
+  checked: 2026-11-10
+
+fowler-ci:
+  url: https://martinfowler.com/articles/continuousIntegration.html
+  title: Continuous integration
+  author: Martin Fowler
+  type: article
+  length: 60 min
+  level: deep
+  why: The definitive explanation of continuous integration, recently revised, including what it is not.
+  checked: 2026-11-10
+
+fowler-ship-show-ask:
+  url: https://martinfowler.com/articles/ship-show-ask.html
+  title: Ship / show / ask
+  author: Rouan Wilsenach (martinfowler.com)
+  type: article
+  length: 9 min
+  year: 2021
+  level: intro
+  why: Not every change needs a review before merging; a simple way to decide which do.
+  checked: 2026-11-10
+
+trunk-based:
+  url: https://trunkbaseddevelopment.com/
+  title: Trunk based development
+  author: Paul Hammant
+  type: docs
+  length: free guide
+  level: deep
+  why: Working in small changes on one main branch, the branching model behind fast delivery.
+  checked: 2026-11-10
+
+fowler-feature-toggles:
+  url: https://martinfowler.com/articles/feature-toggles.html
+  title: Feature toggles (aka feature flags)
+  author: Pete Hodgson (martinfowler.com)
+  type: article
+  length: 35 min
+  year: 2017
+  level: deep
+  why: The four kinds of feature flags, how long each should live, and how to stop them turning into debt.
+  checked: 2026-11-10

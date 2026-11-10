@@ -190,3 +190,101 @@ nvda:
   what: Free, open-source screen reader for Windows, widely used for accessibility testing.
   pricing: open-source
   checked: 2026-11-10
+
+github-actions:
+  name: GitHub Actions
+  url: https://docs.github.com/en/actions
+  what: CI/CD built into GitHub, for running tests, checks and deployments on every change.
+  pricing: freemium
+  checked: 2026-11-10
+
+renovate:
+  name: Renovate
+  url: https://docs.renovatebot.com/
+  what: Open-source bot that opens pull requests to keep dependencies up to date.
+  pricing: open-source
+  checked: 2026-11-10
+
+k6:
+  name: Grafana k6
+  url: https://grafana.com/docs/k6/latest/
+  what: Open-source load testing tool where tests are written in JavaScript.
+  pricing: open-source
+  checked: 2026-11-10
+
+semgrep:
+  name: Semgrep
+  url: https://semgrep.dev/
+  what: Static analysis for security bugs and code patterns, with an open-source core engine.
+  pricing: freemium
+  checked: 2026-11-10
+
+infisical:
+  name: Infisical
+  url: https://infisical.com/
+  what: Open-source secrets manager for syncing keys and credentials to apps and pipelines.
+  pricing: open-source
+  checked: 2026-11-10
+
+langfuse:
+  name: Langfuse
+  url: https://langfuse.com/
+  what: Open-source tracing, evals and prompt management for LLM applications.
+  pricing: open-source
+  checked: 2026-11-10
+
+promptfoo:
+  name: promptfoo
+  url: https://www.promptfoo.dev/
+  what: Open-source tool for testing prompts and models against test cases, and for red-teaming LLM apps.
+  pricing: open-source
+  checked: 2026-11-10
+
+playwright:
+  name: Playwright
+  url: https://playwright.dev/
+  what: Open-source end-to-end testing across Chromium, Firefox and WebKit.
+  pricing: open-source
+  checked: 2026-11-10
+
+vitest:
+  name: Vitest
+  url: https://vitest.dev/
+  what: Fast open-source unit and integration test runner for JavaScript and TypeScript.
+  pricing: open-source
+  checked: 2026-11-10
+
+postgresql:
+  name: PostgreSQL
+  url: https://www.postgresql.org/
+  what: Open-source relational database, the safe default for most products.
+  pricing: open-source
+  checked: 2026-11-10
+
+sentry:
+  name: Sentry
+  url: https://sentry.io/
+  what: Error tracking and performance monitoring that groups exceptions and links them to releases.
+  pricing: freemium
+  checked: 2026-11-10
+
+unleash:
+  name: Unleash
+  url: https://www.getunleash.io/
+  what: Open-source feature flag platform for gradual rollouts, kill switches and experiments.
+  pricing: open-source
+  checked: 2026-11-10
+
+launchdarkly:
+  name: LaunchDarkly
+  url: https://launchdarkly.com/
+  what: Feature management platform for targeted rollouts, release monitoring and experiments.
+  pricing: paid
+  checked: 2026-11-10
+
+flagsmith:
+  name: Flagsmith
+  url: https://www.flagsmith.com/
+  what: Open-source feature flag and remote config service, hosted or self-hosted.
+  pricing: open-source
+  checked: 2026-11-10

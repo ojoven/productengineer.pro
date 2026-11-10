@@ -20,6 +20,7 @@ capabilities:
       Delivering in small steps that each reach users, so feedback arrives early and plans
       can change cheaply.
     related: [vertical-slicing, smallest-valuable-increment]
+    resources: [dora-small-batches, kniberg-mvp, dora-wip, dora-capabilities]
     skills:
       - id: small-batches
         name: Small batches
@@ -28,6 +29,7 @@ capabilities:
           Small batches are easier to review, test, release and roll back. They also bring feedback
           sooner. Research on software delivery links them to both speed and stability.
         related: [cost-of-delay, ci-cd]
+        resources: [dora-small-batches]
       - id: incremental-architecture
         name: Incremental architecture
         summary: Growing the architecture step by step as real needs appear.
@@ -36,6 +38,7 @@ capabilities:
           It avoids big upfront designs based on guesses. Techniques like feature toggles and the
           strangler pattern let it evolve safely.
         related: [vertical-slicing, reversible-decisions]
+        resources: [fowler-parallel-change, fowler-monolith-first]
       - id: early-feedback
         name: Early feedback
         summary: Getting real reactions to work before it is finished.
@@ -44,6 +47,7 @@ capabilities:
           earlier it arrives, the cheaper it is to act on. It needs a habit of showing unfinished
           work.
         related: [beta-programs, user-interviews]
+        resources: [kniberg-mvp, fowler-dark-launching]
       - id: wip-limits
         name: Limiting work in progress
         summary: Finishing work before starting new work.
@@ -51,6 +55,7 @@ capabilities:
           Too much work in progress slows everything down and hides problems. Limiting it shortens
           the time each item takes and makes blockers visible. Stop starting and start finishing.
         related: [unblocking, small-batches]
+        resources: [dora-wip]
 
   - id: release-engineering
     name: Release engineering
@@ -58,6 +63,8 @@ capabilities:
       The pipelines and practices that take a change from merge to production reliably and
       repeatably.
     related: [schema-migrations]
+    resources: [dora-continuous-delivery, dora-deployment-automation, sre-release-engineering]
+    tools: [github-actions]
     skills:
       - id: ci-cd
         name: CI/CD pipelines
@@ -66,6 +73,8 @@ capabilities:
           Continuous integration merges and tests changes often. Continuous delivery keeps the code
           always releasable. Together they make releasing routine instead of an event.
         related: [ci-checks, deployment-automation]
+        resources: [dora-ci, dora-continuous-delivery, fowler-ci]
+        tools: [github-actions]
       - id: deployment-automation
         name: Automated deployments
         summary: Releasing to production with one command or none.
@@ -74,6 +83,7 @@ capabilities:
           small, frequent releases practical. A deploy that anyone on the team can run safely is a
           sign of a healthy pipeline.
         related: [ci-cd, rollbacks]
+        resources: [dora-deployment-automation]
       - id: environment-management
         name: Environments
         summary: Development, staging and production environments that behave alike.
@@ -82,6 +92,7 @@ capabilities:
           cause surprises in production. Configuration as code and preview environments per
           change reduce that drift.
         related: [secrets-management, release-qa]
+        resources: [twelve-factor]
       - id: rollbacks
         name: Rollback strategies
         summary: Undoing a bad release quickly.
@@ -90,12 +101,15 @@ capabilities:
           redeploying the previous version, turning off a flag or rolling forward with a fix. Data
           changes are the hard part, so migrations need their own plan.
         related: [feature-flags, schema-migrations]
+        resources: [fowler-blue-green, sre-release-engineering]
 
   - id: controlled-releases
     name: Controlled releases
     description: >-
       Separating deploying code from releasing features, so changes reach users gradually
       and can be switched off.
+    resources: [fowler-feature-toggles, fowler-canary, sre-canarying]
+    tools: [unleash, flagsmith, launchdarkly, growthbook]
     skills:
       - id: feature-flags
         name: Feature flags
@@ -105,6 +119,8 @@ capabilities:
           experiments, beta access and kill switches. Old flags need removing, or they become
           technical debt.
         related: [staged-rollouts, ab-tests]
+        resources: [fowler-feature-toggles]
+        tools: [unleash, flagsmith, launchdarkly]
       - id: staged-rollouts
         name: Staged rollouts
         summary: Releasing to a growing share of users while watching the impact.
@@ -113,6 +129,7 @@ capabilities:
           healthy. Problems affect few people and can be caught early. It is also called progressive
           delivery.
         related: [feature-flags, alerting]
+        resources: [sre-canarying, fowler-canary]
       - id: beta-programs
         name: Beta programs
         summary: Giving early access to willing users in exchange for feedback.
@@ -121,6 +138,7 @@ capabilities:
           surfaces bugs and confusion early. It works best with clear expectations and an easy way
           to send feedback.
         related: [early-feedback, feedback-collection]
+        resources: [intercom-beta, pmalliance-beta]
       - id: canary-releases
         name: Canary releases
         summary: Running a new version on a small slice of traffic first.
@@ -129,12 +147,14 @@ capabilities:
           error rate and latency with the rest. If the canary looks unhealthy, it is pulled. It
           catches technical problems before most users meet them.
         related: [staged-rollouts, product-observability]
+        resources: [fowler-canary, sre-canarying]
 
   - id: release-readiness
     name: Release readiness
     description: >-
       Making sure a release is ready for users, support and operations before it goes out.
     related: [automated-testing]
+    resources: [sre-launch-checklist, sre-reliable-launches, keep-a-changelog]
     skills:
       - id: release-qa
         name: Pre-release QA
@@ -144,6 +164,8 @@ capabilities:
           and critical paths. Exploratory testing finds what scripts miss. The aim is confidence,
           not perfection.
         related: [end-to-end-tests, environment-management]
+        resources: [fowler-test-pyramid]
+        tools: [playwright]
       - id: release-communication
         name: Release notes and communication
         summary: Telling users and the team what changed and why it matters.
@@ -152,6 +174,7 @@ capabilities:
           shipped. Internal notes prepare support and sales. A feature nobody knows about has not
           really shipped.
         related: [feature-adoption, technical-writing]
+        resources: [keep-a-changelog]
       - id: launch-telemetry
         name: Launch telemetry
         summary: Having the tracking and monitoring in place before release.
@@ -160,6 +183,7 @@ capabilities:
           exist. Adding them later loses the first, most informative days. Ask before shipping:
           how will we know if this worked or broke?
         related: [tracking-plans, dashboards]
+        resources: [segment-tracking-plan]
       - id: support-readiness
         name: Support readiness
         summary: Preparing support to handle questions about a new release.
@@ -176,12 +200,14 @@ capabilities:
           before a significant launch. A short checklist prevents most launch-day surprises.
           Bigger launches deserve a more formal review.
         related: [incident-response, rollbacks]
+        resources: [sre-launch-checklist, sre-reliable-launches]
 
   - id: delivery-management
     name: Delivery management
     description: >-
       Keeping work moving: estimating it, spotting risks early and clearing what blocks it.
     related: [prioritization, dependency-management]
+    resources: [prokanban-forecasting, shapeup-rabbit-holes, dora-wip]
     skills:
       - id: estimation
         name: Estimation
@@ -191,6 +217,7 @@ capabilities:
           single numbers. Breaking work down and comparing with past work improves them, and some
           teams forecast from throughput instead.
         related: [impact-effort, delivery-risk]
+        resources: [prokanban-forecasting, xebia-forecasting, shapeup-boundaries]
       - id: delivery-risk
         name: Delivery risk
         summary: Spotting and reducing what could delay or derail the work.
@@ -199,6 +226,7 @@ capabilities:
           requirements. Tackling the riskiest part first, for example with a spike, reduces
           surprises. Raising risks early is a form of reliability.
         related: [product-risk, estimation]
+        resources: [shapeup-rabbit-holes]
       - id: unblocking
         name: Removing blockers
         summary: Clearing obstacles that stop work from moving.
@@ -207,3 +235,4 @@ capabilities:
           who chase them actively keep the team fast. Recurring blockers point to a process
           problem worth fixing.
         related: [wip-limits, initiative]
+        resources: [dora-wip]
