@@ -1,0 +1,88 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import Crumbs from '../../../../components/Crumbs.astro';
+import MapFigure from '../../../../components/MapFigure.astro';
+import StatusControl from '../../../../components/StatusControl.astro';
+import ResourceList from '../../../../components/ResourceList.astro';
+import ToolList from '../../../../components/ToolList.astro';
+import { atlas, capability, territory, path } from '../../../../lib/atlas.ts';
+import { relatedNodes } from '../../../../atlas/model.ts';
+import type { Skill } from '../../../../atlas/model.ts';
+
+export function getStaticPaths() {
+  return atlas().skills.map((s) => ({
+    params: { territory: s.territory, capability: s.capability, skill: s.id },
+    props: { id: s.id },
+  }));
+}
+const a = atlas();
+const s = a.nodes.get(Astro.props.id) as Skill;
+const c = capability(s.capability);
+const t = territory(s.territory);
+const related = relatedNodes(a, s);
+const resources = s.resources.map((id) => a.resourcesById.get(id)!);
+const tools = s.tools.map((id) => a.toolsById.get(id)!);
+const i = c.skills.indexOf(s.id);
+const prev = i > 0 ? (a.nodes.get(c.skills[i - 1]) as Skill) : undefined;
+const next = i < c.skills.length - 1 ? (a.nodes.get(c.skills[i + 1]) as Skill) : undefined;
+const capResources = resources.length ? [] : c.resources.map((id) => a.resourcesById.get(id)!);
+---
+
+<Base title={s.name} description={`${s.name}: ${s.summary} ${s.description}`.slice(0, 300)}>
+  <div class="wrap">
+    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { href: path(t), label: t.name }, { href: path(c), label: c.name }, { label: s.name }]} />
+    <div class="layout-2">
+      <div>
+        <header class="topic-head">
+          <div class="kicker">Skill in {c.name}</div>
+          <h1>{s.name}</h1>
+          <p class="lede">{s.summary}</p>
+        </header>
+        <div class="prose">
+          <p>{s.description}</p>
+        </div>
+
+        <StatusControl id={s.id} name={s.name} />
+
+        <h2>Resources</h2>
+        <ResourceList resources={resources} />
+        {
+          capResources.length > 0 && (
+            <>
+              <h3 style="margin-top:18px">Overview for {c.name}</h3>
+              <ResourceList resources={capResources} />
+            </>
+          )
+        }
+
+        <h2>Tools</h2>
+        <ToolList tools={tools} />
+
+        <nav class="btn-row" style="margin-top:32px" aria-label="Skills in this capability" data-pagefind-ignore>
+          {prev && <a class="btn" href={path(prev)}>← {prev.name}</a>}
+          {next && <a class="btn" href={path(next)}>{next.name} →</a>}
+        </nav>
+      </div>
+
+      <aside class="aside" aria-label="Where it sits">
+        <h2>Where it sits</h2>
+        <MapFigure focus={s.id} selected={s.id} width={300} height={260} scale={0.82} collapsible={false} small />
+        {
+          related.length > 0 && (
+            <>
+              <h2 style="margin-top:6px">Related skills</h2>
+              <ul class="node-list" style="gap:6px">
+                {related.map((n) => (
+                  <li>
+                    <a href={path(n)} data-status-for={n.level === 'skill' ? n.id : undefined}>{n.name}</a>
+                    <span style="color:var(--text-3);font-size:.85rem"> · {n.level === 'skill' ? capability(n.capability).name : n.level}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )
+        }
+      </aside>
+    </div>
+  </div>
+</Base>

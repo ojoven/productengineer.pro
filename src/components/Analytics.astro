@@ -1,0 +1,17 @@
+---
+// Privacy-friendly page analytics (Plausible-compatible API: no cookies, no personal data).
+// Loads nothing unless PUBLIC_ANALYTICS_SRC is set at build time.
+import { SITE } from '../site.ts';
+const { src, domain } = SITE.analytics;
+---
+
+{
+  src && (
+    <>
+      <script is:inline defer data-domain={domain} src={src} />
+      <script is:inline>
+        window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };
+      </script>
+    </>
+  )
+}

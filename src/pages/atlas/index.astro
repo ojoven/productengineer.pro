@@ -1,0 +1,487 @@
+---
+// The full-screen explorer. Without JavaScript it is the static world map with links to every
+// territory; with JavaScript it zooms between levels, keeps each level in the URL, and accepts
+// ?lit=id,id to light nodes and join them with a route.
+import Base from '../../layouts/Base.astro';
+import { atlas, mapSvg, path } from '../../lib/atlas.ts';
+
+const a = atlas();
+const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
+---
+
+<Base title="Atlas" description="Explore the whole map of product engineering: ten territories, 72 capabilities and every skill beneath them." bodyClass="is-explorer" searchable={false}>
+  <div class="explorer" id="explorer">
+    <div class="ex-map" id="ex-map" set:html={svg} />
+    <aside class="ex-panel" id="ex-panel" aria-live="polite">
+      <nav class="crumbs" id="ex-crumbs" aria-label="Map level"><span aria-current="page">World</span></nav>
+      <h1 id="ex-title">The Skill Atlas</h1>
+      <p id="ex-text" class="ex-text">Ten territories of product engineering and the waters around them. Pick a territory to zoom in.</p>
+      <div id="ex-actions"></div>
+      <div id="ex-lit"></div>
+      <h2 id="ex-list-title" class="ex-h">Territories</h2>
+      <ul class="ex-list" id="ex-list">
+        {
+          a.territories.map((t) => (
+            <li>
+              <a href={path(t)}>{t.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
+  </div>
+</Base>
+
+<style is:global>
+  body.is-explorer .site-footer {
+    display: none;
+  }
+  .explorer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    height: calc(100dvh - 57px);
+    min-height: 480px;
+  }
+  .ex-map {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+    touch-action: manipulation;
+  }
+  .ex-map svg {
+    width: 100%;
+    height: 100%;
+  }
+  .ex-map .pm text,
+  .ex-map .pm .n,
+  .ex-map .pm .tl {
+    transition: opacity 0.18s ease;
+  }
+  .ex-map.is-zooming .pm .n,
+  .ex-map.is-zooming .pm .tl,
+  .ex-map.is-zooming .pm .route,
+  .ex-map.is-zooming .pm .route-ink {
+    opacity: 0 !important;
+  }
+  .ex-map.is-entering .pm .n,
+  .ex-map.is-entering .pm .tl {
+    opacity: 0;
+  }
+  .ex-panel {
+    border-left: 1px solid var(--line);
+    background: var(--surface);
+    overflow-y: auto;
+    padding: 6px 20px 28px;
+  }
+  .ex-panel h1 {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+  }
+  .ex-text {
+    color: var(--text-2);
+    font-size: 0.95rem;
+  }
+  .ex-h {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-3);
+    margin: 22px 0 8px;
+  }
+  .ex-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .ex-list li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+  }
+  .ex-list button,
+  .ex-list > li > a {
+    font: inherit;
+    text-align: left;
+    background: none;
+    border: 0;
+    padding: 7px 4px;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  .ex-list button:hover,
+  .ex-list button.is-sel {
+    background: var(--surface-2);
+  }
+  .ex-list .page {
+    font-size: 0.8rem;
+    color: var(--text-3);
+  }
+  .ex-list .pip {
+    margin-top: 0;
+  }
+  .ex-list .rollup {
+    grid-column: 2 / 4;
+    margin: -6px 0 4px 4px;
+  }
+  .ex-panel .seg {
+    display: flex;
+    width: 100%;
+  }
+  .ex-panel .seg label {
+    flex: 1;
+    text-align: center;
+  }
+  .ex-panel .seg span {
+    padding: 7px 6px;
+    font-size: 0.86rem;
+  }
+  .lit-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0 10px;
+  }
+  .chip {
+    font-size: 0.82rem;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--lit-soft);
+    color: var(--text);
+    border: 1px solid color-mix(in srgb, var(--lit) 40%, transparent);
+  }
+  .ex-zoom {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    display: flex;
+    gap: 6px;
+  }
+  .ex-zoom .btn {
+    background: var(--surface);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+  }
+  @media (max-width: 860px) {
+    .explorer {
+      grid-template-columns: minmax(0, 1fr);
+      height: auto;
+    }
+    .ex-map {
+      height: 58dvh;
+      min-height: 320px;
+    }
+    .ex-panel {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+  }
+</style>
+
+<script>
+  import { renderMap, computeView, type MapAtlas } from '../../atlas/render.ts';
+  import type { Geometry } from '../../atlas/geometry.ts';
+  import type { MapStyle } from '../../atlas/map-css.ts';
+  import { load, setStatus, applyProgress, onChange } from '../../scripts/progress.ts';
+  import { track } from '../../scripts/track.ts';
+
+  type Data = MapAtlas & {
+    style: MapStyle;
+    territories: (MapAtlas['territories'][number] & { tagline: string; question: string })[];
+    capabilities: (MapAtlas['capabilities'][number] & { description: string })[];
+    skills: (MapAtlas['skills'][number] & { summary: string })[];
+    aliases: Record<string, string>;
+    geometry: Geometry;
+  };
+
+  const mapEl = document.getElementById('ex-map')!;
+  const $ = (id: string) => document.getElementById(id)!;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  let data: Data;
+  const T = new Map<string, Data['territories'][number]>();
+  const C = new Map<string, Data['capabilities'][number]>();
+  const S = new Map<string, Data['skills'][number]>();
+
+  interface ExState {
+    at: string;
+    lit: string[];
+  }
+  let state: ExState = readUrl();
+
+  function readUrl(): ExState {
+    const q = new URLSearchParams(location.search);
+    const alias = (id: string) => data?.aliases?.[id] ?? id;
+    const lit = (q.get('lit') ?? '')
+      .split(',')
+      .map((s) => alias(s.trim()))
+      .filter(Boolean);
+    return { at: alias(q.get('at') ?? ''), lit };
+  }
+
+  function urlFor(s: ExState) {
+    const q = new URLSearchParams();
+    if (s.at) q.set('at', s.at);
+    if (s.lit.length) q.set('lit', s.lit.join(','));
+    const qs = q.toString().replace(/%2C/g, ',');
+    return `/atlas/${qs ? `?${qs}` : ''}`;
+  }
+
+  const pagePath = (id: string) => {
+    const s = S.get(id);
+    if (s) return `/atlas/${s.territory}/${s.capability}/${s.id}/`;
+    const c = C.get(id);
+    if (c) return `/atlas/${c.territory}/${c.id}/`;
+    return `/atlas/${id}/`;
+  };
+
+  function size() {
+    const r = mapEl.getBoundingClientRect();
+    return { width: Math.max(320, Math.round(r.width)), height: Math.max(280, Math.round(r.height)) };
+  }
+
+  function options() {
+    const { width, height } = size();
+    const valid = state.lit.filter((id) => S.has(id) || C.has(id) || T.has(id));
+    const selected = S.has(state.at) ? state.at : null;
+    return {
+      focus: state.at,
+      width,
+      height,
+      style: data.style,
+      idPrefix: 'ex',
+      scale: width < 520 ? 0.82 : 1,
+      state: { progress: load(data.aliases).progress, lit: valid, route: valid.length > 1, selected },
+    };
+  }
+
+  function draw() {
+    mapEl.innerHTML = renderMap(data, data.geometry, options());
+    addZoomButtons();
+  }
+
+  function addZoomButtons() {
+    if (!state.at) return;
+    const parent = upOf(state.at);
+    const div = document.createElement('div');
+    div.className = 'ex-zoom';
+    div.innerHTML = `<button class="btn" type="button" data-up>← ${esc(parent ? nameOf(parent) : 'World')}</button>`;
+    div.querySelector('button')!.addEventListener('click', () => go({ ...state, at: parent }));
+    mapEl.append(div);
+  }
+
+  const nameOf = (id: string) => T.get(id)?.name ?? C.get(id)?.name ?? S.get(id)?.name ?? id;
+  function upOf(id: string): string {
+    if (S.has(id)) return S.get(id)!.capability;
+    if (C.has(id)) return C.get(id)!.territory === 'cross-cutting' ? 'cross-cutting' : C.get(id)!.territory;
+    return '';
+  }
+
+  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+  async function zoomTo(next: ExState) {
+    const svg = mapEl.querySelector('svg');
+    const sameLevel = levelKey(next.at) === levelKey(state.at);
+    state = next;
+    if (!svg || reduceMotion || sameLevel) return draw();
+    const from = svg.viewBox.baseVal;
+    const start = [from.x, from.y, from.width, from.height];
+    const box = computeView(data, data.geometry, options()).box;
+    const end = [box.x, box.y, box.w, box.h];
+    mapEl.classList.add('is-zooming');
+    mapEl.querySelector('.ex-zoom')?.remove();
+    await new Promise<void>((resolve) => {
+      const t0 = performance.now();
+      const dur = 520;
+      const step = (now: number) => {
+        const t = Math.min(1, (now - t0) / dur);
+        const e = ease(t);
+        const v = start.map((s, i) => s + (end[i] - s) * e);
+        svg.setAttribute('viewBox', v.join(' '));
+        if (t < 1) requestAnimationFrame(step);
+        else resolve();
+      };
+      requestAnimationFrame(step);
+    });
+    mapEl.classList.remove('is-zooming');
+    mapEl.classList.add('is-entering');
+    draw();
+    requestAnimationFrame(() => requestAnimationFrame(() => mapEl.classList.remove('is-entering')));
+  }
+
+  /** Territory, capability or world: a skill shares its capability's zoom. */
+  function levelKey(at: string) {
+    return S.has(at) ? S.get(at)!.capability : at;
+  }
+
+  function go(next: ExState, push = true) {
+    if (push) history.pushState(next, '', urlFor(next));
+    zoomTo(next).then(panel);
+    track('Map zoom', { level: S.has(next.at) ? 'skill' : C.has(next.at) ? 'capability' : T.has(next.at) ? 'territory' : 'world' });
+  }
+
+  // ---- panel: the list equivalent of the current map, with the same states
+  function rollupHtml(ids: string[]) {
+    return `<span class="rollup" data-rollup="${ids.join(' ')}"><span class="bar" aria-hidden="true"></span><span class="txt">${ids.length} skills</span></span>`;
+  }
+  const territorySkills = (tid: string) => T.get(tid)!.capabilities.flatMap((c) => C.get(c)!.skills);
+
+  function panel() {
+    const at = state.at;
+    const crumbs: string[] = [];
+    const crumb = (id: string, label: string) => `<a href="${urlFor({ ...state, at: id })}" data-go="${id}">${esc(label)}</a>`;
+    let title = 'The Skill Atlas';
+    let text = 'Ten territories of product engineering and the waters around them. Pick a territory to zoom in.';
+    let actions = '';
+    let listTitle = 'Territories';
+    let list = '';
+
+    const skill = S.get(at);
+    const cap = C.get(skill ? skill.capability : at);
+    const terr = T.get(cap ? cap.territory : at);
+
+    if (terr) crumbs.push(crumb('', 'World'));
+    if (cap) crumbs.push(crumb(terr!.id, terr!.name));
+    if (skill) crumbs.push(crumb(cap!.id, cap!.name));
+
+    if (!terr) {
+      list = data.territories
+        .map(
+          (t) =>
+            `<li><span class="pip cap" aria-hidden="true"></span><button type="button" data-go="${t.id}">${esc(t.name)}</button><a class="page" href="${pagePath(t.id)}">page</a>${rollupHtml(territorySkills(t.id))}</li>`,
+        )
+        .join('');
+    } else if (!cap) {
+      title = terr.name;
+      text = `<span style="font-family:var(--hand);color:var(--accent);font-size:1.1rem">${esc(terr.question)}</span>`;
+      actions = `<a class="btn" href="${pagePath(terr.id)}">Open the ${esc(terr.name)} page</a>`;
+      listTitle = `${terr.capabilities.length} capabilities`;
+      list = terr.capabilities
+        .map((id) => C.get(id)!)
+        .map(
+          (c) =>
+            `<li><span class="pip cap" aria-hidden="true"></span><button type="button" data-go="${c.id}">${esc(c.name)}</button><a class="page" href="${pagePath(c.id)}">page</a>${rollupHtml(c.skills)}</li>`,
+        )
+        .join('');
+    } else {
+      title = skill ? skill.name : cap.name;
+      text = esc(skill ? skill.summary : cap.description);
+      if (skill) {
+        actions = `<fieldset class="status" style="margin:10px 0"><legend>Your status</legend><div class="seg">${(
+          [
+            ['none', 'Not started'],
+            ['learning', 'Learning'],
+            ['comfortable', 'Comfortable'],
+          ] as const
+        )
+          .map(
+            ([v, l]) =>
+              `<label><input type="radio" name="ex-status" value="${v}" data-status-input="${skill.id}"><span>${l}</span></label>`,
+          )
+          .join('')}</div></fieldset><a class="btn" href="${pagePath(skill.id)}">Open the skill page</a>`;
+      } else {
+        actions = `<a class="btn" href="${pagePath(cap.id)}">Open the ${esc(cap.name)} page</a>`;
+      }
+      listTitle = `${cap.skills.length} skills in ${cap.name}`;
+      list = cap.skills
+        .map((id) => S.get(id)!)
+        .map(
+          (s) =>
+            `<li data-status-for="${s.id}"><span class="pip" aria-hidden="true"></span><button type="button" data-go="${s.id}" class="${s.id === at ? 'is-sel' : ''}">${esc(s.name)}</button><a class="page" href="${pagePath(s.id)}">page</a></li>`,
+        )
+        .join('');
+    }
+
+    $('ex-crumbs').innerHTML = crumbs.length ? `${crumbs.join(' <span aria-hidden="true">/</span> ')}` : '<span aria-current="page">World</span>';
+    $('ex-title').textContent = title;
+    $('ex-text').innerHTML = text;
+    $('ex-actions').innerHTML = actions;
+    $('ex-list-title').textContent = listTitle;
+    $('ex-list').innerHTML = list;
+
+    // lit nodes: shareable as a link, separate from progress
+    const lit = state.lit.filter((id) => S.has(id) || C.has(id) || T.has(id));
+    $('ex-lit').innerHTML = lit.length
+      ? `<h2 class="ex-h">Lit on this map</h2><div class="lit-chips">${lit.map((id) => `<a class="chip" href="${urlFor({ ...state, at: id })}" data-go="${id}">${esc(nameOf(id))}</a>`).join('')}</div><div class="btn-row"><button class="btn" type="button" id="ex-copy">Copy link</button><button class="btn" type="button" id="ex-clear">Clear</button></div>`
+      : '';
+    $('ex-copy')?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(new URL(urlFor(state), location.origin).href);
+        $('ex-copy').textContent = 'Copied';
+      } catch {
+        $('ex-copy').textContent = 'Copy failed';
+      }
+    });
+    $('ex-clear')?.addEventListener('click', () => go({ ...state, lit: [] }));
+
+    document.querySelectorAll<HTMLInputElement>('input[name="ex-status"]').forEach((input) =>
+      input.addEventListener('change', () => {
+        if (!input.checked) return;
+        setStatus(input.dataset.statusInput!, input.value as 'none' | 'learning' | 'comfortable');
+        track('Status set', { status: input.value, from: 'map' });
+      }),
+    );
+    applyProgress();
+  }
+
+  // ---- events
+  document.addEventListener('click', (e) => {
+    const target = e.target as Element;
+    if ((e as MouseEvent).metaKey || (e as MouseEvent).ctrlKey || (e as MouseEvent).shiftKey) return;
+    const go_ = target.closest<HTMLElement>('[data-go]');
+    if (go_ && document.getElementById('ex-panel')!.contains(go_)) {
+      e.preventDefault();
+      go({ ...state, at: go_.dataset.go! });
+      return;
+    }
+    const node = target.closest<SVGElement>('#ex-map [data-id]');
+    if (node) {
+      e.preventDefault();
+      const id = node.dataset.id!;
+      if (id === state.at && C.has(id)) return;
+      go({ ...state, at: id });
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !state.at) return;
+    const t = e.target as Element;
+    if (t.closest('input, textarea')) return;
+    go({ ...state, at: upOf(state.at) });
+  });
+
+  window.addEventListener('popstate', () => {
+    zoomTo(readUrl()).then(panel);
+  });
+
+  let resizeTimer: number | undefined;
+  new ResizeObserver(() => {
+    clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => data && draw(), 120);
+  }).observe(mapEl);
+
+  onChange(() => {
+    if (data) {
+      draw();
+      applyProgress();
+    }
+  });
+
+  fetch('/atlas-data.json')
+    .then((r) => r.json())
+    .then((d: Data) => {
+      data = d;
+      d.territories.forEach((t) => T.set(t.id, t));
+      d.capabilities.forEach((c) => C.set(c.id, c));
+      d.skills.forEach((s) => S.set(s.id, s));
+      state = readUrl();
+      history.replaceState(state, '', urlFor(state));
+      draw();
+      panel();
+      if (state.lit.length) track('Lit map opened', { count: state.lit.length });
+    });
+</script>

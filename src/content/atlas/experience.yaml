@@ -1,0 +1,385 @@
+# Territory: Experience
+# Review batch 3 of 11.
+
+id: experience
+order: 3
+name: Experience
+tagline: Design user value
+question: Can users understand, use and benefit from the solution?
+description: >-
+  Experience is where value becomes something a person can actually use. It covers the flow of a
+  task, the details of each interaction, the visual design, the words on the screen and how the
+  product works for people with different abilities. Product engineers make many of these
+  decisions in code every day, so a working eye for UX is part of the job, not an extra.
+expected: >-
+  Independently create usable product experiences, recognize weak UX, test important
+  assumptions, and collaborate with designers on problems requiring deeper expertise.
+capabilities:
+  - id: user-journeys
+    name: User journeys
+    description: >-
+      The path a person takes through the product to get something done, and the structure
+      that path runs on.
+    skills:
+      - id: journey-mapping
+        name: Journey mapping
+        summary: Mapping every step, feeling and touchpoint across a user's experience.
+        description: >-
+          A journey map lays out what a user does, thinks and feels across a whole experience,
+          often beyond the product itself. It shows where the real friction sits. It is a good
+          shared artifact for a team deciding where to focus.
+        related: [pain-points, path-analysis]
+      - id: user-flows
+        name: User flows
+        summary: The screens and decisions a user passes through to complete a task.
+        description: >-
+          A user flow is a diagram of the steps, branches and end states for one task. Drawing it
+          before building reveals missing states and unnecessary steps. It is close to how engineers
+          already think about state machines.
+        related: [step-reduction, state-management]
+      - id: task-analysis
+        name: Task analysis
+        summary: Breaking a task into steps to understand how people really do it.
+        description: >-
+          Task analysis decomposes a goal into the actions and decisions people take to reach it.
+          It reveals which steps are essential and which exist only because of the current tool.
+          It is the groundwork for simplifying any complex workflow.
+        related: [industry-workflows, user-flows]
+      - id: mental-models
+        name: Mental models
+        summary: How users believe the product works, which may differ from how it does.
+        description: >-
+          Users act on their own model of the system. When the interface matches that model, the
+          product feels obvious. When the implementation leaks through, such as sync states or
+          internal statuses, people get confused and make mistakes.
+        related: [category-conventions, affordances]
+      - id: information-architecture
+        name: Information architecture
+        summary: Organizing and labelling content and features so people can find them.
+        description: >-
+          Information architecture decides how things are grouped, named and connected. Card sorting
+          and tree testing check it with real users. Poor structure makes good features effectively
+          invisible.
+        related: [navigation-design, product-terminology]
+
+  - id: interaction-design
+    name: Interaction design
+    description: >-
+      How the product responds to what people do: the controls, the feedback, and what
+      happens when things go wrong.
+    skills:
+      - id: navigation-design
+        name: Navigation
+        summary: How users move around the product and know where they are.
+        description: >-
+          Navigation tells users where they are, where they can go and how to get back. Good
+          navigation is predictable and mirrors the information architecture. Deep links and
+          browser history are part of it, which makes it partly an engineering concern.
+        related: [information-architecture, mental-models]
+      - id: form-design
+        name: Forms
+        summary: Designing inputs that are quick to fill in and hard to get wrong.
+        description: >-
+          Forms are where users give the product information, and where many of them give up.
+          Good forms ask only what is needed, use the right input types and validate helpfully.
+          Most form problems are fixable in an afternoon by an engineer who knows the basics.
+        related: [form-friction, error-recovery]
+      - id: interface-feedback
+        name: System feedback
+        summary: Showing users that the system heard them and what happened next.
+        description: >-
+          Every action needs a visible response: loading states, confirmations, progress and
+          results. Without feedback users repeat actions or assume something broke. Optimistic
+          updates and clear loading states are a large part of how fast a product feels.
+        related: [latency, error-recovery]
+      - id: error-recovery
+        name: Errors and recovery
+        summary: Preventing mistakes and helping users recover from them.
+        description: >-
+          Good error handling prevents mistakes where possible, explains them in plain language and
+          offers a way out, such as undo. Error messages are often written by engineers at the last
+          minute. Treating them as part of the design pays off.
+        related: [microcopy, form-design]
+      - id: empty-states
+        name: Empty states
+        summary: What users see before there is any data, and how it guides them forward.
+        description: >-
+          An empty state is the screen with nothing in it yet: no projects, no results, no
+          messages. It is often the first thing a new user sees. A good one explains what goes here
+          and gives a clear first action.
+        related: [first-run-flows, guided-setup]
+      - id: affordances
+        name: Affordances
+        summary: Visual cues that show what can be clicked, dragged or changed.
+        description: >-
+          An affordance signals how something can be used: a button looks pressable, a handle looks
+          draggable. Flat designs often remove these cues and leave users guessing. Clear
+          affordances reduce errors without adding instructions.
+        related: [mental-models, visual-hierarchy]
+      - id: progressive-disclosure
+        name: Progressive disclosure
+        summary: Showing advanced options only when they are needed.
+        description: >-
+          Progressive disclosure keeps the main path simple and moves rare or advanced options
+          one step away. It lets a product serve beginners and experts at the same time. The hard
+          part is deciding what counts as advanced, which is a research question.
+        related: [cognitive-load, progressive-onboarding]
+
+  - id: ui-design
+    name: UI design
+    description: >-
+      The visual layer: hierarchy, type, spacing, color and the systems that keep them
+      consistent across a product.
+    skills:
+      - id: visual-hierarchy
+        name: Visual hierarchy
+        summary: Making the most important thing on a screen the most noticeable.
+        description: >-
+          Visual hierarchy uses size, weight, color and position to guide attention. A screen with
+          no clear hierarchy feels busy even when it has little on it. It is the single most useful
+          visual skill for engineers who build interfaces without a designer.
+        related: [typography, affordances]
+      - id: typography
+        name: Typography
+        summary: Choosing and setting type so text is readable and the hierarchy is clear.
+        description: >-
+          Typography covers font choice, sizes, line length, line height and weight. Most
+          interfaces need only a few sizes used consistently. Good defaults make an interface look
+          deliberate even before any other styling.
+        related: [visual-hierarchy, design-systems]
+      - id: spacing-and-layout
+        name: Spacing and layout
+        summary: Arranging elements with consistent space so the structure is easy to read.
+        description: >-
+          Spacing groups related things and separates unrelated ones. A consistent spacing scale and
+          a simple grid remove most visual mess. Layout techniques like flexbox and grid make this an
+          area where engineers can be very precise.
+        related: [responsive-design, visual-hierarchy]
+      - id: color
+        name: Color
+        summary: Using color for meaning, emphasis and brand, with enough contrast.
+        description: >-
+          Color in interfaces should carry meaning, such as state, emphasis or category, more than
+          decoration. Limited palettes with defined roles keep things consistent. Contrast has to
+          work for everyone, including in dark mode.
+        related: [wcag, design-systems]
+      - id: responsive-design
+        name: Responsive design
+        summary: Interfaces that work across screen sizes and input methods.
+        description: >-
+          Responsive design adapts layout and interaction to phones, tablets and desktops, and to
+          touch, mouse and keyboard. It is more than shrinking things down. Content priorities often
+          change on small screens.
+        related: [context-of-use, spacing-and-layout]
+      - id: design-systems
+        name: Design systems
+        summary: Reusable components and rules that keep an interface consistent.
+        description: >-
+          A design system collects tokens, components and usage guidelines in one place. It speeds
+          up building and keeps the product coherent as it grows. Engineers usually maintain the
+          code side of it, so they shape how well it works.
+        related: [code-organization, typography]
+
+  - id: prototyping
+    name: Prototyping
+    description: >-
+      Making ideas tangible quickly so they can be tested before full investment, from paper
+      sketches to working code.
+    skills:
+      - id: sketching
+        name: Sketching
+        summary: Quick drawings to explore many ideas before choosing one.
+        description: >-
+          Sketching is the fastest way to explore layout and flow options. Its value is in quantity:
+          several rough ideas beat one polished one. Engineers who sketch before coding often find
+          simpler solutions.
+        related: [wireframes, user-flows]
+      - id: wireframes
+        name: Wireframes
+        summary: Low-fidelity layouts that show structure without visual detail.
+        description: >-
+          Wireframes show what goes on a screen and roughly where, without colors or final copy.
+          They keep feedback focused on structure and flow. They are cheap to change, which is
+          exactly their point.
+        related: [sketching, information-architecture]
+      - id: clickable-prototypes
+        name: Clickable prototypes
+        summary: Linked mockups that let people click through a flow.
+        description: >-
+          A clickable prototype simulates a flow well enough for testing, without real logic.
+          Design tools make it fast. It answers whether people understand the flow before anyone
+          writes production code.
+        related: [usability-testing, wireframes]
+      - id: functional-prototypes
+        name: Functional prototypes
+        summary: Working code built quickly to test an idea with real behavior.
+        description: >-
+          Some ideas only make sense with real data, real latency or real AI output. A functional
+          prototype is throwaway code that tests them. This is where product engineers have an
+          advantage, as long as the prototype is treated as disposable.
+        related: [mvp, concierge-experiments]
+      - id: usability-testing
+        name: Usability testing
+        summary: Watching people attempt real tasks to find where they struggle.
+        description: >-
+          In a usability test, a few people try to complete tasks while you watch and stay quiet.
+          Five participants usually reveal the biggest problems. It works on sketches, prototypes
+          and live products, and it is humbling every time.
+        related: [user-interviews, drop-off-analysis]
+
+  - id: accessibility
+    name: Accessibility
+    description: >-
+      Building products that people with disabilities can use, which tends to make them
+      better for everyone.
+    skills:
+      - id: inclusive-design
+        name: Inclusive design
+        summary: Designing for the full range of human ability, situation and context.
+        description: >-
+          Inclusive design considers permanent, temporary and situational limitations, such as a
+          broken arm or bright sunlight. It treats accessibility as a design input from the start,
+          not a fix at the end. It often leads to simpler designs for everyone.
+        related: [user-autonomy, context-of-use]
+      - id: keyboard-interaction
+        name: Keyboard interaction
+        summary: Making every function usable without a mouse.
+        description: >-
+          Keyboard users need a logical focus order, visible focus and no traps. Custom components
+          such as menus and dialogs need the expected key behavior. It is one of the most common
+          accessibility failures and one of the easiest to test.
+        related: [semantic-markup, assistive-technology]
+      - id: semantic-markup
+        name: Semantic markup
+        summary: Using the right HTML elements so meaning is available to all software.
+        description: >-
+          Semantic HTML, with real buttons, headings, labels and landmarks, gives assistive
+          technology the structure it needs. It also improves SEO and makes code easier to read.
+          ARIA is for the gaps, not a replacement for the right element.
+        related: [assistive-technology, seo]
+      - id: assistive-technology
+        name: Assistive technology support
+        summary: Working well with screen readers, magnifiers and voice control.
+        description: >-
+          Assistive technologies read and operate the interface on behalf of users. Testing with a
+          screen reader for even ten minutes reveals problems no checklist catches. Engineers should
+          know how to do a basic pass themselves.
+        related: [semantic-markup, keyboard-interaction]
+      - id: wcag
+        name: WCAG principles
+        summary: The web accessibility guidelines, built on four principles.
+        description: >-
+          The Web Content Accessibility Guidelines set the reference standard, and many laws point
+          to them. Knowing the four principles and the common success criteria covers most
+          everyday work. Automated checkers find only part of the problems.
+        related: [regulatory-compliance, color]
+
+  - id: content-design
+    name: Content design
+    description: >-
+      The words in the product: labels, instructions, messages and docs that help people
+      understand and act.
+    skills:
+      - id: microcopy
+        name: Microcopy
+        summary: The small pieces of text on buttons, labels, hints and messages.
+        description: >-
+          Microcopy is the text people read while doing something: a button label, a hint, an error.
+          Small wording changes can clearly change behavior. Engineers write much of it, often as
+          placeholders that end up shipping.
+        related: [error-recovery, plain-language]
+      - id: instructional-copy
+        name: Instructions
+        summary: Explaining how to do something at the moment it is needed.
+        description: >-
+          Good instructions are short, placed where they are needed and written as steps. The best
+          interface needs few of them, but complex tasks always need some. Instructions that users
+          skip are a sign the design needs work.
+        related: [contextual-guidance, tutorials]
+      - id: product-terminology
+        name: Terminology
+        summary: Choosing consistent names for things in the product.
+        description: >-
+          Calling the same thing by two names, or two things by one name, confuses users quickly.
+          A small glossary keeps interface, docs, support and code aligned. Naming also shows up in
+          APIs and data models, so it is not only a writing problem.
+        related: [domain-language, information-architecture]
+      - id: plain-language
+        name: Plain language
+        summary: Writing that people understand on first read.
+        description: >-
+          Plain language uses common words, short sentences and active voice. It helps everyone,
+          including non-native speakers and stressed users. It is a measurable skill, and readability
+          checks can catch the worst cases.
+        related: [microcopy, clear-explanations]
+      - id: documentation-ux
+        name: Documentation UX
+        summary: Help content that people can find and use while they work.
+        description: >-
+          Documentation is part of the product experience. It needs structure, search, examples
+          and maintenance. For developer products it is often the most visited part of the product.
+        related: [developer-docs, customer-education]
+      - id: localization
+        name: Localization
+        summary: Adapting the product for other languages and regions.
+        description: >-
+          Localization covers translation, formats for dates and currency, text length and
+          cultural expectations. It needs engineering support from the start, such as string
+          extraction and flexible layouts. Retrofitting it later is expensive.
+        related: [responsive-design, plain-language]
+
+  - id: behavioral-design
+    name: Behavioral design
+    description: >-
+      Applying what is known about human behavior to make good actions easier, without
+      manipulating people.
+    related: [user-autonomy]
+    skills:
+      - id: motivation
+        name: Motivation
+        summary: Designing for why people act and what keeps them going.
+        description: >-
+          Behavior happens when motivation, ability and a prompt meet, as in the Fogg model. Most
+          products cannot create motivation, but they can avoid destroying it and make action
+          easier when it is there. Intrinsic motivation lasts longer than rewards.
+        related: [user-motivations, habit-formation]
+      - id: cognitive-load
+        name: Cognitive load
+        summary: The mental effort an interface demands, and how to reduce it.
+        description: >-
+          Every choice, unfamiliar term and thing to remember adds load. Reducing it means fewer
+          options, good defaults and recognition over recall. Lower cognitive load is often the
+          real reason a redesign feels better.
+        related: [progressive-disclosure, decision-friction]
+      - id: decision-friction
+        name: Decision friction
+        summary: The hesitation that appears when users face too many or unclear choices.
+        description: >-
+          Friction at decision points, such as choosing a plan or confirming a purchase, causes
+          drop-off. Defaults, clear comparisons and fewer options reduce it. Some friction is useful,
+          for example before destructive actions.
+        related: [cognitive-load, trial-conversion]
+      - id: habit-formation
+        name: Habit formation
+        summary: How repeated use becomes automatic behavior.
+        description: >-
+          Habits form when a trigger, an action and a reward repeat in a stable context. Products
+          used daily depend on them. The honest version helps people build habits they actually
+          want, such as practicing a language.
+        related: [core-loops, reminders]
+      - id: persuasive-design
+        name: Persuasive design
+        summary: Techniques that influence behavior, such as social proof, defaults and scarcity.
+        description: >-
+          Persuasion techniques work, which is why they need care. Social proof, defaults and
+          framing can help users make good choices or push them into bad ones. Knowing the
+          techniques also helps you spot when a design crosses the line.
+        related: [trust-signals, ethical-engagement]
+      - id: ethical-engagement
+        name: Ethical engagement
+        summary: Avoiding dark patterns and designing engagement that respects users.
+        description: >-
+          Dark patterns trick users into actions they did not intend, such as hidden cancellations
+          or confirm-shaming. They raise short-term numbers and damage trust, and some are now
+          illegal. Ethical engagement asks whether users would approve if they saw how it works.
+        related: [user-autonomy, guardrail-metrics]

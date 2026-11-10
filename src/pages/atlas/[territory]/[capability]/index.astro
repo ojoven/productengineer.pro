@@ -1,0 +1,72 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import Crumbs from '../../../../components/Crumbs.astro';
+import MapFigure from '../../../../components/MapFigure.astro';
+import SkillList from '../../../../components/SkillList.astro';
+import BulkStatus from '../../../../components/BulkStatus.astro';
+import ResourceList from '../../../../components/ResourceList.astro';
+import ToolList from '../../../../components/ToolList.astro';
+import { atlas, skill, territory, path } from '../../../../lib/atlas.ts';
+import { relatedNodes } from '../../../../atlas/model.ts';
+import type { Capability } from '../../../../atlas/model.ts';
+
+export function getStaticPaths() {
+  return atlas().capabilities.map((c) => ({ params: { territory: c.territory, capability: c.id }, props: { id: c.id } }));
+}
+const a = atlas();
+const c = a.nodes.get(Astro.props.id) as Capability;
+const t = territory(c.territory);
+const skills = c.skills.map(skill);
+const related = relatedNodes(a, c).filter((n) => n.level !== 'skill' || n.capability !== c.id);
+const resources = c.resources.map((id) => a.resourcesById.get(id)!);
+const tools = c.tools.map((id) => a.toolsById.get(id)!);
+const siblings = t.capabilities.filter((id) => id !== c.id).map((id) => a.nodes.get(id) as Capability);
+---
+
+<Base title={c.name} description={`${c.name} (${t.name}): ${c.description}`}>
+  <div class="wrap">
+    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { href: path(t), label: t.name }, { label: c.name }]} />
+    <header class="topic-head">
+      <div class="kicker">Capability in {t.name}</div>
+      <h1>{c.name}</h1>
+      <p class="lede">{c.description}</p>
+    </header>
+
+    <MapFigure focus={c.id} />
+
+    <div class="layout-2">
+      <div>
+        <h2 style="margin-top:0">{skills.length} skills</h2>
+        <SkillList skills={skills} />
+        <BulkStatus ids={c.skills} name={c.name} />
+
+        <h2>Where to start</h2>
+        <ResourceList resources={resources} />
+
+        <h2>Tools</h2>
+        <ToolList tools={tools} />
+      </div>
+      <aside class="aside" aria-label="Related">
+        {
+          related.length > 0 && (
+            <>
+              <h2>Related elsewhere</h2>
+              <ul class="node-list" style="gap:6px">
+                {related.map((n) => (
+                  <li>
+                    <a href={path(n)}>{n.name}</a>
+                    <span style="color:var(--text-3);font-size:.85rem"> · {n.level === 'skill' ? territory(n.territory).name : n.level}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )
+        }
+        <h2 style={related.length ? 'margin-top:18px' : ''}>Also in {t.name}</h2>
+        <ul class="node-list" style="gap:6px">
+          {siblings.map((s) => <li><a href={path(s)}>{s.name}</a></li>)}
+        </ul>
+      </aside>
+    </div>
+  </div>
+</Base>

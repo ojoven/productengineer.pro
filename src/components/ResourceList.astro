@@ -1,0 +1,64 @@
+---
+import type { Resource } from '../atlas/model.ts';
+
+interface Props {
+  resources: Resource[];
+  emptyText?: string;
+}
+const { resources, emptyText = 'Resources for this topic are being researched. Each link is opened and checked before it is listed.' } = Astro.props;
+
+function youtubeId(url: string): string | undefined {
+  const u = new URL(url);
+  if (u.hostname === 'youtu.be') return u.pathname.slice(1);
+  if (u.hostname.endsWith('youtube.com')) return u.searchParams.get('v') ?? undefined;
+}
+const order = { intro: 0, deep: 1 } as const;
+const sorted = [...resources].sort((a, b) => order[a.level] - order[b.level]);
+---
+
+{
+  sorted.length ? (
+    <ul class="res-list">
+      {sorted.map((r) => {
+        const yt = r.type === 'video' ? youtubeId(r.url) : undefined;
+        return (
+          <li class="res">
+            <div>
+              <span class="tag">{r.type}</span>
+              <span class:list={['tag', r.level]}>{r.level === 'intro' ? 'start here' : 'go deeper'}</span>
+              {r.paid && <span class="tag paid">paid</span>}
+            </div>
+            <a class="t" href={r.url} rel="noopener" target="_blank">{r.title}</a>
+            <div class="by">
+              {r.author}
+              {r.year && <> · {r.year}</>}
+              {r.length && <> · {r.length}</>}
+            </div>
+            <p class="why">{r.why}</p>
+            {yt && (
+              <div class="video" data-yt={yt}>
+                <button class="btn" type="button">Play here (loads YouTube)</button>
+              </div>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  ) : (
+    <p class="empty-note">{emptyText}</p>
+  )
+}
+
+<script>
+  // Click-to-load: nothing from YouTube loads until the visitor asks for it.
+  document.querySelectorAll<HTMLElement>('.video[data-yt]').forEach((box) => {
+    box.querySelector('button')?.addEventListener('click', () => {
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(box.dataset.yt!)}?autoplay=1`;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture';
+      f.allowFullscreen = true;
+      f.title = 'Video';
+      box.replaceChildren(f);
+    });
+  });
+</script>

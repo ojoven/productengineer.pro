@@ -1,0 +1,276 @@
+# Territory: Distribution
+# Review batch 9 of 11.
+
+id: distribution
+order: 9
+name: Distribution
+tagline: Reach the right users
+question: How does the product reach users who genuinely benefit from it?
+description: >-
+  Distribution is how a product reaches the people it can help. Great products still fail when
+  nobody hears about them, and many channels depend on product decisions: shareable outputs,
+  invitations, SEO-friendly pages, free plans. A product engineer does not have to be a marketer,
+  but should understand how growth works well enough to build for it and to work with the people
+  who own it.
+expected: >-
+  Understand how distribution works, design product features that support adoption, and
+  collaborate effectively with marketing, growth and sales specialists.
+capabilities:
+  - id: go-to-market
+    name: Go-to-market strategy
+    description: >-
+      The plan for bringing a product or feature to its audience: which people, which
+      channels and what message.
+    related: [target-audience, product-positioning]
+    skills:
+      - id: channel-selection
+        name: Channel selection
+        summary: Choosing the few channels most likely to reach your audience.
+        description: >-
+          Most products grow through one or two main channels. Choosing them means matching where
+          the audience already is with what the product and team can do well. Testing several
+          cheaply, then focusing, beats spreading thin.
+        related: [channel-performance, organic-acquisition]
+      - id: launch-planning
+        name: Launch planning
+        summary: Preparing the timing, audience and activities for a launch.
+        description: >-
+          A launch plan covers who to tell, where, when, and what they should do next. Launches are
+          moments to concentrate attention, not one-off events. Planning the follow-up matters as
+          much as the day itself.
+        related: [release-communication, discovery-platforms]
+      - id: messaging
+        name: Messaging
+        summary: The words used to describe the product's value to a specific audience.
+        description: >-
+          Messaging turns positioning into headlines, descriptions and pitches. Good messaging uses
+          customers' own words, often taken from interviews and reviews. It should be tested like
+          any other part of the product.
+        related: [value-proposition, landing-page-tests]
+
+  - id: organic-acquisition
+    name: Organic acquisition
+    description: >-
+      Channels that bring users without paying per click: search, content, communities and
+      word of mouth.
+    skills:
+      - id: seo
+        name: SEO
+        summary: Making pages easy to find through search engines.
+        description: >-
+          SEO combines useful content, a crawlable site, fast pages and good structure. Much of it is
+          engineering: rendering, metadata, sitemaps, performance. Programmatic pages built from
+          product data can be a strong channel when they are genuinely useful.
+        related: [semantic-markup, content-marketing]
+      - id: content-marketing
+        name: Content
+        summary: Creating useful content that attracts the right audience.
+        description: >-
+          Content marketing brings in people through articles, videos, tools and guides that solve
+          their problems. It compounds over time. Engineers can create strong technical content
+          and free tools that rank and get shared.
+        related: [seo, technical-writing]
+      - id: communities
+        name: Communities
+        summary: Building or joining communities where your users gather.
+        description: >-
+          Communities let users help each other and talk about the product. Joining existing ones
+          honestly works better than broadcasting into them. A product's own community needs
+          sustained care to stay alive.
+        related: [developer-relations, customer-education]
+      - id: social-platforms
+        name: Social platforms
+        summary: Reaching people through social networks.
+        description: >-
+          Social platforms reward consistency, a clear voice and native formats. Building in public
+          is a common approach for small products. Each platform has its own audience and norms.
+        related: [sharing-mechanics, product-narratives]
+      - id: developer-relations
+        name: Developer relations
+        summary: Building trust and adoption among developers.
+        description: >-
+          Developer relations combines docs, examples, talks, open source and community support.
+          Developers trust working code over marketing. For developer tools it is often the main
+          growth channel.
+        related: [developer-docs, communities]
+      - id: discovery-platforms
+        name: Directories and app stores
+        summary: Places where people browse for products, such as app stores and launch sites.
+        description: >-
+          App stores, marketplaces, integration directories and launch sites put products in front
+          of people already looking. Each has its own ranking and listing rules. App store
+          optimization is the SEO of mobile.
+        related: [launch-planning, seo]
+
+  - id: viral-growth
+    name: Viral growth
+    description: >-
+      Growth that comes from users bringing other users, through sharing, invitations and
+      network effects.
+    skills:
+      - id: referral-loops
+        name: Referral loops
+        summary: Incentives and flows that turn users into recommenders.
+        description: >-
+          A referral program rewards users for bringing others in. It works when the product is
+          already worth recommending and the reward fits the audience. The loop has to be measured
+          end to end, from invite to activated user.
+        related: [invitations, viral-coefficient]
+      - id: sharing-mechanics
+        name: Sharing mechanics
+        summary: Features that make the product's output worth sharing.
+        description: >-
+          Sharing happens when what users create is interesting to others: a result, a report, a
+          design. Good sharing mechanics make that output easy to share and attractive when shared,
+          with good previews and links back.
+        related: [social-platforms, core-loops]
+      - id: invitations
+        name: Invitations
+        summary: Letting users invite others into the product.
+        description: >-
+          Invitations are a growth loop built into collaboration. A smooth invite flow, a clear
+          reason to join and a good first experience for the invitee all matter. The invitee's
+          onboarding is often neglected.
+        related: [collaboration-features, signup-flow]
+      - id: network-effects
+        name: Network effects
+        summary: When the product becomes more valuable as more people use it.
+        description: >-
+          Network effects make a product better with each new user, as in marketplaces, messaging
+          and collaboration tools. They create strong competitive advantage. They also make the
+          start hard, since the first users get the least value.
+        related: [competitive-advantage, market-structure]
+      - id: viral-coefficient
+        name: Viral coefficient
+        summary: How many new users each user brings in.
+        description: >-
+          The viral coefficient multiplies invitations sent per user by their conversion rate. Above
+          one, growth feeds itself, which is rare. Even below one, virality lowers acquisition cost.
+          Cycle time matters as much as the coefficient.
+        related: [referral-loops, customer-acquisition-cost]
+
+  - id: product-led-growth
+    name: Product-led growth
+    description: >-
+      Using the product itself as the main way to acquire, convert and expand customers.
+    related: [invitations]
+    skills:
+      - id: self-serve-adoption
+        name: Self-serve adoption
+        summary: Letting people sign up, try and buy without talking to sales.
+        description: >-
+          Self-serve adoption needs a product that explains itself, transparent pricing and a free
+          plan or trial. It removes the cost of a sales conversation for each customer. It depends
+          heavily on activation working well.
+        related: [trial-conversion, first-user-experience]
+      - id: collaboration-features
+        name: Collaboration features
+        summary: Features that bring teammates into the product.
+        description: >-
+          Sharing, comments, permissions and workspaces turn single users into teams. They create
+          natural invitations and make the product harder to leave. They also add complexity to
+          permissions and data models.
+        related: [authorization, invitations]
+      - id: product-driven-expansion
+        name: Product-driven expansion
+        summary: Growing revenue from existing customers through the product itself.
+        description: >-
+          Expansion comes from more seats, higher plans and add-ons as customers get more value.
+          Usage limits and upgrade prompts at the right moment drive it. Net revenue retention
+          above 100% means existing customers alone grow revenue.
+        related: [packaging, adoption-barriers]
+
+  - id: b2b-acquisition
+    name: B2B acquisition
+    description: >-
+      How businesses find, evaluate and buy products, and how a product supports that
+      process.
+    skills:
+      - id: sales-funnels
+        name: Sales funnels
+        summary: The stages a business customer moves through before buying.
+        description: >-
+          A B2B sales funnel runs from lead to qualified opportunity, evaluation and contract.
+          Buying involves several people and takes time. Product engineers support it with demos,
+          trials, integrations and security answers.
+        related: [lead-qualification, domain-stakeholders]
+      - id: lead-qualification
+        name: Lead qualification
+        summary: Deciding which potential customers are worth pursuing.
+        description: >-
+          Qualification checks whether a lead fits the ideal customer profile, has the problem and
+          can buy. Product usage data can qualify leads automatically. Good qualification saves
+          time on both sides.
+        related: [ideal-customer-profile, sales-funnels]
+      - id: product-demos
+        name: Product demonstrations
+        summary: Showing the product solving a prospect's specific problem.
+        description: >-
+          A good demo shows the prospect's own problem being solved, not every feature. Demo
+          environments with realistic data are product work. Engineers who can demo well become
+          valuable in sales conversations.
+        related: [product-narratives, sales-funnels]
+      - id: b2b-trials
+        name: Trials and proofs of concept
+        summary: Letting business customers evaluate the product with their own data.
+        description: >-
+          B2B trials and proofs of concept need clear success criteria agreed upfront. Engineers
+          often support them with setup and integrations. Their success depends on activation within
+          the customer's organization.
+        related: [trial-conversion, adoption-barriers]
+      - id: partnerships
+        name: Partnerships
+        summary: Growing through other companies' products, audiences or sales teams.
+        description: >-
+          Partnerships include integrations, marketplaces, resellers and co-marketing. Integrations
+          are often the most durable kind, because they make the product part of the customer's
+          stack. They require API work and ongoing maintenance.
+        related: [api-design, market-structure]
+
+  - id: growth-economics
+    name: Growth economics
+    description: >-
+      The numbers that decide whether growth is sustainable: what it costs to win a customer
+      and what that customer is worth.
+    related: [lifetime-value]
+    skills:
+      - id: customer-acquisition-cost
+        name: Customer acquisition cost
+        summary: What it costs on average to win one new customer.
+        description: >-
+          CAC adds up marketing and sales spend and divides by new customers. Compared with
+          lifetime value it shows whether growth makes or loses money. Product-led channels often
+          have lower CAC but take longer to build.
+        related: [lifetime-value, channel-performance]
+      - id: conversion-efficiency
+        name: Conversion efficiency
+        summary: How well each stage turns prospects into customers.
+        description: >-
+          Conversion efficiency looks at the whole path from first visit to paying customer, per
+          channel. Improving a weak stage can cut acquisition cost more than finding new traffic.
+          It connects activation work to growth economics.
+        related: [funnel-optimization, conversion-metrics]
+      - id: attribution
+        name: Attribution
+        summary: Working out which channels and touches led to a customer.
+        description: >-
+          Attribution assigns credit for a conversion to channels and campaigns. All models are
+          imperfect, and privacy changes make tracking harder. Asking customers how they heard
+          about you is a cheap, useful complement.
+        related: [analytics-architecture, channel-performance]
+      - id: channel-performance
+        name: Channel performance
+        summary: Comparing channels on cost, volume and quality of users.
+        description: >-
+          Channel performance looks beyond volume to the retention and value of the users each
+          channel brings. A cheap channel that brings users who leave is expensive. Cohorts by
+          channel make the difference visible.
+        related: [cohort-analysis, attribution]
+      - id: sustainable-growth
+        name: Payback and sustainable growth
+        summary: Growing at a pace the business can fund and keep.
+        description: >-
+          Sustainable growth means acquisition pays back in a reasonable time and retention keeps
+          the base growing. Payback period is the key number. Growth that depends on ever-rising
+          spend is fragile.
+        related: [costs-and-margins, retention-metrics]

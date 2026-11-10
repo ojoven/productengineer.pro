@@ -1,0 +1,102 @@
+---
+import '@fontsource/kalam/400.css';
+import '@fontsource/kalam/700.css';
+import '@fontsource/eb-garamond/500.css';
+import '@fontsource/eb-garamond/700.css';
+import '../styles/site.css';
+import { mapCss } from '../atlas/map-css.ts';
+import { SITE } from '../site.ts';
+import Analytics from '../components/Analytics.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  /** Mark the main content for the search index. */
+  searchable?: boolean;
+  bodyClass?: string;
+  wide?: boolean;
+  image?: string;
+}
+const { title, description = SITE.description, noindex = false, searchable = true, bodyClass = '', image } = Astro.props;
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: the Skill Atlas of product engineering`;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const path = Astro.url.pathname;
+const current = (prefix: string) => (prefix === '/' ? path === '/' : path.startsWith(prefix)) ? 'page' : undefined;
+const css = mapCss();
+const ogImage = new URL(image ?? '/og/default.png', SITE.url).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content={title ?? SITE.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('pe-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+    <style is:inline set:html={css}></style>
+    <Analytics />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">ProductEngineer<span>.pro</span></a>
+        <nav class="nav" aria-label="Main">
+          <a href="/atlas/" aria-current={current('/atlas')}>Atlas</a>
+          <a class="opt" href="/tools/" aria-current={current('/tools')}>Tools</a>
+          <a class="opt" href="/resources/" aria-current={current('/resources')}>Resources</a>
+          <a href="/me/" aria-current={current('/me')}>My map</a>
+          <a class="icon" href="/search/" aria-label="Search" aria-current={current('/search')}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+          </a>
+          <button class="icon" type="button" id="theme-toggle" aria-label="Switch colour theme" title="Theme">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"></path></svg>
+          </button>
+        </nav>
+      </div>
+    </header>
+    <main id="main" data-pagefind-body={searchable ? '' : undefined}>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>A map of product engineering. Your progress stays in this browser.</span>
+        <span><a href="/about/">About</a> · <a href="/tools/">Tools</a> · <a href="/resources/">Resources</a> · <a href="/search/">Search</a></span>
+      </div>
+    </footer>
+    <script>
+      import { applyProgress, onChange } from '../scripts/progress.ts';
+      applyProgress();
+      onChange(() => applyProgress());
+
+      const btn = document.getElementById('theme-toggle');
+      btn?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const dark = root.dataset.theme
+          ? root.dataset.theme === 'dark'
+          : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = dark ? 'light' : 'dark';
+        try {
+          localStorage.setItem('pe-theme', root.dataset.theme);
+        } catch {}
+      });
+    </script>
+  </body>
+</html>

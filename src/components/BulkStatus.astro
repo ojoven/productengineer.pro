@@ -1,0 +1,33 @@
+---
+// Set every skill under a capability (or territory) in one action, so an experienced engineer
+// can mark what they already know in seconds.
+interface Props {
+  ids: string[];
+  name: string;
+}
+const { ids, name } = Astro.props;
+---
+
+<div class="status" data-pagefind-ignore data-bulk={ids.join(' ')}>
+  <div style="font-weight:650;font-size:.95rem">Mark all {ids.length} skills in {name}</div>
+  <div class="btn-row" style="margin-top:8px">
+    <button class="btn" type="button" data-set="comfortable">Comfortable</button>
+    <button class="btn" type="button" data-set="learning">Learning</button>
+    <button class="btn" type="button" data-set="none">Clear</button>
+    <span class="rollup" data-rollup={ids.join(' ')}><span class="bar" aria-hidden="true"></span><span class="txt">{ids.length} skills</span></span>
+  </div>
+</div>
+
+<script>
+  import { setStatus } from '../scripts/progress.ts';
+  import { track } from '../scripts/track.ts';
+  document.querySelectorAll<HTMLElement>('[data-bulk]').forEach((box) => {
+    const ids = box.dataset.bulk!.split(' ');
+    box.querySelectorAll<HTMLButtonElement>('button[data-set]').forEach((b) =>
+      b.addEventListener('click', () => {
+        setStatus(ids, b.dataset.set as 'none' | 'learning' | 'comfortable');
+        track('Status set in bulk', { status: b.dataset.set!, count: ids.length });
+      }),
+    );
+  });
+</script>

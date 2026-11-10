@@ -1,0 +1,317 @@
+# Territory: Discovery
+# Review batch 1 of 11. Ids are permanent: rename a node by changing `name`,
+# and if an id ever has to change, keep the old one in `aliases`.
+
+id: discovery
+order: 1
+name: Discovery
+tagline: Understand people and problems
+question: Are we solving a real problem for the right people?
+description: >-
+  Discovery is the work of finding out what is actually going on before deciding what to build.
+  Who has the problem, how often, how badly, and what they do about it today. A product engineer
+  who can do some of this directly writes better code for the right reason, cuts features that
+  nobody needs, and notices when a request is a symptom of something else.
+expected: >-
+  Independently investigate an opportunity and produce an evidence-backed explanation of the
+  problem, who experiences it, and why it deserves attention.
+capabilities:
+  - id: user-understanding
+    name: User understanding
+    description: >-
+      Knowing who the users are, what they are trying to get done, and the situations they are in.
+      It is the shared picture that every later decision about the product leans on.
+    skills:
+      - id: user-segments
+        name: User segments
+        summary: Grouping users by shared needs or behavior instead of treating them as one crowd.
+        description: >-
+          A segment is a group of users who need different things or behave differently from the
+          rest. Good segments explain why a feature works for some people and fails for others.
+          Engineers use them to read metrics correctly and to decide who a change is really for.
+        related: [behavioral-segmentation, target-audience]
+      - id: ideal-customer-profile
+        name: Ideal customer profile
+        summary: A precise description of the customer who gets the most value and is easiest to serve.
+        description: >-
+          An ideal customer profile names the kind of customer the product fits best, with concrete
+          attributes such as company size, role or situation. It keeps a small team from building
+          for everyone at once. It also tells you whose feedback should weigh the most.
+        related: [target-audience, lead-qualification]
+      - id: personas
+        name: Personas
+        summary: Short, research-based portraits of typical users and their goals.
+        description: >-
+          A persona condenses research into a recognizable person with goals, context and
+          frustrations. Useful personas are built from real interviews, not invented
+          demographics. They help a team argue about a concrete user instead of an abstract one.
+        related: [user-interviews, research-synthesis]
+      - id: jobs-to-be-done
+        name: Jobs to be done
+        summary: Framing products around the progress people are trying to make.
+        description: >-
+          Jobs to be done looks at the situation and the outcome a person wants, rather than at who
+          they are. It explains why people switch products and what they compare you against.
+          For an engineer it is a fast way to judge whether a feature serves a real job.
+        related: [substitutes, user-motivations]
+      - id: user-motivations
+        name: Goals and motivations
+        summary: Why people act, what they want to achieve, and what they are afraid of.
+        description: >-
+          Motivations are the reasons behind behavior: the goal, the pressure, the fear of getting
+          it wrong. They explain what users say they want versus what they do. Knowing them makes
+          it easier to predict which changes people will welcome and which they will ignore.
+        related: [motivation, jobs-to-be-done]
+      - id: context-of-use
+        name: Behavior and context of use
+        summary: Where, when and how people actually use the product.
+        description: >-
+          Context covers the device, the time pressure, the environment and the other tools people
+          are juggling while they use your product. The same feature can be perfect at a desk and
+          useless on a phone in a hurry. Engineers who know the context make better default choices.
+        related: [field-studies, responsive-design]
+
+  - id: user-research
+    name: User research
+    description: >-
+      Methods for learning directly from users: talking to them, watching them and asking them
+      at scale. The aim is reliable evidence, gathered cheaply and often.
+    related: [usability-testing]
+    skills:
+      - id: user-interviews
+        name: User interviews
+        summary: Conversations that uncover real past behavior instead of opinions about the future.
+        description: >-
+          A good interview asks about specific things people did, not what they might do. It avoids
+          pitching and leading questions. It is the most useful research method a product engineer
+          can learn, because it needs no budget and works from the first week.
+        related: [research-synthesis, feedback-analysis]
+      - id: field-studies
+        name: Observation and field studies
+        summary: Watching people do the work in their own environment.
+        description: >-
+          Observation shows what people actually do, including the workarounds they no longer notice.
+          Field studies and contextual inquiry go to where the work happens. They catch problems
+          that never come up in an interview because users consider them normal.
+        related: [context-of-use, industry-workflows]
+      - id: surveys
+        name: Surveys
+        summary: Structured questions to measure how common a behavior or opinion is.
+        description: >-
+          Surveys measure how widespread something is once you know what to ask. Badly worded
+          questions produce confident nonsense, so they work best after interviews, not instead
+          of them. Short in-product surveys are often the cheapest signal an engineer can add.
+        related: [satisfaction-metrics, sampling-bias]
+      - id: diary-studies
+        name: Diary studies
+        summary: Participants record their experience over days or weeks.
+        description: >-
+          In a diary study people log what they do and feel over a period of time. It captures
+          habits, repeated tasks and moments that a single session misses. It suits products used
+          over time, such as learning apps or tools that are part of a weekly routine.
+        related: [habit-formation, recurring-needs]
+      - id: research-synthesis
+        name: Research synthesis
+        summary: Turning notes and recordings into clear findings the team can act on.
+        description: >-
+          Synthesis groups observations, finds patterns and separates strong evidence from
+          anecdotes. Techniques include affinity mapping and opportunity trees. Without it,
+          research becomes a pile of notes that only the person who ran it remembers.
+        related: [user-interviews, evidence-strength]
+
+  - id: problem-identification
+    name: Problem identification
+    description: >-
+      Pinning down what the problem actually is, how much it hurts, and what causes it. A
+      clearly stated problem is half of a good solution.
+    skills:
+      - id: pain-points
+        name: Pain points
+        summary: The specific moments where users struggle, waste time or give up.
+        description: >-
+          A pain point is a concrete moment of friction, cost or risk in someone's work. Strong
+          pain points come up without prompting and people already spend effort working around
+          them. They are a better starting point for features than ideas from the team.
+        related: [friction-reduction, unmet-needs]
+      - id: unmet-needs
+        name: Unmet needs
+        summary: Things people need that no current solution handles well.
+        description: >-
+          An unmet need is a gap: something people want done that existing tools ignore or handle
+          badly. Many products start from one. Spotting them takes listening to what users try to
+          do, not only to what they complain about.
+        related: [pain-points, substitutes]
+      - id: root-cause-analysis
+        name: Root-cause analysis
+        summary: Tracing a symptom back to the underlying cause before solving it.
+        description: >-
+          Root-cause analysis keeps asking why until you reach something you can change. Methods
+          include the five whys and fishbone diagrams. Engineers already do this with bugs, and the
+          same habit applied to user problems stops a team from building patches on top of patches.
+        related: [debugging, incident-response]
+      - id: problem-statements
+        name: Problem statements
+        summary: A short, precise description of who has the problem and why it matters.
+        description: >-
+          A problem statement names the user, the situation, the problem and its impact, without
+          naming a solution. Writing one forces the team to agree on what they are solving. It also
+          gives a clear test for later: did the shipped work make this problem smaller?
+        related: [hypotheses, technical-writing]
+      - id: problem-severity
+        name: Problem severity and frequency
+        summary: Judging how badly and how often a problem hurts.
+        description: >-
+          A problem worth solving is painful, frequent, or both. Severity and frequency let you
+          compare problems on the same scale instead of by who complained loudest. They feed
+          straight into prioritization and into how much effort a fix deserves.
+        related: [opportunity-assessment, impact-effort]
+
+  - id: market-research
+    name: Market research
+    description: >-
+      Understanding the market around the product: competitors, alternatives, trends and size.
+      It puts a user problem in the context of what already exists.
+    skills:
+      - id: competitive-analysis
+        name: Competitive analysis
+        summary: Studying competing products to learn what they do well and where they fall short.
+        description: >-
+          Competitive analysis looks at how other products solve the same problem, how they price,
+          and what their users complain about. The goal is to learn and to find gaps, not to copy
+          features. Reading competitor reviews is one of the cheapest research methods available.
+        related: [competitive-advantage, substitutes]
+      - id: substitutes
+        name: Substitutes and existing solutions
+        summary: Everything people use today instead of your product, including spreadsheets and doing nothing.
+        description: >-
+          Your real competition is often a spreadsheet, a manual process or simply living with the
+          problem. Knowing these alternatives explains what users compare you against. It also
+          shows how much better a product has to be before anyone bothers to switch.
+        related: [jobs-to-be-done, category-positioning]
+      - id: market-structure
+        name: Market structure
+        summary: Who the players are, how value flows, and who holds power in a market.
+        description: >-
+          Market structure describes buyers, sellers, intermediaries and how money moves between
+          them. Some markets are dominated by a few platforms, others are fragmented. It shapes
+          which business models and distribution channels are realistic.
+        related: [revenue-models, partnerships]
+      - id: market-trends
+        name: Market trends
+        summary: Shifts in technology, behavior or regulation that open or close opportunities.
+        description: >-
+          Trends are changes that make something newly possible or newly necessary, like a new
+          platform capability or a change in how people work. They explain why now. Engineers are
+          often the first to see technical trends that create product opportunities.
+        related: [long-term-direction, strategy-adaptation]
+      - id: category-conventions
+        name: Category conventions
+        summary: The patterns users already expect from products of this kind.
+        description: >-
+          Every product category has conventions: where settings live, how pricing pages look,
+          what a checkout asks for. Following them lowers learning cost. Breaking one should be a
+          deliberate choice with a reason, not an accident.
+        related: [mental-models, category-positioning]
+      - id: market-sizing
+        name: Market sizing
+        summary: Estimating how many potential customers exist and what they could be worth.
+        description: >-
+          Market sizing estimates the reachable audience, often bottom-up from real numbers of
+          customers and prices. It is rough by nature, but it tells you whether an idea can
+          support a business or only a hobby. Bottom-up estimates are more honest than top-down ones.
+        related: [revenue-models, ideal-customer-profile]
+
+  - id: opportunity-validation
+    name: Opportunity validation
+    description: >-
+      Testing whether an opportunity is real before investing in it. Cheap experiments that
+      produce evidence instead of opinions.
+    skills:
+      - id: assumption-mapping
+        name: Assumption mapping
+        summary: Listing what must be true for an idea to work and ranking the risky parts.
+        description: >-
+          Assumption mapping writes down the beliefs an idea depends on and sorts them by
+          importance and by how little evidence supports them. The riskiest assumptions get tested
+          first. It turns a vague worry into a concrete list of things to check.
+        related: [evidence-strength, hypotheses]
+      - id: evidence-strength
+        name: Evidence strength
+        summary: Telling strong evidence from weak signals and opinions.
+        description: >-
+          Not all evidence is equal. Someone paying is stronger than someone saying they would pay,
+          and observed behavior is stronger than a survey answer. Weighing evidence keeps a team
+          from betting months of work on a few enthusiastic conversations.
+        related: [evidence-vs-assumptions, interpreting-results]
+      - id: desirability-tests
+        name: Desirability tests
+        summary: Experiments that check whether people actually want something.
+        description: >-
+          Desirability tests measure real interest before the product exists: sign-ups, pre-orders,
+          clicks on a feature that is not built yet. They test demand, not usability. A good test
+          asks people to give something up, such as time, an email address or money.
+        related: [landing-page-tests, concierge-experiments]
+      - id: willingness-to-pay
+        name: Willingness to pay
+        summary: Finding out whether, and how much, people would pay.
+        description: >-
+          Willingness to pay explores the price people accept and the value they attach to a
+          solution. Asking directly gives unreliable answers, so methods like pricing conversations
+          and price tests are used instead. It decides whether a problem can sustain a product.
+        related: [pricing, packaging]
+      - id: landing-page-tests
+        name: Landing-page tests
+        summary: Describing a product on a page and measuring who signs up.
+        description: >-
+          A landing-page test presents the value proposition and measures the share of visitors who
+          take a real action. It tests the message and the demand together. It is cheap for an
+          engineer to build and gives quick, though imperfect, evidence.
+        related: [value-proposition, desirability-tests]
+      - id: concierge-experiments
+        name: Concierge and Wizard of Oz tests
+        summary: Delivering the service by hand before automating it.
+        description: >-
+          In a concierge test you do the work manually for a few customers. In a Wizard of Oz test
+          users see a product while a person works behind it. Both reveal what the solution must do
+          before any automation is built, which saves engineering time.
+        related: [mvp, functional-prototypes]
+
+  - id: domain-understanding
+    name: Domain understanding
+    description: >-
+      Knowing the industry the product lives in: how work gets done, the language people use,
+      the rules and the people involved.
+    related: [regulatory-compliance, substitutes]
+    skills:
+      - id: industry-workflows
+        name: Industry workflows
+        summary: How work actually gets done in the users' industry.
+        description: >-
+          Every domain has workflows that shape what users need, from month-end closing in finance
+          to lesson planning in education. Understanding them prevents features that ignore how
+          the work really happens. Many good product ideas come from one painful step in a workflow.
+        related: [field-studies, task-analysis]
+      - id: domain-language
+        name: Domain language
+        summary: The vocabulary and concepts experts in the field use.
+        description: >-
+          Using users' own terms makes a product feel built for them, and getting them wrong costs
+          trust quickly. A shared vocabulary also improves code, since models and names match the
+          domain. This idea is central to domain-driven design.
+        related: [product-terminology, data-modeling]
+      - id: domain-constraints
+        name: Domain constraints
+        summary: The rules, limits and realities a solution must respect.
+        description: >-
+          Constraints include budgets, approval chains, legacy systems, seasonality and safety
+          requirements. Ignoring them produces solutions that look great and cannot be adopted.
+          Engineers who know them early avoid expensive redesigns later.
+        related: [regulatory-compliance, system-boundaries]
+      - id: domain-stakeholders
+        name: Stakeholders and buyers
+        summary: Everyone who uses, buys, approves or is affected by the product.
+        description: >-
+          In many domains the user, the buyer and the approver are different people with different
+          goals. Knowing who they are explains why a product that users love still fails to sell.
+          It also shows whose needs a feature has to satisfy.
+        related: [ideal-customer-profile, stakeholder-management]

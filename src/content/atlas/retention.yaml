@@ -1,0 +1,195 @@
+# Territory: Retention
+# Review batch 8 of 11.
+
+id: retention
+order: 8
+name: Retention
+tagline: Create recurring value
+question: Why should users continue using the product?
+description: >-
+  Retention is whether people keep coming back because the product keeps being useful. It is the
+  clearest sign of product-market fit and the base that growth stands on: a product that leaks
+  users cannot grow for long. The work is mostly about value, analysis and well-timed
+  communication, not tricks to pull people back.
+expected: >-
+  Improve the product's ability to deliver sustained value, rather than relying on notifications
+  or engagement tricks to bring users back.
+capabilities:
+  - id: recurring-value
+    name: Recurring value
+    description: >-
+      The reasons a product stays useful after the first visit, and how to strengthen
+      them.
+    skills:
+      - id: core-loops
+        name: Core usage loops
+        summary: The repeated cycle of actions that delivers the product's main value.
+        description: >-
+          A core loop is what users do again and again, such as create, share and get a response.
+          Strong loops bring users back naturally. Mapping the loop shows which step to improve for
+          the biggest effect on retention.
+        related: [habit-formation, referral-loops]
+      - id: recurring-needs
+        name: Recurring needs
+        summary: Problems users face repeatedly, which the product can solve each time.
+        description: >-
+          Products retain when they solve a problem that comes back: weekly planning, daily
+          practice, monthly reports. If the need is rare, retention will be low whatever you do.
+          Knowing the natural frequency sets realistic targets.
+        related: [engagement-frequency, diary-studies]
+      - id: product-usefulness
+        name: Product usefulness
+        summary: How well the product solves the user's problem over time.
+        description: >-
+          Usefulness is the foundation of retention. Products stay in use when they become part of a
+          workflow or save real time. Reminders and rewards cannot replace it.
+        related: [jobs-to-be-done, task-success]
+      - id: value-reinforcement
+        name: Value reinforcement
+        summary: Reminding users of the value they have already received.
+        description: >-
+          Showing progress, saved time or achieved results helps users notice value they might take
+          for granted. Summaries and milestones are common forms. It works when the value is real
+          and fails when it is inflated.
+        related: [aha-moments, lifecycle-messaging]
+
+  - id: retention-analysis
+    name: Retention analysis
+    description: >-
+      Measuring who stays, who leaves and why, so retention work targets the real cause.
+    related: [cohort-analysis, retention-metrics]
+    skills:
+      - id: retention-curves
+        name: Retention curves
+        summary: Charts of how many users remain over time after starting.
+        description: >-
+          A retention curve shows the share of a cohort still active each day, week or month. A
+          curve that flattens means some users found lasting value. Comparing curves across cohorts
+          shows whether the product is improving.
+        related: [cohort-analysis, retention-metrics]
+      - id: churn-analysis
+        name: Churn
+        summary: Understanding why and when users or customers leave.
+        description: >-
+          Churn analysis looks at who leaves, when and after what. Exit surveys, cancellation reasons
+          and usage before churn point to causes. Some churn is unavoidable, so the goal is to find
+          the preventable kind.
+        related: [lifetime-value, feedback-collection]
+      - id: engagement-frequency
+        name: Engagement frequency
+        summary: How often users return, compared with how often they need to.
+        description: >-
+          Daily, weekly and monthly use mean different things for different products. Measuring
+          against the natural frequency of the need gives a fair picture. A tax tool used yearly
+          can retain perfectly.
+        related: [recurring-needs, engagement-metrics]
+      - id: meaningful-usage
+        name: Meaningful usage
+        summary: Defining which activity counts as real use, not just logging in.
+        description: >-
+          Opening the app is not the same as getting value. Defining an active user by a meaningful
+          action, such as finishing a lesson, makes retention numbers honest. It also aligns the
+          team on what value means.
+        related: [north-star-metric, activation-events]
+
+  - id: engagement-design
+    name: Engagement design
+    description: >-
+      Designing features that help users keep going: well-timed reminders, personal relevance
+      and a sense of progress.
+    related: [motivation, habit-formation]
+    skills:
+      - id: reminders
+        name: Reminders and notifications
+        summary: Messages that bring users back at a useful moment.
+        description: >-
+          Good notifications are timely, relevant and easy to control. Too many train users to
+          ignore or disable them. Measuring opt-outs alongside clicks keeps notification strategy
+          honest.
+        related: [lifecycle-messaging, ethical-engagement]
+      - id: personalization
+        name: Personalization
+        summary: Adapting content and features to each user.
+        description: >-
+          Personalization ranges from remembering preferences to recommendation systems. It makes the
+          product more relevant and is easy to get wrong when data is thin. Simple rules often beat
+          complex models early on.
+        related: [user-segments, retrieval]
+      - id: user-progression
+        name: User progression
+        summary: Giving users a sense of growth and mastery over time.
+        description: >-
+          Progression shows users how far they have come, through levels, streaks, skills or
+          unlocked features. It works when it reflects real progress. Learning products depend on it
+          heavily.
+        related: [value-reinforcement, motivation]
+
+  - id: customer-lifecycle
+    name: Customer lifecycle
+    description: >-
+      Communicating with users at each stage of their relationship with the product, from new
+      to dormant.
+    skills:
+      - id: re-engagement
+        name: Re-engaging dormant users
+        summary: Bringing back users who stopped using the product.
+        description: >-
+          Re-engagement campaigns remind lapsed users of value, show what changed, or ask why they
+          left. They work best soon after usage drops. Users who return to an unchanged product
+          often leave again.
+        related: [lifecycle-messaging, churn-analysis]
+      - id: lifecycle-messaging
+        name: Lifecycle communication
+        summary: Emails and messages timed to where each user is in their journey.
+        description: >-
+          Lifecycle messaging sends the right message at each stage: welcome, nudge, tip, upgrade,
+          win-back. It is triggered by behavior, not sent on a fixed schedule. Engineers often build
+          the event triggers that make it possible.
+        related: [reminders, re-engagement]
+      - id: customer-education
+        name: Customer education
+        summary: Teaching customers to get more value from the product.
+        description: >-
+          Education through guides, webinars, courses and examples helps users find features and
+          workflows they would miss. Educated customers retain and expand more. For complex products
+          it is a growth channel too.
+        related: [documentation-ux, tutorials]
+
+  - id: customer-success
+    name: Customer success
+    description: >-
+      Helping customers reach their goals with the product, and turning what they tell you
+      into improvements.
+    skills:
+      - id: feedback-collection
+        name: Feedback collection
+        summary: Making it easy for users to tell you what is working and what is not.
+        description: >-
+          Feedback channels include in-app forms, surveys, support conversations and user calls.
+          Low friction and visible follow-up keep feedback coming. Collecting it in one place makes
+          it usable.
+        related: [feedback-analysis, surveys]
+      - id: friction-reduction
+        name: Friction reduction
+        summary: Removing the recurring annoyances that wear users down.
+        description: >-
+          Small frictions, such as slow pages, repeated steps and confusing settings, add up to
+          churn. Collecting and fixing them steadily, sometimes as a dedicated rotation, improves
+          retention more than people expect.
+        related: [pain-points, technical-debt]
+      - id: support-insights
+        name: Support insights
+        summary: Learning from support conversations to improve the product.
+        description: >-
+          Support tickets are a continuous stream of evidence about what confuses or blocks users.
+          Tagging them and reviewing trends shows where to invest. Engineers who read support
+          tickets build better products.
+        related: [feedback-triage, feedback-analysis]
+      - id: adoption-barriers
+        name: Resolving adoption barriers
+        summary: Removing what stops customers from using the product fully.
+        description: >-
+          Adoption barriers include missing integrations, permissions, migration effort and internal
+          resistance in customer teams. Finding them takes conversations with customers. Removing
+          them often unlocks expansion.
+        related: [product-driven-expansion, domain-stakeholders]

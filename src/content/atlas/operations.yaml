@@ -1,0 +1,319 @@
+# Territory: Operations
+# Review batch 10 of 11.
+
+id: operations
+order: 10
+name: Operations
+tagline: Sustain the product
+question: Can we sustain the value we have created?
+description: >-
+  Operations is everything after launch that keeps a product useful: knowing when it breaks,
+  recovering quickly, keeping it maintained, supporting users, staying compliant and keeping
+  costs under control. It also covers retiring features that no longer earn their place. A
+  product engineer owns the consequences of what they ship, and this is where that ownership
+  shows.
+expected: >-
+  Own the technical consequences of launching a product, respond to users, investigate problems
+  and preserve long-term viability.
+capabilities:
+  - id: product-observability
+    name: Product observability
+    description: >-
+      Seeing what the running system is doing, so problems are found by the team before
+      users report them.
+    skills:
+      - id: logging
+        name: Logs
+        summary: Structured records of what the system did.
+        description: >-
+          Structured logs with request ids and useful context make debugging production possible.
+          Too little logging leaves you blind, and too much buries the signal and costs money.
+          Logs must never contain secrets or unnecessary personal data.
+        related: [debugging, tracing]
+      - id: tracing
+        name: Traces
+        summary: Following a single request across services and components.
+        description: >-
+          Distributed tracing shows where a request spent its time and where it failed.
+          OpenTelemetry has become the common standard. Traces turn "the app is slow" into a
+          specific slow query or call.
+        related: [logging, llm-observability]
+      - id: service-metrics
+        name: Service metrics
+        summary: Numbers that describe system health, such as error rate and latency.
+        description: >-
+          Service metrics track rates, errors and durations over time. The RED and USE methods
+          give simple starting sets. They are cheap to store and the basis for dashboards and
+          alerts.
+        related: [dashboards, slos]
+      - id: dashboards
+        name: Dashboards
+        summary: Shared views of the metrics that matter.
+        description: >-
+          A good dashboard answers a specific question at a glance, such as whether the service is
+          healthy. Too many dashboards mean nobody looks at any of them. Product and system metrics
+          side by side help connect cause and effect.
+        related: [service-metrics, launch-telemetry]
+      - id: alerting
+        name: Alerting
+        summary: Notifying people when something needs attention.
+        description: >-
+          Good alerts fire on symptoms users feel, are actionable and are rare. Noisy alerts get
+          ignored, which is worse than no alerts. Alerting on SLOs is a common way to keep them
+          meaningful.
+        related: [slos, incident-response]
+      - id: performance-monitoring
+        name: Performance monitoring
+        summary: Tracking real-world speed and errors as users experience them.
+        description: >-
+          Application performance monitoring and real user monitoring measure speed and errors in
+          production. Lab tests miss slow devices and networks. Error tracking tools group
+          exceptions so the important ones stand out.
+        related: [frontend-performance, profiling]
+
+  - id: reliability-engineering
+    name: Reliability engineering
+    description: >-
+      Keeping the product available and recovering fast when it is not.
+    skills:
+      - id: availability
+        name: Availability
+        summary: How much of the time the product works for users.
+        description: >-
+          Availability is usually expressed as a percentage of successful time or requests. Each
+          extra nine costs much more than the last. The right target depends on what users need,
+          not on what sounds impressive.
+        related: [slos, resilience]
+      - id: slos
+        name: SLOs and error budgets
+        summary: Agreed reliability targets and the room for failure they allow.
+        description: >-
+          A service level objective sets a target, such as 99.9% of requests succeeding. The error
+          budget is the remaining 0.1%. When the budget runs out, reliability work takes priority
+          over features.
+        related: [alerting, availability]
+      - id: incident-response
+        name: Incident response
+        summary: Handling outages and serious problems calmly and quickly.
+        description: >-
+          Incident response covers detection, roles, communication, mitigation and follow-up.
+          Mitigate first, investigate later. Blameless postmortems turn incidents into lasting
+          improvements.
+        related: [root-cause-analysis, customer-communication]
+      - id: resilience
+        name: Resilience
+        summary: Designing systems that degrade gracefully when parts fail.
+        description: >-
+          Timeouts, retries with backoff, circuit breakers and fallbacks keep one failure from
+          taking everything down. External services, including AI providers, will fail. A product
+          that degrades gracefully keeps users' trust.
+        related: [async-systems, availability]
+      - id: disaster-recovery
+        name: Backups and disaster recovery
+        summary: Being able to restore data and service after a major failure.
+        description: >-
+          Backups that have never been restored are hopes, not backups. Disaster recovery plans set
+          how much data you can lose and how long you can be down. Testing restores regularly is the
+          only proof they work.
+        related: [data-integrity, availability]
+
+  - id: maintenance
+    name: Maintenance
+    description: >-
+      The steady work of keeping a product healthy: fixing bugs, paying down debt and keeping
+      dependencies current.
+    skills:
+      - id: bug-fixing
+        name: Bug triage and fixes
+        summary: Deciding which bugs matter and fixing them well.
+        description: >-
+          Triage ranks bugs by impact and frequency, not by who reported them. A good fix includes
+          a test that prevents the bug from returning. A growing bug backlog is a signal about
+          quality upstream.
+        related: [debugging, feedback-triage]
+      - id: technical-debt
+        name: Technical debt
+        summary: Shortcuts that make future changes slower, and managing them deliberately.
+        description: >-
+          Some technical debt is a smart trade for speed, and some is just mess. Making it visible
+          and paying it down in the areas you change most keeps velocity up. Debt in code nobody
+          touches can often wait.
+        related: [refactoring, technical-tradeoffs]
+      - id: dependency-updates
+        name: Dependency updates
+        summary: Keeping libraries and frameworks current and secure.
+        description: >-
+          Outdated dependencies collect security vulnerabilities and make upgrades harder later.
+          Small, frequent, automated updates are much cheaper than rare big ones. Fewer
+          dependencies means less to maintain.
+        related: [engineering-automation, secure-coding]
+      - id: platform-upgrades
+        name: Migrations and upgrades
+        summary: Moving to new versions, platforms or providers without breaking the product.
+        description: >-
+          Framework upgrades, database moves and provider changes are large maintenance projects.
+          Incremental approaches, such as running old and new side by side, reduce risk. Deferring
+          them too long turns them into rewrites.
+        related: [schema-migrations, incremental-architecture]
+
+  - id: user-support
+    name: User support
+    description: >-
+      Helping users with problems, and feeding what support learns back into the product.
+    related: [support-insights]
+    skills:
+      - id: support-workflows
+        name: Support workflows
+        summary: How support requests are received, routed and resolved.
+        description: >-
+          Support workflows cover channels, routing, priorities, escalation to engineering and
+          response targets. Engineers in a support rotation see real problems firsthand. Good
+          internal tools make support faster for everyone.
+        related: [internal-tooling, feedback-triage]
+      - id: issue-investigation
+        name: Investigating user issues
+        summary: Finding out what happened when a user reports a problem.
+        description: >-
+          Investigation combines the user's report with logs, traces and data to reproduce the
+          problem. Good observability and admin tools make it fast. The fix sometimes turns out to
+          be in the product design, not the code.
+        related: [logging, debugging]
+      - id: customer-communication
+        name: Customer communication
+        summary: Talking to users clearly, honestly and kindly about problems.
+        description: >-
+          Clear communication during problems keeps trust: what happened, what you are doing, what
+          users should do. Status pages and timely updates matter in incidents. Plain, human
+          replies beat templates.
+        related: [incident-response, plain-language]
+      - id: feedback-triage
+        name: Feedback triage
+        summary: Sorting incoming feedback and requests into actions.
+        description: >-
+          Triage decides what each piece of feedback becomes: a bug, a request, a duplicate, a
+          docs fix or nothing. Tracking requests by count and customer helps prioritization. Closing
+          the loop with users who asked builds goodwill.
+        related: [feedback-analysis, bug-fixing]
+
+  - id: governance-compliance
+    name: Governance and compliance
+    description: >-
+      Meeting legal and policy obligations around data, privacy and security, without
+      slowing the product to a halt.
+    skills:
+      - id: privacy-obligations
+        name: Privacy obligations
+        summary: Legal duties around personal data, such as GDPR.
+        description: >-
+          Privacy law sets rules for collecting, using, storing and deleting personal data. Data
+          subject requests, such as export and deletion, need product features. Knowing the basics
+          avoids building something that has to be redone.
+        related: [data-protection, consent]
+      - id: consent
+        name: Consent management
+        summary: Asking for and respecting users' choices about their data.
+        description: >-
+          Consent covers cookies, tracking, marketing emails and data use. It has to be freely
+          given and easy to withdraw. Choosing privacy-friendly analytics can remove the need for
+          many consent banners.
+        related: [privacy-obligations, analytics-architecture]
+      - id: data-governance
+        name: Data governance
+        summary: Rules for who owns, accesses and retains which data.
+        description: >-
+          Data governance defines ownership, access, retention periods and quality standards. It
+          becomes important as teams and data grow. Clear retention rules reduce both risk and
+          storage costs.
+        related: [data-protection, analytics-data-quality]
+      - id: security-policies
+        name: Security policies
+        summary: The organization's rules for keeping systems and data secure.
+        description: >-
+          Security policies cover access control, device security, incident handling and vendor
+          review. Certifications such as SOC 2 and ISO 27001 often require them. They matter
+          most when selling to larger customers.
+        related: [secrets-management, sales-funnels]
+      - id: regulatory-compliance
+        name: Regulatory constraints
+        summary: Industry and regional rules the product must follow.
+        description: >-
+          Some domains, such as health, finance and education, carry specific regulations. New laws
+          like the EU AI Act and the European Accessibility Act affect many products. Engineers do
+          not need to be lawyers, but they should know when to ask one.
+        related: [domain-constraints, wcag]
+
+  - id: operational-economics
+    name: Operational economics
+    description: >-
+      What it costs to run the product, and how engineering choices change that cost.
+    related: [return-on-investment, costs-and-margins]
+    skills:
+      - id: infrastructure-costs
+        name: Infrastructure costs
+        summary: What servers, databases and services cost to run.
+        description: >-
+          Infrastructure costs grow with usage and with forgotten resources. Knowing the main cost
+          drivers helps engineers make cheaper design choices. Cost is a metric worth putting on a
+          dashboard.
+        related: [throughput, cloud-efficiency]
+      - id: cloud-efficiency
+        name: Cloud efficiency
+        summary: Getting the same results from the cloud for less money.
+        description: >-
+          Right-sizing, autoscaling, reserved capacity and cleaning up unused resources cut cloud
+          bills. FinOps makes cost a shared responsibility of engineering and finance. Simple
+          architectures are often the cheapest.
+        related: [infrastructure-costs, caching]
+      - id: inference-costs
+        name: AI inference costs
+        summary: What model calls cost, and how to keep them in check.
+        description: >-
+          AI features have per-request costs that grow with usage. Model choice, prompt length,
+          caching and batching change them a lot. They can turn a profitable feature into a loss, so
+          they need tracking per feature.
+        related: [llm-integration, cost-to-serve]
+      - id: cost-to-serve
+        name: Cost to serve
+        summary: The full cost of serving one customer or one unit of usage.
+        description: >-
+          Cost to serve includes infrastructure, third-party services, AI calls and support time. It
+          shows which customers and plans are profitable. It should inform pricing and packaging.
+        related: [costs-and-margins, pricing]
+
+  - id: lifecycle-management
+    name: Product lifecycle management
+    description: >-
+      Managing features over their whole life, including changing and removing them.
+    skills:
+      - id: feature-adoption
+        name: Feature adoption
+        summary: Making sure new features are discovered and used.
+        description: >-
+          A shipped feature only has value if people use it. Announcements, contextual prompts and
+          education drive adoption. Measuring it shows whether the feature or its discoverability
+          needs work.
+        related: [adoption-metrics, release-communication]
+      - id: product-changes
+        name: Managing product changes
+        summary: Changing existing behavior without alienating users.
+        description: >-
+          Users get used to how things work, even when it is not ideal. Announcing changes,
+          offering transition periods and explaining the reason reduce backlash. Big changes deserve
+          a staged rollout.
+        related: [staged-rollouts, customer-communication]
+      - id: feature-deprecation
+        name: Deprecation and removal
+        summary: Retiring features that no longer earn their place.
+        description: >-
+          Every feature has a maintenance cost. Removing unused or harmful features simplifies the
+          product and the code. Good deprecation gives notice, offers alternatives and uses data to
+          confirm who is affected.
+        related: [feature-usage, iterate-expand-stop]
+      - id: user-migrations
+        name: Migrating users
+        summary: Moving users from an old version or feature to a new one.
+        description: >-
+          Migrations move users, data and settings to new versions, plans or systems. They need
+          clear communication, tooling and support for edge cases. Forced migrations without a
+          clear benefit cost trust.
+        related: [platform-upgrades, product-changes]

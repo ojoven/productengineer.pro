@@ -1,0 +1,25 @@
+---
+// The list equivalent of a capability's map: same nodes, same progress states.
+import type { Skill } from '../atlas/model.ts';
+import { path } from '../lib/atlas.ts';
+
+interface Props {
+  skills: Skill[];
+  showCapability?: boolean;
+}
+const { skills } = Astro.props;
+---
+
+<ul class="node-list">
+  {
+    skills.map((s) => (
+      <li>
+        <a class="node-card" href={path(s)} data-status-for={s.id}>
+          <span class="pip" aria-hidden="true" />
+          <span class="name">{s.name}</span>
+          <span class="sub">{s.summary}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

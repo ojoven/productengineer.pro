@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+---
+
+<Base title="Search" description="Search every territory, capability, skill, tool and resource." searchable={false}>
+  <div class="wrap">
+    <Crumbs items={[{ label: 'Search' }]} />
+    <h1>Search</h1>
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <div id="search" class="search-box"></div>
+    <noscript><p>Search needs JavaScript. The <a href="/atlas/">atlas</a> lists every page without it.</p></noscript>
+  </div>
+</Base>
+
+<script is:inline src="/pagefind/pagefind-ui.js"></script>
+<script is:inline>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (!window.PagefindUI) {
+      document.getElementById('search').innerHTML = '<p class="empty-note">The search index is built with the production build (npm run build).</p>';
+      return;
+    }
+    const ui = new PagefindUI({ element: '#search', showSubResults: true, showImages: false, resetStyles: false });
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) ui.triggerSearch(q);
+  });
+</script>

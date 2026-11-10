@@ -1,0 +1,27 @@
+---
+// A static, pre-zoomed map. Rendered at build time with no JavaScript; progress is filled in
+// by the page script from local storage.
+import { mapSvg } from '../lib/atlas.ts';
+
+interface Props {
+  focus?: string;
+  selected?: string;
+  width?: number;
+  height?: number;
+  caption?: string;
+  small?: boolean;
+  /** Short on phones, opens the explorer on tap. */
+  collapsible?: boolean;
+  idPrefix?: string;
+  scale?: number;
+}
+const { focus = '', selected, width = 1088, height = 560, caption, small = false, collapsible = true, idPrefix = 'mf', scale } = Astro.props;
+const svg = mapSvg({ focus, width, height, state: { selected: selected ?? null }, idPrefix, scale });
+const explore = `/atlas/?at=${encodeURIComponent(selected ?? focus)}`;
+---
+
+<figure class:list={['map-figure', { small, collapsible }]} data-pagefind-ignore>
+  <div class="map-frame" set:html={svg} />
+  <a class="open" href={explore} aria-label="Open this map in the explorer"><span>Open in explorer</span></a>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

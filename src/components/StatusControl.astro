@@ -1,0 +1,40 @@
+---
+// One status per skill, saved in this browser.
+interface Props {
+  id: string;
+  name: string;
+}
+const { id, name } = Astro.props;
+const options = [
+  { value: 'none', label: 'Not started' },
+  { value: 'learning', label: 'Learning' },
+  { value: 'comfortable', label: 'Comfortable' },
+];
+---
+
+<fieldset class="status" data-pagefind-ignore>
+  <legend>Your status for {name}</legend>
+  <div class="seg" role="radiogroup">
+    {
+      options.map((o) => (
+        <label>
+          <input type="radio" name={`status-${id}`} value={o.value} data-status-input={id} checked={o.value === 'none'} />
+          <span>{o.label}</span>
+        </label>
+      ))
+    }
+  </div>
+  <p class="note">Saved in this browser only. See <a href="/me/">your map</a>.</p>
+</fieldset>
+
+<script>
+  import { setStatus } from '../scripts/progress.ts';
+  import { track } from '../scripts/track.ts';
+  document.querySelectorAll<HTMLInputElement>('input[data-status-input]').forEach((input) => {
+    input.addEventListener('change', () => {
+      if (!input.checked) return;
+      setStatus(input.dataset.statusInput!, input.value as 'none' | 'learning' | 'comfortable');
+      track('Status set', { status: input.value });
+    });
+  });
+</script>

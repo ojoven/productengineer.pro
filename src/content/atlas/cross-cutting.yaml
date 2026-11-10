@@ -1,0 +1,374 @@
+# Cross-cutting capabilities: the waters around the land.
+# Review batch 11 of 11. These belong to no territory; on the map they are islands in the sea.
+
+id: cross-cutting
+order: 11
+crossCutting: true
+name: The Waters
+tagline: Skills that connect the whole atlas
+question: How do you think, decide and work with others across every territory?
+description: >-
+  Some capabilities do not belong to one territory because they show up in all of them. Critical
+  thinking matters in discovery and in reading an experiment. Communication matters when writing a
+  problem statement and when handling an incident. On the map they sit in the waters around the
+  land, because every territory touches them.
+expected: >-
+  Bring sound judgment, clear communication and responsible choices to work in any territory, and
+  use AI tools without giving up ownership of the result.
+capabilities:
+  - id: critical-thinking
+    name: Critical thinking
+    description: >-
+      Questioning claims, including your own, and separating what is known from what is
+      assumed.
+    skills:
+      - id: evidence-vs-assumptions
+        name: Evidence versus assumptions
+        summary: Knowing which of your beliefs are backed by evidence.
+        description: >-
+          Many product decisions rest on assumptions nobody has checked. Labelling each claim as
+          evidence or assumption makes the risky ones visible. It is a habit, not a method, and it
+          gets easier with practice.
+        related: [evidence-strength, assumption-mapping]
+      - id: cognitive-biases
+        name: Cognitive biases
+        summary: Systematic errors in thinking, such as confirmation bias.
+        description: >-
+          Confirmation bias, sunk cost, anchoring and the curse of knowledge all distort product
+          decisions. Knowing them does not make you immune, but it helps you design processes that
+          catch them, such as writing predictions down first.
+        related: [sampling-bias, hypotheses]
+      - id: challenging-requirements
+        name: Challenging requirements
+        summary: Asking why before building what was asked.
+        description: >-
+          Requirements are often a proposed solution to an unstated problem. Asking what problem it
+          solves and what happens if it is not built often leads to something simpler. Doing it
+          respectfully is part of the skill.
+        related: [scope-cutting, problem-statements]
+
+  - id: systems-thinking
+    name: Systems thinking
+    description: >-
+      Seeing how parts of a product, a team or a market affect each other over time.
+    skills:
+      - id: system-dependencies
+        name: Interdependencies
+        summary: How changes in one part ripple into others.
+        description: >-
+          Products, teams and markets are connected systems. A change to pricing affects support,
+          activation and infrastructure. Mapping these connections before a change prevents
+          surprises.
+        related: [coupling, dependency-management]
+      - id: feedback-loops
+        name: Feedback loops
+        summary: Cycles where an effect feeds back into its cause.
+        description: >-
+          Reinforcing loops drive growth or decline, such as more users bringing more content and
+          more users. Balancing loops limit it. Recognizing loops explains why some metrics
+          accelerate and others plateau.
+        related: [core-loops, network-effects]
+      - id: second-order-effects
+        name: Second-order and unintended effects
+        summary: Consequences beyond the immediate result of a decision.
+        description: >-
+          The first effect of a change is usually the intended one. The second and third, such as
+          users gaming a metric or support load rising, are where surprises live. Asking "and then
+          what?" a few times uncovers them.
+        related: [guardrail-metrics, ethical-engagement]
+
+  - id: decision-making
+    name: Decision-making
+    description: >-
+      Making good decisions with incomplete information, and matching the effort to the
+      stakes.
+    skills:
+      - id: tradeoffs
+        name: Weighing tradeoffs
+        summary: Making explicit what each option gains and gives up.
+        description: >-
+          Almost every decision trades one good thing for another. Writing down the options and
+          what each costs makes the choice clearer and easier to revisit. Pretending there is no
+          tradeoff is how bad decisions get made.
+        related: [technical-tradeoffs, balancing-signals]
+      - id: deciding-under-uncertainty
+        name: Deciding under uncertainty
+        summary: Acting well when the facts are incomplete.
+        description: >-
+          Product decisions rarely wait for certainty. Thinking in probabilities, setting a time to
+          revisit, and deciding what new information would change your mind make uncertain
+          decisions better.
+        related: [statistical-uncertainty, product-risk]
+      - id: reversible-decisions
+        name: Reversible and irreversible decisions
+        summary: Moving fast on decisions you can undo and slowly on those you cannot.
+        description: >-
+          Most decisions can be reversed cheaply and deserve speed. A few, such as data models,
+          public APIs and pricing promises, are hard to undo and deserve care. Telling the two apart
+          is one of the most useful judgment skills.
+        related: [technical-tradeoffs, feature-flags]
+      - id: opportunity-cost
+        name: Opportunity cost
+        summary: The value of what you give up by choosing one option.
+        description: >-
+          Every yes is a no to something else. Opportunity cost makes the hidden price of a choice
+          visible. It is the strongest argument against low-value work that seems harmless.
+        related: [cost-of-delay, return-on-investment]
+
+  - id: communication
+    name: Communication
+    description: >-
+      Explaining ideas clearly in writing and speech, to technical and non-technical
+      audiences.
+    skills:
+      - id: technical-writing
+        name: Technical writing and documentation
+        summary: Clear, accurate writing about technical things.
+        description: >-
+          Technical writing covers design docs, READMEs, specs and documentation. Good technical
+          writing is structured, concrete and written for a specific reader. It scales an
+          engineer's influence beyond the people they talk to.
+        related: [developer-docs, problem-statements]
+      - id: product-narratives
+        name: Product narratives
+        summary: Telling the story of a product, a problem or a decision.
+        description: >-
+          A narrative connects problem, insight, solution and impact in a way people remember.
+          Written narratives, such as the six-page memo, force clear thinking. Stories about real
+          users move decisions more than charts.
+        related: [mission, product-demos]
+      - id: clear-explanations
+        name: Clear explanations
+        summary: Explaining complex things simply without losing accuracy.
+        description: >-
+          Clear explanations start from what the listener already knows and build up. Examples and
+          diagrams help. Explaining technical tradeoffs to non-engineers is a core product engineer
+          skill.
+        related: [plain-language, technical-writing]
+      - id: persuasive-arguments
+        name: Persuasive arguments
+        summary: Making a case that changes minds, with evidence and empathy.
+        description: >-
+          Persuasion in product work means a clear claim, evidence, and an honest account of the
+          downsides. Understanding what the other person cares about matters as much as the data.
+          The goal is a better decision, not winning.
+        related: [evidence-strength, stakeholder-management]
+
+  - id: collaboration
+    name: Collaboration
+    description: >-
+      Working well with every role involved in building and selling a product.
+    skills:
+      - id: working-with-pms
+        name: Working with product managers
+        summary: Sharing product ownership with PMs effectively.
+        description: >-
+          Product engineers and PMs overlap, which helps when roles are clear. Engineers bring
+          feasibility, speed and technical opportunity; PMs bring market and customer context. The
+          best pairs think about problems together, not in handoffs.
+        related: [roadmaps, problem-statements]
+      - id: working-with-designers
+        name: Working with designers
+        summary: Collaborating on experience from early ideas to polished details.
+        description: >-
+          Designers and engineers work best when they explore early together. Engineers who
+          understand design basics give better feedback and implement intent, not only pixels. Design
+          systems are a shared language.
+        related: [design-systems, prototyping]
+      - id: working-with-researchers
+        name: Working with researchers
+        summary: Joining research and using its findings well.
+        description: >-
+          Joining research sessions gives engineers context that reports cannot. Researchers bring
+          rigor, engineers bring technical insight into what is possible. Shared synthesis makes
+          findings stick.
+        related: [user-interviews, research-synthesis]
+      - id: working-with-go-to-market
+        name: Working with marketing and sales
+        summary: Helping go-to-market teams with technical depth and product insight.
+        description: >-
+          Marketing and sales hear what customers want and what competitors claim. Engineers who
+          support them with demos, accurate claims and quick fixes for deal blockers help growth.
+          They also learn a lot about the market.
+        related: [product-demos, messaging]
+      - id: working-with-support
+        name: Working with support
+        summary: Treating support as a partner and a source of insight.
+        description: >-
+          Support teams see every rough edge. A good relationship means fast escalation paths, tools
+          that help them, and engineers who follow up. Some companies put engineers in a support
+          rotation for this reason.
+        related: [support-workflows, support-insights]
+      - id: working-with-engineers
+        name: Working with other engineers
+        summary: Collaborating across teams and specialties in engineering.
+        description: >-
+          Product engineers depend on platform, infrastructure, data and security engineers. Clear
+          interfaces, good docs and respect for each other's constraints make it work. Pairing
+          spreads knowledge quickly.
+        related: [code-review, api-design]
+
+  - id: leadership-ownership
+    name: Leadership and ownership
+    description: >-
+      Taking responsibility for outcomes and helping others move, with or without a formal
+      title.
+    skills:
+      - id: initiative
+        name: Initiative
+        summary: Acting on problems and opportunities without waiting to be asked.
+        description: >-
+          Initiative means noticing what needs doing and doing it, or getting it done. It is what
+          separates owning a product from executing tickets. It works best within an agreed
+          direction.
+        related: [unblocking, autonomy]
+      - id: accountability
+        name: Accountability
+        summary: Owning outcomes, including mistakes.
+        description: >-
+          Accountability means caring whether the work achieved its goal, not only whether it
+          shipped. It includes admitting mistakes early. Teams trust people who own results.
+        related: [incident-response, iterate-expand-stop]
+      - id: autonomy
+        name: Autonomy
+        summary: Working independently with good judgment about when to involve others.
+        description: >-
+          Autonomous engineers make most decisions themselves and know which ones need others. That
+          judgment is learned through context about goals and constraints. Autonomy grows with
+          trust.
+        related: [initiative, reversible-decisions]
+      - id: conflict-resolution
+        name: Conflict resolution
+        summary: Working through disagreements productively.
+        description: >-
+          Disagreement about priorities, design or approach is normal and useful. Resolving it means
+          focusing on goals and evidence, not positions. Disagree and commit keeps teams moving.
+        related: [persuasive-arguments, tradeoffs]
+      - id: stakeholder-management
+        name: Stakeholder management
+        summary: Keeping the people affected by your work informed and involved.
+        description: >-
+          Stakeholders need the right information at the right time. Surprises erode trust faster
+          than bad news. Regular, short updates prevent most stakeholder problems.
+        related: [domain-stakeholders, clear-explanations]
+
+  - id: continuous-learning
+    name: Continuous learning
+    description: >-
+      Getting better on purpose: reflecting on work, seeking feedback and updating how you
+      think.
+    skills:
+      - id: reflection
+        name: Reflection
+        summary: Looking back at work to learn from what happened.
+        description: >-
+          Retrospectives, postmortems and personal notes turn experience into learning. Writing down
+          predictions and comparing them with outcomes is especially powerful. Without reflection,
+          years of experience can be one year repeated.
+        related: [accountability, hypotheses]
+      - id: seeking-feedback
+        name: Seeking feedback
+        summary: Asking for honest input on your work and behavior.
+        description: >-
+          Feedback is most useful when asked for specifically and often. Making it safe for others
+          to be honest is part of the skill. Acting on it visibly keeps it coming.
+        related: [reflection, code-review]
+      - id: updating-beliefs
+        name: Updating mental models
+        summary: Changing your mind when evidence says you were wrong.
+        description: >-
+          Good product engineers hold strong opinions loosely. Updating beliefs after a failed
+          experiment or a surprising interview is a strength. Keeping a record of what you believed
+          makes the updates visible.
+        related: [strategy-adaptation, evidence-vs-assumptions]
+      - id: professional-development
+        name: Professional development
+        summary: Planning how to grow skills over a career.
+        description: >-
+          Professional development means choosing what to learn next on purpose. Maps like this one
+          help find gaps. Practicing on real products, such as your own side projects, turns
+          knowledge into skill.
+        related: [reflection, seeking-feedback]
+
+  - id: responsible-product
+    name: Responsible product development
+    description: >-
+      Building products that respect users, treat people fairly and avoid harm.
+    related: [accessibility, ethical-engagement]
+    skills:
+      - id: user-autonomy
+        name: User autonomy
+        summary: Respecting users' ability to make their own choices.
+        description: >-
+          Respecting autonomy means honest defaults, easy exits and no manipulation. Users should
+          be able to understand and control what the product does for them. It builds long-term
+          trust.
+        related: [ethical-engagement, consent]
+      - id: fairness
+        name: Fairness
+        summary: Making sure the product does not treat groups of people unjustly.
+        description: >-
+          Algorithms, AI models and policies can disadvantage groups without anyone intending it.
+          Testing outcomes across groups reveals it. Fairness matters most in decisions about
+          access, price and opportunity.
+        related: [ai-evals, behavioral-segmentation]
+      - id: privacy-by-design
+        name: Privacy by design
+        summary: Building privacy into the product from the start.
+        description: >-
+          Privacy by design means collecting less, keeping it shorter, and defaulting to private.
+          It is cheaper than retrofitting and builds trust. It also reduces what can leak.
+        related: [data-protection, privacy-obligations]
+      - id: user-safety
+        name: Safety
+        summary: Preventing the product from being used to harm people.
+        description: >-
+          Safety covers abuse, harassment, fraud and harmful content, especially in social and AI
+          products. Reporting tools, rate limits and moderation are product features. Thinking
+          about misuse early is cheaper than reacting later.
+        related: [ai-guardrails, threat-modeling]
+
+  - id: ai-assisted-work
+    name: AI-assisted work
+    description: >-
+      Using AI tools and agents to do more, while keeping responsibility for the result.
+    skills:
+      - id: delegating-to-agents
+        name: Delegating to agents
+        summary: Handing tasks to AI agents with clear goals and context.
+        description: >-
+          Delegating well means a clear goal, the right context, constraints and a way to check the
+          result. Good task descriptions look a lot like good tickets for people. It is quickly
+          becoming a core engineering skill.
+        related: [ai-agents, technical-writing]
+      - id: reviewing-generated-work
+        name: Reviewing generated work
+        summary: Critically checking code and content produced by AI.
+        description: >-
+          AI output can look right and be subtly wrong. Reviewing it needs the same care as a
+          colleague's work, and more care where you lack expertise. Small, focused changes are
+          easier to review.
+        related: [code-review, verification]
+      - id: verification
+        name: Verification
+        summary: Proving that work, human or AI, actually does what it should.
+        description: >-
+          Verification means running it, testing it and checking it against the requirement. Tests,
+          type checks and real usage provide evidence. Done means verified, not written.
+        related: [automated-testing, ai-evals]
+      - id: workflow-automation
+        name: Automation
+        summary: Using AI and scripts to automate repetitive parts of your work.
+        description: >-
+          AI makes automating personal and team workflows much cheaper: triage, summaries, data
+          cleanup, reports. The skill is choosing what to automate and keeping a human check where
+          errors are costly.
+        related: [engineering-automation, internal-tooling]
+      - id: human-oversight
+        name: Human oversight
+        summary: Keeping people in control of important AI-driven actions.
+        description: >-
+          Human oversight puts review points where AI decisions have real consequences. It requires
+          interfaces that show what the AI did and why. The right level depends on the cost of a
+          mistake.
+        related: [ai-guardrails, ai-agents]

@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import MapFigure from '../components/MapFigure.astro';
+import { atlas, path, skillIds } from '../lib/atlas.ts';
+
+const a = atlas();
+const land = a.territories.filter((t) => !t.crossCutting);
+const cross = a.territories.find((t) => t.crossCutting)!;
+const cycle = [
+  ['Discover', 'Find a real user problem.'],
+  ['Decide', 'Choose a valuable opportunity and a proportionate investment.'],
+  ['Design', 'Make the value understandable and usable.'],
+  ['Build and ship', 'Turn the hypothesis into working software in users’ hands.'],
+  ['Measure and learn', 'Find out what actually happened, and why.'],
+  ['Own the outcome', 'Improve, maintain, grow or remove what was built.'],
+];
+const example = '/atlas/?lit=user-interviews,hypotheses,sample-size,funnel-analysis,retention-curves';
+---
+
+<Base>
+  <div class="wrap">
+    <section class="hero">
+      <h1>The map of product engineering</h1>
+      <p class="lede">
+        A product engineer finds a problem worth solving, builds the solution, ships it, measures whether it worked, and keeps it
+        useful. This site maps everything that takes: {land.length} territories, {a.capabilities.length} capabilities
+        and {a.skills.length} skills, each with a short description, resources and tools.
+      </p>
+      <div class="btn-row">
+        <a class="btn primary" href="/atlas/">Explore the atlas</a>
+        <a class="btn" href="/me/">Mark what you already know</a>
+      </div>
+    </section>
+
+    <MapFigure caption="The Skill Atlas. Click a territory to open it, or open the explorer to zoom in." />
+
+    <div class="layout-2">
+      <div class="prose">
+        <h2 style="margin-top:0">What a product engineer is</h2>
+        <p>
+          A product engineer is a software engineer who also owns the product side of the work: talking to users, deciding what is
+          worth building, shipping it in small steps and checking whether it helped. The job is not to be an expert in every
+          discipline on this map. It is deep technical skill, good product judgment, and enough range to own the whole cycle and
+          work well with specialists.
+        </p>
+        <p>
+          For an experienced engineer the biggest gains are usually not another framework. They are discovery, prioritization,
+          experimentation, user behavior and business judgment. The map makes those gaps visible.
+        </p>
+        <h2>The cycle behind the map</h2>
+        <ol class="steps" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+          {cycle.map(([n, d]) => <li><strong>{n}</strong><br /><span style="color:var(--text-2)">{d}</span></li>)}
+        </ol>
+        <p style="margin-top:14px;color:var(--text-2)">These steps repeat and overlap. The map is not a course to follow in order.</p>
+      </div>
+      <aside class="aside">
+        <h2>How to use it</h2>
+        <ol style="padding-left:18px;margin:0;display:grid;gap:8px">
+          <li>Open a territory and read its capabilities.</li>
+          <li>Each skill page explains what it is and why it matters, with checked resources and tools.</li>
+          <li>Set a status on each skill, or a whole capability at once. <a href="/me/">Your map</a> colours in.</li>
+          <li>Share a lit map: a link can light any set of skills, like <a href={example}>this one</a>.</li>
+        </ol>
+        <p style="margin:12px 0 0;font-size:.85rem;color:var(--text-3)">No account. Progress stays in this browser.</p>
+      </aside>
+    </div>
+
+    <h2>The territories</h2>
+    <ul class="node-list cols">
+      {
+        [...land, cross].map((t) => (
+          <li>
+            <a class="node-card" href={path(t)}>
+              <span class="pip cap" aria-hidden="true" />
+              <span class="name">{t.name}</span>
+              <span class="sub">{t.question}</span>
+              <span class="meta rollup" data-rollup={skillIds(t).join(' ')}>
+                <span class="bar" aria-hidden="true" />
+                <span class="txt">{skillIds(t).length} skills</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>

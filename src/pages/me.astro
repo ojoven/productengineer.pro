@@ -1,0 +1,155 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import MapFigure from '../components/MapFigure.astro';
+import { atlas, path, skillIds } from '../lib/atlas.ts';
+
+const a = atlas();
+---
+
+<Base title="My map" description="Your progress across the atlas, stored only in this browser." searchable={false} noindex>
+  <div class="wrap">
+    <Crumbs items={[{ label: 'My map' }]} />
+    <h1 id="me-title">My map</h1>
+    <p class="lede">
+      Mark each skill as learning or comfortable, on its page or a whole capability at once. Your map colours in here. Everything
+      stays in this browser: there is no account and nothing is sent anywhere.
+    </p>
+
+    <MapFigure caption="Rings around each place fill as you mark its skills: soft for learning, strong for comfortable." collapsible={false} />
+
+    <div class="layout-2">
+      <div>
+        <h2 style="margin-top:0">Totals per territory</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Territory</th><th>Progress</th></tr></thead>
+            <tbody>
+              {
+                a.territories.map((t) => (
+                  <tr>
+                    <td><a href={path(t)}>{t.name}</a></td>
+                    <td>
+                      <span class="rollup" data-rollup={skillIds(t).join(' ')}>
+                        <span class="bar" aria-hidden="true" />
+                        <span class="txt">{skillIds(t).length} skills</span>
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+            <tfoot>
+              <tr>
+                <td><strong>All skills</strong></td>
+                <td>
+                  <span class="rollup" data-rollup={a.skills.map((s) => s.id).join(' ')}>
+                    <span class="bar" aria-hidden="true" />
+                    <span class="txt">{a.skills.length} skills</span>
+                  </span>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <h2>Skills you are learning</h2>
+        <ul class="node-list" id="learning-list"><li class="empty-note">Nothing marked as learning yet.</li></ul>
+      </div>
+
+      <aside class="aside">
+        <h2>Display name</h2>
+        <form id="name-form" class="btn-row">
+          <label class="visually-hidden" for="display-name">Display name</label>
+          <input id="display-name" name="name" maxlength="60" placeholder="Optional" class="btn" style="flex:1;min-width:0;border-radius:8px" />
+          <button class="btn" type="submit">Save</button>
+        </form>
+
+        <h2 style="margin-top:22px">Your data</h2>
+        <p style="font-size:.9rem;color:var(--text-2)">
+          Progress lives in this browser's storage. Clearing site data, or using a private window, loses it. Export a file to keep a
+          copy or move it to another browser.
+        </p>
+        <div class="btn-row">
+          <button class="btn" type="button" id="export">Export</button>
+          <label class="btn" style="cursor:pointer">Import<input type="file" id="import" accept="application/json,.json" class="visually-hidden" /></label>
+          <button class="btn" type="button" id="reset">Reset</button>
+        </div>
+        <p id="data-msg" role="status" style="font-size:.85rem;color:var(--text-3);margin-top:10px"></p>
+      </aside>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import { load, setName, exportFile, importFile, reset, onChange } from '../scripts/progress.ts';
+  import { track } from '../scripts/track.ts';
+
+  type Skill = { id: string; name: string; summary: string; capability: string; territory: string };
+  type Cap = { id: string; name: string };
+  let skills: Skill[] = [];
+  let caps = new Map<string, Cap>();
+  let aliases: Record<string, string> = {};
+  const msg = document.getElementById('data-msg')!;
+  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+  function render() {
+    const data = load(aliases);
+    const title = document.getElementById('me-title')!;
+    title.textContent = data.name ? `${data.name}'s map` : 'My map';
+    (document.getElementById('display-name') as HTMLInputElement).value = data.name ?? '';
+    const list = document.getElementById('learning-list')!;
+    const learning = skills.filter((s) => data.progress[s.id] === 'learning');
+    list.innerHTML = learning.length
+      ? learning
+          .map(
+            (s) =>
+              `<li><a class="node-card" href="/atlas/${s.territory}/${s.capability}/${s.id}/" data-status="learning"><span class="pip" aria-hidden="true"></span><span class="name">${esc(s.name)}</span><span class="sub">${esc(s.summary)}</span><span class="meta">${esc(caps.get(s.capability)?.name ?? '')}</span></a></li>`,
+          )
+          .join('')
+      : '<li class="empty-note">Nothing marked as learning yet. Open any skill and set its status.</li>';
+  }
+
+  fetch('/atlas-data.json')
+    .then((r) => r.json())
+    .then((d) => {
+      skills = d.skills;
+      caps = new Map(d.capabilities.map((c: Cap) => [c.id, c]));
+      aliases = d.aliases;
+      render();
+    });
+  onChange(render);
+
+  document.getElementById('name-form')!.addEventListener('submit', (e) => {
+    e.preventDefault();
+    setName((document.getElementById('display-name') as HTMLInputElement).value);
+    msg.textContent = 'Name saved.';
+  });
+  document.getElementById('export')!.addEventListener('click', () => {
+    exportFile();
+    track('Progress exported');
+  });
+  document.getElementById('import')!.addEventListener('change', async (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    try {
+      const { imported, skipped } = await importFile(file, new Set(skills.map((s) => s.id)));
+      msg.textContent = `Imported ${imported} statuses${skipped ? `, skipped ${skipped} unknown` : ''}.`;
+      track('Progress imported');
+    } catch (err) {
+      msg.textContent = (err as Error).message || 'Could not read that file.';
+    }
+  });
+  document.getElementById('reset')!.addEventListener('click', () => {
+    if (document.getElementById('reset')!.dataset.armed) {
+      reset();
+      msg.textContent = 'Progress cleared.';
+      delete document.getElementById('reset')!.dataset.armed;
+      document.getElementById('reset')!.textContent = 'Reset';
+      return;
+    }
+    document.getElementById('reset')!.dataset.armed = '1';
+    document.getElementById('reset')!.textContent = 'Click again to erase';
+    msg.textContent = 'This erases every status in this browser. Export first if you want a copy.';
+  });
+</script>

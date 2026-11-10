@@ -1,0 +1,29 @@
+---
+// The list equivalent of a territory's map, with a roll-up of each capability's skills.
+import type { Capability } from '../atlas/model.ts';
+import { path } from '../lib/atlas.ts';
+
+interface Props {
+  capabilities: Capability[];
+  cols?: boolean;
+}
+const { capabilities, cols = true } = Astro.props;
+---
+
+<ul class:list={['node-list', { cols }]}>
+  {
+    capabilities.map((c) => (
+      <li>
+        <a class="node-card" href={path(c)}>
+          <span class="pip cap" aria-hidden="true" />
+          <span class="name">{c.name}</span>
+          <span class="sub">{c.description}</span>
+          <span class="meta rollup" data-rollup={c.skills.join(' ')}>
+            <span class="bar" aria-hidden="true" />
+            <span class="txt">{c.skills.length} skills</span>
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,209 @@
+# Territory: Shipping
+# Review batch 5 of 11.
+
+id: shipping
+order: 5
+name: Shipping
+tagline: Deliver and release
+question: How do we shorten the time from decision to real feedback?
+description: >-
+  Shipping is getting working software into users' hands, often and safely. Every week a change
+  sits unreleased is a week without feedback. This territory covers delivering in small pieces,
+  automating releases, exposing changes gradually, preparing a launch and keeping work moving.
+  Teams that ship small and often learn faster and break less.
+expected: >-
+  Deliver useful software frequently and safely, avoiding large releases that postpone learning.
+capabilities:
+  - id: iterative-delivery
+    name: Iterative delivery
+    description: >-
+      Delivering in small steps that each reach users, so feedback arrives early and plans
+      can change cheaply.
+    related: [vertical-slicing, smallest-valuable-increment]
+    skills:
+      - id: small-batches
+        name: Small batches
+        summary: Shipping many small changes instead of a few big ones.
+        description: >-
+          Small batches are easier to review, test, release and roll back. They also bring feedback
+          sooner. Research on software delivery links them to both speed and stability.
+        related: [cost-of-delay, ci-cd]
+      - id: incremental-architecture
+        name: Incremental architecture
+        summary: Growing the architecture step by step as real needs appear.
+        description: >-
+          Incremental architecture builds what the product needs now and leaves room to change.
+          It avoids big upfront designs based on guesses. Techniques like feature toggles and the
+          strangler pattern let it evolve safely.
+        related: [vertical-slicing, reversible-decisions]
+      - id: early-feedback
+        name: Early feedback
+        summary: Getting real reactions to work before it is finished.
+        description: >-
+          Early feedback comes from demos, internal releases, beta users and small rollouts. The
+          earlier it arrives, the cheaper it is to act on. It needs a habit of showing unfinished
+          work.
+        related: [beta-programs, user-interviews]
+      - id: wip-limits
+        name: Limiting work in progress
+        summary: Finishing work before starting new work.
+        description: >-
+          Too much work in progress slows everything down and hides problems. Limiting it shortens
+          the time each item takes and makes blockers visible. Stop starting and start finishing.
+        related: [unblocking, small-batches]
+
+  - id: release-engineering
+    name: Release engineering
+    description: >-
+      The pipelines and practices that take a change from merge to production reliably and
+      repeatably.
+    related: [schema-migrations]
+    skills:
+      - id: ci-cd
+        name: CI/CD pipelines
+        summary: Automatically building, testing and delivering every change.
+        description: >-
+          Continuous integration merges and tests changes often. Continuous delivery keeps the code
+          always releasable. Together they make releasing routine instead of an event.
+        related: [ci-checks, deployment-automation]
+      - id: deployment-automation
+        name: Automated deployments
+        summary: Releasing to production with one command or none.
+        description: >-
+          Automated deployments remove manual steps and the mistakes that come with them. They make
+          small, frequent releases practical. A deploy that anyone on the team can run safely is a
+          sign of a healthy pipeline.
+        related: [ci-cd, rollbacks]
+      - id: environment-management
+        name: Environments
+        summary: Development, staging and production environments that behave alike.
+        description: >-
+          Environments let changes be tested before they reach users. Differences between them
+          cause surprises in production. Configuration as code and preview environments per
+          change reduce that drift.
+        related: [secrets-management, release-qa]
+      - id: rollbacks
+        name: Rollback strategies
+        summary: Undoing a bad release quickly.
+        description: >-
+          A rollback plan means a bad release costs minutes instead of hours. Options include
+          redeploying the previous version, turning off a flag or rolling forward with a fix. Data
+          changes are the hard part, so migrations need their own plan.
+        related: [feature-flags, schema-migrations]
+
+  - id: controlled-releases
+    name: Controlled releases
+    description: >-
+      Separating deploying code from releasing features, so changes reach users gradually
+      and can be switched off.
+    skills:
+      - id: feature-flags
+        name: Feature flags
+        summary: Turning features on and off without deploying.
+        description: >-
+          Feature flags separate deploying from releasing. They enable gradual rollouts,
+          experiments, beta access and kill switches. Old flags need removing, or they become
+          technical debt.
+        related: [staged-rollouts, ab-tests]
+      - id: staged-rollouts
+        name: Staged rollouts
+        summary: Releasing to a growing share of users while watching the impact.
+        description: >-
+          A staged rollout starts with a small percentage of users and increases as metrics stay
+          healthy. Problems affect few people and can be caught early. It is also called progressive
+          delivery.
+        related: [feature-flags, alerting]
+      - id: beta-programs
+        name: Beta programs
+        summary: Giving early access to willing users in exchange for feedback.
+        description: >-
+          A beta program gets new features in front of engaged users before a full launch. It
+          surfaces bugs and confusion early. It works best with clear expectations and an easy way
+          to send feedback.
+        related: [early-feedback, feedback-collection]
+      - id: canary-releases
+        name: Canary releases
+        summary: Running a new version on a small slice of traffic first.
+        description: >-
+          A canary release deploys new code to a small part of the infrastructure and compares its
+          error rate and latency with the rest. If the canary looks unhealthy, it is pulled. It
+          catches technical problems before most users meet them.
+        related: [staged-rollouts, product-observability]
+
+  - id: release-readiness
+    name: Release readiness
+    description: >-
+      Making sure a release is ready for users, support and operations before it goes out.
+    related: [automated-testing]
+    skills:
+      - id: release-qa
+        name: Pre-release QA
+        summary: Checking the product works before users see it.
+        description: >-
+          Pre-release QA combines automated tests with focused manual checks of the changed areas
+          and critical paths. Exploratory testing finds what scripts miss. The aim is confidence,
+          not perfection.
+        related: [end-to-end-tests, environment-management]
+      - id: release-communication
+        name: Release notes and communication
+        summary: Telling users and the team what changed and why it matters.
+        description: >-
+          Release notes, changelogs and in-product announcements help people notice and use what
+          shipped. Internal notes prepare support and sales. A feature nobody knows about has not
+          really shipped.
+        related: [feature-adoption, technical-writing]
+      - id: launch-telemetry
+        name: Launch telemetry
+        summary: Having the tracking and monitoring in place before release.
+        description: >-
+          Before a release, the events, dashboards and alerts needed to judge it should already
+          exist. Adding them later loses the first, most informative days. Ask before shipping:
+          how will we know if this worked or broke?
+        related: [tracking-plans, dashboards]
+      - id: support-readiness
+        name: Support readiness
+        summary: Preparing support to handle questions about a new release.
+        description: >-
+          Support readiness means docs, known issues and escalation paths are ready when the
+          release goes out. Support teams hear about problems first. Briefing them turns them into
+          an early warning system.
+        related: [support-workflows, release-communication]
+      - id: operational-readiness
+        name: Operational readiness
+        summary: Checking capacity, monitoring and fallbacks before launch.
+        description: >-
+          Operational readiness reviews capacity, alerts, runbooks, rollback plans and dependencies
+          before a significant launch. A short checklist prevents most launch-day surprises.
+          Bigger launches deserve a more formal review.
+        related: [incident-response, rollbacks]
+
+  - id: delivery-management
+    name: Delivery management
+    description: >-
+      Keeping work moving: estimating it, spotting risks early and clearing what blocks it.
+    related: [prioritization, dependency-management]
+    skills:
+      - id: estimation
+        name: Estimation
+        summary: Forecasting how long work will take, with honest uncertainty.
+        description: >-
+          Estimates are forecasts, not promises. Ranges and confidence levels are more honest than
+          single numbers. Breaking work down and comparing with past work improves them, and some
+          teams forecast from throughput instead.
+        related: [impact-effort, delivery-risk]
+      - id: delivery-risk
+        name: Delivery risk
+        summary: Spotting and reducing what could delay or derail the work.
+        description: >-
+          Delivery risks include unknowns in the code, external dependencies and unclear
+          requirements. Tackling the riskiest part first, for example with a spike, reduces
+          surprises. Raising risks early is a form of reliability.
+        related: [product-risk, estimation]
+      - id: unblocking
+        name: Removing blockers
+        summary: Clearing obstacles that stop work from moving.
+        description: >-
+          Blockers include waiting on decisions, reviews, access or other teams. Product engineers
+          who chase them actively keep the team fast. Recurring blockers point to a process
+          problem worth fixing.
+        related: [wip-limits, initiative]

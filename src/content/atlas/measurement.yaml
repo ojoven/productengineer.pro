@@ -1,0 +1,358 @@
+# Territory: Measurement
+# Review batch 6 of 11. Pilot territory for the map prototypes and the research pass.
+
+id: measurement
+order: 6
+name: Measurement
+tagline: Learn from evidence
+question: What evidence supports our next decision?
+description: >-
+  Measurement is how a team finds out what actually happened after it shipped. It starts with
+  tracking the right events, continues with metrics and analysis, and ends with decisions made on
+  evidence instead of hope. Experiments and statistics live here, and so does the qualitative
+  side: watching and listening to users. It touches every other territory on the map.
+expected: >-
+  Implement and interpret useful measurements, distinguish observations from causal claims, and
+  select appropriate experiments.
+capabilities:
+  - id: product-instrumentation
+    name: Product instrumentation
+    description: >-
+      Collecting the right product data, reliably, so later questions can be answered at
+      all.
+    skills:
+      - id: event-schemas
+        name: Event schemas
+        summary: Consistent names and properties for the events a product tracks.
+        description: >-
+          An event schema defines what each tracked event is called and which properties it
+          carries. Consistent naming, such as object and action, keeps data usable as it grows.
+          Inconsistent events make every later analysis slower and less trustworthy.
+        related: [tracking-plans, data-modeling]
+      - id: tracking-plans
+        name: Tracking plans
+        summary: A written plan of what to track, why, and which question it answers.
+        description: >-
+          A tracking plan lists events and properties alongside the questions they answer. It
+          stops teams tracking everything and still missing what they need. It is also the spec
+          that engineers implement and review against.
+        related: [event-schemas, launch-telemetry]
+      - id: identity-resolution
+        name: Identity resolution
+        summary: Linking anonymous and logged-in activity to the same person.
+        description: >-
+          Users browse anonymously, sign up, switch devices and share accounts. Identity resolution
+          stitches those sessions together. Getting it wrong inflates user counts and breaks
+          funnels at exactly the signup step you care about.
+        related: [funnel-analysis, signup-flow]
+      - id: analytics-data-quality
+        name: Data quality
+        summary: Making sure analytics data is complete, correct and trusted.
+        description: >-
+          Missing events, duplicates, bots and broken tracking after a release quietly corrupt
+          analysis. Validation, monitoring and tests on tracking catch them. People stop using data
+          they do not trust, so quality is a product feature of the analytics itself.
+        related: [data-integrity, event-schemas]
+      - id: analytics-architecture
+        name: Analytics architecture
+        summary: How product data flows from the app to the tools where it is analyzed.
+        description: >-
+          Analytics architecture covers client and server tracking, event pipelines, product
+          analytics tools and warehouses. Server-side events are more reliable for important
+          actions. Choices here decide cost, privacy and what questions are easy to answer.
+        related: [databases, privacy-obligations]
+
+  - id: product-metrics
+    name: Product metrics
+    description: >-
+      The measures that tell you whether the product is working for users and for the
+      business.
+    skills:
+      - id: adoption-metrics
+        name: Adoption
+        summary: How many users start using the product or a feature.
+        description: >-
+          Adoption measures the share of users who try something, such as a new feature in its
+          first weeks. It answers whether people found it and gave it a chance. High adoption with
+          low retention means the promise worked but the value did not.
+        related: [feature-adoption, feature-usage]
+      - id: engagement-metrics
+        name: Engagement
+        summary: How often and how deeply people use the product.
+        description: >-
+          Engagement metrics include active users, frequency and depth of use. They are easy to
+          inflate with notifications and hard to interpret alone. They are most useful when tied to
+          actions that deliver real value.
+        related: [meaningful-usage, engagement-frequency]
+      - id: task-success
+        name: Task success
+        summary: Whether users complete what they came to do.
+        description: >-
+          Task success measures completion rate, time on task and errors for key tasks. It is the
+          most direct measure of usability. It comes from both analytics and usability tests.
+        related: [usability-testing, first-successful-task]
+      - id: conversion-metrics
+        name: Conversion
+        summary: The share of users who move from one step to the next.
+        description: >-
+          A conversion rate measures movement through a step, such as visit to signup or trial to
+          paid. It needs a clear definition of the starting group and the time window. Small
+          definitional changes can make the same product look very different.
+        related: [funnel-analysis, trial-conversion]
+      - id: retention-metrics
+        name: Retention
+        summary: The share of users who keep coming back over time.
+        description: >-
+          Retention shows whether users find lasting value. Measured by cohort, it reveals whether
+          the product is getting better at keeping people. It is the metric most closely tied to
+          product-market fit.
+        related: [retention-curves, cohort-analysis]
+      - id: satisfaction-metrics
+        name: Satisfaction
+        summary: How users feel about the product, measured with tools like CSAT and NPS.
+        description: >-
+          Satisfaction metrics ask users directly how they feel. They capture things behavior
+          misses, but they are noisy and depend on who answers. The written comments are usually
+          worth more than the score.
+        related: [surveys, feedback-analysis]
+      - id: revenue-metrics
+        name: Revenue metrics
+        summary: Measures like MRR, ARPU and expansion that track the business side.
+        description: >-
+          Revenue metrics such as monthly recurring revenue, average revenue per user and net
+          revenue retention connect product changes to the business. Engineers who can read them
+          understand which work pays for the team.
+        related: [lifetime-value, pricing]
+
+  - id: behavioral-analysis
+    name: Behavioral analysis
+    description: >-
+      Analyzing what users actually do in the product to find where value and friction
+      sit.
+    skills:
+      - id: funnel-analysis
+        name: Funnels
+        summary: Measuring how many users get through each step of a flow.
+        description: >-
+          A funnel shows drop-off between steps, such as signup, setup and first use. It points to
+          where to look, not why people leave. Funnels need consistent events and a sensible time
+          window to be trusted.
+        related: [drop-off-analysis, conversion-metrics]
+      - id: cohort-analysis
+        name: Cohort analysis
+        summary: Comparing groups of users who started at the same time or share a trait.
+        description: >-
+          Cohort analysis follows groups over time, such as everyone who signed up in March. It
+          separates real improvement from growth that hides churn. It is the standard way to read
+          retention.
+        related: [retention-curves, retention-metrics]
+      - id: behavioral-segmentation
+        name: Segmentation
+        summary: Breaking metrics down by user groups to find hidden patterns.
+        description: >-
+          Averages hide differences. Breaking results down by platform, plan, source or behavior
+          often shows that a change helped one group and hurt another. Segmenting before
+          concluding is a basic analytical habit.
+        related: [user-segments, simpsons-paradox-check]
+      - id: path-analysis
+        name: Path analysis
+        summary: Seeing the actual routes users take through the product.
+        description: >-
+          Path analysis shows the sequences of screens and actions users really follow, which
+          often differ from the designed journey. It reveals loops, detours and unexpected
+          entry points. It is useful for redesigning navigation and onboarding.
+        related: [journey-mapping, user-flows]
+      - id: feature-usage
+        name: Feature usage
+        summary: Measuring which features are used, by whom and how often.
+        description: >-
+          Feature usage analysis shows what people actually rely on. It often reveals that a few
+          features carry most of the value. It is key input for prioritization and for deciding
+          what to remove.
+        related: [feature-deprecation, adoption-metrics]
+
+  - id: experiment-design
+    name: Experiment design
+    description: >-
+      Designing tests that show whether a change caused an effect, not just whether
+      something moved.
+    skills:
+      - id: hypotheses
+        name: Hypotheses
+        summary: A testable prediction of what a change will do and why.
+        description: >-
+          A good hypothesis names the change, the expected effect on a metric, and the reasoning
+          behind it. Writing it before the test prevents finding a story after the fact. It also
+          makes failed experiments useful, because you learn which belief was wrong.
+        related: [assumption-mapping, problem-statements]
+      - id: control-groups
+        name: Control groups
+        summary: A comparison group that does not get the change.
+        description: >-
+          A control group shows what would have happened without the change. Without it, seasonal
+          effects, marketing pushes and bugs look like results. Holdout groups extend the idea over
+          longer periods.
+        related: [randomization, confounding]
+      - id: randomization
+        name: Randomization
+        summary: Assigning users to groups by chance so the groups are comparable.
+        description: >-
+          Random assignment balances known and unknown differences between groups. It has to be
+          consistent, so a user stays in one group, and done at the right unit, such as user, team
+          or account. Broken assignment invalidates the whole experiment.
+        related: [control-groups, feature-flags]
+      - id: ab-tests
+        name: A/B tests
+        summary: Comparing two versions with real users to see which performs better.
+        description: >-
+          An A/B test shows each version to a random group and compares a metric. It is the most
+          reliable way to measure the effect of a product change, given enough traffic. With low
+          traffic, other methods often teach more.
+        related: [sample-size, feature-flags]
+      - id: sample-size
+        name: Sample size
+        summary: How many users an experiment needs to detect an effect.
+        description: >-
+          Sample size depends on the baseline rate, the smallest effect worth detecting and the
+          confidence you want. Calculating it before the test tells you how long to run it, or
+          whether to run it at all. Underpowered tests produce noise that looks like results.
+        related: [statistical-power, effect-sizes]
+      - id: experiment-guardrails
+        name: Experiment guardrails
+        summary: Checks that protect users and the validity of a running experiment.
+        description: >-
+          Experiment guardrails include guardrail metrics, sample ratio mismatch checks and rules
+          for when to stop. They catch broken assignment and changes that harm the product while
+          improving the target metric. Peeking at results and stopping early is a common way to
+          fool yourself.
+        related: [guardrail-metrics, statistical-power]
+
+  - id: statistical-reasoning
+    name: Statistical reasoning
+    description: >-
+      Enough statistics to tell signal from noise and to avoid the classic traps when reading
+      data.
+    skills:
+      - id: statistical-uncertainty
+        name: Uncertainty and variance
+        summary: Accepting that every measurement has noise around it.
+        description: >-
+          Metrics move randomly from day to day. Knowing the normal variance tells you whether a
+          change is meaningful. Reporting a range instead of a single number is the honest
+          default.
+        related: [confidence-intervals, deciding-under-uncertainty]
+      - id: confidence-intervals
+        name: Confidence intervals
+        summary: A range of plausible values for a measured effect.
+        description: >-
+          A confidence interval shows how precise an estimate is. A wide interval that crosses zero
+          says the data cannot tell you much yet. Intervals are more informative than a bare p-value.
+        related: [statistical-uncertainty, effect-sizes]
+      - id: effect-sizes
+        name: Effect sizes
+        summary: How big a difference is, not only whether it exists.
+        description: >-
+          Statistical significance says an effect is probably real. Effect size says whether it
+          matters. A tiny but significant lift can be worth less than the complexity it adds.
+        related: [sample-size, interpreting-results]
+      - id: statistical-power
+        name: Statistical power
+        summary: The chance a test detects an effect that really exists.
+        description: >-
+          Power depends on sample size, effect size and noise. Low-powered tests miss real effects
+          and exaggerate the ones they find. Planning for adequate power is part of designing an
+          experiment.
+        related: [sample-size, experiment-guardrails]
+      - id: sampling-bias
+        name: Sampling and selection bias
+        summary: When the data comes from a group that does not represent everyone.
+        description: >-
+          Survey respondents, power users and early adopters are not typical users. Survivorship
+          bias, such as only studying users who stayed, is common in product data. Asking who is
+          missing from the data prevents many wrong conclusions.
+        related: [surveys, cognitive-biases]
+      - id: confounding
+        name: Confounding
+        summary: A hidden factor that affects both the cause and the effect.
+        description: >-
+          Users who use a feature may retain better because they were already engaged, not because
+          of the feature. Confounders make correlations look causal. Randomized experiments are the
+          most reliable way around them.
+        related: [causal-reasoning, control-groups]
+      - id: simpsons-paradox-check
+        name: Simpson's paradox
+        summary: When a trend reverses after the data is split into groups.
+        description: >-
+          A metric can improve overall while getting worse in every segment, because the mix of
+          users changed. It is a common trap after launches and pricing changes. Checking key
+          segments before drawing conclusions avoids it.
+        related: [behavioral-segmentation, confounding]
+
+  - id: qualitative-evaluation
+    name: Qualitative evaluation
+    description: >-
+      Evaluating the product through what users say and do, to explain the numbers.
+    related: [user-interviews, usability-testing]
+    skills:
+      - id: feedback-analysis
+        name: Feedback analysis
+        summary: Finding patterns in support tickets, reviews and comments.
+        description: >-
+          Feedback analysis tags and groups what users write to find recurring themes. It explains
+          what metrics cannot. Counting themes over time turns anecdotes into evidence, and AI tools
+          now make this much faster.
+        related: [feedback-triage, research-synthesis]
+      - id: session-replays
+        name: Session replays
+        summary: Watching recordings of real user sessions.
+        description: >-
+          Session replays show exactly where users hesitate, misclick or give up. They are a fast
+          way to understand a drop-off seen in a funnel. They need careful privacy settings, such as
+          masking inputs.
+        related: [drop-off-analysis, privacy-obligations]
+      - id: usage-observation
+        name: Observing real usage
+        summary: Watching how people use the live product, in person or remotely.
+        description: >-
+          Sitting with users while they use the shipped product shows how it fits their real work.
+          It differs from a usability test because there are no set tasks. It often reveals uses the
+          team never designed for.
+        related: [field-studies, path-analysis]
+
+  - id: evidence-based-decisions
+    name: Evidence-based decisions
+    description: >-
+      Turning results into decisions: what the evidence really says, and what to do next.
+    skills:
+      - id: interpreting-results
+        name: Interpreting results
+        summary: Reading experiment and analysis results without fooling yourself.
+        description: >-
+          Interpreting results means checking data quality, segments, guardrails and the size of
+          the effect before deciding. Surprising results deserve suspicion first. Writing the
+          interpretation down makes the reasoning reviewable.
+        related: [effect-sizes, evidence-strength]
+      - id: causal-reasoning
+        name: Causal reasoning
+        summary: Telling correlation from causation in product data.
+        description: >-
+          Causal reasoning asks what else could explain a pattern. When experiments are not
+          possible, methods like difference-in-differences or natural experiments help. Most bad
+          product decisions from data come from treating correlation as cause.
+        related: [confounding, control-groups]
+      - id: balancing-signals
+        name: Balancing signals
+        summary: Combining numbers, user feedback and judgment into one decision.
+        description: >-
+          Quantitative data shows what is happening, qualitative data shows why. They often
+          disagree at first. Good decisions weigh both, along with strategy and cost, instead of
+          letting one metric decide.
+        related: [feedback-analysis, tradeoffs]
+      - id: iterate-expand-stop
+        name: Iterate, expand or stop
+        summary: Deciding what to do with a feature after you have results.
+        description: >-
+          After a release or experiment there are three honest options: improve it, roll it out
+          further, or remove it. Stopping is the hardest and often the right call. Deciding the
+          criteria in advance makes the choice less political.
+        related: [feature-deprecation, strategy-adaptation]

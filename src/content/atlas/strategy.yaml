@@ -1,0 +1,323 @@
+# Territory: Strategy
+# Review batch 2 of 11.
+
+id: strategy
+order: 2
+name: Strategy
+tagline: Decide what matters
+question: Where should we invest our limited time and resources?
+description: >-
+  Strategy is choosing what to work on and, just as often, what to leave alone. It covers where
+  the product is heading, who it is for, how success is measured, and how the business makes
+  money. A product engineer does not need to own the strategy, but needs to understand it well
+  enough to make hundreds of small decisions that point the same way.
+expected: >-
+  Explain why something should be built now rather than later, which assumptions matter most,
+  and what the smallest valuable investment would be.
+capabilities:
+  - id: product-vision
+    name: Product vision
+    description: >-
+      The long-term picture of what the product is for and why it should exist. It gives a
+      team a direction to check daily decisions against.
+    skills:
+      - id: mission
+        name: Mission
+        summary: The lasting purpose behind the product or company.
+        description: >-
+          A mission states why the product exists and who it serves, in a sentence people can
+          remember. It changes rarely. It is the tiebreaker when two reasonable options pull in
+          different directions.
+        related: [long-term-direction, product-narratives]
+      - id: long-term-direction
+        name: Vision and direction
+        summary: Where the product should be in a few years and why.
+        description: >-
+          A vision describes the future the product is working toward, concrete enough to rule
+          things out. It helps engineers judge which shortcuts are acceptable and which would block
+          the path ahead. A vision nobody can repeat is not doing its job.
+        related: [roadmaps, strategy-adaptation]
+      - id: value-proposition
+        name: Value proposition
+        summary: The specific benefit a product promises to a specific user.
+        description: >-
+          A value proposition says what users get, compared with what they use today, in terms
+          they care about. It connects the problem to the product. If the team cannot state it in
+          one or two sentences, users will not understand it either.
+        related: [messaging, landing-page-tests]
+      - id: differentiation
+        name: Differentiation
+        summary: What makes the product meaningfully different from the alternatives.
+        description: >-
+          Differentiation is the reason someone picks you instead of something else. It can come
+          from features, experience, price, focus or distribution. Engineers often hold the key to
+          it, because technical choices can make something faster, simpler or cheaper than rivals.
+        related: [competitive-advantage, competitive-analysis]
+
+  - id: product-positioning
+    name: Product positioning
+    description: >-
+      How the product is framed in the minds of the right customers, relative to the
+      alternatives they already know.
+    related: [substitutes, messaging]
+    skills:
+      - id: target-audience
+        name: Target audience
+        summary: The specific group the product is built and marketed for first.
+        description: >-
+          The target audience is the group that cares most about what the product does best.
+          Choosing one narrows the work and sharpens every message. Trying to appeal to everyone
+          at once usually means appealing strongly to no one.
+        related: [ideal-customer-profile, user-segments]
+      - id: competitive-advantage
+        name: Competitive advantage
+        summary: What the product can do better than alternatives and is hard to copy.
+        description: >-
+          A competitive advantage is a strength that holds up over time, such as proprietary data,
+          network effects, a technical edge or deep focus. Positioning builds on it. Knowing it
+          tells engineers which capabilities deserve the most investment.
+        related: [differentiation, network-effects]
+      - id: category-positioning
+        name: Market category
+        summary: Choosing the category that makes the product's value obvious.
+        description: >-
+          The category a product claims decides what people compare it with and what they expect.
+          A well-chosen category makes strengths obvious, and a poor one makes them invisible.
+          Sometimes the right move is a sub-category of an existing market rather than a new one.
+        related: [category-conventions, substitutes]
+
+  - id: goal-setting
+    name: Goal setting
+    description: >-
+      Turning direction into measurable targets, so a team knows whether it is making
+      progress and can say no to work that does not move them.
+    skills:
+      - id: product-goals
+        name: Product goals
+        summary: Clear statements of what the product should achieve in a period.
+        description: >-
+          Product goals describe outcomes, such as more users completing setup, rather than
+          outputs, such as shipping a wizard. Outcome goals leave room for engineers to find the
+          best solution. They also make it obvious when a finished feature did not work.
+        related: [okrs, north-star-metric]
+      - id: okrs
+        name: Objectives and key results
+        summary: A qualitative objective paired with a few measurable results.
+        description: >-
+          OKRs pair an ambitious objective with two to four results that show it was reached. They
+          work when key results measure outcomes and teams choose how to reach them. They fail when
+          they turn into a task list with numbers attached.
+        related: [product-goals, leading-indicators]
+      - id: north-star-metric
+        name: North Star metric
+        summary: One metric that best captures the value users get from the product.
+        description: >-
+          A North Star metric tracks the core value delivered, such as lessons completed or
+          messages sent, rather than revenue alone. It aligns teams on what matters. It needs
+          supporting metrics, because any single number can be gamed.
+        related: [product-goals, meaningful-usage]
+      - id: leading-indicators
+        name: Leading indicators
+        summary: Early signals that predict a slower outcome metric.
+        description: >-
+          Outcomes like retention or revenue move slowly. Leading indicators, such as finishing
+          setup or using a key feature twice in a week, move early and predict them. They let a
+          team learn in days instead of quarters.
+        related: [activation-events, product-goals]
+      - id: guardrail-metrics
+        name: Guardrail metrics
+        summary: Metrics that must not get worse while you optimize something else.
+        description: >-
+          Guardrails protect things like performance, support load or revenue while a team pushes
+          on its main goal. They catch improvements that quietly cause damage elsewhere. Every
+          important goal deserves at least one guardrail beside it.
+        related: [experiment-guardrails, second-order-effects]
+
+  - id: prioritization
+    name: Prioritization
+    description: >-
+      Deciding what to do first given limited time. It weighs value, cost, risk and timing
+      instead of following whoever asks loudest.
+    skills:
+      - id: opportunity-assessment
+        name: Opportunity assessment
+        summary: Evaluating whether an opportunity is worth pursuing before committing.
+        description: >-
+          Opportunity assessment asks a few structured questions: what problem, for whom, how big,
+          why now, and how will we know it worked. It is quick to do and filters out weak ideas
+          early. Engineers who ask these questions get better work to do.
+        related: [problem-severity, market-sizing]
+      - id: impact-effort
+        name: Impact versus effort
+        summary: Comparing the expected value of work with its cost.
+        description: >-
+          Impact versus effort is the simplest prioritization lens, and scoring models like RICE
+          refine it. Engineers bring the most honest effort estimates. The weak point is impact,
+          which is usually a guess that deserves to be labelled as one.
+        related: [estimation, cost-of-delay]
+      - id: product-risk
+        name: Risk and uncertainty
+        summary: Weighing what could go wrong and how little you know.
+        description: >-
+          Product work carries value risk, usability risk, feasibility risk and business risk.
+          High uncertainty can be a reason to run a cheap test first rather than to avoid the work.
+          Naming the risk is the first step to reducing it.
+        related: [assumption-mapping, delivery-risk]
+      - id: cost-of-delay
+        name: Cost of delay
+        summary: What it costs to do something later instead of now.
+        description: >-
+          Cost of delay estimates the value lost each week a piece of work is not done. Some work
+          loses value fast, like a seasonal feature, and some can wait. It is a strong argument for
+          doing small, urgent things before big, comfortable ones.
+        related: [sequencing, small-batches]
+      - id: sequencing
+        name: Sequencing
+        summary: Ordering work so each step makes the next one cheaper or safer.
+        description: >-
+          Sequencing is about order, not only rank. Some work unlocks learning or reduces risk for
+          everything after it. Engineers are well placed to see technical sequences that make the
+          whole plan faster.
+        related: [dependency-management, roadmaps]
+
+  - id: product-scoping
+    name: Product scoping
+    description: >-
+      Cutting an idea down to the smallest version that still delivers value and produces
+      learning. Good scoping is often the biggest speed gain a team has.
+    skills:
+      - id: mvp
+        name: Minimum viable product
+        summary: The smallest product that tests the most important assumption.
+        description: >-
+          An MVP is a learning tool: the least work needed to find out whether an idea holds up
+          with real users. It is often much smaller than teams think, sometimes not software at
+          all. It still has to work well for the narrow job it does.
+        related: [concierge-experiments, smallest-valuable-increment]
+      - id: smallest-valuable-increment
+        name: Smallest valuable increment
+        summary: The least you can ship that a user would actually notice and use.
+        description: >-
+          Each increment should deliver something a user can use, not a layer of the stack. Finding
+          it means asking what the user gets at each step. Small valuable increments shorten
+          feedback loops and make plans easier to change.
+        related: [vertical-slicing, small-batches]
+      - id: vertical-slicing
+        name: Vertical slicing
+        summary: Splitting work into thin end-to-end slices instead of technical layers.
+        description: >-
+          A vertical slice cuts through the interface, logic and data to deliver one narrow piece of
+          behavior. Each slice can be shipped and tested on its own. It is the main technique for
+          turning a large feature into a series of small releases.
+        related: [smallest-valuable-increment, incremental-architecture]
+      - id: scope-cutting
+        name: Cutting scope
+        summary: Removing features and polish that do not serve the goal.
+        description: >-
+          Cutting scope means deciding what not to build, or not to build yet. It is uncomfortable
+          and very effective. A useful habit is to ask what would happen if a requirement were
+          dropped, and to drop it if the honest answer is not much.
+        related: [challenging-requirements, mvp]
+      - id: acceptance-criteria
+        name: Acceptance criteria
+        summary: Clear conditions that define when a piece of work is done.
+        description: >-
+          Acceptance criteria state the observable behavior that must work, written before the work
+          starts. They reduce misunderstandings and make testing straightforward. Written from the
+          user's side, they keep the focus on outcomes instead of implementation details.
+        related: [automated-testing, problem-statements]
+
+  - id: product-planning
+    name: Product planning
+    description: >-
+      Arranging work over time so a team can coordinate, while staying ready to change course
+      when evidence changes.
+    skills:
+      - id: roadmaps
+        name: Roadmaps
+        summary: A shared view of what the team plans to work on and why.
+        description: >-
+          A roadmap communicates direction and priorities, ideally as problems and outcomes
+          instead of fixed features with dates. Now, next and later formats keep it honest about
+          uncertainty. It is a communication tool, not a promise.
+        related: [sequencing, long-term-direction]
+      - id: dependency-management
+        name: Dependencies
+        summary: Tracking what work depends on other teams, systems or decisions.
+        description: >-
+          Dependencies are where plans usually break. Making them visible early lets a team
+          reorder work, decouple it or start conversations before they become blockers. Engineers
+          are best placed to spot technical dependencies that others miss.
+        related: [unblocking, coupling]
+      - id: lifecycle-stages
+        name: Product lifecycle stages
+        summary: How priorities change as a product moves from idea to maturity.
+        description: >-
+          An early product needs learning and speed, a growing one needs reliability and scale, and
+          a mature one needs efficiency. The right practices differ by stage. Knowing the stage
+          keeps a team from applying big-company process to a product with ten users.
+        related: [feature-deprecation, scalability]
+      - id: strategy-adaptation
+        name: Adapting strategy
+        summary: Changing plans in response to new evidence without losing direction.
+        description: >-
+          Plans should change when the evidence does. Adapting well means separating the stable
+          vision from the plan to get there, and reviewing that plan on a regular rhythm. Chasing
+          every new signal is as risky as ignoring them all.
+        related: [iterate-expand-stop, updating-beliefs]
+
+  - id: business-models
+    name: Business models
+    description: >-
+      How the product creates, delivers and captures value. Every technical and product
+      decision eventually shows up in the costs or the revenue.
+    related: [customer-acquisition-cost, cost-to-serve]
+    skills:
+      - id: revenue-models
+        name: Revenue models
+        summary: The ways a product earns money, such as subscriptions, usage or transactions.
+        description: >-
+          The revenue model shapes the product deeply. A subscription needs ongoing value, usage
+          pricing needs metering, and a marketplace needs both sides to show up. Engineers who
+          understand the model build the right billing, limits and analytics from the start.
+        related: [pricing, market-structure]
+      - id: pricing
+        name: Pricing
+        summary: Setting what customers pay, based on value, costs and alternatives.
+        description: >-
+          Pricing is one of the highest-impact and least-tested decisions in a product. Good pricing
+          follows the value customers get, not only the cost to build. It can be tested and changed
+          like any other part of the product.
+        related: [willingness-to-pay, packaging]
+      - id: packaging
+        name: Packaging
+        summary: Grouping features and limits into plans and tiers.
+        description: >-
+          Packaging decides what goes into each plan and where the upgrade points sit. It affects
+          conversion and expansion as much as the price itself. It also creates engineering work,
+          such as entitlements, feature gates and usage limits.
+        related: [pricing, feature-flags]
+      - id: costs-and-margins
+        name: Costs and margins
+        summary: What it costs to build and run the product compared with what it earns.
+        description: >-
+          Gross margin is what is left after the direct costs of serving customers. Software usually
+          has high margins, but AI features, heavy infrastructure or manual support can shrink
+          them fast. Engineers influence many of these costs directly.
+        related: [cost-to-serve, inference-costs]
+      - id: lifetime-value
+        name: Customer lifetime value
+        summary: The total revenue a customer brings over their whole relationship with the product.
+        description: >-
+          Lifetime value combines price, margin and how long customers stay. It sets a ceiling on
+          what you can spend to acquire a customer. Small improvements in retention often raise it
+          more than price changes do.
+        related: [customer-acquisition-cost, churn-analysis]
+      - id: return-on-investment
+        name: Return on investment
+        summary: Comparing what a piece of work returns with what it costs.
+        description: >-
+          ROI asks whether an investment pays back, in revenue, saved costs or time. It applies to
+          features, infrastructure and internal tools alike. Rough estimates are fine, as long as
+          the team actually checks the outcome afterwards.
+        related: [impact-effort, opportunity-cost]

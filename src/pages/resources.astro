@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import { atlas, path } from '../lib/atlas.ts';
+import { usersOf } from '../atlas/model.ts';
+
+const a = atlas();
+const rows = a.resources
+  .map((r) => {
+    const used = usersOf(a, 'resources', r.id);
+    return { ...r, used, territories: [...new Set(used.map((n) => n.territory))] };
+  })
+  .sort((x, y) => x.title.localeCompare(y.title));
+const types = [...new Set(rows.map((r) => r.type))].sort();
+const terrs = a.territories;
+---
+
+<Base title="Resources" description="Every article, video, course and book listed on the atlas, filterable by type and territory. Each link is checked before it is listed.">
+  <div class="wrap">
+    <Crumbs items={[{ label: 'Resources' }]} />
+    <h1>Resources</h1>
+    <p class="lede">
+      Every resource on the atlas in one list. Written or recorded by practitioners, free unless marked paid, in English, and opened
+      and checked before it was saved.
+    </p>
+    {
+      rows.length ? (
+        <>
+          <form class="btn-row" id="res-filter" style="margin:18px 0" data-pagefind-ignore>
+            <label>
+              Type{' '}
+              <select name="type" class="btn">
+                <option value="">All</option>
+                {types.map((t) => <option value={t}>{t}</option>)}
+              </select>
+            </label>
+            <label>
+              Territory{' '}
+              <select name="territory" class="btn">
+                <option value="">All</option>
+                {terrs.map((t) => <option value={t.id}>{t.name}</option>)}
+              </select>
+            </label>
+            <span id="res-count" style="color:var(--text-3);font-size:.9rem">{rows.length} resources</span>
+          </form>
+          <ul class="res-list" id="res-list">
+            {rows.map((r) => (
+              <li class="res" data-type={r.type} data-territories={r.territories.join(' ')}>
+                <div>
+                  <span class="tag">{r.type}</span>
+                  <span class:list={['tag', r.level]}>{r.level === 'intro' ? 'start here' : 'go deeper'}</span>
+                  {r.paid && <span class="tag paid">paid</span>}
+                </div>
+                <a class="t" href={r.url} rel="noopener" target="_blank">{r.title}</a>
+                <div class="by">
+                  {r.author}
+                  {r.year && <> · {r.year}</>}
+                  {r.length && <> · {r.length}</>}
+                </div>
+                <p class="why">{r.why}</p>
+                <p class="by" style="margin:4px 0 0">
+                  For:{' '}
+                  {r.used.map((n, i) => (
+                    <>
+                      {i > 0 && ', '}
+                      <a href={path(n)}>{n.name}</a>
+                    </>
+                  ))}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p class="empty-note">Resources are added territory by territory during the research pass.</p>
+      )
+    }
+  </div>
+</Base>
+
+<script>
+  const form = document.getElementById('res-filter') as HTMLFormElement | null;
+  const items = [...document.querySelectorAll<HTMLElement>('#res-list > li')];
+  const count = document.getElementById('res-count');
+  form?.addEventListener('change', () => {
+    const type = (form.elements.namedItem('type') as HTMLSelectElement).value;
+    const terr = (form.elements.namedItem('territory') as HTMLSelectElement).value;
+    let shown = 0;
+    for (const li of items) {
+      const ok = (!type || li.dataset.type === type) && (!terr || li.dataset.territories!.split(' ').includes(terr));
+      li.hidden = !ok;
+      if (ok) shown++;
+    }
+    if (count) count.textContent = `${shown} resources`;
+  });
+</script>

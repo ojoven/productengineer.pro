@@ -1,0 +1,42 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Crumbs from '../../../components/Crumbs.astro';
+import MapFigure from '../../../components/MapFigure.astro';
+import CapabilityList from '../../../components/CapabilityList.astro';
+import { atlas, capability, skillIds } from '../../../lib/atlas.ts';
+import type { Territory } from '../../../atlas/model.ts';
+
+export function getStaticPaths() {
+  return atlas().territories.map((t) => ({ params: { territory: t.id }, props: { id: t.id } }));
+}
+const a = atlas();
+const t = a.nodes.get(Astro.props.id) as Territory;
+const caps = t.capabilities.map(capability);
+const land = a.territories.filter((x) => !x.crossCutting);
+const ids = skillIds(t);
+---
+
+<Base title={t.name} description={`${t.name}: ${t.question} ${t.description}`.slice(0, 300)}>
+  <div class="wrap">
+    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { label: t.name }]} />
+    <header class="topic-head">
+      <div class="kicker">{t.crossCutting ? 'Cross-cutting capabilities' : `Territory ${t.order} of ${land.length}`} · {t.tagline}</div>
+      <h1>{t.name}</h1>
+      <p class="question">{t.question}</p>
+    </header>
+
+    <MapFigure focus={t.id} caption={t.crossCutting ? 'These capabilities sit in the waters around the land, because every territory touches them.' : undefined} />
+
+    <div class="prose">
+      <p class="lede">{t.description}</p>
+      <h2>What a product engineer should be able to do here</h2>
+      <p>{t.expected}</p>
+    </div>
+
+    <h2>{caps.length} capabilities</h2>
+    <p class="rollup" data-rollup={ids.join(' ')} style="margin-bottom:14px">
+      <span class="bar" aria-hidden="true"></span><span class="txt">{ids.length} skills</span>
+    </p>
+    <CapabilityList capabilities={caps} />
+  </div>
+</Base>

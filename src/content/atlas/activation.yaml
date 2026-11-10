@@ -1,0 +1,203 @@
+# Territory: Activation
+# Review batch 7 of 11.
+
+id: activation
+order: 7
+name: Activation
+tagline: Deliver first value
+question: How do we turn someone who tries the product into someone who experiences its value?
+description: >-
+  Activation is the stretch between someone arriving and someone getting real value for the first
+  time. Most products lose the majority of new users here, often to problems that are cheap to fix
+  once they are visible. Product engineers are well placed to work on it, because the fixes mix
+  UX, copy, performance, data and experiments.
+expected: >-
+  Identify why users struggle to reach their first meaningful outcome and improve that journey
+  without merely optimizing superficial completion metrics.
+capabilities:
+  - id: first-user-experience
+    name: First-user experience
+    description: >-
+      Everything a new user meets in their first minutes, from the landing page to the first
+      screen inside the product.
+    skills:
+      - id: landing-experience
+        name: Landing experience
+        summary: The first page or screen a new visitor sees.
+        description: >-
+          The landing experience has seconds to explain what the product does and for whom. Clear
+          value, a visible next step and fast loading matter most. It is where marketing promises
+          meet the product.
+        related: [value-proposition, landing-page-tests]
+      - id: signup-flow
+        name: Signup and account creation
+        summary: Getting new users registered with as little friction as possible.
+        description: >-
+          Every field and step in signup loses some people. Social login, magic links and delaying
+          account creation until there is value reduce that loss. The security and data model behind
+          signup are engineering decisions with product consequences.
+        related: [authentication, form-friction]
+      - id: first-run-flows
+        name: First-run flows
+        summary: What the product shows the very first time someone uses it.
+        description: >-
+          The first run decides whether new users see value or an empty, confusing screen. Sample
+          data, templates and a clear first task help. It is worth designing on purpose rather than
+          leaving it as the default empty product.
+        related: [empty-states, guided-setup]
+      - id: expectation-setting
+        name: Expectation setting
+        summary: Telling users what will happen and how long it will take.
+        description: >-
+          Users give up when effort exceeds what they expected. Saying how many steps there are, what
+          they need at hand, or how long an import takes keeps them going. Honest expectations also
+          reduce support requests.
+        related: [interface-feedback, instructional-copy]
+
+  - id: onboarding-design
+    name: Onboarding design
+    description: >-
+      Guiding new users to set up the product and learn it, at the moment they need it.
+    related: [empty-states]
+    skills:
+      - id: guided-setup
+        name: Guided setup
+        summary: Walking users through the configuration the product needs to work.
+        description: >-
+          Some products need setup before they are useful: connecting data, inviting a team,
+          choosing preferences. Guided setup breaks this into clear steps with progress and smart
+          defaults. Skippable steps respect users who know what they want.
+        related: [first-run-flows, step-reduction]
+      - id: progressive-onboarding
+        name: Progressive onboarding
+        summary: Teaching features gradually as users reach them.
+        description: >-
+          Progressive onboarding introduces features when they become relevant instead of all at
+          once. It avoids long tours that people skip. It needs usage data to know when someone is
+          ready for the next thing.
+        related: [progressive-disclosure, contextual-guidance]
+      - id: contextual-guidance
+        name: Contextual guidance
+        summary: Tips and hints that appear where and when they help.
+        description: >-
+          Contextual guidance places help next to the action, such as a hint on an unfamiliar field
+          or a tooltip on first use. It is easy to overdo. Each tip should earn its place by solving
+          an observed problem.
+        related: [instructional-copy, progressive-onboarding]
+      - id: tutorials
+        name: Tutorials and walkthroughs
+        summary: Structured guidance through a first task or the main features.
+        description: >-
+          Tutorials teach by doing, ideally with the user's own data or a realistic example.
+          Interactive ones work better than slideshows. Completion rate alone says little; what
+          matters is whether users go on to succeed.
+        related: [first-successful-task, customer-education]
+
+  - id: time-to-value
+    name: Time to value
+    description: >-
+      Shortening the path between starting and getting the core benefit of the product.
+    skills:
+      - id: aha-moments
+        name: Aha moments
+        summary: The moment a user first understands why the product is valuable.
+        description: >-
+          The aha moment is when the value becomes obvious, such as the first message received or
+          the first report generated. Finding it means comparing users who stay with users who
+          leave. The whole first-run experience should lead there.
+        related: [activation-events, value-reinforcement]
+      - id: activation-events
+        name: Activation metric
+        summary: A measurable action that predicts a new user will stay.
+        description: >-
+          An activation metric defines when a user counts as activated, such as completing three
+          lessons in the first week. Good ones correlate with long-term retention. It gives
+          onboarding work a clear target.
+        related: [leading-indicators, meaningful-usage]
+      - id: first-successful-task
+        name: First successful task
+        summary: Helping users complete one meaningful task early.
+        description: >-
+          Completing one real task builds confidence and shows value. Choose a task that is quick,
+          common and satisfying, and remove everything that stands in its way. Templates and
+          defaults often make it possible in minutes.
+        related: [task-success, tutorials]
+      - id: step-reduction
+        name: Removing unnecessary steps
+        summary: Cutting every step that does not help users reach value.
+        description: >-
+          Each step between signup and value loses people. Reviewing the flow and questioning each
+          screen, field and confirmation usually finds steps to cut or postpone. It is often the
+          cheapest activation improvement available.
+        related: [user-flows, scope-cutting]
+
+  - id: conversion-optimization
+    name: Conversion optimization
+    description: >-
+      Improving the share of people who take the key steps, by removing friction and building
+      trust.
+    related: [messaging]
+    skills:
+      - id: form-friction
+        name: Form friction
+        summary: Reducing the effort and hesitation forms cause.
+        description: >-
+          Form friction comes from too many fields, unclear labels, strict validation and asking for
+          sensitive data too early. Each removed field usually lifts completion. Measuring field-level
+          drop-off shows which ones cost the most.
+        related: [form-design, signup-flow]
+      - id: trust-signals
+        name: Trust signals
+        summary: Evidence that makes people comfortable taking the next step.
+        description: >-
+          Trust signals include testimonials, recognizable customers, security information, clear
+          pricing and a real company behind the product. They matter most just before commitment,
+          such as signup or payment. Fake signals backfire.
+        related: [persuasive-design, landing-experience]
+      - id: funnel-optimization
+        name: Funnel optimization
+        summary: Improving conversion step by step through a flow.
+        description: >-
+          Funnel optimization finds the biggest drop-off and works on it with research and
+          experiments. Fixing the worst step usually beats polishing all of them. Gains need checking
+          further down, since more signups that never activate help no one.
+        related: [funnel-analysis, ab-tests]
+      - id: trial-conversion
+        name: Signup and trial conversion
+        summary: Turning visitors into signups and trial users into customers.
+        description: >-
+          Trial conversion depends on users reaching value during the trial and on how the paywall
+          and pricing are presented. Trial length, credit card requirements and reminders all shift
+          the numbers. Activation during the trial is the main lever.
+        related: [pricing, decision-friction]
+
+  - id: activation-diagnosis
+    name: Activation diagnosis
+    description: >-
+      Finding out where and why new users fail to reach value, before changing anything.
+    related: [behavioral-segmentation, usability-testing]
+    skills:
+      - id: drop-off-analysis
+        name: Drop-off analysis
+        summary: Finding exactly where new users leave.
+        description: >-
+          Drop-off analysis combines funnels, segments and session replays to locate where people
+          abandon the first experience. It answers where, and then research answers why. It should
+          be repeated after every significant change.
+        related: [funnel-analysis, session-replays]
+      - id: technical-friction
+        name: Technical friction
+        summary: Errors, slowness and device problems that block new users.
+        description: >-
+          Many activation problems are technical: slow loads, broken flows on certain browsers,
+          failed emails, confusing errors. They are invisible in design reviews and obvious in error
+          logs. Product engineers are the right people to find and fix them.
+        related: [frontend-performance, error-recovery]
+      - id: activation-experiments
+        name: Activation experiments
+        summary: Testing changes to the first experience to improve activation.
+        description: >-
+          Activation experiments test changes such as shorter signup, different first tasks or new
+          guidance. They need an activation metric that predicts retention, not only completion of
+          the onboarding flow. New-user traffic makes them easier to run than most experiments.
+        related: [ab-tests, activation-events]
