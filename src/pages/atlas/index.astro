@@ -188,7 +188,7 @@ const svg = mapSvg({ width: 1200, height: 780, idPrefix: 'ex' });
   import { load, setStatus, applyProgress, onChange } from '../../scripts/progress.ts';
   import { track } from '../../scripts/track.ts';
 
-  type Data = MapAtlas & {
+  type Data = {
     style: MapStyle;
     territories: (MapAtlas['territories'][number] & { tagline: string; question: string })[];
     capabilities: (MapAtlas['capabilities'][number] & { description: string })[];

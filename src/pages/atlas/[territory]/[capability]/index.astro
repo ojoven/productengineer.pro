@@ -23,7 +23,7 @@ const tools = c.tools.map((id) => a.toolsById.get(id)!);
 const siblings = t.capabilities.filter((id) => id !== c.id).map((id) => a.nodes.get(id) as Capability);
 ---
 
-<Base title={c.name} description={`${c.name} (${t.name}): ${c.description}`}>
+<Base title={c.name} description={`${c.name} (${t.name}): ${c.description}`} image={`/og/${c.id}.jpg`}>
   <div class="wrap">
     <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { href: path(t), label: t.name }, { label: c.name }]} />
     <header class="topic-head">

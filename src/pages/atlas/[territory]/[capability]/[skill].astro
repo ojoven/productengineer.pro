@@ -28,7 +28,7 @@ const next = i < c.skills.length - 1 ? (a.nodes.get(c.skills[i + 1]) as Skill) :
 const capResources = resources.length ? [] : c.resources.map((id) => a.resourcesById.get(id)!);
 ---
 
-<Base title={s.name} description={`${s.name}: ${s.summary} ${s.description}`.slice(0, 300)}>
+<Base title={s.name} description={`${s.name}: ${s.summary} ${s.description}`.slice(0, 300)} image={`/og/${c.id}.jpg`}>
   <div class="wrap">
     <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { href: path(t), label: t.name }, { href: path(c), label: c.name }, { label: s.name }]} />
     <div class="layout-2">

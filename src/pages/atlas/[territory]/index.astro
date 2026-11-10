@@ -16,7 +16,7 @@ const land = a.territories.filter((x) => !x.crossCutting);
 const ids = skillIds(t);
 ---
 
-<Base title={t.name} description={`${t.name}: ${t.question} ${t.description}`.slice(0, 300)}>
+<Base title={t.name} description={`${t.name}: ${t.question} ${t.description}`.slice(0, 300)} image={`/og/${t.id}.jpg`}>
   <div class="wrap">
     <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { label: t.name }]} />
     <header class="topic-head">

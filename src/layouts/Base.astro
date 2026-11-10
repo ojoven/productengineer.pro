@@ -24,7 +24,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const path = Astro.url.pathname;
 const current = (prefix: string) => (prefix === '/' ? path === '/' : path.startsWith(prefix)) ? 'page' : undefined;
 const css = mapCss();
-const ogImage = new URL(image ?? '/og/default.png', SITE.url).href;
+const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
 ---
 
 <!doctype html>
