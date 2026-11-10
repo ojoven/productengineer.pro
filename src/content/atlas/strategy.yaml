@@ -20,6 +20,7 @@ capabilities:
     description: >-
       The long-term picture of what the product is for and why it should exist. It gives a
       team a direction to check daily decisions against.
+    resources: [svpg-vision-faq, svpg-strategy, svpg-strategic-context]
     skills:
       - id: mission
         name: Mission
@@ -29,6 +30,7 @@ capabilities:
           remember. It changes rarely. It is the tiebreaker when two reasonable options pull in
           different directions.
         related: [long-term-direction, product-narratives]
+        resources: [svpg-strategic-context]
       - id: long-term-direction
         name: Vision and direction
         summary: Where the product should be in a few years and why.
@@ -37,6 +39,7 @@ capabilities:
           things out. It helps engineers judge which shortcuts are acceptable and which would block
           the path ahead. A vision nobody can repeat is not doing its job.
         related: [roadmaps, strategy-adaptation]
+        resources: [svpg-vision-faq]
       - id: value-proposition
         name: Value proposition
         summary: The specific benefit a product promises to a specific user.
@@ -45,6 +48,7 @@ capabilities:
           they care about. It connects the problem to the product. If the team cannot state it in
           one or two sentences, users will not understand it either.
         related: [messaging, landing-page-tests]
+        resources: [dunford-intro-positioning]
       - id: differentiation
         name: Differentiation
         summary: What makes the product meaningfully different from the alternatives.
@@ -53,6 +57,7 @@ capabilities:
           from features, experience, price, focus or distribution. Engineers often hold the key to
           it, because technical choices can make something faster, simpler or cheaper than rivals.
         related: [competitive-advantage, competitive-analysis]
+        resources: [dunford-intro-positioning, dunford-framing]
 
   - id: product-positioning
     name: Product positioning
@@ -60,6 +65,7 @@ capabilities:
       How the product is framed in the minds of the right customers, relative to the
       alternatives they already know.
     related: [substitutes, messaging]
+    resources: [dunford-intro-positioning, dunford-context, dunford-framing]
     skills:
       - id: target-audience
         name: Target audience
@@ -69,6 +75,7 @@ capabilities:
           Choosing one narrows the work and sharpens every message. Trying to appeal to everyone
           at once usually means appealing strongly to no one.
         related: [ideal-customer-profile, user-segments]
+        resources: [dunford-intro-positioning, dunford-context]
       - id: competitive-advantage
         name: Competitive advantage
         summary: What the product can do better than alternatives and is hard to copy.
@@ -77,6 +84,7 @@ capabilities:
           network effects, a technical edge or deep focus. Positioning builds on it. Knowing it
           tells engineers which capabilities deserve the most investment.
         related: [differentiation, network-effects]
+        resources: [dunford-intro-positioning]
       - id: category-positioning
         name: Market category
         summary: Choosing the category that makes the product's value obvious.
@@ -85,12 +93,14 @@ capabilities:
           A well-chosen category makes strengths obvious, and a poor one makes them invisible.
           Sometimes the right move is a sub-category of an existing market rather than a new one.
         related: [category-conventions, substitutes]
+        resources: [dunford-framing, dunford-context]
 
   - id: goal-setting
     name: Goal setting
     description: >-
       Turning direction into measurable targets, so a team knows whether it is making
       progress and can say no to work that does not move them.
+    resources: [whatmatters-okr, amplitude-north-star-playbook, amplitude-leading-lagging]
     skills:
       - id: product-goals
         name: Product goals
@@ -100,6 +110,7 @@ capabilities:
           outputs, such as shipping a wizard. Outcome goals leave room for engineers to find the
           best solution. They also make it obvious when a finished feature did not work.
         related: [okrs, north-star-metric]
+        resources: [whatmatters-okr, svpg-strategic-context]
       - id: okrs
         name: Objectives and key results
         summary: A qualitative objective paired with a few measurable results.
@@ -108,6 +119,7 @@ capabilities:
           work when key results measure outcomes and teams choose how to reach them. They fail when
           they turn into a task list with numbers attached.
         related: [product-goals, leading-indicators]
+        resources: [whatmatters-okr, whatmatters-key-results, whatmatters-committed]
       - id: north-star-metric
         name: North Star metric
         summary: One metric that best captures the value users get from the product.
@@ -134,12 +146,14 @@ capabilities:
           on its main goal. They catch improvements that quietly cause damage elsewhere. Every
           important goal deserves at least one guardrail beside it.
         related: [experiment-guardrails, second-order-effects]
+        resources: [posthog-guardrail-metrics]
 
   - id: prioritization
     name: Prioritization
     description: >-
       Deciding what to do first given limited time. It weighs value, cost, risk and timing
       instead of following whoever asks loudest.
+    resources: [intercom-rice, bsf-cost-of-delay, shapeup-betting]
     skills:
       - id: opportunity-assessment
         name: Opportunity assessment
@@ -149,6 +163,7 @@ capabilities:
           why now, and how will we know it worked. It is quick to do and filters out weak ideas
           early. Engineers who ask these questions get better work to do.
         related: [problem-severity, market-sizing]
+        resources: [producttalk-ost]
       - id: impact-effort
         name: Impact versus effort
         summary: Comparing the expected value of work with its cost.
@@ -157,6 +172,7 @@ capabilities:
           refine it. Engineers bring the most honest effort estimates. The weak point is impact,
           which is usually a guess that deserves to be labelled as one.
         related: [estimation, cost-of-delay]
+        resources: [intercom-rice]
       - id: product-risk
         name: Risk and uncertainty
         summary: Weighing what could go wrong and how little you know.
@@ -165,6 +181,7 @@ capabilities:
           High uncertainty can be a reason to run a cheap test first rather than to avoid the work.
           Naming the risk is the first step to reducing it.
         related: [assumption-mapping, delivery-risk]
+        resources: [shapeup-rabbit-holes, producttalk-assumption-testing]
       - id: cost-of-delay
         name: Cost of delay
         summary: What it costs to do something later instead of now.
@@ -173,6 +190,7 @@ capabilities:
           loses value fast, like a seasonal feature, and some can wait. It is a strong argument for
           doing small, urgent things before big, comfortable ones.
         related: [sequencing, small-batches]
+        resources: [bsf-cost-of-delay, bsf-cd3, bsf-qualitative-cost-of-delay]
       - id: sequencing
         name: Sequencing
         summary: Ordering work so each step makes the next one cheaper or safer.
@@ -181,12 +199,14 @@ capabilities:
           everything after it. Engineers are well placed to see technical sequences that make the
           whole plan faster.
         related: [dependency-management, roadmaps]
+        resources: [bsf-cd3]
 
   - id: product-scoping
     name: Product scoping
     description: >-
       Cutting an idea down to the smallest version that still delivers value and produces
       learning. Good scoping is often the biggest speed gain a team has.
+    resources: [shapeup-boundaries, kniberg-mvp, hw-story-splitting, shapeup-book]
     skills:
       - id: mvp
         name: Minimum viable product
@@ -196,6 +216,7 @@ capabilities:
           with real users. It is often much smaller than teams think, sometimes not software at
           all. It still has to work well for the narrow job it does.
         related: [concierge-experiments, smallest-valuable-increment]
+        resources: [kniberg-mvp]
       - id: smallest-valuable-increment
         name: Smallest valuable increment
         summary: The least you can ship that a user would actually notice and use.
@@ -204,6 +225,7 @@ capabilities:
           it means asking what the user gets at each step. Small valuable increments shorten
           feedback loops and make plans easier to change.
         related: [vertical-slicing, small-batches]
+        resources: [kniberg-mvp, hw-vertical-slicing]
       - id: vertical-slicing
         name: Vertical slicing
         summary: Splitting work into thin end-to-end slices instead of technical layers.
@@ -212,6 +234,7 @@ capabilities:
           behavior. Each slice can be shipped and tested on its own. It is the main technique for
           turning a large feature into a series of small releases.
         related: [smallest-valuable-increment, incremental-architecture]
+        resources: [hw-story-splitting, hw-vertical-slicing]
       - id: scope-cutting
         name: Cutting scope
         summary: Removing features and polish that do not serve the goal.
@@ -220,6 +243,7 @@ capabilities:
           and very effective. A useful habit is to ask what would happen if a requirement were
           dropped, and to drop it if the honest answer is not much.
         related: [challenging-requirements, mvp]
+        resources: [shapeup-boundaries, shapeup-rabbit-holes]
       - id: acceptance-criteria
         name: Acceptance criteria
         summary: Clear conditions that define when a piece of work is done.
@@ -228,12 +252,14 @@ capabilities:
           starts. They reduce misunderstandings and make testing straightforward. Written from the
           user's side, they keep the focus on outcomes instead of implementation details.
         related: [automated-testing, problem-statements]
+        resources: [fowler-given-when-then]
 
   - id: product-planning
     name: Product planning
     description: >-
       Arranging work over time so a team can coordinate, while staying ready to change course
       when evidence changes.
+    resources: [prodpad-now-next-later, shapeup-betting, svpg-strategy]
     skills:
       - id: roadmaps
         name: Roadmaps
@@ -243,6 +269,7 @@ capabilities:
           instead of fixed features with dates. Now, next and later formats keep it honest about
           uncertainty. It is a communication tool, not a promise.
         related: [sequencing, long-term-direction]
+        resources: [prodpad-now-next-later, svpg-strategy]
       - id: dependency-management
         name: Dependencies
         summary: Tracking what work depends on other teams, systems or decisions.
@@ -267,6 +294,7 @@ capabilities:
           vision from the plan to get there, and reviewing that plan on a regular rhythm. Chasing
           every new signal is as risky as ignoring them all.
         related: [iterate-expand-stop, updating-beliefs]
+        resources: [svpg-strategy]
 
   - id: business-models
     name: Business models
@@ -274,6 +302,7 @@ capabilities:
       How the product creates, delivers and captures value. Every technical and product
       decision eventually shows up in the costs or the revenue.
     related: [customer-acquisition-cost, cost-to-serve]
+    resources: [stripe-saas-pricing, skok-saas-metrics, a16z-16-startup-metrics]
     skills:
       - id: revenue-models
         name: Revenue models
@@ -283,6 +312,7 @@ capabilities:
           pricing needs metering, and a marketplace needs both sides to show up. Engineers who
           understand the model build the right billing, limits and analytics from the start.
         related: [pricing, market-structure]
+        resources: [stripe-saas-pricing]
       - id: pricing
         name: Pricing
         summary: Setting what customers pay, based on value, costs and alternatives.
@@ -291,6 +321,7 @@ capabilities:
           follows the value customers get, not only the cost to build. It can be tested and changed
           like any other part of the product.
         related: [willingness-to-pay, packaging]
+        resources: [stripe-atlas-pricing, paddle-value-pricing, stripe-saas-pricing]
       - id: packaging
         name: Packaging
         summary: Grouping features and limits into plans and tiers.
@@ -299,6 +330,7 @@ capabilities:
           conversion and expansion as much as the price itself. It also creates engineering work,
           such as entitlements, feature gates and usage limits.
         related: [pricing, feature-flags]
+        resources: [stripe-tiered-pricing, stripe-atlas-pricing]
       - id: costs-and-margins
         name: Costs and margins
         summary: What it costs to build and run the product compared with what it earns.
@@ -307,6 +339,7 @@ capabilities:
           has high margins, but AI features, heavy infrastructure or manual support can shrink
           them fast. Engineers influence many of these costs directly.
         related: [cost-to-serve, inference-costs]
+        resources: [skok-saas-metrics]
       - id: lifetime-value
         name: Customer lifetime value
         summary: The total revenue a customer brings over their whole relationship with the product.
@@ -315,6 +348,7 @@ capabilities:
           what you can spend to acquire a customer. Small improvements in retention often raise it
           more than price changes do.
         related: [customer-acquisition-cost, churn-analysis]
+        resources: [skok-saas-metrics, a16z-16-startup-metrics]
       - id: return-on-investment
         name: Return on investment
         summary: Comparing what a piece of work returns with what it costs.

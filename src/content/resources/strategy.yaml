@@ -1,0 +1,275 @@
+# Resources first used in Strategy. Every URL was opened and confirmed live and on topic on the
+# `checked` date.
+
+svpg-vision-faq:
+  url: https://www.svpg.com/product-vision-faq/
+  title: Product vision FAQ
+  author: Marty Cagan (SVPG)
+  type: article
+  length: 7 min
+  year: 2020
+  level: intro
+  why: What a product vision is for, how far out it looks, and who should own it.
+  checked: 2026-11-10
+
+svpg-strategy:
+  url: https://www.svpg.com/product-strategy-in-an-agile-world/
+  title: Product strategy in an agile world
+  author: Marty Cagan (SVPG)
+  type: article
+  length: 5 min
+  year: 2008
+  level: intro
+  why: The difference between vision, strategy and roadmap, and why teams need all three.
+  checked: 2026-11-10
+
+svpg-strategic-context:
+  url: https://www.svpg.com/coaching-strategic-context/
+  title: 'Coaching: strategic context'
+  author: Marty Cagan (SVPG)
+  type: article
+  length: 6 min
+  year: 2020
+  level: deep
+  why: The pieces of context a team needs to make good decisions on its own, from mission to objectives.
+  checked: 2026-11-10
+
+dunford-intro-positioning:
+  url: https://www.aprildunford.com/post/an-introduction-to-positioning
+  title: An introduction to positioning
+  author: April Dunford
+  type: article
+  length: 5 min
+  year: 2020
+  level: intro
+  why: The five parts of positioning, starting from the alternatives customers would use if you did not exist.
+  checked: 2026-11-10
+
+dunford-context:
+  url: https://www.aprildunford.com/post/how-to-transform-your-product-by-giving-it-context
+  title: How context can transform your product
+  author: April Dunford
+  type: article
+  length: 7 min
+  year: 2017
+  level: intro
+  why: A startup story where changing the frame around the same product changed its results.
+  checked: 2026-11-10
+
+dunford-framing:
+  url: https://www.aprildunford.com/post/product-framing-can-help-grow-your-startup-or-kill-it
+  title: Product framing can help grow your startup, or kill it
+  author: April Dunford
+  type: article
+  length: 10 min
+  year: 2017
+  level: deep
+  why: Four ways to frame a product against a market category, from leading one to redefining it.
+  checked: 2026-11-10
+
+whatmatters-okr:
+  url: https://www.whatmatters.com/faqs/okr-meaning-definition-example
+  title: What is an OKR? Definition and examples
+  author: What Matters (John Doerr)
+  type: article
+  length: 10 min
+  level: intro
+  why: The objective and key result format from the site of the person who brought OKRs to Google.
+  checked: 2026-11-10
+
+whatmatters-key-results:
+  url: https://www.whatmatters.com/okrs-explained/examples-of-key-results
+  title: 'Examples of key results: measurable outcomes'
+  author: What Matters
+  type: article
+  length: 12 min
+  level: intro
+  why: Key results that measure outcomes rather than tasks, with examples you can compare against your own.
+  checked: 2026-11-10
+
+whatmatters-committed:
+  url: https://www.whatmatters.com/okrs-explained/committed-and-aspirational-okrs
+  title: Committed and aspirational goals
+  author: What Matters
+  type: article
+  length: 10 min
+  level: deep
+  why: Why some goals must be hit and others are stretch targets, and how to tell a team which is which.
+  checked: 2026-11-10
+
+intercom-rice:
+  url: https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers
+  title: 'RICE: simple prioritization for product managers'
+  author: Sean McBride (Intercom)
+  type: article
+  length: 7 min
+  year: 2018
+  level: intro
+  why: The original write-up of reach, impact, confidence and effort scoring, from the team that created it.
+  checked: 2026-11-10
+
+bsf-cost-of-delay:
+  url: https://blackswanfarming.com/cost-of-delay
+  title: Cost of delay
+  author: Joshua Arnold (Black Swan Farming)
+  type: article
+  length: 4 min
+  level: intro
+  why: What it costs to do something later, and why it should drive priority more than effort does.
+  checked: 2026-11-10
+
+bsf-cd3:
+  url: https://blackswanfarming.com/cost-of-delay-and-cd3-prioritisation-at-scale
+  title: Cost of delay and CD3 prioritisation at scale
+  author: Joshua Arnold (Black Swan Farming)
+  type: article
+  length: 9 min
+  level: deep
+  why: Dividing cost of delay by duration to order work, as applied across a large portfolio.
+  checked: 2026-11-10
+
+bsf-qualitative-cost-of-delay:
+  url: https://blackswanfarming.com/qualitative-cost-delay/
+  title: Qualitative cost of delay
+  author: Black Swan Farming
+  type: article
+  length: 11 min
+  level: intro
+  why: A lighter version for teams that cannot put money figures on every idea.
+  checked: 2026-11-10
+
+shapeup-book:
+  url: https://basecamp.com/shapeup
+  title: 'Shape Up: stop running in circles and ship work that matters'
+  author: Ryan Singer (Basecamp)
+  type: book
+  length: free online book
+  level: deep
+  why: A complete, free method for shaping work to a fixed time budget and letting scope give way instead of the deadline.
+  checked: 2026-11-10
+
+shapeup-boundaries:
+  url: https://basecamp.com/shapeup/1.2-chapter-03
+  title: Set boundaries (Shape Up, chapter 3)
+  author: Ryan Singer (Basecamp)
+  type: book
+  length: 14 min
+  level: intro
+  why: Decide how much a problem is worth before designing the solution, then shape the solution to fit.
+  checked: 2026-11-10
+
+shapeup-rabbit-holes:
+  url: https://basecamp.com/shapeup/1.4-chapter-05
+  title: Risks and rabbit holes (Shape Up, chapter 5)
+  author: Ryan Singer (Basecamp)
+  type: book
+  length: 14 min
+  level: deep
+  why: How to find the parts of a project that could blow up its timeline, and cut them before work starts.
+  checked: 2026-11-10
+
+shapeup-betting:
+  url: https://basecamp.com/shapeup/2.2-chapter-08
+  title: The betting table (Shape Up, chapter 8)
+  author: Ryan Singer (Basecamp)
+  type: book
+  length: 16 min
+  level: deep
+  why: Choosing what to work on next as a bet with a fixed size, instead of a backlog that never ends.
+  checked: 2026-11-10
+
+kniberg-mvp:
+  url: https://blog.crisp.se/2016/01/25/henrikkniberg/making-sense-of-mvp
+  title: Making sense of MVP, and why I prefer earliest testable, usable, lovable
+  author: Henrik Kniberg
+  type: article
+  length: 10 min
+  year: 2016
+  level: intro
+  why: 'The skateboard-to-car drawing explained: each release should be usable on its own, not one wheel of a car.'
+  checked: 2026-11-10
+
+hw-story-splitting:
+  url: https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/
+  title: The Humanizing Work guide to splitting user stories
+  author: Richard Lawrence (Humanizing Work)
+  type: article
+  length: 25 min
+  year: 2020
+  level: deep
+  why: Concrete patterns for cutting a feature into thin end-to-end slices that each deliver value.
+  checked: 2026-11-10
+
+hw-vertical-slicing:
+  url: https://www.humanizingwork.com/vertical-slicing-from-initiative-to-user-stories/
+  title: 'Vertical slicing: from initiative to user stories'
+  author: Humanizing Work
+  type: article
+  length: 4 min
+  level: intro
+  why: How slicing works at every level, from a quarter-long initiative down to a single story.
+  checked: 2026-11-10
+
+fowler-given-when-then:
+  url: https://martinfowler.com/bliki/GivenWhenThen.html
+  title: Given when then
+  author: Martin Fowler
+  type: article
+  length: 3 min
+  level: intro
+  why: The simple structure for writing acceptance criteria as examples that can become tests.
+  checked: 2026-11-10
+
+prodpad-now-next-later:
+  url: https://www.prodpad.com/glossary/now-next-later-roadmap/
+  title: What is a now-next-later roadmap?
+  author: ProdPad
+  type: article
+  length: 12 min
+  year: 2024
+  level: intro
+  why: A roadmap organized by confidence instead of dates, from the company that popularized the format.
+  checked: 2026-11-10
+
+stripe-saas-pricing:
+  url: https://stripe.com/resources/more/saas-pricing-models-101
+  title: 'SaaS pricing models: a guide'
+  author: Stripe
+  type: article
+  length: 15 min
+  year: 2023
+  level: intro
+  why: Flat, tiered, per-seat and usage pricing compared, with when each one fits.
+  checked: 2026-11-10
+
+stripe-atlas-pricing:
+  url: https://stripe.com/guides/atlas/saas-pricing
+  title: Pricing low-touch SaaS
+  author: Stripe Atlas
+  type: article
+  length: 25 min
+  level: deep
+  why: A thorough guide to pricing self-serve software, from value metrics to how many plans to offer.
+  checked: 2026-11-10
+
+paddle-value-pricing:
+  url: https://www.paddle.com/resources/guide-to-value-based-pricing
+  title: 'Value-based pricing: what it is and how to implement it'
+  author: Paddle
+  type: article
+  length: 15 min
+  year: 2022
+  level: intro
+  why: Pricing from the value customers get rather than from your costs, with the steps to get there.
+  checked: 2026-11-10
+
+stripe-tiered-pricing:
+  url: https://stripe.com/resources/more/tiered-pricing-101-a-guide-for-a-strategic-approach
+  title: Tiered pricing 101
+  author: Stripe
+  type: article
+  length: 15 min
+  year: 2025
+  level: intro
+  why: How to design good, better, best plans and where to put the upgrade points.
+  checked: 2026-11-10

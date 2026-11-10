@@ -1,0 +1,452 @@
+# Resources first used in Experience. Every URL was opened and confirmed live and on topic on the
+# `checked` date.
+
+nngroup-journey-tips:
+  url: https://www.nngroup.com/articles/journey-mapping-tips/
+  title: 'Getting started with journey mapping: 27 tips from practitioners'
+  author: NN/g
+  type: article
+  length: 11 min
+  year: 2021
+  level: intro
+  why: Practical advice from people who map journeys for a living, starting with keeping the first map rough and narrow.
+  checked: 2026-11-10
+
+nngroup-journeys-vs-flows:
+  url: https://www.nngroup.com/articles/user-journeys-vs-user-flows/
+  title: User journeys vs. user flows
+  author: NN/g
+  type: article
+  length: 7 min
+  year: 2023
+  level: intro
+  why: When you need a journey map with thoughts and feelings, and when a plain flow of steps is enough.
+  checked: 2026-11-10
+
+nngroup-which-methods:
+  url: https://www.nngroup.com/articles/which-ux-research-methods/
+  title: When to use which user-experience research methods
+  author: NN/g
+  type: article
+  length: 12 min
+  year: 2022
+  level: deep
+  why: Twenty methods placed on a map of what they tell you, including card sorting and task analysis.
+  checked: 2026-11-10
+
+nngroup-mental-models:
+  url: https://www.nngroup.com/articles/mental-models/
+  title: Mental models and user experience design
+  author: NN/g
+  type: article
+  length: 10 min
+  year: 2024
+  level: intro
+  why: What users believe about how a system works, and how to design so that belief matches reality.
+  checked: 2026-11-10
+
+nngroup-ia-topic:
+  url: https://www.nngroup.com/topic/information-architecture/
+  title: Information architecture articles
+  author: NN/g
+  type: article
+  length: index
+  level: deep
+  why: NN/g's collected articles on structuring and labelling content, from card sorting to tree testing.
+  checked: 2026-11-10
+
+nngroup-web-forms:
+  url: https://www.nngroup.com/articles/web-form-design/
+  title: 'Website forms usability: top 10 recommendations'
+  author: NN/g
+  type: article
+  length: 9 min
+  year: 2016
+  level: intro
+  why: Ten concrete rules for forms that people finish, from labels to error placement.
+  checked: 2026-11-10
+
+nngroup-form-cognitive-load:
+  url: https://www.nngroup.com/articles/4-principles-reduce-cognitive-load/
+  title: 'Few guesses, more success: 4 principles to reduce cognitive load in forms'
+  author: NN/g
+  type: article
+  length: 15 min
+  year: 2025
+  level: deep
+  why: How to make forms ask less of people's memory and attention, with progressive disclosure as one tool.
+  checked: 2026-11-10
+
+nngroup-error-rubric:
+  url: https://www.nngroup.com/articles/error-messages-scoring-rubric/
+  title: An error messages scoring rubric
+  author: NN/g
+  type: article
+  length: 14 min
+  year: 2023
+  level: intro
+  why: A checklist to score your own error messages on visibility, clarity and help to recover.
+  checked: 2026-11-10
+
+nngroup-hostile-errors:
+  url: https://www.nngroup.com/articles/hostile-error-messages/
+  title: Hostile patterns in error messages
+  author: NN/g
+  type: article
+  length: 9 min
+  year: 2022
+  level: intro
+  why: The common ways error messages blame or confuse users, and what to write instead.
+  checked: 2026-11-10
+
+nngroup-confirmation-dialog:
+  url: https://www.nngroup.com/articles/confirmation-dialog/
+  title: Confirmation dialogs can prevent user errors
+  author: NN/g
+  type: article
+  length: 9 min
+  year: 2018
+  level: deep
+  why: When to ask "are you sure?", and how overusing it trains people to click through without reading.
+  checked: 2026-11-10
+
+nngroup-empty-states:
+  url: https://www.nngroup.com/articles/empty-state-interface-design/
+  title: 'Designing empty states in complex applications: 3 guidelines'
+  author: NN/g
+  type: article
+  length: 9 min
+  year: 2021
+  level: intro
+  why: Empty screens should show status, teach the feature and point to the next step.
+  checked: 2026-11-10
+
+nngroup-visual-design-posters:
+  url: https://www.nngroup.com/articles/visual-design-heuristics-posters/
+  title: Applying UX principles to the visual design of graphical artifacts
+  author: NN/g
+  type: article
+  length: 9 min
+  year: 2021
+  level: intro
+  why: A worked example of building visual hierarchy with size, scale and color, checked with a squint test.
+  checked: 2026-11-10
+
+practical-typography:
+  url: https://practicaltypography.com/
+  title: "Butterick's practical typography"
+  author: Matthew Butterick
+  type: book
+  length: free online book
+  level: intro
+  why: Start with the ten-minute summary; it covers most of what an engineer needs to set type well.
+  checked: 2026-11-10
+
+webdev-color-contrast:
+  url: https://web.dev/learn/accessibility/color-contrast
+  title: Color and contrast
+  author: web.dev (Google)
+  type: course
+  length: 8 min
+  year: 2022
+  level: intro
+  why: How contrast ratios work, the WCAG thresholds, and the tools that check them for you.
+  checked: 2026-11-10
+
+webdev-color-scheme:
+  url: https://web.dev/articles/building/a-color-scheme
+  title: Building a color scheme
+  author: Adam Argyle (web.dev)
+  type: article
+  length: 15 min
+  year: 2021
+  level: deep
+  why: Building a light and dark palette in CSS with enough contrast in both, step by step.
+  checked: 2026-11-10
+
+webdev-learn-design:
+  url: https://web.dev/learn/design
+  title: Learn responsive design
+  author: Jeremy Keith (web.dev)
+  type: course
+  length: free course
+  level: deep
+  why: A complete free course on responsive layouts, typography, images and interaction for every screen.
+  checked: 2026-11-10
+
+webdev-responsive-basics:
+  url: https://web.dev/articles/responsive-web-design-basics
+  title: Responsive web design basics
+  author: web.dev (Google)
+  type: article
+  length: 13 min
+  year: 2019
+  level: intro
+  why: The essentials in one article, from the viewport tag to media queries.
+  checked: 2026-11-10
+
+atomic-design:
+  url: https://atomicdesign.bradfrost.com/
+  title: Atomic design
+  author: Brad Frost
+  type: book
+  length: free online book
+  year: 2016
+  level: deep
+  why: The book that shaped how teams build design systems, free to read online.
+  checked: 2026-11-10
+
+nngroup-prototype-fidelity:
+  url: https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/
+  title: 'UX prototypes: low fidelity vs. high fidelity'
+  author: NN/g
+  type: article
+  length: 13 min
+  year: 2016
+  level: intro
+  why: How much detail a prototype needs for what you want to learn, from paper sketches to clickable mockups.
+  checked: 2026-11-10
+
+nngroup-complex-apps:
+  url: https://www.nngroup.com/articles/strategies-complex-application-design/
+  title: UX strategies for complex-application design
+  author: NN/g
+  type: article
+  length: 10 min
+  year: 2025
+  level: deep
+  why: Why rough prototypes with real scenarios beat polished mockups early on, especially for expert tools.
+  checked: 2026-11-10
+
+nngroup-usability-testing:
+  url: https://www.nngroup.com/articles/usability-testing-101/
+  title: Usability (user) testing 101
+  author: NN/g
+  type: article
+  length: 9 min
+  year: 2019
+  level: intro
+  why: How a usability test works, what it needs, and the different ways to run one.
+  checked: 2026-11-10
+
+nngroup-five-users:
+  url: https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users/
+  title: Why you only need to test with 5 users
+  author: Jakob Nielsen (NN/g)
+  type: article
+  length: 8 min
+  year: 2000
+  level: intro
+  why: The argument for many small tests instead of one big one, still the standard rule of thumb.
+  checked: 2026-11-10
+
+nngroup-usability-101:
+  url: https://www.nngroup.com/articles/usability-101-introduction-to-usability/
+  title: 'Usability 101: introduction to usability'
+  author: Jakob Nielsen (NN/g)
+  type: article
+  length: 9 min
+  level: intro
+  why: The five qualities that make something usable, and why it matters for the business.
+  checked: 2026-11-10
+
+mdn-html-a11y:
+  url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/HTML
+  title: 'HTML: a good basis for accessibility'
+  author: MDN Web Docs
+  type: docs
+  length: 25 min
+  level: intro
+  why: Why the right HTML element does most of the accessibility work for you, with examples to compare.
+  checked: 2026-11-10
+
+mdn-keyboard:
+  url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/Guides/Understanding_WCAG/Keyboard
+  title: Keyboard accessible
+  author: MDN Web Docs
+  type: docs
+  length: 6 min
+  year: 2025
+  level: intro
+  why: What the WCAG keyboard criteria ask for and how to meet them, including focus order and tabindex.
+  checked: 2026-11-10
+
+mdn-a11y-tooling:
+  url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/Tooling
+  title: Accessibility tooling and assistive technology
+  author: MDN Web Docs
+  type: docs
+  length: 20 min
+  level: intro
+  why: How to test with a screen reader yourself, and what automated checkers can and cannot catch.
+  checked: 2026-11-10
+
+mdn-aria-basics:
+  url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/WAI-ARIA_basics
+  title: WAI-ARIA basics
+  author: MDN Web Docs
+  type: docs
+  length: 25 min
+  level: deep
+  why: When ARIA fills a real gap in HTML, and when it makes things worse.
+  checked: 2026-11-10
+
+webaim-quickref:
+  url: https://webaim.org/resources/quickref/
+  title: Quick reference to web accessibility principles
+  author: WebAIM
+  type: docs
+  length: 3 min
+  year: 2023
+  level: intro
+  why: The main WCAG principles on one printable page.
+  checked: 2026-11-10
+
+webaim-contrast:
+  url: https://webaim.org/articles/contrast/
+  title: 'Contrast and color accessibility: understanding WCAG 2 requirements'
+  author: WebAIM
+  type: article
+  length: 12 min
+  year: 2021
+  level: deep
+  why: The contrast rules explained in detail, including large text and not relying on color alone.
+  checked: 2026-11-10
+
+webaim-evaluation:
+  url: https://webaim.org/articles/evaluationguide/
+  title: Web accessibility evaluation guide
+  author: WebAIM
+  type: article
+  length: 12 min
+  year: 2024
+  level: deep
+  why: A step-by-step manual review that catches what automated tools miss.
+  checked: 2026-11-10
+
+webdev-design-ux-a11y:
+  url: https://web.dev/learn/accessibility/design-ux
+  title: Design and user experience
+  author: web.dev (Google)
+  type: course
+  length: 10 min
+  year: 2022
+  level: intro
+  why: Inclusive design decisions that belong in the design phase, before any code is written.
+  checked: 2026-11-10
+
+govuk-writing-ui:
+  url: https://www.gov.uk/service-manual/design/writing-for-user-interfaces
+  title: Writing for user interfaces
+  author: GOV.UK Service Manual
+  type: docs
+  length: 7 min
+  year: 2017
+  level: intro
+  why: Short, concrete rules for interface text from a team that tests its copy with millions of people.
+  checked: 2026-11-10
+
+govuk-content-principles:
+  url: https://www.gov.uk/government/publications/govuk-content-principles-conventions-and-research-background/govuk-content-principles-conventions-and-research-background
+  title: 'GOV.UK content principles: conventions and research background'
+  author: GOV.UK
+  type: docs
+  length: 30 min
+  year: 2016
+  level: deep
+  why: The research behind plain-language conventions, such as why people read less than you think.
+  checked: 2026-11-10
+
+ons-plain-language:
+  url: https://service-manual.ons.gov.uk/content/writing-for-users/plain-language
+  title: 'Writing and editing: plain language'
+  author: Office for National Statistics
+  type: docs
+  length: 5 min
+  level: intro
+  why: Practical plain-language rules, including one term per concept and task-first headings.
+  checked: 2026-11-10
+
+ms-style-ui:
+  url: https://learn.microsoft.com/en-us/style-guide/procedures-instructions/describing-interactions-with-ui
+  title: Describing interactions with the UI
+  author: Microsoft Style Guide
+  type: docs
+  length: 5 min
+  level: intro
+  why: How to write instructions that work for mouse, keyboard, touch and voice users alike.
+  checked: 2026-11-10
+
+webdev-i18n:
+  url: https://web.dev/learn/design/internationalization
+  title: Internationalization
+  author: web.dev (Google)
+  type: course
+  length: 7 min
+  year: 2021
+  level: intro
+  why: Layout choices that survive other languages and writing directions, such as logical CSS properties.
+  checked: 2026-11-10
+
+fogg-behavior-model:
+  url: https://www.behaviormodel.org/
+  title: Fogg behavior model
+  author: BJ Fogg
+  type: article
+  length: 3 min
+  level: intro
+  why: Behavior happens when motivation, ability and a prompt meet. The original source, short and clear.
+  checked: 2026-11-10
+
+lawsofux-home:
+  url: https://lawsofux.com/
+  title: Laws of UX
+  author: Jon Yablonski
+  type: article
+  length: collection
+  level: intro
+  why: Short explanations of the psychology behind interface design, from Hick's law to the peak-end rule.
+  checked: 2026-11-10
+
+nirandfar-habit:
+  url: https://www.nirandfar.com/designing-habit-forming-products/
+  title: Designing habit-forming products
+  author: Nir Eyal
+  type: article
+  length: 4 min
+  year: 2014
+  level: intro
+  why: The trigger, action, reward and investment loop, from the author of Hooked.
+  checked: 2026-11-10
+
+nirandfar-triggers:
+  url: https://www.nirandfar.com/how-to-trigger-product-usage-that-sticks/
+  title: 'Product usage that sticks: habits begin with a trigger'
+  author: Nir Eyal
+  type: article
+  length: 8 min
+  year: 2017
+  level: deep
+  why: External and internal triggers, and why the lasting habits attach to an emotion rather than a notification.
+  checked: 2026-11-10
+
+nngroup-deceptive-patterns:
+  url: https://www.nngroup.com/articles/deceptive-patterns/
+  title: 'Deceptive patterns in UX: how to recognize and avoid them'
+  author: NN/g
+  type: article
+  length: 10 min
+  year: 2023
+  level: intro
+  why: How to spot a design that works against its users, with examples of the common types.
+  checked: 2026-11-10
+
+deceptive-design:
+  url: https://deceptive.design/
+  title: Deceptive patterns
+  author: Harry Brignull
+  type: article
+  length: collection
+  level: deep
+  why: The original catalogue of dark patterns with real cases, from the person who coined the term.
+  checked: 2026-11-10

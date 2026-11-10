@@ -20,6 +20,8 @@ capabilities:
     description: >-
       The path a person takes through the product to get something done, and the structure
       that path runs on.
+    resources: [nngroup-journey-tips, nngroup-journeys-vs-flows, nngroup-mental-models]
+    tools: [excalidraw, optimal-workshop]
     skills:
       - id: journey-mapping
         name: Journey mapping
@@ -29,6 +31,7 @@ capabilities:
           often beyond the product itself. It shows where the real friction sits. It is a good
           shared artifact for a team deciding where to focus.
         related: [pain-points, path-analysis]
+        resources: [nngroup-journey-tips, nngroup-journeys-vs-flows]
       - id: user-flows
         name: User flows
         summary: The screens and decisions a user passes through to complete a task.
@@ -37,6 +40,8 @@ capabilities:
           before building reveals missing states and unnecessary steps. It is close to how engineers
           already think about state machines.
         related: [step-reduction, state-management]
+        resources: [nngroup-journeys-vs-flows]
+        tools: [excalidraw]
       - id: task-analysis
         name: Task analysis
         summary: Breaking a task into steps to understand how people really do it.
@@ -45,6 +50,7 @@ capabilities:
           It reveals which steps are essential and which exist only because of the current tool.
           It is the groundwork for simplifying any complex workflow.
         related: [industry-workflows, user-flows]
+        resources: [nngroup-which-methods]
       - id: mental-models
         name: Mental models
         summary: How users believe the product works, which may differ from how it does.
@@ -53,6 +59,7 @@ capabilities:
           product feels obvious. When the implementation leaks through, such as sync states or
           internal statuses, people get confused and make mistakes.
         related: [category-conventions, affordances]
+        resources: [nngroup-mental-models, lawsofux-jakobs-law]
       - id: information-architecture
         name: Information architecture
         summary: Organizing and labelling content and features so people can find them.
@@ -61,12 +68,15 @@ capabilities:
           and tree testing check it with real users. Poor structure makes good features effectively
           invisible.
         related: [navigation-design, product-terminology]
+        resources: [nngroup-ia-topic, nngroup-which-methods]
+        tools: [optimal-workshop]
 
   - id: interaction-design
     name: Interaction design
     description: >-
       How the product responds to what people do: the controls, the feedback, and what
       happens when things go wrong.
+    resources: [nngroup-usability-101, nngroup-web-forms, lawsofux-home]
     skills:
       - id: navigation-design
         name: Navigation
@@ -76,6 +86,7 @@ capabilities:
           navigation is predictable and mirrors the information architecture. Deep links and
           browser history are part of it, which makes it partly an engineering concern.
         related: [information-architecture, mental-models]
+        resources: [nngroup-ia-topic]
       - id: form-design
         name: Forms
         summary: Designing inputs that are quick to fill in and hard to get wrong.
@@ -84,6 +95,7 @@ capabilities:
           Good forms ask only what is needed, use the right input types and validate helpfully.
           Most form problems are fixable in an afternoon by an engineer who knows the basics.
         related: [form-friction, error-recovery]
+        resources: [nngroup-web-forms, nngroup-form-cognitive-load]
       - id: interface-feedback
         name: System feedback
         summary: Showing users that the system heard them and what happened next.
@@ -92,6 +104,7 @@ capabilities:
           results. Without feedback users repeat actions or assume something broke. Optimistic
           updates and clear loading states are a large part of how fast a product feels.
         related: [latency, error-recovery]
+        resources: [nngroup-usability-101]
       - id: error-recovery
         name: Errors and recovery
         summary: Preventing mistakes and helping users recover from them.
@@ -100,6 +113,7 @@ capabilities:
           offers a way out, such as undo. Error messages are often written by engineers at the last
           minute. Treating them as part of the design pays off.
         related: [microcopy, form-design]
+        resources: [nngroup-error-rubric, nngroup-hostile-errors, nngroup-confirmation-dialog]
       - id: empty-states
         name: Empty states
         summary: What users see before there is any data, and how it guides them forward.
@@ -108,6 +122,7 @@ capabilities:
           messages. It is often the first thing a new user sees. A good one explains what goes here
           and gives a clear first action.
         related: [first-run-flows, guided-setup]
+        resources: [nngroup-empty-states]
       - id: affordances
         name: Affordances
         summary: Visual cues that show what can be clicked, dragged or changed.
@@ -116,6 +131,7 @@ capabilities:
           draggable. Flat designs often remove these cues and leave users guessing. Clear
           affordances reduce errors without adding instructions.
         related: [mental-models, visual-hierarchy]
+        resources: [nngroup-mental-models]
       - id: progressive-disclosure
         name: Progressive disclosure
         summary: Showing advanced options only when they are needed.
@@ -124,12 +140,15 @@ capabilities:
           one step away. It lets a product serve beginners and experts at the same time. The hard
           part is deciding what counts as advanced, which is a research question.
         related: [cognitive-load, progressive-onboarding]
+        resources: [nngroup-form-cognitive-load]
 
   - id: ui-design
     name: UI design
     description: >-
       The visual layer: hierarchy, type, spacing, color and the systems that keep them
       consistent across a product.
+    resources: [nngroup-visual-design-posters, practical-typography, atomic-design]
+    tools: [figma, penpot]
     skills:
       - id: visual-hierarchy
         name: Visual hierarchy
@@ -139,6 +158,7 @@ capabilities:
           no clear hierarchy feels busy even when it has little on it. It is the single most useful
           visual skill for engineers who build interfaces without a designer.
         related: [typography, affordances]
+        resources: [nngroup-visual-design-posters]
       - id: typography
         name: Typography
         summary: Choosing and setting type so text is readable and the hierarchy is clear.
@@ -147,6 +167,7 @@ capabilities:
           interfaces need only a few sizes used consistently. Good defaults make an interface look
           deliberate even before any other styling.
         related: [visual-hierarchy, design-systems]
+        resources: [practical-typography]
       - id: spacing-and-layout
         name: Spacing and layout
         summary: Arranging elements with consistent space so the structure is easy to read.
@@ -155,6 +176,7 @@ capabilities:
           a simple grid remove most visual mess. Layout techniques like flexbox and grid make this an
           area where engineers can be very precise.
         related: [responsive-design, visual-hierarchy]
+        resources: [webdev-learn-design]
       - id: color
         name: Color
         summary: Using color for meaning, emphasis and brand, with enough contrast.
@@ -163,6 +185,8 @@ capabilities:
           decoration. Limited palettes with defined roles keep things consistent. Contrast has to
           work for everyone, including in dark mode.
         related: [wcag, design-systems]
+        resources: [webdev-color-contrast, webdev-color-scheme]
+        tools: [webaim-contrast-checker]
       - id: responsive-design
         name: Responsive design
         summary: Interfaces that work across screen sizes and input methods.
@@ -171,6 +195,7 @@ capabilities:
           touch, mouse and keyboard. It is more than shrinking things down. Content priorities often
           change on small screens.
         related: [context-of-use, spacing-and-layout]
+        resources: [webdev-responsive-basics, webdev-learn-design]
       - id: design-systems
         name: Design systems
         summary: Reusable components and rules that keep an interface consistent.
@@ -179,12 +204,16 @@ capabilities:
           up building and keeps the product coherent as it grows. Engineers usually maintain the
           code side of it, so they shape how well it works.
         related: [code-organization, typography]
+        resources: [atomic-design]
+        tools: [storybook, figma]
 
   - id: prototyping
     name: Prototyping
     description: >-
       Making ideas tangible quickly so they can be tested before full investment, from paper
       sketches to working code.
+    resources: [nngroup-prototype-fidelity, nngroup-usability-testing, nngroup-complex-apps]
+    tools: [figma, penpot, excalidraw]
     skills:
       - id: sketching
         name: Sketching
@@ -194,6 +223,8 @@ capabilities:
           several rough ideas beat one polished one. Engineers who sketch before coding often find
           simpler solutions.
         related: [wireframes, user-flows]
+        resources: [nngroup-prototype-fidelity]
+        tools: [excalidraw]
       - id: wireframes
         name: Wireframes
         summary: Low-fidelity layouts that show structure without visual detail.
@@ -202,6 +233,8 @@ capabilities:
           They keep feedback focused on structure and flow. They are cheap to change, which is
           exactly their point.
         related: [sketching, information-architecture]
+        resources: [nngroup-prototype-fidelity]
+        tools: [figma, penpot]
       - id: clickable-prototypes
         name: Clickable prototypes
         summary: Linked mockups that let people click through a flow.
@@ -210,6 +243,8 @@ capabilities:
           Design tools make it fast. It answers whether people understand the flow before anyone
           writes production code.
         related: [usability-testing, wireframes]
+        resources: [nngroup-prototype-fidelity]
+        tools: [figma, maze]
       - id: functional-prototypes
         name: Functional prototypes
         summary: Working code built quickly to test an idea with real behavior.
@@ -218,6 +253,7 @@ capabilities:
           prototype is throwaway code that tests them. This is where product engineers have an
           advantage, as long as the prototype is treated as disposable.
         related: [mvp, concierge-experiments]
+        resources: [nngroup-complex-apps]
       - id: usability-testing
         name: Usability testing
         summary: Watching people attempt real tasks to find where they struggle.
@@ -226,12 +262,16 @@ capabilities:
           Five participants usually reveal the biggest problems. It works on sketches, prototypes
           and live products, and it is humbling every time.
         related: [user-interviews, drop-off-analysis]
+        resources: [nngroup-usability-testing, nngroup-five-users]
+        tools: [maze]
 
   - id: accessibility
     name: Accessibility
     description: >-
       Building products that people with disabilities can use, which tends to make them
       better for everyone.
+    resources: [webaim-quickref, mdn-html-a11y, webdev-design-ux-a11y]
+    tools: [axe-devtools, wave, lighthouse]
     skills:
       - id: inclusive-design
         name: Inclusive design
@@ -241,6 +281,7 @@ capabilities:
           broken arm or bright sunlight. It treats accessibility as a design input from the start,
           not a fix at the end. It often leads to simpler designs for everyone.
         related: [user-autonomy, context-of-use]
+        resources: [webdev-design-ux-a11y]
       - id: keyboard-interaction
         name: Keyboard interaction
         summary: Making every function usable without a mouse.
@@ -249,6 +290,7 @@ capabilities:
           such as menus and dialogs need the expected key behavior. It is one of the most common
           accessibility failures and one of the easiest to test.
         related: [semantic-markup, assistive-technology]
+        resources: [mdn-keyboard]
       - id: semantic-markup
         name: Semantic markup
         summary: Using the right HTML elements so meaning is available to all software.
@@ -257,6 +299,7 @@ capabilities:
           technology the structure it needs. It also improves SEO and makes code easier to read.
           ARIA is for the gaps, not a replacement for the right element.
         related: [assistive-technology, seo]
+        resources: [mdn-html-a11y, mdn-aria-basics]
       - id: assistive-technology
         name: Assistive technology support
         summary: Working well with screen readers, magnifiers and voice control.
@@ -265,6 +308,8 @@ capabilities:
           screen reader for even ten minutes reveals problems no checklist catches. Engineers should
           know how to do a basic pass themselves.
         related: [semantic-markup, keyboard-interaction]
+        resources: [mdn-a11y-tooling]
+        tools: [nvda]
       - id: wcag
         name: WCAG principles
         summary: The web accessibility guidelines, built on four principles.
@@ -273,12 +318,15 @@ capabilities:
           to them. Knowing the four principles and the common success criteria covers most
           everyday work. Automated checkers find only part of the problems.
         related: [regulatory-compliance, color]
+        resources: [webaim-quickref, webaim-contrast, webaim-evaluation]
+        tools: [wave, axe-devtools]
 
   - id: content-design
     name: Content design
     description: >-
       The words in the product: labels, instructions, messages and docs that help people
       understand and act.
+    resources: [govuk-writing-ui, ons-plain-language, govuk-content-principles]
     skills:
       - id: microcopy
         name: Microcopy
@@ -288,6 +336,7 @@ capabilities:
           Small wording changes can clearly change behavior. Engineers write much of it, often as
           placeholders that end up shipping.
         related: [error-recovery, plain-language]
+        resources: [govuk-writing-ui, nngroup-error-rubric]
       - id: instructional-copy
         name: Instructions
         summary: Explaining how to do something at the moment it is needed.
@@ -296,6 +345,7 @@ capabilities:
           interface needs few of them, but complex tasks always need some. Instructions that users
           skip are a sign the design needs work.
         related: [contextual-guidance, tutorials]
+        resources: [ms-style-ui]
       - id: product-terminology
         name: Terminology
         summary: Choosing consistent names for things in the product.
@@ -304,6 +354,7 @@ capabilities:
           A small glossary keeps interface, docs, support and code aligned. Naming also shows up in
           APIs and data models, so it is not only a writing problem.
         related: [domain-language, information-architecture]
+        resources: [ons-plain-language, fowler-ubiquitous-language]
       - id: plain-language
         name: Plain language
         summary: Writing that people understand on first read.
@@ -312,6 +363,7 @@ capabilities:
           including non-native speakers and stressed users. It is a measurable skill, and readability
           checks can catch the worst cases.
         related: [microcopy, clear-explanations]
+        resources: [ons-plain-language, govuk-content-principles]
       - id: documentation-ux
         name: Documentation UX
         summary: Help content that people can find and use while they work.
@@ -327,6 +379,8 @@ capabilities:
           cultural expectations. It needs engineering support from the start, such as string
           extraction and flexible layouts. Retrofitting it later is expensive.
         related: [responsive-design, plain-language]
+        resources: [webdev-i18n]
+        tools: [crowdin]
 
   - id: behavioral-design
     name: Behavioral design
@@ -334,6 +388,7 @@ capabilities:
       Applying what is known about human behavior to make good actions easier, without
       manipulating people.
     related: [user-autonomy]
+    resources: [fogg-behavior-model, lawsofux-home, nngroup-deceptive-patterns]
     skills:
       - id: motivation
         name: Motivation
@@ -343,6 +398,7 @@ capabilities:
           products cannot create motivation, but they can avoid destroying it and make action
           easier when it is there. Intrinsic motivation lasts longer than rewards.
         related: [user-motivations, habit-formation]
+        resources: [fogg-behavior-model]
       - id: cognitive-load
         name: Cognitive load
         summary: The mental effort an interface demands, and how to reduce it.
@@ -351,6 +407,7 @@ capabilities:
           options, good defaults and recognition over recall. Lower cognitive load is often the
           real reason a redesign feels better.
         related: [progressive-disclosure, decision-friction]
+        resources: [nngroup-form-cognitive-load, lawsofux-home]
       - id: decision-friction
         name: Decision friction
         summary: The hesitation that appears when users face too many or unclear choices.
@@ -359,6 +416,7 @@ capabilities:
           drop-off. Defaults, clear comparisons and fewer options reduce it. Some friction is useful,
           for example before destructive actions.
         related: [cognitive-load, trial-conversion]
+        resources: [lawsofux-home]
       - id: habit-formation
         name: Habit formation
         summary: How repeated use becomes automatic behavior.
@@ -367,6 +425,7 @@ capabilities:
           used daily depend on them. The honest version helps people build habits they actually
           want, such as practicing a language.
         related: [core-loops, reminders]
+        resources: [nirandfar-habit, nirandfar-triggers]
       - id: persuasive-design
         name: Persuasive design
         summary: Techniques that influence behavior, such as social proof, defaults and scarcity.
@@ -375,6 +434,7 @@ capabilities:
           framing can help users make good choices or push them into bad ones. Knowing the
           techniques also helps you spot when a design crosses the line.
         related: [trust-signals, ethical-engagement]
+        resources: [fogg-behavior-model, nngroup-deceptive-patterns]
       - id: ethical-engagement
         name: Ethical engagement
         summary: Avoiding dark patterns and designing engagement that respects users.
@@ -383,3 +443,4 @@ capabilities:
           or confirm-shaming. They raise short-term numbers and damage trust, and some are now
           illegal. Ethical engagement asks whether users would approve if they saw how it works.
         related: [user-autonomy, guardrail-metrics]
+        resources: [nngroup-deceptive-patterns, deceptive-design]

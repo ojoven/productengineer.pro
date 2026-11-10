@@ -21,6 +21,7 @@ capabilities:
     description: >-
       Knowing who the users are, what they are trying to get done, and the situations they are in.
       It is the shared picture that every later decision about the product leans on.
+    resources: [govuk-user-needs, nngroup-research-cheat-sheet, dscout-jtbd-switch]
     skills:
       - id: user-segments
         name: User segments
@@ -46,6 +47,7 @@ capabilities:
           frustrations. Useful personas are built from real interviews, not invented
           demographics. They help a team argue about a concrete user instead of an abstract one.
         related: [user-interviews, research-synthesis]
+        resources: [nngroup-research-cheat-sheet]
       - id: jobs-to-be-done
         name: Jobs to be done
         summary: Framing products around the progress people are trying to make.
@@ -54,6 +56,7 @@ capabilities:
           they are. It explains why people switch products and what they compare you against.
           For an engineer it is a fast way to judge whether a feature serves a real job.
         related: [substitutes, user-motivations]
+        resources: [dscout-jtbd-switch]
       - id: user-motivations
         name: Goals and motivations
         summary: Why people act, what they want to achieve, and what they are afraid of.
@@ -70,6 +73,7 @@ capabilities:
           are juggling while they use your product. The same feature can be perfect at a desk and
           useless on a phone in a hurry. Engineers who know the context make better default choices.
         related: [field-studies, responsive-design]
+        resources: [nngroup-field-studies, govuk-contextual-research]
 
   - id: user-research
     name: User research
@@ -77,6 +81,8 @@ capabilities:
       Methods for learning directly from users: talking to them, watching them and asking them
       at scale. The aim is reliable evidence, gathered cheaply and often.
     related: [usability-testing]
+    resources: [nngroup-research-cheat-sheet, govuk-plan-research, producttalk-continuous-discovery, nngroup-research-methods-glossary, govuk-research-discovery]
+    tools: [dovetail]
     skills:
       - id: user-interviews
         name: User interviews
@@ -86,6 +92,7 @@ capabilities:
           pitching and leading questions. It is the most useful research method a product engineer
           can learn, because it needs no budget and works from the first week.
         related: [research-synthesis, feedback-analysis]
+        resources: [nngroup-user-interviews, ybrikman-mom-test, producttalk-continuous-discovery]
       - id: field-studies
         name: Observation and field studies
         summary: Watching people do the work in their own environment.
@@ -94,6 +101,7 @@ capabilities:
           Field studies and contextual inquiry go to where the work happens. They catch problems
           that never come up in an interview because users consider them normal.
         related: [context-of-use, industry-workflows]
+        resources: [nngroup-field-studies, govuk-contextual-research]
       - id: surveys
         name: Surveys
         summary: Structured questions to measure how common a behavior or opinion is.
@@ -110,6 +118,7 @@ capabilities:
           habits, repeated tasks and moments that a single session misses. It suits products used
           over time, such as learning apps or tools that are part of a weekly routine.
         related: [habit-formation, recurring-needs]
+        resources: [nngroup-diary-studies]
       - id: research-synthesis
         name: Research synthesis
         summary: Turning notes and recordings into clear findings the team can act on.
@@ -118,12 +127,15 @@ capabilities:
           anecdotes. Techniques include affinity mapping and opportunity trees. Without it,
           research becomes a pile of notes that only the person who ran it remembers.
         related: [user-interviews, evidence-strength]
+        resources: [govuk-analyse-research, nngroup-thematic-analysis, producttalk-ost]
+        tools: [dovetail]
 
   - id: problem-identification
     name: Problem identification
     description: >-
       Pinning down what the problem actually is, how much it hurts, and what causes it. A
       clearly stated problem is half of a good solution.
+    resources: [nngroup-problem-statements, producttalk-ost, wikipedia-five-whys]
     skills:
       - id: pain-points
         name: Pain points
@@ -133,6 +145,7 @@ capabilities:
           pain points come up without prompting and people already spend effort working around
           them. They are a better starting point for features than ideas from the team.
         related: [friction-reduction, unmet-needs]
+        resources: [producttalk-ost]
       - id: unmet-needs
         name: Unmet needs
         summary: Things people need that no current solution handles well.
@@ -141,6 +154,7 @@ capabilities:
           badly. Many products start from one. Spotting them takes listening to what users try to
           do, not only to what they complain about.
         related: [pain-points, substitutes]
+        resources: [govuk-user-needs, producttalk-ost]
       - id: root-cause-analysis
         name: Root-cause analysis
         summary: Tracing a symptom back to the underlying cause before solving it.
@@ -149,6 +163,7 @@ capabilities:
           include the five whys and fishbone diagrams. Engineers already do this with bugs, and the
           same habit applied to user problems stops a team from building patches on top of patches.
         related: [debugging, incident-response]
+        resources: [wikipedia-five-whys]
       - id: problem-statements
         name: Problem statements
         summary: A short, precise description of who has the problem and why it matters.
@@ -157,6 +172,7 @@ capabilities:
           naming a solution. Writing one forces the team to agree on what they are solving. It also
           gives a clear test for later: did the shipped work make this problem smaller?
         related: [hypotheses, technical-writing]
+        resources: [nngroup-problem-statements]
       - id: problem-severity
         name: Problem severity and frequency
         summary: Judging how badly and how often a problem hurts.
@@ -171,6 +187,7 @@ capabilities:
     description: >-
       Understanding the market around the product: competitors, alternatives, trends and size.
       It puts a user problem in the context of what already exists.
+    resources: [stripe-tam-sam-som, visible-bottom-up-sizing]
     skills:
       - id: competitive-analysis
         name: Competitive analysis
@@ -188,6 +205,7 @@ capabilities:
           problem. Knowing these alternatives explains what users compare you against. It also
           shows how much better a product has to be before anyone bothers to switch.
         related: [jobs-to-be-done, category-positioning]
+        resources: [dscout-jtbd-switch]
       - id: market-structure
         name: Market structure
         summary: Who the players are, how value flows, and who holds power in a market.
@@ -212,6 +230,7 @@ capabilities:
           what a checkout asks for. Following them lowers learning cost. Breaking one should be a
           deliberate choice with a reason, not an accident.
         related: [mental-models, category-positioning]
+        resources: [lawsofux-jakobs-law]
       - id: market-sizing
         name: Market sizing
         summary: Estimating how many potential customers exist and what they could be worth.
@@ -220,12 +239,14 @@ capabilities:
           customers and prices. It is rough by nature, but it tells you whether an idea can
           support a business or only a hobby. Bottom-up estimates are more honest than top-down ones.
         related: [revenue-models, ideal-customer-profile]
+        resources: [stripe-tam-sam-som, visible-bottom-up-sizing]
 
   - id: opportunity-validation
     name: Opportunity validation
     description: >-
       Testing whether an opportunity is real before investing in it. Cheap experiments that
       produce evidence instead of opinions.
+    resources: [producttalk-assumption-testing, mtp-woz-concierge, ybrikman-mom-test]
     skills:
       - id: assumption-mapping
         name: Assumption mapping
@@ -235,6 +256,7 @@ capabilities:
           importance and by how little evidence supports them. The riskiest assumptions get tested
           first. It turns a vague worry into a concrete list of things to check.
         related: [evidence-strength, hypotheses]
+        resources: [producttalk-assumption-testing, producttalk-ost]
       - id: evidence-strength
         name: Evidence strength
         summary: Telling strong evidence from weak signals and opinions.
@@ -243,6 +265,7 @@ capabilities:
           and observed behavior is stronger than a survey answer. Weighing evidence keeps a team
           from betting months of work on a few enthusiastic conversations.
         related: [evidence-vs-assumptions, interpreting-results]
+        resources: [ybrikman-mom-test]
       - id: desirability-tests
         name: Desirability tests
         summary: Experiments that check whether people actually want something.
@@ -251,6 +274,7 @@ capabilities:
           clicks on a feature that is not built yet. They test demand, not usability. A good test
           asks people to give something up, such as time, an email address or money.
         related: [landing-page-tests, concierge-experiments]
+        resources: [producttalk-assumption-testing]
       - id: willingness-to-pay
         name: Willingness to pay
         summary: Finding out whether, and how much, people would pay.
@@ -259,6 +283,7 @@ capabilities:
           solution. Asking directly gives unreliable answers, so methods like pricing conversations
           and price tests are used instead. It decides whether a problem can sustain a product.
         related: [pricing, packaging]
+        resources: [zhaw-price-sensitivity, conjointly-van-westendorp]
       - id: landing-page-tests
         name: Landing-page tests
         summary: Describing a product on a page and measuring who signs up.
@@ -275,6 +300,7 @@ capabilities:
           users see a product while a person works behind it. Both reveal what the solution must do
           before any automation is built, which saves engineering time.
         related: [mvp, functional-prototypes]
+        resources: [mtp-woz-concierge, netguru-concierge-woz]
 
   - id: domain-understanding
     name: Domain understanding
@@ -282,6 +308,7 @@ capabilities:
       Knowing the industry the product lives in: how work gets done, the language people use,
       the rules and the people involved.
     related: [regulatory-compliance, substitutes]
+    resources: [fowler-ddd, fowler-ubiquitous-language, fowler-bounded-context]
     skills:
       - id: industry-workflows
         name: Industry workflows
@@ -291,6 +318,7 @@ capabilities:
           to lesson planning in education. Understanding them prevents features that ignore how
           the work really happens. Many good product ideas come from one painful step in a workflow.
         related: [field-studies, task-analysis]
+        resources: [govuk-contextual-research, nngroup-field-studies]
       - id: domain-language
         name: Domain language
         summary: The vocabulary and concepts experts in the field use.
@@ -299,6 +327,7 @@ capabilities:
           trust quickly. A shared vocabulary also improves code, since models and names match the
           domain. This idea is central to domain-driven design.
         related: [product-terminology, data-modeling]
+        resources: [fowler-ubiquitous-language, fowler-bounded-context]
       - id: domain-constraints
         name: Domain constraints
         summary: The rules, limits and realities a solution must respect.

@@ -1,0 +1,293 @@
+# Resources first used in Discovery. Every URL was opened and confirmed live and on topic on the
+# `checked` date.
+
+nngroup-research-cheat-sheet:
+  url: https://www.nngroup.com/articles/ux-research-cheat-sheet/
+  title: UX research cheat sheet
+  author: NN/g
+  type: article
+  length: 13 min
+  year: 2017
+  level: intro
+  why: Which research method fits which stage of a project, on one page. A good map before picking a method.
+  checked: 2026-11-10
+
+nngroup-research-methods-glossary:
+  url: https://www.nngroup.com/articles/research-methods-glossary/
+  title: 'UX research methods: glossary'
+  author: NN/g
+  type: article
+  length: 15 min
+  year: 2023
+  level: intro
+  why: Short definitions of every common research method, so you can tell a diary study from a field study at a glance.
+  checked: 2026-11-10
+
+nngroup-user-interviews:
+  url: https://www.nngroup.com/articles/user-interviews/
+  title: User interviews 101
+  author: NN/g
+  type: article
+  length: 10 min
+  year: 2023
+  level: intro
+  why: How to plan and run an interview, what to ask, and why what people say needs checking against what they do.
+  checked: 2026-11-10
+
+ybrikman-mom-test:
+  url: https://www.ybrikman.com/blog/2023/03/29/the-mom-test/
+  title: 'Review: The Mom Test by Rob Fitzpatrick'
+  author: Yevgeniy Brikman
+  type: article
+  length: 7 min
+  year: 2023
+  level: intro
+  why: An engineer's summary of the most useful short book on customer conversations, with the questions that get honest answers.
+  checked: 2026-11-10
+
+nngroup-field-studies:
+  url: https://www.nngroup.com/articles/field-studies/
+  title: Field studies
+  author: NN/g
+  type: article
+  length: 10 min
+  year: 2024
+  level: intro
+  why: When to leave the office and watch people in their own setting, and how to run the visit.
+  checked: 2026-11-10
+
+govuk-contextual-research:
+  url: https://www.gov.uk/service-manual/user-research/contextual-research-and-observation
+  title: Contextual research and observation
+  author: GOV.UK Service Manual
+  type: docs
+  length: 7 min
+  year: 2017
+  level: intro
+  why: Practical, no-nonsense guidance on visiting people where they work or live, from a team that does it at national scale.
+  checked: 2026-11-10
+
+nngroup-diary-studies:
+  url: https://www.nngroup.com/articles/diary-studies/
+  title: 'Diary studies: understanding long-term user behavior and experiences'
+  author: NN/g
+  type: article
+  length: 15 min
+  year: 2024
+  level: deep
+  why: How to set up, run and analyze a study that follows people over days or weeks.
+  checked: 2026-11-10
+
+govuk-plan-research:
+  url: https://www.gov.uk/service-manual/user-research/plan-user-research-for-your-service
+  title: Plan user research for your service
+  author: GOV.UK Service Manual
+  type: docs
+  length: 7 min
+  year: 2016
+  level: intro
+  why: How to decide what to research, how many people to involve and how often, for a team without a dedicated researcher.
+  checked: 2026-11-10
+
+govuk-research-discovery:
+  url: https://www.gov.uk/service-manual/user-research/user-research-in-discovery
+  title: User research in discovery
+  author: GOV.UK Service Manual
+  type: docs
+  length: 4 min
+  year: 2016
+  level: intro
+  why: What research should achieve before anything is built, and what to leave until later.
+  checked: 2026-11-10
+
+govuk-analyse-research:
+  url: https://www.gov.uk/service-manual/user-research/analyse-a-research-session
+  title: Analyse a research session
+  author: GOV.UK Service Manual
+  type: docs
+  length: 6 min
+  year: 2016
+  level: intro
+  why: A simple, repeatable way to turn session notes into findings with the whole team.
+  checked: 2026-11-10
+
+govuk-user-needs:
+  url: https://www.gov.uk/service-manual/service-standard/point-1-understand-user-needs
+  title: Understand users and their needs
+  author: GOV.UK Service Manual
+  type: docs
+  length: 4 min
+  year: 2019
+  level: intro
+  why: Why a product starts from user needs rather than features, and what evidence of a need looks like.
+  checked: 2026-11-10
+
+producttalk-continuous-discovery:
+  url: https://www.producttalk.org/getting-started-with-discovery/
+  title: Everyone can do continuous discovery, even you
+  author: Teresa Torres (Product Talk)
+  type: article
+  length: 20 min
+  year: 2023
+  level: intro
+  why: How a product team keeps talking to customers every week instead of in occasional research projects.
+  checked: 2026-11-10
+
+producttalk-ost:
+  url: https://www.producttalk.org/opportunity-solution-trees/
+  title: 'Opportunity solution trees: visualize your discovery'
+  author: Teresa Torres (Product Talk)
+  type: article
+  length: 25 min
+  year: 2023
+  level: deep
+  why: Connects an outcome to the user needs and pain points behind it, then to solutions and the tests that check them.
+  checked: 2026-11-10
+
+producttalk-assumption-testing:
+  url: https://www.producttalk.org/assumption-testing/
+  title: 'Assumption testing: everything you need to know to get started'
+  author: Teresa Torres (Product Talk)
+  type: article
+  length: 20 min
+  year: 2023
+  level: intro
+  why: How to break an idea into its assumptions and test the riskiest ones quickly, before building.
+  checked: 2026-11-10
+
+nngroup-problem-statements:
+  url: https://www.nngroup.com/articles/problem-statements/
+  title: Problem statements in UX discovery
+  author: NN/g
+  type: article
+  length: 8 min
+  year: 2021
+  level: intro
+  why: What a good problem statement contains and why a discovery effort should have exactly one.
+  checked: 2026-11-10
+
+wikipedia-five-whys:
+  url: https://en.wikipedia.org/wiki/Five_whys
+  title: Five whys
+  author: Wikipedia
+  type: article
+  length: 9 min
+  level: intro
+  why: The technique, its origin at Toyota, and the honest criticism of where it falls short.
+  checked: 2026-11-10
+
+dscout-jtbd-switch:
+  url: https://dscout.com/people-nerds/switch-products-jobs-to-be-done
+  title: Studying users who switch products? Try jobs to be done
+  author: dscout
+  type: article
+  length: 12 min
+  year: 2024
+  level: intro
+  why: How switch interviews and the four forces explain why people leave what they use today for something else.
+  checked: 2026-11-10
+
+lawsofux-jakobs-law:
+  url: https://lawsofux.com/jakobs-law/
+  title: "Jakob's law"
+  author: Laws of UX (Jon Yablonski)
+  type: article
+  length: 2 min
+  level: intro
+  why: Users spend most of their time on other products, so they expect yours to work the same way.
+  checked: 2026-11-10
+
+stripe-tam-sam-som:
+  url: https://stripe.com/resources/more/tam-sam-and-som
+  title: 'TAM, SAM, and SOM: how to size your market'
+  author: Stripe
+  type: article
+  length: 15 min
+  year: 2026
+  level: intro
+  why: Clear definitions of the three numbers and the common mistakes, such as a market defined far too broadly.
+  checked: 2026-11-10
+
+visible-bottom-up-sizing:
+  url: https://visible.vc/blog/bottom-up-market-sizing/
+  title: 'Bottom-up market sizing: what it is and how to do it'
+  author: Visible.vc
+  type: article
+  length: 12 min
+  year: 2025
+  level: deep
+  why: Builds a market estimate from real customer counts and prices, the version investors find easiest to trust.
+  checked: 2026-11-10
+
+mtp-woz-concierge:
+  url: https://www.mindtheproduct.com/wizard-of-oz-vs-concierge-testing-behind-the-curtain-or-behind-the-desk/
+  title: Two MVPs every product manager should know, and how to tell them apart
+  author: Mind the Product
+  type: article
+  length: 8 min
+  year: 2026
+  level: intro
+  why: The difference between a concierge test, where customers know it is manual, and a Wizard of Oz test, where they do not.
+  checked: 2026-11-10
+
+netguru-concierge-woz:
+  url: https://www.netguru.com/blog/concierge-testing-versus-wizard-of-oz-prototyping
+  title: 'Concierge testing versus Wizard of Oz prototyping: what to choose?'
+  author: Netguru
+  type: article
+  length: 10 min
+  year: 2021
+  level: intro
+  why: When each manual test fits, with examples of products that started this way.
+  checked: 2026-11-10
+
+zhaw-price-sensitivity:
+  url: https://www.entrepreneurship.zhaw.ch/en/resources/price-sensitiy-meter-v
+  title: Price sensitivity meter (Van Westendorp)
+  author: ZHAW School of Management and Law
+  type: article
+  length: 5 min
+  year: 2025
+  level: intro
+  why: The four questions behind the classic pricing survey and how to read the result.
+  checked: 2026-11-10
+
+conjointly-van-westendorp:
+  url: https://conjointly.com/products/van-westendorp/
+  title: Van Westendorp price sensitivity meter
+  author: Conjointly
+  type: docs
+  length: 15 min
+  level: deep
+  why: A worked explanation of the method and its charts, from a research-tool vendor. Remember it measures opinion, not purchases.
+  checked: 2026-11-10
+
+fowler-ddd:
+  url: https://martinfowler.com/bliki/DomainDrivenDesign.html
+  title: Domain driven design
+  author: Martin Fowler
+  type: article
+  length: 3 min
+  level: intro
+  why: A short orientation to domain-driven design, the approach that puts the business domain at the center of the software.
+  checked: 2026-11-10
+
+fowler-ubiquitous-language:
+  url: https://martinfowler.com/bliki/UbiquitousLanguage.html
+  title: Ubiquitous language
+  author: Martin Fowler
+  type: article
+  length: 2 min
+  level: intro
+  why: Why developers and domain experts should share one precise vocabulary, and carry it into the code.
+  checked: 2026-11-10
+
+fowler-bounded-context:
+  url: https://martinfowler.com/bliki/BoundedContext.html
+  title: Bounded context
+  author: Martin Fowler
+  type: article
+  length: 3 min
+  level: deep
+  why: The same word can mean different things in different parts of a business; this is how to draw those lines.
+  checked: 2026-11-10

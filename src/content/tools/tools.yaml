@@ -106,3 +106,87 @@ dovetail:
   what: Research repository for tagging interviews and feedback and finding themes across them.
   pricing: freemium
   checked: 2026-11-10
+
+figma:
+  name: Figma
+  url: https://www.figma.com/
+  what: Collaborative interface design and prototyping in the browser, the industry default.
+  pricing: freemium
+  checked: 2026-11-10
+
+penpot:
+  name: Penpot
+  url: https://penpot.app/
+  what: Open-source design and prototyping tool, self-hostable, built on open web standards.
+  pricing: open-source
+  checked: 2026-11-10
+
+excalidraw:
+  name: Excalidraw
+  url: https://excalidraw.com/
+  what: Open-source whiteboard with a hand-drawn look, for quick sketches, flows and diagrams.
+  pricing: open-source
+  checked: 2026-11-10
+
+storybook:
+  name: Storybook
+  url: https://storybook.js.org/
+  what: Open-source workshop for building, documenting and testing UI components in isolation.
+  pricing: open-source
+  checked: 2026-11-10
+
+axe-devtools:
+  name: axe DevTools
+  url: https://www.deque.com/axe/devtools/
+  what: Automated accessibility checks in the browser and in tests, built on the open-source axe-core engine.
+  pricing: freemium
+  checked: 2026-11-10
+
+wave:
+  name: WAVE
+  url: https://wave.webaim.org/
+  what: Free accessibility evaluation tool that marks problems directly on the page.
+  pricing: free
+  checked: 2026-11-10
+
+webaim-contrast-checker:
+  name: WebAIM Contrast Checker
+  url: https://webaim.org/resources/contrastchecker/
+  what: Checks whether a text and background color pair meets the WCAG contrast ratios.
+  pricing: free
+  checked: 2026-11-10
+
+lighthouse:
+  name: Lighthouse
+  url: https://developer.chrome.com/docs/lighthouse/overview
+  what: Open-source audits for performance, accessibility, SEO and best practices, built into Chrome.
+  pricing: open-source
+  checked: 2026-11-10
+
+maze:
+  name: Maze
+  url: https://maze.co/
+  what: Remote, unmoderated usability tests on prototypes and live products, with surveys and card sorts.
+  pricing: freemium
+  checked: 2026-11-10
+
+optimal-workshop:
+  name: Optimal Workshop
+  url: https://www.optimalworkshop.com/
+  what: Card sorting, tree testing and first-click tests for information architecture research.
+  pricing: freemium
+  checked: 2026-11-10
+
+crowdin:
+  name: Crowdin
+  url: https://crowdin.com/
+  what: Localization platform that syncs strings from your repository with translators.
+  pricing: freemium
+  checked: 2026-11-10
+
+nvda:
+  name: NVDA
+  url: https://www.nvaccess.org/
+  what: Free, open-source screen reader for Windows, widely used for accessibility testing.
+  pricing: open-source
+  checked: 2026-11-10
