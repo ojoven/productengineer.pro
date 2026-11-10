@@ -1,0 +1,162 @@
+# Resources first used in Distribution. Every URL was opened and confirmed live and on topic on
+# the `checked` date.
+
+balfour-four-fits:
+  url: https://brianbalfour.com/four-fits-growth-framework
+  title: Four fits for $100M+ growth
+  author: Brian Balfour
+  type: article
+  length: 10 min
+  level: intro
+  why: Market, product, channel and business model have to fit each other; a great product with the wrong channel stalls.
+  checked: 2026-11-10
+
+pg-do-things:
+  url: https://www.paulgraham.com/ds.html
+  title: Do things that don't scale
+  author: Paul Graham
+  type: article
+  length: 19 min
+  year: 2013
+  level: intro
+  why: Why the first users usually come from manual, unglamorous work, and why a big launch rarely saves you.
+  checked: 2026-11-10
+
+google-seo-starter:
+  url: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+  title: 'SEO starter guide: the basics'
+  author: Google Search Central
+  type: docs
+  length: 20 min
+  year: 2025
+  level: intro
+  why: How Google finds, understands and ranks pages, straight from the source.
+  checked: 2026-11-10
+
+google-seo-developers:
+  url: https://developers.google.com/search/docs/fundamentals/get-started-developers
+  title: SEO guide for web developers
+  author: Google Search Central
+  type: docs
+  length: 10 min
+  year: 2025
+  level: intro
+  why: 'The technical side of search written for engineers: crawling, rendering, metadata and structured data.'
+  checked: 2026-11-10
+
+google-search-essentials:
+  url: https://developers.google.com/search/docs/essentials
+  title: Google search essentials
+  author: Google Search Central
+  type: docs
+  length: 7 min
+  year: 2025
+  level: deep
+  why: The technical requirements and spam policies that decide whether a page can appear in search at all.
+  checked: 2026-11-10
+
+chen-viral-loop:
+  url: https://andrewchen.com/5-crucial-stages-in-designing-your-viral-loop/
+  title: 5 crucial stages in designing your viral loop
+  author: Andrew Chen
+  type: article
+  length: 9 min
+  level: intro
+  why: The steps from a user deciding to invite someone to that person becoming a user, and where loops leak.
+  checked: 2026-11-10
+
+chen-retention-viral:
+  url: https://andrewchen.com/more-retention-more-viral-growth/
+  title: The best way to drive viral growth is to increase retention and engagement
+  author: Andrew Chen
+  type: article
+  length: 15 min
+  level: deep
+  why: Why invitations come from engaged users, so retention work often lifts virality more than referral tricks.
+  checked: 2026-11-10
+
+chen-cold-start:
+  url: https://andrewchen.com/chapter-one-cold-start/
+  title: The cold start problem (chapter preview)
+  author: Andrew Chen
+  type: book
+  length: 25 min
+  level: deep
+  why: How networked products get their first users when the product is worth little until others join.
+  checked: 2026-11-10
+
+nfx-network-effects:
+  url: https://www.nfx.com/post/network-effects-bible
+  title: The network effects bible
+  author: NFX
+  type: article
+  length: 30 min
+  year: 2019
+  level: deep
+  why: The different kinds of network effects and how strong each one is, from investors who study them.
+  checked: 2026-11-10
+
+productled-plg:
+  url: https://productled.com/blog/product-led-growth-definition
+  title: 'Product-led growth: what it means and why it is taking off'
+  author: ProductLed (Wes Bush)
+  type: article
+  length: 20 min
+  year: 2023
+  level: intro
+  why: How a product can acquire, convert and expand customers on its own, and when that model fits.
+  checked: 2026-11-10
+
+productled-book:
+  url: https://productled.com/book/product-led-growth/introduction
+  title: 'Product-led growth: how to build a product that sells itself'
+  author: Wes Bush
+  type: book
+  length: free online chapters
+  level: deep
+  why: The book on PLG, with the free versus trial decision and the metrics that go with it.
+  checked: 2026-11-10
+
+jonobacon-devrel:
+  url: https://www.jonobacon.com/2023/04/02/what-is-developer-relations-devrel-a-complete-guide/
+  title: What is developer relations? A complete guide
+  author: Jono Bacon
+  type: article
+  length: 11 min
+  year: 2023
+  level: intro
+  why: What DevRel teams actually do and how their work connects to product adoption.
+  checked: 2026-11-10
+
+devrelbook-framework:
+  url: https://devrelbook.substack.com/p/the-developer-relations-framework
+  title: A framework for developer relations
+  author: The Developer Relations Book (Substack)
+  type: article
+  length: 3 min
+  year: 2021
+  level: deep
+  why: A short map of the parts of developer relations, from community to enablement.
+  checked: 2026-11-10
+
+hubspot-meddic:
+  url: https://blog.hubspot.com/sales/a-step-by-step-guide-to-the-meddic-sales-qualification-process
+  title: Inside the MEDDIC sales qualification process
+  author: HubSpot
+  type: article
+  length: 11 min
+  year: 2025
+  level: deep
+  why: How enterprise sales teams decide which deals are real, which helps engineers who support them.
+  checked: 2026-11-10
+
+qwilr-bant-meddic:
+  url: https://qwilr.com/blog/bant-vs-meddic/
+  title: BANT vs. MEDDIC, the best way to qualify leads
+  author: Qwilr
+  type: article
+  length: 13 min
+  year: 2024
+  level: intro
+  why: The two common qualification frameworks compared, and which fits which kind of deal.
+  checked: 2026-11-10

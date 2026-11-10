@@ -22,6 +22,7 @@ capabilities:
       The plan for bringing a product or feature to its audience: which people, which
       channels and what message.
     related: [target-audience, product-positioning]
+    resources: [balfour-four-fits, pg-do-things, dunford-intro-positioning]
     skills:
       - id: channel-selection
         name: Channel selection
@@ -31,6 +32,7 @@ capabilities:
           the audience already is with what the product and team can do well. Testing several
           cheaply, then focusing, beats spreading thin.
         related: [channel-performance, organic-acquisition]
+        resources: [balfour-four-fits]
       - id: launch-planning
         name: Launch planning
         summary: Preparing the timing, audience and activities for a launch.
@@ -39,6 +41,7 @@ capabilities:
           moments to concentrate attention, not one-off events. Planning the follow-up matters as
           much as the day itself.
         related: [release-communication, discovery-platforms]
+        resources: [pg-do-things]
       - id: messaging
         name: Messaging
         summary: The words used to describe the product's value to a specific audience.
@@ -47,12 +50,15 @@ capabilities:
           customers' own words, often taken from interviews and reviews. It should be tested like
           any other part of the product.
         related: [value-proposition, landing-page-tests]
+        resources: [dunford-intro-positioning, dunford-context]
 
   - id: organic-acquisition
     name: Organic acquisition
     description: >-
       Channels that bring users without paying per click: search, content, communities and
       word of mouth.
+    resources: [google-seo-starter, pg-do-things, jonobacon-devrel]
+    tools: [plausible]
     skills:
       - id: seo
         name: SEO
@@ -62,6 +68,8 @@ capabilities:
           engineering: rendering, metadata, sitemaps, performance. Programmatic pages built from
           product data can be a strong channel when they are genuinely useful.
         related: [semantic-markup, content-marketing]
+        resources: [google-seo-starter, google-seo-developers, google-search-essentials]
+        tools: [lighthouse]
       - id: content-marketing
         name: Content
         summary: Creating useful content that attracts the right audience.
@@ -70,6 +78,7 @@ capabilities:
           their problems. It compounds over time. Engineers can create strong technical content
           and free tools that rank and get shared.
         related: [seo, technical-writing]
+        resources: [google-seo-starter]
       - id: communities
         name: Communities
         summary: Building or joining communities where your users gather.
@@ -78,6 +87,7 @@ capabilities:
           honestly works better than broadcasting into them. A product's own community needs
           sustained care to stay alive.
         related: [developer-relations, customer-education]
+        resources: [pg-do-things]
       - id: social-platforms
         name: Social platforms
         summary: Reaching people through social networks.
@@ -93,6 +103,7 @@ capabilities:
           Developers trust working code over marketing. For developer tools it is often the main
           growth channel.
         related: [developer-docs, communities]
+        resources: [jonobacon-devrel, devrelbook-framework]
       - id: discovery-platforms
         name: Directories and app stores
         summary: Places where people browse for products, such as app stores and launch sites.
@@ -107,6 +118,7 @@ capabilities:
     description: >-
       Growth that comes from users bringing other users, through sharing, invitations and
       network effects.
+    resources: [chen-viral-loop, chen-retention-viral, nfx-network-effects]
     skills:
       - id: referral-loops
         name: Referral loops
@@ -116,6 +128,7 @@ capabilities:
           already worth recommending and the reward fits the audience. The loop has to be measured
           end to end, from invite to activated user.
         related: [invitations, viral-coefficient]
+        resources: [chen-viral-loop]
       - id: sharing-mechanics
         name: Sharing mechanics
         summary: Features that make the product's output worth sharing.
@@ -124,6 +137,7 @@ capabilities:
           design. Good sharing mechanics make that output easy to share and attractive when shared,
           with good previews and links back.
         related: [social-platforms, core-loops]
+        resources: [chen-viral-loop]
       - id: invitations
         name: Invitations
         summary: Letting users invite others into the product.
@@ -132,6 +146,7 @@ capabilities:
           reason to join and a good first experience for the invitee all matter. The invitee's
           onboarding is often neglected.
         related: [collaboration-features, signup-flow]
+        resources: [chen-viral-loop, chen-retention-viral]
       - id: network-effects
         name: Network effects
         summary: When the product becomes more valuable as more people use it.
@@ -140,6 +155,7 @@ capabilities:
           and collaboration tools. They create strong competitive advantage. They also make the
           start hard, since the first users get the least value.
         related: [competitive-advantage, market-structure]
+        resources: [nfx-network-effects, chen-cold-start]
       - id: viral-coefficient
         name: Viral coefficient
         summary: How many new users each user brings in.
@@ -148,12 +164,14 @@ capabilities:
           one, growth feeds itself, which is rare. Even below one, virality lowers acquisition cost.
           Cycle time matters as much as the coefficient.
         related: [referral-loops, customer-acquisition-cost]
+        resources: [chen-viral-loop, chen-retention-viral]
 
   - id: product-led-growth
     name: Product-led growth
     description: >-
       Using the product itself as the main way to acquire, convert and expand customers.
     related: [invitations]
+    resources: [productled-plg, productled-book]
     skills:
       - id: self-serve-adoption
         name: Self-serve adoption
@@ -163,6 +181,7 @@ capabilities:
           plan or trial. It removes the cost of a sales conversation for each customer. It depends
           heavily on activation working well.
         related: [trial-conversion, first-user-experience]
+        resources: [productled-plg]
       - id: collaboration-features
         name: Collaboration features
         summary: Features that bring teammates into the product.
@@ -171,6 +190,7 @@ capabilities:
           natural invitations and make the product harder to leave. They also add complexity to
           permissions and data models.
         related: [authorization, invitations]
+        resources: [chen-cold-start]
       - id: product-driven-expansion
         name: Product-driven expansion
         summary: Growing revenue from existing customers through the product itself.
@@ -179,12 +199,14 @@ capabilities:
           Usage limits and upgrade prompts at the right moment drive it. Net revenue retention
           above 100% means existing customers alone grow revenue.
         related: [packaging, adoption-barriers]
+        resources: [productled-book, stripe-atlas-pricing]
 
   - id: b2b-acquisition
     name: B2B acquisition
     description: >-
       How businesses find, evaluate and buy products, and how a product supports that
       process.
+    resources: [qwilr-bant-meddic, hubspot-meddic]
     skills:
       - id: sales-funnels
         name: Sales funnels
@@ -194,6 +216,7 @@ capabilities:
           Buying involves several people and takes time. Product engineers support it with demos,
           trials, integrations and security answers.
         related: [lead-qualification, domain-stakeholders]
+        resources: [hubspot-meddic]
       - id: lead-qualification
         name: Lead qualification
         summary: Deciding which potential customers are worth pursuing.
@@ -202,6 +225,7 @@ capabilities:
           can buy. Product usage data can qualify leads automatically. Good qualification saves
           time on both sides.
         related: [ideal-customer-profile, sales-funnels]
+        resources: [qwilr-bant-meddic, hubspot-meddic]
       - id: product-demos
         name: Product demonstrations
         summary: Showing the product solving a prospect's specific problem.
@@ -233,6 +257,7 @@ capabilities:
       The numbers that decide whether growth is sustainable: what it costs to win a customer
       and what that customer is worth.
     related: [lifetime-value]
+    resources: [skok-saas-metrics, a16z-16-startup-metrics, balfour-four-fits]
     skills:
       - id: customer-acquisition-cost
         name: Customer acquisition cost
@@ -242,6 +267,7 @@ capabilities:
           lifetime value it shows whether growth makes or loses money. Product-led channels often
           have lower CAC but take longer to build.
         related: [lifetime-value, channel-performance]
+        resources: [skok-saas-metrics, a16z-16-startup-metrics]
       - id: conversion-efficiency
         name: Conversion efficiency
         summary: How well each stage turns prospects into customers.
@@ -250,6 +276,7 @@ capabilities:
           channel. Improving a weak stage can cut acquisition cost more than finding new traffic.
           It connects activation work to growth economics.
         related: [funnel-optimization, conversion-metrics]
+        resources: [amplitude-pirate-metrics]
       - id: attribution
         name: Attribution
         summary: Working out which channels and touches led to a customer.
@@ -266,6 +293,7 @@ capabilities:
           channel brings. A cheap channel that brings users who leave is expensive. Cohorts by
           channel make the difference visible.
         related: [cohort-analysis, attribution]
+        resources: [amplitude-cohort-analysis]
       - id: sustainable-growth
         name: Payback and sustainable growth
         summary: Growing at a pace the business can fund and keep.
@@ -274,3 +302,4 @@ capabilities:
           the base growing. Payback period is the key number. Growth that depends on ever-rising
           spend is fragile.
         related: [costs-and-margins, retention-metrics]
+        resources: [skok-saas-metrics]
