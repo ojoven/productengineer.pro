@@ -1,0 +1,298 @@
+# Resources first used in Operations. Every URL was opened and confirmed live and on topic on the
+# `checked` date.
+
+otel-primer:
+  url: https://opentelemetry.io/docs/concepts/observability-primer/
+  title: Observability primer
+  author: OpenTelemetry
+  type: docs
+  length: 10 min
+  level: intro
+  why: Logs, metrics and traces explained, and how they connect so you can answer questions you did not plan for.
+  checked: 2026-11-10
+
+otel-signals:
+  url: https://opentelemetry.io/docs/concepts/signals/
+  title: Signals
+  author: OpenTelemetry
+  type: docs
+  length: 7 min
+  level: deep
+  why: The kinds of telemetry a service can emit, as defined by the open standard most tools now speak.
+  checked: 2026-11-10
+
+otel-llm-blog:
+  url: https://opentelemetry.io/blog/2024/llm-observability/
+  title: An introduction to observability for LLM-based applications
+  author: OpenTelemetry
+  type: article
+  length: 11 min
+  year: 2024
+  level: intro
+  why: What to record for model calls (prompts, tokens, latency, cost) using standard tracing.
+  checked: 2026-11-10
+
+sre-monitoring-distributed:
+  url: https://sre.google/sre-book/monitoring-distributed-systems/
+  title: Monitoring distributed systems (Site Reliability Engineering, chapter 6)
+  author: Google SRE
+  type: book
+  length: 20 min
+  level: intro
+  why: The four golden signals and the case for alerting on symptoms users feel rather than on every cause.
+  checked: 2026-11-10
+
+sre-monitoring-workbook:
+  url: https://sre.google/workbook/monitoring/
+  title: Monitoring (The Site Reliability Workbook, chapter 4)
+  author: Google SRE
+  type: book
+  length: 20 min
+  level: deep
+  why: Practical monitoring setups, from choosing metrics to moving from an alert to its cause.
+  checked: 2026-11-10
+
+sre-alerting-slos:
+  url: https://sre.google/workbook/alerting-on-slos/
+  title: Alerting on SLOs (The Site Reliability Workbook, chapter 5)
+  author: Google SRE
+  type: book
+  length: 20 min
+  level: deep
+  why: Burn-rate alerts that page people only when users are actually at risk.
+  checked: 2026-11-10
+
+sre-implementing-slos:
+  url: https://sre.google/workbook/implementing-slos/
+  title: Implementing SLOs (The Site Reliability Workbook, chapter 2)
+  author: Google SRE
+  type: book
+  length: 35 min
+  level: intro
+  why: How to choose indicators and targets that match what users experience, and use the error budget to decide.
+  checked: 2026-11-10
+
+sre-embracing-risk:
+  url: https://sre.google/sre-book/embracing-risk/
+  title: Embracing risk (Site Reliability Engineering, chapter 3)
+  author: Google SRE
+  type: book
+  length: 20 min
+  level: intro
+  why: Why 100% reliability is the wrong target, and how error budgets balance reliability with shipping.
+  checked: 2026-11-10
+
+sre-managing-incidents:
+  url: https://sre.google/sre-book/managing-incidents/
+  title: Managing incidents (Site Reliability Engineering, chapter 14)
+  author: Google SRE
+  type: book
+  length: 11 min
+  level: intro
+  why: Clear roles and one person in charge, the simple structure that keeps an outage from turning into chaos.
+  checked: 2026-11-10
+
+sre-postmortem-culture:
+  url: https://sre.google/sre-book/postmortem-culture/
+  title: 'Postmortem culture: learning from failure (Site Reliability Engineering, chapter 15)'
+  author: Google SRE
+  type: book
+  length: 10 min
+  level: intro
+  why: 'Blameless postmortems: writing up what happened so the system improves, not so someone gets blamed.'
+  checked: 2026-11-10
+
+sre-addressing-cascading:
+  url: https://sre.google/sre-book/addressing-cascading-failures/
+  title: Addressing cascading failures (Site Reliability Engineering, chapter 22)
+  author: Google SRE
+  type: book
+  length: 40 min
+  level: deep
+  why: How overload spreads through a system, and the timeouts, retries and load shedding that stop it.
+  checked: 2026-11-10
+
+sre-eliminating-toil:
+  url: https://sre.google/workbook/eliminating-toil/
+  title: Eliminating toil (The Site Reliability Workbook, chapter 6)
+  author: Google SRE
+  type: book
+  length: 45 min
+  level: deep
+  why: Spotting the repetitive manual work that grows with the product, and automating it away.
+  checked: 2026-11-10
+
+pagerduty-response:
+  url: https://docs.pagerduty.com/ops-guides/incident-response-guide
+  title: Incident response guide
+  author: PagerDuty
+  type: docs
+  length: free guide
+  level: intro
+  why: PagerDuty's own open incident process, from preparing on-call to running the response and the review.
+  checked: 2026-11-10
+
+pagerduty-roles:
+  url: https://docs.pagerduty.com/ops-guides/incident-response-guide/different-roles
+  title: Different roles in incident response
+  author: PagerDuty
+  type: docs
+  length: 8 min
+  level: deep
+  why: What the incident commander, scribe and liaisons each do, so a small team knows who handles what.
+  checked: 2026-11-10
+
+aws-dr-options:
+  url: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html
+  title: Disaster recovery options in the cloud
+  author: AWS
+  type: docs
+  length: 19 min
+  level: deep
+  why: From backup and restore to multi-site setups, with what each costs and how fast it recovers.
+  checked: 2026-11-10
+
+aws-restore-testing:
+  url: https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_backing_up_data_periodic_recovery_testing_data.html
+  title: Perform periodic recovery of the data to verify backup integrity
+  author: AWS Well-Architected
+  type: docs
+  length: 6 min
+  level: intro
+  why: Why a backup only counts once you have restored it, and how to test restores on a schedule.
+  checked: 2026-11-10
+
+azure-bc-ha-dr:
+  url: https://learn.microsoft.com/en-us/azure/reliability/concept-business-continuity-high-availability-disaster-recovery
+  title: What are business continuity, high availability and disaster recovery?
+  author: Microsoft Learn
+  type: docs
+  length: 20 min
+  year: 2026
+  level: intro
+  why: Clear definitions of RPO and RTO and how they shape a recovery plan.
+  checked: 2026-11-10
+
+ec-data-protection-explained:
+  url: https://commission.europa.eu/law/law-topic/data-protection/data-protection-explained_en
+  title: Data protection explained
+  author: European Commission
+  type: docs
+  length: 8 min
+  year: 2024
+  level: intro
+  why: The GDPR in plain terms from the institution that wrote it.
+  checked: 2026-11-10
+
+ec-gdpr-principles:
+  url: https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en
+  title: Principles of the GDPR
+  author: European Commission
+  type: docs
+  length: 12 min
+  level: intro
+  why: Lawfulness, purpose limitation, minimisation and the other principles every feature that touches personal data must respect.
+  checked: 2026-11-10
+
+ec-obligations:
+  url: https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/obligations_en
+  title: Obligations for businesses under the GDPR
+  author: European Commission
+  type: docs
+  length: 12 min
+  level: deep
+  why: What a company has to do in practice, from records and security to breach notification within 72 hours.
+  checked: 2026-11-10
+
+edpb-sme-basics:
+  url: https://www.edpb.europa.eu/sme/learn-the-basics/data-protection-basics_en
+  title: Data protection basics (guide for small business)
+  author: European Data Protection Board
+  type: docs
+  length: 7 min
+  level: intro
+  why: A short guide written for small companies, including when you need consent and when you do not.
+  checked: 2026-11-10
+
+edpb-sme-rights:
+  url: https://www.edpb.europa.eu/sme/be-compliant/respect-individuals-rights_en
+  title: Respect individuals' rights (guide for small business)
+  author: European Data Protection Board
+  type: docs
+  length: 20 min
+  level: deep
+  why: Access, deletion, portability and the other requests your product has to be able to answer.
+  checked: 2026-11-10
+
+finops-principles:
+  url: https://www.finops.org/framework/principles/
+  title: FinOps principles
+  author: FinOps Foundation
+  type: docs
+  length: 4 min
+  level: intro
+  why: 'Cost as an engineering metric: teams own their usage, decisions follow business value, data arrives fast.'
+  checked: 2026-11-10
+
+finops-usage-optimization:
+  url: https://www.finops.org/framework/capabilities/usage-optimization/
+  title: Usage optimization
+  author: FinOps Foundation
+  type: docs
+  length: 25 min
+  level: deep
+  why: Rightsizing, scheduling and removing waste, the everyday levers for a lower cloud bill.
+  checked: 2026-11-10
+
+finops-unit-economics:
+  url: https://www.finops.org/wg/introduction-cloud-unit-economics/
+  title: Introduction to cloud unit economics
+  author: FinOps Foundation
+  type: docs
+  length: 20 min
+  year: 2025
+  level: deep
+  why: Measuring cost per customer or per transaction, which tells you far more than the total bill.
+  checked: 2026-11-10
+
+claude-prompt-caching:
+  url: https://platform.claude.com/docs/en/build-with-claude/prompt-caching
+  title: Prompt caching
+  author: Anthropic docs
+  type: docs
+  length: 20 min
+  level: deep
+  why: Reusing the stable part of a prompt to cut the cost and latency of model calls.
+  checked: 2026-11-10
+
+claude-batch:
+  url: https://platform.claude.com/docs/en/build-with-claude/batch-processing
+  title: Batch processing
+  author: Anthropic docs
+  type: docs
+  length: 15 min
+  level: deep
+  why: Running model work that is not urgent in batches at a lower price.
+  checked: 2026-11-10
+
+pendo-retire-feature:
+  url: https://www.pendo.io/pendo-blog/how-to-effectively-remove-and-retire-a-feature-from-your-product/
+  title: How to effectively sunset a feature from your product
+  author: Pendo
+  type: article
+  length: 8 min
+  year: 2021
+  level: intro
+  why: 'A checklist for removing a feature: who uses it, what replaces it, and when each group loses access.'
+  checked: 2026-11-10
+
+techtarget-deprecate:
+  url: https://www.techtarget.com/news/How-to-deprecate-software-features-without-bothering-users/866607/
+  title: How to deprecate software features without bothering users
+  author: TechTarget
+  type: article
+  length: 8 min
+  year: 2019
+  level: intro
+  why: 'Deprecation from the engineering side: notice periods, warnings in the product and migration paths.'
+  checked: 2026-11-10

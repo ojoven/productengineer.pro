@@ -31,6 +31,7 @@ capabilities:
           rest. Good segments explain why a feature works for some people and fails for others.
           Engineers use them to read metrics correctly and to decide who a change is really for.
         related: [behavioral-segmentation, target-audience]
+        resources: [nngroup-personas, amplitude-cohort-analysis]
       - id: ideal-customer-profile
         name: Ideal customer profile
         summary: A precise description of the customer who gets the most value and is easiest to serve.
@@ -39,6 +40,7 @@ capabilities:
           attributes such as company size, role or situation. It keeps a small team from building
           for everyone at once. It also tells you whose feedback should weigh the most.
         related: [target-audience, lead-qualification]
+        resources: [dunford-intro-positioning, superhuman-pmf-engine]
       - id: personas
         name: Personas
         summary: Short, research-based portraits of typical users and their goals.
@@ -65,6 +67,7 @@ capabilities:
           it wrong. They explain what users say they want versus what they do. Knowing them makes
           it easier to predict which changes people will welcome and which they will ignore.
         related: [motivation, jobs-to-be-done]
+        resources: [dscout-jtbd-switch, fogg-behavior-model]
       - id: context-of-use
         name: Behavior and context of use
         summary: Where, when and how people actually use the product.
@@ -110,6 +113,8 @@ capabilities:
           questions produce confident nonsense, so they work best after interviews, not instead
           of them. Short in-product surveys are often the cheapest signal an engineer can add.
         related: [satisfaction-metrics, sampling-bias]
+        resources: [nngroup-survey-questions, pew-survey-questions]
+        tools: [formbricks, limesurvey]
       - id: diary-studies
         name: Diary studies
         summary: Participants record their experience over days or weeks.
@@ -181,6 +186,7 @@ capabilities:
           compare problems on the same scale instead of by who complained loudest. They feed
           straight into prioritization and into how much effort a fix deserves.
         related: [opportunity-assessment, impact-effort]
+        resources: [ybrikman-mom-test, superhuman-pmf-engine]
 
   - id: market-research
     name: Market research
@@ -197,6 +203,7 @@ capabilities:
           and what their users complain about. The goal is to learn and to find gaps, not to copy
           features. Reading competitor reviews is one of the cheapest research methods available.
         related: [competitive-advantage, substitutes]
+        resources: [nngroup-competitive-evaluations, dunford-context]
       - id: substitutes
         name: Substitutes and existing solutions
         summary: Everything people use today instead of your product, including spreadsheets and doing nothing.
@@ -214,6 +221,7 @@ capabilities:
           them. Some markets are dominated by a few platforms, others are fragmented. It shapes
           which business models and distribution channels are realistic.
         related: [revenue-models, partnerships]
+        resources: [stratechery-aggregation, nfx-network-effects, stripe-tam-sam-som]
       - id: market-trends
         name: Market trends
         summary: Shifts in technology, behavior or regulation that open or close opportunities.
@@ -222,6 +230,7 @@ capabilities:
           platform capability or a change in how people work. They explain why now. Engineers are
           often the first to see technical trends that create product opportunities.
         related: [long-term-direction, strategy-adaptation]
+        resources: [wiki-adoption-lifecycle]
       - id: category-conventions
         name: Category conventions
         summary: The patterns users already expect from products of this kind.
@@ -292,6 +301,7 @@ capabilities:
           take a real action. It tests the message and the demand together. It is cheap for an
           engineer to build and gives quick, though imperfect, evidence.
         related: [value-proposition, desirability-tests]
+        resources: [buffer-landing-mvp, kniberg-mvp]
       - id: concierge-experiments
         name: Concierge and Wizard of Oz tests
         summary: Delivering the service by hand before automating it.
@@ -336,6 +346,7 @@ capabilities:
           requirements. Ignoring them produces solutions that look great and cannot be adopted.
           Engineers who know them early avoid expensive redesigns later.
         related: [regulatory-compliance, system-boundaries]
+        resources: [fowler-bounded-context, fowler-ddd]
       - id: domain-stakeholders
         name: Stakeholders and buyers
         summary: Everyone who uses, buys, approves or is affected by the product.
@@ -344,3 +355,4 @@ capabilities:
           goals. Knowing who they are explains why a product that users love still fails to sell.
           It also shows whose needs a feature has to satisfy.
         related: [ideal-customer-profile, stakeholder-management]
+        resources: [eventstorming, fowler-ubiquitous-language]

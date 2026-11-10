@@ -316,3 +316,101 @@ canny:
   what: Collects feature requests and feedback in one place and closes the loop with users.
   pricing: freemium
   checked: 2026-11-10
+
+grafana:
+  name: Grafana
+  url: https://grafana.com/oss/grafana/
+  what: Open-source dashboards for metrics, logs and traces from almost any data source.
+  pricing: open-source
+  checked: 2026-11-10
+
+prometheus:
+  name: Prometheus
+  url: https://prometheus.io/
+  what: Open-source metrics database and alerting, the common default for service metrics.
+  pricing: open-source
+  checked: 2026-11-10
+
+opentelemetry:
+  name: OpenTelemetry
+  url: https://opentelemetry.io/
+  what: Open standard and SDKs for emitting traces, metrics and logs to any backend.
+  pricing: open-source
+  checked: 2026-11-10
+
+uptime-kuma:
+  name: Uptime Kuma
+  url: https://github.com/louislam/uptime-kuma
+  what: Self-hosted uptime monitoring with status pages and notifications.
+  pricing: open-source
+  checked: 2026-11-10
+
+zammad:
+  name: Zammad
+  url: https://zammad.org/
+  what: Open-source helpdesk for email, chat and phone support tickets.
+  pricing: open-source
+  checked: 2026-11-10
+
+chatwoot:
+  name: Chatwoot
+  url: https://www.chatwoot.com/
+  what: Open-source customer support inbox for chat, email and social channels.
+  pricing: open-source
+  checked: 2026-11-10
+
+loopy:
+  name: LOOPY
+  url: https://ncase.me/loopy/
+  what: Draw causal loop diagrams in the browser and watch the feedback play out.
+  pricing: free
+  checked: 2026-11-10
+
+kumu:
+  name: Kumu
+  url: https://kumu.io/
+  what: Map systems, stakeholders and relationships as interactive diagrams.
+  pricing: freemium
+  checked: 2026-11-10
+
+mermaid:
+  name: Mermaid
+  url: https://mermaid.js.org/
+  what: Diagrams written as text, rendered in docs, READMEs and pull requests.
+  pricing: open-source
+  checked: 2026-11-10
+
+vale:
+  name: Vale
+  url: https://vale.sh/
+  what: Prose linter that checks docs against a style guide, in the editor or in CI.
+  pricing: open-source
+  checked: 2026-11-10
+
+hemingway:
+  name: Hemingway Editor
+  url: https://hemingwayapp.com/
+  what: Highlights long sentences, passive voice and complex words as you write.
+  pricing: freemium
+  checked: 2026-11-10
+
+aider:
+  name: Aider
+  url: https://aider.chat/
+  what: Open-source AI pair programmer in the terminal that edits your git repository.
+  pricing: open-source
+  checked: 2026-11-10
+
+formbricks:
+  name: Formbricks
+  url: https://formbricks.com/
+  what: Open-source surveys in your product, on links or on your website.
+  pricing: open-source
+  checked: 2026-11-10
+
+limesurvey:
+  name: LimeSurvey
+  url: https://www.limesurvey.org/
+  what: Open-source survey tool for long questionnaires with branching logic.
+  pricing: open-source
+  checked: 2026-11-10

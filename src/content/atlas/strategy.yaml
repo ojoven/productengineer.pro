@@ -278,6 +278,7 @@ capabilities:
           reorder work, decouple it or start conversations before they become blockers. Engineers
           are best placed to spot technical dependencies that others miss.
         related: [unblocking, coupling]
+        resources: [fowler-conway, dora-wip]
       - id: lifecycle-stages
         name: Product lifecycle stages
         summary: How priorities change as a product moves from idea to maturity.
@@ -286,6 +287,7 @@ capabilities:
           a mature one needs efficiency. The right practices differ by stage. Knowing the stage
           keeps a team from applying big-company process to a product with ten users.
         related: [feature-deprecation, scalability]
+        resources: [wiki-product-lifecycle, wiki-adoption-lifecycle]
       - id: strategy-adaptation
         name: Adapting strategy
         summary: Changing plans in response to new evidence without losing direction.
@@ -357,3 +359,4 @@ capabilities:
           features, infrastructure and internal tools alike. Rough estimates are fine, as long as
           the team actually checks the outcome afterwards.
         related: [impact-effort, opportunity-cost]
+        resources: [bsf-cd3, intercom-rice, skok-saas-metrics]

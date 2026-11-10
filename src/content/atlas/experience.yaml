@@ -371,6 +371,7 @@ capabilities:
           Documentation is part of the product experience. It needs structure, search, examples
           and maintenance. For developer products it is often the most visited part of the product.
         related: [developer-docs, customer-education]
+        resources: [diataxis, nngroup-help-docs]
       - id: localization
         name: Localization
         summary: Adapting the product for other languages and regions.

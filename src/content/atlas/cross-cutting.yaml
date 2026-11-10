@@ -21,6 +21,7 @@ capabilities:
     description: >-
       Questioning claims, including your own, and separating what is known from what is
       assumed.
+    resources: [fs-confirmation, xyproblem, galef-scout-mindset]
     skills:
       - id: evidence-vs-assumptions
         name: Evidence versus assumptions
@@ -30,6 +31,7 @@ capabilities:
           evidence or assumption makes the risky ones visible. It is a habit, not a method, and it
           gets easier with practice.
         related: [evidence-strength, assumption-mapping]
+        resources: [producttalk-assumption-testing, fs-confirmation]
       - id: cognitive-biases
         name: Cognitive biases
         summary: Systematic errors in thinking, such as confirmation bias.
@@ -38,6 +40,7 @@ capabilities:
           decisions. Knowing them does not make you immune, but it helps you design processes that
           catch them, such as writing predictions down first.
         related: [sampling-bias, hypotheses]
+        resources: [nngroup-confirmation, fs-confirmation, wiki-biases]
       - id: challenging-requirements
         name: Challenging requirements
         summary: Asking why before building what was asked.
@@ -46,11 +49,14 @@ capabilities:
           solves and what happens if it is not built often leads to something simpler. Doing it
           respectfully is part of the skill.
         related: [scope-cutting, problem-statements]
+        resources: [xyproblem, wikipedia-five-whys, nngroup-problem-statements]
 
   - id: systems-thinking
     name: Systems thinking
     description: >-
       Seeing how parts of a product, a team or a market affect each other over time.
+    resources: [lethain-systems, meadows-leverage]
+    tools: [loopy, kumu]
     skills:
       - id: system-dependencies
         name: Interdependencies
@@ -60,6 +66,8 @@ capabilities:
           activation and infrastructure. Mapping these connections before a change prevents
           surprises.
         related: [coupling, dependency-management]
+        resources: [fowler-conway, lethain-systems]
+        tools: [kumu]
       - id: feedback-loops
         name: Feedback loops
         summary: Cycles where an effect feeds back into its cause.
@@ -68,6 +76,8 @@ capabilities:
           more users. Balancing loops limit it. Recognizing loops explains why some metrics
           accelerate and others plateau.
         related: [core-loops, network-effects]
+        resources: [lethain-systems, meadows-leverage]
+        tools: [loopy]
       - id: second-order-effects
         name: Second-order and unintended effects
         summary: Consequences beyond the immediate result of a decision.
@@ -76,12 +86,14 @@ capabilities:
           users gaming a metric or support load rising, are where surprises live. Asking "and then
           what?" a few times uncovers them.
         related: [guardrail-metrics, ethical-engagement]
+        resources: [fs-second-order]
 
   - id: decision-making
     name: Decision-making
     description: >-
       Making good decisions with incomplete information, and matching the effort to the
       stakes.
+    resources: [amazon-2016-letter, fs-reversible, google-design-docs]
     skills:
       - id: tradeoffs
         name: Weighing tradeoffs
@@ -91,6 +103,7 @@ capabilities:
           what each costs makes the choice clearer and easier to revisit. Pretending there is no
           tradeoff is how bad decisions get made.
         related: [technical-tradeoffs, balancing-signals]
+        resources: [google-design-docs, nygard-adr, lethain-eng-strategy]
       - id: deciding-under-uncertainty
         name: Deciding under uncertainty
         summary: Acting well when the facts are incomplete.
@@ -99,6 +112,7 @@ capabilities:
           revisit, and deciding what new information would change your mind make uncertain
           decisions better.
         related: [statistical-uncertainty, product-risk]
+        resources: [amazon-2016-letter, fs-bayes]
       - id: reversible-decisions
         name: Reversible and irreversible decisions
         summary: Moving fast on decisions you can undo and slowly on those you cannot.
@@ -107,6 +121,7 @@ capabilities:
           public APIs and pricing promises, are hard to undo and deserve care. Telling the two apart
           is one of the most useful judgment skills.
         related: [technical-tradeoffs, feature-flags]
+        resources: [fs-reversible, amazon-2016-letter]
       - id: opportunity-cost
         name: Opportunity cost
         summary: The value of what you give up by choosing one option.
@@ -114,12 +129,15 @@ capabilities:
           Every yes is a no to something else. Opportunity cost makes the hidden price of a choice
           visible. It is the strongest argument against low-value work that seems harmless.
         related: [cost-of-delay, return-on-investment]
+        resources: [bsf-cost-of-delay, wiki-opportunity-cost]
 
   - id: communication
     name: Communication
     description: >-
       Explaining ideas clearly in writing and speech, to technical and non-technical
       audiences.
+    resources: [google-tech-writing, pg-write-simply, google-design-docs]
+    tools: [vale, hemingway]
     skills:
       - id: technical-writing
         name: Technical writing and documentation
@@ -129,6 +147,8 @@ capabilities:
           writing is structured, concrete and written for a specific reader. It scales an
           engineer's influence beyond the people they talk to.
         related: [developer-docs, problem-statements]
+        resources: [google-tech-writing, google-design-docs, diataxis]
+        tools: [vale, mermaid]
       - id: product-narratives
         name: Product narratives
         summary: Telling the story of a product, a problem or a decision.
@@ -137,6 +157,7 @@ capabilities:
           Written narratives, such as the six-page memo, force clear thinking. Stories about real
           users move decisions more than charts.
         related: [mission, product-demos]
+        resources: [amazon-working-backwards]
       - id: clear-explanations
         name: Clear explanations
         summary: Explaining complex things simply without losing accuracy.
@@ -145,6 +166,8 @@ capabilities:
           diagrams help. Explaining technical tradeoffs to non-engineers is a core product engineer
           skill.
         related: [plain-language, technical-writing]
+        resources: [pg-write-simply, pg-writing-briefly, explorable-explanations]
+        tools: [hemingway, excalidraw]
       - id: persuasive-arguments
         name: Persuasive arguments
         summary: Making a case that changes minds, with evidence and empathy.
@@ -153,11 +176,13 @@ capabilities:
           downsides. Understanding what the other person cares about matters as much as the data.
           The goal is a better decision, not winning.
         related: [evidence-strength, stakeholder-management]
+        resources: [sketch-pyramid, pg-how-to-disagree]
 
   - id: collaboration
     name: Collaboration
     description: >-
       Working well with every role involved in building and selling a product.
+    resources: [pragmatic-product-minded, posthog-product-engineer]
     skills:
       - id: working-with-pms
         name: Working with product managers
@@ -167,6 +192,7 @@ capabilities:
           feasibility, speed and technical opportunity; PMs bring market and customer context. The
           best pairs think about problems together, not in handoffs.
         related: [roadmaps, problem-statements]
+        resources: [pragmatic-product-minded, posthog-product-engineer]
       - id: working-with-designers
         name: Working with designers
         summary: Collaborating on experience from early ideas to polished details.
@@ -175,6 +201,8 @@ capabilities:
           understand design basics give better feedback and implement intent, not only pixels. Design
           systems are a shared language.
         related: [design-systems, prototyping]
+        resources: [atomic-design, nngroup-prototype-fidelity]
+        tools: [figma, storybook]
       - id: working-with-researchers
         name: Working with researchers
         summary: Joining research and using its findings well.
@@ -183,6 +211,7 @@ capabilities:
           rigor, engineers bring technical insight into what is possible. Shared synthesis makes
           findings stick.
         related: [user-interviews, research-synthesis]
+        resources: [govuk-team-discovery, govuk-research-team-sport]
       - id: working-with-go-to-market
         name: Working with marketing and sales
         summary: Helping go-to-market teams with technical depth and product insight.
@@ -191,6 +220,7 @@ capabilities:
           support them with demos, accurate claims and quick fixes for deal blockers help growth.
           They also learn a lot about the market.
         related: [product-demos, messaging]
+        resources: [pragmatic-product-minded, hubspot-meddic]
       - id: working-with-support
         name: Working with support
         summary: Treating support as a partner and a source of insight.
@@ -199,6 +229,7 @@ capabilities:
           that help them, and engineers who follow up. Some companies put engineers in a support
           rotation for this reason.
         related: [support-workflows, support-insights]
+        resources: [posthog-engineers-support, aha-engineers-support, inngest-support-rotation]
       - id: working-with-engineers
         name: Working with other engineers
         summary: Collaborating across teams and specialties in engineering.
@@ -207,12 +238,14 @@ capabilities:
           interfaces, good docs and respect for each other's constraints make it work. Pairing
           spreads knowledge quickly.
         related: [code-review, api-design]
+        resources: [google-code-review, fowler-ship-show-ask]
 
   - id: leadership-ownership
     name: Leadership and ownership
     description: >-
       Taking responsibility for outcomes and helping others move, with or without a formal
       title.
+    resources: [staffeng-archetypes, staffeng-what-matters, being-glue]
     skills:
       - id: initiative
         name: Initiative
@@ -222,6 +255,7 @@ capabilities:
           separates owning a product from executing tickets. It works best within an agreed
           direction.
         related: [unblocking, autonomy]
+        resources: [staffeng-what-matters, being-glue]
       - id: accountability
         name: Accountability
         summary: Owning outcomes, including mistakes.
@@ -229,6 +263,7 @@ capabilities:
           Accountability means caring whether the work achieved its goal, not only whether it
           shipped. It includes admitting mistakes early. Teams trust people who own results.
         related: [incident-response, iterate-expand-stop]
+        resources: [sre-postmortem-culture, being-glue]
       - id: autonomy
         name: Autonomy
         summary: Working independently with good judgment about when to involve others.
@@ -237,6 +272,7 @@ capabilities:
           judgment is learned through context about goals and constraints. Autonomy grows with
           trust.
         related: [initiative, reversible-decisions]
+        resources: [spotify-engineering-culture]
       - id: conflict-resolution
         name: Conflict resolution
         summary: Working through disagreements productively.
@@ -244,6 +280,7 @@ capabilities:
           Disagreement about priorities, design or approach is normal and useful. Resolving it means
           focusing on goals and evidence, not positions. Disagree and commit keeps teams moving.
         related: [persuasive-arguments, tradeoffs]
+        resources: [wiki-disagree-commit, pg-how-to-disagree, amazon-2016-letter]
       - id: stakeholder-management
         name: Stakeholder management
         summary: Keeping the people affected by your work informed and involved.
@@ -251,12 +288,14 @@ capabilities:
           Stakeholders need the right information at the right time. Surprises erode trust faster
           than bad news. Regular, short updates prevent most stakeholder problems.
         related: [domain-stakeholders, clear-explanations]
+        resources: [staffeng-authority, leaddev-managing-up]
 
   - id: continuous-learning
     name: Continuous learning
     description: >-
       Getting better on purpose: reflecting on work, seeking feedback and updating how you
       think.
+    resources: [jvns-learn-how-things-work, danluu-p95, swyx-learn-in-public]
     skills:
       - id: reflection
         name: Reflection
@@ -266,6 +305,7 @@ capabilities:
           predictions and comparing them with outcomes is especially powerful. Without reflection,
           years of experience can be one year repeated.
         related: [accountability, hypotheses]
+        resources: [agile-retrospective, sre-postmortem-culture]
       - id: seeking-feedback
         name: Seeking feedback
         summary: Asking for honest input on your work and behavior.
@@ -273,6 +313,7 @@ capabilities:
           Feedback is most useful when asked for specifically and often. Making it safe for others
           to be honest is part of the skill. Acting on it visibly keeps it coming.
         related: [reflection, code-review]
+        resources: [radical-candor]
       - id: updating-beliefs
         name: Updating mental models
         summary: Changing your mind when evidence says you were wrong.
@@ -281,6 +322,7 @@ capabilities:
           experiment or a surprising interview is a strength. Keeping a record of what you believed
           makes the updates visible.
         related: [strategy-adaptation, evidence-vs-assumptions]
+        resources: [galef-scout-mindset, fs-bayes]
       - id: professional-development
         name: Professional development
         summary: Planning how to grow skills over a career.
@@ -289,12 +331,14 @@ capabilities:
           help find gaps. Practicing on real products, such as your own side projects, turns
           knowledge into skill.
         related: [reflection, seeking-feedback]
+        resources: [jvns-learn-how-things-work, danluu-p95, swyx-learn-in-public]
 
   - id: responsible-product
     name: Responsible product development
     description: >-
       Building products that respect users, treat people fairly and avoid harm.
     related: [accessibility, ethical-engagement]
+    resources: [deceptive-design, ms-inclusive-design, tarot-cards-of-tech]
     skills:
       - id: user-autonomy
         name: User autonomy
@@ -304,6 +348,7 @@ capabilities:
           be able to understand and control what the product does for them. It builds long-term
           trust.
         related: [ethical-engagement, consent]
+        resources: [nngroup-deceptive-patterns, deceptive-design]
       - id: fairness
         name: Fairness
         summary: Making sure the product does not treat groups of people unjustly.
@@ -312,6 +357,7 @@ capabilities:
           Testing outcomes across groups reveals it. Fairness matters most in decisions about
           access, price and opportunity.
         related: [ai-evals, behavioral-segmentation]
+        resources: [ms-inclusive-design, pair-guidebook]
       - id: privacy-by-design
         name: Privacy by design
         summary: Building privacy into the product from the start.
@@ -319,6 +365,7 @@ capabilities:
           Privacy by design means collecting less, keeping it shorter, and defaulting to private.
           It is cheaper than retrofitting and builds trust. It also reduces what can leak.
         related: [data-protection, privacy-obligations]
+        resources: [edpb-privacy-by-design, ec-gdpr-principles]
       - id: user-safety
         name: Safety
         summary: Preventing the product from being used to harm people.
@@ -327,11 +374,14 @@ capabilities:
           products. Reporting tools, rate limits and moderation are product features. Thinking
           about misuse early is cheaper than reacting later.
         related: [ai-guardrails, threat-modeling]
+        resources: [tarot-cards-of-tech, nist-ai-rmf, owasp-llm-top10]
 
   - id: ai-assisted-work
     name: AI-assisted work
     description: >-
       Using AI tools and agents to do more, while keeping responsibility for the result.
+    resources: [willison-llms-for-code, claude-code-best-practices, anthropic-effective-agents]
+    tools: [aider]
     skills:
       - id: delegating-to-agents
         name: Delegating to agents
@@ -341,6 +391,8 @@ capabilities:
           result. Good task descriptions look a lot like good tickets for people. It is quickly
           becoming a core engineering skill.
         related: [ai-agents, technical-writing]
+        resources: [claude-code-best-practices, anthropic-effective-agents]
+        tools: [aider]
       - id: reviewing-generated-work
         name: Reviewing generated work
         summary: Critically checking code and content produced by AI.
@@ -349,6 +401,7 @@ capabilities:
           colleague's work, and more care where you lack expertise. Small, focused changes are
           easier to review.
         related: [code-review, verification]
+        resources: [willison-llms-for-code, google-code-review]
       - id: verification
         name: Verification
         summary: Proving that work, human or AI, actually does what it should.
@@ -356,6 +409,7 @@ capabilities:
           Verification means running it, testing it and checking it against the requirement. Tests,
           type checks and real usage provide evidence. Done means verified, not written.
         related: [automated-testing, ai-evals]
+        resources: [willison-hallucinations, hamel-evals]
       - id: workflow-automation
         name: Automation
         summary: Using AI and scripts to automate repetitive parts of your work.
@@ -364,6 +418,7 @@ capabilities:
           cleanup, reports. The skill is choosing what to automate and keeping a human check where
           errors are costly.
         related: [engineering-automation, internal-tooling]
+        resources: [anthropic-effective-agents, mcp-intro]
       - id: human-oversight
         name: Human oversight
         summary: Keeping people in control of important AI-driven actions.
@@ -372,3 +427,4 @@ capabilities:
           interfaces that show what the AI did and why. The right level depends on the cost of a
           mistake.
         related: [ai-guardrails, ai-agents]
+        resources: [hax-guidelines, pair-guidebook]

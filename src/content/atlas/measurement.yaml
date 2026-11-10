@@ -410,6 +410,7 @@ capabilities:
           disagree at first. Good decisions weigh both, along with strategy and cost, instead of
           letting one metric decide.
         related: [feedback-analysis, tradeoffs]
+        resources: [google-heart, amplitude-leading-lagging, posthog-guardrail-metrics]
       - id: iterate-expand-stop
         name: Iterate, expand or stop
         summary: Deciding what to do with a feature after you have results.
@@ -418,3 +419,4 @@ capabilities:
           further, or remove it. Stopping is the hardest and often the right call. Deciding the
           criteria in advance makes the choice less political.
         related: [feature-deprecation, strategy-adaptation]
+        resources: [shapeup-betting, kohavi-trustworthy-experiments]

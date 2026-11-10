@@ -291,3 +291,99 @@ fowler-bounded-context:
   level: deep
   why: The same word can mean different things in different parts of a business; this is how to draw those lines.
   checked: 2026-11-10
+
+nngroup-personas:
+  url: https://www.nngroup.com/articles/persona/
+  title: Personas make users memorable
+  author: NN/g
+  type: article
+  length: 6 min
+  year: 2025
+  level: intro
+  why: How to turn research into a few segments the team can remember, and the shortcuts that make personas useless.
+  checked: 2026-11-10
+
+nngroup-survey-questions:
+  url: https://www.nngroup.com/articles/survey-best-practices/
+  title: 'Writing good survey questions: 10 best practices'
+  author: NN/g
+  type: article
+  length: 11 min
+  year: 2023
+  level: intro
+  why: Neutral wording, one idea per question and other rules that keep survey answers honest.
+  checked: 2026-11-10
+
+pew-survey-questions:
+  url: https://www.pewresearch.org/writing-survey-questions/
+  title: Writing survey questions
+  author: Pew Research Center
+  type: docs
+  length: 18 min
+  year: 2021
+  level: deep
+  why: How question order, wording and answer options change results, from a team that runs surveys for a living.
+  checked: 2026-11-10
+
+superhuman-pmf-engine:
+  url: https://review.firstround.com/how-superhuman-built-an-engine-to-find-product-market-fit/
+  title: How Superhuman built an engine to find product-market fit
+  author: Rahul Vohra (First Round Review)
+  type: article
+  length: 24 min
+  year: 2018
+  level: deep
+  why: Asking users how disappointed they would be without the product, to measure how much the problem matters to them.
+  checked: 2026-11-10
+
+nngroup-competitive-evaluations:
+  url: https://www.nngroup.com/articles/competitive-usability-evaluations/
+  title: Competitive usability evaluations
+  author: NN/g
+  type: article
+  length: 8 min
+  year: 2024
+  level: intro
+  why: Testing competitors' products with real users to learn what they do well and where people struggle.
+  checked: 2026-11-10
+
+stratechery-aggregation:
+  url: https://stratechery.com/2015/aggregation-theory/
+  title: Aggregation theory
+  author: Ben Thompson
+  type: article
+  length: 8 min
+  year: 2015
+  level: deep
+  why: How the internet shifted power in many markets from suppliers to whoever owns the user relationship.
+  checked: 2026-11-10
+
+wiki-adoption-lifecycle:
+  url: https://en.wikipedia.org/wiki/Technology_adoption_life_cycle
+  title: Technology adoption life cycle
+  author: Wikipedia
+  type: docs
+  length: 7 min
+  level: intro
+  why: Innovators, early adopters, majority and laggards, and the chasm between early and mainstream markets.
+  checked: 2026-11-10
+
+buffer-landing-mvp:
+  url: https://buffer.com/resources/idea-to-paying-customers-in-7-weeks-how-we-did-it/
+  title: 'Idea to paying customers in 7 weeks: how we did it'
+  author: Joel Gascoigne (Buffer)
+  type: article
+  length: 10 min
+  level: intro
+  why: A two-page landing page that tested demand and price before the product existed.
+  checked: 2026-11-10
+
+eventstorming:
+  url: https://www.eventstorming.com/
+  title: EventStorming
+  author: Alberto Brandolini
+  type: tool-guide
+  length: 2 min
+  level: intro
+  why: A workshop that gathers domain experts and engineers to map how the business actually works.
+  checked: 2026-11-10

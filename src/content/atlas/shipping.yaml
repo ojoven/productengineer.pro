@@ -192,6 +192,7 @@ capabilities:
           release goes out. Support teams hear about problems first. Briefing them turns them into
           an early warning system.
         related: [support-workflows, release-communication]
+        resources: [sre-launch-checklist, nngroup-help-docs]
       - id: operational-readiness
         name: Operational readiness
         summary: Checking capacity, monitoring and fallbacks before launch.

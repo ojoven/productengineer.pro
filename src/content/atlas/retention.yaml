@@ -47,6 +47,7 @@ capabilities:
           Usefulness is the foundation of retention. Products stay in use when they become part of a
           workflow or save real time. Reminders and rewards cannot replace it.
         related: [jobs-to-be-done, task-success]
+        resources: [winters-good-retention, a16z-power-user-curve]
       - id: value-reinforcement
         name: Value reinforcement
         summary: Reminding users of the value they have already received.
@@ -200,6 +201,7 @@ capabilities:
           churn. Collecting and fixing them steadily, sometimes as a dedicated rotation, improves
           retention more than people expect.
         related: [pain-points, technical-debt]
+        resources: [nngroup-form-cognitive-load, baymard-cart-abandonment]
       - id: support-insights
         name: Support insights
         summary: Learning from support conversations to improve the product.

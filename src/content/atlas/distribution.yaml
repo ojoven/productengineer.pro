@@ -95,6 +95,7 @@ capabilities:
           Social platforms reward consistency, a clear voice and native formats. Building in public
           is a common approach for small products. Each platform has its own audience and norms.
         related: [sharing-mechanics, product-narratives]
+        resources: [swyx-learn-in-public, pg-do-things]
       - id: developer-relations
         name: Developer relations
         summary: Building trust and adoption among developers.
@@ -112,6 +113,7 @@ capabilities:
           of people already looking. Each has its own ranking and listing rules. App store
           optimization is the SEO of mobile.
         related: [launch-planning, seo]
+        resources: [apple-product-page, play-store-listings]
 
   - id: viral-growth
     name: Viral growth
@@ -242,6 +244,7 @@ capabilities:
           often support them with setup and integrations. Their success depends on activation within
           the customer's organization.
         related: [trial-conversion, adoption-barriers]
+        resources: [productled-book, amplitude-activation-rate]
       - id: partnerships
         name: Partnerships
         summary: Growing through other companies' products, audiences or sales teams.
@@ -285,6 +288,7 @@ capabilities:
           imperfect, and privacy changes make tracking harder. Asking customers how they heard
           about you is a cheap, useful complement.
         related: [analytics-architecture, channel-performance]
+        resources: [ga-attribution]
       - id: channel-performance
         name: Channel performance
         summary: Comparing channels on cost, volume and quality of users.

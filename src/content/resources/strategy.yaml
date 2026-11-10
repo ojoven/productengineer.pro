@@ -273,3 +273,13 @@ stripe-tiered-pricing:
   level: intro
   why: How to design good, better, best plans and where to put the upgrade points.
   checked: 2026-11-10
+
+wiki-product-lifecycle:
+  url: https://en.wikipedia.org/wiki/Product_life-cycle_management_(marketing)
+  title: Product life-cycle (marketing)
+  author: Wikipedia
+  type: docs
+  length: 11 min
+  level: intro
+  why: Introduction, growth, maturity and decline, and how goals and investment change at each stage.
+  checked: 2026-11-10

@@ -160,3 +160,33 @@ qwilr-bant-meddic:
   level: intro
   why: The two common qualification frameworks compared, and which fits which kind of deal.
   checked: 2026-11-10
+
+apple-product-page:
+  url: https://developer.apple.com/app-store/product-page/
+  title: Creating your product page
+  author: Apple Developer
+  type: docs
+  length: 10 min
+  level: intro
+  why: Names, subtitles, screenshots and previews, the listing elements that decide whether people install from the App Store.
+  checked: 2026-11-10
+
+play-store-listings:
+  url: https://google.play/business/storelistings/
+  title: Store listings
+  author: Google Play Console
+  type: docs
+  length: 5 min
+  level: intro
+  why: How to build and test the Google Play listing, including experiments on icons and screenshots.
+  checked: 2026-11-10
+
+ga-attribution:
+  url: https://support.google.com/analytics/answer/10596866
+  title: Get started with attribution
+  author: Google Analytics Help
+  type: docs
+  length: 8 min
+  level: intro
+  why: Attribution models and lookback windows explained by one of the most widely used analytics tools.
+  checked: 2026-11-10

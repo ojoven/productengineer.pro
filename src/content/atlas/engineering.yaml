@@ -489,7 +489,7 @@ capabilities:
           Traces show why an agent went wrong. Production traces are also the best source of new
           eval cases.
         related: [tracing, ai-evals]
-        resources: [hamel-field-guide]
+        resources: [hamel-field-guide, otel-llm-blog]
         tools: [langfuse]
       - id: ai-guardrails
         name: Guardrails

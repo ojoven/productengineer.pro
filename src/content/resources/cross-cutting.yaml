@@ -1,0 +1,519 @@
+# Resources first used in Cross-cutting. Every URL was opened and confirmed live and on topic on
+# the `checked` date.
+
+xyproblem:
+  url: https://xyproblem.info/
+  title: The XY problem
+  author: xyproblem.info
+  type: article
+  length: 2 min
+  level: intro
+  why: People ask about their attempted solution instead of their real problem. Asking what they are really trying to do is how you push back on a requirement.
+  checked: 2026-11-10
+
+fs-confirmation:
+  url: https://fs.blog/confirmation-bias/
+  title: Confirmation bias and the power of disconfirming evidence
+  author: Farnam Street
+  type: article
+  length: 12 min
+  year: 2017
+  level: intro
+  why: Why we notice evidence that agrees with us, and the habit of looking for evidence that would prove us wrong.
+  checked: 2026-11-10
+
+nngroup-confirmation:
+  url: https://www.nngroup.com/articles/confirmation-bias-ux/
+  title: Confirmation bias in UX
+  author: NN/g
+  type: article
+  length: 9 min
+  year: 2022
+  level: intro
+  why: How confirmation bias slips into research and product decisions, and practical ways to guard against it.
+  checked: 2026-11-10
+
+wiki-biases:
+  url: https://en.wikipedia.org/wiki/List_of_cognitive_biases
+  title: List of cognitive biases
+  author: Wikipedia
+  type: docs
+  level: deep
+  why: A reference of known biases to check your reasoning against before a decision.
+  checked: 2026-11-10
+
+lethain-systems:
+  url: https://lethain.com/systems-thinking/
+  title: Introduction to systems thinking
+  author: Will Larson
+  type: article
+  length: 4 min
+  year: 2018
+  level: intro
+  why: Stocks, flows and feedback applied to an engineering team, in a few minutes.
+  checked: 2026-11-10
+
+meadows-leverage:
+  url: https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/
+  title: 'Leverage points: places to intervene in a system'
+  author: Donella Meadows
+  type: article
+  length: 43 min
+  year: 1999
+  level: deep
+  why: The classic essay on where a small change moves a whole system, and why the obvious levers are often the weakest.
+  checked: 2026-11-10
+
+fowler-conway:
+  url: https://martinfowler.com/bliki/ConwaysLaw.html
+  title: Conway's law
+  author: Martin Fowler
+  type: article
+  length: 7 min
+  level: intro
+  why: Systems end up shaped like the organisation that builds them, so team boundaries are design decisions too.
+  checked: 2026-11-10
+
+fs-second-order:
+  url: https://fs.blog/second-order-thinking/
+  title: Second-order thinking
+  author: Farnam Street
+  type: article
+  length: 4 min
+  year: 2016
+  level: intro
+  why: Asking "and then what?" to see the consequences of a decision beyond the first one.
+  checked: 2026-11-10
+
+fs-reversible:
+  url: https://fs.blog/reversible-irreversible-decisions/
+  title: Reversible and irreversible decisions
+  author: Farnam Street
+  type: article
+  length: 8 min
+  year: 2018
+  level: intro
+  why: Decide easy-to-undo things fast and spend care on the few that are hard to reverse.
+  checked: 2026-11-10
+
+amazon-2016-letter:
+  url: https://www.aboutamazon.com/news/company-news/2016-letter-to-shareholders
+  title: 2016 letter to shareholders
+  author: Jeff Bezos
+  type: article
+  length: 9 min
+  year: 2017
+  level: intro
+  why: Two-way door decisions, deciding with about 70% of the information you wish you had, and "disagree and commit".
+  checked: 2026-11-10
+
+wiki-opportunity-cost:
+  url: https://en.wikipedia.org/wiki/Opportunity_cost
+  title: Opportunity cost
+  author: Wikipedia
+  type: docs
+  length: 20 min
+  level: deep
+  why: The value of the best alternative you give up, which is the real price of anything a team chooses to build.
+  checked: 2026-11-10
+
+google-design-docs:
+  url: https://www.industrialempathy.com/posts/design-docs-at-google/
+  title: Design docs at Google
+  author: Malte Ubl
+  type: article
+  length: 21 min
+  year: 2020
+  level: intro
+  why: How a short document with goals, non-goals and alternatives considered makes trade-offs explicit before code.
+  checked: 2026-11-10
+
+lethain-eng-strategy:
+  url: https://lethain.com/eng-strategies/
+  title: Writing an engineering strategy
+  author: Will Larson
+  type: article
+  length: 27 min
+  year: 2023
+  level: deep
+  why: Turning many local trade-offs into one written strategy that others can follow and challenge.
+  checked: 2026-11-10
+
+google-tech-writing:
+  url: https://developers.google.com/tech-writing/one
+  title: Technical writing one
+  author: Google for Developers
+  type: course
+  length: free course
+  level: intro
+  why: Google's free course for engineers on clear sentences, lists, paragraphs and audience.
+  checked: 2026-11-10
+
+amazon-working-backwards:
+  url: https://www.aboutamazon.com/news/workplace/an-insider-look-at-amazons-culture-and-processes
+  title: An insider look at Amazon's culture and processes
+  author: Colin Bryar and Bill Carr
+  type: book
+  length: 9 min
+  year: 2021
+  level: intro
+  why: An excerpt from Working Backwards on the PR/FAQ, writing the press release before building the product.
+  checked: 2026-11-10
+
+pg-write-simply:
+  url: https://paulgraham.com/simply.html
+  title: Write simply
+  author: Paul Graham
+  type: article
+  length: 2 min
+  level: intro
+  why: Plain words reach more readers and expose weak ideas, a two-minute argument for simple prose.
+  checked: 2026-11-10
+
+pg-writing-briefly:
+  url: https://paulgraham.com/writing44.html
+  title: Writing, briefly
+  author: Paul Graham
+  type: article
+  length: 2 min
+  level: intro
+  why: A compressed list of writing advice, most of it about cutting.
+  checked: 2026-11-10
+
+explorable-explanations:
+  url: https://explorabl.es/
+  title: Explorable explanations
+  author: Nicky Case
+  type: article
+  length: collection
+  level: deep
+  why: Interactive explanations that let readers play with an idea, for when a paragraph is not enough.
+  checked: 2026-11-10
+
+sketch-pyramid:
+  url: https://sketchplanations.com/the-pyramid-principle
+  title: The pyramid principle
+  author: Sketchplanations
+  type: article
+  length: 2 min
+  year: 2023
+  level: intro
+  why: Start with the answer, then the supporting points, then the detail. The structure behind most persuasive memos.
+  checked: 2026-11-10
+
+pg-how-to-disagree:
+  url: https://paulgraham.com/disagree.html
+  title: How to disagree
+  author: Paul Graham
+  type: article
+  length: 7 min
+  level: intro
+  why: A hierarchy of disagreement, from name-calling up to refuting the central point, and why to aim for the top.
+  checked: 2026-11-10
+
+pragmatic-product-minded:
+  url: https://blog.pragmaticengineer.com/the-product-minded-engineer/
+  title: The product-minded software engineer
+  author: Gergely Orosz
+  type: article
+  length: 10 min
+  year: 2019
+  level: intro
+  why: The traits of engineers who care about the product, including how they work with product managers and users.
+  checked: 2026-11-10
+
+posthog-product-engineer:
+  url: https://posthog.com/product-engineer/what-is-a-product-engineer
+  title: What is a product engineer?
+  author: PostHog
+  type: article
+  length: 6 min
+  level: intro
+  why: How a company built around product engineers defines the role and splits work with PMs and designers.
+  checked: 2026-11-10
+
+govuk-team-discovery:
+  url: https://userresearch.blog.gov.uk/2015/10/14/getting-your-whole-team-involved-in-discovery/
+  title: Getting your whole team involved in discovery
+  author: GOV.UK user research blog
+  type: article
+  length: 6 min
+  year: 2015
+  level: intro
+  why: What changed when engineers and the rest of the team took part in research instead of reading the report.
+  checked: 2026-11-10
+
+govuk-research-team-sport:
+  url: https://userresearch.blog.gov.uk/2019/10/15/how-we-use-training-to-help-make-user-research-a-team-sport/
+  title: How we use training to make user research a team sport
+  author: GOV.UK user research blog
+  type: article
+  length: 8 min
+  year: 2019
+  level: deep
+  why: How researchers train the team to observe sessions, take notes and join the analysis.
+  checked: 2026-11-10
+
+posthog-engineers-support:
+  url: https://posthog.com/newsletter/engineers-do-support
+  title: Doing support makes you a better engineer
+  author: PostHog
+  type: article
+  length: 8 min
+  level: intro
+  why: Why engineers at PostHog answer support tickets, and what it teaches them about the product.
+  checked: 2026-11-10
+
+aha-engineers-support:
+  url: https://www.aha.io/engineering/articles/engineers-support
+  title: Put your engineers on support
+  author: Aha! engineering
+  type: article
+  length: 8 min
+  level: intro
+  why: How a support rotation works when every engineer, including leadership, takes a shift.
+  checked: 2026-11-10
+
+inngest-support-rotation:
+  url: https://www.inngest.com/blog/should-engineers-do-customer-support
+  title: 'Should engineers do customer support? How we built our support rotation'
+  author: Inngest
+  type: article
+  length: 6 min
+  year: 2026
+  level: deep
+  why: The costs of engineers on support and the two-tier rotation one team adopted to protect focus.
+  checked: 2026-11-10
+
+staffeng-archetypes:
+  url: https://staffeng.com/guides/staff-archetypes/
+  title: Staff archetypes
+  author: Will Larson
+  type: book
+  length: 8 min
+  year: 2020
+  level: intro
+  why: The different shapes senior technical leadership takes, from tech lead to solver to right hand.
+  checked: 2026-11-10
+
+staffeng-what-matters:
+  url: https://staffeng.com/guides/work-on-what-matters/
+  title: Work on what matters
+  author: Will Larson
+  type: book
+  length: 10 min
+  year: 2020
+  level: intro
+  why: Choosing work the company needs that nobody else is doing, instead of what is visible or comfortable.
+  checked: 2026-11-10
+
+staffeng-authority:
+  url: https://staffeng.com/guides/staying-aligned-with-authority/
+  title: Staying aligned with authority
+  author: Will Larson
+  type: book
+  length: 6 min
+  year: 2020
+  level: deep
+  why: Keeping your leadership informed and in agreement, so your initiatives keep their support.
+  checked: 2026-11-10
+
+being-glue:
+  url: https://www.noidea.dog/glue
+  title: Being glue
+  author: Tanya Reilly
+  type: talk
+  length: 22 min
+  level: intro
+  why: The coordination work that makes projects succeed, and how to do it without it harming your career.
+  checked: 2026-11-10
+
+spotify-engineering-culture:
+  url: https://www.youtube.com/watch?v=Yvfz4HGtoPc
+  title: Spotify engineering culture, part 1
+  author: Henrik Kniberg
+  type: video
+  level: intro
+  why: Aligned autonomy, the idea that teams decide how to work once they understand what matters and why.
+  checked: 2026-11-10
+
+wiki-disagree-commit:
+  url: https://en.wikipedia.org/wiki/Disagree_and_commit
+  title: Disagree and commit
+  author: Wikipedia
+  type: docs
+  length: 5 min
+  level: intro
+  why: Where the principle comes from, how teams use it, and how it gets misused to shut down dissent.
+  checked: 2026-11-10
+
+leaddev-managing-up:
+  url: https://leaddev.com/communication/myths-and-traps-managing
+  title: The myths and traps of managing up
+  author: LeadDev
+  type: article
+  length: 10 min
+  year: 2020
+  level: intro
+  why: Working well with your manager and their peers without dying on every hill.
+  checked: 2026-11-10
+
+radical-candor:
+  url: https://www.radicalcandor.com/our-approach
+  title: Our approach
+  author: Kim Scott (Radical Candor)
+  type: article
+  length: 3 min
+  level: intro
+  why: Caring personally while challenging directly, the frame behind useful feedback in both directions.
+  checked: 2026-11-10
+
+agile-retrospective:
+  url: https://agilealliance.org/glossary/heartbeat-retrospective/
+  title: What is a retrospective?
+  author: Agile Alliance
+  type: article
+  length: 20 min
+  level: intro
+  why: The regular team meeting to look back at how work went and choose one or two things to change.
+  checked: 2026-11-10
+
+galef-scout-mindset:
+  url: https://www.ted.com/talks/julia_galef_why_you_think_you_re_right_even_if_you_re_wrong
+  title: Why you think you're right, even if you're wrong
+  author: Julia Galef
+  type: talk
+  year: 2016
+  level: intro
+  why: The "scout mindset", wanting to see things as they are rather than defending what you already believe.
+  checked: 2026-11-10
+
+fs-bayes:
+  url: https://fs.blog/bayes-theorem/
+  title: "Predicting the future with Bayes' theorem"
+  author: Farnam Street
+  type: article
+  length: 7 min
+  year: 2022
+  level: deep
+  why: Updating a belief in proportion to new evidence, without the maths getting in the way.
+  checked: 2026-11-10
+
+jvns-learn-how-things-work:
+  url: https://jvns.ca/blog/learn-how-things-work/
+  title: Get better at programming by learning how things work
+  author: Julia Evans
+  type: article
+  length: 10 min
+  year: 2021
+  level: intro
+  why: Learning the layers underneath your tools pays off for years, with concrete ways to start.
+  checked: 2026-11-10
+
+danluu-p95:
+  url: https://danluu.com/p95-skill/
+  title: 95%-ile isn't that good
+  author: Dan Luu
+  type: article
+  length: 30 min
+  level: deep
+  why: Deliberate practice and honest review are rare, so modest consistent effort puts you ahead in most skills.
+  checked: 2026-11-10
+
+swyx-learn-in-public:
+  url: https://swyx.io/learn-in-public
+  title: Learn in public
+  author: swyx
+  type: article
+  length: 9 min
+  year: 2018
+  level: intro
+  why: Writing and sharing what you learn as you learn it, which speeds learning and attracts feedback.
+  checked: 2026-11-10
+
+pair-guidebook:
+  url: https://pair.withgoogle.com/guidebook/
+  title: People + AI guidebook
+  author: Google PAIR
+  type: docs
+  level: deep
+  why: Patterns for AI products on trust, explainability, feedback and fairness, from research at Google.
+  checked: 2026-11-10
+
+hax-guidelines:
+  url: https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/
+  title: Guidelines for human-AI interaction
+  author: Microsoft HAX Toolkit
+  type: docs
+  level: intro
+  why: Eighteen tested guidelines for AI features, such as making clear what the system can do and letting people correct it.
+  checked: 2026-11-10
+
+ms-inclusive-design:
+  url: https://inclusive.microsoft.design/
+  title: Inclusive design
+  author: Microsoft
+  type: docs
+  level: intro
+  why: Designing for people who are excluded first, and how that improves the product for everyone.
+  checked: 2026-11-10
+
+edpb-privacy-by-design:
+  url: https://www.edpb.europa.eu/documents/guideline/guidelines-42019-on-article-25-data-protection-by-design-and-by-default_en
+  title: Guidelines 4/2019 on data protection by design and by default
+  author: European Data Protection Board
+  type: docs
+  year: 2020
+  level: deep
+  why: The official reading of Article 25 with examples of collecting less, keeping less and defaulting to private.
+  checked: 2026-11-10
+
+nist-ai-rmf:
+  url: https://www.nist.gov/itl/ai-risk-management-framework
+  title: AI risk management framework
+  author: NIST
+  type: docs
+  level: deep
+  why: A structured way to find, measure and manage the risks an AI feature creates for people.
+  checked: 2026-11-10
+
+tarot-cards-of-tech:
+  url: https://tarotcardsoftech.artefactgroup.com/
+  title: The tarot cards of tech
+  author: Artefact
+  type: tool-guide
+  level: intro
+  why: Prompt cards for a team to imagine the unintended consequences and misuse of what it is building.
+  checked: 2026-11-10
+
+claude-code-best-practices:
+  url: https://code.claude.com/docs/en/best-practices
+  title: Best practices for Claude Code
+  author: Anthropic docs
+  type: docs
+  length: long guide
+  level: deep
+  why: How to give a coding agent context, plans and checks it can verify, so delegated work comes back right.
+  checked: 2026-11-10
+
+willison-llms-for-code:
+  url: https://simonwillison.net/2025/Mar/11/using-llms-for-code/
+  title: "Here's how I use LLMs to help me write code"
+  author: Simon Willison
+  type: article
+  length: 22 min
+  year: 2025
+  level: intro
+  why: A practical approach to coding with models, including why you must test everything they produce.
+  checked: 2026-11-10
+
+willison-hallucinations:
+  url: https://simonwillison.net/2025/Mar/2/hallucinations-in-code/
+  title: Hallucinations in code are the least dangerous form of LLM mistakes
+  author: Simon Willison
+  type: article
+  length: 6 min
+  year: 2025
+  level: intro
+  why: Errors that fail loudly are easy, while code that runs but is subtly wrong needs real review and testing.
+  checked: 2026-11-10
