@@ -1,0 +1,417 @@
+# Resources first used in Measurement (pilot territory of the research pass).
+# Every URL below was opened and confirmed live and on topic on the `checked` date.
+# YouTube links were confirmed through YouTube's oEmbed endpoint (title and channel).
+
+segment-tracking-plan:
+  url: https://www.twilio.com/docs/segment/getting-started/03-planning-full-install
+  title: Planning a full installation
+  author: Twilio Segment docs
+  type: docs
+  length: 12 min
+  level: intro
+  why: A practical walk through deciding what to track, with a tracking plan template and the reasons behind each choice.
+  checked: 2026-11-10
+
+segment-naming-conventions:
+  url: https://www.twilio.com/en-us/resource-center/naming-conventions-for-clean-data
+  title: 'Naming conventions: why you need them for clean data'
+  author: Twilio Segment
+  type: article
+  length: 15 min
+  year: 2026
+  level: intro
+  why: Explains the object-action naming pattern and shows how messy event names break analysis later.
+  checked: 2026-11-10
+
+amplitude-taxonomy-playbook:
+  url: https://amplitude.com/docs/data/data-planning-playbook
+  title: Plan your taxonomy
+  author: Amplitude docs
+  type: docs
+  length: 8 min
+  year: 2026
+  level: intro
+  why: How to go from business questions to a small set of events and properties, with naming advice.
+  checked: 2026-11-10
+
+nimble-event-tracking:
+  url: https://nimblehq.co/compass/product/analytics/event-tracking-guidelines/
+  title: Event tracking guidelines
+  author: Nimble
+  type: article
+  length: 5 min
+  level: intro
+  why: A product studio's own short, opinionated rules for naming and documenting events. Good to copy as a starting point.
+  checked: 2026-11-10
+
+posthog-identify-users:
+  url: https://posthog.com/docs/product-analytics/identify
+  title: Identifying users
+  author: PostHog docs
+  type: docs
+  length: 15 min
+  level: intro
+  why: Shows exactly when to call identify, how anonymous events get merged, and the mistakes that split one person into two.
+  checked: 2026-11-10
+
+posthog-identity-resolution:
+  url: https://posthog.com/docs/product-analytics/identity-resolution
+  title: Identity resolution
+  author: PostHog docs
+  type: docs
+  length: 12 min
+  level: deep
+  why: Treats identity as an engineering problem across browser, mobile, server and third-party data, which is what it becomes in practice.
+  checked: 2026-11-10
+
+google-heart:
+  url: https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/
+  title: 'Measuring the user experience on a large scale: user-centered metrics for web applications'
+  author: Kerry Rodden, Hilary Hutchinson, Xin Fu (Google)
+  type: article
+  length: 10 pages
+  year: 2010
+  level: deep
+  why: The original HEART paper. Happiness, engagement, adoption, retention and task success, plus the goals-signals-metrics process for choosing them.
+  checked: 2026-11-10
+
+amplitude-north-star-playbook:
+  url: https://amplitude.com/books/north-star
+  title: The North Star Playbook
+  author: Amplitude (Archana Madhavan, John Cutler)
+  type: book
+  length: free book
+  year: 2024
+  level: intro
+  why: The most complete free guide to choosing a North Star metric and the input metrics a team can actually move.
+  checked: 2026-11-10
+
+amplitude-leading-lagging:
+  url: https://www.amplitude.com/blog/map-your-metrics
+  title: 'Leading vs. lagging indicators: how to identify and map your metrics'
+  author: Amplitude
+  type: article
+  length: 8 min
+  year: 2024
+  level: intro
+  why: How to find the early signals that predict slow outcomes such as retention and revenue.
+  checked: 2026-11-10
+
+a16z-16-startup-metrics:
+  url: https://a16z.com/16-startup-metrics/
+  title: 16 startup metrics
+  author: Andreessen Horowitz
+  type: article
+  length: 18 min
+  year: 2015
+  level: intro
+  why: Clear definitions of the business metrics investors ask about, such as bookings, recurring revenue and lifetime value.
+  checked: 2026-11-10
+
+skok-saas-metrics:
+  url: https://www.forentrepreneurs.com/saas-metrics-2/
+  title: 'SaaS Metrics 2.0: a guide to measuring and improving what matters'
+  author: David Skok
+  type: article
+  length: 35 min
+  year: 2013
+  level: deep
+  why: The standard long-form reference for MRR, churn, LTV and CAC, with the formulas and the reasoning behind them.
+  checked: 2026-11-10
+
+a16z-power-user-curve:
+  url: https://a16z.com/the-power-user-curve-the-best-way-to-understand-your-most-engaged-users/
+  title: 'The power user curve: the best way to understand your most engaged users'
+  author: Li Jin and Andrew Chen (Andreessen Horowitz)
+  type: article
+  length: 14 min
+  year: 2018
+  level: intro
+  why: Replaces the single DAU/MAU number with a histogram of how many days people are active, which shows what averages hide.
+  checked: 2026-11-10
+
+nngroup-success-rate:
+  url: https://www.nngroup.com/articles/success-rate-the-simplest-usability-metric/
+  title: 'Success rate: the simplest usability metric'
+  author: Jakob Nielsen (NN/g)
+  type: article
+  length: 8 min
+  year: 2001
+  level: intro
+  why: How to measure whether people complete their tasks, including partial success. Old, and still the clearest explanation.
+  checked: 2026-11-10
+
+measuringu-nps-criticisms:
+  url: https://measuringu.com/nps-go/
+  title: Should the Net Promoter Score go? 5 common criticisms examined
+  author: Jeff Sauro (MeasuringU)
+  type: article
+  length: 10 min
+  year: 2014
+  level: deep
+  why: A measured look at what NPS can and cannot tell you, from a researcher who works with the data.
+  checked: 2026-11-10
+
+winters-good-retention:
+  url: https://www.caseyaccidental.com/p/what-is-good-retention-an-exhaustive-benchmark-study-with-lenny-rachitsky
+  title: 'What is good retention: an exhaustive benchmark study'
+  author: Casey Winters, with Lenny Rachitsky
+  type: article
+  length: 6 min
+  year: 2020
+  level: intro
+  why: Retention benchmarks by business type, collected from growth practitioners, and why the shape of the curve matters more than one number.
+  checked: 2026-11-10
+
+amplitude-cohort-analysis:
+  url: https://amplitude.com/explore/analytics/cohort-analysis
+  title: The complete guide to cohort analysis
+  author: Amplitude
+  type: article
+  length: 20 min
+  year: 2026
+  level: intro
+  why: How cohorts work, how to read a retention grid, and common mistakes such as cohorts that are too broad.
+  checked: 2026-11-10
+
+amplitude-funnel-interpretation:
+  url: https://amplitude.com/docs/analytics/charts/funnel-analysis/funnel-analysis-interpret
+  title: Interpret your funnel analysis
+  author: Amplitude docs
+  type: docs
+  length: 10 min
+  year: 2026
+  level: intro
+  why: Conversion windows, step order and why you compare absolute drop-off, not percentages, to find the step that matters.
+  checked: 2026-11-10
+
+optimizely-simpsons-paradox:
+  url: https://docs.optimizely.com/experimentation-strategy/docs/simpson-s-paradox-discover-possibilities-with-your-segments-not-shipping-decisions
+  title: "Simpson's paradox: discover possibilities with your segments, not shipping decisions"
+  author: Optimizely docs
+  type: docs
+  length: 4 min
+  level: intro
+  why: Why a result that reverses across segments, or a win in one segment, should lead to a new test rather than a shipping decision.
+  checked: 2026-11-10
+
+evanmiller-how-not-ab-test:
+  url: https://www.evanmiller.org/how-not-to-run-an-ab-test.html
+  title: How not to run an A/B test
+  author: Evan Miller
+  type: article
+  length: 8 min
+  year: 2010
+  level: intro
+  why: The classic explanation of why peeking at results and stopping early produces false wins, and what to do instead.
+  checked: 2026-11-10
+
+kohavi-trustworthy-experiments:
+  url: https://www.cambridge.org/core/books/trustworthy-online-controlled-experiments/D97B26382EB0EB2DC2019A7A7B518F59
+  title: 'Trustworthy online controlled experiments: a practical guide to A/B testing'
+  author: Ron Kohavi, Diane Tang, Ya Xu
+  type: book
+  length: 288 pages
+  year: 2020
+  level: deep
+  paid: true
+  why: The standard reference on running experiments at scale, written by the people who built experimentation at Microsoft, Google and LinkedIn.
+  checked: 2026-11-10
+
+kohavi-intuition-busters:
+  url: https://exp-platform.com/abtestingintuitionbusters/
+  title: 'A/B testing intuition busters: common misunderstandings in online controlled experiments'
+  author: Ron Kohavi, Alex Deng, Lukas Vermeer
+  type: article
+  length: 10 pages
+  year: 2022
+  level: deep
+  why: Why surprising wins are usually wrong, why low-powered tests exaggerate effects, and how to read p-values correctly.
+  checked: 2026-11-10
+
+microsoft-srm:
+  url: https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/
+  title: Diagnosing sample ratio mismatch in A/B testing
+  author: Microsoft Experimentation Platform
+  type: article
+  length: 12 min
+  year: 2020
+  level: deep
+  why: The check that catches broken experiments before anyone reads the results, with a taxonomy of the causes.
+  checked: 2026-11-10
+
+posthog-guardrail-metrics:
+  url: https://posthog.com/product-engineers/guardrail-metrics
+  title: Guardrail metrics for A/B tests, explained
+  author: PostHog
+  type: article
+  length: 5 min
+  level: intro
+  why: Written for product engineers. What guardrail metrics are, which ones to pick, and how companies such as Airbnb use them.
+  checked: 2026-11-10
+
+spotify-guardrails:
+  url: https://confidence.spotify.com/blog/better-decisions-with-guardrails
+  title: Better product decisions with guardrail metrics
+  author: Spotify (Confidence)
+  type: article
+  length: 8 min
+  year: 2024
+  level: deep
+  why: How Spotify uses inferiority tests on guardrail metrics to decide when a change should be rolled back.
+  checked: 2026-11-10
+
+growthbook-holdouts:
+  url: https://docs.growthbook.io/kb/experiments/holdouts
+  title: Holdout experiments
+  author: GrowthBook docs
+  type: docs
+  length: 10 min
+  year: 2026
+  level: intro
+  why: How to keep a group of users without new features to measure long-term impact, and the trade-offs of doing so.
+  checked: 2026-11-10
+
+statsig-assignment:
+  url: https://docs.statsig.com/sdks/how-evaluation-works
+  title: How evaluation works
+  author: Statsig docs
+  type: docs
+  length: 6 min
+  level: deep
+  why: How users are assigned to groups with a salted hash, so the same user always gets the same variant without stored state.
+  checked: 2026-11-10
+
+amplitude-randomization:
+  url: https://amplitude.com/docs/feature-experiment/under-the-hood/experiment-randomization
+  title: How randomization works in Amplitude Experiment
+  author: Amplitude docs
+  type: docs
+  length: 3 min
+  year: 2026
+  level: intro
+  why: A compact look at hashing-based assignment and the two-step decision of who enters an experiment and which variant they get.
+  checked: 2026-11-10
+
+oreilly-hypothesis-driven:
+  url: https://barryoreilly.com/explore/blog/how-to-implement-hypothesis-driven-development/
+  title: How to implement hypothesis-driven development
+  author: Barry O'Reilly
+  type: article
+  length: 8 min
+  year: 2013
+  level: intro
+  why: The original "we believe, will result in, we will know when" template for writing testable product hypotheses.
+  checked: 2026-11-10
+
+statquest-power:
+  url: https://www.youtube.com/watch?v=Rsc5znwR5FA
+  title: Statistical power, clearly explained
+  author: StatQuest with Josh Starmer
+  type: video
+  level: intro
+  why: A short, visual explanation of what power is and why sample size changes it.
+  checked: 2026-11-10
+
+statquest-power-analysis:
+  url: https://www.youtube.com/watch?v=VX_M3tIyiYk
+  title: Power analysis, clearly explained
+  author: StatQuest with Josh Starmer
+  type: video
+  level: intro
+  why: How to work out the sample size a test needs before running it.
+  checked: 2026-11-10
+
+seeing-theory:
+  url: https://seeing-theory.brown.edu/
+  title: 'Seeing Theory: a visual introduction to probability and statistics'
+  author: Daniel Kunin and others (Brown University)
+  type: course
+  year: 2017
+  level: intro
+  why: Interactive visualizations of distributions, inference and confidence intervals. The fastest way to build intuition for the basics.
+  checked: 2026-11-10
+
+dataschool-survivorship-bias:
+  url: https://dataschool.com/misrepresenting-data/survivorship-bias/
+  title: How survivorship bias affects your analysis
+  author: Data School
+  type: article
+  length: 4 min
+  year: 2019
+  level: intro
+  why: A short explanation with business examples of drawing conclusions only from the users who stayed.
+  checked: 2026-11-10
+
+heap-confounders:
+  url: https://www.heap.io/blog/control-for-confounders-during-product-usage-analyses
+  title: How and when to control for confounders during product usage analyses
+  author: Heap
+  type: article
+  length: 10 min
+  year: 2021
+  level: deep
+  why: Uses the familiar "users of this feature retain better" case to show how a confounder fakes an effect and how to adjust for it.
+  checked: 2026-11-10
+
+causal-inference-brave-true:
+  url: https://matheusfacure.github.io/python-causality-handbook/landing-page.html
+  title: Causal inference for the brave and true
+  author: Matheus Facure
+  type: book
+  length: free online book
+  level: deep
+  why: A free, rigorous and readable book on causal inference with Python code, from randomized tests to methods for when you cannot run one.
+  checked: 2026-11-10
+
+causal-did-chapter:
+  url: https://matheusfacure.github.io/python-causality-handbook/13-Difference-in-Differences.html
+  title: Difference-in-differences
+  author: Matheus Facure
+  type: book
+  length: 25 min
+  level: deep
+  why: The method to reach for when a change shipped to one group or market and you cannot run an A/B test.
+  checked: 2026-11-10
+
+nngroup-thematic-analysis:
+  url: https://www.nngroup.com/articles/thematic-analysis/
+  title: 'How to analyze qualitative data from UX research: thematic analysis'
+  author: NN/g
+  type: article
+  length: 15 min
+  year: 2022
+  level: deep
+  why: A step-by-step method for turning notes, transcripts and feedback into themes you can defend.
+  checked: 2026-11-10
+
+nngroup-thematic-video:
+  url: https://www.nngroup.com/videos/thematic-analysis-qualitative-user-research-data/
+  title: Thematic analysis of qualitative user research data
+  author: NN/g
+  type: video
+  length: 4 min
+  level: intro
+  why: A quick overview of the same method, for when you need the idea before the detail.
+  checked: 2026-11-10
+
+posthog-replay-privacy:
+  url: https://posthog.com/docs/session-replay/privacy
+  title: Session replay privacy controls
+  author: PostHog docs
+  type: docs
+  length: 15 min
+  level: intro
+  why: How masking and blocking work in session recordings, so you can watch real sessions without capturing personal data.
+  checked: 2026-11-10
+
+nngroup-contextual-inquiry:
+  url: https://www.nngroup.com/articles/contextual-inquiry/
+  title: 'Contextual inquiry: inspire design by observing and interviewing users in their context'
+  author: NN/g
+  type: article
+  length: 12 min
+  year: 2020
+  level: intro
+  why: How to watch people use the real product in their own setting and ask about it as they go.
+  checked: 2026-11-10

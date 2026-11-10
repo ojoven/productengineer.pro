@@ -1,0 +1,108 @@
+# Tools. One entry per tool; capabilities and skills point here by id.
+# Widely used first, with an open-source or free option where one exists. No affiliate links.
+# pricing: open-source | free | freemium | paid
+
+posthog:
+  name: PostHog
+  url: https://posthog.com/
+  what: Open-source product analytics with session replay, feature flags, experiments and surveys in one tool.
+  pricing: open-source
+  checked: 2026-11-10
+
+amplitude:
+  name: Amplitude
+  url: https://amplitude.com/
+  what: Product analytics for funnels, cohorts and retention, with experimentation add-ons.
+  pricing: freemium
+  checked: 2026-11-10
+
+mixpanel:
+  name: Mixpanel
+  url: https://mixpanel.com/
+  what: Event-based product analytics with funnels, retention and user flows.
+  pricing: freemium
+  checked: 2026-11-10
+
+segment:
+  name: Twilio Segment
+  url: https://www.twilio.com/en-us/segment
+  what: Collects events once and sends them to analytics, marketing and warehouse tools, with tracking plan enforcement.
+  pricing: freemium
+  checked: 2026-11-10
+
+rudderstack:
+  name: RudderStack
+  url: https://www.rudderstack.com/
+  what: Customer data pipeline that collects events and routes them to a warehouse and other tools, with an open-source core.
+  pricing: open-source
+  checked: 2026-11-10
+
+avo:
+  name: Avo
+  url: https://www.avo.app/
+  what: Tracking plan tool that keeps event definitions, code and analytics in sync and catches bad events.
+  pricing: freemium
+  checked: 2026-11-10
+
+metabase:
+  name: Metabase
+  url: https://www.metabase.com/
+  what: Open-source BI tool for querying a database or warehouse and building dashboards without much SQL.
+  pricing: open-source
+  checked: 2026-11-10
+
+plausible:
+  name: Plausible Analytics
+  url: https://plausible.io/
+  what: Lightweight, cookieless website analytics, open source and self-hostable.
+  pricing: open-source
+  checked: 2026-11-10
+
+growthbook:
+  name: GrowthBook
+  url: https://www.growthbook.io/
+  what: Open-source feature flags and A/B testing that analyzes results from your own data warehouse.
+  pricing: open-source
+  checked: 2026-11-10
+
+statsig:
+  name: Statsig
+  url: https://www.statsig.com/
+  what: Feature flags, experiments and product analytics with built-in statistics such as variance reduction.
+  pricing: freemium
+  checked: 2026-11-10
+
+evan-miller-ab-tools:
+  name: Evan's Awesome A/B Tools
+  url: https://www.evanmiller.org/ab-testing/
+  what: Free calculators for sample size, significance of results and sequential tests.
+  pricing: free
+  checked: 2026-11-10
+
+microsoft-clarity:
+  name: Microsoft Clarity
+  url: https://clarity.microsoft.com/
+  what: Free session recordings and heatmaps for websites and apps.
+  pricing: free
+  checked: 2026-11-10
+
+openreplay:
+  name: OpenReplay
+  url: https://openreplay.com/
+  what: Open-source, self-hostable session replay with developer tools such as network and console logs.
+  pricing: open-source
+  checked: 2026-11-10
+
+hotjar:
+  name: Hotjar
+  url: https://www.hotjar.com/
+  what: Heatmaps, session recordings and on-site feedback surveys.
+  pricing: freemium
+  checked: 2026-11-10
+
+dovetail:
+  name: Dovetail
+  url: https://dovetail.com/
+  what: Research repository for tagging interviews and feedback and finding themes across them.
+  pricing: freemium
+  checked: 2026-11-10

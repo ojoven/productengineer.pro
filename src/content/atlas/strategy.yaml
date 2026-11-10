@@ -116,6 +116,7 @@ capabilities:
           messages sent, rather than revenue alone. It aligns teams on what matters. It needs
           supporting metrics, because any single number can be gamed.
         related: [product-goals, meaningful-usage]
+        resources: [amplitude-north-star-playbook]
       - id: leading-indicators
         name: Leading indicators
         summary: Early signals that predict a slower outcome metric.
@@ -124,6 +125,7 @@ capabilities:
           setup or using a key feature twice in a week, move early and predict them. They let a
           team learn in days instead of quarters.
         related: [activation-events, product-goals]
+        resources: [amplitude-leading-lagging]
       - id: guardrail-metrics
         name: Guardrail metrics
         summary: Metrics that must not get worse while you optimize something else.
