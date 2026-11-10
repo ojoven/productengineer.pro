@@ -288,3 +288,31 @@ flagsmith:
   what: Open-source feature flag and remote config service, hosted or self-hosted.
   pricing: open-source
   checked: 2026-11-10
+
+customerio:
+  name: Customer.io
+  url: https://customer.io/
+  what: Messaging platform for email, push and in-app messages triggered by product events.
+  pricing: paid
+  checked: 2026-11-10
+
+appcues:
+  name: Appcues
+  url: https://www.appcues.com/
+  what: No-code onboarding flows, checklists and in-app announcements.
+  pricing: paid
+  checked: 2026-11-10
+
+intercom-tool:
+  name: Intercom
+  url: https://www.intercom.com/
+  what: Customer messaging and support platform with chat, help center and product tours.
+  pricing: paid
+  checked: 2026-11-10
+
+canny:
+  name: Canny
+  url: https://canny.io/
+  what: Collects feature requests and feedback in one place and closes the loop with users.
+  pricing: freemium
+  checked: 2026-11-10

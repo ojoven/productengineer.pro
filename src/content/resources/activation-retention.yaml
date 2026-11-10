@@ -1,0 +1,308 @@
+# Resources first used in Activation and Retention. Every URL was opened and confirmed live and
+# on topic on the `checked` date.
+
+amplitude-aha:
+  url: https://amplitude.com/blog/aha-moment
+  title: 'The aha moment: a guide to user breakthroughs'
+  author: Amplitude
+  type: article
+  length: 9 min
+  year: 2025
+  level: intro
+  why: How to find the early action that predicts users will stay, by comparing who retains and who does not.
+  checked: 2026-11-10
+
+amplitude-time-to-value:
+  url: https://amplitude.com/blog/time-to-value-drives-user-retention
+  title: 'Time to value: the key to driving user retention'
+  author: Amplitude
+  type: article
+  length: 12 min
+  year: 2025
+  level: intro
+  why: Measuring how long it takes new users to reach real value, and why shortening it lifts retention.
+  checked: 2026-11-10
+
+amplitude-activation-rate:
+  url: https://amplitude.com/explore/digital-analytics/what-is-activation-rate
+  title: What is activation rate?
+  author: Amplitude
+  type: article
+  length: 15 min
+  year: 2025
+  level: intro
+  why: How to define and calculate activation, with a fixed time window so the number means something.
+  checked: 2026-11-10
+
+posthog-activation:
+  url: https://posthog.com/handbook/growth/growth-engineering/per-product-activation
+  title: Per-product activation
+  author: PostHog handbook
+  type: docs
+  length: 5 min
+  level: deep
+  why: How a real product team picks its activation metric by testing several definitions against retention.
+  checked: 2026-11-10
+
+amplitude-pirate-metrics:
+  url: https://amplitude.com/blog/pirate-metrics-framework
+  title: 'AARRR: the pirate metrics framework'
+  author: Amplitude
+  type: article
+  length: 12 min
+  year: 2025
+  level: intro
+  why: Acquisition, activation, retention, referral and revenue as one funnel, and where each metric fits.
+  checked: 2026-11-10
+
+nngroup-onboarding-tutorials:
+  url: https://www.nngroup.com/articles/onboarding-tutorials/
+  title: Onboarding tutorials vs. contextual help
+  author: NN/g
+  type: article
+  length: 9 min
+  year: 2023
+  level: intro
+  why: Research showing upfront tutorials rarely help, and why help at the moment of need works better.
+  checked: 2026-11-10
+
+nngroup-mobile-onboarding:
+  url: https://www.nngroup.com/articles/mobile-app-onboarding/
+  title: 'Mobile-app onboarding: an analysis of components and techniques'
+  author: NN/g
+  type: article
+  length: 13 min
+  year: 2020
+  level: deep
+  why: The parts of an onboarding flow, from feature promotion to customization, and when each one earns its place.
+  checked: 2026-11-10
+
+nngroup-instructional-overlays:
+  url: https://www.nngroup.com/articles/mobile-instructional-overlay/
+  title: Instructional overlays and coach marks
+  author: NN/g
+  type: article
+  length: 8 min
+  year: 2014
+  level: intro
+  why: How to show a tip at the right moment without covering the screen people are trying to use.
+  checked: 2026-11-10
+
+nngroup-help-docs:
+  url: https://www.nngroup.com/articles/help-and-documentation/
+  title: Help and documentation (usability heuristic 10)
+  author: NN/g
+  type: article
+  length: 9 min
+  year: 2020
+  level: intro
+  why: Proactive and reactive help, and how to keep it short and close to the task.
+  checked: 2026-11-10
+
+nngroup-ai-onboarding:
+  url: https://www.nngroup.com/articles/new-AI-users-onboarding/
+  title: New users need support with generative-AI tools
+  author: NN/g
+  type: article
+  length: 11 min
+  year: 2024
+  level: deep
+  why: 'Why AI features need different onboarding: people do not know what to ask or what the tool can do.'
+  checked: 2026-11-10
+
+useronboard:
+  url: https://www.useronboard.com/
+  title: User onboarding teardowns
+  author: Samuel Hulick
+  type: article
+  length: collection
+  level: intro
+  why: Screen-by-screen critiques of how well-known products greet new users, with lessons you can apply.
+  checked: 2026-11-10
+
+nngroup-optional-registration:
+  url: https://www.nngroup.com/articles/optional-registration/
+  title: Don't force users to register before they can buy
+  author: NN/g
+  type: article
+  length: 6 min
+  year: 2015
+  level: intro
+  why: Why asking for an account too early loses people, and how to delay it until there is value.
+  checked: 2026-11-10
+
+baymard-delayed-account:
+  url: https://baymard.com/research-articles/delayed-account-creation
+  title: Save account creation for the confirmation step
+  author: Baymard Institute
+  type: article
+  length: 15 min
+  year: 2023
+  level: deep
+  why: Large-scale usability research on moving account creation to after the user has what they came for.
+  checked: 2026-11-10
+
+baymard-guest-checkout:
+  url: https://baymard.com/research-articles/make-guest-checkout-prominent
+  title: Make "guest checkout" prominent
+  author: Baymard Institute
+  type: article
+  length: 15 min
+  year: 2023
+  level: deep
+  why: Placement and wording details that decide whether people find the path without an account.
+  checked: 2026-11-10
+
+baymard-cart-abandonment:
+  url: https://baymard.com/blog/reduce-cart-abandonment
+  title: How to reduce cart abandonment
+  author: Baymard Institute
+  type: article
+  length: 13 min
+  year: 2026
+  level: intro
+  why: The most common reasons people abandon a flow at the last step, with the research behind each fix.
+  checked: 2026-11-10
+
+amplitude-retention-playbook:
+  url: https://amplitude.com/books/mastering-retention
+  title: Mastering retention
+  author: Amplitude
+  type: book
+  length: free book
+  year: 2023
+  level: deep
+  why: A free playbook on retention across new, current and returning users, with the analysis behind each.
+  checked: 2026-11-10
+
+amplitude-retention-lifecycle:
+  url: https://amplitude.com/books/mastering-retention/the-retention-lifecycle-framework
+  title: The retention lifecycle framework
+  author: Amplitude
+  type: book
+  length: 6 min
+  year: 2023
+  level: intro
+  why: Splitting users into new, current, dormant and resurrected, because each group needs different work.
+  checked: 2026-11-10
+
+amplitude-resurrected:
+  url: https://amplitude.com/books/mastering-retention/resurrected-user-retention
+  title: Resurrected user retention
+  author: Amplitude
+  type: book
+  length: 6 min
+  year: 2023
+  level: deep
+  why: What brings lapsed users back, and how to keep them from leaving again.
+  checked: 2026-11-10
+
+paddle-churn-types:
+  url: https://www.paddle.com/resources/reduce-voluntary-and-involuntary-churn
+  title: 'Voluntary vs. involuntary churn: what they are and how to reduce them'
+  author: Paddle
+  type: article
+  length: 12 min
+  year: 2022
+  level: intro
+  why: Why failed payments and real cancellations need different fixes, and how big each usually is.
+  checked: 2026-11-10
+
+stripe-involuntary-churn:
+  url: https://stripe.com/resources/more/involuntary-churn-101-what-it-is-why-it-happens-and-seven-ways-to-reduce-it
+  title: Involuntary churn 101
+  author: Stripe
+  type: article
+  length: 15 min
+  year: 2024
+  level: deep
+  why: 'Card failures, retries and dunning: the engineering side of keeping customers who meant to stay.'
+  checked: 2026-11-10
+
+chargebee-churn-analysis:
+  url: https://www.chargebee.com/blog/churn-analysis/
+  title: 'Churn analysis: steps to understanding why customers leave'
+  author: Chargebee
+  type: article
+  length: 14 min
+  year: 2020
+  level: intro
+  why: How to set up churn data, segment it and separate the reasons you can act on.
+  checked: 2026-11-10
+
+customerio-lifecycle-guide:
+  url: https://customer.io/learn/lifecycle-marketing/guide
+  title: 'Lifecycle marketing guide: engage across the entire journey'
+  author: Customer.io
+  type: article
+  length: 10 min
+  year: 2024
+  level: intro
+  why: Messages triggered by what users do, at each stage from welcome to win-back.
+  checked: 2026-11-10
+
+customerio-lifecycle-campaigns:
+  url: https://customer.io/learn/lifecycle-marketing/essential-lifecycle-marketing-campaigns
+  title: 6 essential lifecycle marketing campaigns
+  author: Customer.io
+  type: article
+  length: 9 min
+  year: 2025
+  level: intro
+  why: Concrete campaigns with triggers and timing, including re-engaging users who went quiet.
+  checked: 2026-11-10
+
+customerio-retention-channels:
+  url: https://customer.io/learn/product-led-growth/retention-marketing-channel-strategy
+  title: 'Retention marketing channel strategy: email, SMS and in-app'
+  author: Customer.io
+  type: article
+  length: 8 min
+  year: 2026
+  level: deep
+  why: Which channel suits which message, so reminders help instead of annoy.
+  checked: 2026-11-10
+
+nngroup-push-mistakes:
+  url: https://www.nngroup.com/articles/push-notification/
+  title: Five mistakes in designing mobile push notifications
+  author: NN/g
+  type: article
+  length: 10 min
+  year: 2018
+  level: intro
+  why: Asking for permission too early, sending too much, and the other mistakes that get notifications turned off.
+  checked: 2026-11-10
+
+nngroup-transactional-notifications:
+  url: https://www.nngroup.com/articles/transactional-notifications/
+  title: 'Transactional notifications: characteristics and when to use them'
+  author: NN/g
+  type: article
+  length: 13 min
+  year: 2022
+  level: deep
+  why: The difference between notifications people want and promotional ones they tolerate at best.
+  checked: 2026-11-10
+
+nngroup-newsletters:
+  url: https://www.nngroup.com/articles/newsletters/
+  title: 'Designing marketing email and newsletters: UX research findings'
+  author: NN/g
+  type: article
+  length: 14 min
+  year: 2017
+  level: deep
+  why: What makes people read or ignore product email, including why untailored messages feel like spam.
+  checked: 2026-11-10
+
+nngroup-user-feedback:
+  url: https://www.nngroup.com/articles/user-feedback/
+  title: 'User-feedback requests: 5 guidelines'
+  author: NN/g
+  type: article
+  length: 13 min
+  year: 2023
+  level: intro
+  why: How to ask users for feedback at the right moment and in a way they will actually answer.
+  checked: 2026-11-10

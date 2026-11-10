@@ -20,6 +20,7 @@ capabilities:
     description: >-
       The reasons a product stays useful after the first visit, and how to strengthen
       them.
+    resources: [amplitude-retention-playbook, a16z-power-user-curve]
     skills:
       - id: core-loops
         name: Core usage loops
@@ -29,6 +30,7 @@ capabilities:
           Strong loops bring users back naturally. Mapping the loop shows which step to improve for
           the biggest effect on retention.
         related: [habit-formation, referral-loops]
+        resources: [nirandfar-habit]
       - id: recurring-needs
         name: Recurring needs
         summary: Problems users face repeatedly, which the product can solve each time.
@@ -37,6 +39,7 @@ capabilities:
           practice, monthly reports. If the need is rare, retention will be low whatever you do.
           Knowing the natural frequency sets realistic targets.
         related: [engagement-frequency, diary-studies]
+        resources: [a16z-power-user-curve]
       - id: product-usefulness
         name: Product usefulness
         summary: How well the product solves the user's problem over time.
@@ -52,12 +55,14 @@ capabilities:
           for granted. Summaries and milestones are common forms. It works when the value is real
           and fails when it is inflated.
         related: [aha-moments, lifecycle-messaging]
+        resources: [amplitude-retention-lifecycle]
 
   - id: retention-analysis
     name: Retention analysis
     description: >-
       Measuring who stays, who leaves and why, so retention work targets the real cause.
     related: [cohort-analysis, retention-metrics]
+    resources: [amplitude-retention-lifecycle, amplitude-cohort-analysis, winters-good-retention]
     skills:
       - id: retention-curves
         name: Retention curves
@@ -67,6 +72,7 @@ capabilities:
           curve that flattens means some users found lasting value. Comparing curves across cohorts
           shows whether the product is improving.
         related: [cohort-analysis, retention-metrics]
+        resources: [winters-good-retention, amplitude-cohort-analysis]
       - id: churn-analysis
         name: Churn
         summary: Understanding why and when users or customers leave.
@@ -75,6 +81,7 @@ capabilities:
           and usage before churn point to causes. Some churn is unavoidable, so the goal is to find
           the preventable kind.
         related: [lifetime-value, feedback-collection]
+        resources: [chargebee-churn-analysis, paddle-churn-types, stripe-involuntary-churn]
       - id: engagement-frequency
         name: Engagement frequency
         summary: How often users return, compared with how often they need to.
@@ -83,6 +90,7 @@ capabilities:
           against the natural frequency of the need gives a fair picture. A tax tool used yearly
           can retain perfectly.
         related: [recurring-needs, engagement-metrics]
+        resources: [a16z-power-user-curve]
       - id: meaningful-usage
         name: Meaningful usage
         summary: Defining which activity counts as real use, not just logging in.
@@ -91,6 +99,7 @@ capabilities:
           action, such as finishing a lesson, makes retention numbers honest. It also aligns the
           team on what value means.
         related: [north-star-metric, activation-events]
+        resources: [amplitude-retention-lifecycle]
 
   - id: engagement-design
     name: Engagement design
@@ -98,6 +107,7 @@ capabilities:
       Designing features that help users keep going: well-timed reminders, personal relevance
       and a sense of progress.
     related: [motivation, habit-formation]
+    resources: [nirandfar-habit, nngroup-push-mistakes, fogg-behavior-model]
     skills:
       - id: reminders
         name: Reminders and notifications
@@ -107,6 +117,7 @@ capabilities:
           ignore or disable them. Measuring opt-outs alongside clicks keeps notification strategy
           honest.
         related: [lifecycle-messaging, ethical-engagement]
+        resources: [nngroup-push-mistakes, nngroup-transactional-notifications]
       - id: personalization
         name: Personalization
         summary: Adapting content and features to each user.
@@ -115,6 +126,7 @@ capabilities:
           product more relevant and is easy to get wrong when data is thin. Simple rules often beat
           complex models early on.
         related: [user-segments, retrieval]
+        resources: [nngroup-newsletters]
       - id: user-progression
         name: User progression
         summary: Giving users a sense of growth and mastery over time.
@@ -123,12 +135,15 @@ capabilities:
           unlocked features. It works when it reflects real progress. Learning products depend on it
           heavily.
         related: [value-reinforcement, motivation]
+        resources: [nirandfar-habit]
 
   - id: customer-lifecycle
     name: Customer lifecycle
     description: >-
       Communicating with users at each stage of their relationship with the product, from new
       to dormant.
+    resources: [customerio-lifecycle-guide, customerio-lifecycle-campaigns, amplitude-retention-lifecycle]
+    tools: [customerio]
     skills:
       - id: re-engagement
         name: Re-engaging dormant users
@@ -138,6 +153,7 @@ capabilities:
           left. They work best soon after usage drops. Users who return to an unchanged product
           often leave again.
         related: [lifecycle-messaging, churn-analysis]
+        resources: [amplitude-resurrected, customerio-lifecycle-campaigns]
       - id: lifecycle-messaging
         name: Lifecycle communication
         summary: Emails and messages timed to where each user is in their journey.
@@ -146,6 +162,8 @@ capabilities:
           win-back. It is triggered by behavior, not sent on a fixed schedule. Engineers often build
           the event triggers that make it possible.
         related: [reminders, re-engagement]
+        resources: [customerio-lifecycle-guide, customerio-retention-channels]
+        tools: [customerio]
       - id: customer-education
         name: Customer education
         summary: Teaching customers to get more value from the product.
@@ -154,12 +172,15 @@ capabilities:
           workflows they would miss. Educated customers retain and expand more. For complex products
           it is a growth channel too.
         related: [documentation-ux, tutorials]
+        resources: [nngroup-help-docs]
 
   - id: customer-success
     name: Customer success
     description: >-
       Helping customers reach their goals with the product, and turning what they tell you
       into improvements.
+    resources: [nngroup-user-feedback, chargebee-churn-analysis]
+    tools: [canny, intercom-tool]
     skills:
       - id: feedback-collection
         name: Feedback collection
@@ -169,6 +190,8 @@ capabilities:
           Low friction and visible follow-up keep feedback coming. Collecting it in one place makes
           it usable.
         related: [feedback-analysis, surveys]
+        resources: [nngroup-user-feedback]
+        tools: [canny]
       - id: friction-reduction
         name: Friction reduction
         summary: Removing the recurring annoyances that wear users down.
@@ -185,6 +208,7 @@ capabilities:
           Tagging them and reviewing trends shows where to invest. Engineers who read support
           tickets build better products.
         related: [feedback-triage, feedback-analysis]
+        resources: [nngroup-thematic-analysis]
       - id: adoption-barriers
         name: Resolving adoption barriers
         summary: Removing what stops customers from using the product fully.
@@ -193,3 +217,4 @@ capabilities:
           resistance in customer teams. Finding them takes conversations with customers. Removing
           them often unlocks expansion.
         related: [product-driven-expansion, domain-stakeholders]
+        resources: [chargebee-churn-analysis]
