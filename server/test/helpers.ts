@@ -103,7 +103,9 @@ export function fixtureAtlas(): Atlas {
 }
 
 export function makeApp(opts: { fetchClientMetadata?: ClientMetadataFetcher } = {}) {
-  const clock = { now: Date.parse('2026-11-11T12:00:00Z') };
+  // The SDK also checks expiry against the wall clock. Start alongside it, then let tests
+  // advance this clock explicitly to exercise expiry without waiting.
+  const clock = { now: Date.now() };
   const config = loadConfig({ PUBLIC_URL: PUBLIC, DEV_LOGIN: '1' } as NodeJS.ProcessEnv);
   const deps: Deps = {
     config,
