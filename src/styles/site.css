@@ -16,6 +16,8 @@
   --accent: #e0337f;
   --accent-ink: #b8195f;
   --on-ink: #f2f0ea;
+  /* the select arrow, in the ink colour of each theme */
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23141412' stroke-width='1.4'/%3E%3C/svg%3E");
   --sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
   --cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', ui-sans-serif, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
@@ -81,6 +83,7 @@
     --accent: #ff5fa2;
     --accent-ink: #ff8fbf;
     --on-ink: #121211;
+    --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23ecebe5' stroke-width='1.4'/%3E%3C/svg%3E");
     color-scheme: dark;
   }
 }
@@ -97,6 +100,7 @@
   --accent: #ff5fa2;
   --accent-ink: #ff8fbf;
   --on-ink: #121211;
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23ecebe5' stroke-width='1.4'/%3E%3C/svg%3E");
   color-scheme: dark;
 }
 
@@ -730,11 +734,30 @@ h3 {
   padding: 8px 10px;
   font-size: 11px;
 }
+/* an icon inside a button keeps the button the height of its text */
+.btn > svg {
+  flex: none;
+  margin: -2px 0;
+}
 .btn-row {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
+}
+
+/* ---- selects: our own arrow, set well inside the border (select.btn outranks .btn) */
+select,
+select.btn {
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  padding-right: 40px;
+  background: transparent var(--chevron) no-repeat right 14px center / 10px 6px;
+}
+select.btn:hover {
+  background: var(--bg-2) var(--chevron) no-repeat right 14px center / 10px 6px;
+  color: var(--ink);
 }
 
 /* ---- status control on skill pages */

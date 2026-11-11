@@ -12,7 +12,7 @@ const a = atlas();
 const svg = mapSvg({ width: 760, height: 700 });
 ---
 
-<Base title="Atlas" description={`Explore the map of product engineering: ${a.territories.filter((t) => !t.crossCutting).length} territories, ${a.capabilities.length} capabilities and every skill beneath them.`} bodyClass="is-explorer" searchable={false}>
+<Base title="Atlas" description={`Explore the map of product engineering: ${a.territories.filter((t) => !t.crossCutting).length} territories, ${a.capabilities.length} capabilities and every skill beneath them. Mark what you know and watch your map fill in.`} bodyClass="is-explorer" searchable={false}>
   <div class="explorer" id="explorer">
     <div class="ex-map" id="ex-map" set:html={svg} />
     <aside class="ex-panel" id="ex-panel" aria-live="polite">
@@ -86,7 +86,7 @@ const svg = mapSvg({ width: 760, height: 700 });
   }
   .ex-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; padding: 18px 0 0; }
   .ex-filters label { display: block; margin-bottom: 6px; }
-  .ex-filters select { width: 100%; font: 14px var(--ui, var(--sans)); color: var(--ink); background: var(--bg); border: 1px solid var(--line); padding: 8px; }
+  .ex-filters select { width: 100%; font: 14px var(--ui, var(--sans)); color: var(--ink); background-color: var(--bg); border: 1px solid var(--line); padding: 8px 36px 8px 8px; background-position: right 12px center; }
   .ex-filters p { grid-column: 1 / -1; font-size: 13px; margin: 0; color: var(--muted); }
   .ex-filters button { justify-self: start; grid-column: 1 / -1; }
   @media (max-width: 480px) { .ex-filters { grid-template-columns: minmax(0, 1fr); } }
@@ -116,6 +116,78 @@ const svg = mapSvg({ width: 760, height: 700 });
   }
   .ex-zoom .btn:hover {
     background: var(--ink);
+  }
+  .you {
+    border: 1px solid var(--ink);
+    padding: 14px 16px;
+    display: grid;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .you-text {
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .you-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .you-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font: 500 11.5px/1 var(--mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: none;
+    border: 1px solid var(--line);
+    padding: 7px 9px;
+    cursor: pointer;
+  }
+  .you-stat b {
+    font-weight: 600;
+  }
+  .you-stat:hover {
+    border-color: var(--ink);
+  }
+  .you-stat[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .you-stat .hx,
+  .you-stat .hx svg {
+    width: 12px;
+    height: 14px;
+    cursor: inherit;
+  }
+  .you-stat[aria-pressed='true'] .hx path {
+    stroke: var(--bg);
+  }
+  .you-stat[aria-pressed='true'][data-status='comfortable'] .hx path {
+    fill: var(--bg);
+  }
+  .you .lit-chips {
+    margin: 0;
+  }
+  .you-note {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .chip.quiet {
+    background: none;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .chip.quiet:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
   }
   .lit-chips {
     display: flex;
@@ -153,7 +225,7 @@ const svg = mapSvg({ width: 760, height: 700 });
 
 <script>
   import { renderMap, computeView, nodeCodes, type MapAtlas } from '../../atlas/render.ts';
-  import { matchesSkill, readFilters, type Focus, type SkillFilters } from '../../atlas/filters.ts';
+  import { matchesSkill, readFilters, type Focus, type ProgressFilter, type SkillFilters } from '../../atlas/filters.ts';
   import { STATUS_OPTIONS, type ProgressStatus } from '../../atlas/status.ts';
   import type { Geometry } from '../../atlas/geometry.ts';
   import { load, setStatus, applyProgress, onChange } from '../../scripts/progress.ts';
@@ -292,6 +364,35 @@ const svg = mapSvg({ width: 760, height: 700 });
     `<li><div class="row${selected ? ' is-sel' : ''}" data-id="${id}" data-status-for="${id}"><button type="button" class="hx" data-cycle="${id}" data-name="${esc(nameOf(id))}" data-status-for="${id}"><svg viewBox="0 0 22 25" aria-hidden="true">${HEX}</svg></button><span class="code">${codeOf(id)}</span><button class="name" type="button" data-go="${id}">${esc(nameOf(id))}</button><a class="go" href="${pagePath(id)}" aria-label="Open the ${esc(nameOf(id))} page">→</a><span class="sub">${esc(S.get(id)!.summary)}</span></div></li>`;
   const tSkills = (tid: string) => T.get(tid)!.capabilities.flatMap((c) => C.get(c)!.skills);
 
+  // ---- your map: what you marked, shown at the world level. Each count filters the map.
+  const STATS = [
+    ['learning', 'learning'],
+    ['comfortable', 'comfortable'],
+    ['not-interested', 'not interested'],
+    ['none', 'not started'],
+  ] as const;
+  const LEARNING_CHIPS = 12;
+  function yourMap(progress: Record<string, string>) {
+    const count = (value: string) => data.skills.filter((skill) => (progress[skill.id] ?? 'none') === value).length;
+    const marked = data.skills.length - count('none');
+    const save = '<p class="you-note"><span class="anon-only">Saved in this browser. <a href="/me/#account">Sign in</a> to keep it on every device.</span><span class="account-only">Saved to your account. <a href="/me/">Account settings</a></span></p>';
+    if (!marked)
+      return `<div class="you"><div class="label">Your map</div><p class="you-text">Open a capability and click the hexagon next to a skill to mark it as learning, comfortable or not interested. Your map fills in as you go.</p>${save}</div>`;
+    const stats = STATS.map(([value, label]) => {
+      const on = state.progress === value;
+      return `<button type="button" class="you-stat" data-status="${value}" data-progress="${value}" aria-pressed="${on}"><span class="hx" aria-hidden="true"><svg viewBox="0 0 22 25">${HEX}</svg></span><b>${count(value)}</b> ${label}</button>`;
+    }).join('');
+    const learning = data.skills.filter((skill) => progress[skill.id] === 'learning');
+    const more = learning.length - LEARNING_CHIPS;
+    const chips = learning.length
+      ? `<div class="label">Learning now</div><div class="lit-chips">${learning
+          .slice(0, LEARNING_CHIPS)
+          .map((skill) => `<a class="chip quiet" href="${urlFor({ ...state, at: skill.id })}" data-go="${skill.id}">${codeOf(skill.id)} ${esc(skill.name)}</a>`)
+          .join('')}${more > 0 ? `<button type="button" class="chip quiet" data-progress="learning">+${more} more</button>` : ''}</div>`
+      : '';
+    return `<div class="you"><div class="label">Your map · ${marked} of ${data.skills.length} marked</div><div class="you-stats">${stats}</div>${chips}${save}</div>`;
+  }
+
   function panel() {
     const focused = document.activeElement as HTMLElement | null;
     const focusedStatus = focused?.matches('input[name="ex-status"]') ? (focused as HTMLInputElement).value : undefined;
@@ -317,7 +418,7 @@ const svg = mapSvg({ width: 760, height: 700 });
     let code = `Atlas · ${data.skills.length} skills`;
     let title = 'The Skill Atlas';
     let text = 'Explore every territory, including AI, and the capabilities that cut across them. Pick one to zoom in.';
-    let actions = '';
+    let actions = yourMap(progress);
     let listTitle = 'Territories';
     let list = data.territories.filter((t) => filtered(tSkills(t.id)).length).map((t) => rowGroup(t.id, t.question, filtered(tSkills(t.id)))).join('');
 
@@ -372,6 +473,13 @@ const svg = mapSvg({ width: 760, height: 700 });
       }
     });
     $('ex-clear')?.addEventListener('click', () => go({ ...state, lit: [] }));
+    $('ex-actions').querySelectorAll<HTMLButtonElement>('button[data-progress]').forEach((button) =>
+      button.addEventListener('click', () => {
+        const value = button.dataset.progress as ProgressFilter;
+        go({ ...state, progress: state.progress === value && button.hasAttribute('aria-pressed') ? '' : value });
+        track('Your map filter', { status: value });
+      }),
+    );
     document.querySelectorAll<HTMLInputElement>('input[name="ex-status"]').forEach((input) =>
       input.addEventListener('change', () => {
         if (!input.checked) return;

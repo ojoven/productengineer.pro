@@ -1,58 +1,35 @@
 ---
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
-import MapFigure from '../components/MapFigure.astro';
-import TerritoryRows from '../components/TerritoryRows.astro';
-import { atlas } from '../lib/atlas.ts';
 import { SITE } from '../site.ts';
 
-const a = atlas();
 const mcp = `${SITE.url}/mcp`;
 ---
 
-<Base title="My map" description="Your progress across the atlas. Kept in this browser, or in your account if you sign in." searchable={false} noindex>
+<Base title="Account" description="Keep your map on every device, connect an AI agent and manage your data." searchable={false} noindex>
   <div class="wrap">
-    <Crumbs items={[{ label: 'My map' }]} />
+    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { label: 'Account' }]} />
     <header class="page-head">
-      <div class="code-big" id="me-count" data-rollup={a.skills.map((s) => s.id).join(' ')}>{a.skills.length} skills</div>
-      <h1 class="title" id="me-title">My map</h1>
+      <div class="code-big">Account · <span class="anon-only">optional</span><span class="account-only">signed in</span></div>
+      <h1 class="title">Account</h1>
       <p class="lede">
-        Every tile is one skill. Mark it as learning, comfortable or not interested. You can change your choice at any time.{' '}
         <span class="anon-only">
-          Without an account it stays in this browser and nothing is sent anywhere. <a href="#account">Sign in</a> with GitHub or
-          Google to keep it on every device and let an AI agent read it.
+          Your map works without an account: it stays in this browser and nothing is sent anywhere. Sign in with GitHub or Google
+          to keep it on every device and let an AI agent read it.
         </span>
-        <span class="account-only">It is saved to your account, so it follows you to any device, and agents you approve can read it.</span>
+        <span class="account-only">Your map is saved to your account, so it follows you to any device, and agents you approve can read it.</span>
       </p>
-      <p><a href="/atlas/?progress=not-interested">Review skills marked not interested →</a></p>
+      <p><a href="/atlas/">Open your map in the atlas →</a></p>
       <p id="auth-msg" role="status" class="label" hidden></p>
     </header>
 
-    <div class="split">
-      <div class="pane">
-        <div class="sticky-map">
-          <div class="pane-head"><span class="label">Your map</span><span class="label">1 tile = 1 skill</span></div>
-          <MapFigure width={660} height={560} />
-        </div>
-      </div>
-      <div class="pane">
-        <div class="pane-head"><span class="label">Totals</span><span class="label">{a.territories.length} groups</span></div>
-        <TerritoryRows territories={a.territories} />
-      </div>
-    </div>
-
     <section class="section">
       <div class="cols">
-        <div>
-          <div class="section-head"><h2>Learning now</h2><span class="label" id="learning-count"></span></div>
-          <ul class="index" id="learning-list"><li><p class="empty">Nothing marked as learning yet.</p></li></ul>
-        </div>
         <div id="account">
-          <div class="section-head"><h2>Account</h2><span class="label anon-only">Optional</span><span class="label account-only" id="account-since"></span></div>
+          <div class="section-head"><h2><span class="anon-only">Sign in</span><span class="account-only">Signed in</span></h2><span class="label anon-only">Optional</span><span class="label account-only" id="account-since"></span></div>
           <div class="anon-only">
             <p class="muted" style="font-size:15px">
-              Sign in to keep your map on every device and to let an AI agent read it. We keep your GitHub or Google id, your name,
-              your avatar and the email address shared by your provider.
+              We keep your GitHub or Google id, your name, your avatar and the email address shared by your provider.
             </p>
             <div class="btn-row" id="signin-buttons">
               <a class="btn primary" data-provider="github" href="/api/auth/github/start?return=/me/">Continue with GitHub</a>
@@ -77,37 +54,7 @@ const mcp = `${SITE.url}/mcp`;
             </p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="cols">
-        <div id="agents">
-          <div class="section-head"><h2>Agents</h2><span class="label">MCP</span></div>
-          <p class="muted" style="font-size:15px">
-            Connect an AI agent, such as Claude Code, to the atlas. It can look up territories, capabilities and skills with their
-            resources and tools. Once you approve it, it can also read your statuses, so it can tell what you know and suggest what
-            to learn next. It cannot change them.
-          </p>
-          <div class="copy-row">
-            <code id="mcp-url">{mcp}</code>
-            <button class="btn small" type="button" data-copy="mcp-url">Copy</button>
-          </div>
-          <p class="label" style="margin:18px 0 8px">Claude Code</p>
-          <div class="copy-row">
-            <code id="mcp-cmd">claude mcp add --transport http productengineer {mcp}</code>
-            <button class="btn small" type="button" data-copy="mcp-cmd">Copy</button>
-          </div>
-          <p class="muted" style="font-size:14px;margin-top:14px">
-            In Claude and other clients, add a custom connector or remote MCP server with the URL above. The first time, it opens
-            this site so you can sign in and approve it. Without an account, <code id="mcp-public">{mcp}/public</code> serves the atlas only.
-          </p>
-          <div class="account-only">
-            <p class="label" style="margin:22px 0 8px">Connected agents</p>
-            <ul class="index" id="connections"><li><p class="empty">No agents connected yet.</p></li></ul>
-          </div>
-        </div>
-        <div>
+        <div id="data">
           <div class="section-head"><h2>Your data</h2><span class="label anon-only">Local only</span><span class="label account-only">Account and this browser</span></div>
           <form id="name-form" class="btn-row" style="margin-bottom:18px">
             <label class="visually-hidden" for="display-name">Display name</label>
@@ -128,6 +75,39 @@ const mcp = `${SITE.url}/mcp`;
             <button class="btn account-only" type="button" id="delete-account">Delete account</button>
           </div>
           <p id="data-msg" role="status" class="label" style="margin-top:12px"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="agents">
+      <div class="section-head"><h2>Agents</h2><span class="label">MCP</span></div>
+      <div class="cols">
+        <div>
+          <p class="muted" style="font-size:15px">
+            Connect an AI agent, such as Claude Code, to the atlas. It can look up territories, capabilities and skills with their
+            resources and tools. Once you approve it, it can also read your statuses, so it can tell what you know and suggest what
+            to learn next. It cannot change them.
+          </p>
+          <div class="account-only">
+            <p class="label" style="margin:22px 0 8px">Connected agents</p>
+            <ul class="index" id="connections"><li><p class="empty">No agents connected yet.</p></li></ul>
+          </div>
+        </div>
+        <div>
+          <p class="label" style="margin:0 0 8px">Server URL</p>
+          <div class="copy-row">
+            <code id="mcp-url">{mcp}</code>
+            <button class="btn small" type="button" data-copy="mcp-url">Copy</button>
+          </div>
+          <p class="label" style="margin:18px 0 8px">Claude Code</p>
+          <div class="copy-row">
+            <code id="mcp-cmd">claude mcp add --transport http productengineer {mcp}</code>
+            <button class="btn small" type="button" data-copy="mcp-cmd">Copy</button>
+          </div>
+          <p class="muted" style="font-size:14px;margin-top:14px">
+            In Claude and other clients, add a custom connector or remote MCP server with the URL above. The first time, it opens
+            this site so you can sign in and approve it. Without an account, <code id="mcp-public">{mcp}/public</code> serves the atlas only.
+          </p>
         </div>
       </div>
     </section>
@@ -187,19 +167,15 @@ const mcp = `${SITE.url}/mcp`;
 </style>
 
 <script>
-  import { load, setName, exportFile, importFile, reset, onChange, applyProgress } from '../scripts/progress.ts';
+  import { load, setName, exportFile, importFile, reset, onChange } from '../scripts/progress.ts';
   import { account, connections, deleteAccount, isSignedIn, providers, refreshAccount, rename, revokeConnection, signInUrl, signOut } from '../scripts/sync.ts';
-  import { nodeCodes } from '../atlas/render.ts';
   import { track } from '../scripts/track.ts';
 
-  type Skill = { id: string; name: string; summary: string; capability: string; territory: string };
-  let skills: Skill[] = [];
-  let aliases: Record<string, string> = {};
-  let codes = new Map<string, string>();
+  // the skill ids, to skip unknown ones when importing a file
+  let skillIds = new Set<string>();
   const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
   const msg = $('data-msg');
   const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-  const HEX = '<svg viewBox="0 0 22 25" aria-hidden="true"><path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z"></path></svg>';
   const LABEL: Record<string, string> = { github: 'GitHub', google: 'Google', dev: 'Dev' };
 
   // in development the API answers on this origin through the dev server's proxy
@@ -208,23 +184,10 @@ const mcp = `${SITE.url}/mcp`;
   $('mcp-public').textContent = `${location.origin}/mcp/public`;
 
   function render() {
-    const data = load(aliases);
     const acct = account();
-    const name = acct ? acct.name : data.name;
-    $('me-title').textContent = name ? `${name}'s map` : 'My map';
+    const name = acct ? acct.name : load().name;
     const input = $<HTMLInputElement>('display-name');
     if (document.activeElement !== input) input.value = name ?? '';
-    const learning = skills.filter((s) => data.progress[s.id] === 'learning');
-    $('learning-count').textContent = learning.length ? `${learning.length} skills` : '';
-    $('learning-list').innerHTML = learning.length
-      ? learning
-          .map(
-            (s) =>
-              `<li><div class="row" data-id="${s.id}" data-status-for="${s.id}"><button type="button" class="hx" data-cycle="${s.id}" data-name="${esc(s.name)}" data-status-for="${s.id}">${HEX}</button><span class="code">${codes.get(s.id) ?? ''}</span><a class="name" href="/atlas/${s.territory}/${s.capability}/${s.id}/">${esc(s.name)}</a><span class="go" aria-hidden="true">→</span><span class="sub">${esc(s.summary)}</span></div></li>`,
-          )
-          .join('')
-      : '<li><p class="empty">Nothing marked as learning yet. Click a hexagon next to any skill.</p></li>';
-    applyProgress($('learning-list'));
   }
 
   function renderAccount() {
@@ -312,16 +275,14 @@ const mcp = `${SITE.url}/mcp`;
 
   fetch('/atlas-data.json')
     .then((r) => r.json())
-    .then((d) => {
-      skills = d.skills;
-      aliases = d.aliases;
-      codes = nodeCodes(d);
-      render();
+    .then((d: { skills: { id: string }[] }) => {
+      skillIds = new Set(d.skills.map((s) => s.id));
     });
-  onChange(() => skills.length && render());
+  render();
+  onChange(render);
   window.addEventListener('pe:account', () => {
     renderAccount();
-    if (skills.length) render();
+    render();
   });
   renderAccount();
 
@@ -359,7 +320,7 @@ const mcp = `${SITE.url}/mcp`;
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
     try {
-      const { imported, skipped } = await importFile(file, new Set(skills.map((s) => s.id)));
+      const { imported, skipped } = await importFile(file, skillIds);
       msg.textContent = `Imported ${imported} statuses${skipped ? `, skipped ${skipped} unknown` : ''}.`;
       track('Progress imported');
     } catch (err) {

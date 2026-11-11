@@ -50,6 +50,7 @@ const RULES = `
 .pm{display:block;width:100%;height:auto;font-family:${FONTS.sans};-webkit-tap-highlight-color:transparent}
 .pm .bg{fill:var(--m-bg)}
 .pm .tile{fill:var(--m-tile);stroke:none}
+.pm .hit{fill:transparent;stroke:none}
 .pm .tile.st-learning{fill:var(--m-learning)}
 .pm .tile.st-comfortable{fill:var(--m-ink)}
 .pm .tile.st-not-interested{fill:var(--m-bg);stroke:var(--m-muted);stroke-width:1px;stroke-dasharray:2 2;vector-effect:non-scaling-stroke}

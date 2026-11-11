@@ -235,6 +235,10 @@ export function renderMap(atlas: MapAtlas, g: Geometry, opts: RenderOptions = {}
   const tile = (sid: string) =>
     `<path class="${['tile', ...stateClasses(sid)].join(' ')}" data-skill="${sid}" d="${hexPath(g.points[sid], g.size - inset)}"/>`;
   const visible = (sid: string) => inBox(g.points[sid], clip);
+  // Linked maps get an invisible full-size hexagon under each group's tiles, so the hairline
+  // gaps and borders between tiles still count as the tile: the hover does not flicker off.
+  const hit = (ids: string[]) =>
+    links ? `<path class="hit" d="${ids.map((sid) => hexPath(g.points[sid], g.size + inset)).join('')}"/>` : '';
 
   const out: string[] = [];
   const labelLayer: string[] = [];
@@ -260,7 +264,7 @@ export function renderMap(atlas: MapAtlas, g: Geometry, opts: RenderOptions = {}
       const cls = ['n', 'n-t'];
       if (level !== 'world') cls.push('is-dim');
       if (litTerrs.has(t.id)) cls.push('is-lit');
-      out.push(open(t.id, cls, level === 'world', { 'data-skills': tSkills.join(' ') }) + tSkills.map(tile).join('') + `</${tag}>`);
+      out.push(open(t.id, cls, level === 'world', { 'data-skills': tSkills.join(' ') }) + hit(tSkills) + tSkills.map(tile).join('') + `</${tag}>`);
       continue;
     }
     for (const c of caps) {
@@ -271,13 +275,13 @@ export function renderMap(atlas: MapAtlas, g: Geometry, opts: RenderOptions = {}
         if (level === 'capability') cls.push('is-dim');
         if (litCaps.has(c.id)) cls.push('is-lit');
         if (view.selected === c.id) cls.push('is-sel');
-        out.push(open(c.id, cls, level === 'territory', { 'data-skills': c.skills.join(' ') }) + cSkills.map(tile).join('') + `</${tag}>`);
+        out.push(open(c.id, cls, level === 'territory', { 'data-skills': c.skills.join(' ') }) + hit(cSkills) + cSkills.map(tile).join('') + `</${tag}>`);
         continue;
       }
       for (const sid of c.skills) {
         const cls = ['n', 'n-s', ...stateClasses(sid)];
         if (view.selected === sid) cls.push('is-sel');
-        out.push(open(sid, cls, true, { 'data-skill': sid }) + tile(sid) + `</${tag}>`);
+        out.push(open(sid, cls, true, { 'data-skill': sid }) + hit([sid]) + tile(sid) + `</${tag}>`);
         if (labels) labelLayer.push(`<g class="${cls.filter((x) => x !== 'n').join(' ')} sl-g" data-skill="${sid}">${skillLabel(sid)}</g>`);
       }
     }

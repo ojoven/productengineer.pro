@@ -97,7 +97,7 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
           <a href="/skills/" aria-current={current('/skills')}>Skills</a>
           <a class="opt" href="/tools/" aria-current={current('/tools')}>Tools</a>
           <a class="opt" href="/resources/" aria-current={current('/resources')}>Resources</a>
-          <a href="/me/" aria-current={current('/me')}>My map</a>
+          <a href="/me/" aria-current={current('/me')}><span class="anon-only">Sign in</span><span class="account-only">Account</span></a>
           <a href="/search/" aria-label="Search" aria-current={current('/search')}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
           </a>
