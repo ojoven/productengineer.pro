@@ -6,6 +6,20 @@ import '@fontsource/ibm-plex-sans-condensed/500.css';
 import '@fontsource/ibm-plex-sans-condensed/600.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
+// B: Geist, from logo concept 01. Only the family in use is downloaded.
+import '@fontsource/geist/400.css';
+import '@fontsource/geist/500.css';
+import '@fontsource/geist/600.css';
+import '@fontsource/geist-mono/400.css';
+import '@fontsource/geist-mono/500.css';
+// C: Dot, from logo round 1 (concept 08): Schibsted Grotesk titles and wordmark, Literata body.
+import '@fontsource/schibsted-grotesk/500.css';
+import '@fontsource/schibsted-grotesk/600.css';
+import '@fontsource/schibsted-grotesk/700.css';
+import '@fontsource/schibsted-grotesk/800.css';
+import '@fontsource/literata/400.css';
+import '@fontsource/literata/500.css';
+import '@fontsource/literata/600.css';
 import '../styles/site.css';
 import { mapCss } from '../atlas/map-css.ts';
 import { SITE } from '../site.ts';
@@ -50,6 +64,20 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
         const t = localStorage.getItem('pe-theme');
         if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
       } catch {}
+      // Logo and type while we choose, remembered in this browser:
+      // ?type=plex (A, tile + Plex), ?type=geist (B, tile + Geist), ?type=dot (C, the tile as the dot, Schibsted Grotesk + Literata).
+      window.peType = (t) => {
+        const root = document.documentElement;
+        if (t === 'geist' || t === 'dot') root.dataset.type = t;
+        else delete root.dataset.type;
+        const icon = document.querySelector('link[rel="icon"]');
+        if (icon) icon.href = t === 'dot' ? '/favicon-dot.svg' : '/favicon.svg';
+      };
+      try {
+        const q = new URLSearchParams(location.search).get('type');
+        if (q === 'plex' || q === 'geist' || q === 'dot') localStorage.setItem('pe-type', q);
+        window.peType(localStorage.getItem('pe-type'));
+      } catch {}
       if (/(?:^|;\s*)pe_auth=1(?:;|$)/.test(document.cookie)) document.documentElement.classList.add('signed-in');
     </script>
     <style is:inline set:html={mapCss()}></style>
@@ -61,8 +89,8 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
     <header class="site-header">
       <div class="wrap">
         <a class="brand" href="/" aria-label="ProductEngineer.pro, home">
-          <svg viewBox="0 0 22 24" aria-hidden="true"><path d="M11 1 21 6.75v11.5L11 23 1 18.25V6.75Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><path d="M11 7.5 15.5 10v5L11 17.5 6.5 15v-5Z" fill="#ff4d12"></path></svg>
-          <span class="wordmark">ProductEngineer<span>.pro</span></span>
+          <svg class="brand-tile" viewBox="0 0 17.32 20" aria-hidden="true"><path d="M8.66 0 17.32 5v10L8.66 20 0 15V5Z" fill="currentColor"></path></svg>
+          <span class="wordmark">productengineer<svg class="brand-dot" viewBox="0 0 17.32 20" aria-hidden="true"><path d="M8.66 0 17.32 5v10L8.66 20 0 15V5Z" fill="currentColor"></path></svg><span class="tld"><span class="tld-period">.</span>pro</span></span>
         </a>
         <nav class="nav" aria-label="Main">
           <a href="/atlas/" aria-current={current('/atlas')}>Atlas</a>
@@ -88,6 +116,15 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
         <span><a href="/about/">About</a> · <a href="/skills/">Agent skills</a> · <a href="/tools/">Tools</a> · <a href="/resources/">Resources</a> · <a href="/search/">Search</a></span>
       </div>
     </footer>
+    {
+      import.meta.env.DEV && (
+        <div class="type-switch" role="group" aria-label="Logo and font set">
+          <button type="button" data-type-set="plex">A · Plex</button>
+          <button type="button" data-type-set="geist">B · Geist</button>
+          <button type="button" data-type-set="dot">C · Dot</button>
+        </div>
+      )
+    }
     <script>
       import { applyProgress, onChange, cycleStatus } from '../scripts/progress.ts';
       import { startSync } from '../scripts/sync.ts';
@@ -106,6 +143,16 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
         const next = cycleStatus(btn.dataset.cycle!);
         track('Status set', { status: next, from: 'list' });
       });
+
+      document.querySelectorAll<HTMLButtonElement>('[data-type-set]').forEach((b) =>
+        b.addEventListener('click', () => {
+          const t = b.dataset.typeSet!;
+          (window as unknown as { peType: (t: string) => void }).peType(t);
+          try {
+            localStorage.setItem('pe-type', t);
+          } catch {}
+        }),
+      );
 
       document.getElementById('theme-toggle')?.addEventListener('click', () => {
         const root = document.documentElement;

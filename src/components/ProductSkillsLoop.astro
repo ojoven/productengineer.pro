@@ -186,7 +186,7 @@ const layouts = [
   .flow-node { text-decoration: none; outline: none; }
   .flow-node rect { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
   .node-name { fill: var(--ink); font: 500 16px var(--mono); }
-  .node-detail { fill: var(--ink-2); font: 12px var(--sans); }
+  .node-detail { fill: var(--ink-2); font: 12px var(--ui, var(--sans)); }
   .flow-node:hover rect, .flow-node:focus-visible rect { fill: var(--bg-2); stroke: var(--accent-ink); stroke-width: 2.5; }
   .flow-node:hover .node-name, .flow-node:focus-visible .node-name { fill: var(--accent-ink); }
   .decision-node rect { fill: var(--ink); stroke: var(--ink); }

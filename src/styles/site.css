@@ -1,5 +1,6 @@
 /* ProductEngineer.pro — an index, not a brochure.
-   Warm paper, near-black ink, one signal colour. IBM Plex Sans, Condensed and Mono.
+   Warm paper, near-black ink, one signal colour (pink). IBM Plex Sans, Condensed and Mono,
+   or Geist and Geist Mono when <html data-type="geist"> (A/B while the type is chosen).
    Hairline rules instead of cards, square corners, catalogue codes everywhere. */
 
 :root {
@@ -12,16 +13,59 @@
   --tile: #dedad0;
   --tile-hover: #cfcabd;
   --learning: #8f8b80;
-  --accent: #ff4d12;
-  --accent-ink: #c23400;
+  --accent: #e0337f;
+  --accent-ink: #b8195f;
   --on-ink: #f2f0ea;
   --sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
   --cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', ui-sans-serif, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
   --max: 1360px;
   --gutter: clamp(16px, 3vw, 40px);
-  --head: 56px;
+  --head: 60px;
+  /* the wordmark: lowercase, set in the title face */
+  --brand-size: 19px;
+  --brand-ls: -0.005em;
   color-scheme: light;
+}
+/* B: Geist for titles and body, Geist Mono for codes (logo concept 01) */
+:root[data-type='geist'] {
+  --sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --cond: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, Menlo, monospace;
+  --brand-size: 17px;
+  --brand-ls: -0.045em;
+}
+:root[data-type='geist'] :is(h1, h2, h3) {
+  letter-spacing: -0.03em;
+}
+:root[data-type='geist'] .display {
+  letter-spacing: -0.045em;
+}
+:root[data-type='geist'] .title {
+  letter-spacing: -0.04em;
+}
+/* C: Dot (logo round 1, concept 08). The tile is the dot in productengineer.pro.
+   Schibsted Grotesk for titles, Literata for reading. Interface text (nav, map labels, selects)
+   uses --ui, which stays sans: Schibsted Grotesk here. Codes stay on Plex Mono. */
+:root[data-type='dot'] {
+  --sans: 'Literata', Georgia, serif;
+  --cond: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --ui: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --brand-font: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --brand-weight: 700;
+  --brand-size: 19px;
+  --brand-ls: -0.025em;
+}
+:root[data-type='dot'] body {
+  font-size: 17px;
+}
+:root[data-type='dot'] :is(h1, h2, h3) {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+:root[data-type='dot'] :is(h1, .display, .title) {
+  font-weight: 800;
+  letter-spacing: -0.025em;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
@@ -34,8 +78,8 @@
     --tile: #2a2926;
     --tile-hover: #3a3935;
     --learning: #6b6962;
-    --accent: #ff5d24;
-    --accent-ink: #ff9468;
+    --accent: #ff5fa2;
+    --accent-ink: #ff8fbf;
     --on-ink: #121211;
     color-scheme: dark;
   }
@@ -50,8 +94,8 @@
   --tile: #2a2926;
   --tile-hover: #3a3935;
   --learning: #6b6962;
-  --accent: #ff5d24;
-  --accent-ink: #ff9468;
+  --accent: #ff5fa2;
+  --accent-ink: #ff8fbf;
   --on-ink: #121211;
   color-scheme: dark;
 }
@@ -185,9 +229,9 @@ h3 {
   top: 0;
   z-index: 30;
   height: var(--head);
-  background: color-mix(in srgb, var(--bg) 94%, transparent);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--ink);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px) saturate(1.4);
+  border-bottom: 1px solid var(--line);
 }
 .site-header .wrap {
   height: 100%;
@@ -195,25 +239,51 @@ h3 {
   align-items: center;
   gap: 24px;
 }
+/* logo concept 01: one solid tile, the name in lowercase */
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   text-decoration: none;
-  font-family: var(--cond);
-  font-weight: 600;
-  font-size: 17px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-family: var(--brand-font, var(--cond));
+  font-weight: var(--brand-weight, 600);
+  font-size: var(--brand-size);
+  line-height: 1;
+  letter-spacing: var(--brand-ls);
   white-space: nowrap;
 }
-.brand svg {
-  width: 22px;
-  height: 22px;
+.brand:hover {
+  color: var(--ink);
+}
+.brand .brand-tile {
+  width: auto;
+  height: 20px;
   flex: none;
 }
-.brand .wordmark > span {
+.brand .tld {
   color: var(--muted);
+}
+.brand .brand-dot {
+  display: none;
+}
+:root[data-type='dot'] .brand .brand-tile {
+  display: none;
+  color: var(--accent);
+}
+:root[data-type='dot'] .brand .brand-dot {
+  display: inline;
+  height: 0.64em;
+  width: auto;
+  margin: 0 0.17em;
+  vertical-align: middle;
+  color: var(--accent);
+}
+:root[data-type='dot'] .brand .tld {
+  color: inherit;
+}
+/* hidden from view, but still copied as productengineer.pro */
+:root[data-type='dot'] .brand .tld-period {
+  font-size: 0;
 }
 .nav {
   display: flex;
@@ -226,35 +296,35 @@ h3 {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 0 14px;
-  font: 500 12px/1 var(--mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  padding: 0 11px;
+  font: 400 14px/1 var(--ui, var(--sans));
   text-decoration: none;
-  color: var(--ink);
+  color: var(--muted);
   background: none;
   border: 0;
-  border-left: 1px solid var(--line);
   cursor: pointer;
   position: relative;
 }
 .nav a:hover,
-.nav button:hover {
-  background: var(--bg-2);
+.nav button:hover,
+.nav a[aria-current='page'] {
   color: var(--ink);
 }
 .nav a[aria-current='page']::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 11px;
+  right: 11px;
   bottom: -1px;
-  height: 3px;
+  height: 2px;
   background: var(--accent);
 }
 .nav svg {
   width: 16px;
   height: 16px;
+}
+.nav > :last-child {
+  margin-right: -11px;
 }
 @media (max-width: 760px) {
   .nav .opt {
@@ -262,11 +332,49 @@ h3 {
   }
   .nav a,
   .nav button {
-    padding: 0 10px;
+    padding: 0 8px;
   }
+  .nav a[aria-current='page']::after {
+    left: 8px;
+    right: 8px;
+  }
+  .nav > :last-child {
+    margin-right: -8px;
+  }
+}
+@media (max-width: 460px) {
   .brand .wordmark {
     display: none;
   }
+  /* no room for the name: the pink tile stands alone */
+  :root[data-type='dot'] .brand .brand-tile {
+    display: block;
+  }
+}
+/* dev only: the A/B type switch */
+.type-switch {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 60;
+  display: flex;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  font: 500 11px/1 var(--mono);
+}
+.type-switch button {
+  padding: 8px 10px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+:root:not([data-type]) .type-switch [data-type-set='plex'],
+:root[data-type='geist'] .type-switch [data-type-set='geist'],
+:root[data-type='dot'] .type-switch [data-type-set='dot'] {
+  background: var(--ink);
+  color: var(--bg);
 }
 .site-footer {
   border-top: 1px solid var(--ink);

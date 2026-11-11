@@ -12,8 +12,8 @@ export const TOKENS: Record<Theme, Record<string, string>> = {
     'tile-hover': '#cfcabd',
     learning: '#8f8b80',
     line: '#141412',
-    accent: '#ff4d12',
-    'accent-deep': '#c23400',
+    accent: '#e0337f',
+    'accent-deep': '#b8195f',
     highlight: '#f5d547',
     'on-highlight': '#141412',
     'on-ink': '#f2f0ea',
@@ -26,18 +26,19 @@ export const TOKENS: Record<Theme, Record<string, string>> = {
     'tile-hover': '#3a3935',
     learning: '#6b6962',
     line: '#ecebe5',
-    accent: '#ff5d24',
-    'accent-deep': '#ff9468',
+    accent: '#ff5fa2',
+    'accent-deep': '#ff8fbf',
     highlight: '#f5d547',
     'on-highlight': '#141412',
     'on-ink': '#121211',
   },
 };
 
+// On the site these follow the page's font set (A Plex, B Geist, C Dot; labels use --ui); standalone exports fall back to Plex.
 const FONTS = {
-  sans: "'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif",
-  cond: "'IBM Plex Sans Condensed', 'IBM Plex Sans', ui-sans-serif, sans-serif",
-  mono: "'IBM Plex Mono', ui-monospace, monospace",
+  sans: "var(--ui, var(--sans, 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif))",
+  cond: "var(--cond, 'IBM Plex Sans Condensed', 'IBM Plex Sans', ui-sans-serif, sans-serif)",
+  mono: "var(--mono, 'IBM Plex Mono', ui-monospace, monospace)",
 };
 
 const tokens = (t: Theme) =>

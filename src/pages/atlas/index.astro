@@ -86,7 +86,7 @@ const svg = mapSvg({ width: 760, height: 700 });
   }
   .ex-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; padding: 18px 0 0; }
   .ex-filters label { display: block; margin-bottom: 6px; }
-  .ex-filters select { width: 100%; font: 14px var(--sans); color: var(--ink); background: var(--bg); border: 1px solid var(--line); padding: 8px; }
+  .ex-filters select { width: 100%; font: 14px var(--ui, var(--sans)); color: var(--ink); background: var(--bg); border: 1px solid var(--line); padding: 8px; }
   .ex-filters p { grid-column: 1 / -1; font-size: 13px; margin: 0; color: var(--muted); }
   .ex-filters button { justify-self: start; grid-column: 1 / -1; }
   @media (max-width: 480px) { .ex-filters { grid-template-columns: minmax(0, 1fr); } }

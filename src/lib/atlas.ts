@@ -1,17 +1,32 @@
-// Build-time access to the atlas for pages. Cached for the build; re-read on every request in
-// dev so content edits show up on reload.
-import { loadAtlas, loadGeometry } from '../atlas/load.ts';
+// Build-time access to the atlas for pages. Cached for the build. In dev the cache is rebuilt
+// only when a content file changes, so edits show up on reload without re-parsing every YAML
+// file on each helper call (pages call these helpers once per skill).
+import { existsSync, readdirSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import { CONTENT, GEOMETRY_FILE, loadAtlas, loadGeometry } from '../atlas/load.ts';
 import { renderMap, nodeCodes, type MapState } from '../atlas/render.ts';
 import type { Atlas, AtlasNode, Capability, Skill, Territory } from '../atlas/model.ts';
 import { nodePath, skillsOf } from '../atlas/model.ts';
 import type { Geometry } from '../atlas/geometry.ts';
 
 let cached: { atlas: Atlas; geometry: Geometry; codes: Map<string, string> } | undefined;
+let cachedStamp = '';
+
+/** Names and modification times of every file the atlas is loaded from. */
+function contentStamp(): string {
+  const files = ['atlas', 'resources', 'tools'].flatMap((d) => {
+    const dir = join(CONTENT, d);
+    return existsSync(dir) ? readdirSync(dir).sort().map((f) => join(dir, f)) : [];
+  });
+  return [...files, GEOMETRY_FILE].map((f) => `${f}:${statSync(f).mtimeMs}`).join('\n');
+}
 
 export function data() {
-  if (!cached || import.meta.env.DEV) {
+  const stamp = import.meta.env.DEV ? contentStamp() : cachedStamp;
+  if (!cached || stamp !== cachedStamp) {
     const atlas = loadAtlas();
     cached = { atlas, geometry: loadGeometry(), codes: nodeCodes(atlas) };
+    cachedStamp = stamp;
   }
   return cached;
 }
