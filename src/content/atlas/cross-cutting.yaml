@@ -2,7 +2,7 @@
 # Review batch 11 of 11. On the map they sit in their own band below the territories.
 
 id: cross-cutting
-order: 11
+order: 12
 crossCutting: true
 name: Cross-cutting
 tagline: Skills that connect the whole atlas
@@ -24,6 +24,7 @@ capabilities:
     resources: [fs-confirmation, xyproblem, galef-scout-mindset]
     skills:
       - id: evidence-vs-assumptions
+        focus: [evidence, product-business]
         name: Evidence versus assumptions
         summary: Knowing which of your beliefs are backed by evidence.
         description: >-
@@ -32,7 +33,22 @@ capabilities:
           gets easier with practice.
         related: [evidence-strength, assumption-mapping]
         resources: [producttalk-assumption-testing, fs-confirmation]
+        aiLeverage:
+          workflow: Ask an assistant to separate claims, cited observations and assumptions in a
+            decision brief.
+          limitations: Fluent explanations and generated citations can create false confidence.
+          verification: Open the underlying sources and check whether each actually supports the claim.
+        technicalLeverage: Reproduce queries, inspect instrumentation and run small tests to turn
+          technical uncertainty into evidence.
+        evidence:
+          practice: Audit the reasoning behind one proposed product decision.
+          artifact: An annotated brief with verified evidence, remaining assumptions and a validation step.
+          checks:
+            - No generated claim is promoted to evidence without verification.
+            - The decision states what would change it.
+
       - id: cognitive-biases
+        focus: [evidence, product-business]
         name: Cognitive biases
         summary: Systematic errors in thinking, such as confirmation bias.
         description: >-
@@ -42,6 +58,7 @@ capabilities:
         related: [sampling-bias, hypotheses]
         resources: [nngroup-confirmation, fs-confirmation, wiki-biases]
       - id: challenging-requirements
+        focus: [evidence, product-business]
         name: Challenging requirements
         summary: Asking why before building what was asked.
         description: >-
@@ -51,6 +68,26 @@ capabilities:
         related: [scope-cutting, problem-statements]
         resources: [xyproblem, wikipedia-five-whys, nngroup-problem-statements]
 
+      - id: verification
+        previousPaths: [/atlas/cross-cutting/ai-assisted-work/verification/]
+        focus: [evidence]
+        name: Verification
+        summary: Proving that work, human or AI, actually does what it should.
+        description: >-
+          Verification means running it, testing it and checking it against the requirement. Tests,
+          type checks and real usage provide evidence. Done means verified, not written.
+        related: [automated-testing, ai-evals]
+        resources: [willison-hallucinations, hamel-evals]
+        technicalLeverage: Inspect source code, reproduce calculations and run independent
+          acceptance checks on generated artifacts.
+        evidence:
+          practice: Verify an AI-produced analysis or implementation against its original requirements
+            and inputs.
+          artifact: A verification record listing checked claims, observed failures and the corrections made.
+          checks:
+            - Checks are independent of the generator’s self-assessment.
+            - Unverified claims remain explicitly unresolved.
+
   - id: systems-thinking
     name: Systems thinking
     description: >-
@@ -59,6 +96,7 @@ capabilities:
     tools: [loopy, kumu]
     skills:
       - id: system-dependencies
+        focus: [systems, product-business]
         name: Interdependencies
         summary: How changes in one part ripple into others.
         description: >-
@@ -69,6 +107,7 @@ capabilities:
         resources: [fowler-conway, lethain-systems]
         tools: [kumu]
       - id: feedback-loops
+        focus: [systems, product-business]
         name: Feedback loops
         summary: Cycles where an effect feeds back into its cause.
         description: >-
@@ -79,6 +118,7 @@ capabilities:
         resources: [lethain-systems, meadows-leverage]
         tools: [loopy]
       - id: second-order-effects
+        focus: [systems, product-business]
         name: Second-order and unintended effects
         summary: Consequences beyond the immediate result of a decision.
         description: >-
@@ -88,6 +128,18 @@ capabilities:
         related: [guardrail-metrics, ethical-engagement]
         resources: [fs-second-order]
 
+      - id: workflow-automation
+        previousPaths: [/atlas/cross-cutting/ai-assisted-work/workflow-automation/]
+        focus: [ai, systems]
+        name: Workflow automation
+        summary: Automating repeated tasks with scripts, integrations and appropriate checks.
+        description: >-
+          Automation turns repeated personal and team tasks into reliable workflows using scripts,
+          integrations or AI where appropriate. Start with a clear process and handle partial
+          failures explicitly. Keep a human check where errors are costly.
+        related: [engineering-automation, internal-tooling]
+        resources: [anthropic-effective-agents, mcp-intro]
+
   - id: decision-making
     name: Decision-making
     description: >-
@@ -96,6 +148,7 @@ capabilities:
     resources: [amazon-2016-letter, fs-reversible, google-design-docs]
     skills:
       - id: tradeoffs
+        focus: [product-business]
         name: Weighing tradeoffs
         summary: Making explicit what each option gains and gives up.
         description: >-
@@ -105,6 +158,7 @@ capabilities:
         related: [technical-tradeoffs, balancing-signals]
         resources: [google-design-docs, nygard-adr, lethain-eng-strategy]
       - id: deciding-under-uncertainty
+        focus: [product-business]
         name: Deciding under uncertainty
         summary: Acting well when the facts are incomplete.
         description: >-
@@ -114,6 +168,7 @@ capabilities:
         related: [statistical-uncertainty, product-risk]
         resources: [amazon-2016-letter, fs-bayes]
       - id: reversible-decisions
+        focus: [product-business]
         name: Reversible and irreversible decisions
         summary: Moving fast on decisions you can undo and slowly on those you cannot.
         description: >-
@@ -123,6 +178,7 @@ capabilities:
         related: [technical-tradeoffs, feature-flags]
         resources: [fs-reversible, amazon-2016-letter]
       - id: opportunity-cost
+        focus: [product-business]
         name: Opportunity cost
         summary: The value of what you give up by choosing one option.
         description: >-
@@ -140,6 +196,7 @@ capabilities:
     tools: [vale, hemingway]
     skills:
       - id: technical-writing
+        focus: [people]
         name: Technical writing and documentation
         summary: Clear, accurate writing about technical things.
         description: >-
@@ -150,6 +207,7 @@ capabilities:
         resources: [google-tech-writing, google-design-docs, diataxis]
         tools: [vale, mermaid]
       - id: product-narratives
+        focus: [people]
         name: Product narratives
         summary: Telling the story of a product, a problem or a decision.
         description: >-
@@ -159,6 +217,7 @@ capabilities:
         related: [mission, product-demos]
         resources: [amazon-working-backwards]
       - id: clear-explanations
+        focus: [people]
         name: Clear explanations
         summary: Explaining complex things simply without losing accuracy.
         description: >-
@@ -169,6 +228,7 @@ capabilities:
         resources: [pg-write-simply, pg-writing-briefly, explorable-explanations]
         tools: [hemingway, excalidraw]
       - id: persuasive-arguments
+        focus: [people]
         name: Persuasive arguments
         summary: Making a case that changes minds, with evidence and empathy.
         description: >-
@@ -185,6 +245,7 @@ capabilities:
     resources: [pragmatic-product-minded, posthog-product-engineer]
     skills:
       - id: working-with-pms
+        focus: [people]
         name: Working with product managers
         summary: Sharing product ownership with PMs effectively.
         description: >-
@@ -194,6 +255,7 @@ capabilities:
         related: [roadmaps, problem-statements]
         resources: [pragmatic-product-minded, posthog-product-engineer]
       - id: working-with-designers
+        focus: [people]
         name: Working with designers
         summary: Collaborating on experience from early ideas to polished details.
         description: >-
@@ -204,6 +266,7 @@ capabilities:
         resources: [atomic-design, nngroup-prototype-fidelity]
         tools: [figma, storybook]
       - id: working-with-researchers
+        focus: [people]
         name: Working with researchers
         summary: Joining research and using its findings well.
         description: >-
@@ -213,6 +276,7 @@ capabilities:
         related: [user-interviews, research-synthesis]
         resources: [govuk-team-discovery, govuk-research-team-sport]
       - id: working-with-go-to-market
+        focus: [people]
         name: Working with marketing and sales
         summary: Helping go-to-market teams with technical depth and product insight.
         description: >-
@@ -222,6 +286,7 @@ capabilities:
         related: [product-demos, messaging]
         resources: [pragmatic-product-minded, hubspot-meddic]
       - id: working-with-support
+        focus: [people]
         name: Working with support
         summary: Treating support as a partner and a source of insight.
         description: >-
@@ -231,6 +296,7 @@ capabilities:
         related: [support-workflows, support-insights]
         resources: [posthog-engineers-support, aha-engineers-support, inngest-support-rotation]
       - id: working-with-engineers
+        focus: [people]
         name: Working with other engineers
         summary: Collaborating across teams and specialties in engineering.
         description: >-
@@ -248,6 +314,7 @@ capabilities:
     resources: [staffeng-archetypes, staffeng-what-matters, being-glue]
     skills:
       - id: initiative
+        focus: [people, product-business]
         name: Initiative
         summary: Acting on problems and opportunities without waiting to be asked.
         description: >-
@@ -257,6 +324,7 @@ capabilities:
         related: [unblocking, autonomy]
         resources: [staffeng-what-matters, being-glue]
       - id: accountability
+        focus: [people, product-business]
         name: Accountability
         summary: Owning outcomes, including mistakes.
         description: >-
@@ -265,6 +333,7 @@ capabilities:
         related: [incident-response, iterate-expand-stop]
         resources: [sre-postmortem-culture, being-glue]
       - id: autonomy
+        focus: [people, product-business]
         name: Autonomy
         summary: Working independently with good judgment about when to involve others.
         description: >-
@@ -274,6 +343,7 @@ capabilities:
         related: [initiative, reversible-decisions]
         resources: [spotify-engineering-culture]
       - id: conflict-resolution
+        focus: [people, product-business]
         name: Conflict resolution
         summary: Working through disagreements productively.
         description: >-
@@ -282,6 +352,7 @@ capabilities:
         related: [persuasive-arguments, tradeoffs]
         resources: [wiki-disagree-commit, pg-how-to-disagree, amazon-2016-letter]
       - id: stakeholder-management
+        focus: [people, product-business]
         name: Stakeholder management
         summary: Keeping the people affected by your work informed and involved.
         description: >-
@@ -298,6 +369,7 @@ capabilities:
     resources: [jvns-learn-how-things-work, danluu-p95, swyx-learn-in-public]
     skills:
       - id: reflection
+        focus: [people]
         name: Reflection
         summary: Looking back at work to learn from what happened.
         description: >-
@@ -307,6 +379,7 @@ capabilities:
         related: [accountability, hypotheses]
         resources: [agile-retrospective, sre-postmortem-culture]
       - id: seeking-feedback
+        focus: [people]
         name: Seeking feedback
         summary: Asking for honest input on your work and behavior.
         description: >-
@@ -315,6 +388,7 @@ capabilities:
         related: [reflection, code-review]
         resources: [radical-candor]
       - id: updating-beliefs
+        focus: [people]
         name: Updating mental models
         summary: Changing your mind when evidence says you were wrong.
         description: >-
@@ -324,6 +398,7 @@ capabilities:
         related: [strategy-adaptation, evidence-vs-assumptions]
         resources: [galef-scout-mindset, fs-bayes]
       - id: professional-development
+        focus: [people]
         name: Professional development
         summary: Planning how to grow skills over a career.
         description: >-
@@ -341,6 +416,7 @@ capabilities:
     resources: [deceptive-design, ms-inclusive-design, tarot-cards-of-tech]
     skills:
       - id: user-autonomy
+        focus: [people, product-business]
         name: User autonomy
         summary: Respecting users' ability to make their own choices.
         description: >-
@@ -350,6 +426,7 @@ capabilities:
         related: [ethical-engagement, consent]
         resources: [nngroup-deceptive-patterns, deceptive-design]
       - id: fairness
+        focus: [people, product-business]
         name: Fairness
         summary: Making sure the product does not treat groups of people unjustly.
         description: >-
@@ -359,6 +436,7 @@ capabilities:
         related: [ai-evals, behavioral-segmentation]
         resources: [ms-inclusive-design, pair-guidebook]
       - id: privacy-by-design
+        focus: [people, systems]
         name: Privacy by design
         summary: Building privacy into the product from the start.
         description: >-
@@ -367,6 +445,7 @@ capabilities:
         related: [data-protection, privacy-obligations]
         resources: [edpb-privacy-by-design, ec-gdpr-principles]
       - id: user-safety
+        focus: [people, systems]
         name: Safety
         summary: Preventing the product from being used to harm people.
         description: >-
@@ -375,56 +454,3 @@ capabilities:
           about misuse early is cheaper than reacting later.
         related: [ai-guardrails, threat-modeling]
         resources: [tarot-cards-of-tech, nist-ai-rmf, owasp-llm-top10]
-
-  - id: ai-assisted-work
-    name: AI-assisted work
-    description: >-
-      Using AI tools and agents to do more, while keeping responsibility for the result.
-    resources: [willison-llms-for-code, claude-code-best-practices, anthropic-effective-agents]
-    tools: [aider]
-    skills:
-      - id: delegating-to-agents
-        name: Delegating to agents
-        summary: Handing tasks to AI agents with clear goals and context.
-        description: >-
-          Delegating well means a clear goal, the right context, constraints and a way to check the
-          result. Good task descriptions look a lot like good tickets for people. It is quickly
-          becoming a core engineering skill.
-        related: [ai-agents, technical-writing]
-        resources: [claude-code-best-practices, anthropic-effective-agents]
-        tools: [aider]
-      - id: reviewing-generated-work
-        name: Reviewing generated work
-        summary: Critically checking code and content produced by AI.
-        description: >-
-          AI output can look right and be subtly wrong. Reviewing it needs the same care as a
-          colleague's work, and more care where you lack expertise. Small, focused changes are
-          easier to review.
-        related: [code-review, verification]
-        resources: [willison-llms-for-code, google-code-review]
-      - id: verification
-        name: Verification
-        summary: Proving that work, human or AI, actually does what it should.
-        description: >-
-          Verification means running it, testing it and checking it against the requirement. Tests,
-          type checks and real usage provide evidence. Done means verified, not written.
-        related: [automated-testing, ai-evals]
-        resources: [willison-hallucinations, hamel-evals]
-      - id: workflow-automation
-        name: Automation
-        summary: Using AI and scripts to automate repetitive parts of your work.
-        description: >-
-          AI makes automating personal and team workflows much cheaper: triage, summaries, data
-          cleanup, reports. The skill is choosing what to automate and keeping a human check where
-          errors are costly.
-        related: [engineering-automation, internal-tooling]
-        resources: [anthropic-effective-agents, mcp-intro]
-      - id: human-oversight
-        name: Human oversight
-        summary: Keeping people in control of important AI-driven actions.
-        description: >-
-          Human oversight puts review points where AI decisions have real consequences. It requires
-          interfaces that show what the AI did and why. The right level depends on the cost of a
-          mistake.
-        related: [ai-guardrails, ai-agents]
-        resources: [hax-guidelines, pair-guidebook]

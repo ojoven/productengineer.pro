@@ -50,6 +50,7 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
         const t = localStorage.getItem('pe-theme');
         if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
       } catch {}
+      if (/(?:^|;\s*)pe_auth=1(?:;|$)/.test(document.cookie)) document.documentElement.classList.add('signed-in');
     </script>
     <style is:inline set:html={mapCss()}></style>
     <Analytics />
@@ -83,19 +84,21 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
     </main>
     <footer class="site-footer">
       <div class="wrap">
-        <span>ProductEngineer.pro · a map of product engineering · progress stays in this browser</span>
+        <span>ProductEngineer.pro · a map of product engineering · <span class="anon-only">progress stays in this browser</span><span class="account-only">progress saved to your account</span></span>
         <span><a href="/about/">About</a> · <a href="/skills/">Agent skills</a> · <a href="/tools/">Tools</a> · <a href="/resources/">Resources</a> · <a href="/search/">Search</a></span>
       </div>
     </footer>
     <script>
       import { applyProgress, onChange, cycleStatus } from '../scripts/progress.ts';
+      import { startSync } from '../scripts/sync.ts';
       import { linkHover } from '../scripts/hover.ts';
       import { track } from '../scripts/track.ts';
       applyProgress();
       onChange(() => applyProgress());
+      startSync();
       linkHover();
 
-      // the hexagon status control in every list: not started -> learning -> comfortable
+      // the hexagon status control in every list: not started -> learning -> comfortable -> not interested
       document.addEventListener('click', (e) => {
         const btn = (e.target as Element).closest<HTMLButtonElement>('button[data-cycle]');
         if (!btn) return;

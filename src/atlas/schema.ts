@@ -2,11 +2,26 @@
 // so each skill has exactly one home. Resources and tools are separate collections that
 // skills and capabilities point to by id.
 import { z } from 'astro/zod';
+import { FOCUS_IDS } from './filters.ts';
 
 /** Lowercase kebab-case slug. Ids are permanent once published. */
 export const Id = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'ids are lowercase kebab-case');
 const Text = z.string().trim().min(1);
 const IdList = z.array(Id).default([]);
+/** Former page locations are kept when a capability or skill changes home. */
+const PreviousPaths = z.array(z.string().regex(/^\/atlas\/(?:[a-z0-9]+(?:-[a-z0-9]+)*\/)+$/)).default([]);
+
+export const AiLeverage = z.object({
+  workflow: Text,
+  limitations: Text,
+  verification: Text,
+});
+
+export const Evidence = z.object({
+  practice: Text,
+  artifact: Text,
+  checks: z.array(Text).min(1),
+});
 
 export const SkillFile = z.object({
   id: Id,
@@ -14,9 +29,14 @@ export const SkillFile = z.object({
   summary: Text,
   description: Text,
   aliases: IdList,
+  previousPaths: PreviousPaths,
   related: IdList,
   resources: IdList,
   tools: IdList,
+  focus: z.array(z.enum(FOCUS_IDS)).min(1),
+  aiLeverage: AiLeverage.optional(),
+  technicalLeverage: Text.optional(),
+  evidence: Evidence.optional(),
 });
 
 export const CapabilityFile = z.object({
@@ -24,6 +44,7 @@ export const CapabilityFile = z.object({
   name: Text,
   description: Text,
   aliases: IdList,
+  previousPaths: PreviousPaths,
   related: IdList,
   resources: IdList,
   tools: IdList,
@@ -75,6 +96,8 @@ export const ResourceMap = z.record(Id, ResourceFile);
 export const ToolMap = z.record(Id, ToolFile);
 
 export type SkillFile = z.infer<typeof SkillFile>;
+export type AiLeverage = z.infer<typeof AiLeverage>;
+export type Evidence = z.infer<typeof Evidence>;
 export type CapabilityFile = z.infer<typeof CapabilityFile>;
 export type TerritoryFile = z.infer<typeof TerritoryFile>;
 export type ResourceFile = z.infer<typeof ResourceFile>;

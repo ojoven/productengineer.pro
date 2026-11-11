@@ -23,6 +23,7 @@ capabilities:
     resources: [dora-small-batches, kniberg-mvp, dora-wip, dora-capabilities]
     skills:
       - id: small-batches
+        focus: [systems, product-business]
         name: Small batches
         summary: Shipping many small changes instead of a few big ones.
         description: >-
@@ -31,6 +32,7 @@ capabilities:
         related: [cost-of-delay, ci-cd]
         resources: [dora-small-batches]
       - id: incremental-architecture
+        focus: [systems, product-business]
         name: Incremental architecture
         summary: Growing the architecture step by step as real needs appear.
         description: >-
@@ -40,6 +42,7 @@ capabilities:
         related: [vertical-slicing, reversible-decisions]
         resources: [fowler-parallel-change, fowler-monolith-first]
       - id: early-feedback
+        focus: [systems, product-business]
         name: Early feedback
         summary: Getting real reactions to work before it is finished.
         description: >-
@@ -49,6 +52,7 @@ capabilities:
         related: [beta-programs, user-interviews]
         resources: [kniberg-mvp, fowler-dark-launching]
       - id: wip-limits
+        focus: [systems, product-business]
         name: Limiting work in progress
         summary: Finishing work before starting new work.
         description: >-
@@ -67,6 +71,7 @@ capabilities:
     tools: [github-actions]
     skills:
       - id: ci-cd
+        focus: [systems]
         name: CI/CD pipelines
         summary: Automatically building, testing and delivering every change.
         description: >-
@@ -76,6 +81,7 @@ capabilities:
         resources: [dora-ci, dora-continuous-delivery, fowler-ci]
         tools: [github-actions]
       - id: deployment-automation
+        focus: [systems]
         name: Automated deployments
         summary: Releasing to production with one command or none.
         description: >-
@@ -85,6 +91,7 @@ capabilities:
         related: [ci-cd, rollbacks]
         resources: [dora-deployment-automation]
       - id: environment-management
+        focus: [systems]
         name: Environments
         summary: Development, staging and production environments that behave alike.
         description: >-
@@ -94,6 +101,7 @@ capabilities:
         related: [secrets-management, release-qa]
         resources: [twelve-factor]
       - id: rollbacks
+        focus: [systems]
         name: Rollback strategies
         summary: Undoing a bad release quickly.
         description: >-
@@ -112,6 +120,7 @@ capabilities:
     tools: [unleash, flagsmith, launchdarkly, growthbook]
     skills:
       - id: feature-flags
+        focus: [systems, evidence]
         name: Feature flags
         summary: Turning features on and off without deploying.
         description: >-
@@ -121,7 +130,23 @@ capabilities:
         related: [staged-rollouts, ab-tests]
         resources: [fowler-feature-toggles]
         tools: [unleash, flagsmith, launchdarkly]
+        aiLeverage:
+          workflow: Draft rollout rules and a test matrix for flag combinations, including both
+            enabled and disabled behavior.
+          limitations: Generated conditions can expose the wrong cohort or leave an untested fallback.
+          verification: Check targeting with representative identities and exercise disablement before
+            widening exposure.
+        technicalLeverage: Decouple release from deployment, compare cohorts and turn a failing
+          change off without a full redeploy.
+        evidence:
+          practice: Release one improvement to a bounded cohort with explicit expansion criteria.
+          artifact: A rollout record with exposure data, outcome metrics and a tested disable switch.
+          checks:
+            - Both flag states work.
+            - The flag has an owner and a removal condition.
+
       - id: staged-rollouts
+        focus: [systems, evidence]
         name: Staged rollouts
         summary: Releasing to a growing share of users while watching the impact.
         description: >-
@@ -131,6 +156,7 @@ capabilities:
         related: [feature-flags, alerting]
         resources: [sre-canarying, fowler-canary]
       - id: beta-programs
+        focus: [people, systems, evidence]
         name: Beta programs
         summary: Giving early access to willing users in exchange for feedback.
         description: >-
@@ -140,6 +166,7 @@ capabilities:
         related: [early-feedback, feedback-collection]
         resources: [intercom-beta, pmalliance-beta]
       - id: canary-releases
+        focus: [systems, evidence]
         name: Canary releases
         summary: Running a new version on a small slice of traffic first.
         description: >-
@@ -157,6 +184,7 @@ capabilities:
     resources: [sre-launch-checklist, sre-reliable-launches, keep-a-changelog]
     skills:
       - id: release-qa
+        focus: [systems, evidence]
         name: Pre-release QA
         summary: Checking the product works before users see it.
         description: >-
@@ -166,7 +194,23 @@ capabilities:
         related: [end-to-end-tests, environment-management]
         resources: [fowler-test-pyramid]
         tools: [playwright]
+        aiLeverage:
+          workflow: Draft a risk-based release checklist from the diff, changed journeys and previous
+            incidents.
+          limitations: An assistant may miss integrations, migrations or user groups that were absent
+            from its context.
+          verification: Cross-check affected systems and run critical journeys against the release candidate.
+        technicalLeverage: Inspect migrations, permissions, feature flags and telemetry as well as
+          the visible interface.
+        evidence:
+          practice: Validate a release candidate against its highest-impact failure scenarios.
+          artifact: A release decision with observed results, open risks and recovery steps.
+          checks:
+            - Critical journeys are exercised on the candidate build.
+            - Unresolved risks have an explicit owner and decision.
+
       - id: release-communication
+        focus: [systems, people]
         name: Release notes and communication
         summary: Telling users and the team what changed and why it matters.
         description: >-
@@ -176,6 +220,7 @@ capabilities:
         related: [feature-adoption, technical-writing]
         resources: [keep-a-changelog]
       - id: launch-telemetry
+        focus: [systems, evidence]
         name: Launch telemetry
         summary: Having the tracking and monitoring in place before release.
         description: >-
@@ -185,6 +230,7 @@ capabilities:
         related: [tracking-plans, dashboards]
         resources: [segment-tracking-plan]
       - id: support-readiness
+        focus: [systems, people]
         name: Support readiness
         summary: Preparing support to handle questions about a new release.
         description: >-
@@ -194,6 +240,7 @@ capabilities:
         related: [support-workflows, release-communication]
         resources: [sre-launch-checklist, nngroup-help-docs]
       - id: operational-readiness
+        focus: [systems]
         name: Operational readiness
         summary: Checking capacity, monitoring and fallbacks before launch.
         description: >-
@@ -211,6 +258,7 @@ capabilities:
     resources: [prokanban-forecasting, shapeup-rabbit-holes, dora-wip]
     skills:
       - id: estimation
+        focus: [people, product-business]
         name: Estimation
         summary: Forecasting how long work will take, with honest uncertainty.
         description: >-
@@ -220,6 +268,7 @@ capabilities:
         related: [impact-effort, delivery-risk]
         resources: [prokanban-forecasting, xebia-forecasting, shapeup-boundaries]
       - id: delivery-risk
+        focus: [people, product-business]
         name: Delivery risk
         summary: Spotting and reducing what could delay or derail the work.
         description: >-
@@ -229,6 +278,7 @@ capabilities:
         related: [product-risk, estimation]
         resources: [shapeup-rabbit-holes]
       - id: unblocking
+        focus: [people, product-business]
         name: Removing blockers
         summary: Clearing obstacles that stop work from moving.
         description: >-

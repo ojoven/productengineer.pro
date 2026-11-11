@@ -11,19 +11,19 @@ const sources = loadSources();
 const geometry = loadGeometry();
 
 describe('taxonomy', () => {
-  it('has the ten territories plus the cross-cutting group', () => {
+  it('has eleven territories including AI, plus the cross-cutting group', () => {
     const land = atlas.territories.filter((t) => !t.crossCutting).map((t) => t.id);
     expect(land).toEqual([
       'discovery', 'strategy', 'experience', 'engineering', 'shipping',
-      'measurement', 'activation', 'retention', 'distribution', 'operations',
+      'measurement', 'activation', 'retention', 'distribution', 'operations', 'ai',
     ]);
     expect(atlas.territories.filter((t) => t.crossCutting)).toHaveLength(1);
   });
 
-  it('has 72 capabilities, 63 of them in territories', () => {
+  it('has 72 capabilities, 64 of them in territories', () => {
     expect(atlas.capabilities).toHaveLength(72);
     const cross = atlas.territories.find((t) => t.crossCutting)!;
-    expect(atlas.capabilities.filter((c) => c.territory !== cross.id)).toHaveLength(63);
+    expect(atlas.capabilities.filter((c) => c.territory !== cross.id)).toHaveLength(64);
   });
 
   it('gives every skill exactly one home', () => {

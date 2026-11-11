@@ -6,6 +6,7 @@ import StatusControl from '../../../../components/StatusControl.astro';
 import SkillRows from '../../../../components/SkillRows.astro';
 import Refs from '../../../../components/Refs.astro';
 import ToolRefs from '../../../../components/ToolRefs.astro';
+import SkillPractice from '../../../../components/SkillPractice.astro';
 import { atlas, capability, territory, path, code, skill } from '../../../../lib/atlas.ts';
 import { relatedNodes } from '../../../../atlas/model.ts';
 import type { Skill } from '../../../../atlas/model.ts';
@@ -49,6 +50,8 @@ const next = i < c.skills.length - 1 ? skill(c.skills[i + 1]) : undefined;
         <div class="prose"><p style="font-size:18px;line-height:1.6;color:var(--ink)">{s.description}</p></div>
 
         <StatusControl id={s.id} name={s.name} />
+
+        <SkillPractice skill={s} />
 
         <section class="section">
           <div class="section-head"><h2>Resources</h2><span class="label">{resources.length || 'none yet'}</span></div>

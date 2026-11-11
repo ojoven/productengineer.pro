@@ -1,0 +1,187 @@
+---
+// Where an AI agent sends people to approve it (OAuth consent for the MCP server). The API's
+// /oauth/authorize validates the request and redirects here with ?request=<id>, or with ?error=.
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Connect an agent" description="Let an AI agent read your map on ProductEngineer.pro." searchable={false} noindex>
+  <div class="wrap connect">
+    <header class="page-head">
+      <div class="code-big">MCP</div>
+      <h1 class="title" id="c-title">Connect an agent</h1>
+      <p class="lede" id="c-lede">Loading the request…</p>
+    </header>
+
+    <section class="section" id="c-body" hidden>
+      <div class="cols">
+        <div>
+          <div class="section-head"><h2>What it can do</h2><span class="label">Read only</span></div>
+          <ul class="facts" id="c-scopes"></ul>
+          <ul class="facts">
+            <li>Look up territories, capabilities, skills, resources and tools.</li>
+            <li>It cannot change your statuses, your name or anything else.</li>
+            <li>You can disconnect it at any time from <a href="/me/#agents">your map</a>.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head"><h2>Who is asking</h2><span class="label" id="c-verified"></span></div>
+          <dl class="facts-dl">
+            <dt>Agent</dt>
+            <dd id="c-client"></dd>
+            <dt>Returns you to</dt>
+            <dd id="c-redirect"></dd>
+          </dl>
+
+          <div id="c-signin" hidden>
+            <p class="muted" style="font-size:15px">Sign in first, so the agent reads your map and nobody else's.</p>
+            <div class="btn-row" id="c-providers"></div>
+          </div>
+
+          <div id="c-decide" hidden>
+            <p class="muted" style="font-size:15px">Signed in as <strong id="c-user"></strong>. Only approve agents you set up yourself.</p>
+            <div class="btn-row">
+              <button class="btn primary" type="button" id="c-allow">Allow</button>
+              <button class="btn" type="button" id="c-deny">Deny</button>
+            </div>
+          </div>
+          <p id="c-msg" role="status" class="label" style="margin-top:14px"></p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .facts {
+    margin: 0 0 18px;
+    padding-left: 18px;
+    color: var(--ink-2);
+  }
+  .facts li {
+    margin: 0 0 8px;
+  }
+  .facts-dl {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 8px 18px;
+    margin: 0 0 22px;
+  }
+  .facts-dl dt {
+    font: 500 11px/1.9 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .facts-dl dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+</style>
+
+<script>
+  import { providers, signInUrl } from '../scripts/sync.ts';
+
+  // never approve inside someone else's frame (clickjacking)
+  if (window.top !== window.self) {
+    document.body.innerHTML = '';
+    throw new Error('framed');
+  }
+
+  type Details = {
+    request: {
+      id: string;
+      client: { name: string; uri: string | null; verifiedDomain: string | null };
+      redirect: { kind: 'web' | 'local' | 'app'; host: string };
+      scopes: { id: string; description: string }[];
+    };
+    user: { name: string | null; avatarUrl: string | null } | null;
+  };
+
+  const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
+  const LABEL: Record<string, string> = { github: 'GitHub', google: 'Google', dev: 'Dev' };
+  const ERRORS: Record<string, string> = {
+    invalid_client: 'The agent that sent you here is not registered with this site, or its details could not be checked. Try connecting it again from the agent.',
+    invalid_redirect_uri: 'The agent asked to send you back to an address it did not register. For your safety the request was stopped.',
+    expired: 'This request expired or was already used. Start the connection again from the agent.',
+    rate_limited: 'Too many connection attempts from your network. Wait a few minutes and try again.',
+    missing: 'There is no request to approve here. Agents open this page when they connect.',
+  };
+  const params = new URLSearchParams(location.search);
+
+  function fail(code: string) {
+    $('c-title').textContent = 'This request cannot continue';
+    $('c-lede').textContent = ERRORS[code] ?? ERRORS.expired;
+    $('c-body').hidden = true;
+  }
+
+  function describeRedirect(r: Details['request']['redirect']) {
+    if (r.kind === 'local') return `${r.host}, a program on this computer`;
+    if (r.kind === 'app') return `the ${r.host} app on this device`;
+    return r.host;
+  }
+
+  async function start() {
+    const error = params.get('error');
+    const id = params.get('request');
+    if (error) return fail(error);
+    if (!id) return fail('missing');
+    const res = await fetch(`/api/oauth/requests/${encodeURIComponent(id)}`, { credentials: 'same-origin' }).catch(() => null);
+    if (!res || !res.ok) return fail(res ? ((await res.json().catch(() => ({}))) as { error?: string }).error ?? 'expired' : 'expired');
+    const d = (await res.json()) as Details;
+    const { client, redirect, scopes } = d.request;
+
+    $('c-title').textContent = `${client.name} wants to read your map`;
+    $('c-lede').textContent = 'An AI agent is asking to connect to your ProductEngineer.pro account through MCP.';
+    $('c-client').textContent = client.name;
+    $('c-verified').textContent = client.verifiedDomain ? `Verified: ${client.verifiedDomain}` : 'Name not verified';
+    $('c-redirect').textContent = describeRedirect(redirect);
+    $('c-scopes').innerHTML = '';
+    for (const s of scopes) {
+      const li = document.createElement('li');
+      li.textContent = `${s.description}: learning, comfortable or not started, per skill.`;
+      $('c-scopes').append(li);
+    }
+    $('c-body').hidden = false;
+
+    if (!d.user) {
+      $('c-signin').hidden = false;
+      const back = `/connect/?request=${encodeURIComponent(id)}`;
+      const list = await providers();
+      const box = $('c-providers');
+      for (const p of list.length ? list : [{ id: 'github', label: 'GitHub' }, { id: 'google', label: 'Google' }]) {
+        const a = document.createElement('a');
+        a.className = box.children.length ? 'btn' : 'btn primary';
+        a.href = signInUrl(p.id, { returnTo: back });
+        a.textContent = `Continue with ${LABEL[p.id] ?? p.label}`;
+        box.append(a);
+      }
+      return;
+    }
+
+    $('c-user').textContent = d.user.name ?? 'you';
+    $('c-decide').hidden = false;
+    const decide = async (approve: boolean) => {
+      $<HTMLButtonElement>('c-allow').disabled = true;
+      $<HTMLButtonElement>('c-deny').disabled = true;
+      const r = await fetch(`/api/oauth/requests/${encodeURIComponent(id)}/decision`, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ approve }),
+      }).catch(() => null);
+      if (!r || !r.ok) return fail(r?.status === 401 ? 'expired' : 'expired');
+      const { redirect: to } = (await r.json()) as { redirect: string };
+      $('c-msg').textContent = approve ? `Approved. Returning you to ${client.name}…` : 'Denied. Returning you to the agent…';
+      if (redirect.kind !== 'web') {
+        $('c-lede').textContent = approve
+          ? 'Approved. You can close this tab and go back to the agent.'
+          : 'Denied. You can close this tab.';
+      }
+      location.href = to;
+    };
+    $('c-allow').addEventListener('click', () => decide(true));
+    $('c-deny').addEventListener('click', () => decide(false));
+  }
+
+  void start();
+</script>

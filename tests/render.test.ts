@@ -51,6 +51,18 @@ describe('renderer', () => {
     expect(svg).toMatch(/class="tile st-comfortable is-lit" data-skill="sample-size"/);
   });
 
+  it('marks filter matches at every zoom while keeping progress and other tiles intact', () => {
+    for (const focus of ['', 'measurement', 'experiment-design']) {
+      const svg = renderMap(atlas, geometry, { focus, state: {
+        progress: { 'sample-size': 'comfortable', 'control-groups': 'learning' },
+        matches: ['sample-size'],
+      } });
+      expect(svg).toMatch(/class="tile st-comfortable is-filter-match" data-skill="sample-size"/);
+      expect(svg).toMatch(/class="tile st-learning" data-skill="control-groups"/);
+      expect(svg).not.toContain('is-filtered-out');
+    }
+  });
+
   it('is deterministic', () => {
     const a = renderMap(atlas, geometry, { focus: 'discovery', width: 800, height: 500 });
     expect(renderMap(atlas, geometry, { focus: 'discovery', width: 800, height: 500 })).toBe(a);

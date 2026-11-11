@@ -1,6 +1,8 @@
 // The atlas as a flat, linked model. Pure: no file system access, so it runs at build
 // time, in tests, in scripts and in the browser.
-import type { ResourceFile, TerritoryFile, ToolFile } from './schema.ts';
+import type { AiLeverage, Evidence, ResourceFile, TerritoryFile, ToolFile } from './schema.ts';
+
+import type { Focus } from './filters.ts';
 
 export type Level = 'territory' | 'capability' | 'skill';
 
@@ -25,6 +27,7 @@ export interface Capability {
   description: string;
   territory: string;
   aliases: string[];
+  previousPaths: string[];
   related: string[];
   resources: string[];
   tools: string[];
@@ -40,9 +43,14 @@ export interface Skill {
   capability: string;
   territory: string;
   aliases: string[];
+  previousPaths: string[];
   related: string[];
   resources: string[];
   tools: string[];
+  focus: Focus[];
+  aiLeverage?: AiLeverage;
+  technicalLeverage?: string;
+  evidence?: Evidence;
 }
 
 export type AtlasNode = Territory | Capability | Skill;
@@ -105,6 +113,7 @@ export function buildAtlas(src: AtlasSources): Atlas {
         description: c.description,
         territory: t.id,
         aliases: c.aliases,
+        previousPaths: c.previousPaths,
         related: c.related,
         resources: c.resources,
         tools: c.tools,
@@ -122,9 +131,14 @@ export function buildAtlas(src: AtlasSources): Atlas {
           capability: c.id,
           territory: t.id,
           aliases: s.aliases,
+          previousPaths: s.previousPaths,
           related: s.related,
           resources: s.resources,
           tools: s.tools,
+          focus: s.focus,
+          aiLeverage: s.aiLeverage,
+          technicalLeverage: s.technicalLeverage,
+          evidence: s.evidence,
         };
         skills.push(skill);
         add(skill);

@@ -24,6 +24,7 @@ capabilities:
     tools: [posthog, segment, rudderstack, avo, amplitude, mixpanel]
     skills:
       - id: event-schemas
+        focus: [systems, evidence]
         name: Event schemas
         summary: Consistent names and properties for the events a product tracks.
         description: >-
@@ -34,6 +35,7 @@ capabilities:
         resources: [segment-naming-conventions, nimble-event-tracking]
         tools: [avo]
       - id: tracking-plans
+        focus: [systems, evidence]
         name: Tracking plans
         summary: A written plan of what to track, why, and which question it answers.
         description: >-
@@ -43,7 +45,24 @@ capabilities:
         related: [event-schemas, launch-telemetry]
         resources: [segment-tracking-plan, amplitude-taxonomy-playbook, nimble-event-tracking]
         tools: [avo, segment]
+        aiLeverage:
+          workflow: Draft events and properties from a user journey and the decisions the team wants to make.
+          limitations: Generated plans tend to collect too much and may include personal data or
+            ambiguous event meanings.
+          verification: Trace every event to a question, inspect payloads and confirm when it fires in
+            the product.
+        technicalLeverage: Implement instrumentation at reliable boundaries and validate event
+          delivery, identity and deduplication.
+        evidence:
+          practice: Instrument one value moment and the steps leading to it.
+          artifact: A tracking plan, validated payloads and a query that answers the original product
+            question.
+          checks:
+            - Events have owners, triggers and property definitions.
+            - The measured behavior can be reproduced in a test session.
+
       - id: identity-resolution
+        focus: [systems, evidence]
         name: Identity resolution
         summary: Linking anonymous and logged-in activity to the same person.
         description: >-
@@ -54,6 +73,7 @@ capabilities:
         resources: [posthog-identify-users, posthog-identity-resolution]
         tools: [posthog, segment]
       - id: analytics-data-quality
+        focus: [systems, evidence]
         name: Data quality
         summary: Making sure analytics data is complete, correct and trusted.
         description: >-
@@ -64,6 +84,7 @@ capabilities:
         resources: [segment-naming-conventions, amplitude-taxonomy-playbook]
         tools: [avo]
       - id: analytics-architecture
+        focus: [systems, evidence]
         name: Analytics architecture
         summary: How product data flows from the app to the tools where it is analyzed.
         description: >-
@@ -82,6 +103,7 @@ capabilities:
     tools: [posthog, amplitude, mixpanel, metabase, plausible]
     skills:
       - id: adoption-metrics
+        focus: [evidence, product-business]
         name: Adoption
         summary: How many users start using the product or a feature.
         description: >-
@@ -91,6 +113,7 @@ capabilities:
         related: [feature-adoption, feature-usage]
         resources: [google-heart]
       - id: engagement-metrics
+        focus: [evidence, product-business]
         name: Engagement
         summary: How often and how deeply people use the product.
         description: >-
@@ -100,6 +123,7 @@ capabilities:
         related: [meaningful-usage, engagement-frequency]
         resources: [a16z-power-user-curve, google-heart]
       - id: task-success
+        focus: [evidence, product-business]
         name: Task success
         summary: Whether users complete what they came to do.
         description: >-
@@ -108,6 +132,7 @@ capabilities:
         related: [usability-testing, first-successful-task]
         resources: [nngroup-success-rate, google-heart]
       - id: conversion-metrics
+        focus: [evidence, product-business]
         name: Conversion
         summary: The share of users who move from one step to the next.
         description: >-
@@ -117,6 +142,7 @@ capabilities:
         related: [funnel-analysis, trial-conversion]
         resources: [amplitude-funnel-interpretation]
       - id: retention-metrics
+        focus: [evidence, product-business]
         name: Retention
         summary: The share of users who keep coming back over time.
         description: >-
@@ -126,6 +152,7 @@ capabilities:
         related: [retention-curves, cohort-analysis]
         resources: [winters-good-retention, amplitude-cohort-analysis]
       - id: satisfaction-metrics
+        focus: [evidence, product-business]
         name: Satisfaction
         summary: How users feel about the product, measured with tools like CSAT and NPS.
         description: >-
@@ -135,6 +162,7 @@ capabilities:
         related: [surveys, feedback-analysis]
         resources: [measuringu-nps-criticisms, google-heart]
       - id: revenue-metrics
+        focus: [evidence, product-business]
         name: Revenue metrics
         summary: Measures like MRR, ARPU and expansion that track the business side.
         description: >-
@@ -153,6 +181,7 @@ capabilities:
     tools: [posthog, amplitude, mixpanel, metabase]
     skills:
       - id: funnel-analysis
+        focus: [evidence]
         name: Funnels
         summary: Measuring how many users get through each step of a flow.
         description: >-
@@ -162,7 +191,23 @@ capabilities:
         related: [drop-off-analysis, conversion-metrics]
         resources: [amplitude-funnel-interpretation]
         tools: [posthog, mixpanel]
+        aiLeverage:
+          workflow: Draft queries from an explicit event schema and use the results to propose
+            explanations for drop-off.
+          limitations: Wrong joins, denominators or time windows can produce convincing but false
+            funnels; correlation is not a cause.
+          verification: Inspect the SQL, trace sample users and reconcile totals with the source events.
+        technicalLeverage: Implement missing events, query raw data and reproduce broken steps
+          before proposing an intervention.
+        evidence:
+          practice: Investigate one funnel drop-off and identify a testable explanation.
+          artifact: A reproducible funnel query, data checks and a proposed experiment.
+          checks:
+            - Event order, cohort and time window are explicit.
+            - The proposed cause is supported by evidence beyond the chart.
+
       - id: cohort-analysis
+        focus: [evidence]
         name: Cohort analysis
         summary: Comparing groups of users who started at the same time or share a trait.
         description: >-
@@ -173,6 +218,7 @@ capabilities:
         resources: [amplitude-cohort-analysis, winters-good-retention]
         tools: [posthog, amplitude]
       - id: behavioral-segmentation
+        focus: [evidence]
         name: Segmentation
         summary: Breaking metrics down by user groups to find hidden patterns.
         description: >-
@@ -182,6 +228,7 @@ capabilities:
         related: [user-segments, simpsons-paradox-check]
         resources: [optimizely-simpsons-paradox]
       - id: path-analysis
+        focus: [evidence]
         name: Path analysis
         summary: Seeing the actual routes users take through the product.
         description: >-
@@ -191,6 +238,7 @@ capabilities:
         related: [journey-mapping, user-flows]
         tools: [posthog, amplitude]
       - id: feature-usage
+        focus: [evidence]
         name: Feature usage
         summary: Measuring which features are used, by whom and how often.
         description: >-
@@ -210,6 +258,7 @@ capabilities:
     tools: [growthbook, statsig, posthog, evan-miller-ab-tools]
     skills:
       - id: hypotheses
+        focus: [evidence, product-business]
         name: Hypotheses
         summary: A testable prediction of what a change will do and why.
         description: >-
@@ -219,6 +268,7 @@ capabilities:
         related: [assumption-mapping, problem-statements]
         resources: [oreilly-hypothesis-driven]
       - id: control-groups
+        focus: [evidence, product-business]
         name: Control groups
         summary: A comparison group that does not get the change.
         description: >-
@@ -229,6 +279,7 @@ capabilities:
         resources: [growthbook-holdouts]
         tools: [growthbook]
       - id: randomization
+        focus: [evidence, product-business]
         name: Randomization
         summary: Assigning users to groups by chance so the groups are comparable.
         description: >-
@@ -239,6 +290,7 @@ capabilities:
         resources: [statsig-assignment, amplitude-randomization]
         tools: [growthbook, statsig]
       - id: ab-tests
+        focus: [evidence, product-business]
         name: A/B tests
         summary: Comparing two versions with real users to see which performs better.
         description: >-
@@ -248,7 +300,24 @@ capabilities:
         related: [sample-size, feature-flags]
         resources: [evanmiller-how-not-ab-test, kohavi-trustworthy-experiments]
         tools: [growthbook, statsig, posthog]
+        aiLeverage:
+          workflow: Draft alternative treatments and review an experiment plan for missing assumptions
+            before implementation.
+          limitations: AI can invent statistical certainty or encourage stopping at a favorable result.
+          verification: Predefine the analysis, verify random assignment and check sample ratios and
+            guardrails before interpreting lift.
+        technicalLeverage: Implement assignment, exposure logging and reproducible analysis so the
+          treatment can be connected to its outcome.
+        evidence:
+          practice: Run a controlled experiment with a primary metric and a stopping rule.
+          artifact: An experiment record with estimates, uncertainty and a decision, including
+            inconclusive results.
+          checks:
+            - Assignment and exposure are validated.
+            - The conclusion respects the planned analysis and observed uncertainty.
+
       - id: sample-size
+        focus: [evidence, product-business]
         name: Sample size
         summary: How many users an experiment needs to detect an effect.
         description: >-
@@ -259,6 +328,7 @@ capabilities:
         resources: [statquest-power-analysis, evanmiller-how-not-ab-test]
         tools: [evan-miller-ab-tools]
       - id: experiment-guardrails
+        focus: [evidence, product-business]
         name: Experiment guardrails
         summary: Checks that protect users and the validity of a running experiment.
         description: >-
@@ -278,6 +348,7 @@ capabilities:
     tools: [evan-miller-ab-tools]
     skills:
       - id: statistical-uncertainty
+        focus: [evidence]
         name: Uncertainty and variance
         summary: Accepting that every measurement has noise around it.
         description: >-
@@ -287,6 +358,7 @@ capabilities:
         related: [confidence-intervals, deciding-under-uncertainty]
         resources: [seeing-theory]
       - id: confidence-intervals
+        focus: [evidence]
         name: Confidence intervals
         summary: A range of plausible values for a measured effect.
         description: >-
@@ -295,6 +367,7 @@ capabilities:
         related: [statistical-uncertainty, effect-sizes]
         resources: [seeing-theory]
       - id: effect-sizes
+        focus: [evidence]
         name: Effect sizes
         summary: How big a difference is, not only whether it exists.
         description: >-
@@ -303,6 +376,7 @@ capabilities:
         related: [sample-size, interpreting-results]
         resources: [kohavi-intuition-busters]
       - id: statistical-power
+        focus: [evidence]
         name: Statistical power
         summary: The chance a test detects an effect that really exists.
         description: >-
@@ -313,6 +387,7 @@ capabilities:
         resources: [statquest-power, statquest-power-analysis]
         tools: [evan-miller-ab-tools]
       - id: sampling-bias
+        focus: [evidence]
         name: Sampling and selection bias
         summary: When the data comes from a group that does not represent everyone.
         description: >-
@@ -322,6 +397,7 @@ capabilities:
         related: [surveys, cognitive-biases]
         resources: [dataschool-survivorship-bias]
       - id: confounding
+        focus: [evidence]
         name: Confounding
         summary: A hidden factor that affects both the cause and the effect.
         description: >-
@@ -331,6 +407,7 @@ capabilities:
         related: [causal-reasoning, control-groups]
         resources: [heap-confounders, causal-inference-brave-true]
       - id: simpsons-paradox-check
+        focus: [evidence]
         name: Simpson's paradox
         summary: When a trend reverses after the data is split into groups.
         description: >-
@@ -349,6 +426,7 @@ capabilities:
     tools: [microsoft-clarity, openreplay, posthog, hotjar, dovetail]
     skills:
       - id: feedback-analysis
+        focus: [people, evidence]
         name: Feedback analysis
         summary: Finding patterns in support tickets, reviews and comments.
         description: >-
@@ -359,6 +437,7 @@ capabilities:
         resources: [nngroup-thematic-video, nngroup-thematic-analysis]
         tools: [dovetail]
       - id: session-replays
+        focus: [people, evidence]
         name: Session replays
         summary: Watching recordings of real user sessions.
         description: >-
@@ -369,6 +448,7 @@ capabilities:
         resources: [posthog-replay-privacy]
         tools: [microsoft-clarity, openreplay, posthog]
       - id: usage-observation
+        focus: [people, evidence]
         name: Observing real usage
         summary: Watching how people use the live product, in person or remotely.
         description: >-
@@ -385,6 +465,7 @@ capabilities:
     resources: [kohavi-intuition-busters, heap-confounders, causal-inference-brave-true]
     skills:
       - id: interpreting-results
+        focus: [evidence, product-business]
         name: Interpreting results
         summary: Reading experiment and analysis results without fooling yourself.
         description: >-
@@ -394,6 +475,7 @@ capabilities:
         related: [effect-sizes, evidence-strength]
         resources: [kohavi-intuition-busters, microsoft-srm]
       - id: causal-reasoning
+        focus: [evidence, product-business]
         name: Causal reasoning
         summary: Telling correlation from causation in product data.
         description: >-
@@ -403,6 +485,7 @@ capabilities:
         related: [confounding, control-groups]
         resources: [heap-confounders, causal-did-chapter, causal-inference-brave-true]
       - id: balancing-signals
+        focus: [evidence, product-business]
         name: Balancing signals
         summary: Combining numbers, user feedback and judgment into one decision.
         description: >-
@@ -412,6 +495,7 @@ capabilities:
         related: [feedback-analysis, tradeoffs]
         resources: [google-heart, amplitude-leading-lagging, posthog-guardrail-metrics]
       - id: iterate-expand-stop
+        focus: [evidence, product-business]
         name: Iterate, expand or stop
         summary: Deciding what to do with a feature after you have results.
         description: >-

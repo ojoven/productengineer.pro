@@ -23,6 +23,7 @@ capabilities:
     resources: [useronboard, nngroup-optional-registration, amplitude-time-to-value]
     skills:
       - id: landing-experience
+        focus: [people, product-business]
         name: Landing experience
         summary: The first page or screen a new visitor sees.
         description: >-
@@ -32,6 +33,7 @@ capabilities:
         related: [value-proposition, landing-page-tests]
         resources: [useronboard]
       - id: signup-flow
+        focus: [people, product-business]
         name: Signup and account creation
         summary: Getting new users registered with as little friction as possible.
         description: >-
@@ -41,6 +43,7 @@ capabilities:
         related: [authentication, form-friction]
         resources: [nngroup-optional-registration, baymard-delayed-account, baymard-guest-checkout]
       - id: first-run-flows
+        focus: [people, product-business]
         name: First-run flows
         summary: What the product shows the very first time someone uses it.
         description: >-
@@ -49,7 +52,24 @@ capabilities:
           leaving it as the default empty product.
         related: [empty-states, guided-setup]
         resources: [useronboard, nngroup-empty-states]
+        aiLeverage:
+          workflow: Summarize first-session observations and draft onboarding alternatives around the
+            user’s first useful task.
+          limitations: Generated flows may optimize clicks while missing value, accessibility or the
+            needs of different users.
+          verification: Watch new users complete the task and compare task success and time to value
+            across the alternatives.
+        technicalLeverage: Instrument the first session, query drop-offs and ship a revised flow to
+          test the suspected friction directly.
+        evidence:
+          practice: Connect one observed activation problem to a shipped onboarding change.
+          artifact: A baseline, a changed flow and an outcome readout tied to the first value moment.
+          checks:
+            - The activation event represents user value.
+            - The readout includes failures and unintended effects.
+
       - id: expectation-setting
+        focus: [people, product-business]
         name: Expectation setting
         summary: Telling users what will happen and how long it will take.
         description: >-
@@ -58,6 +78,15 @@ capabilities:
           reduce support requests.
         related: [interface-feedback, instructional-copy]
         resources: [nngroup-mobile-onboarding]
+        technicalLeverage: Tie onboarding promises to actual feature limits and instrument where
+          users misunderstand the behavior.
+        evidence:
+          practice: Introduce an AI feature with examples of its strengths, limits and available controls.
+          artifact: An introduction tested with users, including whether they recognize a case that
+            needs checking.
+          checks:
+            - The promise matches observed product behavior.
+            - Users know how to correct or decline a suggestion.
 
   - id: onboarding-design
     name: Onboarding design
@@ -68,6 +97,7 @@ capabilities:
     tools: [appcues]
     skills:
       - id: guided-setup
+        focus: [people, product-business]
         name: Guided setup
         summary: Walking users through the configuration the product needs to work.
         description: >-
@@ -77,6 +107,7 @@ capabilities:
         related: [first-run-flows, step-reduction]
         resources: [nngroup-mobile-onboarding]
       - id: progressive-onboarding
+        focus: [people, product-business]
         name: Progressive onboarding
         summary: Teaching features gradually as users reach them.
         description: >-
@@ -86,6 +117,7 @@ capabilities:
         related: [progressive-disclosure, contextual-guidance]
         resources: [nngroup-onboarding-tutorials, nngroup-instructional-overlays]
       - id: contextual-guidance
+        focus: [people, product-business]
         name: Contextual guidance
         summary: Tips and hints that appear where and when they help.
         description: >-
@@ -95,6 +127,7 @@ capabilities:
         related: [instructional-copy, progressive-onboarding]
         resources: [nngroup-onboarding-tutorials, nngroup-instructional-overlays, nngroup-help-docs]
       - id: tutorials
+        focus: [people, product-business]
         name: Tutorials and walkthroughs
         summary: Structured guidance through a first task or the main features.
         description: >-
@@ -111,6 +144,7 @@ capabilities:
     resources: [amplitude-aha, amplitude-time-to-value, posthog-activation]
     skills:
       - id: aha-moments
+        focus: [people, product-business]
         name: Aha moments
         summary: The moment a user first understands why the product is valuable.
         description: >-
@@ -120,6 +154,7 @@ capabilities:
         related: [activation-events, value-reinforcement]
         resources: [amplitude-aha]
       - id: activation-events
+        focus: [people, product-business]
         name: Activation metric
         summary: A measurable action that predicts a new user will stay.
         description: >-
@@ -129,6 +164,7 @@ capabilities:
         related: [leading-indicators, meaningful-usage]
         resources: [amplitude-activation-rate, posthog-activation]
       - id: first-successful-task
+        focus: [people, product-business]
         name: First successful task
         summary: Helping users complete one meaningful task early.
         description: >-
@@ -138,6 +174,7 @@ capabilities:
         related: [task-success, tutorials]
         resources: [amplitude-time-to-value]
       - id: step-reduction
+        focus: [people, product-business]
         name: Removing unnecessary steps
         summary: Cutting every step that does not help users reach value.
         description: >-
@@ -156,6 +193,7 @@ capabilities:
     resources: [baymard-cart-abandonment, nngroup-web-forms, amplitude-pirate-metrics]
     skills:
       - id: form-friction
+        focus: [product-business, evidence]
         name: Form friction
         summary: Reducing the effort and hesitation forms cause.
         description: >-
@@ -165,6 +203,7 @@ capabilities:
         related: [form-design, signup-flow]
         resources: [nngroup-web-forms, nngroup-form-cognitive-load]
       - id: trust-signals
+        focus: [product-business, evidence]
         name: Trust signals
         summary: Evidence that makes people comfortable taking the next step.
         description: >-
@@ -174,6 +213,7 @@ capabilities:
         related: [persuasive-design, landing-experience]
         resources: [baymard-cart-abandonment]
       - id: funnel-optimization
+        focus: [product-business, evidence]
         name: Funnel optimization
         summary: Improving conversion step by step through a flow.
         description: >-
@@ -183,6 +223,7 @@ capabilities:
         related: [funnel-analysis, ab-tests]
         resources: [amplitude-funnel-interpretation, baymard-cart-abandonment]
       - id: trial-conversion
+        focus: [product-business, evidence]
         name: Signup and trial conversion
         summary: Turning visitors into signups and trial users into customers.
         description: >-
@@ -201,6 +242,7 @@ capabilities:
     tools: [posthog, microsoft-clarity]
     skills:
       - id: drop-off-analysis
+        focus: [evidence, product-business]
         name: Drop-off analysis
         summary: Finding exactly where new users leave.
         description: >-
@@ -210,7 +252,23 @@ capabilities:
         related: [funnel-analysis, session-replays]
         resources: [amplitude-funnel-interpretation]
         tools: [microsoft-clarity, openreplay]
+        aiLeverage:
+          workflow: Combine de-identified session notes and funnel results to generate competing
+            explanations for abandonment.
+          limitations: Session summaries can misread intent, and the largest numerical drop may be
+            expected rather than harmful.
+          verification: Check raw events and recordings, then speak with affected users before choosing a cause.
+        technicalLeverage: Join client errors, latency and funnel events to distinguish technical
+          failures from product friction.
+        evidence:
+          practice: Investigate one activation drop and test the strongest explanation.
+          artifact: An evidence trail from the observed drop to a validated intervention.
+          checks:
+            - Counts use a consistent cohort and denominator.
+            - The explanation accounts for both successful and failed sessions.
+
       - id: technical-friction
+        focus: [systems, evidence]
         name: Technical friction
         summary: Errors, slowness and device problems that block new users.
         description: >-
@@ -221,6 +279,7 @@ capabilities:
         resources: [webdev-top-cwv]
         tools: [sentry]
       - id: activation-experiments
+        focus: [product-business, evidence]
         name: Activation experiments
         summary: Testing changes to the first experience to improve activation.
         description: >-

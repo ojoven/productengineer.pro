@@ -9,7 +9,7 @@ at once, find the areas you never touch, and learn them from good sources.
 
 ## The map
 
-The atlas has three levels. There are **10 territories** plus a cross-cutting group, **72
+The atlas has three levels. There are **11 territories** plus a cross-cutting group, **72
 capabilities**, and **about 350 skills**. Each skill is one tile on the map and has its own page:
 a short description, a few checked resources (*Start here* and *Go deeper*), and the tools people
 use for it.
@@ -26,7 +26,8 @@ use for it.
 | 08 | Retention | Why should users continue using the product? |
 | 09 | Distribution | How does the product reach users who genuinely benefit from it? |
 | 10 | Operations | Can we sustain the value we have created? |
-| 11 | Cross-cutting | How do you think, decide and work with others across every territory? |
+| 11 | AI | How do we use AI effectively and build products whose behaviour depends on it? |
+| X | Cross-cutting | How do you think, decide and work with others across every territory? |
 
 Codes such as `06.4.5` read territory, capability, skill. Not every skill needs the same depth: do
 the core work on your own, make informed decisions in the wider areas, and go deep where it pays
@@ -36,12 +37,34 @@ off. The atlas is a proposed framework, not a certification.
 
 - **Scan the map** and look for the territories you rarely work in. That is usually where the next
   lesson is.
-- **Mark skills** as *learning* or *comfortable*. Your progress is stored only in your browser, with
-  no account and no server. You can export a copy as a file.
+- **Mark skills** as *learning*, *comfortable* or *not interested*. Without an account your progress stays in your
+  browser and nothing is sent anywhere. You can export a copy as a file.
+- **Sign in, if you want,** with GitHub or Google to keep your map on every device. Your provider
+  shares your profile and email address.
+- **Connect an AI agent** to `https://productengineer.pro/mcp`. It can look up the whole atlas and,
+  once you approve it, read your statuses.
 - **Follow the links.** Every skill page links to related skills, so one topic leads to the next.
 - **Browse [resources](https://productengineer.pro/resources/) and
   [tools](https://productengineer.pro/tools/)** across the whole atlas, filtered by type or
   territory.
+
+## Focus, progress and AI
+
+The explorer combines two filters: overlapping focus areas (People & collaboration, Product &
+business, Software & systems, Data & evidence, AI & automation) and your progress. Each skill's
+`focus` field lists its relevant areas. Both filters narrow the index and fill matching map tiles yellow;
+they stay in the URL while you explore. `Not interested` is a reversible status, preserved by
+export/import and account sync. Choose `Exclude not interested` to set those skills aside.
+
+The AI territory contains AI engineering and AI-assisted work. General verification and workflow
+automation remain cross-cutting; AI interaction design and inference costs connect from their own territories. Relevant skill pages
+also include contextual AI workflows. Skill YAML supports three optional fields:
+
+- `aiLeverage`: `workflow`, `limitations` and `verification`.
+- `technicalLeverage`: what engineering knowledge enables you to implement or measure.
+- `evidence`: a `practice` exercise, an `artifact` and a list of review `checks`.
+
+Write specific applications where they help; omit these fields rather than adding generic advice.
 
 ## How resources are chosen
 
@@ -67,6 +90,18 @@ npm test               # content integrity + renderer (Vitest)
 npm run build          # static build + search index
 npm run test:visual    # Playwright snapshot of the map (after a build)
 ```
+
+The API (accounts, synced progress, OAuth and MCP) lives in `server/`, with its own
+[README](server/README.md). The dev server passes `/api`, `/oauth`, `/mcp` and the OAuth discovery
+paths to it, as Apache does in production:
+
+```sh
+(cd server && npm install && cp .env.example .env)   # set PUBLIC_URL=http://localhost:4321 and DEV_LOGIN=1
+npm run api            # exports the atlas for the API and starts it on :8790
+npm run test:api       # API tests (node:test)
+```
+
+With `DEV_LOGIN=1` the profile page shows a *Dev sign-in* that needs no OAuth app.
 
 ## Editing the atlas
 
@@ -98,6 +133,9 @@ runs it weekly.
 
 ## Deploy
 
-Run `./deploy/setup.sh` once to set up the Apache vhost and TLS. After that, `npm run deploy` tests,
-builds locally and syncs `dist/` to the server. For page analytics, set `PUBLIC_ANALYTICS_SRC` (a
+Run `./deploy/setup.sh` once to set up the Apache vhost and TLS, and `./deploy/setup-api.sh` once to
+add the API (it needs `server/.env.production` with the OAuth credentials; see `server/.env.example`).
+Follow the [production setup checklist](server/README.md#production-setup-checklist) to configure
+both OAuth apps, credentials and the first API deployment.
+After that, `npm run deploy` tests, builds locally, updates the API and syncs `dist/` to the server. For page analytics, set `PUBLIC_ANALYTICS_SRC` (a
 Plausible-compatible script URL) at build time; without it, nothing loads.

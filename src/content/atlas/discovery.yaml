@@ -24,6 +24,7 @@ capabilities:
     resources: [govuk-user-needs, nngroup-research-cheat-sheet, dscout-jtbd-switch]
     skills:
       - id: user-segments
+        focus: [people, evidence]
         name: User segments
         summary: Grouping users by shared needs or behavior instead of treating them as one crowd.
         description: >-
@@ -33,6 +34,7 @@ capabilities:
         related: [behavioral-segmentation, target-audience]
         resources: [nngroup-personas, amplitude-cohort-analysis]
       - id: ideal-customer-profile
+        focus: [people, evidence]
         name: Ideal customer profile
         summary: A precise description of the customer who gets the most value and is easiest to serve.
         description: >-
@@ -42,6 +44,7 @@ capabilities:
         related: [target-audience, lead-qualification]
         resources: [dunford-intro-positioning, superhuman-pmf-engine]
       - id: personas
+        focus: [people, evidence]
         name: Personas
         summary: Short, research-based portraits of typical users and their goals.
         description: >-
@@ -51,6 +54,7 @@ capabilities:
         related: [user-interviews, research-synthesis]
         resources: [nngroup-research-cheat-sheet]
       - id: jobs-to-be-done
+        focus: [people, evidence]
         name: Jobs to be done
         summary: Framing products around the progress people are trying to make.
         description: >-
@@ -60,6 +64,7 @@ capabilities:
         related: [substitutes, user-motivations]
         resources: [dscout-jtbd-switch]
       - id: user-motivations
+        focus: [people, evidence]
         name: Goals and motivations
         summary: Why people act, what they want to achieve, and what they are afraid of.
         description: >-
@@ -69,6 +74,7 @@ capabilities:
         related: [motivation, jobs-to-be-done]
         resources: [dscout-jtbd-switch, fogg-behavior-model]
       - id: context-of-use
+        focus: [people, evidence]
         name: Behavior and context of use
         summary: Where, when and how people actually use the product.
         description: >-
@@ -88,6 +94,7 @@ capabilities:
     tools: [dovetail]
     skills:
       - id: user-interviews
+        focus: [people, evidence]
         name: User interviews
         summary: Conversations that uncover real past behavior instead of opinions about the future.
         description: >-
@@ -96,7 +103,26 @@ capabilities:
           can learn, because it needs no budget and works from the first week.
         related: [research-synthesis, feedback-analysis]
         resources: [nngroup-user-interviews, ybrikman-mom-test, producttalk-continuous-discovery]
+        aiLeverage:
+          workflow: Transcribe consented interviews, group observations and propose follow-up
+            questions with links to the original passages.
+          limitations: Summaries can lose tone, invent agreement and amplify leading questions. Use
+            only recordings participants have agreed you may process.
+          verification: Replay the source for every finding you use; distinguish participant quotes,
+            your interpretation and unanswered questions.
+        technicalLeverage: Build a searchable, access-controlled research repository and connect
+          interview observations to actual product events.
+        evidence:
+          practice: Analyze five interviews about one user job, then compare an AI-assisted synthesis
+            with your own reading.
+          artifact: A research brief with traceable quotes, conflicting observations and the next
+            question to investigate.
+          checks:
+            - Every claim points to a recording or transcript passage.
+            - Contradictory accounts remain visible; generated hypotheses are labeled.
+
       - id: field-studies
+        focus: [people, evidence]
         name: Observation and field studies
         summary: Watching people do the work in their own environment.
         description: >-
@@ -106,6 +132,7 @@ capabilities:
         related: [context-of-use, industry-workflows]
         resources: [nngroup-field-studies, govuk-contextual-research]
       - id: surveys
+        focus: [people, evidence]
         name: Surveys
         summary: Structured questions to measure how common a behavior or opinion is.
         description: >-
@@ -116,6 +143,7 @@ capabilities:
         resources: [nngroup-survey-questions, pew-survey-questions]
         tools: [formbricks, limesurvey]
       - id: diary-studies
+        focus: [people, evidence]
         name: Diary studies
         summary: Participants record their experience over days or weeks.
         description: >-
@@ -125,6 +153,7 @@ capabilities:
         related: [habit-formation, recurring-needs]
         resources: [nngroup-diary-studies]
       - id: research-synthesis
+        focus: [people, evidence]
         name: Research synthesis
         summary: Turning notes and recordings into clear findings the team can act on.
         description: >-
@@ -134,6 +163,21 @@ capabilities:
         related: [user-interviews, evidence-strength]
         resources: [govuk-analyse-research, nngroup-thematic-analysis, producttalk-ost]
         tools: [dovetail]
+        aiLeverage:
+          workflow: Cluster de-identified research notes into themes and ask for counterexamples to
+            each proposed pattern.
+          limitations: Repeated mentions are not necessarily independent users, and a neat cluster can
+            hide a rare but severe problem.
+          verification: Check themes against source notes, deduplicate participants and inspect items
+            the model did not classify.
+        technicalLeverage: Write scripts to deduplicate feedback, preserve source IDs and join
+          themes to product usage without exposing identities.
+        evidence:
+          practice: Synthesize interviews and support notes about a single workflow.
+          artifact: A ranked problem list with unique-user counts, source links and exceptions.
+          checks:
+            - Counts can be reproduced from the inputs.
+            - Ranking explains severity and evidence quality, not just frequency.
 
   - id: problem-identification
     name: Problem identification
@@ -143,6 +187,7 @@ capabilities:
     resources: [nngroup-problem-statements, producttalk-ost, wikipedia-five-whys]
     skills:
       - id: pain-points
+        focus: [people, product-business, evidence]
         name: Pain points
         summary: The specific moments where users struggle, waste time or give up.
         description: >-
@@ -152,6 +197,7 @@ capabilities:
         related: [friction-reduction, unmet-needs]
         resources: [producttalk-ost]
       - id: unmet-needs
+        focus: [people, product-business, evidence]
         name: Unmet needs
         summary: Things people need that no current solution handles well.
         description: >-
@@ -161,6 +207,7 @@ capabilities:
         related: [pain-points, substitutes]
         resources: [govuk-user-needs, producttalk-ost]
       - id: root-cause-analysis
+        focus: [people, product-business, evidence]
         name: Root-cause analysis
         summary: Tracing a symptom back to the underlying cause before solving it.
         description: >-
@@ -170,6 +217,7 @@ capabilities:
         related: [debugging, incident-response]
         resources: [wikipedia-five-whys]
       - id: problem-statements
+        focus: [people, product-business, evidence]
         name: Problem statements
         summary: A short, precise description of who has the problem and why it matters.
         description: >-
@@ -179,6 +227,7 @@ capabilities:
         related: [hypotheses, technical-writing]
         resources: [nngroup-problem-statements]
       - id: problem-severity
+        focus: [people, product-business, evidence]
         name: Problem severity and frequency
         summary: Judging how badly and how often a problem hurts.
         description: >-
@@ -196,6 +245,7 @@ capabilities:
     resources: [stripe-tam-sam-som, visible-bottom-up-sizing]
     skills:
       - id: competitive-analysis
+        focus: [product-business, evidence]
         name: Competitive analysis
         summary: Studying competing products to learn what they do well and where they fall short.
         description: >-
@@ -204,7 +254,23 @@ capabilities:
           features. Reading competitor reviews is one of the cheapest research methods available.
         related: [competitive-advantage, substitutes]
         resources: [nngroup-competitive-evaluations, dunford-context]
+        aiLeverage:
+          workflow: Compare dated product pages and observed workflows to draft a competitor matrix
+            and identify questions to test.
+          limitations: Models may invent features or repeat outdated positioning. Vendor claims do not
+            establish user value.
+          verification: Open each source, record its date and test the important workflows directly.
+        technicalLeverage: Inspect integrations and APIs, prototype interoperability and distinguish
+          real switching costs from feature-list differences.
+        evidence:
+          practice: Compare three alternatives for one customer job, including doing nothing.
+          artifact: A source-backed comparison and one differentiation hypothesis to test with users.
+          checks:
+            - Each factual comparison has a dated source.
+            - The proposed advantage addresses a demonstrated user problem.
+
       - id: substitutes
+        focus: [product-business, evidence]
         name: Substitutes and existing solutions
         summary: Everything people use today instead of your product, including spreadsheets and doing nothing.
         description: >-
@@ -214,6 +280,7 @@ capabilities:
         related: [jobs-to-be-done, category-positioning]
         resources: [dscout-jtbd-switch]
       - id: market-structure
+        focus: [product-business, evidence]
         name: Market structure
         summary: Who the players are, how value flows, and who holds power in a market.
         description: >-
@@ -223,6 +290,7 @@ capabilities:
         related: [revenue-models, partnerships]
         resources: [stratechery-aggregation, nfx-network-effects, stripe-tam-sam-som]
       - id: market-trends
+        focus: [product-business, evidence]
         name: Market trends
         summary: Shifts in technology, behavior or regulation that open or close opportunities.
         description: >-
@@ -232,6 +300,7 @@ capabilities:
         related: [long-term-direction, strategy-adaptation]
         resources: [wiki-adoption-lifecycle]
       - id: category-conventions
+        focus: [product-business, evidence]
         name: Category conventions
         summary: The patterns users already expect from products of this kind.
         description: >-
@@ -241,6 +310,7 @@ capabilities:
         related: [mental-models, category-positioning]
         resources: [lawsofux-jakobs-law]
       - id: market-sizing
+        focus: [product-business, evidence]
         name: Market sizing
         summary: Estimating how many potential customers exist and what they could be worth.
         description: >-
@@ -258,6 +328,7 @@ capabilities:
     resources: [producttalk-assumption-testing, mtp-woz-concierge, ybrikman-mom-test]
     skills:
       - id: assumption-mapping
+        focus: [product-business, evidence]
         name: Assumption mapping
         summary: Listing what must be true for an idea to work and ranking the risky parts.
         description: >-
@@ -267,6 +338,7 @@ capabilities:
         related: [evidence-strength, hypotheses]
         resources: [producttalk-assumption-testing, producttalk-ost]
       - id: evidence-strength
+        focus: [product-business, evidence]
         name: Evidence strength
         summary: Telling strong evidence from weak signals and opinions.
         description: >-
@@ -276,6 +348,7 @@ capabilities:
         related: [evidence-vs-assumptions, interpreting-results]
         resources: [ybrikman-mom-test]
       - id: desirability-tests
+        focus: [product-business, evidence]
         name: Desirability tests
         summary: Experiments that check whether people actually want something.
         description: >-
@@ -285,6 +358,7 @@ capabilities:
         related: [landing-page-tests, concierge-experiments]
         resources: [producttalk-assumption-testing]
       - id: willingness-to-pay
+        focus: [product-business, evidence]
         name: Willingness to pay
         summary: Finding out whether, and how much, people would pay.
         description: >-
@@ -294,6 +368,7 @@ capabilities:
         related: [pricing, packaging]
         resources: [zhaw-price-sensitivity, conjointly-van-westendorp]
       - id: landing-page-tests
+        focus: [product-business, evidence]
         name: Landing-page tests
         summary: Describing a product on a page and measuring who signs up.
         description: >-
@@ -303,6 +378,7 @@ capabilities:
         related: [value-proposition, desirability-tests]
         resources: [buffer-landing-mvp, kniberg-mvp]
       - id: concierge-experiments
+        focus: [product-business, evidence]
         name: Concierge and Wizard of Oz tests
         summary: Delivering the service by hand before automating it.
         description: >-
@@ -321,6 +397,7 @@ capabilities:
     resources: [fowler-ddd, fowler-ubiquitous-language, fowler-bounded-context]
     skills:
       - id: industry-workflows
+        focus: [people, product-business]
         name: Industry workflows
         summary: How work actually gets done in the users' industry.
         description: >-
@@ -330,6 +407,7 @@ capabilities:
         related: [field-studies, task-analysis]
         resources: [govuk-contextual-research, nngroup-field-studies]
       - id: domain-language
+        focus: [people, product-business]
         name: Domain language
         summary: The vocabulary and concepts experts in the field use.
         description: >-
@@ -339,6 +417,7 @@ capabilities:
         related: [product-terminology, data-modeling]
         resources: [fowler-ubiquitous-language, fowler-bounded-context]
       - id: domain-constraints
+        focus: [systems, product-business]
         name: Domain constraints
         summary: The rules, limits and realities a solution must respect.
         description: >-
@@ -348,6 +427,7 @@ capabilities:
         related: [regulatory-compliance, system-boundaries]
         resources: [fowler-bounded-context, fowler-ddd]
       - id: domain-stakeholders
+        focus: [people, product-business]
         name: Stakeholders and buyers
         summary: Everyone who uses, buys, approves or is affected by the product.
         description: >-

@@ -1,8 +1,10 @@
 import { defineConfig } from 'astro/config';
 import type { AstroIntegration } from 'astro';
+import type { Plugin } from 'vite';
+import { request as httpRequest, type IncomingMessage, type ServerResponse } from 'node:http';
 import { loadAtlas, loadGeometry, loadSources } from './src/atlas/load.ts';
 import { validateAtlas } from './src/atlas/validate.ts';
-import { nodePath } from './src/atlas/model.ts';
+import { atlasRedirects } from './src/atlas/redirects.ts';
 
 /** Fails the build when a reference does not resolve or a node has no position. */
 function atlasCheck(): AstroIntegration {
@@ -22,18 +24,39 @@ function atlasCheck(): AstroIntegration {
   };
 }
 
-/** A renamed node keeps its old id as an alias; the old URL redirects to the new page. */
-function aliasRedirects(): Record<string, string> {
-  const atlas = loadAtlas();
-  const out: Record<string, string> = {};
-  for (const node of [...atlas.territories, ...atlas.capabilities, ...atlas.skills]) {
-    for (const alias of node.aliases) {
-      const target = nodePath(atlas, node);
-      const old = target.replace(new RegExp(`/${node.id}/$`), `/${alias}/`);
-      out[old] = target;
-    }
-  }
-  return out;
+/**
+ * Development only: sends API, OAuth and MCP paths to the API server (`npm run api`), as Apache
+ * does in production. A plain Vite proxy would sit behind Astro's trailing-slash check, which
+ * answers /api/me with a 404.
+ */
+function apiProxy(): Plugin {
+  const port = Number(process.env.API_PORT ?? 8790);
+  const isApi = (url: string) =>
+    /^\/(api|oauth)\//.test(url) || /^\/mcp(\/|\?|$)/.test(url) || url.startsWith('/.well-known/oauth-');
+  return {
+    name: 'pe-api-proxy',
+    enforce: 'post',
+    apply: 'serve',
+    configureServer(server) {
+      const handle = (req: IncomingMessage, res: ServerResponse, next: (err?: unknown) => void) => {
+        if (!isApi(req.url ?? '')) return next();
+        const upstream = httpRequest({ host: '127.0.0.1', port, method: req.method, path: req.url, headers: req.headers }, (r) => {
+          res.writeHead(r.statusCode ?? 502, r.headers);
+          r.pipe(res);
+        });
+        upstream.on('error', () => {
+          res.statusCode = 502;
+          res.end(`API server not reachable on port ${port}. Start it with: npm run api`);
+        });
+        req.pipe(upstream);
+      };
+      // Astro puts its own middlewares at the front of the stack in a post hook; this runs after
+      // it and goes in front of them.
+      return () => {
+        server.middlewares.stack.unshift({ route: '', handle: handle as never });
+      };
+    },
+  };
 }
 
 export default defineConfig({
@@ -41,7 +64,10 @@ export default defineConfig({
   trailingSlash: 'always',
   output: 'static',
   build: { format: 'directory' },
-  redirects: aliasRedirects(),
+  redirects: atlasRedirects(loadAtlas()),
   integrations: [atlasCheck()],
   devToolbar: { enabled: false },
+  // In development the API server (server/, `npm run api`) answers on the same origin, as Apache
+  // does in production.
+  vite: { plugins: [apiProxy()] },
 });

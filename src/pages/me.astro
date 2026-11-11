@@ -4,20 +4,28 @@ import Crumbs from '../components/Crumbs.astro';
 import MapFigure from '../components/MapFigure.astro';
 import TerritoryRows from '../components/TerritoryRows.astro';
 import { atlas } from '../lib/atlas.ts';
+import { SITE } from '../site.ts';
 
 const a = atlas();
+const mcp = `${SITE.url}/mcp`;
 ---
 
-<Base title="My map" description="Your progress across the atlas, stored only in this browser." searchable={false} noindex>
+<Base title="My map" description="Your progress across the atlas. Kept in this browser, or in your account if you sign in." searchable={false} noindex>
   <div class="wrap">
     <Crumbs items={[{ label: 'My map' }]} />
     <header class="page-head">
       <div class="code-big" id="me-count" data-rollup={a.skills.map((s) => s.id).join(' ')}>{a.skills.length} skills</div>
       <h1 class="title" id="me-title">My map</h1>
       <p class="lede">
-        Every tile is one skill. Mark skills on their pages, in any list, or a whole capability at once, and your map fills in.
-        It stays in this browser: there is no account and nothing is sent anywhere.
+        Every tile is one skill. Mark it as learning, comfortable or not interested. You can change your choice at any time.{' '}
+        <span class="anon-only">
+          Without an account it stays in this browser and nothing is sent anywhere. <a href="#account">Sign in</a> with GitHub or
+          Google to keep it on every device and let an AI agent read it.
+        </span>
+        <span class="account-only">It is saved to your account, so it follows you to any device, and agents you approve can read it.</span>
       </p>
+      <p><a href="/atlas/?progress=not-interested">Review skills marked not interested →</a></p>
+      <p id="auth-msg" role="status" class="label" hidden></p>
     </header>
 
     <div class="split">
@@ -39,21 +47,85 @@ const a = atlas();
           <div class="section-head"><h2>Learning now</h2><span class="label" id="learning-count"></span></div>
           <ul class="index" id="learning-list"><li><p class="empty">Nothing marked as learning yet.</p></li></ul>
         </div>
+        <div id="account">
+          <div class="section-head"><h2>Account</h2><span class="label anon-only">Optional</span><span class="label account-only" id="account-since"></span></div>
+          <div class="anon-only">
+            <p class="muted" style="font-size:15px">
+              Sign in to keep your map on every device and to let an AI agent read it. We keep your GitHub or Google id, your name,
+              your avatar and the email address shared by your provider.
+            </p>
+            <div class="btn-row" id="signin-buttons">
+              <a class="btn primary" data-provider="github" href="/api/auth/github/start?return=/me/">Continue with GitHub</a>
+              <a class="btn" data-provider="google" href="/api/auth/google/start?return=/me/">Continue with Google</a>
+            </div>
+            <p class="muted" style="font-size:14px;margin-top:14px">What you already marked in this browser is added to your account when you sign in.</p>
+          </div>
+          <div class="account-only">
+            <div class="acct">
+              <img id="acct-avatar" alt="" width="44" height="44" referrerpolicy="no-referrer" hidden />
+              <div>
+                <div class="acct-name" id="acct-name"></div>
+                <div class="label" id="acct-ids"></div>
+              </div>
+            </div>
+            <div class="btn-row">
+              <a class="btn small" id="link-other" href="#" hidden></a>
+              <button class="btn small" type="button" id="signout">Sign out</button>
+            </div>
+            <p class="muted" style="font-size:14px;margin-top:14px">
+              Signing out removes the map from this browser. It stays in your account. <span id="link-hint"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="cols">
+        <div id="agents">
+          <div class="section-head"><h2>Agents</h2><span class="label">MCP</span></div>
+          <p class="muted" style="font-size:15px">
+            Connect an AI agent, such as Claude Code, to the atlas. It can look up territories, capabilities and skills with their
+            resources and tools. Once you approve it, it can also read your statuses, so it can tell what you know and suggest what
+            to learn next. It cannot change them.
+          </p>
+          <div class="copy-row">
+            <code id="mcp-url">{mcp}</code>
+            <button class="btn small" type="button" data-copy="mcp-url">Copy</button>
+          </div>
+          <p class="label" style="margin:18px 0 8px">Claude Code</p>
+          <div class="copy-row">
+            <code id="mcp-cmd">claude mcp add --transport http productengineer {mcp}</code>
+            <button class="btn small" type="button" data-copy="mcp-cmd">Copy</button>
+          </div>
+          <p class="muted" style="font-size:14px;margin-top:14px">
+            In Claude and other clients, add a custom connector or remote MCP server with the URL above. The first time, it opens
+            this site so you can sign in and approve it. Without an account, <code id="mcp-public">{mcp}/public</code> serves the atlas only.
+          </p>
+          <div class="account-only">
+            <p class="label" style="margin:22px 0 8px">Connected agents</p>
+            <ul class="index" id="connections"><li><p class="empty">No agents connected yet.</p></li></ul>
+          </div>
+        </div>
         <div>
-          <div class="section-head"><h2>Your data</h2><span class="label">Local only</span></div>
+          <div class="section-head"><h2>Your data</h2><span class="label anon-only">Local only</span><span class="label account-only">Account and this browser</span></div>
           <form id="name-form" class="btn-row" style="margin-bottom:18px">
             <label class="visually-hidden" for="display-name">Display name</label>
             <input id="display-name" name="name" maxlength="60" placeholder="Display name (optional)" class="btn" style="flex:1;min-width:0;text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:15px" />
             <button class="btn" type="submit">Save</button>
           </form>
-          <p class="muted" style="font-size:15px">
+          <p class="muted anon-only" style="font-size:15px">
             Progress lives in this browser's storage. Clearing site data, or using a private window, loses it. Export a file to keep
             a copy or to move it to another browser.
+          </p>
+          <p class="muted account-only" style="font-size:15px">
+            Your map is saved in your account and copied in this browser. Export a file to keep a copy of your own.
           </p>
           <div class="btn-row">
             <button class="btn" type="button" id="export">Export</button>
             <label class="btn" style="cursor:pointer">Import<input type="file" id="import" accept="application/json,.json" class="visually-hidden" /></label>
             <button class="btn" type="button" id="reset">Reset</button>
+            <button class="btn account-only" type="button" id="delete-account">Delete account</button>
           </div>
           <p id="data-msg" role="status" class="label" style="margin-top:12px"></p>
         </div>
@@ -62,8 +134,61 @@ const a = atlas();
   </div>
 </Base>
 
+<style>
+  .acct {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .acct img {
+    border-radius: 50%;
+    background: var(--tile);
+  }
+  .acct-name {
+    font-family: var(--cond);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.15;
+  }
+  .copy-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .copy-row code {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    font: 13px/1.4 var(--mono);
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+  }
+  /* rows are rendered by the script, so these rules are global to reach them */
+  #connections :global(.row) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    padding-left: 0;
+  }
+  #connections :global(.row:hover) {
+    background: none;
+  }
+  #connections :global(.conn-name) {
+    font-family: var(--cond);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.15;
+  }
+  #connections :global(.sub) {
+    grid-column: 1 / 3;
+  }
+</style>
+
 <script>
   import { load, setName, exportFile, importFile, reset, onChange, applyProgress } from '../scripts/progress.ts';
+  import { account, connections, deleteAccount, isSignedIn, providers, refreshAccount, rename, revokeConnection, signInUrl, signOut } from '../scripts/sync.ts';
   import { nodeCodes } from '../atlas/render.ts';
   import { track } from '../scripts/track.ts';
 
@@ -71,17 +196,27 @@ const a = atlas();
   let skills: Skill[] = [];
   let aliases: Record<string, string> = {};
   let codes = new Map<string, string>();
-  const msg = document.getElementById('data-msg')!;
+  const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
+  const msg = $('data-msg');
   const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
   const HEX = '<svg viewBox="0 0 22 25" aria-hidden="true"><path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z"></path></svg>';
+  const LABEL: Record<string, string> = { github: 'GitHub', google: 'Google', dev: 'Dev' };
+
+  // in development the API answers on this origin through the dev server's proxy
+  $('mcp-url').textContent = `${location.origin}/mcp`;
+  $('mcp-cmd').textContent = `claude mcp add --transport http productengineer ${location.origin}/mcp`;
+  $('mcp-public').textContent = `${location.origin}/mcp/public`;
 
   function render() {
     const data = load(aliases);
-    document.getElementById('me-title')!.textContent = data.name ? `${data.name}'s map` : 'My map';
-    (document.getElementById('display-name') as HTMLInputElement).value = data.name ?? '';
+    const acct = account();
+    const name = acct ? acct.name : data.name;
+    $('me-title').textContent = name ? `${name}'s map` : 'My map';
+    const input = $<HTMLInputElement>('display-name');
+    if (document.activeElement !== input) input.value = name ?? '';
     const learning = skills.filter((s) => data.progress[s.id] === 'learning');
-    document.getElementById('learning-count')!.textContent = learning.length ? `${learning.length} skills` : '';
-    document.getElementById('learning-list')!.innerHTML = learning.length
+    $('learning-count').textContent = learning.length ? `${learning.length} skills` : '';
+    $('learning-list').innerHTML = learning.length
       ? learning
           .map(
             (s) =>
@@ -89,8 +224,91 @@ const a = atlas();
           )
           .join('')
       : '<li><p class="empty">Nothing marked as learning yet. Click a hexagon next to any skill.</p></li>';
-    applyProgress(document.getElementById('learning-list')!);
+    applyProgress($('learning-list'));
   }
+
+  function renderAccount() {
+    const acct = account();
+    if (!acct) return;
+    const avatar = $<HTMLImageElement>('acct-avatar');
+    if (acct.avatarUrl) {
+      avatar.src = acct.avatarUrl;
+      avatar.hidden = false;
+    } else avatar.hidden = true;
+    $('acct-name').textContent = acct.name ?? 'No name';
+    $('acct-ids').textContent = acct.identities
+      .map((i) => `${LABEL[i.provider] ?? i.provider}${i.handle && i.provider === 'github' ? ` @${i.handle}` : ''}`)
+      .join(' · ');
+    $('account-since').textContent = `Since ${acct.createdAt.slice(0, 7)}`;
+    const have = new Set(acct.identities.map((i) => i.provider));
+    const other = (['github', 'google'] as const).find((p) => !have.has(p));
+    const link = $<HTMLAnchorElement>('link-other');
+    link.hidden = !other;
+    if (other) {
+      link.textContent = `Also sign in with ${LABEL[other]}`;
+      link.href = signInUrl(other, { returnTo: '/me/#account', link: true });
+      $('link-hint').textContent = `Add ${LABEL[other]} so either one opens the same map.`;
+    } else $('link-hint').textContent = '';
+    void renderConnections();
+  }
+
+  async function renderConnections() {
+    const list = await connections();
+    const box = $('connections');
+    if (!list.length) {
+      box.innerHTML = '<li><p class="empty">No agents connected yet.</p></li>';
+      return;
+    }
+    box.innerHTML = list
+      .map((c) => {
+        const who = c.verifiedDomain ? `Verified domain ${esc(c.verifiedDomain)}` : 'Name given by the agent, not verified';
+        const when = c.lastUsedAt ? `last used ${c.lastUsedAt.slice(0, 10)}` : `connected ${c.createdAt.slice(0, 10)}`;
+        return `<li><div class="row"><span class="conn-name">${esc(c.name)}</span><button class="btn small" type="button" data-revoke="${esc(c.id)}">Revoke</button><span class="sub">${who} · reads your statuses · ${when}</span></div></li>`;
+      })
+      .join('');
+  }
+
+  $('connections').addEventListener('click', async (e) => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>('button[data-revoke]');
+    if (!btn) return;
+    btn.disabled = true;
+    if (await revokeConnection(btn.dataset.revoke!)) {
+      msg.textContent = 'Agent disconnected. It can no longer read your map.';
+      track('Agent revoked');
+    }
+    void renderConnections();
+  });
+
+  // messages from the sign-in round trip, then a clean URL
+  const params = new URLSearchParams(location.search);
+  const AUTH_ERRORS: Record<string, string> = {
+    denied: 'Sign-in was cancelled.',
+    expired: 'That sign-in expired or was started in another browser. Please try again.',
+    failed: 'Sign-in failed. Please try again.',
+    provider: 'That sign-in method is not available right now.',
+    rate_limited: 'Too many sign-in attempts. Wait a few minutes and try again.',
+  };
+  const AUTH_OK: Record<string, string> = {
+    linked: 'Added. Either sign-in now opens the same map.',
+    merged: 'Added, and the two accounts were merged into this one. For each skill, the newest status was kept.',
+  };
+  const authMsg = AUTH_ERRORS[params.get('auth_error') ?? ''] ?? AUTH_OK[params.get('auth') ?? ''];
+  if (authMsg) {
+    $('auth-msg').textContent = authMsg;
+    $('auth-msg').hidden = false;
+    if (params.get('auth')) void refreshAccount();
+    history.replaceState(null, '', location.pathname + location.hash);
+  }
+
+  // the dev provider only exists on a local server
+  providers().then((list) => {
+    if (!list.some((p) => p.id === 'dev')) return;
+    const a = document.createElement('a');
+    a.className = 'btn';
+    a.href = signInUrl('dev', { returnTo: '/me/' });
+    a.textContent = 'Dev sign-in';
+    $('signin-buttons').append(a);
+  });
 
   fetch('/atlas-data.json')
     .then((r) => r.json())
@@ -101,17 +319,43 @@ const a = atlas();
       render();
     });
   onChange(() => skills.length && render());
-
-  document.getElementById('name-form')!.addEventListener('submit', (e) => {
-    e.preventDefault();
-    setName((document.getElementById('display-name') as HTMLInputElement).value);
-    msg.textContent = 'Name saved.';
+  window.addEventListener('pe:account', () => {
+    renderAccount();
+    if (skills.length) render();
   });
-  document.getElementById('export')!.addEventListener('click', () => {
+  renderAccount();
+
+  document.querySelectorAll<HTMLButtonElement>('button[data-copy]').forEach((b) =>
+    b.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText($(b.dataset.copy!).textContent ?? '');
+        b.textContent = 'Copied';
+        setTimeout(() => (b.textContent = 'Copy'), 1500);
+      } catch {
+        /* clipboard blocked: the text is selectable */
+      }
+    }),
+  );
+
+  $('name-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const value = $<HTMLInputElement>('display-name').value;
+    if (isSignedIn()) msg.textContent = (await rename(value)) ? 'Name saved.' : 'Could not save the name.';
+    else {
+      setName(value);
+      msg.textContent = 'Name saved.';
+    }
+  });
+  $('signout').addEventListener('click', async () => {
+    await signOut();
+    msg.textContent = 'Signed out. Your map is in your account; sign in again to bring it back.';
+    track('Signed out');
+  });
+  $('export').addEventListener('click', () => {
     exportFile();
     track('Progress exported');
   });
-  document.getElementById('import')!.addEventListener('change', async (e) => {
+  $('import').addEventListener('change', async (e) => {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
     try {
@@ -122,17 +366,40 @@ const a = atlas();
       msg.textContent = (err as Error).message || 'Could not read that file.';
     }
   });
-  const resetBtn = document.getElementById('reset')!;
-  resetBtn.addEventListener('click', () => {
-    if (resetBtn.dataset.armed) {
+
+  /** A destructive button asks for a second click. */
+  function armed(btn: HTMLElement, label: string, warning: () => string, action: () => Promise<void> | void) {
+    btn.addEventListener('click', async () => {
+      if (btn.dataset.armed) {
+        delete btn.dataset.armed;
+        btn.textContent = label;
+        await action();
+        return;
+      }
+      btn.dataset.armed = '1';
+      btn.textContent = 'Click again to confirm';
+      msg.textContent = warning();
+    });
+  }
+  armed(
+    $('reset'),
+    'Reset',
+    () =>
+      isSignedIn()
+        ? 'This erases every status, here and in your account. Export first if you want a copy.'
+        : 'This erases every status in this browser. Export first if you want a copy.',
+    () => {
       reset();
       msg.textContent = 'Progress cleared.';
-      delete resetBtn.dataset.armed;
-      resetBtn.textContent = 'Reset';
-      return;
-    }
-    resetBtn.dataset.armed = '1';
-    resetBtn.textContent = 'Click again to erase';
-    msg.textContent = 'This erases every status in this browser. Export first if you want a copy.';
-  });
+    },
+  );
+  armed(
+    $('delete-account'),
+    'Delete account',
+    () => 'This deletes your account, its copy of your map and every agent connection. This browser keeps its own copy.',
+    async () => {
+      msg.textContent = (await deleteAccount()) ? 'Account deleted. The map in this browser is still here.' : 'Could not delete the account.';
+      track('Account deleted');
+    },
+  );
 </script>

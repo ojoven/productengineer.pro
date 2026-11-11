@@ -2,6 +2,7 @@
 // warnings are printed.
 import type { Atlas, AtlasSources } from './model.ts';
 import type { Geometry } from './geometry.ts';
+import { nodePath } from './model.ts';
 
 export interface Report {
   errors: string[];
@@ -38,6 +39,15 @@ export function validateAtlas(atlas: Atlas, src: AtlasSources, geometry?: Geomet
   }
 
   const allNodes = [...atlas.territories, ...atlas.capabilities, ...atlas.skills];
+  const currentPaths = new Set(allNodes.map((node) => nodePath(atlas, node)));
+  const previousPaths = new Set<string>();
+  for (const node of [...atlas.capabilities, ...atlas.skills]) {
+    for (const previous of node.previousPaths) {
+      if (currentPaths.has(previous)) errors.push(`${node.id}: previous path "${previous}" is a current page`);
+      if (previousPaths.has(previous)) errors.push(`duplicate previous path "${previous}"`);
+      previousPaths.add(previous);
+    }
+  }
   const aliasSeen = new Set<string>();
   for (const n of allNodes) {
     for (const a of n.aliases) {

@@ -71,6 +71,7 @@ export function clientData() {
       id: s.id,
       name: s.name,
       summary: s.summary,
+      focus: s.focus,
       capability: s.capability,
       territory: s.territory,
     })),

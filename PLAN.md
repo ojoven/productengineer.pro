@@ -22,11 +22,11 @@ Taken from taxonomy v1.0 in the brief.
 
 | Level | Count | Example |
 | --- | --- | --- |
-| Territory | 10, plus the cross-cutting group | Measurement |
-| Capability | 72 (63 in territories, 9 cross-cutting) | Experiment design |
+| Territory | 11, plus the cross-cutting group | Measurement |
+| Capability | 72 (64 in territories, 8 cross-cutting) | Experiment design |
 | Skill | roughly 400 | Sample size |
 
-The territories are Discovery, Strategy, Experience, Engineering, Shipping, Measurement, Activation, Retention, Distribution and Operations.
+The territories are Discovery, Strategy, Experience, Engineering, Shipping, Measurement, Activation, Retention, Distribution, Operations and AI.
 
 The first task is turning the taxonomy into data files. That needs some cleanup:
 
@@ -82,7 +82,7 @@ This is the largest piece of work in the plan: about 480 topics, well over a tho
 
 **Three zoom levels, matching the taxonomy**
 
-- World: the ten territories, with capabilities as landmarks.
+- World: the eleven territories, with capabilities as landmarks.
 - Territory: its capabilities as named places.
 - Capability: its skills as named points around the place.
 

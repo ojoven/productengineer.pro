@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import CommandBlock from '../components/CommandBlock.astro';
+import ProductSkillsLoop from '../components/ProductSkillsLoop.astro';
 
 const repo = 'https://github.com/ojoven/product-engineering-skills';
 const groups = [
@@ -87,12 +88,6 @@ const groups = [
     ],
   },
 ];
-const loop = [
-  { name: 'what-next', text: 'Choose the next bet', href: '#what-next' },
-  { name: 'shape-bet', text: 'Make it small and testable', href: '#shape-bet' },
-  { name: 'Build & ship', text: 'Use your usual coding workflow' },
-  { name: 'bet-review', text: 'Check what actually changed', href: '#bet-review' },
-];
 ---
 
 <Base
@@ -115,22 +110,7 @@ const loop = [
         </div>
         <p class="hero-note">10 skills. Plain Markdown. In your product’s repo.</p>
       </div>
-      <aside class="loop" aria-label="The product engineering loop">
-        <div class="pane-head"><span class="label">The working loop</span><span class="label">Repeat ↴</span></div>
-        <ol>
-          {loop.map((step, i) => (
-            <li>
-              <span class="step-number">0{i + 1}</span>
-              <div>
-                {step.href ? <a href={step.href}>{step.name}</a> : <strong>{step.name}</strong>}
-                <p>{step.text}</p>
-              </div>
-              <span class="loop-arrow" aria-hidden="true">{i === loop.length - 1 ? '↺' : '↓'}</span>
-            </li>
-          ))}
-        </ol>
-        <p>Start with <a href="#product-grill">product-grill</a>. Then keep one bet in flight.</p>
-      </aside>
+      <ProductSkillsLoop />
     </header>
 
     <nav class="page-nav" aria-label="On this page">
@@ -261,8 +241,8 @@ const loop = [
   code { font-family: var(--mono); font-size: 0.85em; overflow-wrap: anywhere; }
   .skills-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.85fr);
-    gap: 64px;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.25fr);
+    gap: 40px;
     align-items: center;
     padding: 42px 0 48px;
   }
@@ -271,15 +251,6 @@ const loop = [
   .skills-hero h1 span { color: var(--accent-ink); }
   .skills-hero .lede { margin: 24px 0; max-width: 50ch; }
   .hero-note { margin: 16px 0 0; font: 12px/1.6 var(--mono); color: var(--muted); }
-  .loop { border-top: 3px solid var(--accent); padding-top: 14px; }
-  .loop ol { list-style: none; margin: 0; padding: 0; }
-  .loop li { display: grid; grid-template-columns: 28px 1fr auto; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
-  .step-number { font: 12px/2 var(--mono); color: var(--accent-ink); }
-  .loop li a, .loop li strong { font: 500 17px var(--mono); text-decoration: none; }
-  .loop li a:hover { text-decoration: underline; }
-  .loop li p { margin: 5px 0 0; font-size: 14px; color: var(--ink-2); }
-  .loop-arrow { color: var(--muted); }
-  .loop > p { border-top: 1px solid var(--ink); padding-top: 14px; margin: 0; font-size: 13px; color: var(--ink-2); }
   .page-nav { display: flex; flex-wrap: wrap; gap: 12px 28px; padding: 16px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
   .page-nav a { font: 11px/1.5 var(--mono); text-transform: uppercase; text-decoration: none; }
   .page-nav a:hover { text-decoration: underline; }
@@ -324,10 +295,11 @@ const loop = [
     .skill-group, .shared-context { grid-template-columns: 180px minmax(0, 1fr); gap: 28px; }
     .skill-entry { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   }
-  @media (max-width: 900px) {
+  @media (max-width: 1200px) {
     .skills-hero { grid-template-columns: minmax(0, 1fr); gap: 36px; }
     .skills-hero h1 { max-width: 16ch; }
-    .loop { max-width: 560px; width: 100%; }
+  }
+  @media (max-width: 900px) {
     .install-grid { grid-template-columns: minmax(0, 1fr); }
     .install-grid article { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--line); }
     .repo-cta { align-items: flex-start; flex-direction: column; }

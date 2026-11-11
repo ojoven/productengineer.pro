@@ -23,6 +23,7 @@ capabilities:
     resources: [svpg-vision-faq, svpg-strategy, svpg-strategic-context]
     skills:
       - id: mission
+        focus: [product-business]
         name: Mission
         summary: The lasting purpose behind the product or company.
         description: >-
@@ -32,6 +33,7 @@ capabilities:
         related: [long-term-direction, product-narratives]
         resources: [svpg-strategic-context]
       - id: long-term-direction
+        focus: [product-business]
         name: Vision and direction
         summary: Where the product should be in a few years and why.
         description: >-
@@ -41,6 +43,7 @@ capabilities:
         related: [roadmaps, strategy-adaptation]
         resources: [svpg-vision-faq]
       - id: value-proposition
+        focus: [product-business]
         name: Value proposition
         summary: The specific benefit a product promises to a specific user.
         description: >-
@@ -50,6 +53,7 @@ capabilities:
         related: [messaging, landing-page-tests]
         resources: [dunford-intro-positioning]
       - id: differentiation
+        focus: [product-business]
         name: Differentiation
         summary: What makes the product meaningfully different from the alternatives.
         description: >-
@@ -68,6 +72,7 @@ capabilities:
     resources: [dunford-intro-positioning, dunford-context, dunford-framing]
     skills:
       - id: target-audience
+        focus: [product-business]
         name: Target audience
         summary: The specific group the product is built and marketed for first.
         description: >-
@@ -77,6 +82,7 @@ capabilities:
         related: [ideal-customer-profile, user-segments]
         resources: [dunford-intro-positioning, dunford-context]
       - id: competitive-advantage
+        focus: [product-business]
         name: Competitive advantage
         summary: What the product can do better than alternatives and is hard to copy.
         description: >-
@@ -86,6 +92,7 @@ capabilities:
         related: [differentiation, network-effects]
         resources: [dunford-intro-positioning]
       - id: category-positioning
+        focus: [product-business]
         name: Market category
         summary: Choosing the category that makes the product's value obvious.
         description: >-
@@ -103,6 +110,7 @@ capabilities:
     resources: [whatmatters-okr, amplitude-north-star-playbook, amplitude-leading-lagging]
     skills:
       - id: product-goals
+        focus: [product-business, evidence]
         name: Product goals
         summary: Clear statements of what the product should achieve in a period.
         description: >-
@@ -112,6 +120,7 @@ capabilities:
         related: [okrs, north-star-metric]
         resources: [whatmatters-okr, svpg-strategic-context]
       - id: okrs
+        focus: [product-business, evidence]
         name: Objectives and key results
         summary: A qualitative objective paired with a few measurable results.
         description: >-
@@ -121,6 +130,7 @@ capabilities:
         related: [product-goals, leading-indicators]
         resources: [whatmatters-okr, whatmatters-key-results, whatmatters-committed]
       - id: north-star-metric
+        focus: [product-business, evidence]
         name: North Star metric
         summary: One metric that best captures the value users get from the product.
         description: >-
@@ -130,6 +140,7 @@ capabilities:
         related: [product-goals, meaningful-usage]
         resources: [amplitude-north-star-playbook]
       - id: leading-indicators
+        focus: [product-business, evidence]
         name: Leading indicators
         summary: Early signals that predict a slower outcome metric.
         description: >-
@@ -139,6 +150,7 @@ capabilities:
         related: [activation-events, product-goals]
         resources: [amplitude-leading-lagging]
       - id: guardrail-metrics
+        focus: [product-business, evidence]
         name: Guardrail metrics
         summary: Metrics that must not get worse while you optimize something else.
         description: >-
@@ -156,6 +168,7 @@ capabilities:
     resources: [intercom-rice, bsf-cost-of-delay, shapeup-betting]
     skills:
       - id: opportunity-assessment
+        focus: [product-business]
         name: Opportunity assessment
         summary: Evaluating whether an opportunity is worth pursuing before committing.
         description: >-
@@ -164,7 +177,24 @@ capabilities:
           early. Engineers who ask these questions get better work to do.
         related: [problem-severity, market-sizing]
         resources: [producttalk-ost]
+        aiLeverage:
+          workflow: Use documented problems and constraints to generate competing hypotheses and
+            challenge the assumptions behind a proposed opportunity.
+          limitations: A convincing argument cannot establish demand, and generated market estimates
+            are not evidence.
+          verification: Trace the opportunity to actual observations and independently check the
+            assumptions that determine the decision.
+        technicalLeverage: Run a short feasibility spike, inspect available data and estimate the
+          operational cost of the smallest useful solution.
+        evidence:
+          practice: Assess one opportunity before building, including a simpler alternative.
+          artifact: A decision brief with evidence, technical unknowns and a cheap validation step.
+          checks:
+            - Facts and assumptions are separated.
+            - The next step tests the riskiest assumption within an explicit time budget.
+
       - id: impact-effort
+        focus: [product-business]
         name: Impact versus effort
         summary: Comparing the expected value of work with its cost.
         description: >-
@@ -174,6 +204,7 @@ capabilities:
         related: [estimation, cost-of-delay]
         resources: [intercom-rice]
       - id: product-risk
+        focus: [product-business]
         name: Risk and uncertainty
         summary: Weighing what could go wrong and how little you know.
         description: >-
@@ -183,6 +214,7 @@ capabilities:
         related: [assumption-mapping, delivery-risk]
         resources: [shapeup-rabbit-holes, producttalk-assumption-testing]
       - id: cost-of-delay
+        focus: [product-business]
         name: Cost of delay
         summary: What it costs to do something later instead of now.
         description: >-
@@ -192,6 +224,7 @@ capabilities:
         related: [sequencing, small-batches]
         resources: [bsf-cost-of-delay, bsf-cd3, bsf-qualitative-cost-of-delay]
       - id: sequencing
+        focus: [product-business]
         name: Sequencing
         summary: Ordering work so each step makes the next one cheaper or safer.
         description: >-
@@ -209,6 +242,7 @@ capabilities:
     resources: [shapeup-boundaries, kniberg-mvp, hw-story-splitting, shapeup-book]
     skills:
       - id: mvp
+        focus: [product-business, systems]
         name: Minimum viable product
         summary: The smallest product that tests the most important assumption.
         description: >-
@@ -217,7 +251,24 @@ capabilities:
           all. It still has to work well for the narrow job it does.
         related: [concierge-experiments, smallest-valuable-increment]
         resources: [kniberg-mvp]
+        aiLeverage:
+          workflow: Ask an assistant to turn a validated problem and explicit constraints into
+            alternative small slices and prototype code.
+          limitations: Generated scope often grows beyond the hypothesis; a working demo does not
+            prove that anyone needs it.
+          verification: Trace each included feature to the learning goal and try the prototype with
+            intended users.
+        technicalLeverage: Build a complete thin slice, instrument its value moment and choose
+          reversible architecture while uncertainty is high.
+        evidence:
+          practice: Ship the smallest usable test of one product hypothesis.
+          artifact: A working slice with instrumentation and a readout of the user response.
+          checks:
+            - Scope fits the stated appetite.
+            - The readout includes a keep, change or stop decision grounded in observed behavior.
+
       - id: smallest-valuable-increment
+        focus: [product-business, systems]
         name: Smallest valuable increment
         summary: The least you can ship that a user would actually notice and use.
         description: >-
@@ -227,6 +278,7 @@ capabilities:
         related: [vertical-slicing, small-batches]
         resources: [kniberg-mvp, hw-vertical-slicing]
       - id: vertical-slicing
+        focus: [product-business, systems]
         name: Vertical slicing
         summary: Splitting work into thin end-to-end slices instead of technical layers.
         description: >-
@@ -236,6 +288,7 @@ capabilities:
         related: [smallest-valuable-increment, incremental-architecture]
         resources: [hw-story-splitting, hw-vertical-slicing]
       - id: scope-cutting
+        focus: [product-business, systems]
         name: Cutting scope
         summary: Removing features and polish that do not serve the goal.
         description: >-
@@ -245,6 +298,7 @@ capabilities:
         related: [challenging-requirements, mvp]
         resources: [shapeup-boundaries, shapeup-rabbit-holes]
       - id: acceptance-criteria
+        focus: [product-business, systems]
         name: Acceptance criteria
         summary: Clear conditions that define when a piece of work is done.
         description: >-
@@ -262,6 +316,7 @@ capabilities:
     resources: [prodpad-now-next-later, shapeup-betting, svpg-strategy]
     skills:
       - id: roadmaps
+        focus: [product-business]
         name: Roadmaps
         summary: A shared view of what the team plans to work on and why.
         description: >-
@@ -271,6 +326,7 @@ capabilities:
         related: [sequencing, long-term-direction]
         resources: [prodpad-now-next-later, svpg-strategy]
       - id: dependency-management
+        focus: [product-business]
         name: Dependencies
         summary: Tracking what work depends on other teams, systems or decisions.
         description: >-
@@ -280,6 +336,7 @@ capabilities:
         related: [unblocking, coupling]
         resources: [fowler-conway, dora-wip]
       - id: lifecycle-stages
+        focus: [product-business]
         name: Product lifecycle stages
         summary: How priorities change as a product moves from idea to maturity.
         description: >-
@@ -289,6 +346,7 @@ capabilities:
         related: [feature-deprecation, scalability]
         resources: [wiki-product-lifecycle, wiki-adoption-lifecycle]
       - id: strategy-adaptation
+        focus: [product-business]
         name: Adapting strategy
         summary: Changing plans in response to new evidence without losing direction.
         description: >-
@@ -307,6 +365,7 @@ capabilities:
     resources: [stripe-saas-pricing, skok-saas-metrics, a16z-16-startup-metrics]
     skills:
       - id: revenue-models
+        focus: [product-business]
         name: Revenue models
         summary: The ways a product earns money, such as subscriptions, usage or transactions.
         description: >-
@@ -316,6 +375,7 @@ capabilities:
         related: [pricing, market-structure]
         resources: [stripe-saas-pricing]
       - id: pricing
+        focus: [product-business]
         name: Pricing
         summary: Setting what customers pay, based on value, costs and alternatives.
         description: >-
@@ -325,6 +385,7 @@ capabilities:
         related: [willingness-to-pay, packaging]
         resources: [stripe-atlas-pricing, paddle-value-pricing, stripe-saas-pricing]
       - id: packaging
+        focus: [product-business]
         name: Packaging
         summary: Grouping features and limits into plans and tiers.
         description: >-
@@ -334,6 +395,7 @@ capabilities:
         related: [pricing, feature-flags]
         resources: [stripe-tiered-pricing, stripe-atlas-pricing]
       - id: costs-and-margins
+        focus: [product-business]
         name: Costs and margins
         summary: What it costs to build and run the product compared with what it earns.
         description: >-
@@ -343,6 +405,7 @@ capabilities:
         related: [cost-to-serve, inference-costs]
         resources: [skok-saas-metrics]
       - id: lifetime-value
+        focus: [product-business]
         name: Customer lifetime value
         summary: The total revenue a customer brings over their whole relationship with the product.
         description: >-
@@ -352,6 +415,7 @@ capabilities:
         related: [customer-acquisition-cost, churn-analysis]
         resources: [skok-saas-metrics, a16z-16-startup-metrics]
       - id: return-on-investment
+        focus: [product-business]
         name: Return on investment
         summary: Comparing what a piece of work returns with what it costs.
         description: >-

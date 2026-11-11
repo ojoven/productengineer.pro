@@ -1,15 +1,13 @@
 ---
-// One status per skill, saved in this browser.
+import { STATUS_OPTIONS } from '../atlas/status.ts';
+
+// One status per skill, saved in this browser and, when signed in, to the account.
 interface Props {
   id: string;
   name: string;
 }
 const { id, name } = Astro.props;
-const options = [
-  { value: 'none', label: 'Not started', cls: '' },
-  { value: 'learning', label: 'Learning', cls: 'l' },
-  { value: 'comfortable', label: 'Comfortable', cls: 'c' },
-];
+const options = STATUS_OPTIONS;
 ---
 
 <fieldset class="status" data-pagefind-ignore>
@@ -27,16 +25,21 @@ const options = [
       ))
     }
   </div>
-  <p class="note">Saved in this browser only. It colours this skill's tile on <a href="/me/">your map</a>.</p>
+  <p class="note">
+    <span class="anon-only">Saved in this browser. <a href="/me/#account">Sign in</a> to keep it on every device.</span>
+    <span class="account-only">Saved to your account.</span>
+    It colours this skill's tile on <a href="/me/">your map</a>.
+  </p>
 </fieldset>
 
 <script>
+  import type { ProgressStatus } from '../atlas/status.ts';
   import { setStatus } from '../scripts/progress.ts';
   import { track } from '../scripts/track.ts';
   document.querySelectorAll<HTMLInputElement>('input[data-status-input]').forEach((input) => {
     input.addEventListener('change', () => {
       if (!input.checked) return;
-      setStatus(input.dataset.statusInput!, input.value as 'none' | 'learning' | 'comfortable');
+      setStatus(input.dataset.statusInput!, input.value as ProgressStatus);
       track('Status set', { status: input.value, from: 'page' });
     });
   });

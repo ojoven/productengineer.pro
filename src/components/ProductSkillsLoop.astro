@@ -1,0 +1,241 @@
+---
+interface Node {
+  id: string;
+  label: string;
+  detail: string;
+  x: number;
+  y: number;
+  width: number;
+  kind?: 'decision' | 'build';
+}
+interface Edge {
+  from: string;
+  to: string;
+  path: string;
+  repeat?: boolean;
+}
+
+const desktopNodes: Node[] = [
+  { id: 'product-grill', label: 'product-grill', detail: 'Understand the product', x: 20, y: 42, width: 200 },
+  { id: 'connect-sources', label: 'connect-sources', detail: 'Find the evidence', x: 330, y: 42, width: 200 },
+  { id: 'audit-analytics', label: 'audit-analytics', detail: 'Check the tracking', x: 640, y: 42, width: 200 },
+  { id: 'pulse', label: 'pulse', detail: 'Read the numbers', x: 580, y: 152, width: 260 },
+  { id: 'feedback-digest', label: 'feedback-digest', detail: 'Listen to users', x: 580, y: 238, width: 260 },
+  { id: 'audit-first-run', label: 'audit-first-run', detail: 'Walk the first experience', x: 580, y: 324, width: 260 },
+  { id: 'what-next', label: 'what-next', detail: 'Choose one bet', x: 20, y: 456, width: 180, kind: 'decision' },
+  { id: 'shape-bet', label: 'shape-bet', detail: 'Scope the smallest test', x: 240, y: 456, width: 180 },
+  { id: 'build', label: 'build & ship', detail: 'Your coding workflow', x: 460, y: 456, width: 180, kind: 'build' },
+  { id: 'bet-review', label: 'bet-review', detail: 'Keep, iterate or kill', x: 680, y: 456, width: 180 },
+];
+const desktopEdges: Edge[] = [
+  { from: 'product-grill', to: 'connect-sources', path: 'M220 74 H330' },
+  { from: 'connect-sources', to: 'audit-analytics', path: 'M530 74 H640' },
+  { from: 'connect-sources', to: 'pulse', path: 'M430 106 V184 H580' },
+  { from: 'connect-sources', to: 'feedback-digest', path: 'M430 106 V270 H580' },
+  { from: 'connect-sources', to: 'audit-first-run', path: 'M430 106 V356 H580' },
+  { from: 'product-grill', to: 'what-next', path: 'M120 106 V414 H110 V456' },
+  { from: 'audit-analytics', to: 'what-next', path: 'M840 74 H874 V414 H110 V456' },
+  { from: 'pulse', to: 'what-next', path: 'M840 184 H874 V414 H110 V456' },
+  { from: 'feedback-digest', to: 'what-next', path: 'M840 270 H874 V414 H110 V456' },
+  { from: 'audit-first-run', to: 'what-next', path: 'M840 356 H874 V414 H110 V456' },
+  { from: 'what-next', to: 'shape-bet', path: 'M200 488 H240' },
+  { from: 'shape-bet', to: 'build', path: 'M420 488 H460' },
+  { from: 'build', to: 'bet-review', path: 'M640 488 H680' },
+  { from: 'bet-review', to: 'what-next', path: 'M770 520 V566 H110 V520', repeat: true },
+];
+const mobileNodes: Node[] = desktopNodes.map((node, i) => {
+  const positions = [
+    [8, 36, 152], [196, 36, 152], [196, 140, 152], [196, 220, 152], [196, 300, 152],
+    [196, 380, 152], [92, 520, 176], [92, 620, 176], [92, 720, 176], [92, 820, 176],
+  ];
+  const [x, y, width] = positions[i];
+  return { ...node, x, y, width };
+});
+const mobileEdges: Edge[] = [
+  { from: 'product-grill', to: 'connect-sources', path: 'M160 68 H196' },
+  { from: 'connect-sources', to: 'audit-analytics', path: 'M272 100 V120 H180 V172 H196' },
+  { from: 'connect-sources', to: 'pulse', path: 'M272 100 V120 H180 V252 H196' },
+  { from: 'connect-sources', to: 'feedback-digest', path: 'M272 100 V120 H180 V332 H196' },
+  { from: 'connect-sources', to: 'audit-first-run', path: 'M272 100 V120 H180 V412 H196' },
+  { from: 'product-grill', to: 'what-next', path: 'M84 100 V480 H44 V552 H92' },
+  { from: 'audit-analytics', to: 'what-next', path: 'M348 172 H358 V474 H240 V520' },
+  { from: 'pulse', to: 'what-next', path: 'M348 252 H358 V474 H240 V520' },
+  { from: 'feedback-digest', to: 'what-next', path: 'M348 332 H358 V474 H240 V520' },
+  { from: 'audit-first-run', to: 'what-next', path: 'M348 412 H358 V474 H240 V520' },
+  { from: 'what-next', to: 'shape-bet', path: 'M180 584 V620' },
+  { from: 'shape-bet', to: 'build', path: 'M180 684 V720' },
+  { from: 'build', to: 'bet-review', path: 'M180 784 V820' },
+  { from: 'bet-review', to: 'what-next', path: 'M268 852 H322 V552 H268', repeat: true },
+];
+const layouts = [
+  { id: 'wide', width: 890, height: 602, nodes: desktopNodes, edges: desktopEdges },
+  { id: 'narrow', width: 368, height: 912, nodes: mobileNodes, edges: mobileEdges },
+];
+---
+
+<figure class="product-loop" data-product-loop aria-label="Product engineering skills workflow">
+  <div class="loop-toolbar">
+    <p class="diagram-hint">Follow the flow. Select a skill to explore it.</p>
+    <button type="button" class="motion-toggle" data-motion-toggle aria-label="Pause animation" title="Pause animation" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path class="pause-icon" d="M7 5h3v14H7zm7 0h3v14h-3z" />
+        <path class="play-icon" d="m8 5 11 7-11 7z" />
+      </svg>
+    </button>
+  </div>
+  {layouts.map((layout) => (
+    <svg
+      class={`loop-diagram loop-${layout.id}`}
+      viewBox={`0 0 ${layout.width} ${layout.height}`}
+      role="group"
+      aria-labelledby={`loop-title-${layout.id}`}
+      aria-describedby={`loop-description-${layout.id}`}
+    >
+      <title id={`loop-title-${layout.id}`}>The product engineering skills workflow</title>
+      <desc id={`loop-description-${layout.id}`}>
+        Start with product-grill, then connect-sources and audit-analytics. Connected sources feed pulse,
+        feedback-digest and audit-first-run. Product context and evidence lead to what-next, then shape-bet,
+        build and ship, and bet-review. Review returns to what-next. Every skill links to its example below.
+      </desc>
+      <defs>
+        <marker id={`loop-arrow-${layout.id}`} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M1 1 7 4 1 7" class="arrow-head" />
+        </marker>
+        <marker id={`loop-repeat-${layout.id}`} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M1 1 7 4 1 7" class="repeat-head" />
+        </marker>
+      </defs>
+
+      <g aria-hidden="true" class="diagram-labels">
+        <text x={layout.id === 'wide' ? 20 : 8} y="18">01 / UNDERSTAND</text>
+        {layout.id === 'wide' ? (
+          <>
+            <text x="580" y="134">02 / READ THE EVIDENCE</text>
+            <text x="440" y="444" text-anchor="middle">03 / DECIDE, SHIP, LEARN</text>
+            <text x="440" y="590" text-anchor="middle" class="repeat-label">REVIEW → NEXT BET</text>
+            <text x="140" y="266">PRODUCT CONTEXT</text>
+          </>
+        ) : (
+          <>
+            <text x="196" y="132">02 / EVIDENCE</text>
+            <text x="92" y="504">03 / DECIDE, SHIP, LEARN</text>
+            <text transform="translate(310 700) rotate(-90)" text-anchor="middle" class="repeat-label">REVIEW → NEXT BET</text>
+          </>
+        )}
+      </g>
+
+      <g class="connections" aria-hidden="true">
+        {layout.edges.map((edge) => (
+          <path
+            d={edge.path}
+            class:list={['connection', { 'repeat-connection': edge.repeat }]}
+            marker-end={`url(#loop-${edge.repeat ? 'repeat' : 'arrow'}-${layout.id})`}
+            data-from={edge.from}
+            data-to={edge.to}
+          />
+        ))}
+        {layout.edges.map((edge, i) => (
+          <circle class="flow-particle" r={edge.repeat ? 3.5 : 2.5}>
+            <animateMotion
+              path={edge.path}
+              dur={`${edge.repeat ? 7 : 4 + (i % 4)}s`}
+              begin="indefinite"
+              repeatCount="indefinite"
+            />
+          </circle>
+        ))}
+      </g>
+
+      {layout.nodes.map((node) => {
+        const Tag = node.kind === 'build' ? 'g' : 'a';
+        return (
+          <Tag
+            href={node.kind === 'build' ? undefined : `#${node.id}`}
+            aria-label={node.kind === 'build' ? 'Build and ship using your usual coding workflow' : `${node.label}: ${node.detail}. View example.`}
+            class:list={['flow-node', { 'decision-node': node.kind === 'decision', 'build-node': node.kind === 'build' }]}
+          >
+            <rect x={node.x} y={node.y} width={node.width} height="64" />
+            <text class="node-name" x={node.x + 12} y={node.y + 26}>{node.label}</text>
+            <text class="node-detail" x={node.x + 12} y={node.y + 46}>{node.detail}</text>
+          </Tag>
+        );
+      })}
+    </svg>
+  ))}
+</figure>
+
+<style>
+  .product-loop { min-width: 0; margin: 0; border-top: 3px solid var(--accent); padding-top: 14px; }
+  .loop-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+  .motion-toggle { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; background: transparent; color: var(--ink-2); padding: 12px; cursor: pointer; }
+  .motion-toggle:hover { background: var(--bg-2); color: var(--ink); }
+  .motion-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+  .play-icon, [data-paused='true'] .pause-icon { display: none; }
+  [data-paused='true'] .play-icon { display: block; }
+  .diagram-hint { margin: 0; color: var(--ink-2); font-size: 13px; }
+  .loop-diagram { display: block; width: 100%; height: auto; overflow: visible; }
+  .loop-narrow { display: none; }
+  .diagram-labels { font: 11px var(--mono); letter-spacing: 0.04em; fill: var(--muted); }
+  .diagram-labels .repeat-label { fill: var(--accent-ink); }
+  .connection { fill: none; stroke: var(--muted); stroke-width: 1.4; stroke-linejoin: round; }
+  .repeat-connection { stroke: var(--accent-ink); stroke-width: 2; }
+  .arrow-head, .repeat-head { fill: none; stroke: var(--muted); stroke-width: 1.3; }
+  .repeat-head { stroke: var(--accent-ink); }
+  .flow-particle { fill: var(--accent); visibility: hidden; }
+  [data-motion='on'] .flow-particle { visibility: visible; }
+  .flow-node { text-decoration: none; outline: none; }
+  .flow-node rect { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .node-name { fill: var(--ink); font: 500 16px var(--mono); }
+  .node-detail { fill: var(--ink-2); font: 12px var(--sans); }
+  .flow-node:hover rect, .flow-node:focus-visible rect { fill: var(--bg-2); stroke: var(--accent-ink); stroke-width: 2.5; }
+  .flow-node:hover .node-name, .flow-node:focus-visible .node-name { fill: var(--accent-ink); }
+  .decision-node rect { fill: var(--ink); stroke: var(--ink); }
+  .decision-node .node-name, .decision-node .node-detail { fill: var(--bg); }
+  .decision-node:hover .node-detail, .decision-node:focus-visible .node-detail { fill: var(--ink-2); }
+  .build-node rect { stroke-dasharray: 4 4; }
+  .build-node:hover rect { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .build-node:hover .node-name { fill: var(--ink); }
+  @media (max-width: 560px) {
+    .loop-wide { display: none; }
+    .loop-narrow { display: block; }
+    .loop-narrow .node-name { font-size: 13px; }
+    .loop-narrow .node-detail { font-size: 10px; }
+    .loop-narrow .diagram-labels { font-size: 9px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flow-particle, .motion-toggle { display: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-product-loop]').forEach((figure) => {
+    const button = figure.querySelector<HTMLButtonElement>('[data-motion-toggle]');
+    if (!button) return;
+    const diagrams = [...figure.querySelectorAll<SVGSVGElement>('.loop-diagram')];
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    let started = false;
+    let paused = false;
+
+    function setRunning(running: boolean) {
+      if (running && !started) {
+        figure.querySelectorAll<SVGAnimationElement>('animateMotion').forEach((motion) => motion.beginElement());
+        started = true;
+      }
+      diagrams.forEach((svg) => running ? svg.unpauseAnimations() : svg.pauseAnimations());
+      paused = !running;
+      figure.dataset.motion = started && !preference.matches ? 'on' : 'off';
+      button!.dataset.paused = String(paused);
+      const label = running ? 'Pause animation' : 'Play animation';
+      button!.setAttribute('aria-label', label);
+      button!.title = label;
+    }
+
+    button.hidden = preference.matches;
+    setRunning(!preference.matches);
+    button.addEventListener('click', () => setRunning(paused));
+    preference.addEventListener('change', () => {
+      button.hidden = preference.matches;
+      setRunning(!preference.matches);
+    });
+  });
+</script>

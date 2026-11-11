@@ -1,14 +1,24 @@
-// Casual progress, kept in this browser only. One status per skill. Nothing is sent anywhere.
-import type { Status } from '../atlas/render.ts';
+// Casual progress, one status per skill, kept in this browser. Without an account nothing is
+// sent anywhere. With one, sync.ts copies each change to the account and pulls the account's
+// state back in; the pages always read from here.
+import { isStatus, STATUS_OPTIONS, STATUSES, type Status } from '../atlas/status.ts';
+export { STATUSES } from '../atlas/status.ts';
 
 const KEY = 'pe-atlas:v1';
-export const STATUSES: (Status | 'none')[] = ['none', 'learning', 'comfortable'];
 
 export interface Saved {
   version: 1;
   name?: string;
   progress: Record<string, Status>;
+  /** When each status last changed, in ms. Merging with the account keeps the newest change. */
+  at?: Record<string, number>;
   updated?: string;
+}
+
+export interface Change {
+  id: string;
+  status: Status | 'none';
+  at: number;
 }
 
 const empty = (): Saved => ({ version: 1, progress: {} });
@@ -21,16 +31,21 @@ export function load(aliases: Record<string, string> = {}): Saved {
     if (!parsed || typeof parsed !== 'object' || typeof parsed.progress !== 'object') return empty();
     // a renamed skill keeps its old id as an alias, so saved progress follows it
     const progress: Record<string, Status> = {};
+    const at: Record<string, number> = {};
+    const savedAt = parsed.at && typeof parsed.at === 'object' ? parsed.at : {};
     for (const [id, st] of Object.entries(parsed.progress)) {
-      if (st === 'learning' || st === 'comfortable') progress[aliases[id] ?? id] = st;
+      if (!isStatus(st)) continue;
+      const key = aliases[id] ?? id;
+      progress[key] = st;
+      if (typeof savedAt[id] === 'number') at[key] = savedAt[id];
     }
-    return { version: 1, name: typeof parsed.name === 'string' ? parsed.name : undefined, progress, updated: parsed.updated };
+    return { version: 1, name: typeof parsed.name === 'string' ? parsed.name : undefined, progress, at, updated: parsed.updated };
   } catch {
     return empty();
   }
 }
 
-function save(data: Saved) {
+function save(data: Saved, changes: Change[] = []) {
   data.updated = new Date().toISOString();
   try {
     localStorage.setItem(KEY, JSON.stringify(data));
@@ -38,14 +53,39 @@ function save(data: Saved) {
     // storage blocked (private mode, disabled site data): progress lasts for this page only
   }
   window.dispatchEvent(new CustomEvent('pe:progress'));
+  if (changes.length) window.dispatchEvent(new CustomEvent<Change[]>('pe:local-change', { detail: changes }));
+}
+
+function apply(data: Saved, id: string, status: Status | 'none', at: number) {
+  data.at ??= {};
+  if (status === 'none') {
+    delete data.progress[id];
+    delete data.at[id];
+  } else {
+    data.progress[id] = status;
+    data.at[id] = at;
+  }
 }
 
 export function setStatus(ids: string | string[], status: Status | 'none') {
   const data = load();
+  const at = Date.now();
+  const changes: Change[] = [];
   for (const id of Array.isArray(ids) ? ids : [ids]) {
-    if (status === 'none') delete data.progress[id];
-    else data.progress[id] = status;
+    if ((data.progress[id] ?? 'none') === status) continue;
+    apply(data, id, status, at);
+    changes.push({ id, status, at });
   }
+  save(data, changes);
+}
+
+/** The account's state, plus changes not yet sent, written over this browser's copy. */
+export function replaceFromAccount(progress: Record<string, { status: Status; at: number }>, pending: Change[] = []) {
+  const data = load();
+  data.progress = {};
+  data.at = {};
+  for (const [id, v] of Object.entries(progress)) apply(data, id, v.status, v.at);
+  for (const c of pending) apply(data, c.id, c.status, c.at);
   save(data);
 }
 
@@ -55,13 +95,21 @@ export function setName(name: string) {
   save(data);
 }
 
-export function reset() {
+/**
+ * Erases every status in this browser. When signed in, the cleared skills are sent as changes
+ * too, so the account is erased as well. `forget` only drops this browser's copy (signing out).
+ */
+export function reset(opts: { forget?: boolean } = {}) {
+  const before = load();
+  const at = Date.now();
   try {
     localStorage.removeItem(KEY);
   } catch {
     /* ignore */
   }
   window.dispatchEvent(new CustomEvent('pe:progress'));
+  const changes: Change[] = Object.keys(before.progress).map((id) => ({ id, status: 'none', at }));
+  if (!opts.forget && changes.length) window.dispatchEvent(new CustomEvent<Change[]>('pe:local-change', { detail: changes }));
 }
 
 export function exportFile() {
@@ -82,16 +130,18 @@ export async function importFile(file: File, known: Set<string>): Promise<{ impo
   const parsed = JSON.parse(await file.text());
   if (!parsed || typeof parsed.progress !== 'object') throw new Error('This file does not look like a progress export.');
   const data = load();
-  let imported = 0;
+  const at = Date.now();
+  const changes: Change[] = [];
   let skipped = 0;
   for (const [id, st] of Object.entries(parsed.progress as Record<string, unknown>)) {
-    if ((st === 'learning' || st === 'comfortable') && known.has(id)) {
-      data.progress[id] = st;
-      imported++;
+    if (isStatus(st) && known.has(id)) {
+      apply(data, id, st, at);
+      changes.push({ id, status: st, at });
     } else skipped++;
   }
+  const imported = changes.length;
   if (typeof parsed.name === 'string' && !data.name) data.name = parsed.name.slice(0, 60);
-  save(data);
+  save(data, changes);
   return { imported, skipped };
 }
 
@@ -102,15 +152,15 @@ export function onChange(fn: () => void) {
   });
 }
 
-/** Moves a skill to its next status: not started, learning, comfortable, then back. */
+/** Cycles all four statuses. Each choice can also be set explicitly on a skill page. */
 export function cycleStatus(id: string): Status | 'none' {
   const current = (load().progress[id] as Status | undefined) ?? 'none';
-  const next = current === 'none' ? 'learning' : current === 'learning' ? 'comfortable' : 'none';
+  const next = STATUSES[(STATUSES.indexOf(current) + 1) % STATUSES.length];
   setStatus(id, next);
   return next;
 }
 
-const LABEL: Record<string, string> = { none: 'not started', learning: 'learning', comfortable: 'comfortable' };
+const LABEL = Object.fromEntries(STATUS_OPTIONS.map((option) => [option.value, option.label.toLowerCase()]));
 
 /**
  * Applies progress to whatever is on the page: map tiles, list rows, tile strips, counts and
@@ -124,6 +174,7 @@ export function applyProgress(root: ParentNode = document) {
     const s = progress[el.dataset.skill!];
     el.classList.toggle('st-learning', s === 'learning');
     el.classList.toggle('st-comfortable', s === 'comfortable');
+    el.classList.toggle('st-not-interested', s === 'not-interested');
   });
 
   root.querySelectorAll<HTMLElement>('[data-status-for]').forEach((el) => {
@@ -140,8 +191,10 @@ export function applyProgress(root: ParentNode = document) {
     const ids = el.dataset.rollup!.split(' ').filter(Boolean);
     const comf = ids.filter((i) => progress[i] === 'comfortable').length;
     const learn = ids.filter((i) => progress[i] === 'learning').length;
-    el.textContent =
-      comf || learn ? `${comf}/${ids.length} comfortable${learn ? ` · ${learn} learning` : ''}` : `${ids.length} skills`;
+    const uninterested = ids.filter((i) => progress[i] === 'not-interested').length;
+    el.textContent = comf || learn || uninterested
+      ? `${comf}/${ids.length} comfortable${learn ? ` · ${learn} learning` : ''}${uninterested ? ` · ${uninterested} not interested` : ''}`
+      : `${ids.length} skill${ids.length === 1 ? '' : 's'}`;
   });
 
   root.querySelectorAll<HTMLInputElement>('input[data-status-input]').forEach((input) => {

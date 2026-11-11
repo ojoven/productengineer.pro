@@ -2,6 +2,8 @@
 //
 //   node --experimental-strip-types scripts/layout.ts            place new skills only
 //   node --experimental-strip-types scripts/layout.ts --rebuild  lay everything out again
+//   node --experimental-strip-types scripts/layout.ts --relocate=ai --relocate-skills=verification
+//     intentionally move a territory or individual skills after a taxonomy change
 //
 // Cells are frozen once written: a normal run never moves an existing skill. A new skill takes
 // the free cell next to its capability's cluster, closest to the cluster's centre.
@@ -18,6 +20,9 @@ import {
 } from '../src/atlas/geometry.ts';
 
 const rebuild = process.argv.includes('--rebuild');
+const argumentIds = (flag: string) => (process.argv.find((arg) => arg.startsWith(`${flag}=`))?.slice(flag.length + 1) ?? '').split(',').filter(Boolean);
+const relocate = new Set(argumentIds('--relocate'));
+const relocateSkills = new Set(argumentIds('--relocate-skills'));
 const SIZE = 22; // hex circumradius
 const GAP = 3; // minimum hex distance between two territories
 const MARGIN = 40;
@@ -35,6 +40,7 @@ const CENTERS: Record<string, Pt> = {
   operations: [520, 930],
   engineering: [900, 930],
   shipping: [1290, 900],
+  ai: [1550, 930],
 };
 
 const frame0 = { size: SIZE, origin: [0, 0] as Pt };
@@ -116,6 +122,11 @@ if (!rebuild && existsSync(GEOMETRY_FILE)) {
 let cells: Record<string, Hex> = {};
 if (previous) {
   cells = { ...previous.cells };
+  for (const id of relocate) if (!CENTERS[id] || !land.some((t) => t.id === id)) throw new Error(`cannot relocate territory ${id}`);
+  for (const id of relocateSkills) if (!atlas.skills.some((skill) => skill.id === id)) throw new Error(`unknown skill ${id}`);
+  for (const skill of atlas.skills) {
+    if (relocate.has(skill.territory) || relocateSkills.has(skill.id)) delete cells[skill.id];
+  }
 } else {
   // 1. grow territory regions from their centres, keeping a gap between territories
   const owner = new Map<string, string>();
@@ -188,6 +199,40 @@ if (previous) {
       c.skills.forEach((sid, j) => (cells[sid] = hexes[j]));
     });
   }
+}
+
+// Place a new or intentionally relocated territory without disturbing the existing map.
+if (previous) for (const territory of land) {
+  const caps = capsOf(territory.id);
+  if (caps.some((cap) => cap.skills.some((id) => cells[id]))) continue;
+  const c = CENTERS[territory.id];
+  if (!c) throw new Error(`no centre for territory ${territory.id}; add it to CENTERS`);
+  const occupied = new Set(Object.values(cells).map(hexKey));
+  const available = (h: Hex) => disc(h, GAP - 1).every((near) => !occupied.has(hexKey(near)));
+  const seed = pointToHex(frame0, c);
+  if (!available(seed)) throw new Error(`centre of ${territory.id} is occupied; choose another centre`);
+  const region = [seed];
+  const placed = new Set([hexKey(seed)]);
+  while (region.length < skillCount(territory.id)) {
+    const frontier = new Map<string, Hex>();
+    for (const [q, r] of region) for (const [dq, dr] of DIRS) {
+      const h: Hex = [q + dq, r + dr];
+      if (!placed.has(hexKey(h)) && available(h)) frontier.set(hexKey(h), h);
+    }
+    const score = (h: Hex) => {
+      const p = center(h);
+      return Math.hypot((p[0] - c[0]) * 0.85, (p[1] - c[1]) * 1.1);
+    };
+    const next = [...frontier.values()].sort((a, b) => score(a) - score(b) || readingOrder(a, b))[0];
+    if (!next) throw new Error(`no room for territory ${territory.id}`);
+    region.push(next);
+    placed.add(hexKey(next));
+  }
+  const clusters = partition(region, caps.map((cap) => cap.skills.length));
+  caps.forEach((cap, i) => {
+    const hexes = clusters[i].sort(readingOrder);
+    cap.skills.forEach((id, j) => { cells[id] = hexes[j]; });
+  });
 }
 
 // New skills on a normal run: the free cell next to their cluster, closest to its centre.

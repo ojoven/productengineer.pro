@@ -643,16 +643,15 @@ h3 {
 }
 .seg {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border: 1px solid var(--ink);
 }
 .seg label {
   position: relative;
   cursor: pointer;
 }
-.seg label + label {
-  border-left: 1px solid var(--ink);
-}
+.seg label:nth-child(even) { border-left: 1px solid var(--ink); }
+.seg label:nth-child(n + 3) { border-top: 1px solid var(--ink); }
 .seg input {
   position: absolute;
   inset: 0;
@@ -932,3 +931,19 @@ th {
 .row a.go:hover {
   color: var(--accent-ink);
 }
+
+/* Copy that depends on whether someone is signed in. The class is set before first paint. */
+.signed-in .anon-only,
+:root:not(.signed-in) .account-only {
+  display: none !important;
+}
+
+/* A discarded skill stays visible and can always be reconsidered. */
+.legend i.ni, .strip [data-status='not-interested'] {
+  background: repeating-linear-gradient(135deg, var(--muted) 0 1px, var(--bg) 1px 4px);
+}
+[data-status='not-interested'] .hx path, .hx[data-status='not-interested'] path, .seg .ni svg path {
+  fill: none;
+  stroke-dasharray: 2 2;
+}
+.row[data-status='not-interested'] .name { color: var(--muted); }

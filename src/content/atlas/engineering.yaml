@@ -25,6 +25,7 @@ capabilities:
     resources: [mdn-learn-web, mdn-server-side, twelve-factor]
     skills:
       - id: frontend-development
+        focus: [systems]
         name: Frontend development
         summary: Building the interface users see and interact with.
         description: >-
@@ -33,7 +34,24 @@ capabilities:
           accessible and fast interfaces without hand-holding.
         related: [frontend-performance, semantic-markup]
         resources: [mdn-learn-web]
+        aiLeverage:
+          workflow: Generate a small implementation from the existing design system, acceptance
+            criteria and repository conventions.
+          limitations: Generated interfaces can look correct while breaking keyboard access,
+            responsive layout or state transitions.
+          verification: Review the diff, run relevant checks and use the interface with keyboard input
+            and realistic data.
+        technicalLeverage: Translate user problems directly into accessible interactions and
+          diagnose browser behavior without waiting on a handoff.
+        evidence:
+          practice: Implement a user-facing improvement from a documented usability issue.
+          artifact: A reviewed change with before-and-after task behavior and accessibility checks.
+          checks:
+            - Loading, empty and error states work.
+            - The change improves the target task without breaking adjacent flows.
+
       - id: backend-development
+        focus: [systems]
         name: Backend development
         summary: Building the server-side logic, data access and integrations.
         description: >-
@@ -44,6 +62,7 @@ capabilities:
         resources: [mdn-server-side, twelve-factor]
         tools: [postgresql]
       - id: api-design
+        focus: [systems]
         name: API design
         summary: Designing interfaces between systems that are clear and stable.
         description: >-
@@ -53,6 +72,7 @@ capabilities:
         related: [system-boundaries, developer-docs]
         resources: [google-aip-121]
       - id: state-management
+        focus: [systems]
         name: State management
         summary: Keeping track of data and UI state so the interface stays consistent.
         description: >-
@@ -62,6 +82,7 @@ capabilities:
         related: [user-flows, data-consistency]
         resources: [kcd-state]
       - id: async-systems
+        focus: [systems]
         name: Asynchronous systems
         summary: Queues, background jobs and events for work that does not happen instantly.
         description: >-
@@ -71,6 +92,7 @@ capabilities:
         related: [resilience, interface-feedback]
         resources: [fowler-event-driven, system-design-primer]
       - id: code-organization
+        focus: [systems]
         name: Code organization
         summary: Structuring a codebase so people can find and change things safely.
         description: >-
@@ -88,6 +110,7 @@ capabilities:
     resources: [fowler-monolith-first, nygard-adr, system-design-primer]
     skills:
       - id: modularity
+        focus: [systems]
         name: Modularity
         summary: Dividing a system into parts with clear responsibilities.
         description: >-
@@ -97,6 +120,7 @@ capabilities:
         related: [coupling, code-organization]
         resources: [fowler-layering, fowler-monolith-first]
       - id: separation-of-concerns
+        focus: [systems]
         name: Separation of concerns
         summary: Keeping different responsibilities in different places in the code.
         description: >-
@@ -106,6 +130,7 @@ capabilities:
         related: [modularity, system-boundaries]
         resources: [fowler-layering]
       - id: system-boundaries
+        focus: [systems]
         name: System boundaries
         summary: Deciding where one component or service ends and another begins.
         description: >-
@@ -115,6 +140,7 @@ capabilities:
         related: [api-design, domain-language]
         resources: [fowler-bounded-context, fowler-monolith-first]
       - id: coupling
+        focus: [systems]
         name: Coupling and cohesion
         summary: How much parts depend on each other, and how well each part holds together.
         description: >-
@@ -124,6 +150,7 @@ capabilities:
         related: [modularity, dependency-management]
         resources: [fowler-monolith-first]
       - id: scalability
+        focus: [systems]
         name: Scalability
         summary: Handling more users, data or load without a rewrite.
         description: >-
@@ -133,6 +160,7 @@ capabilities:
         related: [throughput, lifecycle-stages]
         resources: [system-design-primer, ddia]
       - id: technical-tradeoffs
+        focus: [systems, product-business]
         name: Technical tradeoffs
         summary: Weighing speed, cost, quality and flexibility in technical decisions.
         description: >-
@@ -152,6 +180,7 @@ capabilities:
     tools: [postgresql]
     skills:
       - id: data-modeling
+        focus: [systems, evidence]
         name: Data modeling
         summary: Designing the structure of data to fit the domain and its queries.
         description: >-
@@ -160,7 +189,18 @@ capabilities:
           to change later, so it deserves thought upfront.
         related: [domain-language, databases]
         resources: [ddia]
+        technicalLeverage: Represent product entities and relationships explicitly, including
+          document provenance and access boundaries when data feeds an AI system.
+        evidence:
+          practice: Model a knowledge-backed product feature and test how updates, deletions and
+            permissions propagate.
+          artifact: A schema and sample queries showing traceability from a result to its authorized source.
+          checks:
+            - Relationships and integrity constraints match the domain.
+            - Source deletion and permission changes reach derived indexes.
+
       - id: sql
+        focus: [systems, evidence]
         name: SQL
         summary: Querying and shaping relational data.
         description: >-
@@ -170,6 +210,7 @@ capabilities:
         related: [funnel-analysis, databases]
         resources: [use-the-index-luke]
       - id: databases
+        focus: [systems, evidence]
         name: Databases and persistence
         summary: Choosing and using storage systems that fit the data and access patterns.
         description: >-
@@ -180,6 +221,7 @@ capabilities:
         resources: [use-the-index-luke, ddia]
         tools: [postgresql]
       - id: data-consistency
+        focus: [systems, evidence]
         name: Consistency
         summary: Keeping data correct when many things read and write at once.
         description: >-
@@ -189,6 +231,7 @@ capabilities:
         related: [data-integrity, state-management]
         resources: [ddia]
       - id: schema-migrations
+        focus: [systems, evidence]
         name: Schema migrations
         summary: Changing the database structure safely while the product keeps running.
         description: >-
@@ -198,6 +241,7 @@ capabilities:
         related: [rollbacks, ci-cd]
         resources: [fowler-evodb, fowler-parallel-change]
       - id: data-integrity
+        focus: [systems, evidence]
         name: Data integrity
         summary: Making sure stored data is accurate, complete and valid.
         description: >-
@@ -216,6 +260,7 @@ capabilities:
     tools: [vitest, playwright]
     skills:
       - id: automated-testing
+        focus: [systems, evidence]
         name: Automated testing
         summary: Tests that run automatically and catch regressions early.
         description: >-
@@ -225,7 +270,24 @@ capabilities:
         related: [integration-tests, acceptance-criteria]
         resources: [fowler-test-pyramid, kcd-testing-trophy, fowler-testing-culture]
         tools: [vitest]
+        aiLeverage:
+          workflow: Generate boundary cases from the specification and ask for behaviors a proposed
+            implementation may have missed.
+          limitations: Tests generated from the same code can reproduce its assumptions and pass while
+            the product is wrong.
+          verification: Review expected outcomes against the specification and deliberately break a
+            behavior to see whether the test catches it.
+        technicalLeverage: Place tests at the right boundary, isolate dependencies and protect
+          user-critical behavior with fast feedback.
+        evidence:
+          practice: Protect one risky product behavior with a small, purposeful test suite.
+          artifact: Tests linked to requirements, including a demonstrated regression they catch.
+          checks:
+            - Assertions verify outcomes rather than implementation details.
+            - Failure messages identify the broken contract.
+
       - id: integration-tests
+        focus: [systems, evidence]
         name: Integration tests
         summary: Tests that check components working together, including real databases or services.
         description: >-
@@ -235,6 +297,7 @@ capabilities:
         related: [automated-testing, end-to-end-tests]
         resources: [kcd-testing-trophy, fowler-test-pyramid]
       - id: end-to-end-tests
+        focus: [systems, evidence]
         name: End-to-end tests
         summary: Tests that drive the real product like a user would.
         description: >-
@@ -245,6 +308,7 @@ capabilities:
         resources: [fowler-test-pyramid]
         tools: [playwright]
       - id: code-review
+        focus: [systems, people, evidence]
         name: Code review
         summary: Reviewing changes to catch problems and share knowledge.
         description: >-
@@ -253,7 +317,24 @@ capabilities:
           important skill.
         related: [reviewing-generated-work, refactoring]
         resources: [google-code-review]
+        aiLeverage:
+          workflow: Use an assistant to scan a bounded diff for edge cases and inconsistencies before
+            a human review.
+          limitations: Generated review comments may be false positives, while architectural or
+            product mistakes can remain invisible.
+          verification: Reproduce suspected bugs and check the change against its requirements,
+            permissions and existing contracts.
+        technicalLeverage: Evaluate generated code for data integrity, security, maintainability and
+          whether it solves the actual product problem.
+        evidence:
+          practice: Review a real change and follow its most important behavior through the system.
+          artifact: A review with reproduced findings and a clear rationale for accepting the final change.
+          checks:
+            - Each blocking finding has a concrete failure scenario.
+            - Verification covers the user-visible outcome.
+
       - id: debugging
+        focus: [systems, evidence]
         name: Debugging
         summary: Finding the real cause of a problem systematically.
         description: >-
@@ -262,7 +343,24 @@ capabilities:
           product problems.
         related: [root-cause-analysis, logging]
         resources: [jvns-debugging]
+        aiLeverage:
+          workflow: Give an assistant a minimal reproduction and redacted traces to propose causes and
+            discriminating experiments.
+          limitations: Plausible explanations can anchor investigation on the wrong cause, and a patch
+            may only hide the symptom.
+          verification: Reproduce the failure, test competing explanations and confirm the fix with a
+            regression case.
+        technicalLeverage: Trace behavior across UI, services and storage, then connect the
+          technical cause to its user impact.
+        evidence:
+          practice: Investigate a real defect from report through verified fix.
+          artifact: A minimal reproduction, causal explanation and regression check.
+          checks:
+            - The check fails before the fix and passes after it.
+            - The explanation accounts for the original symptom.
+
       - id: refactoring
+        focus: [systems, evidence]
         name: Refactoring
         summary: Improving code structure without changing its behavior.
         description: >-
@@ -279,6 +377,7 @@ capabilities:
     tools: [lighthouse, k6]
     skills:
       - id: latency
+        focus: [systems, evidence]
         name: Latency
         summary: How long users wait for a response.
         description: >-
@@ -288,6 +387,7 @@ capabilities:
         related: [interface-feedback, frontend-performance]
         resources: [napkin-math, webdev-vitals]
       - id: throughput
+        focus: [systems, evidence]
         name: Throughput
         summary: How much work a system can handle per unit of time.
         description: >-
@@ -297,6 +397,7 @@ capabilities:
         resources: [napkin-math]
         tools: [k6]
       - id: profiling
+        focus: [systems, evidence]
         name: Profiling
         summary: Measuring where time and resources actually go.
         description: >-
@@ -306,6 +407,7 @@ capabilities:
         related: [debugging, performance-monitoring]
         resources: [gregg-flame-graphs]
       - id: caching
+        focus: [systems, evidence]
         name: Caching
         summary: Storing results so repeated work is avoided.
         description: >-
@@ -315,6 +417,7 @@ capabilities:
         related: [data-consistency, latency]
         resources: [mdn-http-caching, webdev-http-cache]
       - id: performance-budgets
+        focus: [systems, evidence]
         name: Performance budgets
         summary: Limits on page weight, load time or latency that a team agrees not to exceed.
         description: >-
@@ -325,6 +428,7 @@ capabilities:
         resources: [webdev-vitals]
         tools: [lighthouse]
       - id: frontend-performance
+        focus: [systems, evidence]
         name: Frontend performance
         summary: Fast loading and smooth interaction in the browser or app.
         description: >-
@@ -335,6 +439,7 @@ capabilities:
         resources: [webdev-top-cwv, webdev-optimize-lcp]
         tools: [lighthouse]
       - id: backend-performance
+        focus: [systems, evidence]
         name: Backend performance
         summary: Fast and efficient servers, queries and services.
         description: >-
@@ -353,6 +458,7 @@ capabilities:
     tools: [semgrep]
     skills:
       - id: authentication
+        focus: [systems]
         name: Authentication
         summary: Verifying who a user is.
         description: >-
@@ -362,6 +468,7 @@ capabilities:
         related: [signup-flow, authorization]
         resources: [owasp-authentication]
       - id: authorization
+        focus: [systems]
         name: Authorization
         summary: Controlling what each user is allowed to see and do.
         description: >-
@@ -371,6 +478,7 @@ capabilities:
         related: [authentication, collaboration-features]
         resources: [owasp-authorization]
       - id: threat-modeling
+        focus: [systems]
         name: Threat modeling
         summary: Thinking through how a system could be attacked before building it.
         description: >-
@@ -380,6 +488,7 @@ capabilities:
         related: [secure-coding, system-boundaries]
         resources: [owasp-threat-modeling]
       - id: secure-coding
+        focus: [systems]
         name: Secure coding
         summary: Writing code that avoids common vulnerabilities.
         description: >-
@@ -390,6 +499,7 @@ capabilities:
         resources: [owasp-top10]
         tools: [semgrep]
       - id: data-protection
+        focus: [systems]
         name: Data protection
         summary: Protecting personal and sensitive data through its whole life.
         description: >-
@@ -398,7 +508,18 @@ capabilities:
           practice to legal duties like GDPR.
         related: [privacy-obligations, privacy-by-design]
         resources: [owasp-crypto-storage]
+        technicalLeverage: Implement encryption, access controls, minimization and deletion across
+          storage, logs and external AI calls.
+        evidence:
+          practice: Trace sensitive data through a product feature, including any model provider or
+            retrieval index.
+          artifact: A data-flow record and implemented controls with access and deletion checks.
+          checks:
+            - Only necessary data reaches each service.
+            - Retention and deletion behavior is verified across derived copies and logs.
+
       - id: secrets-management
+        focus: [systems]
         name: Secrets management
         summary: Handling API keys, passwords and certificates safely.
         description: >-
@@ -409,98 +530,6 @@ capabilities:
         resources: [owasp-secrets]
         tools: [infisical]
 
-  - id: ai-engineering
-    name: AI-native engineering
-    description: >-
-      Building product features on top of language models and agents, where behavior is
-      probabilistic and must be measured rather than assumed.
-    resources: [anthropic-effective-agents, hamel-evals, claude-prompt-engineering]
-    tools: [langfuse, promptfoo]
-    skills:
-      - id: llm-integration
-        name: LLM integration
-        summary: Calling language models from a product reliably.
-        description: >-
-          Integrating an LLM means prompts, model choice, streaming, retries, timeouts and cost
-          control. Prompts are code and deserve versioning and tests. The model is a dependency that
-          changes, so the integration has to absorb that.
-        related: [inference-costs, structured-outputs]
-        resources: [claude-prompt-engineering, anthropic-effective-agents]
-      - id: structured-outputs
-        name: Structured outputs
-        summary: Getting model responses in a reliable machine-readable format.
-        description: >-
-          Structured outputs constrain a model to a schema, such as JSON, so the product can use
-          the result safely. They turn free text into data. Validation and fallbacks still matter
-          when outputs are wrong but well formed.
-        related: [llm-integration, tool-calling]
-        resources: [claude-structured-outputs]
-      - id: retrieval
-        name: Retrieval (RAG)
-        summary: Giving a model the right context from your own data.
-        description: >-
-          Retrieval-augmented generation finds relevant documents and adds them to the prompt. Answer
-          quality depends mostly on retrieval quality: chunking, search and ranking. It has to be
-          evaluated like any search system.
-        related: [ai-evals, databases]
-        resources: [anthropic-contextual-retrieval, anthropic-context-engineering]
-      - id: ai-agents
-        name: Agents
-        summary: Systems where a model plans and takes multiple steps with tools.
-        description: >-
-          An agent loops: it decides, calls tools, looks at results and continues. Agents can do
-          open-ended tasks but are harder to predict and test. Clear tools, limits and human
-          checkpoints keep them useful.
-        related: [tool-calling, human-oversight]
-        resources: [anthropic-effective-agents, anthropic-context-engineering]
-      - id: tool-calling
-        name: Tool calling
-        summary: Letting a model call functions and APIs in your product.
-        description: >-
-          Tool calling lets a model request actions such as searching, creating records or calling
-          APIs. Tool design matters as much as prompt design: clear names, narrow scope and good
-          errors. Every tool is also a permission to think about.
-        related: [api-design, mcp]
-        resources: [claude-tool-use, anthropic-writing-tools]
-      - id: mcp
-        name: Model Context Protocol
-        summary: An open standard for connecting AI applications to tools and data.
-        description: >-
-          MCP defines how AI clients discover and call tools and resources from servers. It lets
-          one integration work across many AI applications. Building an MCP server is a growing way
-          to make a product usable by agents.
-        related: [tool-calling, developer-experience]
-        resources: [mcp-intro]
-      - id: ai-evals
-        name: Evals and datasets
-        summary: Measuring AI behavior with test sets and repeatable evaluation runs.
-        description: >-
-          Evals replace "it looked fine" with numbers. A dataset of real cases, a grading method,
-          which may use code, people or another model, and repeatable runs let you compare prompts
-          and models. They are the AI version of automated tests.
-        related: [automated-testing, llm-observability]
-        resources: [hamel-evals, hamel-field-guide, hamel-llm-judge, hamel-evals-faq]
-        tools: [promptfoo, langfuse]
-      - id: llm-observability
-        name: AI observability
-        summary: Tracing and inspecting what models and agents actually did in production.
-        description: >-
-          AI observability records prompts, outputs, tool calls, latency and cost for each request.
-          Traces show why an agent went wrong. Production traces are also the best source of new
-          eval cases.
-        related: [tracing, ai-evals]
-        resources: [hamel-field-guide, otel-llm-blog]
-        tools: [langfuse]
-      - id: ai-guardrails
-        name: Guardrails
-        summary: Checks that keep AI output safe, on topic and within policy.
-        description: >-
-          Guardrails validate inputs and outputs, block unsafe content and limit what an agent can
-          do. They range from simple rules to classifier models. They matter most where AI output
-          reaches users or takes actions directly.
-        related: [user-safety, human-oversight]
-        resources: [owasp-llm-top10, owasp-prompt-injection, willison-prompt-injection]
-
   - id: developer-experience
     name: Developer experience
     description: >-
@@ -510,6 +539,7 @@ capabilities:
     tools: [github-actions, renovate]
     skills:
       - id: internal-tooling
+        focus: [systems]
         name: Internal tooling
         summary: Tools built for the team's own use, such as admin panels and scripts.
         description: >-
@@ -519,6 +549,7 @@ capabilities:
         related: [support-workflows, engineering-automation]
         resources: [twelve-factor]
       - id: developer-workflows
+        focus: [systems, people]
         name: Developer workflows
         summary: How code moves from an idea to production in a team.
         description: >-
@@ -528,6 +559,7 @@ capabilities:
         related: [ci-cd, code-review]
         resources: [fowler-ship-show-ask, trunk-based, dora-trunk-based]
       - id: developer-docs
+        focus: [systems, people]
         name: Developer documentation
         summary: Docs that help engineers understand and use code, APIs and systems.
         description: >-
@@ -537,6 +569,7 @@ capabilities:
         related: [documentation-ux, technical-writing]
         resources: [diataxis, nygard-adr]
       - id: build-systems
+        focus: [systems]
         name: Build systems
         summary: The tooling that compiles, bundles and packages code.
         description: >-
@@ -546,6 +579,7 @@ capabilities:
         related: [ci-cd, frontend-performance]
         resources: [fowler-ci]
       - id: engineering-automation
+        focus: [systems]
         name: Engineering automation
         summary: Automating repetitive engineering tasks.
         description: >-
@@ -555,6 +589,7 @@ capabilities:
         related: [workflow-automation, dependency-updates]
         tools: [renovate, github-actions]
       - id: ci-checks
+        focus: [systems, evidence]
         name: CI quality checks
         summary: Automated checks that run on every change.
         description: >-

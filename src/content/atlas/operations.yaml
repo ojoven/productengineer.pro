@@ -25,6 +25,7 @@ capabilities:
     tools: [opentelemetry, grafana, prometheus, sentry]
     skills:
       - id: logging
+        focus: [systems, evidence]
         name: Logs
         summary: Structured records of what the system did.
         description: >-
@@ -34,6 +35,7 @@ capabilities:
         related: [debugging, tracing]
         resources: [otel-primer]
       - id: tracing
+        focus: [systems, evidence]
         name: Traces
         summary: Following a single request across services and components.
         description: >-
@@ -44,6 +46,7 @@ capabilities:
         resources: [otel-primer, otel-signals]
         tools: [opentelemetry]
       - id: service-metrics
+        focus: [systems, evidence]
         name: Service metrics
         summary: Numbers that describe system health, such as error rate and latency.
         description: >-
@@ -54,6 +57,7 @@ capabilities:
         resources: [sre-monitoring-distributed]
         tools: [prometheus]
       - id: dashboards
+        focus: [systems, evidence]
         name: Dashboards
         summary: Shared views of the metrics that matter.
         description: >-
@@ -64,6 +68,7 @@ capabilities:
         resources: [sre-monitoring-workbook]
         tools: [grafana]
       - id: alerting
+        focus: [systems, evidence]
         name: Alerting
         summary: Notifying people when something needs attention.
         description: >-
@@ -74,6 +79,7 @@ capabilities:
         resources: [sre-alerting-slos, sre-monitoring-distributed]
         tools: [prometheus]
       - id: performance-monitoring
+        focus: [systems, evidence]
         name: Performance monitoring
         summary: Tracking real-world speed and errors as users experience them.
         description: >-
@@ -92,6 +98,7 @@ capabilities:
     tools: [uptime-kuma]
     skills:
       - id: availability
+        focus: [systems]
         name: Availability
         summary: How much of the time the product works for users.
         description: >-
@@ -102,6 +109,7 @@ capabilities:
         resources: [sre-embracing-risk]
         tools: [uptime-kuma]
       - id: slos
+        focus: [systems]
         name: SLOs and error budgets
         summary: Agreed reliability targets and the room for failure they allow.
         description: >-
@@ -111,6 +119,7 @@ capabilities:
         related: [alerting, availability]
         resources: [sre-implementing-slos, sre-alerting-slos]
       - id: incident-response
+        focus: [systems, people]
         name: Incident response
         summary: Handling outages and serious problems calmly and quickly.
         description: >-
@@ -119,7 +128,24 @@ capabilities:
           improvements.
         related: [root-cause-analysis, customer-communication]
         resources: [sre-managing-incidents, pagerduty-response, pagerduty-roles, sre-postmortem-culture]
+        aiLeverage:
+          workflow: Summarize redacted logs and recent changes into a timeline and propose diagnostic checks.
+          limitations: A plausible diagnosis can distract responders; automated remediation may worsen
+            an incident.
+          verification: Verify each timeline event against telemetry and require an accountable
+            decision before consequential actions.
+        technicalLeverage: Trace the failure, implement a reversible mitigation and measure recovery
+          from the user’s perspective.
+        evidence:
+          practice: Run an incident exercise from detection through recovery.
+          artifact: A verified timeline, recovery evidence and follow-up actions that address
+            contributing causes.
+          checks:
+            - Mitigation has a rollback or safe stopping point.
+            - Recovery is confirmed by user-facing indicators.
+
       - id: resilience
+        focus: [systems]
         name: Resilience
         summary: Designing systems that degrade gracefully when parts fail.
         description: >-
@@ -129,6 +155,7 @@ capabilities:
         related: [async-systems, availability]
         resources: [sre-addressing-cascading]
       - id: disaster-recovery
+        focus: [systems]
         name: Backups and disaster recovery
         summary: Being able to restore data and service after a major failure.
         description: >-
@@ -147,6 +174,7 @@ capabilities:
     tools: [renovate]
     skills:
       - id: bug-fixing
+        focus: [systems]
         name: Bug triage and fixes
         summary: Deciding which bugs matter and fixing them well.
         description: >-
@@ -157,6 +185,7 @@ capabilities:
         resources: [jvns-debugging]
         tools: [sentry]
       - id: technical-debt
+        focus: [systems]
         name: Technical debt
         summary: Shortcuts that make future changes slower, and managing them deliberately.
         description: >-
@@ -166,6 +195,7 @@ capabilities:
         related: [refactoring, technical-tradeoffs]
         resources: [fowler-tech-debt-quadrant]
       - id: dependency-updates
+        focus: [systems]
         name: Dependency updates
         summary: Keeping libraries and frameworks current and secure.
         description: >-
@@ -175,6 +205,7 @@ capabilities:
         related: [engineering-automation, secure-coding]
         tools: [renovate]
       - id: platform-upgrades
+        focus: [systems]
         name: Migrations and upgrades
         summary: Moving to new versions, platforms or providers without breaking the product.
         description: >-
@@ -193,6 +224,7 @@ capabilities:
     tools: [zammad, chatwoot, intercom-tool]
     skills:
       - id: support-workflows
+        focus: [people, systems]
         name: Support workflows
         summary: How support requests are received, routed and resolved.
         description: >-
@@ -201,7 +233,23 @@ capabilities:
           internal tools make support faster for everyone.
         related: [internal-tooling, feedback-triage]
         tools: [zammad, chatwoot]
+        aiLeverage:
+          workflow: Retrieve relevant documentation, classify incoming issues and draft source-backed
+            replies for review.
+          limitations: An assistant can disclose account data, invent policy or misclassify an urgent issue.
+          verification: Validate source freshness and account permissions; review replies and test
+            escalation with representative tickets.
+        technicalLeverage: Build authorized diagnostic tools, connect tickets to traces and automate
+          bounded actions with an audit trail.
+        evidence:
+          practice: Improve one repeated support workflow with a clear human handoff.
+          artifact: A working workflow and a review of resolution quality, escalation and time saved.
+          checks:
+            - Sensitive actions enforce permissions outside the model.
+            - Uncertain or high-impact cases reach a responsible person.
+
       - id: issue-investigation
+        focus: [people, systems]
         name: Investigating user issues
         summary: Finding out what happened when a user reports a problem.
         description: >-
@@ -211,6 +259,7 @@ capabilities:
         related: [logging, debugging]
         resources: [jvns-debugging, otel-primer]
       - id: customer-communication
+        focus: [people]
         name: Customer communication
         summary: Talking to users clearly, honestly and kindly about problems.
         description: >-
@@ -220,6 +269,7 @@ capabilities:
         related: [incident-response, plain-language]
         resources: [sre-managing-incidents]
       - id: feedback-triage
+        focus: [people, evidence]
         name: Feedback triage
         summary: Sorting incoming feedback and requests into actions.
         description: >-
@@ -238,6 +288,7 @@ capabilities:
     resources: [ec-data-protection-explained, ec-gdpr-principles, edpb-sme-basics]
     skills:
       - id: privacy-obligations
+        focus: [people, product-business]
         name: Privacy obligations
         summary: Legal duties around personal data, such as GDPR.
         description: >-
@@ -247,6 +298,7 @@ capabilities:
         related: [data-protection, consent]
         resources: [ec-gdpr-principles, ec-obligations, edpb-sme-rights]
       - id: consent
+        focus: [people, product-business]
         name: Consent management
         summary: Asking for and respecting users' choices about their data.
         description: >-
@@ -257,6 +309,7 @@ capabilities:
         resources: [edpb-sme-basics]
         tools: [plausible]
       - id: data-governance
+        focus: [systems, evidence]
         name: Data governance
         summary: Rules for who owns, accesses and retains which data.
         description: >-
@@ -266,6 +319,7 @@ capabilities:
         related: [data-protection, analytics-data-quality]
         resources: [ec-gdpr-principles]
       - id: security-policies
+        focus: [systems, people]
         name: Security policies
         summary: The organization's rules for keeping systems and data secure.
         description: >-
@@ -275,6 +329,7 @@ capabilities:
         related: [secrets-management, sales-funnels]
         resources: [owasp-top10]
       - id: regulatory-compliance
+        focus: [people, product-business]
         name: Regulatory constraints
         summary: Industry and regional rules the product must follow.
         description: >-
@@ -292,6 +347,7 @@ capabilities:
     resources: [finops-principles, finops-unit-economics, claude-prompt-caching]
     skills:
       - id: infrastructure-costs
+        focus: [systems, product-business]
         name: Infrastructure costs
         summary: What servers, databases and services cost to run.
         description: >-
@@ -301,6 +357,7 @@ capabilities:
         related: [throughput, cloud-efficiency]
         resources: [finops-principles, finops-unit-economics]
       - id: cloud-efficiency
+        focus: [systems, product-business]
         name: Cloud efficiency
         summary: Getting the same results from the cloud for less money.
         description: >-
@@ -310,6 +367,7 @@ capabilities:
         related: [infrastructure-costs, caching]
         resources: [finops-usage-optimization]
       - id: inference-costs
+        focus: [systems, product-business, ai]
         name: AI inference costs
         summary: What model calls cost, and how to keep them in check.
         description: >-
@@ -318,7 +376,17 @@ capabilities:
           they need tracking per feature.
         related: [llm-integration, cost-to-serve]
         resources: [claude-prompt-caching, claude-batch]
+        technicalLeverage: Measure tokens, retries, caching and tool calls per completed user task,
+          then compare quality and cost across configurations.
+        evidence:
+          practice: Profile an AI workflow and reduce its cost while holding a defined quality threshold.
+          artifact: A reproducible benchmark of quality, latency and cost per successful task.
+          checks:
+            - Failed requests and retries are included.
+            - The cheaper configuration still passes representative evaluations.
+
       - id: cost-to-serve
+        focus: [systems, product-business]
         name: Cost to serve
         summary: The full cost of serving one customer or one unit of usage.
         description: >-
@@ -334,6 +402,7 @@ capabilities:
     resources: [pendo-retire-feature, techtarget-deprecate]
     skills:
       - id: feature-adoption
+        focus: [product-business, systems]
         name: Feature adoption
         summary: Making sure new features are discovered and used.
         description: >-
@@ -343,6 +412,7 @@ capabilities:
         related: [adoption-metrics, release-communication]
         resources: [keep-a-changelog]
       - id: product-changes
+        focus: [product-business, systems]
         name: Managing product changes
         summary: Changing existing behavior without alienating users.
         description: >-
@@ -352,6 +422,7 @@ capabilities:
         related: [staged-rollouts, customer-communication]
         resources: [techtarget-deprecate]
       - id: feature-deprecation
+        focus: [product-business, systems]
         name: Deprecation and removal
         summary: Retiring features that no longer earn their place.
         description: >-
@@ -361,6 +432,7 @@ capabilities:
         related: [feature-usage, iterate-expand-stop]
         resources: [pendo-retire-feature, techtarget-deprecate]
       - id: user-migrations
+        focus: [product-business, systems]
         name: Migrating users
         summary: Moving users from an old version or feature to a new one.
         description: >-

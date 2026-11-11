@@ -14,6 +14,8 @@ export const TOKENS: Record<Theme, Record<string, string>> = {
     line: '#141412',
     accent: '#ff4d12',
     'accent-deep': '#c23400',
+    highlight: '#f5d547',
+    'on-highlight': '#141412',
     'on-ink': '#f2f0ea',
   },
   dark: {
@@ -26,6 +28,8 @@ export const TOKENS: Record<Theme, Record<string, string>> = {
     line: '#ecebe5',
     accent: '#ff5d24',
     'accent-deep': '#ff9468',
+    highlight: '#f5d547',
+    'on-highlight': '#141412',
     'on-ink': '#121211',
   },
 };
@@ -47,8 +51,8 @@ const RULES = `
 .pm .tile{fill:var(--m-tile);stroke:none}
 .pm .tile.st-learning{fill:var(--m-learning)}
 .pm .tile.st-comfortable{fill:var(--m-ink)}
-.pm .tile.is-lit{fill:var(--m-accent)}
-.pm .tile.st-comfortable.is-lit{fill:var(--m-accent-deep)}
+.pm .tile.st-not-interested{fill:var(--m-bg);stroke:var(--m-muted);stroke-width:1px;stroke-dasharray:2 2;vector-effect:non-scaling-stroke}
+.pm .tile.is-filter-match,.pm .tile.is-lit{fill:var(--m-highlight)}
 .pm .b-cap{fill:none;stroke:var(--m-line);stroke-width:1.8px;vector-effect:non-scaling-stroke;pointer-events:none;stroke-linejoin:round;stroke-linecap:round}
 .pm-z-world .b-cap{stroke-width:1px}
 .pm .b-faint{stroke-width:1px;opacity:.3}
@@ -72,11 +76,15 @@ const RULES = `
 .pm .ch{font-family:${FONTS.cond};font-weight:600}
 .pm .sl{font-weight:500}
 .pm .mcode{font-family:${FONTS.mono};fill:var(--m-muted);font-weight:400}
-.pm .sl-g.st-comfortable text,.pm .sl-g.is-lit text{fill:var(--m-on-ink)}
-.pm .sl-g.st-comfortable .mcode,.pm .sl-g.is-lit .mcode{fill:var(--m-on-ink);opacity:.7}
+.pm .sl-g.st-comfortable text{fill:var(--m-on-ink)}
+.pm .sl-g.st-comfortable .mcode{fill:var(--m-on-ink);opacity:.7}
+.pm .sl-g.is-filter-match text,.pm .sl-g.is-lit text{fill:var(--m-on-highlight)}
+.pm .sl-g.is-filter-match .mcode,.pm .sl-g.is-lit .mcode{fill:var(--m-on-highlight);opacity:.7}
+.pm .cl.is-filter-match{fill:var(--m-on-highlight);stroke:var(--m-highlight)}
+.pm .cl.is-filter-match .mcode{fill:var(--m-on-highlight);opacity:.7}
 .pm .n{cursor:pointer;outline:none}
 .pm .n .tile{transition:fill .12s ease}
-.pm .n:hover .tile:not(.st-comfortable):not(.is-lit),.pm .n.is-hover .tile:not(.st-comfortable):not(.is-lit){fill:var(--m-tile-hover)}
+.pm .n:hover .tile:not(.st-comfortable):not(.is-lit):not(.is-filter-match),.pm .n.is-hover .tile:not(.st-comfortable):not(.is-lit):not(.is-filter-match){fill:var(--m-tile-hover)}
 .pm .n:hover .tile.st-comfortable,.pm .n.is-hover .tile.st-comfortable{opacity:.85}
 .pm .n:focus-visible .tile{stroke:var(--m-accent);stroke-width:2.5px;vector-effect:non-scaling-stroke}
 .pm .n.is-dim{opacity:.4}

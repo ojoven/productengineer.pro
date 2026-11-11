@@ -12,17 +12,19 @@ const { ids, name } = Astro.props;
   <span class="label" style="margin-right:6px">Mark all {ids.length}</span>
   <button class="btn small" type="button" data-set="comfortable" aria-label={`Mark all skills in ${name} as comfortable`}>Comfortable</button>
   <button class="btn small" type="button" data-set="learning" aria-label={`Mark all skills in ${name} as learning`}>Learning</button>
+  <button class="btn small" type="button" data-set="not-interested" aria-label={`Mark all skills in ${name} as not interested`}>Not interested</button>
   <button class="btn small" type="button" data-set="none" aria-label={`Clear the status of all skills in ${name}`}>Clear</button>
 </div>
 
 <script>
+  import type { ProgressStatus } from '../atlas/status.ts';
   import { setStatus } from '../scripts/progress.ts';
   import { track } from '../scripts/track.ts';
   document.querySelectorAll<HTMLElement>('[data-bulk]').forEach((box) => {
     const ids = box.dataset.bulk!.split(' ');
     box.querySelectorAll<HTMLButtonElement>('button[data-set]').forEach((b) =>
       b.addEventListener('click', () => {
-        setStatus(ids, b.dataset.set as 'none' | 'learning' | 'comfortable');
+        setStatus(ids, b.dataset.set as ProgressStatus);
         track('Status set in bulk', { status: b.dataset.set!, count: ids.length });
       }),
     );

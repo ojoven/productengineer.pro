@@ -1,0 +1,50 @@
+---
+import type { Skill } from '../atlas/model.ts';
+
+interface Props { skill: Skill }
+const { skill } = Astro.props;
+---
+
+{skill.aiLeverage && (
+  <section class="section" id="ai-leverage" aria-labelledby="ai-leverage-title">
+    <div class="section-head"><h2 id="ai-leverage-title">AI leverage</h2><span class="label">Use AI in your work</span></div>
+    <p class="practice-note">Use AI to support this skill. Your judgment and verification remain part of the work.</p>
+    <dl class="practice-details">
+      <div><dt>Workflow</dt><dd>{skill.aiLeverage.workflow}</dd></div>
+      <div><dt>Limitations</dt><dd>{skill.aiLeverage.limitations}</dd></div>
+      <div><dt>Verification</dt><dd>{skill.aiLeverage.verification}</dd></div>
+    </dl>
+  </section>
+)}
+
+{skill.technicalLeverage && (
+  <section class="section" id="technical-leverage" aria-labelledby="technical-leverage-title">
+    <div class="section-head"><h2 id="technical-leverage-title">Technical leverage</h2></div>
+    <p>{skill.technicalLeverage}</p>
+  </section>
+)}
+
+{skill.evidence && (
+  <section class="section" id="evidence" aria-labelledby="evidence-title">
+    <div class="section-head"><h2 id="evidence-title">Evidence of mastery</h2><span class="label">Put it into practice</span></div>
+    <dl class="practice-details">
+      <div><dt>Practice</dt><dd>{skill.evidence.practice}</dd></div>
+      <div><dt>Artifact</dt><dd>{skill.evidence.artifact}</dd></div>
+    </dl>
+    <div class="evidence-checks"><h3>What good looks like</h3><ul>{skill.evidence.checks.map((check) => <li>{check}</li>)}</ul></div>
+    <p class="practice-note">Use this evidence to assess your work. Your map status is a self-assessment, not a certification.</p>
+  </section>
+)}
+
+<style>
+  .practice-note { font-size: 14px; color: var(--muted); }
+  .practice-details { margin: 0; }
+  .practice-details > div { border-top: 1px solid var(--line); padding: 16px 0; }
+  .practice-details dt { font: 500 12px/1.4 var(--mono); text-transform: uppercase; margin-bottom: 8px; }
+  .practice-details dd { margin: 0; color: var(--ink-2); }
+  .evidence-checks { border: 1px solid var(--line); padding: 18px; margin: 8px 0 16px; }
+  .evidence-checks h3 { font-size: 20px; }
+  .evidence-checks ul { padding-left: 20px; margin-bottom: 0; }
+  .evidence-checks li + li { margin-top: 8px; }
+  @media (max-width: 560px) { .section-head { flex-wrap: wrap; gap: 8px; } }
+</style>

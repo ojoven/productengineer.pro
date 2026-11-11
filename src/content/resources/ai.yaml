@@ -1,0 +1,18 @@
+google-llm-intro:
+  url: https://developers.google.com/machine-learning/crash-course/llm
+  title: Introduction to large language models
+  author: Google Machine Learning Crash Course
+  type: course
+  length: 45 min
+  level: intro
+  why: Explains tokens, training, context and common model limitations; earlier modules cover the prerequisites.
+  checked: 2026-11-11
+
+google-pair-mental-models:
+  url: https://pair.withgoogle.com/chapter/mental-models/
+  title: Mental models for AI products
+  author: Google People + AI Research
+  type: article
+  level: intro
+  why: Helps you set expectations about AI capabilities and make the system's limits understandable to users.
+  checked: 2026-11-11

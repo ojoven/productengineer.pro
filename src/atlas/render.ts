@@ -13,11 +13,14 @@ export interface MapAtlas {
   skills: { id: string; name: string; capability: string; territory: string }[];
 }
 
-export type Status = 'learning' | 'comfortable';
+import type { Status } from './status.ts';
+export type { Status } from './status.ts';
 
 export interface MapState {
   /** Self-reported status per skill id. */
   progress?: Record<string, Status>;
+  /** Filter matches get a yellow background independently of saved progress and shared routes. */
+  matches?: string[];
   /** Lit node ids, in route order. A separate layer from progress, so both show at once. */
   lit?: string[];
   /** Join lit nodes with a route, in the order given. */
@@ -204,6 +207,7 @@ export function renderMap(atlas: MapAtlas, g: Geometry, opts: RenderOptions = {}
   };
 
   const lit = new Set<string>();
+  const matches = new Set(state.matches ?? []);
   const litCaps = new Set<string>();
   const litTerrs = new Set<string>();
   for (const id of state.lit ?? []) {
@@ -225,6 +229,7 @@ export function renderMap(atlas: MapAtlas, g: Geometry, opts: RenderOptions = {}
     const cls: string[] = [];
     if (progress[sid]) cls.push(`st-${progress[sid]}`);
     if (lit.has(sid)) cls.push('is-lit');
+    if (matches.has(sid)) cls.push('is-filter-match');
     return cls;
   };
   const tile = (sid: string) =>
@@ -379,7 +384,7 @@ export function renderMap(atlas: MapAtlas, g: Geometry, opts: RenderOptions = {}
         const block = lines.length * lh + codePx * 1.3;
         const y0 = p[1] + (-block / 2 + codePx * 0.85) / k;
         out.push(
-          `<text class="cl halo" x="${f(p[0])}" y="${f(y0)}" text-anchor="middle" stroke-width="${f(4 / k)}"><tspan class="mcode" font-size="${f(codePx / k)}">${code(cid)}</tspan>${lines
+          `<text class="cl halo${c.skills.every((id) => matches.has(id)) ? ' is-filter-match' : ''}" x="${f(p[0])}" y="${f(y0)}" text-anchor="middle" stroke-width="${f(4 / k)}"><tspan class="mcode" font-size="${f(codePx / k)}">${code(cid)}</tspan>${lines
             .map((l, i) => `<tspan x="${f(p[0])}" dy="${f((i ? lh : codePx * 1.3) / k)}" font-size="${f(px / k)}">${esc(l)}</tspan>`)
             .join('')}</text>`,
         );

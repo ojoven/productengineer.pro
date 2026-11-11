@@ -11,11 +11,13 @@ adoption-barriers
 adoption-metrics
 affordances
 aha-moments
+ai
 ai-agents
 ai-assisted-work
 ai-engineering
 ai-evals
 ai-guardrails
+ai-interaction-design
 alerting
 analytics-architecture
 analytics-data-quality
@@ -218,6 +220,7 @@ lifecycle-management
 lifecycle-messaging
 lifecycle-stages
 lifetime-value
+llm-fundamentals
 llm-integration
 llm-observability
 localization
@@ -290,6 +293,7 @@ professional-development
 profiling
 progressive-disclosure
 progressive-onboarding
+prompt-context-engineering
 prototyping
 qualitative-evaluation
 randomization

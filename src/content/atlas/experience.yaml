@@ -24,6 +24,7 @@ capabilities:
     tools: [excalidraw, optimal-workshop]
     skills:
       - id: journey-mapping
+        focus: [people]
         name: Journey mapping
         summary: Mapping every step, feeling and touchpoint across a user's experience.
         description: >-
@@ -33,6 +34,7 @@ capabilities:
         related: [pain-points, path-analysis]
         resources: [nngroup-journey-tips, nngroup-journeys-vs-flows]
       - id: user-flows
+        focus: [people]
         name: User flows
         summary: The screens and decisions a user passes through to complete a task.
         description: >-
@@ -43,6 +45,7 @@ capabilities:
         resources: [nngroup-journeys-vs-flows]
         tools: [excalidraw]
       - id: task-analysis
+        focus: [people]
         name: Task analysis
         summary: Breaking a task into steps to understand how people really do it.
         description: >-
@@ -52,6 +55,7 @@ capabilities:
         related: [industry-workflows, user-flows]
         resources: [nngroup-which-methods]
       - id: mental-models
+        focus: [people]
         name: Mental models
         summary: How users believe the product works, which may differ from how it does.
         description: >-
@@ -61,6 +65,7 @@ capabilities:
         related: [category-conventions, affordances]
         resources: [nngroup-mental-models, lawsofux-jakobs-law]
       - id: information-architecture
+        focus: [people]
         name: Information architecture
         summary: Organizing and labelling content and features so people can find them.
         description: >-
@@ -79,6 +84,7 @@ capabilities:
     resources: [nngroup-usability-101, nngroup-web-forms, lawsofux-home]
     skills:
       - id: navigation-design
+        focus: [people, systems]
         name: Navigation
         summary: How users move around the product and know where they are.
         description: >-
@@ -88,6 +94,7 @@ capabilities:
         related: [information-architecture, mental-models]
         resources: [nngroup-ia-topic]
       - id: form-design
+        focus: [people, systems]
         name: Forms
         summary: Designing inputs that are quick to fill in and hard to get wrong.
         description: >-
@@ -97,6 +104,7 @@ capabilities:
         related: [form-friction, error-recovery]
         resources: [nngroup-web-forms, nngroup-form-cognitive-load]
       - id: interface-feedback
+        focus: [people, systems]
         name: System feedback
         summary: Showing users that the system heard them and what happened next.
         description: >-
@@ -106,6 +114,7 @@ capabilities:
         related: [latency, error-recovery]
         resources: [nngroup-usability-101]
       - id: error-recovery
+        focus: [people, systems]
         name: Errors and recovery
         summary: Preventing mistakes and helping users recover from them.
         description: >-
@@ -114,7 +123,18 @@ capabilities:
           minute. Treating them as part of the design pays off.
         related: [microcopy, form-design]
         resources: [nngroup-error-rubric, nngroup-hostile-errors, nngroup-confirmation-dialog]
+        technicalLeverage: Implement retries, undo and stable intermediate state; distinguish
+          recoverable failures from actions that require review.
+        evidence:
+          practice: Design and implement recovery for a failed user task, including an incorrect AI
+            suggestion where relevant.
+          artifact: A working failure scenario and a tested route back to a useful state.
+          checks:
+            - Recovery preserves the user’s work.
+            - Repeated actions do not duplicate side effects.
+
       - id: empty-states
+        focus: [people, systems]
         name: Empty states
         summary: What users see before there is any data, and how it guides them forward.
         description: >-
@@ -124,6 +144,7 @@ capabilities:
         related: [first-run-flows, guided-setup]
         resources: [nngroup-empty-states]
       - id: affordances
+        focus: [people, systems]
         name: Affordances
         summary: Visual cues that show what can be clicked, dragged or changed.
         description: >-
@@ -133,6 +154,7 @@ capabilities:
         related: [mental-models, visual-hierarchy]
         resources: [nngroup-mental-models]
       - id: progressive-disclosure
+        focus: [people, systems]
         name: Progressive disclosure
         summary: Showing advanced options only when they are needed.
         description: >-
@@ -141,6 +163,27 @@ capabilities:
           part is deciding what counts as advanced, which is a research question.
         related: [cognitive-load, progressive-onboarding]
         resources: [nngroup-form-cognitive-load]
+
+      - id: ai-interaction-design
+        focus: [people, systems, ai]
+        name: AI interaction design
+        summary: Helping people work with uncertain output and stay in control of AI actions.
+        description: >-
+          AI interactions need clear expectations about what the system can do and where it may fail.
+          Design ways to inspect sources, edit suggestions, stop actions and recover from mistakes.
+          Test whether users can complete their task and recognize a bad answer, as well as whether
+          the interface feels easy to use.
+        related: [human-oversight, ai-evals, error-recovery, expectation-setting]
+        resources: [google-pair-mental-models]
+        technicalLeverage: Build real interactions for streaming, citations, editing, interruption
+          and recovery, so usability tests expose actual system limits.
+        evidence:
+          practice: Prototype an AI-assisted task with deliberately wrong, missing and delayed answers.
+          artifact: A tested interaction flow showing how users inspect, correct and reject output.
+          checks:
+            - Users can recognize the tested failures and complete the task safely.
+            - Confidence claims reflect measured behavior; a fluent answer is not presented as
+              certainty.
 
   - id: ui-design
     name: UI design
@@ -151,6 +194,7 @@ capabilities:
     tools: [figma, penpot]
     skills:
       - id: visual-hierarchy
+        focus: [people, systems]
         name: Visual hierarchy
         summary: Making the most important thing on a screen the most noticeable.
         description: >-
@@ -160,6 +204,7 @@ capabilities:
         related: [typography, affordances]
         resources: [nngroup-visual-design-posters]
       - id: typography
+        focus: [people, systems]
         name: Typography
         summary: Choosing and setting type so text is readable and the hierarchy is clear.
         description: >-
@@ -169,6 +214,7 @@ capabilities:
         related: [visual-hierarchy, design-systems]
         resources: [practical-typography]
       - id: spacing-and-layout
+        focus: [people, systems]
         name: Spacing and layout
         summary: Arranging elements with consistent space so the structure is easy to read.
         description: >-
@@ -178,6 +224,7 @@ capabilities:
         related: [responsive-design, visual-hierarchy]
         resources: [webdev-learn-design]
       - id: color
+        focus: [people, systems]
         name: Color
         summary: Using color for meaning, emphasis and brand, with enough contrast.
         description: >-
@@ -188,6 +235,7 @@ capabilities:
         resources: [webdev-color-contrast, webdev-color-scheme]
         tools: [webaim-contrast-checker]
       - id: responsive-design
+        focus: [people, systems]
         name: Responsive design
         summary: Interfaces that work across screen sizes and input methods.
         description: >-
@@ -197,6 +245,7 @@ capabilities:
         related: [context-of-use, spacing-and-layout]
         resources: [webdev-responsive-basics, webdev-learn-design]
       - id: design-systems
+        focus: [people, systems]
         name: Design systems
         summary: Reusable components and rules that keep an interface consistent.
         description: >-
@@ -216,6 +265,7 @@ capabilities:
     tools: [figma, penpot, excalidraw]
     skills:
       - id: sketching
+        focus: [people]
         name: Sketching
         summary: Quick drawings to explore many ideas before choosing one.
         description: >-
@@ -226,6 +276,7 @@ capabilities:
         resources: [nngroup-prototype-fidelity]
         tools: [excalidraw]
       - id: wireframes
+        focus: [people]
         name: Wireframes
         summary: Low-fidelity layouts that show structure without visual detail.
         description: >-
@@ -236,6 +287,7 @@ capabilities:
         resources: [nngroup-prototype-fidelity]
         tools: [figma, penpot]
       - id: clickable-prototypes
+        focus: [people]
         name: Clickable prototypes
         summary: Linked mockups that let people click through a flow.
         description: >-
@@ -246,6 +298,7 @@ capabilities:
         resources: [nngroup-prototype-fidelity]
         tools: [figma, maze]
       - id: functional-prototypes
+        focus: [people, systems]
         name: Functional prototypes
         summary: Working code built quickly to test an idea with real behavior.
         description: >-
@@ -254,7 +307,24 @@ capabilities:
           advantage, as long as the prototype is treated as disposable.
         related: [mvp, concierge-experiments]
         resources: [nngroup-complex-apps]
+        aiLeverage:
+          workflow: Generate interface variants and working scaffolds from a specific user task and
+            realistic sample data.
+          limitations: Polish can hide missing states, inaccessible interactions and unrealistic
+            backend behavior.
+          verification: Exercise empty, loading, error and permission states; observe people
+            attempting the target task.
+        technicalLeverage: Connect the interface to real APIs or representative stubs so the
+          prototype tests interaction and feasibility together.
+        evidence:
+          practice: Build two versions of a risky interaction and test them on the same task.
+          artifact: A runnable prototype and notes showing what changed after observation.
+          checks:
+            - Failure states are testable.
+            - Decisions cite task behavior rather than visual preference alone.
+
       - id: usability-testing
+        focus: [people, evidence]
         name: Usability testing
         summary: Watching people attempt real tasks to find where they struggle.
         description: >-
@@ -264,6 +334,21 @@ capabilities:
         related: [user-interviews, drop-off-analysis]
         resources: [nngroup-usability-testing, nngroup-five-users]
         tools: [maze]
+        aiLeverage:
+          workflow: Draft neutral tasks and summarize consented session notes into candidate friction
+            patterns.
+          limitations: Simulated users cannot establish real usability; summaries may miss hesitation
+            or assistance from the moderator.
+          verification: Review recordings for each finding and retain task completion, errors and
+            moderator interventions.
+        technicalLeverage: Instrument prototype interactions and reproduce failures across devices
+          to separate usability problems from technical defects.
+        evidence:
+          practice: Observe five intended users attempting a core task without coaching.
+          artifact: A prioritized set of observed issues, linked to sessions and a tested revision.
+          checks:
+            - Findings distinguish observation from interpretation.
+            - The revision addresses a demonstrated failure.
 
   - id: accessibility
     name: Accessibility
@@ -274,6 +359,7 @@ capabilities:
     tools: [axe-devtools, wave, lighthouse]
     skills:
       - id: inclusive-design
+        focus: [people, systems]
         name: Inclusive design
         summary: Designing for the full range of human ability, situation and context.
         description: >-
@@ -283,6 +369,7 @@ capabilities:
         related: [user-autonomy, context-of-use]
         resources: [webdev-design-ux-a11y]
       - id: keyboard-interaction
+        focus: [people, systems]
         name: Keyboard interaction
         summary: Making every function usable without a mouse.
         description: >-
@@ -292,6 +379,7 @@ capabilities:
         related: [semantic-markup, assistive-technology]
         resources: [mdn-keyboard]
       - id: semantic-markup
+        focus: [people, systems]
         name: Semantic markup
         summary: Using the right HTML elements so meaning is available to all software.
         description: >-
@@ -301,6 +389,7 @@ capabilities:
         related: [assistive-technology, seo]
         resources: [mdn-html-a11y, mdn-aria-basics]
       - id: assistive-technology
+        focus: [people, systems]
         name: Assistive technology support
         summary: Working well with screen readers, magnifiers and voice control.
         description: >-
@@ -311,6 +400,7 @@ capabilities:
         resources: [mdn-a11y-tooling]
         tools: [nvda]
       - id: wcag
+        focus: [people, systems]
         name: WCAG principles
         summary: The web accessibility guidelines, built on four principles.
         description: >-
@@ -329,6 +419,7 @@ capabilities:
     resources: [govuk-writing-ui, ons-plain-language, govuk-content-principles]
     skills:
       - id: microcopy
+        focus: [people]
         name: Microcopy
         summary: The small pieces of text on buttons, labels, hints and messages.
         description: >-
@@ -338,6 +429,7 @@ capabilities:
         related: [error-recovery, plain-language]
         resources: [govuk-writing-ui, nngroup-error-rubric]
       - id: instructional-copy
+        focus: [people]
         name: Instructions
         summary: Explaining how to do something at the moment it is needed.
         description: >-
@@ -347,6 +439,7 @@ capabilities:
         related: [contextual-guidance, tutorials]
         resources: [ms-style-ui]
       - id: product-terminology
+        focus: [people]
         name: Terminology
         summary: Choosing consistent names for things in the product.
         description: >-
@@ -356,6 +449,7 @@ capabilities:
         related: [domain-language, information-architecture]
         resources: [ons-plain-language, fowler-ubiquitous-language]
       - id: plain-language
+        focus: [people]
         name: Plain language
         summary: Writing that people understand on first read.
         description: >-
@@ -365,6 +459,7 @@ capabilities:
         related: [microcopy, clear-explanations]
         resources: [ons-plain-language, govuk-content-principles]
       - id: documentation-ux
+        focus: [people]
         name: Documentation UX
         summary: Help content that people can find and use while they work.
         description: >-
@@ -373,6 +468,7 @@ capabilities:
         related: [developer-docs, customer-education]
         resources: [diataxis, nngroup-help-docs]
       - id: localization
+        focus: [people]
         name: Localization
         summary: Adapting the product for other languages and regions.
         description: >-
@@ -392,6 +488,7 @@ capabilities:
     resources: [fogg-behavior-model, lawsofux-home, nngroup-deceptive-patterns]
     skills:
       - id: motivation
+        focus: [people, product-business]
         name: Motivation
         summary: Designing for why people act and what keeps them going.
         description: >-
@@ -401,6 +498,7 @@ capabilities:
         related: [user-motivations, habit-formation]
         resources: [fogg-behavior-model]
       - id: cognitive-load
+        focus: [people, product-business]
         name: Cognitive load
         summary: The mental effort an interface demands, and how to reduce it.
         description: >-
@@ -410,6 +508,7 @@ capabilities:
         related: [progressive-disclosure, decision-friction]
         resources: [nngroup-form-cognitive-load, lawsofux-home]
       - id: decision-friction
+        focus: [people, product-business]
         name: Decision friction
         summary: The hesitation that appears when users face too many or unclear choices.
         description: >-
@@ -419,6 +518,7 @@ capabilities:
         related: [cognitive-load, trial-conversion]
         resources: [lawsofux-home]
       - id: habit-formation
+        focus: [people, product-business]
         name: Habit formation
         summary: How repeated use becomes automatic behavior.
         description: >-
@@ -428,6 +528,7 @@ capabilities:
         related: [core-loops, reminders]
         resources: [nirandfar-habit, nirandfar-triggers]
       - id: persuasive-design
+        focus: [people, product-business]
         name: Persuasive design
         summary: Techniques that influence behavior, such as social proof, defaults and scarcity.
         description: >-
@@ -437,6 +538,7 @@ capabilities:
         related: [trust-signals, ethical-engagement]
         resources: [fogg-behavior-model, nngroup-deceptive-patterns]
       - id: ethical-engagement
+        focus: [people, product-business]
         name: Ethical engagement
         summary: Avoiding dark patterns and designing engagement that respects users.
         description: >-

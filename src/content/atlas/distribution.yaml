@@ -25,6 +25,7 @@ capabilities:
     resources: [balfour-four-fits, pg-do-things, dunford-intro-positioning]
     skills:
       - id: channel-selection
+        focus: [product-business]
         name: Channel selection
         summary: Choosing the few channels most likely to reach your audience.
         description: >-
@@ -34,6 +35,7 @@ capabilities:
         related: [channel-performance, organic-acquisition]
         resources: [balfour-four-fits]
       - id: launch-planning
+        focus: [product-business]
         name: Launch planning
         summary: Preparing the timing, audience and activities for a launch.
         description: >-
@@ -43,6 +45,7 @@ capabilities:
         related: [release-communication, discovery-platforms]
         resources: [pg-do-things]
       - id: messaging
+        focus: [product-business]
         name: Messaging
         summary: The words used to describe the product's value to a specific audience.
         description: >-
@@ -51,6 +54,19 @@ capabilities:
           any other part of the product.
         related: [value-proposition, landing-page-tests]
         resources: [dunford-intro-positioning, dunford-context]
+        aiLeverage:
+          workflow: Draft message alternatives using actual customer language and a clear value proposition.
+          limitations: AI may invent benefits, flatten differentiation or make promises the product
+            cannot deliver.
+          verification: Check every promise against the product and test comprehension with intended users.
+        technicalLeverage: Ship message variants, instrument exposure and connect acquisition
+          promises to what users actually experience.
+        evidence:
+          practice: Test two messages for the same audience and user job.
+          artifact: Source-backed copy and a readout of comprehension and qualified response.
+          checks:
+            - Claims are supported by current product behavior.
+            - The test measures understanding as well as attention.
 
   - id: organic-acquisition
     name: Organic acquisition
@@ -61,6 +77,7 @@ capabilities:
     tools: [plausible]
     skills:
       - id: seo
+        focus: [product-business, people]
         name: SEO
         summary: Making pages easy to find through search engines.
         description: >-
@@ -70,7 +87,24 @@ capabilities:
         related: [semantic-markup, content-marketing]
         resources: [google-seo-starter, google-seo-developers, google-search-essentials]
         tools: [lighthouse]
+        aiLeverage:
+          workflow: Group real search queries by intent and draft content briefs grounded in product
+            expertise.
+          limitations: Generated keywords and search volumes may be fabricated, and repetitive content
+            may fail to answer the question.
+          verification: Check query data in the source platform and review each page for accuracy,
+            originality and useful intent coverage.
+        technicalLeverage: Inspect crawlability, rendering, structured data and performance, then
+          connect acquisition to activation.
+        evidence:
+          practice: Improve a page for a demonstrated search intent and fix its technical obstacles.
+          artifact: A sourced content revision and a dated readout of qualified visits and activation.
+          checks:
+            - The page answers the target query with real expertise.
+            - Traffic is evaluated alongside downstream user value.
+
       - id: content-marketing
+        focus: [product-business, people]
         name: Content
         summary: Creating useful content that attracts the right audience.
         description: >-
@@ -80,6 +114,7 @@ capabilities:
         related: [seo, technical-writing]
         resources: [google-seo-starter]
       - id: communities
+        focus: [product-business, people]
         name: Communities
         summary: Building or joining communities where your users gather.
         description: >-
@@ -89,6 +124,7 @@ capabilities:
         related: [developer-relations, customer-education]
         resources: [pg-do-things]
       - id: social-platforms
+        focus: [product-business, people]
         name: Social platforms
         summary: Reaching people through social networks.
         description: >-
@@ -97,6 +133,7 @@ capabilities:
         related: [sharing-mechanics, product-narratives]
         resources: [swyx-learn-in-public, pg-do-things]
       - id: developer-relations
+        focus: [product-business, people]
         name: Developer relations
         summary: Building trust and adoption among developers.
         description: >-
@@ -106,6 +143,7 @@ capabilities:
         related: [developer-docs, communities]
         resources: [jonobacon-devrel, devrelbook-framework]
       - id: discovery-platforms
+        focus: [product-business, people]
         name: Directories and app stores
         summary: Places where people browse for products, such as app stores and launch sites.
         description: >-
@@ -123,6 +161,7 @@ capabilities:
     resources: [chen-viral-loop, chen-retention-viral, nfx-network-effects]
     skills:
       - id: referral-loops
+        focus: [product-business, people]
         name: Referral loops
         summary: Incentives and flows that turn users into recommenders.
         description: >-
@@ -132,6 +171,7 @@ capabilities:
         related: [invitations, viral-coefficient]
         resources: [chen-viral-loop]
       - id: sharing-mechanics
+        focus: [product-business, people]
         name: Sharing mechanics
         summary: Features that make the product's output worth sharing.
         description: >-
@@ -141,6 +181,7 @@ capabilities:
         related: [social-platforms, core-loops]
         resources: [chen-viral-loop]
       - id: invitations
+        focus: [product-business, people]
         name: Invitations
         summary: Letting users invite others into the product.
         description: >-
@@ -150,6 +191,7 @@ capabilities:
         related: [collaboration-features, signup-flow]
         resources: [chen-viral-loop, chen-retention-viral]
       - id: network-effects
+        focus: [product-business, people]
         name: Network effects
         summary: When the product becomes more valuable as more people use it.
         description: >-
@@ -159,6 +201,7 @@ capabilities:
         related: [competitive-advantage, market-structure]
         resources: [nfx-network-effects, chen-cold-start]
       - id: viral-coefficient
+        focus: [product-business, people]
         name: Viral coefficient
         summary: How many new users each user brings in.
         description: >-
@@ -176,6 +219,7 @@ capabilities:
     resources: [productled-plg, productled-book]
     skills:
       - id: self-serve-adoption
+        focus: [product-business]
         name: Self-serve adoption
         summary: Letting people sign up, try and buy without talking to sales.
         description: >-
@@ -185,6 +229,7 @@ capabilities:
         related: [trial-conversion, first-user-experience]
         resources: [productled-plg]
       - id: collaboration-features
+        focus: [product-business]
         name: Collaboration features
         summary: Features that bring teammates into the product.
         description: >-
@@ -194,6 +239,7 @@ capabilities:
         related: [authorization, invitations]
         resources: [chen-cold-start]
       - id: product-driven-expansion
+        focus: [product-business]
         name: Product-driven expansion
         summary: Growing revenue from existing customers through the product itself.
         description: >-
@@ -211,6 +257,7 @@ capabilities:
     resources: [qwilr-bant-meddic, hubspot-meddic]
     skills:
       - id: sales-funnels
+        focus: [product-business, people]
         name: Sales funnels
         summary: The stages a business customer moves through before buying.
         description: >-
@@ -220,6 +267,7 @@ capabilities:
         related: [lead-qualification, domain-stakeholders]
         resources: [hubspot-meddic]
       - id: lead-qualification
+        focus: [product-business, people]
         name: Lead qualification
         summary: Deciding which potential customers are worth pursuing.
         description: >-
@@ -229,6 +277,7 @@ capabilities:
         related: [ideal-customer-profile, sales-funnels]
         resources: [qwilr-bant-meddic, hubspot-meddic]
       - id: product-demos
+        focus: [product-business, people]
         name: Product demonstrations
         summary: Showing the product solving a prospect's specific problem.
         description: >-
@@ -237,6 +286,7 @@ capabilities:
           valuable in sales conversations.
         related: [product-narratives, sales-funnels]
       - id: b2b-trials
+        focus: [product-business, people]
         name: Trials and proofs of concept
         summary: Letting business customers evaluate the product with their own data.
         description: >-
@@ -246,6 +296,7 @@ capabilities:
         related: [trial-conversion, adoption-barriers]
         resources: [productled-book, amplitude-activation-rate]
       - id: partnerships
+        focus: [product-business, people]
         name: Partnerships
         summary: Growing through other companies' products, audiences or sales teams.
         description: >-
@@ -263,6 +314,7 @@ capabilities:
     resources: [skok-saas-metrics, a16z-16-startup-metrics, balfour-four-fits]
     skills:
       - id: customer-acquisition-cost
+        focus: [product-business, evidence]
         name: Customer acquisition cost
         summary: What it costs on average to win one new customer.
         description: >-
@@ -272,6 +324,7 @@ capabilities:
         related: [lifetime-value, channel-performance]
         resources: [skok-saas-metrics, a16z-16-startup-metrics]
       - id: conversion-efficiency
+        focus: [product-business, evidence]
         name: Conversion efficiency
         summary: How well each stage turns prospects into customers.
         description: >-
@@ -281,6 +334,7 @@ capabilities:
         related: [funnel-optimization, conversion-metrics]
         resources: [amplitude-pirate-metrics]
       - id: attribution
+        focus: [product-business, evidence]
         name: Attribution
         summary: Working out which channels and touches led to a customer.
         description: >-
@@ -290,6 +344,7 @@ capabilities:
         related: [analytics-architecture, channel-performance]
         resources: [ga-attribution]
       - id: channel-performance
+        focus: [product-business, evidence]
         name: Channel performance
         summary: Comparing channels on cost, volume and quality of users.
         description: >-
@@ -299,6 +354,7 @@ capabilities:
         related: [cohort-analysis, attribution]
         resources: [amplitude-cohort-analysis]
       - id: sustainable-growth
+        focus: [product-business, evidence]
         name: Payback and sustainable growth
         summary: Growing at a pace the business can fund and keep.
         description: >-

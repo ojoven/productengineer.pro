@@ -4,6 +4,7 @@
 // zooms between levels, keeps each level in the URL, and accepts ?lit=id,id to light skills
 // and join them with a route.
 import Base from '../../layouts/Base.astro';
+import { FOCUS_OPTIONS, PROGRESS_FILTERS } from '../../atlas/filters.ts';
 import TerritoryRows from '../../components/TerritoryRows.astro';
 import { atlas, mapSvg } from '../../lib/atlas.ts';
 
@@ -11,15 +12,27 @@ const a = atlas();
 const svg = mapSvg({ width: 760, height: 700 });
 ---
 
-<Base title="Atlas" description="Explore the map of product engineering: ten territories, 72 capabilities and every skill beneath them." bodyClass="is-explorer" searchable={false}>
+<Base title="Atlas" description={`Explore the map of product engineering: ${a.territories.filter((t) => !t.crossCutting).length} territories, ${a.capabilities.length} capabilities and every skill beneath them.`} bodyClass="is-explorer" searchable={false}>
   <div class="explorer" id="explorer">
     <div class="ex-map" id="ex-map" set:html={svg} />
     <aside class="ex-panel" id="ex-panel" aria-live="polite">
       <nav class="crumbs" id="ex-crumbs" aria-label="Map level"><span aria-current="page">World</span></nav>
+      <div class="ex-filters" aria-label="Filter skills">
+        <div><label for="ex-focus" class="label">Focus</label><select id="ex-focus" disabled>
+          <option value="">All focus areas</option>
+          {FOCUS_OPTIONS.map((option) => <option value={option.id}>{option.label}</option>)}
+        </select></div>
+        <div><label for="ex-progress" class="label">Your progress</label><select id="ex-progress" disabled>
+          {PROGRESS_FILTERS.map((option) => <option value={option.id}>{option.label}</option>)}
+        </select></div>
+        <p id="ex-filter-note" role="status">Focus areas overlap. Combine focus with your progress.</p>
+        <button class="btn small" id="ex-reset-filters" type="button" hidden>Clear filters</button>
+      </div>
+      <noscript><p>Enable JavaScript to filter skills and load your progress. You can still browse every territory below.</p></noscript>
       <div class="ex-head">
         <div class="code-big" id="ex-code">Atlas · {a.skills.length} skills</div>
         <h1 class="ex-title" id="ex-title">The Skill Atlas</h1>
-        <p class="ex-text" id="ex-text">Ten territories and the capabilities that cut across them. Pick one to zoom in.</p>
+        <p class="ex-text" id="ex-text">Explore every territory, including AI, and the capabilities that cut across them. Pick one to zoom in.</p>
         <div id="ex-actions"></div>
         <div id="ex-lit"></div>
       </div>
@@ -71,6 +84,12 @@ const svg = mapSvg({ width: 760, height: 700 });
     display: grid;
     gap: 12px;
   }
+  .ex-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; padding: 18px 0 0; }
+  .ex-filters label { display: block; margin-bottom: 6px; }
+  .ex-filters select { width: 100%; font: 14px var(--sans); color: var(--ink); background: var(--bg); border: 1px solid var(--line); padding: 8px; }
+  .ex-filters p { grid-column: 1 / -1; font-size: 13px; margin: 0; color: var(--muted); }
+  .ex-filters button { justify-self: start; grid-column: 1 / -1; }
+  @media (max-width: 480px) { .ex-filters { grid-template-columns: minmax(0, 1fr); } }
   .ex-title {
     font-size: clamp(30px, 3vw, 46px);
     line-height: 1;
@@ -134,6 +153,8 @@ const svg = mapSvg({ width: 760, height: 700 });
 
 <script>
   import { renderMap, computeView, nodeCodes, type MapAtlas } from '../../atlas/render.ts';
+  import { matchesSkill, readFilters, type Focus, type SkillFilters } from '../../atlas/filters.ts';
+  import { STATUS_OPTIONS, type ProgressStatus } from '../../atlas/status.ts';
   import type { Geometry } from '../../atlas/geometry.ts';
   import { load, setStatus, applyProgress, onChange } from '../../scripts/progress.ts';
   import { track } from '../../scripts/track.ts';
@@ -141,7 +162,7 @@ const svg = mapSvg({ width: 760, height: 700 });
   type Data = {
     territories: (MapAtlas['territories'][number] & { tagline: string; question: string })[];
     capabilities: (MapAtlas['capabilities'][number] & { description: string })[];
-    skills: (MapAtlas['skills'][number] & { summary: string })[];
+    skills: (MapAtlas['skills'][number] & { summary: string; focus: Focus[] })[];
     aliases: Record<string, string>;
     geometry: Geometry;
   };
@@ -158,16 +179,17 @@ const svg = mapSvg({ width: 760, height: 700 });
   const C = new Map<string, Data['capabilities'][number]>();
   const S = new Map<string, Data['skills'][number]>();
 
-  interface ExState {
+  interface ExState extends SkillFilters {
     at: string;
     lit: string[];
   }
-  let state: ExState = { at: '', lit: [] };
+  let state: ExState = { at: '', lit: [], focus: '', progress: '' };
 
   function readUrl(): ExState {
     const q = new URLSearchParams(location.search);
     const alias = (id: string) => data?.aliases?.[id] ?? id;
     return {
+      ...readFilters(q),
       at: alias(q.get('at') ?? ''),
       lit: (q.get('lit') ?? '').split(',').map((s) => alias(s.trim())).filter(Boolean),
     };
@@ -175,6 +197,8 @@ const svg = mapSvg({ width: 760, height: 700 });
   function urlFor(s: ExState) {
     const q = new URLSearchParams();
     if (s.at) q.set('at', s.at);
+    if (s.focus) q.set('focus', s.focus);
+    if (s.progress) q.set('progress', s.progress);
     if (s.lit.length) q.set('lit', s.lit.join(','));
     const qs = q.toString().replace(/%2C/g, ',');
     return `/atlas/${qs ? `?${qs}` : ''}`;
@@ -198,12 +222,16 @@ const svg = mapSvg({ width: 760, height: 700 });
   function options() {
     const { width, height } = size();
     const lit = state.lit.filter((id) => S.has(id) || C.has(id) || T.has(id));
+    const progress = load(data.aliases).progress;
+    const matches = state.focus || state.progress
+      ? data.skills.filter((skill) => matchesSkill(skill, state, progress)).map((skill) => skill.id)
+      : [];
     return {
       focus: state.at,
       width,
       height,
       scale: width < 520 ? 0.85 : 1,
-      state: { progress: load(data.aliases).progress, lit, route: lit.length > 1, selected: S.has(state.at) ? state.at : null },
+      state: { progress, matches, lit, route: lit.length > 1, selected: S.has(state.at) ? state.at : null },
     };
   }
   function draw() {
@@ -254,8 +282,9 @@ const svg = mapSvg({ width: 760, height: 700 });
   }
 
   // ---- the index: the same rows as the static pages
+  const skillCount = (count: number) => `${count} skill${count === 1 ? '' : 's'}`;
   const strip = (ids: string[]) =>
-    `<span class="strip" aria-hidden="true">${ids.map((id) => `<a href="${pagePath(id)}" data-status-for="${id}" title="${codeOf(id)} ${esc(nameOf(id))}" tabindex="-1"></a>`).join('')}</span><span class="count" data-rollup="${ids.join(' ')}">${ids.length} skills</span>`;
+    `<span class="strip" aria-hidden="true">${ids.map((id) => `<a href="${pagePath(id)}" data-status-for="${id}" title="${codeOf(id)} ${esc(nameOf(id))}" tabindex="-1"></a>`).join('')}</span><span class="count" data-rollup="${ids.join(' ')}">${skillCount(ids.length)}</span>`;
   const outline = `<svg viewBox="0 0 22 25" width="22" height="25" aria-hidden="true"><path d="M11 1.2 20.8 6.8v11.4L11 23.8 1.2 18.2V6.8Z" fill="none" stroke="currentColor" stroke-width="1.2"></path></svg>`;
   const rowGroup = (id: string, sub: string, ids: string[]) =>
     `<li><div class="row" data-id="${id}">${outline}<span class="code">${codeOf(id)}</span><button class="name" type="button" data-go="${id}">${esc(nameOf(id))}</button><a class="go" href="${pagePath(id)}" aria-label="Open the ${esc(nameOf(id))} page">→</a><span class="sub">${esc(sub)}</span><span class="meta">${strip(ids)}</span></div></li>`;
@@ -264,6 +293,16 @@ const svg = mapSvg({ width: 760, height: 700 });
   const tSkills = (tid: string) => T.get(tid)!.capabilities.flatMap((c) => C.get(c)!.skills);
 
   function panel() {
+    const focused = document.activeElement as HTMLElement | null;
+    const focusedStatus = focused?.matches('input[name="ex-status"]') ? (focused as HTMLInputElement).value : undefined;
+    const focusedCycle = focused?.dataset.cycle;
+    ($('ex-focus') as HTMLSelectElement).value = state.focus;
+    ($('ex-progress') as HTMLSelectElement).value = state.progress;
+    const progress = load(data.aliases).progress;
+    const matching = new Set(data.skills.filter((skill) => matchesSkill(skill, state, progress)).map((skill) => skill.id));
+    const filtered = (ids: string[]) => ids.filter((id) => matching.has(id));
+    const active = !!(state.focus || state.progress);
+    $('ex-reset-filters').hidden = !active;
     const at = state.at;
     const skill = S.get(at);
     const cap = C.get(skill ? skill.capability : at);
@@ -277,44 +316,46 @@ const svg = mapSvg({ width: 760, height: 700 });
 
     let code = `Atlas · ${data.skills.length} skills`;
     let title = 'The Skill Atlas';
-    let text = 'Ten territories and the capabilities that cut across them. Pick one to zoom in.';
+    let text = 'Explore every territory, including AI, and the capabilities that cut across them. Pick one to zoom in.';
     let actions = '';
     let listTitle = 'Territories';
-    let list = data.territories.map((t) => rowGroup(t.id, t.question, tSkills(t.id))).join('');
+    let list = data.territories.filter((t) => filtered(tSkills(t.id)).length).map((t) => rowGroup(t.id, t.question, filtered(tSkills(t.id)))).join('');
 
     if (terr && !cap) {
       code = `${codeOf(terr.id)} · ${terr.crossCutting ? 'Cross-cutting' : 'Territory'} · ${terr.tagline}`;
       title = terr.name;
       text = esc(terr.question);
       actions = `<a class="btn small" href="${pagePath(terr.id)}">Open the territory page →</a>`;
-      listTitle = `${terr.capabilities.length} capabilities`;
-      list = terr.capabilities.map((id) => rowGroup(id, C.get(id)!.description, C.get(id)!.skills)).join('');
+      const count = terr.capabilities.filter((id) => filtered(C.get(id)!.skills).length).length;
+      listTitle = `${count} capabilit${count === 1 ? 'y' : 'ies'}${active ? (count === 1 ? ' matches' : ' match') : ''}`;
+      list = terr.capabilities.filter((id) => filtered(C.get(id)!.skills).length).map((id) => rowGroup(id, C.get(id)!.description, filtered(C.get(id)!.skills))).join('');
     } else if (cap) {
       code = skill ? `${codeOf(skill.id)} · Skill in ${cap.name}` : `${codeOf(cap.id)} · Capability in ${terr!.name}`;
       title = skill ? skill.name : cap.name;
       text = esc(skill ? skill.summary : cap.description);
       actions = skill
         ? `<div class="seg" role="radiogroup" aria-label="Your status">${(
-            [
-              ['none', 'Not started', ''],
-              ['learning', 'Learning', 'l'],
-              ['comfortable', 'Comfortable', 'c'],
-            ] as const
+            STATUS_OPTIONS
           )
-            .map(([v, l, c]) => `<label><input type="radio" name="ex-status" value="${v}" data-status-input="${skill.id}"><span class="${c}"><svg viewBox="0 0 22 25" aria-hidden="true">${HEX}</svg>${l}</span></label>`)
+            .map(({ value, label, cls }) => `<label><input type="radio" name="ex-status" value="${value}" data-status-input="${skill.id}"><span class="${cls}"><svg viewBox="0 0 22 25" aria-hidden="true">${HEX}</svg>${label}</span></label>`)
             .join('')}</div><div class="btn-row" style="margin-top:4px"><a class="btn small" href="${pagePath(skill.id)}">Open the skill page →</a></div>`
         : `<a class="btn small" href="${pagePath(cap.id)}">Open the capability page →</a>`;
-      listTitle = `${cap.skills.length} skills`;
-      list = cap.skills.map((id) => rowSkill(id, id === at)).join('');
+      const count = filtered(cap.skills).length;
+      listTitle = `${skillCount(count)}${active ? (count === 1 ? ' matches' : ' match') : ''}`;
+      list = filtered(cap.skills).map((id) => rowSkill(id, id === at)).join('');
     }
 
+    const scope = cap ? cap.skills : terr ? tSkills(terr.id) : data.skills.map((skill) => skill.id);
+    $('ex-filter-note').textContent = active
+      ? `${filtered(scope).length} of ${scope.length} skills match. Matching skills have yellow backgrounds on the map.`
+      : 'Focus areas overlap. Combine focus with your progress.';
     $('ex-code').textContent = code;
     $('ex-title').textContent = title;
     $('ex-text').innerHTML = text;
     $('ex-actions').innerHTML = actions;
     $('ex-list-title').textContent = listTitle;
     $('ex-list-count').textContent = cap && !skill ? 'Click a hexagon to set your status' : '';
-    $('ex-list').innerHTML = `<ul class="index${cap ? ' big' : ''}">${list}</ul>`;
+    $('ex-list').innerHTML = list ? `<ul class="index${cap ? ' big' : ''}">${list}</ul>` : '<p class="empty">No skills here match these filters. Clear the filters or explore another territory.</p>';
 
     const lit = state.lit.filter((id) => S.has(id) || C.has(id) || T.has(id));
     $('ex-lit').innerHTML = lit.length
@@ -334,14 +375,30 @@ const svg = mapSvg({ width: 760, height: 700 });
     document.querySelectorAll<HTMLInputElement>('input[name="ex-status"]').forEach((input) =>
       input.addEventListener('change', () => {
         if (!input.checked) return;
-        setStatus(input.dataset.statusInput!, input.value as 'none' | 'learning' | 'comfortable');
+        setStatus(input.dataset.statusInput!, input.value as ProgressStatus);
         track('Status set', { status: input.value, from: 'map' });
       }),
     );
     applyProgress();
+    if (focusedStatus) document.querySelector<HTMLInputElement>(`input[name="ex-status"][value="${focusedStatus}"]`)?.focus();
+    if (focusedCycle) {
+      const button = $('ex-list').querySelector<HTMLButtonElement>(`button[data-cycle="${focusedCycle}"]`);
+      (button ?? $('ex-progress')).focus();
+    }
   }
 
   // ---- events
+  for (const id of ['ex-focus', 'ex-progress']) {
+    $(id).addEventListener('change', () => {
+      if (!data) return;
+      const query = new URLSearchParams({
+        focus: ($('ex-focus') as HTMLSelectElement).value,
+        progress: ($('ex-progress') as HTMLSelectElement).value,
+      });
+      go({ ...state, ...readFilters(query) });
+    });
+  }
+  $('ex-reset-filters').addEventListener('click', () => go({ ...state, focus: '', progress: '' }));
   document.addEventListener('click', (e) => {
     const me = e as MouseEvent;
     if (me.metaKey || me.ctrlKey || me.shiftKey || !data) return;
@@ -360,7 +417,7 @@ const svg = mapSvg({ width: 760, height: 700 });
     }
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape' || !state.at || (e.target as Element).closest('input, textarea')) return;
+    if (e.key !== 'Escape' || !state.at || (e.target as Element).closest('input, textarea, select')) return;
     go({ ...state, at: upOf(state.at) });
   });
   window.addEventListener('popstate', () => data && zoomTo(readUrl()).then(panel));
@@ -370,7 +427,7 @@ const svg = mapSvg({ width: 760, height: 700 });
     clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => data && draw(), 120);
   }).observe(mapEl);
-  onChange(() => data && draw());
+  onChange(() => { if (data) { draw(); panel(); } });
 
   fetch('/atlas-data.json')
     .then((r) => r.json())
@@ -381,9 +438,13 @@ const svg = mapSvg({ width: 760, height: 700 });
       d.capabilities.forEach((c) => C.set(c.id, c));
       d.skills.forEach((s) => S.set(s.id, s));
       state = readUrl();
+      if (state.at && !T.has(state.at) && !C.has(state.at) && !S.has(state.at)) state.at = '';
+      ($('ex-focus') as HTMLSelectElement).disabled = false;
+      ($('ex-progress') as HTMLSelectElement).disabled = false;
       history.replaceState(state, '', urlFor(state));
       draw();
       panel();
       if (state.lit.length) track('Lit map opened', { count: state.lit.length });
-    });
+    })
+    .catch(() => { $('ex-filter-note').textContent = 'Filters could not load. Reload the page to try again.'; });
 </script>
