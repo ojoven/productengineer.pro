@@ -1,0 +1,70 @@
+---
+interface Props {
+  command: string;
+  label: string;
+}
+const { command, label } = Astro.props;
+---
+
+<div class="command-block">
+  <div class="command-head">
+    <span class="label">{label}</span>
+    <button type="button" data-copy-command={command} aria-label={`Copy ${label}`} hidden>Copy</button>
+  </div>
+  <pre><code>{command}</code></pre>
+  <span class="visually-hidden" role="status" aria-live="polite"></span>
+</div>
+
+<style>
+  .command-block {
+    min-width: 0;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+  }
+  .command-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .command-head .label { color: var(--ink-2); }
+  button {
+    background: none;
+    border: 0;
+    padding: 4px 0 4px 8px;
+    color: var(--ink);
+    font: 500 11px var(--mono);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  button:hover { color: var(--accent-ink); }
+  pre {
+    margin: 0;
+    padding: 16px 14px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font: 13px/1.7 var(--mono);
+  }
+  code { font: inherit; }
+</style>
+
+<script>
+  if (navigator.clipboard?.writeText) {
+    document.querySelectorAll<HTMLButtonElement>('[data-copy-command]').forEach((button) => {
+      button.hidden = false;
+      button.addEventListener('click', async () => {
+        const status = button.closest('.command-block')?.querySelector<HTMLElement>('[role="status"]');
+        try {
+          await navigator.clipboard.writeText(button.dataset.copyCommand!);
+          button.textContent = 'Copied';
+          if (status) status.textContent = 'Command copied to clipboard.';
+          window.setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+        } catch {
+          if (status) status.textContent = 'Could not copy. Select the command and copy it manually.';
+        }
+      });
+    });
+  }
+</script>

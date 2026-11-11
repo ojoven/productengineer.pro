@@ -1,0 +1,342 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import CommandBlock from '../components/CommandBlock.astro';
+
+const repo = 'https://github.com/ojoven/product-engineering-skills';
+const groups = [
+  {
+    name: 'Understand the product',
+    description: 'Give the agent context and a way to read the evidence.',
+    skills: [
+      {
+        name: 'product-grill',
+        question: 'What are we building, and for whom?',
+        description: 'An interview about the user, the problem, the value moment and the business. The agent reads the repo first, then asks for the decisions only you can make.',
+        example: '/product-grill help me clarify who this product is for and our next goal',
+        output: 'A product brief, a clear goal and the assumptions that need checking.',
+      },
+      {
+        name: 'connect-sources',
+        question: 'Where does our evidence live?',
+        description: 'Finds the analytics, database, revenue, feedback and error sources behind the product. Checks access with a real query and records what is still missing.',
+        example: '/connect-sources find the analytics and feedback sources for this product',
+        output: 'A source inventory with working queries, access limits and gaps.',
+      },
+    ],
+  },
+  {
+    name: 'Read the evidence',
+    description: 'See what is happening, what users say and where they get stuck.',
+    skills: [
+      {
+        name: 'pulse',
+        question: 'How is the product doing?',
+        description: 'Reads the funnel over a defined period and finds its weakest stage. Reports counts, rates and their denominators, with the limits of the available data.',
+        example: '/pulse compare the last 14 days with the previous 14',
+        output: 'A dated snapshot of what moved, the weakest stage and the biggest unknown.',
+      },
+      {
+        name: 'feedback-digest',
+        question: 'What problems keep coming up?',
+        description: 'Turns support threads, reviews and interview notes into problems ranked by distinct users. Connects requests to the problem behind them and identifies unheard segments.',
+        example: '/feedback-digest summarize this month’s support threads and interview notes',
+        output: 'Ranked problems, user counts and supporting quotes.',
+      },
+      {
+        name: 'audit-analytics',
+        question: 'Can we trust these numbers?',
+        description: 'Checks whether tracking answers the product’s actual questions and whether events measure what they claim. Gives each finding a fix and an estimate of effort.',
+        example: '/audit-analytics check whether we can measure signup to activation',
+        output: 'Prioritized tracking findings and a focused instrumentation plan.',
+      },
+      {
+        name: 'audit-first-run',
+        question: 'Why do new users drop off?',
+        description: 'Walks the product as a new user, from the entry point to the first useful outcome. Records the steps, decisions and friction along the way.',
+        example: '/audit-first-run walk through signup and onboarding on our staging build',
+        output: 'A friction log and a shorter proposed path to value.',
+      },
+    ],
+  },
+  {
+    name: 'Decide, ship, learn',
+    description: 'Choose one bet, define its smallest version and check the result.',
+    skills: [
+      {
+        name: 'what-next',
+        question: 'What should we work on next?',
+        description: 'Combines the goal, the constraint, evidence and your ideas to recommend one next bet. Explains why it wins, what can wait and what would change the decision.',
+        example: '/what-next our priority is getting more new users to their first useful result',
+        output: 'One recommended bet with its reasoning and the alternatives considered.',
+      },
+      {
+        name: 'shape-bet',
+        question: 'How small can we make this idea?',
+        description: 'Turns an idea into a testable bet before you build: hypothesis, time budget, smallest useful scope, success signal and criteria for stopping.',
+        example: '/shape-bet a guided first project; we can spend three days on it',
+        output: 'A bet file you can hand to your coding workflow, including a review date.',
+      },
+      {
+        name: 'bet-review',
+        question: 'Did the thing we shipped work?',
+        description: 'Compares a live bet with the criteria recorded before the build. Accounts for other changes and says when there is too little evidence to call it.',
+        example: '/bet-review 003',
+        output: 'A keep, iterate or kill decision, with the evidence and lessons recorded.',
+      },
+    ],
+  },
+];
+const loop = [
+  { name: 'what-next', text: 'Choose the next bet', href: '#what-next' },
+  { name: 'shape-bet', text: 'Make it small and testable', href: '#shape-bet' },
+  { name: 'Build & ship', text: 'Use your usual coding workflow' },
+  { name: 'bet-review', text: 'Check what actually changed', href: '#bet-review' },
+];
+---
+
+<Base
+  title="Product Engineering Skills"
+  description="Ten agent skills for the product side of engineering. Understand your product, read the evidence, choose what to build and check whether it worked."
+>
+  <div class="wrap skills-page">
+    <Crumbs items={[{ href: '/', label: 'Home' }, { label: 'Agent skills' }]} />
+    <header class="skills-hero">
+      <div>
+        <div class="eyebrow label">For coding agents · Built for small teams</div>
+        <h1 class="display">Product Engineering <span>Skills</span></h1>
+        <p class="lede">
+          Give your coding agent the product side of the job. Understand who you are building for,
+          read the evidence, choose what matters next and check whether it worked.
+        </p>
+        <div class="btn-row">
+          <a class="btn primary" href={repo}>View on GitHub <span aria-hidden="true">↗</span></a>
+          <a class="btn" href="#installation">Install the skills <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="hero-note">10 skills. Plain Markdown. In your product’s repo.</p>
+      </div>
+      <aside class="loop" aria-label="The product engineering loop">
+        <div class="pane-head"><span class="label">The working loop</span><span class="label">Repeat ↴</span></div>
+        <ol>
+          {loop.map((step, i) => (
+            <li>
+              <span class="step-number">0{i + 1}</span>
+              <div>
+                {step.href ? <a href={step.href}>{step.name}</a> : <strong>{step.name}</strong>}
+                <p>{step.text}</p>
+              </div>
+              <span class="loop-arrow" aria-hidden="true">{i === loop.length - 1 ? '↺' : '↓'}</span>
+            </li>
+          ))}
+        </ol>
+        <p>Start with <a href="#product-grill">product-grill</a>. Then keep one bet in flight.</p>
+      </aside>
+    </header>
+
+    <nav class="page-nav" aria-label="On this page">
+      <a href="#overview">01 / What they do</a>
+      <a href="#installation">02 / Installation</a>
+      <a href="#examples">03 / Skills & examples</a>
+      <a href="#first-run">04 / Your first run</a>
+    </nav>
+
+    <section class="section" id="overview" aria-labelledby="overview-title">
+      <div class="section-head"><h2 id="overview-title">Product thinking, inside your workflow.</h2><span class="label">01</span></div>
+      <div class="cols overview">
+        <div class="prose">
+          <p class="lede">A set of instructions your agent can load when there is a product question to answer.</p>
+          <p>
+            Built for solo builders and small teams working in a product’s codebase. Each skill gives the agent
+            a process, the evidence to look for and a concrete output: a brief, an audit, a decision or a scoped bet.
+          </p>
+          <p>
+            They use the Agent Skills format and work with compatible agents including Claude Code, Codex and Cursor.
+            The <a href="/atlas/">Skill Atlas</a> maps the discipline; these skills help you put its product practices to work.
+          </p>
+        </div>
+        <ul class="principles">
+          <li><strong>Evidence before recommendations.</strong><span>Claims distinguish what was measured, observed, reported or assumed.</span></li>
+          <li><strong>Built for the numbers you have.</strong><span>Small products get counts and individual journeys, with uncertainty made explicit.</span></li>
+          <li><strong>Context that survives the session.</strong><span>Briefs, evidence and decisions live in <code>docs/product/</code>, ready for the next run.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="installation" aria-labelledby="installation-title">
+      <div class="section-head"><h2 id="installation-title">Install once. Use across the loop.</h2><span class="label">02</span></div>
+      <p class="section-intro">Choose one installation method per agent. Install all ten skills: they share context and call on each other.</p>
+      <div class="install-grid">
+        <article>
+          <span class="label">Editable files</span>
+          <h3>Any compatible agent</h3>
+          <p>Run in your product’s repo. The installer asks which agent and which skills to use.</p>
+          <CommandBlock label="Terminal · skills.sh" command="npx skills@latest add ojoven/product-engineering-skills" />
+          <p class="install-note">Update with <code>npx skills@latest update</code>. Run <code>add</code> again to pick up newly added skills.</p>
+        </article>
+        <article>
+          <span class="label">Plugin</span>
+          <h3>Claude Code</h3>
+          <p>Add the marketplace, then install the plugin from your terminal.</p>
+          <CommandBlock label="Terminal · Claude Code" command={'claude plugin marketplace add ojoven/product-engineering-skills\nclaude plugin install product-engineering@ojoven'} />
+          <p class="install-note">Plugin commands use a prefix, for example <code>/product-engineering:what-next</code>.</p>
+        </article>
+        <article>
+          <span class="label">Plugin</span>
+          <h3>Codex</h3>
+          <p>Add the same marketplace and install the product engineering plugin.</p>
+          <CommandBlock label="Terminal · Codex" command={'codex plugin marketplace add ojoven/product-engineering-skills\ncodex plugin add product-engineering@ojoven'} />
+          <p class="install-note">Refresh the marketplace with <code>codex plugin marketplace upgrade</code>.</p>
+        </article>
+      </div>
+      <p class="install-more">For plugin updates, global installs and installing from a clone, see the <a href={`${repo}#install`}>full installation guide <span aria-hidden="true">↗</span></a>.</p>
+    </section>
+
+    <section class="section" id="examples" aria-labelledby="examples-title">
+      <div class="section-head"><h2 id="examples-title">A skill for the question in front of you.</h2><span class="label">03</span></div>
+      <p class="section-intro">
+        Ask in plain language or invoke a skill by name. These examples use Claude Code’s slash syntax for editable-file installs;
+        plugins may add a prefix, and other agents use their own skill invocation syntax.
+      </p>
+      {groups.map((group, groupIndex) => (
+        <div class="skill-group">
+          <div class="group-heading">
+            <span class="label">0{groupIndex + 1}</span>
+            <h3>{group.name}</h3>
+            <p>{group.description}</p>
+          </div>
+          <div class="skill-list">
+            {group.skills.map((skill) => (
+              <article class="skill-entry" id={skill.name}>
+                <div class="skill-description">
+                  <a class="skill-name" href={`${repo}/blob/main/skills/${skill.name}/SKILL.md`}>{skill.name} <span aria-hidden="true">↗</span></a>
+                  <h4>{skill.question}</h4>
+                  <p>{skill.description}</p>
+                </div>
+                <div class="skill-example">
+                  <CommandBlock label={`Try ${skill.name}`} command={skill.example} />
+                  <p class="output"><span class="label">You get</span>{skill.output}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div class="shared-context" id="product-context">
+        <span class="label">The tenth skill</span>
+        <div>
+          <a class="skill-name" href={`${repo}/blob/main/skills/product-context/SKILL.md`}>product-context <span aria-hidden="true">↗</span></a>
+          <p>The shared reference for file layout, evidence grades and reporting rules. The other nine load it automatically; you do not need to invoke it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="first-run" aria-labelledby="first-run-title">
+      <div class="section-head"><h2 id="first-run-title">Your first run</h2><span class="label">04</span></div>
+      <ol class="steps">
+        <li><span class="n">01</span><h3>Open your product’s repo</h3><p>Start your agent where the code lives. The skills keep their working notes under <code>docs/product/</code>.</p></li>
+        <li><span class="n">02</span><h3>Start with product-grill</h3><p>Set aside time for the interview. Review the product brief and correct anything the agent misunderstood.</p></li>
+        <li><span class="n">03</span><h3>Bring in the evidence</h3><p>Use <a href="#connect-sources">connect-sources</a>, then <a href="#audit-analytics">audit-analytics</a>. Sources use read-only access.</p></li>
+        <li><span class="n">04</span><h3>Ask what-next</h3><p>Get one recommendation and shape it into a bet. Missing evidence is recorded as a gap, so you can start with what you have.</p></li>
+      </ol>
+      <p class="first-run-note">Keep <code>docs/product/</code> in version control, but ignore <code>docs/product/evidence/imports/</code> for raw exports. Each session can pick up from the files.</p>
+    </section>
+
+    <section class="repo-cta" aria-labelledby="repo-title">
+      <div>
+        <span class="label">Read the source. Make it yours.</span>
+        <h2 id="repo-title">Bring product judgment to your agent.</h2>
+        <p>Explore all ten skills, follow the usage guide and help improve the next version.</p>
+      </div>
+      <div class="cta-links">
+        <a class="btn primary" href={repo}>Explore on GitHub <span aria-hidden="true">↗</span></a>
+        <a href={`${repo}/blob/main/GUIDE.md`}>Read the usage guide <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .skills-page { --section-offset: calc(var(--head) + 24px); }
+  section[id], article[id], .shared-context { scroll-margin-top: var(--section-offset); }
+  code { font-family: var(--mono); font-size: 0.85em; overflow-wrap: anywhere; }
+  .skills-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.85fr);
+    gap: 64px;
+    align-items: center;
+    padding: 42px 0 48px;
+  }
+  .eyebrow { margin-bottom: 20px; color: var(--accent-ink); }
+  .skills-hero h1 { font-size: clamp(48px, 6.2vw, 84px); max-width: 13ch; }
+  .skills-hero h1 span { color: var(--accent-ink); }
+  .skills-hero .lede { margin: 24px 0; max-width: 50ch; }
+  .hero-note { margin: 16px 0 0; font: 12px/1.6 var(--mono); color: var(--muted); }
+  .loop { border-top: 3px solid var(--accent); padding-top: 14px; }
+  .loop ol { list-style: none; margin: 0; padding: 0; }
+  .loop li { display: grid; grid-template-columns: 28px 1fr auto; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+  .step-number { font: 12px/2 var(--mono); color: var(--accent-ink); }
+  .loop li a, .loop li strong { font: 500 17px var(--mono); text-decoration: none; }
+  .loop li a:hover { text-decoration: underline; }
+  .loop li p { margin: 5px 0 0; font-size: 14px; color: var(--ink-2); }
+  .loop-arrow { color: var(--muted); }
+  .loop > p { border-top: 1px solid var(--ink); padding-top: 14px; margin: 0; font-size: 13px; color: var(--ink-2); }
+  .page-nav { display: flex; flex-wrap: wrap; gap: 12px 28px; padding: 16px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .page-nav a { font: 11px/1.5 var(--mono); text-transform: uppercase; text-decoration: none; }
+  .page-nav a:hover { text-decoration: underline; }
+  .overview { gap: 24px 64px; }
+  .principles { list-style: none; margin: 0; padding: 0; }
+  .principles li { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .principles li:first-child { padding-top: 0; }
+  .principles strong, .principles span { display: block; }
+  .principles span { margin-top: 4px; font-size: 15px; color: var(--ink-2); }
+  .section-intro { max-width: 80ch; color: var(--ink-2); margin-bottom: 28px; }
+  .install-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+  .install-grid article { min-width: 0; padding: 22px 24px 0; border-left: 1px solid var(--line); }
+  .install-grid article:first-child { border-left: 0; padding-left: 0; }
+  .install-grid article:last-child { padding-right: 0; }
+  .install-grid h3 { font-size: 26px; margin: 10px 0 12px; }
+  .install-grid p { font-size: 15px; color: var(--ink-2); }
+  .install-grid .install-note { font-size: 13px; margin: 14px 0 0; }
+  .install-more { font-size: 14px; margin: 24px 0 0; }
+  .skill-group { border-top: 1px solid var(--ink); display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 40px; margin-top: 32px; }
+  .group-heading { padding-top: 22px; }
+  .group-heading > .label { color: var(--accent-ink); }
+  .group-heading h3 { font-size: 28px; margin: 12px 0; }
+  .group-heading p { font-size: 14px; color: var(--ink-2); }
+  .skill-entry { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; padding: 24px 0; border-top: 1px solid var(--line); }
+  .skill-entry:first-child { border-top: 0; }
+  .skill-name { font: 500 15px/1.5 var(--mono); text-decoration: none; }
+  .skill-name span { color: var(--accent-ink); }
+  .skill-name:hover { text-decoration: underline; }
+  h4 { font: 600 23px/1.15 var(--cond); margin: 12px 0 8px; }
+  .skill-description p { font-size: 14.5px; color: var(--ink-2); margin: 0; }
+  .output { font-size: 13px; color: var(--ink-2); margin: 12px 0 0; }
+  .output .label { display: block; margin-bottom: 4px; }
+  .shared-context { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 40px; padding: 24px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .shared-context > .label { padding-top: 4px; }
+  .shared-context p { font-size: 14.5px; color: var(--ink-2); margin: 8px 0 0; max-width: 75ch; }
+  .first-run-note { font-size: 14px; color: var(--ink-2); margin: 16px 0 0; }
+  .repo-cta { display: flex; justify-content: space-between; align-items: center; gap: 32px; border-top: 3px solid var(--accent); border-bottom: 1px solid var(--ink); padding: 28px 0; margin-top: 56px; }
+  .repo-cta h2 { font-size: clamp(28px, 3vw, 40px); margin: 14px 0 12px; }
+  .repo-cta p { color: var(--ink-2); margin: 0; }
+  .cta-links { display: flex; flex-direction: column; align-items: flex-start; flex-shrink: 0; gap: 14px; font-size: 14px; }
+  @media (max-width: 1100px) {
+    .skill-group, .shared-context { grid-template-columns: 180px minmax(0, 1fr); gap: 28px; }
+    .skill-entry { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  }
+  @media (max-width: 900px) {
+    .skills-hero { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+    .skills-hero h1 { max-width: 16ch; }
+    .loop { max-width: 560px; width: 100%; }
+    .install-grid { grid-template-columns: minmax(0, 1fr); }
+    .install-grid article { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+    .repo-cta { align-items: flex-start; flex-direction: column; }
+  }
+  @media (max-width: 560px) {
+    .skills-hero { padding-top: 28px; }
+    .skill-group, .shared-context { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .skill-entry:first-child { border-top: 1px solid var(--line); }
+    .group-heading h3 { margin-top: 8px; }
+    .page-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 12px; }
+  }
+</style>
