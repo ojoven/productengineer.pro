@@ -119,7 +119,7 @@ coverage:
 
 [Unai Esteibar](https://uesteibar.com/) is a developer, currently living in Barcelona, who always has a side project going. Most end up in the bin. [Mamitsu](https://usemamitsu.com) did not.
 
-Mamitsu is an API and MCP server that watches social media videos and returns what you ask for as JSON. You send a link to an Instagram, TikTok, YouTube or X post and a question in plain words. It watches the video, listens to the audio, reads the caption and answers in the same request. A cooking reel becomes a recipe with ingredients and steps; a travel video becomes a list of places. Apps call it through a REST API. Agents such as Claude Code or Codex call it through MCP, the protocol agents use to connect to tools. Unai builds it on his own, with agents, in his spare time.
+**Mamitsu is an API and MCP server that watches social media videos and returns what you ask for as JSON.** You send a link to an Instagram, TikTok, YouTube or X post and a question in plain words. It watches the video, listens to the audio, reads the caption and answers in the same request. A cooking reel becomes a recipe with ingredients and steps; a travel video becomes a list of places. Apps call it through a REST API. Agents such as Claude Code or Codex call it through MCP, the protocol agents use to connect to tools. Unai builds it on his own, with agents, in his spare time.
 
 I saw Mamitsu on Twitter, loved it and sent Unai some feedback. On 13 November we talked for almost two hours. I had questions ready by territory of the atlas. We did not follow them in order, so this write-up groups what came up by territory, not by minute, and ends with what we talked about beyond Mamitsu.
 
@@ -140,7 +140,7 @@ I saw Mamitsu on Twitter, loved it and sent Unai some feedback. On 13 November w
 
 ## On the map
 
-The conversation reached ten of the twelve territories of the atlas and 38 skills. Here is each one, with what it meant for Mamitsu. The sections after it follow the same order.
+The conversation reached ten of the twelve territories of the atlas and 38 skills. Each icon takes you to its section. At the end, every skill in one line: what it meant for Mamitsu.
 
 <Territories
   title="Where the conversation went"
@@ -158,13 +158,11 @@ The conversation reached ten of the twelve territories of the atlas and 38 skill
   caption="Experience and Cross-cutting only came up in the wider discussion. Activation and Retention did not come up, apart from one idea about what brings users back."
 />
 
-<MapSummary />
-
 ## Discovery: from a coffee grinder to video data
 
 Mamitsu is a side project that came out of another side project: a coffee app. Unai brews each new coffee bag from a base recipe and adjusts it day by day: a bit finer, a bit more water. He built a recipe player that guides you step by step and tells you what to change tomorrow. Then it got out of hand: he normalised grinders, so a recipe for one grinder translates to yours. One of his goes by numbers, another by clicks. "It looks easy. It is a mess." The app could also import recipes from YouTube and Instagram videos, held together with tape.
 
-That import is what the beta testers wanted. One friend wanted it for family recipes, another for his own coffee app, a third for a travel app. What they had in common was not coffee. It was useful information locked inside videos.
+That import is what the beta testers wanted. One friend wanted it for family recipes, another for his own coffee app, a third for a travel app. What they had in common was not coffee. **It was useful information locked inside videos.**
 
 <Quote
   text="There is something here. It is in videos, it is not even text, but it can be structured. There is valuable information there that nobody is using."
@@ -200,7 +198,7 @@ So I asked what he had left out.
   later={[{ text: "A scraper for any URL, not only social posts", note: "Some day, maybe" }]}
 />
 
-The cut that says most is transcripts. His bet is that the rawer the content, the easier it is to pull out whatever you need. The quantity in a recipe may only appear on screen; the name of a place may only be said out loud. So the model gets the video, not a transcript. And that has become very cheap.
+The cut that says most is transcripts. **His bet is that the rawer the content, the easier it is to pull out whatever you need.** The quantity in a recipe may only appear on screen; the name of a place may only be said out loud. So the model gets the video, not a transcript. And that has become very cheap.
 
 The other bet is price. Supadata has traction, so: "People use this. Can I do it as well or better, and much cheaper?" He sent me the [comparison page](https://usemamitsu.com/compare/mamitsu-vs-supadata) while we talked.
 
@@ -280,11 +278,11 @@ Moving tickets in Linear feels unnatural to Unai, so the pipeline lives in Slack
   caption="The arbiter checks that everything is green and easy to roll back, then gives one of three answers: back to the agents, merge, or wait for Unai. Each PR carries its own rollout and rollback plan."
 />
 
-After a merge, the agent turns on a feature flag if needed, watches the logs until about ten requests have gone through the new code, and rolls back if something breaks. That has happened once. Otherwise he gets a Slack message saying all is well. The risk scoring is his own skill. Two years ago, a product with these processes would have needed a team.
+After a merge, the agent turns on a feature flag if needed, watches the logs until about ten requests have gone through the new code, and rolls back if something breaks. That has happened once. Otherwise he gets a Slack message saying all is well. The risk scoring is his own skill. **Two years ago, a product with these processes would have needed a team.**
 
 ## Operations: errors fixed before he reads them
 
-This is the part Unai finds most interesting: products that were not viable before because the maintenance they needed was not worth it. Agents change that.
+This is the part Unai finds most interesting: **products that were not viable before because the maintenance they needed was not worth it.** Agents change that.
 
 <Sequence
   title="A production error, from alert to fix"
@@ -318,7 +316,7 @@ The launch was quiet. Traction? "A tiny bit." New users trickle in and the produ
 
 The channel he works on most is GEO, generative engine optimisation: being cited by AI answers. "Build it and they will come" was never true, he says, but the coming part has changed. The day before our call he needed somewhere to centralise his agents' MCP servers. He asked his agent to find and compare alternatives, and decided there, without opening a single landing page until after. "I had a decision right there, because I had everything I needed to make it."
 
-When you ask ChatGPT something, it runs your search plus many variations, opens what looks relevant and answers with citations. A citation means "this is where I read it", not "I recommend this". And unlike Google, nobody shows you what people ask. So you simulate it.
+When you ask ChatGPT something, it runs your search plus many variations, opens what looks relevant and answers with citations. **A citation means "this is where I read it", not "I recommend this".** And unlike Google, nobody shows you what people ask. So you simulate it.
 
 <Loop
   title="Unai's GEO loop"
@@ -397,3 +395,9 @@ Unai suggested agents could use Codiluce, my tool to see how code fits together,
 - **Automate the loops around the product.** Errors, support emails and content drafts reach Unai's agents before they reach him. Those are the jobs that make a side project too expensive to keep running. I want the same for mine: alerts that arrive with a diagnosis, feedback that becomes a weekly report, content drafted from the gaps.
 
 <Skills label="What I want to practise next" ids={['seo', 'content-marketing', 'scope-cutting', 'opportunity-cost', 'alerting', 'feedback-analysis']} />
+
+## Skill by skill
+
+Every skill the conversation touched, by territory, with what it meant for Mamitsu.
+
+<MapSummary />

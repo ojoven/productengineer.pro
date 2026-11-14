@@ -1280,7 +1280,7 @@ export const FIGURES: FigureDoc[] = [
     skills: ['professional-development', 'reflection', 'system-dependencies'],
     motion: ['reveal'],
     props: [
-      { name: 'skills', type: 'string[]', note: 'Skill ids. Their territories are lit, with the number of skills in each. Usually the `skills` of the entry.' },
+      { name: 'skills', type: 'string[]', note: 'Skill ids. Their territories are lit, with the number of skills in each. Usually the `skills` of the entry. Inside a profile, each lit territory links to the section that covers it.' },
       { name: 'territories', type: 'string[]', note: 'Territory ids to light, when there is no list of skills.' },
       { name: 'all', type: 'boolean', note: 'Light all twelve.' },
     ],

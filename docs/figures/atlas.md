@@ -80,7 +80,7 @@ It has no frame, so it takes none of the frame props.
 
 **Props**
 
-- **`skills`** `string[]`: Skill ids. Their territories are lit, with the number of skills in each. Usually the `skills` of the entry.
+- **`skills`** `string[]`: Skill ids. Their territories are lit, with the number of skills in each. Usually the `skills` of the entry. Inside a profile, each lit territory links to the section that covers it.
 - **`territories`** `string[]`: Territory ids to light, when there is no list of skills.
 - **`all`** `boolean`: Light all twelve.
 

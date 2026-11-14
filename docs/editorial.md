@@ -100,7 +100,8 @@ Add `coverage` to group the entry's `skills` by section. Each skill must appear 
 Use `scope: general` for a discussion beyond the featured product (the default is `product`).
 
 Give each skill one sentence in `notes`: how the product applied it. A published profile without a
-note for every skill gets a build warning.
+note for every skill gets a build warning. Bold one sentence in a few sections at most: the one a
+reader skimming the piece should not miss.
 
 ```yaml
 coverage:
@@ -117,8 +118,9 @@ What the page does with it:
 
 - Every heading that `coverage` points at gets a strip under it: the territory, linked, and the
   section's skills as chips (the note shows on hover). Nothing to write in the body.
-- `<MapSummary />` in **On the map**, after the `Territories` figure, lists each territory and
-  skill with its note. It is the summary of the whole piece.
+- In **On the map**, the `Territories` figure links each lit territory to its section.
+- `<MapSummary />` under a last `## Skill by skill` heading, after **What I take from it**, lists
+  each territory and skill with its note: the summary of the whole piece, at the end.
 - A linked index, a reading time from the prose (aim for 5 to 10 minutes) and a sidebar grouped by
   territory. The map highlights discussed skills without implying a chronological route.
 - `/fieldwork/<id>/map.json` exports versioned coverage with section anchors, scope, atlas ids,

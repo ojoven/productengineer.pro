@@ -1,6 +1,6 @@
 ---
-// "On the map" in a profile: every territory the piece covers, and under it each skill with one
-// sentence on how the product applied it. Reads the coverage EntryPage resolved for this entry, so
+// The end of a profile ("## Skill by skill"): every territory the piece covers, and under it each
+// skill with one sentence on how the product applied it. Reads the coverage EntryPage resolved for this entry, so
 // the front matter stays the only place the notes are written. MDX: <MapSummary />.
 const coverage = Astro.locals.coverage;
 const sections = coverage?.sections ?? [];

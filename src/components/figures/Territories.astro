@@ -1,6 +1,8 @@
 ---
 // The twelve territories as emblems, with the ones a piece of work touched lit and the rest
 // dimmed. Give it the skills an entry used and it works out the territories and counts them.
+// Inside a profile (EntryPage sets Astro.locals.coverage), a lit territory links to the section
+// of the entry that covers it; elsewhere, and for unlit territories, to its atlas page.
 import Figure from './Figure.astro';
 import Emblem from './Emblem.astro';
 import { atlas, code, path } from '../../lib/atlas.ts';
@@ -27,16 +29,29 @@ for (const id of territories) {
   if (!t || t.level !== 'territory') throw new Error(`Territories: "${id}" is not a territory id.`);
   if (!counts.has(id)) counts.set(id, 0);
 }
-const cells = a.territories.map((t) => ({ t, lit: all || counts.has(t.id), count: counts.get(t.id) ?? 0 }));
+const sections = Astro.locals.coverage?.sections ?? [];
+/** The section about this territory, or else the first one that discusses one of its skills. */
+const sectionFor = (id: string) =>
+  sections.find((s) => s.territory?.id === id) ?? sections.find((s) => s.skills.some((k) => k.territory === id));
+const cells = a.territories.map((t) => {
+  const lit = all || counts.has(t.id);
+  const section = lit ? sectionFor(t.id) : undefined;
+  return { t, lit, count: counts.get(t.id) ?? 0, href: section?.anchor ?? path(t), section: section?.section };
+});
 const litCount = cells.filter((c) => c.lit).length;
 ---
 
 <Figure kind="Atlas" name="territories" animate {...frame}>
   <ul class="x-grid">
     {
-      cells.map(({ t, lit, count }) => (
+      cells.map(({ t, lit, count, href, section }) => (
         <li>
-          <a class:list={['x-cell', { 'is-lit': lit }]} href={path(t)} aria-label={`${t.name}${lit ? (count ? `, ${count} ${count === 1 ? 'skill' : 'skills'} used` : ', used') : ', not used'}`}>
+          <a
+            class:list={['x-cell', { 'is-lit': lit }]}
+            href={href}
+            title={section ? `Go to “${section}”` : undefined}
+            aria-label={`${t.name}${lit ? (count ? `, ${count} ${count === 1 ? 'skill' : 'skills'} used` : ', used') : ', not used'}${section ? `. Go to the section “${section}”` : ''}`}
+          >
             <Emblem territory={t.id} loop={false} still={!lit} class={lit ? undefined : 'is-dim'} />
             <span class="x-code fg-mono">{code(t.id)}</span>
             <span class="x-name">{t.name}</span>
