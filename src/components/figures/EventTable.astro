@@ -1,0 +1,113 @@
+---
+// A tracking plan in small: the events behind a metric, when each one fires and what it carries.
+// The event the metric is counted from is marked.
+import Figure from './Figure.astro';
+import type { FrameProps } from './lib.ts';
+
+interface Event {
+  /** The event name as sent: "lesson_completed". */
+  name: string;
+  /** When it fires, in words. */
+  when: string;
+  /** Property names it carries. */
+  props?: string[];
+  /** The event the metric is counted from. One, at most two. */
+  key?: boolean;
+}
+interface Props extends FrameProps {
+  events: Event[];
+}
+const { events, ...frame } = Astro.props;
+---
+
+<Figure kind="Events" name="eventtable" animate {...frame}>
+  <ol class="x-events">
+    {
+      events.map((e, i) => (
+        <li class:list={['x-event', { 'is-key': e.key }]} data-a="rise" style={`--i:${i}`}>
+          <span class="x-n fg-mono">{String(i + 1).padStart(2, '0')}</span>
+          <span class="x-main">
+            <code class="x-name">{e.name}</code>
+            {e.key && <span class="fg-tag is-signal">Counts for the metric</span>}
+            <span class="x-when">{e.when}</span>
+          </span>
+          {e.props && e.props.length > 0 && (
+            <span class="x-props">
+              {e.props.map((p) => (
+                <code>{p}</code>
+              ))}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</Figure>
+
+<style is:global>
+  .fg-eventtable .x-event {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr) minmax(0, 0.8fr);
+    column-gap: 12px;
+    align-items: start;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-eventtable .x-event:first-child {
+    padding-top: 0;
+  }
+  .fg-eventtable .x-event:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-eventtable .x-n {
+    font-size: 11.5px;
+    color: var(--muted);
+    padding-top: 3px;
+  }
+  .fg-eventtable .x-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    min-width: 0;
+  }
+  .fg-eventtable code {
+    font-family: var(--mono);
+  }
+  .fg-eventtable .x-name {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+  .fg-eventtable .is-key .x-name {
+    box-shadow: inset 0 -0.5em 0 color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+  .fg-eventtable .x-when {
+    flex-basis: 100%;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  .fg-eventtable .x-props {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-top: 2px;
+  }
+  .fg-eventtable .x-props code {
+    font-size: 11.5px;
+    color: var(--ink-2);
+    border: 1px solid var(--line);
+    padding: 2px 5px;
+  }
+  @container fg (max-width: 519px) {
+    .fg-eventtable .x-event {
+      grid-template-columns: 26px minmax(0, 1fr);
+      row-gap: 8px;
+    }
+    .fg-eventtable .x-props {
+      grid-column: 2;
+    }
+  }
+</style>

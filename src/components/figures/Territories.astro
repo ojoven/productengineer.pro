@@ -1,0 +1,117 @@
+---
+// The twelve territories as emblems, with the ones a piece of work touched lit and the rest
+// dimmed. Give it the skills an entry used and it works out the territories and counts them.
+import Figure from './Figure.astro';
+import Emblem from './Emblem.astro';
+import { atlas, code, path } from '../../lib/atlas.ts';
+import type { FrameProps } from './lib.ts';
+
+interface Props extends FrameProps {
+  /** Skill ids. Their territories are lit, with the number of skills in each. */
+  skills?: string[];
+  /** Territory ids to light, when there is no list of skills. */
+  territories?: string[];
+  /** Light all twelve. */
+  all?: boolean;
+}
+const { skills = [], territories = [], all = false, ...frame } = Astro.props;
+const a = atlas();
+const counts = new Map<string, number>();
+for (const id of skills) {
+  const s = a.nodes.get(id);
+  if (!s || s.level !== 'skill') throw new Error(`Territories: "${id}" is not a skill id in the atlas.`);
+  counts.set(s.territory, (counts.get(s.territory) ?? 0) + 1);
+}
+for (const id of territories) {
+  const t = a.nodes.get(id);
+  if (!t || t.level !== 'territory') throw new Error(`Territories: "${id}" is not a territory id.`);
+  if (!counts.has(id)) counts.set(id, 0);
+}
+const cells = a.territories.map((t) => ({ t, lit: all || counts.has(t.id), count: counts.get(t.id) ?? 0 }));
+const litCount = cells.filter((c) => c.lit).length;
+---
+
+<Figure kind="Atlas" name="territories" animate {...frame}>
+  <ul class="x-grid">
+    {
+      cells.map(({ t, lit, count }) => (
+        <li>
+          <a class:list={['x-cell', { 'is-lit': lit }]} href={path(t)} aria-label={`${t.name}${lit ? (count ? `, ${count} ${count === 1 ? 'skill' : 'skills'} used` : ', used') : ', not used'}`}>
+            <Emblem territory={t.id} loop={false} still={!lit} class={lit ? undefined : 'is-dim'} />
+            <span class="x-code fg-mono">{code(t.id)}</span>
+            <span class="x-name">{t.name}</span>
+            {count > 0 && (
+              <span class="x-count fg-mono">
+                {count} {count === 1 ? 'skill' : 'skills'}
+              </span>
+            )}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  {
+    !all && (
+      <p class="x-sum fg-mono" slot="foot">
+        {litCount} of {cells.length} territories{skills.length > 0 && ` · ${skills.length} skills`}
+      </p>
+    )
+  }
+</Figure>
+
+<style is:global>
+  .fg-territories .x-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 18px 10px;
+  }
+  .fg-territories .x-cell {
+    display: grid;
+    justify-items: center;
+    gap: 1px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--muted);
+    padding: 4px 2px 6px;
+  }
+  .fg-territories .x-cell:hover {
+    background: var(--bg-2);
+    color: var(--ink);
+  }
+  .fg-territories .x-cell .fg-emblem {
+    width: 74px;
+    margin-bottom: 4px;
+  }
+  .fg-territories .x-code {
+    font-size: 10.5px;
+  }
+  .fg-territories .x-name {
+    font: 600 14.5px/1.15 var(--cond);
+  }
+  .fg-territories .x-cell.is-lit {
+    color: var(--ink);
+  }
+  .fg-territories .x-cell.is-lit .x-code {
+    color: var(--accent-ink);
+  }
+  .fg-territories .x-count {
+    font-size: 10.5px;
+    color: var(--ink-2);
+  }
+  .fg-territories .x-sum {
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  @container fg (max-width: 519px) {
+    .fg-territories .x-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px 4px;
+    }
+    .fg-territories .x-cell .fg-emblem {
+      width: 60px;
+    }
+    .fg-territories .x-name {
+      font-size: 13px;
+    }
+  }
+</style>

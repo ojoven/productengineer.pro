@@ -1,0 +1,191 @@
+---
+// Internal: the emblem of a territory. Seven tiles (one in the middle, six around it) and one idea
+// each, in the same colours as every figure: ink is what is there, pink is the thing to look at,
+// yellow is a value moment. Each emblem plays once when it comes into view; a few keep a small
+// loop running (the orbit of Retention, the pulse of Operations). Used by TerritoryMark and
+// Territories.
+import { hexPath, round, uid } from './lib.ts';
+
+interface Props {
+  /** Territory id: "measurement", "cross-cutting". */
+  territory: string;
+  /** Keep the small loops running. Default true. */
+  loop?: boolean;
+  /** No motion at all: for emblems shown dimmed. */
+  still?: boolean;
+  class?: string;
+}
+const { territory, loop = true, still = false, class: className } = Astro.props;
+
+const C = 60; // centre of the 120 × 120 drawing
+const R = 17; // tile circumradius
+const D = 31.5; // distance between neighbouring tile centres (tile width plus a 2px gap)
+// 0 is the middle; 1 to 6 go clockwise from the right
+const P: [number, number][] = [[C, C], ...[0, 1, 2, 3, 4, 5].map((k) => [round(C + D * Math.cos((k * Math.PI) / 3)), round(C + D * Math.sin((k * Math.PI) / 3))] as [number, number])];
+const tile = (i: number, r = R) => hexPath(P[i][0], P[i][1], r);
+const xy = (i: number) => `${P[i][0]} ${P[i][1]}`;
+const key = uid('em').replace(/-/g, '');
+
+/** Reveal attributes: plays once when the figure scrolls into view. */
+const a = (name: string, i = 0, extra = '') => (still ? {} : { 'data-a': name, style: `--i:${i};${extra}` });
+/** Loop attributes: runs while the figure is visible. `rest` is the style it holds when nothing moves. */
+const l = (name: string, rest = '') => (still || !loop ? (rest ? { style: rest } : {}) : { 'data-l': name, style: rest });
+
+const ring = [1, 2, 3, 4, 5, 6];
+const known = ['discovery', 'strategy', 'experience', 'engineering', 'shipping', 'measurement', 'activation', 'retention', 'distribution', 'operations', 'ai', 'cross-cutting'];
+if (!known.includes(territory)) throw new Error(`Emblem: no emblem for territory "${territory}". Known: ${known.join(', ')}.`);
+
+// Strategy: the arrow stops at the edge of the chosen tile
+const toward = (from: number, to: number, stop: number) => {
+  const dx = P[to][0] - P[from][0];
+  const dy = P[to][1] - P[from][1];
+  const len = Math.hypot(dx, dy);
+  return `${round(P[to][0] - (dx / len) * stop)} ${round(P[to][1] - (dy / len) * stop)}`;
+};
+// Retention: an arc round the middle, clockwise, leaving a gap at the top
+const polar = (deg: number, r = D) => `${round(C + r * Math.cos((deg * Math.PI) / 180))} ${round(C + r * Math.sin((deg * Math.PI) / 180))}`;
+// Shipping: tiles by column, left to right
+const columns = [[4], [5, 3], [0], [6, 2], [1]];
+const pulse = 'M12 60H42L50 43 60 79 68 60H108';
+const route = [5, 6, 1, 2, 3, 4, 0];
+---
+
+<svg class:list={['fg-emblem', `em-${territory}`, className]} viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+  {
+    territory === 'discovery' && (
+      <>
+        {[0, ...ring].map((i) => <path class="t" d={tile(i)} {...a('pop', i, '--a-step:45ms')} />)}
+        <path class="t pink" d={tile(0)} {...a('fade', 0, '--a-delay:1050ms;--a-dur:350ms')} />
+        <g {...a('slide', 0, '--dx:-34px;--dy:-26px;--a-delay:420ms;--a-dur:800ms')}>
+          <circle class="o halo" cx="60" cy="60" r="23" />
+          <circle class="o thick" cx="60" cy="60" r="23" />
+          <path class="o handle" d="M77.5 77.5 99 99" />
+        </g>
+      </>
+    )
+  }
+  {
+    territory === 'strategy' && (
+      <>
+        <defs>
+          <marker id={`${key}a`} viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+            <path class="head pink" d="M1 1 7 4 1 7" />
+          </marker>
+        </defs>
+        {[0, 1, 2, 4, 5].map((i, k) => <path class="t ghost" d={tile(i, R - 0.8)} {...a('fade', k, '--a-step:70ms')} />)}
+        <path class="t" d={tile(3)} {...a('pop', 0)} />
+        <path class="o pink" d={`M${xy(3)}L${toward(3, 6, 23)}`} marker-end={`url(#${key}a)`} pathLength="1" {...a('draw', 0, '--a-delay:450ms;--a-dur:600ms')} />
+        <path class="t ink" d={tile(6)} {...a('pop', 0, '--a-delay:950ms')} />
+      </>
+    )
+  }
+  {
+    territory === 'experience' && (
+      <>
+        {[5, 6, 3, 2].map((i) => <path class="t" d={tile(i)} {...a('pop', i, '--a-step:40ms')} />)}
+        {[4, 0, 1].map((i, k) => <path class="t ink" d={tile(i)} {...a('pop', k, '--a-step:220ms;--a-delay:250ms')} />)}
+        <g transform={`translate(${P[1][0] - 4} ${P[1][1] - 5})`}>
+          <path class="cursor" d="M0 0V19L5 14.5 8.4 22 11.6 20.6 8.3 13.2H15Z" {...a('slide', 0, '--dx:-62px;--dy:0px;--a-delay:250ms;--a-dur:900ms')} />
+        </g>
+      </>
+    )
+  }
+  {
+    territory === 'engineering' && (
+      <>
+        {ring.map((i, k) => (
+          <path class="t ink" d={tile(i)} {...a('slide', k, `--dx:${round((P[i][0] - C) * 0.6)}px;--dy:${round((P[i][1] - C) * 0.6)}px;--a-step:90ms;--a-dur:520ms`)} />
+        ))}
+        <path class="t ink" d={tile(0)} {...a('pop', 0, '--a-delay:700ms')} />
+      </>
+    )
+  }
+  {
+    territory === 'shipping' &&
+      columns.map((col, c) =>
+        col.map((i) => <path class:list={['t', c < 3 ? 'ink' : c === 3 ? 'pink' : 'ghost']} d={tile(i, c === 4 ? R - 0.8 : R)} {...a(c === 4 ? 'fade' : 'pop', c, '--a-step:190ms')} />),
+      )
+  }
+  {
+    territory === 'measurement' && (
+      <>
+        {[0, ...ring].map((i) => <path class="t" d={tile(i)} {...a('pop', i, '--a-step:40ms')} />)}
+        <path class="o thick" d={`M${xy(4)}L${xy(3)}L${xy(0)}L${xy(6)}`} pathLength="1" {...a('draw', 0, '--a-delay:350ms;--a-dur:900ms')} />
+        {[4, 3, 0].map((i, k) => <circle class="dot" cx={P[i][0]} cy={P[i][1]} r="4.6" {...a('pop', k, '--a-step:260ms;--a-delay:350ms')} />)}
+        <circle class="dot pink" cx={P[6][0]} cy={P[6][1]} r="6" {...a('pop', 0, '--a-delay:1200ms')} />
+      </>
+    )
+  }
+  {
+    territory === 'activation' && (
+      <>
+        {ring.map((i) => <path class="t" d={tile(i)} {...a('pop', i, '--a-step:50ms')} />)}
+        <path class="t lit" d={tile(0)} {...a('pop', 0, '--a-delay:550ms')} />
+        <path class="o" d={tile(0, 23)} {...l('pulse')} />
+      </>
+    )
+  }
+  {
+    territory === 'retention' && (
+      <>
+        <defs>
+          <marker id={`${key}a`} viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+            <path class="head" d="M1 1 7 4 1 7" />
+          </marker>
+        </defs>
+        {ring.map((i) => <path class="t" d={tile(i)} {...a('pop', i, '--a-step:40ms')} />)}
+        <path class="t ink" d={tile(0)} {...a('pop', 0, '--a-delay:300ms')} />
+        <path class="o" d={`M${polar(-70)}A${D} ${D} 0 1 1 ${polar(-112)}`} marker-end={`url(#${key}a)`} pathLength="1" {...a('draw', 0, '--a-delay:400ms;--a-dur:1000ms')} />
+        <g {...l('orbit', 'transform-origin:60px 60px')}>
+          <circle class="dot pink" cx="60" cy={C - D} r="5.5" {...a('pop', 0, '--a-delay:1300ms')} />
+        </g>
+      </>
+    )
+  }
+  {
+    territory === 'distribution' && (
+      <>
+        {[0, 2, 3, 5, 6].map((i) => <path class="t" d={tile(i)} {...a('pop', i, '--a-step:40ms')} />)}
+        <path class="t ink" d={tile(4)} {...a('pop', 0, '--a-delay:150ms')} />
+        {[23, 39, 55].map((r, k) => (
+          <path
+            class="o"
+            d={`M${round(P[4][0] + r * Math.cos(-0.62))} ${round(P[4][1] + r * Math.sin(-0.62))}A${r} ${r} 0 0 1 ${round(P[4][0] + r * Math.cos(0.62))} ${round(P[4][1] + r * Math.sin(0.62))}`}
+            {...a('fade', k, '--a-step:240ms;--a-delay:400ms;--a-dur:400ms')}
+          />
+        ))}
+        <path class="t pink" d={tile(1)} {...a('pop', 0, '--a-delay:1150ms')} />
+      </>
+    )
+  }
+  {
+    territory === 'operations' && (
+      <>
+        {[0, ...ring].map((i) => <path class="t" d={tile(i)} {...a('pop', i, '--a-step:40ms')} />)}
+        <path class="o halo" d={pulse} />
+        <path class="o thick" d={pulse} pathLength="1" {...a('draw', 0, '--a-delay:350ms;--a-dur:1000ms')} />
+        <circle class="dot pink" r="5" {...l('travel', `offset-path:path('${pulse}');offset-distance:100%`)} />
+      </>
+    )
+  }
+  {
+    territory === 'ai' && (
+      <>
+        {[1, 3, 5].map((i) => <path class="t" d={tile(i)} {...a('pop', i, '--a-step:50ms')} />)}
+        {[2, 4, 6].map((i) => <path class="t ghost" d={tile(i, R - 0.8)} {...a('fade', i, '--a-step:50ms')} />)}
+        <path class="t ink" d={tile(0)} {...a('pop', 0, '--a-delay:400ms')} />
+        {[-8, 0, 8].map((dx, k) => <circle class="think" cx={C + dx} cy={C} r="2.7" {...l('blink', `animation-delay:${k * 200}ms`)} />)}
+      </>
+    )
+  }
+  {
+    territory === 'cross-cutting' && (
+      <>
+        {[0, ...ring].map((i) => <path class="t" d={tile(i)} {...a('pop', i, '--a-step:40ms')} />)}
+        <path class="o halo" d={`M${route.map(xy).join('L')}`} />
+        <path class="o pink route" d={`M${route.map(xy).join('L')}`} pathLength="1" {...a('draw', 0, '--a-delay:300ms;--a-dur:1500ms')} />
+        {route.map((i, k) => <circle class="dot pink small" cx={P[i][0]} cy={P[i][1]} r="3.8" {...a('pop', k, '--a-step:210ms;--a-delay:300ms')} />)}
+      </>
+    )
+  }
+</svg>

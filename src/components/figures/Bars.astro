@@ -1,0 +1,113 @@
+---
+// Ranked bars: one measure across a few named things (products, channels, steps, endpoints).
+// One series, one colour; `highlight` marks the item the text is about.
+import Figure from './Figure.astro';
+import { withUnit, type FrameProps } from './lib.ts';
+
+interface Item {
+  label: string;
+  value: number;
+  /** A short remark after the label. */
+  note?: string;
+  /** The item the section is about. Drawn in pink. */
+  highlight?: boolean;
+}
+interface Props extends FrameProps {
+  items: Item[];
+  /** Unit after each value: "s", "%", "steps", "€". */
+  unit?: string;
+  /** Scale end. Default: the largest value. Set it when two charts must share a scale. */
+  max?: number;
+  /** Sort from largest to smallest. Default: keep the order given. */
+  sort?: boolean;
+  /** Decimal places for the values. */
+  digits?: number;
+}
+const { items, unit = '', max, sort = false, digits, ...frame } = Astro.props;
+const list = sort ? [...items].sort((a, b) => b.value - a.value) : items;
+const top = max ?? (Math.max(...list.map((i) => i.value), 0) || 1);
+---
+
+<Figure kind="Bars" name="bars" animate {...frame}>
+  <ul class="x-rows">
+    {
+      list.map((it, i) => (
+        <li class:list={['x-row', { 'is-hi': it.highlight }]}>
+          <span class="x-name">
+            {it.label}
+            {it.note && <span class="x-note">{it.note}</span>}
+          </span>
+          <span class="x-track" aria-hidden="true">
+            <i class="x-bar" style={`width:${Math.max(0, Math.min(100, (it.value / top) * 100))}%;--i:${i}`} data-a="grow-x" />
+          </span>
+          <span class="x-val fg-mono">{withUnit(it.value, unit, { digits })}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Figure>
+
+<style is:global>
+  .fg-bars .x-rows {
+    display: grid;
+  }
+  .fg-bars .x-row {
+    display: grid;
+    grid-template-columns: minmax(96px, 34%) minmax(0, 1fr) auto;
+    column-gap: 14px;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-bars .x-row:first-child {
+    padding-top: 0;
+  }
+  .fg-bars .x-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-bars .x-name {
+    font: 600 16px/1.2 var(--cond);
+  }
+  .fg-bars .x-note {
+    display: block;
+    font: 400 12.5px/1.35 var(--fg-ui);
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .fg-bars .x-track {
+    display: block;
+    height: 14px;
+    border-left: 1px solid var(--ink);
+  }
+  .fg-bars .x-bar {
+    display: block;
+    height: 100%;
+    background: var(--ink);
+  }
+  .fg-bars .is-hi .x-bar {
+    background: var(--accent);
+  }
+  .fg-bars .x-val {
+    min-width: 56px;
+    text-align: right;
+    font-size: 13.5px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  @container fg (max-width: 519px) {
+    .fg-bars .x-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      row-gap: 6px;
+    }
+    .fg-bars .x-name {
+      font-size: 15px;
+    }
+    .fg-bars .x-track {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      height: 12px;
+    }
+  }
+</style>

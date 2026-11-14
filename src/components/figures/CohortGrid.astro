@@ -1,0 +1,194 @@
+---
+// A cohort table: each row is the people who started in one period, each column how many of them
+// were still active N periods later. Darker means more. Cells that have not happened yet are hatched.
+import Figure from './Figure.astro';
+import { fmt, type FrameProps } from './lib.ts';
+
+interface Cohort {
+  /** When the cohort started: "6 Oct", "Week 41", "v1.3". */
+  label: string;
+  /** People in the cohort. */
+  size?: number;
+  /** Share still active in each period, as percentages. `null` for periods that have not happened. */
+  values: (number | null)[];
+}
+interface Props extends FrameProps {
+  cohorts: Cohort[];
+  /** Column heads. Default: W0, W1, W2 … (set `period` to change the letter). */
+  periods?: string[];
+  /** Letter for the default column heads: "W" for weeks, "D" for days, "M" for months. */
+  period?: string;
+  /** Index (from 0) of the first cohort that got the change. A pink rule is drawn above it. */
+  changeAt?: number;
+  /** What changed, shown next to the rule: "Lesson before account". */
+  changeLabel?: string;
+}
+const { cohorts, periods, period = 'W', changeAt, changeLabel, ...frame } = Astro.props;
+const cols = Math.max(...cohorts.map((c) => c.values.length), 0);
+const heads = periods ?? Array.from({ length: cols }, (_, i) => `${period}${i}`);
+// shade against the largest value after the first period, so the interesting columns use the full range
+const later = cohorts.flatMap((c) => c.values.slice(1).filter((v): v is number => v != null));
+const top = Math.max(...later, 1);
+const shade = (v: number, col: number) => (col === 0 ? 1 : Math.min(1, v / top));
+---
+
+<Figure kind="Cohorts" name="cohortgrid" animate {...frame}>
+  <div class="x-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" class="x-corner">Cohort</th>
+          <th scope="col" class="x-size">People</th>
+          {heads.map((h) => <th scope="col">{h}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          cohorts.map((c, r) => (
+            <tr class:list={{ 'is-change': changeAt === r, 'is-after': changeAt !== undefined && r >= changeAt }}>
+              <th scope="row">
+                {c.label}
+                {changeAt === r && changeLabel && <span class="x-change">{changeLabel}</span>}
+              </th>
+              <td class="x-size">{c.size !== undefined ? fmt(c.size) : ''}</td>
+              {Array.from({ length: cols }, (_, i) => {
+                const v = c.values[i];
+                if (v == null) return <td class="x-empty" aria-label="not yet" />;
+                const s = shade(v, i);
+                return (
+                  <td class:list={['x-cell', { 'is-dark': s > 0.5 }]} style={`--s:${Math.round(6 + s * 86)}%;--i:${r + i}`} data-a="fade">
+                    {fmt(v, { digits: v < 10 ? 1 : 0 })}
+                  </td>
+                );
+              })}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="x-scale" aria-hidden="true">
+    <span class="fg-label">Share still active, %</span>
+    <span class="x-ramp"><i style="--s:8%"></i><i style="--s:28%"></i><i style="--s:50%"></i><i style="--s:72%"></i><i style="--s:92%"></i></span>
+    <span class="x-key"><i class="x-hatch"></i><span class="fg-label">Not yet</span></span>
+  </div>
+</Figure>
+
+<style is:global>
+  .fg-cohortgrid .x-scroll {
+    overflow-x: auto;
+  }
+  .fg-cohortgrid table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+    margin: -2px;
+    font: 400 12px/1 var(--mono);
+    font-variant-numeric: tabular-nums;
+  }
+  .fg-cohortgrid :is(th, td) {
+    border: 0;
+    padding: 0;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .fg-cohortgrid thead th {
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 0 6px;
+  }
+  .fg-cohortgrid tbody th,
+  .fg-cohortgrid .x-corner {
+    text-align: left;
+    font: 600 14px/1.15 var(--cond);
+    color: var(--ink);
+    padding-right: 10px;
+    position: sticky;
+    left: 0;
+    background: var(--bg);
+    z-index: 1;
+  }
+  .fg-cohortgrid .x-corner {
+    font: 500 10.5px/1 var(--mono);
+    color: var(--muted);
+  }
+  .fg-cohortgrid .x-size {
+    text-align: right;
+    color: var(--muted);
+    padding-right: 10px;
+  }
+  .fg-cohortgrid .x-cell,
+  .fg-cohortgrid .x-empty {
+    height: 30px;
+    min-width: 40px;
+  }
+  .fg-cohortgrid .x-cell {
+    background: color-mix(in srgb, var(--ink) var(--s), var(--bg));
+    color: var(--ink);
+  }
+  .fg-cohortgrid .x-cell.is-dark {
+    color: var(--bg);
+  }
+  .fg-cohortgrid .x-empty {
+    background: var(--fg-hatch);
+  }
+  /* cohorts that got the change carry a pink bar */
+  .fg-cohortgrid tr.is-after th {
+    box-shadow: inset 3px 0 0 var(--accent);
+    padding-left: 9px;
+  }
+  .fg-cohortgrid .x-change {
+    display: block;
+    font: 500 9.5px/1.3 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    white-space: normal;
+    max-width: 14ch;
+    margin-top: 2px;
+  }
+  .fg-cohortgrid .x-scale {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    margin-top: 14px;
+  }
+  .fg-cohortgrid .x-ramp {
+    display: inline-flex;
+    gap: 2px;
+  }
+  .fg-cohortgrid .x-ramp i {
+    width: 18px;
+    height: 10px;
+    background: color-mix(in srgb, var(--ink) var(--s), var(--bg));
+  }
+  .fg-cohortgrid .x-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 8px;
+  }
+  .fg-cohortgrid .x-hatch {
+    width: 18px;
+    height: 10px;
+    background: var(--fg-hatch);
+    outline: 1px solid var(--line);
+  }
+  @container fg (max-width: 519px) {
+    .fg-cohortgrid .x-cell,
+    .fg-cohortgrid .x-empty {
+      min-width: 34px;
+      height: 28px;
+    }
+    .fg-cohortgrid .x-size {
+      display: none;
+    }
+    .fg-cohortgrid table {
+      font-size: 11px;
+    }
+  }
+</style>

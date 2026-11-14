@@ -1,0 +1,181 @@
+---
+// One published fieldwork entry, shown large: who and what it is about, the title and summary,
+// the territories it covers and the map with its skills lit. For the Fieldwork page while there
+// are only a few entries.
+import MapFigure from './MapFigure.astro';
+import { atlas, code } from '../lib/atlas.ts';
+import { KIND, entryTerritories, formatDate, itemDate, itemPath, readingMinutes, type Item } from '../lib/editorial.ts';
+
+interface Props {
+  entry: Item;
+}
+const { entry } = Astro.props;
+const d = entry.data;
+const subjects = 'subjects' in d ? d.subjects : [];
+const person = 'person' in d ? d.person : undefined;
+const a = atlas();
+const territories = entryTerritories(entry).map((id) => a.nodes.get(id)!);
+const read = KIND[d.kind] === 'Profile' ? 'Read the profile' : `Read the ${KIND[d.kind].toLowerCase()}`;
+---
+
+<article class="feature">
+  <div class="feature-text">
+    <p class="feature-kicker">
+      <span class="tag">{KIND[d.kind]}</span>
+      <span>{formatDate(itemDate(entry))}</span>
+      <span>{readingMinutes(entry)} min read</span>
+    </p>
+    {
+      (subjects.some((s) => s.logo) || person?.avatar) && (
+        <div class="feature-people">
+          <span class="feature-faces" aria-hidden="true">
+            {subjects.map((s) => s.logo && <img src={s.logo} alt="" width="52" height="52" />)}
+            {person?.avatar && <img class="is-avatar" src={person.avatar} alt="" width="52" height="52" />}
+          </span>
+          <span class="feature-names">
+            <b>{subjects.map((s) => s.name).join(', ')}</b>
+            {person && <small>with {person.name}</small>}
+          </span>
+        </div>
+      )
+    }
+    <h2 class="feature-title"><a href={itemPath(entry)}>{d.title}</a></h2>
+    <p class="feature-summary">{d.summary}</p>
+    {
+      territories.length > 0 && (
+        <ul class="feature-territories" aria-label="Territories covered">
+          {territories.map((t) => (
+            <li>
+              <span class="code">{code(t.id)}</span>
+              {t.name}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <a class="btn primary" href={itemPath(entry)}>{read} →</a>
+  </div>
+  <div class="feature-map">
+    <div class="pane-head"><span class="label">Skills covered</span><span class="label">{d.skills.length}</span></div>
+    <MapFigure lit={d.skills} width={600} height={470} legend={false} />
+  </div>
+</article>
+
+<style>
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .feature-text {
+    padding: 28px 32px 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .feature-map {
+    padding: 20px 0 12px 28px;
+    border-left: 1px solid var(--line);
+    min-width: 0;
+  }
+  .feature-kicker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    margin: 0;
+    font: 400 12px/1.4 var(--mono);
+    color: var(--muted);
+  }
+  .feature-people {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .feature-faces {
+    display: flex;
+  }
+  .feature-faces img {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: block;
+  }
+  .feature-faces img + img {
+    margin-left: -8px;
+  }
+  .feature-faces img.is-avatar {
+    border-radius: 50%;
+    image-rendering: pixelated;
+    box-shadow: 0 0 0 3px var(--bg);
+  }
+  .feature-names {
+    display: grid;
+    line-height: 1.2;
+  }
+  .feature-names b {
+    font: 600 20px/1.2 var(--cond);
+  }
+  .feature-names small {
+    font: 400 12px/1.4 var(--mono);
+    color: var(--muted);
+  }
+  .feature-title {
+    margin: 0;
+    font: 600 clamp(28px, 3.4vw, 40px) / 1.05 var(--cond);
+    letter-spacing: -0.01em;
+  }
+  .feature-title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .feature-title a:hover {
+    color: var(--accent-ink);
+  }
+  .feature-summary {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+  .feature-territories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .feature-territories li {
+    display: inline-flex;
+    gap: 6px;
+    align-items: baseline;
+    margin: 0;
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    font: 600 14px/1.1 var(--cond);
+  }
+  .feature-territories .code {
+    font: 400 10.5px/1 var(--mono);
+    color: var(--muted);
+  }
+  .feature .btn {
+    margin-top: 4px;
+  }
+  @media (max-width: 900px) {
+    .feature {
+      grid-template-columns: 1fr;
+    }
+    .feature-text {
+      padding: 24px 0;
+    }
+    .feature-map {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+      padding: 16px 0 8px;
+    }
+  }
+</style>

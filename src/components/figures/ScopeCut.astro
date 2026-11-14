@@ -1,0 +1,132 @@
+---
+// What is in and what was left out, side by side. For the scope of a change (kept, cut, later) and
+// for the scope of a review (what I looked at, what I did not).
+import Figure from './Figure.astro';
+import type { FrameProps } from './lib.ts';
+
+type Line = string | { text: string; note?: string };
+interface Props extends FrameProps {
+  /** What is in. */
+  kept: Line[];
+  /** What was left out on purpose. */
+  cut: Line[];
+  /** What waits for the result. */
+  later?: Line[];
+  /** Column heads. Default: In, Cut, Later. For a review: { kept: 'Looked at', cut: 'Left out' }. */
+  labels?: { kept?: string; cut?: string; later?: string };
+}
+const { kept, cut, later = [], labels = {}, ...frame } = Astro.props;
+const norm = (l: Line) => (typeof l === 'string' ? { text: l, note: undefined } : l);
+const columns = [
+  { id: 'kept', label: labels.kept ?? 'In', lines: kept.map(norm) },
+  { id: 'cut', label: labels.cut ?? 'Cut', lines: cut.map(norm) },
+  ...(later.length ? [{ id: 'later', label: labels.later ?? 'Later', lines: later.map(norm) }] : []),
+];
+---
+
+<Figure kind="Scope" name="scopecut" animate {...frame}>
+  <div class="x-cols" style={`--n:${columns.length}`}>
+    {
+      columns.map((c, ci) => (
+        <div class:list={['x-col', `is-${c.id}`]}>
+          <div class="x-head">
+            <span class="fg-label">{c.label}</span>
+            <span class="fg-label">{c.lines.length}</span>
+          </div>
+          <ul>
+            {c.lines.map((l, i) => (
+              <li data-a="rise" style={`--i:${ci * 2 + i}`}>
+                <i class="x-mark" aria-hidden="true" />
+                <span class="x-text">
+                  <span class="x-line">{l.text}</span>
+                  {l.note && <span class="x-note">{l.note}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</Figure>
+
+<style is:global>
+  .fg-scopecut .x-cols {
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  }
+  .fg-scopecut .x-col {
+    padding-right: 16px;
+    min-width: 0;
+  }
+  .fg-scopecut .x-col + .x-col {
+    border-left: 1px solid var(--line);
+    padding-left: 16px;
+  }
+  .fg-scopecut .x-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 4px;
+  }
+  .fg-scopecut .is-kept .x-head .fg-label:first-child {
+    color: var(--ink);
+  }
+  .fg-scopecut li {
+    display: grid;
+    grid-template-columns: 13px minmax(0, 1fr);
+    gap: 9px;
+    align-items: start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-scopecut li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-scopecut .x-mark {
+    width: 13px;
+    height: 15px;
+    margin-top: 3px;
+    clip-path: var(--fg-hex);
+    background: var(--ink);
+  }
+  .fg-scopecut .is-cut .x-mark {
+    background: repeating-linear-gradient(135deg, var(--muted) 0 1.5px, transparent 1.5px 4px);
+  }
+  .fg-scopecut .is-later .x-mark {
+    background: var(--tile-hover);
+  }
+  .fg-scopecut .x-text {
+    display: grid;
+    gap: 1px;
+  }
+  .fg-scopecut .x-line {
+    font: 600 16px/1.25 var(--cond);
+  }
+  .fg-scopecut .is-cut .x-line {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+  .fg-scopecut .is-later .x-line {
+    color: var(--ink-2);
+  }
+  .fg-scopecut .x-note {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  @container fg (max-width: 519px) {
+    .fg-scopecut .x-cols {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 18px;
+    }
+    .fg-scopecut .x-col,
+    .fg-scopecut .x-col + .x-col {
+      border-left: 0;
+      padding: 0;
+    }
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+// Someone's own words: a user in an interview, a maker explaining a decision, a line of support
+// mail. A quote is reported evidence, so it says who said it and in what situation.
+import Figure from './Figure.astro';
+import type { FrameProps } from './lib.ts';
+
+interface Props extends FrameProps {
+  /** The words, without quotation marks. */
+  text: string;
+  /** Who said it. For users, a description instead of a name: "Engineer, 8 years, owns a side project". */
+  who?: string;
+  /** Where and when: "Interview, 12 Nov 2026", "Support email". */
+  context?: string;
+}
+const { text, who, context, evidence, ...frame } = Astro.props;
+---
+
+<Figure kind="Quote" name="quote" animate evidence={evidence} {...frame}>
+  <blockquote data-a="rise">
+    <p class="x-text">{text}</p>
+    {
+      (who || context) && (
+        <footer class="x-by fg-mono">
+          {who && <cite>{who}</cite>}
+          {who && context && <span aria-hidden="true"> · </span>}
+          {context && <span>{context}</span>}
+        </footer>
+      )
+    }
+  </blockquote>
+</Figure>
+
+<style is:global>
+  .fg-quote blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 2px 0 2px 20px;
+  }
+  .fg-quote .x-text {
+    font: 500 clamp(21px, 4.4cqi, 28px) / 1.22 var(--cond);
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    max-width: 30ch;
+    text-wrap: balance;
+  }
+  .fg-quote .x-text::before {
+    content: '“';
+  }
+  .fg-quote .x-text::after {
+    content: '”';
+  }
+  .fg-quote .x-by {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .fg-quote cite {
+    font-style: normal;
+    color: var(--ink);
+  }
+</style>

@@ -1,0 +1,122 @@
+---
+// The facts at the top of an entry, in a fixed order, so a reader can scan any entry the same way:
+// research shows the question and method; applied work shows problem, hypothesis, metric and result.
+import { DECISION, STATUS, VERDICT, formatDate, products, type Item } from '../lib/editorial.ts';
+
+interface Props {
+  entry: Item;
+}
+const { entry } = Astro.props;
+const prods = products();
+const notYet = 'Not measured yet';
+---
+
+<dl class="facts">
+  {
+    'subjects' in entry.data ? (
+      <>
+        <div>
+          <dt>Question</dt>
+          <dd>{entry.data.question}</dd>
+        </div>
+        <div>
+          <dt>How I looked</dt>
+          <dd>{entry.data.method}</dd>
+        </div>
+        <div>
+          <dt>{entry.data.subjects.length > 1 ? 'Products' : 'Product'}</dt>
+          <dd>
+            {entry.data.subjects.map((s, i) => (
+              <>
+                {i > 0 && ', '}
+                {s.url ? <a href={s.url} rel="noopener">{s.name}</a> : s.name}
+                {s.maker && s.maker !== s.name && <span class="muted"> by {s.maker}</span>}
+                {s.what && 'subjects' in entry.data && entry.data.subjects.length === 1 && <span class="muted">. {s.what}</span>}
+              </>
+            ))}
+          </dd>
+        </div>
+        {entry.data.person && (
+          <div>
+            <dt>Interviewed</dt>
+            <dd>
+              {entry.data.person.url ? <a href={entry.data.person.url} rel="noopener">{entry.data.person.name}</a> : entry.data.person.name}
+              <span class="muted">, {entry.data.person.role}</span>
+            </dd>
+          </div>
+        )}
+      </>
+    ) : (
+      <>
+        <div>
+          <dt>Product</dt>
+          <dd>
+            {(() => {
+              const p = prods[entry.data.product];
+              if (!p) return entry.data.product;
+              return (
+                <>
+                  {p.url ? <a href={p.url} rel="noopener">{p.name}</a> : p.name}
+                  <span class="muted"> · {p.what}</span>
+                </>
+              );
+            })()}
+          </dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>
+            {STATUS[entry.data.status]} · {formatDate(entry.data.started)}
+            {entry.data.ended && entry.data.ended !== entry.data.started && <> to {formatDate(entry.data.ended)}</>}
+          </dd>
+        </div>
+        <div>
+          <dt>Problem</dt>
+          <dd>{entry.data.problem}</dd>
+        </div>
+        {entry.data.hypothesis && (
+          <div>
+            <dt>Hypothesis</dt>
+            <dd>{entry.data.hypothesis}</dd>
+          </div>
+        )}
+        {entry.data.metric && (
+          <div>
+            <dt>Primary metric</dt>
+            <dd>
+              {entry.data.metric.name}
+              <span class="metric">
+                <span><b>Baseline</b>{entry.data.metric.baseline ?? '—'}</span>
+                <span><b>Target</b>{entry.data.metric.target ?? '—'}</span>
+                <span><b>Result</b>{entry.data.metric.result ?? notYet}</span>
+              </span>
+            </dd>
+          </div>
+        )}
+        {entry.data.guardrails.length > 0 && (
+          <div>
+            <dt>Guardrails</dt>
+            <dd>
+              <ul>
+                {entry.data.guardrails.map((g) => (
+                  <li>
+                    {g.name}
+                    <span class="muted"> · {g.result ?? notYet}</span>
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        )}
+        {entry.data.kind === 'experiment' && (
+          <div>
+            <dt>Result</dt>
+            <dd>
+              {VERDICT[entry.data.verdict]} · {DECISION[entry.data.decision]}
+            </dd>
+          </div>
+        )}
+      </>
+    )
+  }
+</dl>

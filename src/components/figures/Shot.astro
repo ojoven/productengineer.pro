@@ -1,0 +1,86 @@
+---
+// One screen with numbered notes on it. The pins say where to look; the list says what to see.
+import Figure from './Figure.astro';
+import Screen, { type Pin } from './Screen.astro';
+import type { FrameProps } from './lib.ts';
+
+interface Props extends FrameProps {
+  /** Path of the screenshot, usually under /img/fieldwork/<entry>/. Leave out to draw a placeholder. */
+  src?: string;
+  /** What the screenshot shows. Also the text of the placeholder. */
+  alt: string;
+  frame?: 'browser' | 'phone' | 'none';
+  /** Shown in the browser bar. */
+  url?: string;
+  /** CSS aspect ratio of the visible area, "16 / 10". The image is cropped from the top to fit. */
+  ratio?: string;
+  /** Numbered marks on the screenshot. x and y are percentages from the left and top. */
+  pins?: Pin[];
+  width?: number;
+  height?: number;
+}
+const { src, alt, frame: device = 'browser', url, ratio, pins = [], width, height, ...frame } = Astro.props;
+const tone = { note: 'is-ink', friction: 'is-signal', value: 'is-lit' } as const;
+const word = { note: '', friction: 'Friction', value: 'Value' } as const;
+---
+
+<Figure kind="Screen" name="shot" animate {...frame}>
+  <div class:list={['x-wrap', `is-${device}`, { 'has-notes': pins.some((p) => p.note) }]}>
+    <Screen src={src} alt={alt} frame={device} url={url} ratio={ratio} pins={pins} width={width} height={height} />
+    {
+      pins.some((p) => p.note) && (
+        <ol class="x-notes">
+          {pins.map((p, i) => (
+            <li>
+              <span class:list={['fg-hex', tone[p.kind ?? 'note']]}>{i + 1}</span>
+              <span class="x-text">
+                {word[p.kind ?? 'note'] && <span class="fg-label">{word[p.kind ?? 'note']}</span>}
+                {p.note}
+              </span>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+  </div>
+</Figure>
+
+<style is:global>
+  .fg-shot .x-wrap {
+    display: grid;
+    gap: 16px;
+  }
+  /* a phone is narrow: its notes go beside it */
+  .fg-shot .x-wrap.is-phone.has-notes {
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+  }
+  .fg-shot .x-notes li {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-shot .x-notes li:first-child {
+    padding-top: 0;
+  }
+  .fg-shot .x-notes li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-shot .x-text {
+    display: grid;
+    gap: 1px;
+    padding-top: 2px;
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  @container fg (max-width: 519px) {
+    .fg-shot .x-wrap.is-phone.has-notes {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+// Internal: one screenshot inside a device frame, with numbered pins. With no `src` it draws a
+// hatched placeholder that says which screenshot goes there, so an entry can be laid out first.
+// Used by Shot, ScreenSteps and BeforeAfter.
+export interface Pin {
+  /** Position from the left edge of the screenshot, in percent. */
+  x: number;
+  /** Position from the top edge, in percent. */
+  y: number;
+  note?: string;
+  /** note: a remark. friction: where it loses people. value: where it pays off. */
+  kind?: 'note' | 'friction' | 'value';
+}
+interface Props {
+  src?: string;
+  alt?: string;
+  frame?: 'browser' | 'phone' | 'none';
+  /** Shown in the browser bar. */
+  url?: string;
+  /** CSS aspect ratio of the visible area, "16 / 10". With a ratio the image is cropped from the top. */
+  ratio?: string;
+  pins?: Pin[];
+  /** Number of the first pin, when several screens share one numbering. */
+  pinStart?: number;
+  width?: number;
+  height?: number;
+}
+const { src, alt = '', frame = 'browser', url, ratio, pins = [], pinStart = 1, width, height } = Astro.props;
+const shape = ratio ?? (src ? undefined : frame === 'phone' ? '9 / 19' : '16 / 10');
+const tone = { note: 'is-ink', friction: 'is-signal', value: 'is-lit' } as const;
+---
+
+<div class:list={['fg-screen', `is-${frame}`]}>
+  {
+    frame === 'browser' && (
+      <div class="sc-bar" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        {url && <span class="sc-url">{url}</span>}
+      </div>
+    )
+  }
+  <div class:list={['sc-view', { 'is-cropped': !!ratio && !!src }]} style={shape ? `aspect-ratio:${shape}` : undefined}>
+    {
+      src ? (
+        <img src={src} alt={alt} loading="lazy" decoding="async" width={width} height={height} />
+      ) : (
+        <div class="sc-empty" role="img" aria-label={`Screenshot to add: ${alt}`}>
+          <span>Screenshot to add</span>
+          {alt && <b>{alt}</b>}
+        </div>
+      )
+    }
+    {
+      pins.map((p, i) => (
+        <span class:list={['sc-pin', 'fg-hex', tone[p.kind ?? 'note']]} style={`left:${p.x}%;top:${p.y}%;--i:${i}`} data-a="pop" aria-hidden="true">
+          {pinStart + i}
+        </span>
+      ))
+    }
+  </div>
+</div>

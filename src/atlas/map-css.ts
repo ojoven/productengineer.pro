@@ -34,7 +34,7 @@ export const TOKENS: Record<Theme, Record<string, string>> = {
   },
 };
 
-// On the site these follow the page's font set (A Plex, B Geist, C Dot; labels use --ui); standalone exports fall back to Plex.
+// The site and standalone exports share the IBM Plex font families.
 const FONTS = {
   sans: "var(--ui, var(--sans, 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif))",
   cond: "var(--cond, 'IBM Plex Sans Condensed', 'IBM Plex Sans', ui-sans-serif, sans-serif)",

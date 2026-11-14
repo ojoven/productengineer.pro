@@ -1,0 +1,205 @@
+---
+// Trade-offs as positions between two goods: where a product sits, or where a change moved it.
+// Both ends are things worth having; the marker shows what was chosen and so what was given up.
+import Figure from './Figure.astro';
+import { clamp, round, type FrameProps } from './lib.ts';
+
+interface Item {
+  /** The good at the left end: "Speed". */
+  left: string;
+  /** The good at the right end: "Flexibility". */
+  right: string;
+  /** Where it sits, 0 (all left) to 1 (all right). */
+  at: number;
+  /** Where it was before, or where the alternative sits. Draws a ghost marker and the move. */
+  was?: number;
+  /** What the position costs, in one line. */
+  note?: string;
+}
+interface Props extends FrameProps {
+  items: Item[];
+  /** Names the two markers in a legend when `was` is used: { at: 'After', was: 'Before' }. */
+  names?: { at?: string; was?: string };
+}
+const { items, names, ...frame } = Astro.props;
+const hasWas = items.some((it) => it.was !== undefined);
+const pos = (n: number) => round(clamp(n, 0, 1) * 100, 1);
+---
+
+<Figure kind="Trade-offs" name="tradeoffs" animate {...frame}>
+  {
+    hasWas && (
+      <div class="x-legend" aria-hidden="true">
+        <span>
+          <i class="fg-hex is-signal" />
+          {names?.at ?? 'Now'}
+        </span>
+        <span>
+          <i class="x-ghost" />
+          {names?.was ?? 'Before'}
+        </span>
+      </div>
+    )
+  }
+  <ul class="x-rows">
+    {
+      items.map((it, i) => (
+        <li class="x-row">
+          <span class:list={['x-end', 'x-left', { 'is-near': it.at < 0.5 }]}>{it.left}</span>
+          <span class="x-track" role="img" aria-label={`${Math.round((1 - it.at) * 100)}% ${it.left}, ${Math.round(it.at * 100)}% ${it.right}`}>
+            <i class="x-line" />
+            <i class="x-mid" />
+            {it.was !== undefined && (
+              <>
+                <i class="x-move" style={`left:${Math.min(pos(it.was), pos(it.at))}%;width:${Math.abs(pos(it.at) - pos(it.was))}%;--i:${i};--a-delay:250ms`} data-a="fade" />
+                <i class="x-ghost x-was" style={`left:${pos(it.was)}%`} />
+              </>
+            )}
+            <i class="x-at fg-hex is-signal" style={`left:${pos(it.at)}%;--i:${i};--a-delay:350ms`} data-a="pop" />
+          </span>
+          <span class:list={['x-end', 'x-right', { 'is-near': it.at > 0.5 }]}>{it.right}</span>
+          {it.note && <span class="x-note">{it.note}</span>}
+        </li>
+      ))
+    }
+  </ul>
+</Figure>
+
+<style is:global>
+  .fg-tradeoffs .x-row {
+    display: grid;
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.4fr) minmax(0, 0.7fr);
+    column-gap: 16px;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-tradeoffs .x-row:first-child {
+    padding-top: 2px;
+  }
+  .fg-tradeoffs .x-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-tradeoffs .x-end {
+    font: 600 17px/1.15 var(--cond);
+    color: var(--muted);
+  }
+  .fg-tradeoffs .x-end.is-near {
+    color: var(--ink);
+  }
+  .fg-tradeoffs .x-left {
+    text-align: right;
+  }
+  .fg-tradeoffs .x-track {
+    position: relative;
+    height: 26px;
+    margin: 0 11px;
+  }
+  .fg-tradeoffs .x-line {
+    position: absolute;
+    left: -11px;
+    right: -11px;
+    top: 50%;
+    height: 1px;
+    background: var(--ink);
+  }
+  .fg-tradeoffs .x-line::before,
+  .fg-tradeoffs .x-line::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    width: 1px;
+    height: 9px;
+    background: var(--ink);
+  }
+  .fg-tradeoffs .x-line::before {
+    left: 0;
+  }
+  .fg-tradeoffs .x-line::after {
+    right: 0;
+  }
+  .fg-tradeoffs .x-mid {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1px;
+    height: 7px;
+    margin-top: -3px;
+    background: var(--muted);
+  }
+  .fg-tradeoffs .x-at {
+    position: absolute;
+    top: 50%;
+    margin: -12.5px 0 0 -11px;
+  }
+  .fg-tradeoffs .x-ghost {
+    display: inline-block;
+    width: 14px;
+    height: 16px;
+    clip-path: var(--fg-hex);
+    background: var(--learning);
+  }
+  .fg-tradeoffs .x-was {
+    position: absolute;
+    top: 50%;
+    margin: -8px 0 0 -7px;
+  }
+  .fg-tradeoffs .x-move {
+    position: absolute;
+    top: 50%;
+    height: 3px;
+    margin-top: -1.5px;
+    background: var(--accent);
+  }
+  .fg-tradeoffs .x-note {
+    grid-column: 2;
+    margin-top: 6px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+    text-align: center;
+  }
+  .fg-tradeoffs .x-legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .fg-tradeoffs .x-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fg-tradeoffs .x-legend .fg-hex {
+    width: 14px;
+    height: 16px;
+  }
+  @container fg (max-width: 519px) {
+    .fg-tradeoffs .x-row {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      row-gap: 6px;
+    }
+    .fg-tradeoffs .x-left {
+      text-align: left;
+    }
+    .fg-tradeoffs .x-right {
+      text-align: right;
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .fg-tradeoffs .x-track {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+    .fg-tradeoffs .x-note {
+      grid-column: 1 / -1;
+      text-align: left;
+    }
+    .fg-tradeoffs .x-end {
+      font-size: 15.5px;
+    }
+  }
+</style>

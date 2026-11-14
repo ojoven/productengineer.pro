@@ -1,0 +1,380 @@
+---
+// The result of a split test on a rate: each arm's estimate with its interval, and the interval
+// for the difference. You give counts; the figure does the arithmetic (Wilson intervals for each
+// arm, Newcombe's interval for the difference), so a result never appears without its uncertainty.
+import Figure from './Figure.astro';
+import { fmt, newcombe, niceTicks, pct, readDifference, round, scale, signed, wilson, type FrameProps } from './lib.ts';
+
+interface Arm {
+  name: string;
+  /** People in the arm. */
+  users: number;
+  /** How many of them did the thing. */
+  conversions: number;
+}
+interface Props extends FrameProps {
+  /** The rate being compared: "Finished a first lesson within 24 hours". */
+  metric: string;
+  /** The control first, then one or two variants. */
+  arms: Arm[];
+  /** Confidence level for the intervals. Default 0.95. */
+  confidence?: 0.9 | 0.95 | 0.99;
+  /** The rate that was the goal, in percent. Drawn as a dashed line. */
+  target?: number;
+}
+const { metric, arms, confidence = 0.95, target, ...frame } = Astro.props;
+if (arms.length < 2) throw new Error('ABResult needs at least two arms: the control first, then the variant.');
+for (const a of arms) {
+  if (!(a.users > 0) || a.conversions < 0 || a.conversions > a.users) {
+    throw new Error(`ABResult: arm "${a.name}" needs users > 0 and 0 <= conversions <= users.`);
+  }
+}
+const z = confidence === 0.9 ? 1.645 : confidence === 0.99 ? 2.576 : 1.96;
+const level = `${Math.round(confidence * 100)}%`;
+const rows = arms.map((a, i) => ({ ...a, i, ci: wilson(a.conversions, a.users, z), control: i === 0 }));
+const control = rows[0];
+const diffs = rows.slice(1).map((v) => {
+  const d = newcombe(control.conversions, control.users, v.conversions, v.users, z);
+  return { name: v.name, d, reading: readDifference(d), relative: control.ci.p > 0 ? d.p / control.ci.p : undefined };
+});
+
+// one scale for all arms, in percent
+const lows = rows.map((r) => r.ci.lo * 100);
+const highs = rows.map((r) => r.ci.hi * 100);
+if (target !== undefined) {
+  lows.push(target);
+  highs.push(target);
+}
+const span = Math.max(...highs) - Math.min(...lows) || 1;
+const ticks = niceTicks(Math.max(0, Math.min(...lows) - span * 0.15), Math.min(100, Math.max(...highs) + span * 0.15), 4);
+const x = scale(ticks[0], ticks[ticks.length - 1], 0, 100);
+const pos = (share: number) => round(x(share * 100), 2);
+
+// the difference, in points, on its own scale around zero
+const dLo = Math.min(0, ...diffs.map((d) => d.d.lo * 100));
+const dHi = Math.max(0, ...diffs.map((d) => d.d.hi * 100));
+const dTicks = niceTicks(dLo, dHi, 4);
+const dx = scale(dTicks[0], dTicks[dTicks.length - 1], 0, 100);
+const dpos = (points: number) => round(dx(points), 2);
+
+const digits = rows.some((r) => r.ci.p < 0.1) ? 2 : 1;
+const sentence = (d: (typeof diffs)[number]) =>
+  d.reading === 'unclear'
+    ? `The interval includes zero: this sample cannot tell ${d.name} from ${control.name}.`
+    : `The interval excludes zero: ${d.name} is ${d.reading} than ${control.name}.`;
+---
+
+<Figure kind="Split test" name="abresult" animate {...frame}>
+  <p class="x-metric">
+    <span class="fg-label">Metric</span>
+    {metric}
+  </p>
+
+  <div class="x-arms">
+    {
+      rows.map((r) => (
+        <div class:list={['x-arm', { 'is-variant': !r.control }]}>
+          <div class="x-who">
+            <span class="x-name">{r.name}</span>
+            <span class="x-counts fg-mono">
+              {fmt(r.conversions)} of {fmt(r.users)}
+            </span>
+          </div>
+          <div class="x-track" aria-hidden="true">
+            {ticks.map((t) => (
+              <i class="x-tick" style={`left:${round(x(t), 2)}%`} />
+            ))}
+            {target !== undefined && <i class="x-target" style={`left:${round(x(target), 2)}%`} />}
+            <i class="x-ci" style={`left:${pos(r.ci.lo)}%;width:${round(pos(r.ci.hi) - pos(r.ci.lo), 2)}%;--i:${r.i}`} data-a="grow-x" />
+            <i class="x-dot" style={`left:${pos(r.ci.p)}%;--i:${r.i};--a-delay:450ms`} data-a="pop" />
+          </div>
+          <div class="x-est">
+            <span class="x-rate fg-num">{pct(r.ci.p, digits, true)}</span>
+            <span class="x-range fg-mono">
+              {fmt(r.ci.lo * 100, { digits, fixed: true })} to {fmt(r.ci.hi * 100, { digits, fixed: true })}
+            </span>
+          </div>
+        </div>
+      ))
+    }
+    <div class="x-arm x-axis" aria-hidden="true">
+      <div class="x-who"></div>
+      <div class="x-track">
+        {
+          ticks
+            .filter((t) => target === undefined || Math.abs(x(t) - x(target)) > 13)
+            .map((t) => (
+              <span class="x-ticklabel fg-mono" style={`left:${round(x(t), 2)}%`}>
+                {fmt(t)}%
+              </span>
+            ))
+        }
+        {
+          target !== undefined && (
+            <span class="x-ticklabel x-targetlabel fg-mono" style={`left:${round(x(target), 2)}%`}>
+              Target {fmt(target)}%
+            </span>
+          )
+        }
+      </div>
+      <div class="x-est"></div>
+    </div>
+  </div>
+
+  <div class="x-diffs">
+    {
+      diffs.map((d, i) => (
+        <div class:list={['x-diff', `is-${d.reading}`]}>
+          <div class="x-dhead">
+            <span class="fg-label">
+              Difference{diffs.length > 1 ? `, ${d.name}` : ''} · {level} interval
+            </span>
+            <p class="x-dvalue">
+              <b class="fg-num">{signed(d.d.p * 100, digits, true)}</b>
+              <span class="x-dunit">points</span>
+              <span class="x-drange fg-mono">
+                {signed(d.d.lo * 100, digits, true)} to {signed(d.d.hi * 100, digits, true)}
+                {d.relative !== undefined && ` · ${signed(d.relative * 100, 0)}% relative`}
+              </span>
+            </p>
+          </div>
+          <div class="x-dtrack" aria-hidden="true">
+            <i class="x-zero" style={`left:${dpos(0)}%`} />
+            <i class="x-ci" style={`left:${dpos(d.d.lo * 100)}%;width:${round(dpos(d.d.hi * 100) - dpos(d.d.lo * 100), 2)}%;--i:${i};--a-delay:700ms`} data-a="grow-x" />
+            <i class="x-dot" style={`left:${dpos(d.d.p * 100)}%;--i:${i};--a-delay:1100ms`} data-a="pop" />
+            <span class="x-zerolabel fg-mono" style={`left:${dpos(0)}%`}>
+              0
+            </span>
+          </div>
+          <p class="x-reading" data-a="fade" style="--a-delay:1300ms">
+            {sentence(d)}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+  <p class="x-method fg-mono">
+    {level} Wilson intervals per arm; Newcombe interval for the difference. Computed from the counts shown.
+  </p>
+</Figure>
+
+<style is:global>
+  .fg-abresult .x-metric {
+    display: grid;
+    gap: 2px;
+    font: 600 17px/1.25 var(--cond);
+    margin-bottom: 14px;
+  }
+  .fg-abresult .x-arm {
+    display: grid;
+    grid-template-columns: 132px minmax(0, 1fr) 96px;
+    column-gap: 16px;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+  }
+  .fg-abresult .x-arm.x-axis {
+    padding: 0 0 4px;
+    border-top: 1px solid var(--ink);
+  }
+  .fg-abresult .x-who {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+  }
+  .fg-abresult .x-name {
+    font: 600 16px/1.15 var(--cond);
+  }
+  .fg-abresult .x-counts {
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .fg-abresult .x-track,
+  .fg-abresult .x-dtrack {
+    position: relative;
+    height: 30px;
+  }
+  .fg-abresult .x-tick {
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    width: 1px;
+    background: var(--line);
+  }
+  .fg-abresult .x-target {
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    width: 0;
+    border-left: 1px dashed var(--ink);
+  }
+  .fg-abresult .x-ci {
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    background: var(--ink);
+  }
+  /* caps at both ends of the interval */
+  .fg-abresult .x-ci::before,
+  .fg-abresult .x-ci::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    width: 2px;
+    height: 12px;
+    background: inherit;
+  }
+  .fg-abresult .x-ci::before {
+    left: 0;
+  }
+  .fg-abresult .x-ci::after {
+    right: 0;
+  }
+  .fg-abresult .x-dot {
+    position: absolute;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
+    background: var(--ink);
+    border: 2px solid var(--bg);
+    border-radius: 50%;
+  }
+  .fg-abresult .is-variant .x-ci,
+  .fg-abresult .is-variant .x-dot {
+    background: var(--accent);
+  }
+  .fg-abresult .x-est {
+    display: grid;
+    gap: 2px;
+    justify-items: end;
+    text-align: right;
+  }
+  .fg-abresult .x-rate {
+    font-size: 26px;
+  }
+  .fg-abresult .x-range {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .fg-abresult .x-axis .x-track {
+    height: 22px;
+  }
+  .fg-abresult .x-ticklabel {
+    position: absolute;
+    top: 6px;
+    transform: translateX(-50%);
+    font-size: 10.5px;
+    color: var(--muted);
+  }
+  .fg-abresult .x-targetlabel {
+    top: 6px;
+    color: var(--ink);
+    background: var(--bg);
+    padding: 0 3px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 9.5px;
+  }
+  .fg-abresult .x-diffs {
+    margin-top: 16px;
+    display: grid;
+    gap: 14px;
+  }
+  .fg-abresult .x-diff {
+    border: 1px solid var(--ink);
+    padding: 12px 14px 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 6px 20px;
+    align-items: center;
+  }
+  .fg-abresult .x-dvalue {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 8px;
+    margin-top: 4px;
+  }
+  .fg-abresult .x-dvalue b {
+    font-size: 34px;
+  }
+  .fg-abresult .x-dunit {
+    font: 600 15px var(--cond);
+    color: var(--muted);
+  }
+  .fg-abresult .x-drange {
+    flex-basis: 100%;
+    font-size: 11.5px;
+    color: var(--ink-2);
+  }
+  .fg-abresult .x-dtrack {
+    height: 44px;
+    margin: 0 8px;
+  }
+  .fg-abresult .x-zero {
+    position: absolute;
+    top: 2px;
+    bottom: 14px;
+    width: 1px;
+    background: var(--ink);
+  }
+  .fg-abresult .x-zerolabel {
+    position: absolute;
+    bottom: -2px;
+    transform: translateX(-50%);
+    font-size: 10.5px;
+    color: var(--muted);
+  }
+  .fg-abresult .x-dtrack .x-ci,
+  .fg-abresult .x-dtrack .x-dot {
+    top: 15px;
+    background: var(--accent);
+  }
+  /* an interval that crosses zero is not a finding: grey, not pink */
+  .fg-abresult .is-unclear .x-dtrack .x-ci,
+  .fg-abresult .is-unclear .x-dtrack .x-dot {
+    background: var(--muted);
+  }
+  .fg-abresult .x-reading {
+    grid-column: 1 / -1;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .fg-abresult .x-method {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  @container fg (max-width: 519px) {
+    .fg-abresult .x-arm {
+      grid-template-columns: minmax(0, 1fr) auto;
+      row-gap: 4px;
+    }
+    .fg-abresult .x-arm .x-track {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      margin: 0 8px;
+    }
+    .fg-abresult .x-arm.x-axis .x-who,
+    .fg-abresult .x-arm.x-axis .x-est {
+      display: none;
+    }
+    .fg-abresult .x-arm.x-axis .x-track {
+      grid-row: 1;
+    }
+    .fg-abresult .x-rate {
+      font-size: 22px;
+    }
+    .fg-abresult .x-diff {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .fg-abresult .x-dvalue b {
+      font-size: 30px;
+    }
+  }
+</style>

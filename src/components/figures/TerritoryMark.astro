@@ -1,0 +1,107 @@
+---
+// A territory of the atlas, with its animated emblem, its question and a link to its page. Opens
+// a section that belongs to one territory, or names the part of the map an entry is about.
+// The name, question and counts come from the atlas, so they cannot drift from it.
+import './figures.css';
+import Emblem from './Emblem.astro';
+import { atlas, code, path, skillIds } from '../../lib/atlas.ts';
+
+interface Props {
+  /** Territory id: "measurement", "activation", "cross-cutting". */
+  territory: string;
+  /** Why it is here: one line on what this section does in that territory. */
+  note?: string;
+}
+const { territory, note } = Astro.props;
+const t = atlas().nodes.get(territory);
+if (!t || t.level !== 'territory') {
+  throw new Error(`TerritoryMark: "${territory}" is not a territory id. Use one of: ${atlas().territories.map((x) => x.id).join(', ')}.`);
+}
+const skills = skillIds(t).length;
+---
+
+<script is:inline>
+  document.documentElement.classList.add('fg-js');
+</script>
+<a class="fg fg-plain fg-territory" href={path(t)} data-fg data-animate data-hover-replay="2600">
+  <span class="x-in">
+    <span class="x-emblem"><Emblem territory={t.id} /></span>
+    <span class="x-text">
+      <span class="fg-meta">
+        <span class="x-code">{code(t.id)}</span> · Territory · {t.tagline}
+      </span>
+      <span class="x-name">{t.name}</span>
+      <span class="x-question">{t.question}</span>
+      {note && <span class="x-note">{note}</span>}
+      <span class="x-count fg-mono">
+        {t.capabilities.length} capabilities · {skills} skills <span class="x-go" aria-hidden="true">→</span>
+      </span>
+    </span>
+  </span>
+</a>
+
+<style is:global>
+  a.fg-territory {
+    display: block;
+    padding: 16px 0;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  a.fg-territory:hover {
+    color: var(--ink);
+    background: var(--bg-2);
+  }
+  .fg-territory .x-in {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: 22px;
+    align-items: center;
+  }
+  .fg-territory .x-text {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+  }
+  .fg-territory .x-code {
+    color: var(--accent-ink);
+  }
+  .fg-territory .x-name {
+    font: 600 30px/1.05 var(--cond);
+    letter-spacing: -0.015em;
+  }
+  .fg-territory .x-question {
+    font: 500 18px/1.25 var(--cond);
+    color: var(--ink-2);
+    max-width: 44ch;
+  }
+  .fg-territory .x-note {
+    font-size: 14px;
+    color: var(--ink-2);
+    max-width: 60ch;
+  }
+  .fg-territory .x-count {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  a.fg-territory:hover .x-go {
+    color: var(--accent-ink);
+  }
+  @container fg (max-width: 519px) {
+    .fg-territory .x-in {
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 14px;
+    }
+    .fg-territory .x-name {
+      font-size: 25px;
+    }
+    .fg-territory .x-question {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<script>
+  import { initFigures } from './motion.ts';
+  initFigures();
+</script>

@@ -1,0 +1,822 @@
+/* Figures: the visual vocabulary of fieldwork entries.
+   Same rules as the site: warm paper, ink, hairlines, square corners, mono catalogue codes.
+   Colour carries meaning and nothing else:
+     ink      what is there, what is done
+     grey     context, the comparison, what has not happened
+     pink     the one thing to look at (a drop, a friction point, the variant)
+     yellow   a value moment, the same yellow as a lit tile on the map
+     hatch    not measured, not known
+   Every selector starts with .fg so it outranks the .article rules that style entry prose. */
+
+:where(main, .article, .fg-scope) {
+  counter-reset: fg;
+}
+
+.fg,
+.fg-aside {
+  --fg-ui: var(--ui, var(--sans));
+  --fg-lit: #f5d547;
+  --fg-on-lit: #141412;
+  /* text on pink: paper in the light theme, near-black on the brighter pink of the dark theme */
+  --fg-on-signal: var(--on-ink, #fff);
+  --fg-hatch: repeating-linear-gradient(135deg, var(--line) 0 1px, transparent 1px 6px);
+  --fg-hex: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+.fg {
+  container: fg / inline-size;
+  counter-increment: fg;
+  margin: 36px 0;
+  padding: 0;
+  min-width: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font: 400 14.5px/1.45 var(--fg-ui);
+  color: var(--ink);
+}
+
+/* entry prose styles reach into the figure: put them back */
+figure.fg :is(p, li, td, th, dd, dt) {
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+figure.fg :is(p, ul, ol, dl, dd, blockquote) {
+  margin: 0;
+  padding: 0;
+}
+figure.fg :is(ul, ol) {
+  list-style: none;
+}
+figure.fg li + li {
+  margin-top: 0;
+}
+figure.fg table {
+  display: table;
+  margin: 0;
+  overflow: visible;
+}
+figure.fg img {
+  border: 0;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+figure.fg blockquote {
+  border: 0;
+}
+/* the site styles every th and td; figures start from nothing (:where keeps this below component rules) */
+.fg :where(th, td) {
+  padding: 0;
+  border: 0;
+  font: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+  color: inherit;
+  vertical-align: middle;
+}
+
+/* ---- frame */
+.fg .fg-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 12px;
+  align-items: start;
+  padding: 10px 0 0;
+}
+.fg .fg-meta {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.fg .fg-no::before {
+  content: 'Fig. ' counter(fg, decimal-leading-zero);
+  color: var(--accent-ink);
+}
+.fg .fg-no::after {
+  content: ' · ';
+}
+.fg .fg-title {
+  grid-column: 1 / -1;
+  font: 600 22px/1.15 var(--cond);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  max-width: 42ch;
+}
+.fg .fg-body {
+  padding: 18px 0 18px;
+  min-width: 0;
+}
+.fg .fg-foot {
+  border-top: 1px solid var(--line);
+  padding: 10px 0 12px;
+  display: grid;
+  gap: 6px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.fg .fg-foot:empty {
+  display: none;
+}
+.fg .fg-caption {
+  max-width: 68ch;
+}
+.fg .fg-source {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  font: 400 11.5px/1.5 var(--mono);
+  color: var(--muted);
+}
+
+/* how it is known: the hexagon fills as the evidence gets stronger */
+.fg .fg-ev {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 10.5px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.fg .fg-ev svg {
+  width: 10px;
+  height: 11.5px;
+  flex: none;
+  overflow: visible;
+}
+.fg .fg-ev path {
+  fill: var(--ink);
+  stroke: var(--ink);
+  stroke-width: 1.6;
+}
+.fg .fg-ev-observed path {
+  fill: var(--learning);
+}
+.fg .fg-ev-reported path {
+  fill: var(--tile);
+}
+.fg .fg-ev-assumed path {
+  fill: none;
+  stroke-dasharray: 2.4 2.4;
+}
+.fg .fg-ev-illustrative {
+  color: var(--accent-ink);
+  border: 1px dashed var(--accent-ink);
+  padding: 4px 6px 3px;
+}
+.fg .fg-ev-illustrative svg {
+  display: none;
+}
+
+/* ---- controls: replay a reveal, pause ambient motion */
+.fg .fg-controls {
+  display: flex;
+  gap: 2px;
+  margin: -4px -6px 0 0;
+}
+.fg .fg-ctl {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: none;
+  padding: 6px;
+  font: 500 10.5px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+}
+.fg .fg-ctl:hover {
+  color: var(--ink);
+  background: var(--bg-2);
+}
+.fg .fg-ctl svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+.fg .fg-ctl .i-play,
+.fg[data-paused] .fg-ctl .i-pause {
+  display: none;
+}
+.fg[data-paused] .fg-ctl .i-play {
+  display: block;
+}
+.fg .fg-ctl .i-pause,
+.fg .fg-ctl .i-play {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ---- shared pieces */
+.fg .fg-label {
+  font: 500 10.5px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.fg .fg-mono {
+  font-family: var(--mono);
+}
+.fg .fg-num {
+  font-family: var(--cond);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.fg .fg-muted {
+  color: var(--muted);
+}
+.fg .fg-hex {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 25px;
+  clip-path: var(--fg-hex);
+  background: var(--tile);
+  color: var(--ink);
+  font: 500 10.5px/1 var(--mono);
+}
+.fg .fg-hex.is-ink {
+  background: var(--ink);
+  color: var(--bg);
+}
+.fg .fg-hex.is-signal {
+  background: var(--accent);
+  color: var(--fg-on-signal);
+}
+.fg .fg-hex.is-lit {
+  background: var(--fg-lit);
+  color: var(--fg-on-lit);
+}
+.fg .fg-hex.is-grey {
+  background: var(--learning);
+  color: var(--bg);
+}
+.fg .fg-tag {
+  display: inline-block;
+  font: 500 10.5px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+  padding: 4px 6px 3px;
+  white-space: nowrap;
+}
+.fg .fg-tag.is-signal {
+  color: var(--accent-ink);
+  border-color: var(--accent-ink);
+}
+.fg .fg-tag.is-ink {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+.fg .fg-tag.is-lit {
+  background: var(--fg-lit);
+  border-color: var(--fg-lit);
+  color: var(--fg-on-lit);
+}
+.fg .fg-tag.is-dashed {
+  border-style: dashed;
+}
+.fg a {
+  color: inherit;
+}
+.fg a:hover {
+  color: var(--accent-ink);
+}
+
+/* ---- SVG figures: one drawing per width, the container picks */
+.fg .fg-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.fg .fg-narrow {
+  display: none;
+}
+@container fg (max-width: 519px) {
+  .fg .fg-wide {
+    display: none;
+  }
+  .fg .fg-narrow {
+    display: block;
+  }
+}
+.fg svg text {
+  font-family: var(--fg-ui);
+  fill: var(--ink);
+}
+.fg svg .t-label {
+  font: 500 10px var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--muted);
+}
+.fg svg .t-axis {
+  font: 400 10.5px var(--mono);
+  fill: var(--muted);
+}
+.fg svg .t-name {
+  font: 500 13px var(--mono);
+  fill: var(--ink);
+}
+.fg svg .t-detail {
+  font: 400 11.5px var(--fg-ui);
+  fill: var(--ink-2);
+}
+.fg svg .t-value {
+  font: 600 13px var(--cond);
+  fill: var(--ink);
+}
+.fg svg .t-signal {
+  fill: var(--accent-ink);
+}
+.fg svg .t-on-ink {
+  fill: var(--bg);
+}
+.fg svg .halo {
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.fg svg .s-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+  fill: none;
+}
+.fg svg .s-axis {
+  stroke: var(--ink);
+  stroke-width: 1;
+  fill: none;
+}
+.fg svg .s-ink {
+  stroke: var(--ink);
+  stroke-width: 2;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.fg svg .s-signal {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.fg svg .s-grey {
+  stroke: var(--muted);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-dasharray: 5 4;
+}
+.fg svg .f-ink {
+  fill: var(--ink);
+}
+.fg svg .f-signal {
+  fill: var(--accent);
+}
+.fg svg .f-lit {
+  fill: var(--fg-lit);
+}
+.fg svg .f-tile {
+  fill: var(--tile);
+}
+.fg svg .f-grey {
+  fill: var(--muted);
+}
+.fg svg .f-bg {
+  fill: var(--bg);
+}
+.fg svg .ring {
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+
+/* ---- screenshots: a frame, the picture (or a placeholder), numbered pins */
+.fg .fg-screen {
+  border: 1px solid var(--ink);
+  background: var(--bg-2);
+  min-width: 0;
+}
+.fg .fg-screen.is-none {
+  border-color: var(--line);
+}
+.fg .fg-screen.is-phone {
+  max-width: 240px;
+  margin-inline: auto;
+  border-radius: 22px;
+  padding: 7px;
+  background: var(--ink);
+}
+.fg .fg-screen.is-phone .sc-view {
+  border-radius: 15px;
+  overflow: hidden;
+}
+.fg .sc-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding: 0 9px;
+  border-bottom: 1px solid var(--ink);
+  background: var(--bg);
+}
+.fg .sc-bar i {
+  width: 7px;
+  height: 8px;
+  clip-path: var(--fg-hex);
+  background: var(--tile-hover);
+}
+.fg .sc-url {
+  margin-left: 6px;
+  font: 400 10.5px/1 var(--mono);
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fg .sc-view {
+  position: relative;
+  background: var(--bg);
+}
+.fg .sc-view img {
+  width: 100%;
+  height: auto;
+}
+.fg .sc-view.is-cropped img {
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.fg .sc-empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  padding: 12px;
+  text-align: center;
+  background: var(--fg-hatch);
+  font: 500 10px/1.3 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.fg .sc-empty b {
+  font: 600 15px/1.2 var(--cond);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-2);
+  background: var(--bg);
+  padding: 2px 6px;
+  max-width: 24ch;
+}
+/* A pin sits on a picture, and the picture does not change with the theme: its colours are fixed,
+   with a paper edge so it holds on light and dark screenshots alike. */
+.fg .sc-pin {
+  position: absolute;
+  margin: -12.5px 0 0 -11px;
+  filter: drop-shadow(1.5px 0 0 #f2f0ea) drop-shadow(-1.5px 0 0 #f2f0ea) drop-shadow(0 1.5px 0 #f2f0ea) drop-shadow(0 -1.5px 0 #f2f0ea);
+}
+.fg .fg-screen .sc-pin.fg-hex {
+  background: #141412;
+  color: #f2f0ea;
+}
+.fg .fg-screen .sc-pin.fg-hex.is-signal {
+  background: #e0337f;
+  color: #fff;
+}
+.fg .fg-screen .sc-pin.fg-hex.is-lit {
+  background: #f5d547;
+  color: #141412;
+}
+
+/* a figure with no numbered head: territory marks */
+.fg.fg-plain {
+  counter-increment: none;
+}
+
+/* ---- territory emblems: seven tiles and one idea each */
+.fg-emblem {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.fg-emblem .t {
+  fill: var(--tile);
+}
+.fg-emblem .t.ink {
+  fill: var(--ink);
+}
+.fg-emblem .t.pink {
+  fill: var(--accent);
+}
+.fg-emblem .t.lit {
+  fill: var(--fg-lit);
+}
+.fg-emblem .t.ghost {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 3;
+}
+.fg-emblem .o {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.fg-emblem .o.thick {
+  stroke-width: 3;
+}
+.fg-emblem .o.handle {
+  stroke-width: 5;
+}
+.fg-emblem .o.pink {
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+.fg-emblem .o.halo {
+  stroke: var(--bg);
+  stroke-width: 7;
+}
+.fg-emblem .head {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+}
+.fg-emblem .head.pink {
+  stroke: var(--accent);
+}
+.fg-emblem .dot {
+  fill: var(--ink);
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+.fg-emblem .dot.pink {
+  fill: var(--accent);
+}
+.fg-emblem .dot.small {
+  stroke-width: 1.5;
+}
+.fg-emblem .cursor {
+  fill: var(--accent);
+  stroke: var(--bg);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+.fg-emblem .think {
+  fill: var(--bg);
+}
+.fg-emblem.is-dim {
+  opacity: 0.32;
+}
+
+/* the table behind a chart, for people who want the numbers */
+.fg .fg-data {
+  font-size: 13px;
+}
+.fg .fg-data summary {
+  cursor: pointer;
+  font: 500 10.5px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  list-style: none;
+  display: inline-flex;
+  gap: 6px;
+}
+.fg .fg-data summary::-webkit-details-marker {
+  display: none;
+}
+.fg .fg-data summary::before {
+  content: '+';
+}
+.fg .fg-data[open] summary::before {
+  content: '−';
+}
+.fg .fg-data summary:hover {
+  color: var(--ink);
+}
+.fg .fg-data .fg-data-scroll {
+  overflow-x: auto;
+  margin-top: 8px;
+}
+.fg .fg-data table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 400 12px/1.4 var(--mono);
+}
+.fg .fg-data :is(th, td) {
+  text-align: right;
+  padding: 5px 10px 5px 0;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.fg .fg-data :is(th, td):first-child {
+  text-align: left;
+}
+.fg .fg-data th {
+  font: 500 10.5px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--ink);
+}
+
+/* ---- motion
+   The resting style of every element is its final state, so a figure reads the same with no
+   JavaScript and under prefers-reduced-motion (site.css turns animations off there).
+   With JavaScript, [data-a] elements wait in their first keyframe until the figure scrolls into
+   view; --i staggers them. [data-l] elements move for as long as the figure is visible and not paused. */
+.fg-js [data-fg][data-animate] [data-a] {
+  animation-duration: var(--a-dur, 700ms);
+  animation-timing-function: var(--a-ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+  animation-fill-mode: both;
+  animation-delay: calc(var(--a-delay, 0ms) + var(--i, 0) * var(--a-step, 70ms));
+  animation-play-state: paused;
+}
+.fg-js [data-fg][data-animate][data-play] [data-a] {
+  animation-play-state: running;
+}
+.fg-js [data-fg][data-animate] [data-a='rise'] {
+  animation-name: fg-rise;
+}
+.fg-js [data-fg][data-animate] [data-a='fade'] {
+  animation-name: fg-fade;
+}
+.fg-js [data-fg][data-animate] [data-a='grow-x'] {
+  animation-name: fg-grow-x;
+  transform-origin: left center;
+}
+.fg-js [data-fg][data-animate] [data-a='grow-y'] {
+  animation-name: fg-grow-y;
+  transform-origin: center bottom;
+  transform-box: fill-box;
+}
+.fg-js [data-fg][data-animate] [data-a='pop'] {
+  animation-name: fg-pop;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.fg-js [data-fg][data-animate] [data-a='draw'] {
+  animation-name: fg-draw;
+  stroke-dasharray: 1;
+}
+.fg-js [data-fg][data-animate] [data-a='wipe'] {
+  animation-name: fg-wipe;
+}
+/* comes in from an offset given as --dx and --dy */
+.fg-js [data-fg][data-animate] [data-a='slide'] {
+  animation-name: fg-slide;
+}
+[data-fg][data-reset] [data-a],
+[data-fg][data-reset] [data-l] {
+  animation: none !important;
+}
+.fg-js [data-fg] [data-l] {
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+.fg-js [data-fg] [data-l='pulse'] {
+  animation-name: fg-pulse;
+  animation-duration: 2.6s;
+  animation-timing-function: ease-out;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.fg-js [data-fg] [data-l='orbit'] {
+  animation-name: fg-orbit;
+  animation-duration: 7s;
+  animation-timing-function: linear;
+}
+.fg-js [data-fg] [data-l='travel'] {
+  animation-name: fg-travel;
+  animation-duration: 3.2s;
+  animation-timing-function: linear;
+}
+.fg-js [data-fg] [data-l='blink'] {
+  animation-name: fg-blink;
+  animation-duration: 1.4s;
+  animation-timing-function: ease-in-out;
+}
+.fg-js [data-fg][data-play]:not([data-paused]):not([data-away]) [data-l] {
+  animation-play-state: running;
+}
+@keyframes fg-slide {
+  from {
+    opacity: 0;
+    transform: translate(var(--dx, 0), var(--dy, 0));
+  }
+}
+@keyframes fg-pulse {
+  from {
+    opacity: 1;
+    transform: scale(0.74);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+}
+@keyframes fg-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fg-travel {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+@keyframes fg-blink {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+@keyframes fg-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@keyframes fg-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes fg-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes fg-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes fg-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+@keyframes fg-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes fg-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+/* particles that travel along a path: only while motion is on */
+.fg .fg-particle {
+  fill: var(--accent);
+  visibility: hidden;
+}
+.fg[data-motion='on'] .fg-particle {
+  visibility: visible;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fg .fg-controls,
+  .fg .fg-particle {
+    display: none;
+  }
+}

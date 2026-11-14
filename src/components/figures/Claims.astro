@@ -1,0 +1,117 @@
+---
+// What is known and how: claims sorted by the strength of their evidence, from measured down to
+// assumed. Keeps what was seen apart from what is guessed.
+import Figure from './Figure.astro';
+import Hex from './Hex.astro';
+import { EVIDENCE, type FrameProps } from './lib.ts';
+
+type Kind = 'measured' | 'observed' | 'reported' | 'assumed';
+interface Claim {
+  text: string;
+  evidence: Kind;
+  /** Where it comes from: "Rybbit, 28 days", "3 sessions", "Owner interview". */
+  source?: string;
+}
+interface Props extends FrameProps {
+  claims: Claim[];
+}
+const { claims, ...frame } = Astro.props;
+const ORDER: Kind[] = ['measured', 'observed', 'reported', 'assumed'];
+const MEANS: Record<Kind, string> = {
+  measured: 'Counted from data',
+  observed: 'Seen with my own eyes',
+  reported: 'Someone told me',
+  assumed: 'Nobody has checked',
+};
+for (const c of claims) if (!ORDER.includes(c.evidence)) throw new Error(`Claims: unknown evidence "${c.evidence}". Use ${ORDER.join(', ')}.`);
+const bands = ORDER.map((k) => ({ kind: k, items: claims.filter((c) => c.evidence === k) })).filter((b) => b.items.length);
+---
+
+<Figure kind="Evidence" name="claims" animate {...frame}>
+  <div class="x-bands">
+    {
+      bands.map((b, bi) => (
+        <section class:list={['x-band', `is-${b.kind}`]}>
+          <header class="x-head">
+            <span class:list={['fg-ev', `fg-ev-${b.kind}`]}>
+              <Hex />
+              {EVIDENCE[b.kind]}
+            </span>
+            <span class="x-means">{MEANS[b.kind]}</span>
+          </header>
+          <ul>
+            {b.items.map((c, i) => (
+              <li data-a="rise" style={`--i:${bi * 2 + i}`}>
+                <span class="x-text">{c.text}</span>
+                {c.source && <span class="x-source fg-mono">{c.source}</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Figure>
+
+<style is:global>
+  .fg-claims .x-band {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    column-gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-claims .x-band:first-child {
+    padding-top: 0;
+  }
+  .fg-claims .x-band:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-claims .x-head {
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    padding-top: 3px;
+  }
+  .fg-claims .x-means {
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .fg-claims li {
+    padding: 0 0 9px;
+    display: grid;
+    gap: 2px;
+  }
+  .fg-claims li:last-child {
+    padding-bottom: 0;
+  }
+  .fg-claims .x-text {
+    font: 600 17px/1.25 var(--cond);
+  }
+  .fg-claims .is-assumed .x-text {
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+  .fg-claims .x-source {
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  /* an assumption is an open question: it gets the hatch */
+  .fg-claims .is-assumed ul {
+    padding: 8px 10px;
+    background: var(--fg-hatch);
+  }
+  @container fg (max-width: 519px) {
+    .fg-claims .x-band {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 8px;
+    }
+    .fg-claims .x-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 10px;
+    }
+  }
+</style>

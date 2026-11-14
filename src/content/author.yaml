@@ -1,0 +1,104 @@
+# Author details used on /about/. Facts here come from the verified claims in the candidate
+# site data. Anything marked placeholder: true still needs Mikel's own words before publishing.
+
+name: Mikel Torres Ugarte
+role: Full-stack engineer and technical lead
+location: Donostia, Spain
+photo: /img/mikel.jpg
+
+intro:
+  - I'm Mikel, a full-stack engineer and tech lead from Donostia. I have built software for more than fifteen years, most of it with real users on the other side and a date that could not move.
+  - I started building my own products in 2009 and I still do. At Majestic I have shipped campaigns and platforms for global brands, and helped the team grow from 8 to 23 people.
+  - Fieldwork is the record behind the atlas. What I built, the decisions I made, the experiments I run on my own products and what came out of them. Where something is not measured yet, it says so.
+
+links:
+  - label: LinkedIn
+    href: https://www.linkedin.com/in/mikeltorresugarte/
+  - label: GitHub
+    href: https://github.com/ojoven
+
+outcomes:
+  - value: 300K+
+    label: Concurrent users
+    text: The infrastructure I designed for a Super Bowl campaign launch.
+  - value: 500M+
+    label: People reached
+    text: More than 500 million people have seen work I built.
+  - value: 30+
+    label: Brands on one platform
+    text: A shared content platform, kept in sync through APIs, that I helped build and evolve.
+  - value: 8 → 23
+    label: Team at Majestic
+    text: I interviewed candidates, took part in recruiting and mentored the people who joined. The growth was a team result; those were my parts in it.
+
+work:
+  - title: A launch with no second take
+    context: Majestic · Super Bowl campaign
+    when: Two months of work
+    text: The air date was fixed. Millions were watching, and the traffic wave would start seconds after the ad.
+    decisions:
+      - Protect the origin. CloudFront and S3 absorbed static traffic before it reached dynamic services.
+      - Bound the dynamic work. API Gateway and small Lambda handlers kept dynamic requests apart from static delivery, so each could scale and fail on its own.
+      - Watch the launch as it happened. Structured logs and request IDs let us follow errors and latency while the campaign was live.
+    skills: [operational-readiness, caching, system-boundaries, scalability, logging, launch-telemetry]
+
+  - title: One content platform for 30+ brands
+    context: Majestic
+    text: A shared content platform that serves more than 30 brands, kept in sync through APIs, on a reusable product architecture.
+    decisions: []
+    skills: [api-design, data-modeling, modularity, system-boundaries]
+    placeholder: true
+
+  - title: Linguaso
+    context: My product
+    when: Since 2015
+    text: I founded Linguaso and built it end to end. Backend, frontend, product design, UX, analytics and go-to-market. People learn languages by watching YouTube videos with captions and doing exercises on their words.
+    decisions: []
+    skills: [backend-development, frontend-development, user-flows, tracking-plans, pricing, channel-selection]
+    related: [fieldwork/linguaso]
+    placeholder: true
+
+  - title: Etengabe
+    context: My product
+    text: An app for learning Basque, on the web, iOS and Android.
+    decisions: []
+    skills: [frontend-development, backend-development, first-run-flows]
+    related: [fieldwork/etengabe-first-session]
+    placeholder: true
+
+  - title: Codiluce
+    context: My product
+    text: See how your code fits together, even as agents keep changing it.
+    decisions: []
+    skills: [system-dependencies, coupling, reviewing-generated-work]
+    placeholder: true
+
+  - title: The Mêlée
+    context: Community
+    text: A meetup on AI, development and product in Donostia.
+    decisions: []
+    skills: [communities, launch-planning]
+    placeholder: true
+
+background:
+  - years: '2009'
+    title: MeTheOne
+    text: Founder and full-stack engineer.
+  - years: '2013'
+    title: Richata
+    text: Founder and full-stack engineer.
+  - years: '2015'
+    title: Linguaso
+    text: Founder. Built the product end to end.
+  - years: 2016 – now
+    title: Majestic
+    text: Full-stack engineer and technical lead. Campaigns and platforms for global brands, working remotely with teams in Toronto, New York and Chicago.
+  - years: 2026 – now
+    title: ProductEngineer.pro
+    text: The atlas, plus fieldwork and experiments on my own products, written up here.
+
+next:
+  - label: Operating models
+    text: I integrate hosted LLMs through APIs, structured outputs and tool calling. Serving, evaluating and versioning models alongside data science teams is where I want to grow next.
+  - label: Go
+    text: My production backend depth is in Python, Node.js and Laravel. I want to learn Go for its concurrency and performance.

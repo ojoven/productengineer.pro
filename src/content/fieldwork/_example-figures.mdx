@@ -1,0 +1,177 @@
+---
+kind: experiment
+title: 'Example: an experiment told with figures'
+summary: Placeholder. Shows where figures go in an experiment. Every number in it is example data.
+placeholder: true
+product: etengabe
+started: 2026-11-03
+ended: 2026-12-02
+status: concluded
+problem: Placeholder. New visitors leave at the sign-up form, before they have seen a lesson.
+hypothesis: Placeholder. If new learners can start a lesson before creating an account, more of them will finish a first lesson, because they get something back before they are asked for anything.
+metric:
+  name: New visitors who finish a first lesson within 24 hours
+  baseline: 21.2%
+  target: 26%
+  result: 27.9%
+guardrails:
+  - name: Accounts created per new visitor
+    baseline: 18.7%
+    result: 17.1%
+verdict: supported
+decision: keep
+skills: [funnel-analysis, drop-off-analysis, hypotheses, first-run-flows, event-schemas, ab-tests, confidence-intervals, tradeoffs, iterate-expand-stop]
+related: [fieldwork/language-apps-first-lesson]
+---
+
+{/*
+  A template, not an entry: the file name starts with "_", so the site does not build it.
+  Copy it to a new name, keep the "##" headings of the kind, and replace every figure's data.
+  Figures are used by name, with no import. The reference is docs/figures.md; the gallery is /figures/.
+  Rule: one figure per point. If the sentence before it already says it, delete the figure.
+*/}
+
+## Context
+
+Say who drops out and where, then show it. The funnel comes first because the rest of the entry depends on it.
+
+<Funnel
+  title="New visitors, from landing page to a finished first lesson"
+  unit="visitors"
+  steps={[
+    { label: 'Landed on the page', value: 1000 },
+    { label: 'Opened sign-up', value: 620 },
+    { label: 'Created an account', value: 410, note: 'Email, password, level' },
+    { label: 'Started a lesson', value: 365 },
+    { label: 'Finished it', value: 212 },
+  ]}
+  caption="The account form loses a third of the people who open it, before they have seen a lesson."
+  evidence="illustrative"
+  source="Example counts, 28 days"
+/>
+
+Then keep what was counted apart from what was seen and what is still a guess.
+
+<Claims
+  claims={[
+    { text: '21% of new visitors finish a first lesson', evidence: 'measured', source: 'Analytics, 28 days' },
+    { text: 'People stop longest at the level question', evidence: 'observed', source: '5 think-aloud sessions' },
+    { text: 'They would create an account after a good lesson', evidence: 'assumed', source: 'What this experiment tests' },
+  ]}
+  evidence="illustrative"
+/>
+
+## What I built
+
+Name the smallest version worth learning from, and what was left out on purpose.
+
+<ScopeCut
+  kept={['Start a lesson with no account', 'Keep progress in the browser', 'Ask for an account after the lesson']}
+  cut={['Level test before the first lesson', 'Social sign-in']}
+  later={['Move guest progress to a second device']}
+/>
+
+<Flow
+  title="Lesson first: the account comes after the value"
+  stages={['Arrive', 'Try', 'Decide', 'Stay']}
+  nodes={[
+    { id: 'landing', label: 'Landing page', detail: 'Start a lesson', col: 0, row: 0 },
+    { id: 'lesson', label: 'First lesson', detail: 'No account needed', col: 1, row: 0, tone: 'lit' },
+    { id: 'prompt', label: 'Keep it?', detail: 'Asked after the lesson', col: 2, row: 0, kind: 'decision' },
+    { id: 'account', label: 'Account', detail: 'Progress saved', col: 3, row: 0 },
+    { id: 'guest', label: 'Guest', detail: 'Progress in this browser', col: 3, row: 1 },
+  ]}
+  edges={[
+    { from: 'landing', to: 'lesson' },
+    { from: 'lesson', to: 'prompt' },
+    { from: 'prompt', to: 'account', label: 'Yes' },
+    { from: 'prompt', to: 'guest', label: 'Not now' },
+    { from: 'guest', to: 'lesson', label: 'Next visit', dashed: true },
+  ]}
+/>
+
+Screenshots go in `public/img/fieldwork/<entry>/`. Until they exist, leave `src` out: the figure draws a placeholder that names the missing screenshot.
+
+<ScreenSteps
+  title="The new first run"
+  frame="phone"
+  ratio="9 / 18.5"
+  steps={[
+    { title: 'Landing page', alt: 'Landing page with a Start a lesson button', time: 0 },
+    { title: 'First exercise', alt: 'The first exercise of lesson one', time: 6 },
+    { title: 'Lesson finished', alt: 'The end-of-lesson screen with the score', time: 95, kind: 'value' },
+    { title: 'Keep your progress?', alt: 'The account prompt after the lesson', time: 100, kind: 'decision' },
+  ]}
+  evidence="illustrative"
+/>
+
+## How I measured
+
+Write this section before looking at any data: the hypothesis, the event the metric counts, and the numbers that must hold.
+
+<Hypothesis
+  if="new learners can start a lesson before creating an account"
+  then="more of them finish a first lesson"
+  because="they get something back before they are asked for anything."
+  metric="New visitors who finish a first lesson within 24 hours"
+  keepIf="The interval for the difference is above zero"
+  stopIf="Accounts per visitor fall by more than a tenth"
+/>
+
+<EventTable
+  events={[
+    { name: 'lesson_started', when: 'The first exercise is shown', props: ['lesson_id', 'variant', 'signed_in'] },
+    { name: 'lesson_completed', when: 'The last exercise is answered', props: ['lesson_id', 'duration_s'], key: true },
+    { name: 'account_created', when: 'Sign-up succeeds', props: ['method', 'after_lesson'] },
+  ]}
+/>
+
+<Scorecard
+  title="What the experiment is judged by"
+  metrics={[
+    { name: 'New visitors who finish a first lesson within 24 hours', baseline: 21.2, target: 26, unit: '%' },
+    { name: 'Accounts created per new visitor', baseline: 18.7, unit: '%' },
+  ]}
+  evidence="illustrative"
+/>
+
+## What happened
+
+Give the counts. The figure works out the rates and their intervals, so the result never appears without its uncertainty.
+
+<ABResult
+  metric="New visitors who finish a first lesson within 24 hours"
+  arms={[
+    { name: 'Account first', users: 1000, conversions: 212 },
+    { name: 'Lesson first', users: 1000, conversions: 279 },
+  ]}
+  target={26}
+  evidence="illustrative"
+  source="Example counts, 28 days, split by visitor"
+/>
+
+## Trade-offs
+
+Both ends of each line are worth having. Say which one the change gave up.
+
+<Tradeoffs
+  names={{ at: 'Lesson first', was: 'Account first' }}
+  items={[
+    { left: 'Value before effort', right: 'An account from the start', at: 0.18, was: 0.86, note: 'Fewer accounts on day one.' },
+    { left: 'Simple to build', right: 'Progress never lost', at: 0.38, note: 'Guest progress lives in the browser until sign-up.' },
+  ]}
+/>
+
+## What I learned
+
+End with the verdict in the same words as the front matter, then what comes next.
+
+<Verdict
+  verdict="supported"
+  decision="keep"
+  reason="First-lesson completion went from 21.2% to 27.9%. The 95% interval for the difference is +2.9 to +10.4 points."
+  next="Move the account prompt to the end of lesson two and measure who comes back within 7 days."
+  evidence="illustrative"
+/>
+
+<Skills ids={['interpreting-results', 'iterate-expand-stop']} />

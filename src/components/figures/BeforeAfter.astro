@@ -1,0 +1,147 @@
+---
+// Two versions of the same screen under one slider: before and after a change, control and
+// variant, one product and another. Drag, or focus the slider and use the arrow keys.
+import Figure from './Figure.astro';
+import type { FrameProps } from './lib.ts';
+
+interface Side {
+  /** Path of the screenshot. Leave out to draw a placeholder. */
+  src?: string;
+  /** What it shows. */
+  alt?: string;
+  /** The word on its corner. Default "Before" / "After". */
+  label?: string;
+}
+interface Props extends FrameProps {
+  before: Side;
+  after: Side;
+  /** CSS aspect ratio of the frame. Both screenshots are cropped from the top to fit. Default "16 / 10". */
+  ratio?: string;
+  /** Where the divider starts, 0 to 100. Default 50. */
+  start?: number;
+}
+const { before, after, ratio = '16 / 10', start = 50, ...frame } = Astro.props;
+const sides = [
+  { ...after, cls: 'x-after', label: after.label ?? 'After' },
+  { ...before, cls: 'x-before', label: before.label ?? 'Before' },
+];
+---
+
+<Figure kind="Before and after" name="beforeafter" {...frame}>
+  <div class="x-frame" style={`aspect-ratio:${ratio};--split:${start}%`}>
+    {
+      sides.map((s) => (
+        <div class:list={['x-side', s.cls]}>
+          {s.src ? (
+            <img src={s.src} alt={s.alt ?? s.label} loading="lazy" decoding="async" />
+          ) : (
+            <div class="sc-empty" role="img" aria-label={`Screenshot to add: ${s.alt ?? s.label}`}>
+              <span>Screenshot to add</span>
+              <b>{s.alt ?? s.label}</b>
+            </div>
+          )}
+          <span class:list={['fg-tag', 'x-tag', s.cls === 'x-after' ? 'is-signal' : 'is-ink']}>{s.label}</span>
+        </div>
+      ))
+    }
+    <div class="x-divider" aria-hidden="true"><i></i></div>
+    <input
+      type="range"
+      min="0"
+      max="100"
+      step="1"
+      value={start}
+      data-fg-var="--split"
+      data-fg-unit="%"
+      aria-label={`Show more of ${before.label ?? 'before'} or ${after.label ?? 'after'}`}
+    />
+  </div>
+</Figure>
+
+<style is:global>
+  .fg-beforeafter .x-frame {
+    position: relative;
+    border: 1px solid var(--ink);
+    background: var(--bg-2);
+    overflow: hidden;
+    --split: 50%;
+  }
+  .fg-beforeafter .x-side {
+    position: absolute;
+    inset: 0;
+  }
+  .fg-beforeafter .x-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  /* the before layer sits on top and is cut at the divider */
+  .fg-beforeafter .x-before {
+    clip-path: inset(0 calc(100% - var(--split)) 0 0);
+    background: var(--bg);
+  }
+  .fg-beforeafter .x-after .sc-empty {
+    background: repeating-linear-gradient(45deg, var(--line) 0 1px, transparent 1px 6px);
+  }
+  /* the tags sit on the pictures, so their colours do not follow the theme */
+  .fg-beforeafter .x-tag {
+    position: absolute;
+    top: 10px;
+    background: #f2f0ea;
+    border-color: #b8195f;
+    color: #b8195f;
+  }
+  .fg-beforeafter .x-tag.is-ink {
+    background: #141412;
+    border-color: #141412;
+    color: #f2f0ea;
+  }
+  .fg-beforeafter .x-before .x-tag {
+    left: 10px;
+  }
+  .fg-beforeafter .x-after .x-tag {
+    right: 10px;
+  }
+  .fg-beforeafter .x-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--split);
+    width: 2px;
+    margin-left: -1px;
+    background: var(--accent);
+  }
+  .fg-beforeafter .x-divider i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 34px;
+    margin: -17px 0 0 -15px;
+    clip-path: var(--fg-hex);
+    background: var(--accent);
+  }
+  .fg-beforeafter .x-divider i::after {
+    content: '↔';
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--fg-on-signal);
+    font: 500 14px/1 var(--mono);
+  }
+  .fg-beforeafter input[type='range'] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+  .fg-beforeafter .x-frame:has(input:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>

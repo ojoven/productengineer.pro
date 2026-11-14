@@ -212,7 +212,21 @@ Durations are rough guesses for one person working with an agent.
 
 Phases 2 and 3 do not depend on each other and can run in either order.
 
-## 12. Assumptions to confirm
+## 12. Fieldwork, Lab and the author (added 2026-11-11)
+
+The "later" layer of section 8, in a first form. The site now has three parts: the Atlas
+(understanding), Fieldwork (reviews, comparisons, maker interviews, observations) and the Lab
+(experiments, improvements and case studies on owned products), plus an author page at `/mikel/`
+with background, selected work, outcomes and the map lit by the skills that work used.
+
+- Entries are Markdown in `src/content/fieldwork/` and `src/content/lab/`, rendered through Astro
+  content collections. Each kind has fixed sections; the build fails when one is missing.
+- Every entry names its skills in order. Its page lights them with a route, and every skill page
+  lists the entries under *In practice*.
+- One placeholder per kind shows the structure. Placeholders are `noindex` and stay out of search
+  and the sitemap. Writing guide: `docs/editorial.md`.
+
+## 13. Assumptions to confirm
 
 1. **Where status lives.** Status is set on skills, the third level, with the one-action shortcut on a capability.
 2. **Cross-cutting capabilities.** Drawn as the waters around the land, subject to the prototype.

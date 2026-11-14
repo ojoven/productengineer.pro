@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import MapFigure from '../components/MapFigure.astro';
 import TerritoryRows from '../components/TerritoryRows.astro';
 import { atlas, path } from '../lib/atlas.ts';
+import { fieldwork } from '../lib/editorial.ts';
 
 const a = atlas();
 // every skill page, for the random skill button; the script prefers skills not marked yet
@@ -17,6 +18,7 @@ const cycle = [
   ['Own the outcome', 'Improve, maintain, grow or remove what was built.'],
 ];
 const example = '/atlas/?lit=user-interviews,hypotheses,sample-size,funnel-analysis,retention-curves';
+const fieldworkCount = (await fieldwork()).length;
 ---
 
 <Base>
@@ -55,6 +57,28 @@ const example = '/atlas/?lit=user-interviews,hypotheses,sample-size,funnel-analy
       </div>
     </div>
   </div>
+
+  <section class="wrap section">
+    <div class="section-head"><h2>The map and the work</h2><span class="label">2 parts</span></div>
+    <div class="site-parts">
+      <div>
+        <span class="n">01 · Understanding</span>
+        <h3>Atlas</h3>
+        <p>The skills of the discipline, with resources and tools for each. See the whole field, where you stand and what to learn next.</p>
+        <a class="btn small" href="/atlas/">{a.skills.length} skills →</a>
+      </div>
+      <div>
+        <span class="n">02 · In practice</span>
+        <h3>Fieldwork</h3>
+        <p>Product reviews, maker interviews, experiments and shipped changes. What I looked at, what I tried and what happened, connected to the skills on the map.</p>
+        <a class="btn small" href="/fieldwork/">{fieldworkCount} entries →</a>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:16px;max-width:72ch">
+      They are connected. Every review and experiment lights the skills it used on the map, and each skill page links to the work
+      that used it. Fieldwork is written by <a href="/about/#who-writes-it">Mikel Torres Ugarte</a>.
+    </p>
+  </section>
 
   <section class="wrap section">
     <div class="section-head"><h2>How to use it</h2><span class="label">4 steps</span></div>

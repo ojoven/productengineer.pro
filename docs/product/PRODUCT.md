@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-11-11 · Stage: pre-launch [reported: owner, no known external users; site is public]
 
-Working draft: interview in progress. The owner has confirmed the initial user, job, sources of value, desired weekly review, free model, initial LinkedIn channel and dated adoption goal. Channel reach and resource limits remain open. The atlas is the core learning product; companion agent skills and future editorial experiments can support it. Their place in a shared proposition remains unverified. [reported: owner, interview 2026-11-11, n=1; assumed: role of companion skills]
+Brief ready for owner readback. The owner has confirmed the initial user, job, sources of value, desired weekly review, free model, initial LinkedIn channel, dated adoption goal, two-hour weekly limit and feedback strategy. The atlas is the core learning product; editorial experiments can support it. Remaining uncertainties are recorded in the ledger rather than treated as validated demand. [reported: owner, interview 2026-11-11, n=1]
 
 ## User
 Initial primary user: an experienced software engineer responsible for a live product or side project, already doing product work and wanting a more deliberate way to experiment, practice and learn. The owner identifies themself as this user: “I realized that I was doing many of these things (but not all) in an unstructured way.” Their current alternative is their own unstructured practice; specific tools and sources have not been established. [reported: owner, interview 2026-11-11, n=1]
@@ -43,9 +43,9 @@ Who pays: no paying customer is planned for the current resource. Cost to serve,
 Possible future direction: if a community develops, the owner might consider a subscription for an LLM-guided learning platform. This is an option, not a present commitment or a reason to add paid-platform features now. [reported: owner, interview 2026-11-11, n=1]
 
 ## Distribution
-Current acquisition channels and their shares: unknown. No `sources.md` or connected product evidence is documented. LinkedIn images exist in the parent workspace and the website plan mentions sharing maps there; neither establishes actual reach or acquisition. [observed: workspace and `PLAN.md`, 2026-11-11]
+Current acquisition channels and their shares: unknown. `sources.md` documents verified Rybbit reads, the production database, server logs and GitHub Issues. The queried Rybbit referrer breakdown was empty despite nonzero aggregate traffic. LinkedIn images and the website plan establish intended distribution rather than actual reach. [observed: source inventory 2026-11-11]
 
-Initial channel: LinkedIn, accepted by the owner. Proposed approach: share useful views of the discipline, skill connections and editorial examples, linking to the corresponding map or learning resource. Existing audience size, relevant responses and publishing language were not established by the owner's “Yes”; they remain unknown. [reported: owner, channel choice, interview 2026-11-11, n=1; assumed: approach and reach, ledger 6]
+Initial channel: LinkedIn. Start by recruiting five likely users for short observed sessions, then share useful views of the discipline, skill connections and editorial examples linking to the corresponding map or learning resource. The owner accepted the channel and feedback strategy. Existing audience size, relevant responses and publishing language remain unknown. [reported: owner, interview 2026-11-11, n=1; assumed: reach, ledger 6]
 
 The proposed weekly email serves existing learners and return use. Acquisition still needs a way for the initial audience to discover the map. [assumed: channel roles; reported: owner, interest in weekly email]
 
@@ -56,51 +56,51 @@ Agreed outcome: **By 6 January 2027, 10 engineers besides the owner have used th
 
 Metric: distinct target engineers, excluding the owner and internal/test activity, with meaningful use of their personal map in at least two distinct Monday–Sunday weeks in Europe/Madrid between 11 November 2026 and 6 January 2027. A review of marked skills, a status update, or using the map to choose or revisit learning qualifies. A page load, login or email open alone does not establish meaningful use. This operational definition is a working proposal. [assumed: counting rules]
 
-Now: no known external users, according to the owner; **zero confirmed qualifying learners**, not a measured zero for traffic or all actual use. No analytics or database count was queried. Target: 10 by 2027-01-06. Prior window: unavailable. [reported: owner, interview 2026-11-11; assumed: evidence coverage]
+Now: **zero confirmed qualifying learners**; external target-audience use remains unvalidated. Production SQLite has 0 accounts and 0 stored skill statuses at the 2026-11-11 check. Rybbit reports 8 visitors, 9 sessions and 27 pageviews for 2026-10-14 through 2026-11-10 inclusive in Europe/Madrid, versus 0 / 0 / 0 in the preceding 28 days, which predates the observed launch. The owner confirmed these source totals. Traffic is not a count of qualifying learners; repeat use is not yet reliably measurable automatically. Target: 10 by 2027-01-06. A prior repeat-learner baseline is unavailable. [measured: source queries 2026-11-11, definitions and windows in `sources.md`; reported: owner, totals reconciled; assumed: audience and repeat-use coverage]
 
 Inputs: target engineers reached, first personal-map uses, return uses in a later week. Also review the number of returning learners each week, which can fall even while the cumulative milestone rises. Tag prompted and spontaneous returns separately; both can contribute when actual use occurs. Reputation is a secondary qualitative signal, captured through relevant independent recommendations, mentions and conversations. [assumed: operational measurement, ledger 7]
 
 ## Constraint
 Immediate constraint hypothesis: getting the first relevant engineers to try the map and learning whether they find a reason to return. The owner reports no known external users, so there is no observed funnel drop-off to diagnose yet. Existing source work already provides a learning map; further feature building has not been shown to be the prerequisite for adoption. [reported: owner, no known external use; assumed: constraint, ledger 8]
 
-The website history and companion-skills history inspected contain commits dated 2026-11-10. The website working tree also contains unfinished or uncommitted AI-learning and account/MCP work. This shows implementation activity, not adoption. [observed: local git history and working tree, 2026-11-11]
-
 ## Limits
-Time: unknown hours per week. Team: not confirmed. Money: budget unknown; current model has no revenue objective. Deadline: adoption milestone on 2027-01-06; no separate launch deadline confirmed. Proposed working limit for confirmation: 2–3 hours per week, solo, organic distribution and existing tooling. [reported: owner, model and goal date; assumed: capacity and spending, ledger 9]
+Time: **about two hours per week**. Team: solo, with agent assistance. Money: organic distribution and existing tooling; no new paid acquisition or tooling planned. Existing running costs are unknown. Deadline: adoption milestone on 2027-01-06; no separate launch deadline. [reported: owner, interview 2026-11-11, acceptance of solo/organic/existing-tooling plan with two-hour limit; assumed: running costs, ledger 9]
+
+Working allocation for the first two weeks: week 1, 30 minutes preparation/recruitment, three 20-minute sessions and 30 minutes synthesis; week 2, two 20-minute sessions, 20 minutes follow-up, 30 minutes synthesis and 30 minutes for the most useful small improvement. Continue follow-up in week 3 for people first seen in week 2. Recruitment success and this time allocation are unverified. [assumed: allocation, ledger 6, 9]
 
 ## Non-goals
-The atlas describes itself as a proposed framework and self-assessment rather than a certification. The README says there are no learning paths or background-based sequences. Whether these remain strategic limits needs confirmation. [observed: `README.md`, `src/pages/about.astro`]
+The atlas is a proposed framework and self-assessment rather than a certification. The README describes the current version as having no learning paths or background-based sequences. [observed: `README.md`, `src/pages/about.astro`, initial source review 2026-11-11]
 
 The core learning experience does not require running or recording experiments on a real product. Editorial experiments are intended as a possible enhancement. [reported: owner, interview 2026-11-11, n=1]
 
 No monetization work is planned in the current scope. A community and paid LLM-guided learning platform are possible future directions, not current deliverables. [reported: owner, interview 2026-11-11, n=1]
 
-Other audiences and work explicitly excluded for the next phase: empty, pending the limits round. [assumed; ledger 9]
+Working validation scope: focus on experienced engineers and the existing learning map, personal statuses and resources. A full curriculum, certification, paid platform or community operation is outside this first feedback round. Broader audiences can be revisited after evidence from the initial group. [assumed: scope within two-hour limit, ledger 9]
 
 ## Taste
-Draft principles drawn from existing content:
+Principles drawn from the owner's intent and current content:
 
 - Prefer a few useful practitioner and primary sources, with checked links, over filling a quota. [observed: `src/pages/about.astro`]
 - Make the breadth of product engineering and the relationships between skills understandable; make personal progress visible. [reported: owner, interview 2026-11-11, n=1]
 - Offer practice and examples as ways to deepen learning. [observed: current AI collection and `src/components/SkillPractice.astro`; reported: owner, editorial experiments as an enhancement]
-- Make uncertainty explicit and preserve product context between agent sessions. [observed: `src/pages/skills.astro`]
-- Keep the reference useful without requiring an account. [observed: current frontend; owner's long-term preference unconfirmed]
+- Treat progress as personal self-assessment, with uncertainty explicit rather than implying a qualification. [observed: `src/pages/about.astro`, `src/components/SkillPractice.astro`]
+- Keep the reference freely useful; optional sign-in supports saved progress and a possible weekly review. [reported: owner, free model and review direction; observed: current frontend]
 
 ## Ledger
 | # | Assumption | What rests on it | Cheapest check | Status |
 | --- | --- | --- | --- | --- |
 | 1 | Other experienced engineers owning products share the owner's need for a coherent view of product engineering and a way to guide their learning. | Audience beyond the owner and positioning. | Inspect recent learning needs from three other engineers in this situation and the approaches they already use. | open; owner's own need reported |
 | 2 | Exploring the map clarifies the discipline and its connections; personal skill statuses help users understand where they stand. | Value moment and useful first-session criteria. | Watch three target engineers explore and mark their maps; ask what became clearer and which learning gap they identified. | open; value reported by owner |
-| 3 | Connected skills, curated resources and visible personal progress provide a reason to choose this over existing learning references. | Market position and adoption. | Ask three target engineers to use this and their current alternative for the same learning question; inspect their choice and reason. | open |
 | 4 | A short weekly learning review creates a sustainable reason to return, and email is a useful prompt. | Retention and any account/email investment. | Test the review with a few willing learners over two weekly cycles and observe useful returns before automating it. | open; cadence desired by owner |
+| 3 | Connected skills, curated resources and visible personal progress provide a reason to choose this over existing learning references. | Market position and adoption. | Ask three target engineers to use this and their current alternative for the same learning question; inspect their choice and reason. | open |
 | 5 | Publishing and maintaining a useful free resource meaningfully builds the owner's professional reputation. | The owner's return on time and spending. | Record relevant inbound conversations, recommendations and independent mentions attributable to the resource; review against the agreed time budget. | open; reputation and learning purpose confirmed, no current monetization |
 | 6 | The owner can reach the chosen audience through LinkedIn. | Initial distribution. | Establish existing relevant audience and responses, then test one useful map example with a traceable link. | open; LinkedIn selected, reach unverified |
 | 7 | The proposed meaningful-use rules accurately capture repeat value, and the evidence can identify qualifying learners across weeks. | Trustworthy progress toward the agreed target of 10 by 2027-01-06. | Start with dated, anonymized participant observations or concrete follow-up evidence; connect and inspect analytics/account data before automating counts. | open; goal and date agreed |
 | 8 | Audience/job validation is the limiting factor rather than a demonstrated funnel drop-off. | Next investment of time. | Review any existing user journeys and feedback; if none, observe the first three attempts. | open |
-| 9 | The proposed scope and validation work fit the owner's available time, team and budget. | Feasibility and non-goals. | Confirm weekly capacity, spending limit and deadlines. | open |
+| 9 | The feedback round and ongoing maintenance fit two hours per week using existing tooling and organic distribution. | Feasibility and the amount of improvement work possible. | Record actual time during the first two weeks; reduce session volume or feature work if needed and keep the weekly cap. | open; two-hour limit and working setup confirmed |
 
 ## First validation round
-Proposed approach, not work already conducted. These are small-sample learning checks, not a market-size estimate or proof of product-market fit. [assumed: plan, ledger 1–4, 6–8]
+The owner accepted this feedback strategy. Recruitment and sessions have not yet occurred. These are small-sample learning checks rather than a market-size estimate or proof of product-market fit; the two-week allocation above is a proposal for fitting the strategy into the agreed capacity. [reported: owner, strategy accepted 2026-11-11; assumed: results and scheduling, ledger 1–4, 6–9]
 
 1. **Recruit five likely users through LinkedIn.** Seek experienced engineers with responsibility for a product and a current interest in broadening their product skills. Include people beyond close friends where feasible. A draft invitation: “I built a free map of product engineering for engineers who want to understand the whole discipline and see where they stand. I’m looking for five people to try it for 20 minutes and tell me what helps or confuses them.” The owner sends or publishes it; this task has not contacted anyone.
 2. **Observe a 20-minute first use.** Ask how they last chose something to learn and what they used. Then ask them to use the site to understand the discipline and see where their own skills fit, thinking aloud. Avoid a tour or instructions on where to click. Notice whether they can explore, find relevant resources, and express their own skill statuses. Ask “What, if anything, became clearer?” and “What felt missing or confusing?” Record assistance, friction and concrete usefulness separately from compliments.
@@ -110,3 +110,6 @@ Proposed approach, not work already conducted. These are small-sample learning c
 Record counts of people invited, first meaningful users and later-week users, plus segment-level observations, dates, evidence type and whether prompted. Keep names, emails and other identifiers in the external research source; only aggregates or anonymized journeys enter this workspace. Manual follow-up evidence is sufficient to start; account rows and latest skill statuses alone may not establish use in two separate weeks. [assumed: measurement plan; observed: current data model and optional analytics integration]
 
 Method reference: [GOV.UK moderated usability testing](https://www.gov.uk/service-manual/user-research/using-moderated-usability-testing) recommends relevant tasks, observing likely users and neutral instructions; [planning user research](https://www.gov.uk/service-manual/user-research/plan-user-research-for-your-service) recommends small rounds matched to specific research questions. The sample, timing and decisions above are project-specific proposals.
+
+## Next step
+`connect-sources` completed the initial inventory in `sources.md`: Rybbit, production SQLite, server logs and GitHub Issues are readable, and external interview feedback is the agreed manual source. Next: run the approved first feedback round; `audit-analytics` can define the smallest instrumentation correction for the Plausible/Rybbit mismatch and trustworthy repeat-use counting before treating the goal as automatically measured. No application instrumentation was changed by the source inventory.

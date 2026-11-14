@@ -1,0 +1,269 @@
+---
+// One fieldwork entry. The same frame for every kind: facts first, then the body in its
+// fixed sections, then the entries it connects to. The map lights the skills it used, in order.
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Crumbs from './Crumbs.astro';
+import MapFigure from './MapFigure.astro';
+import SkillRows from './SkillRows.astro';
+import EntryFacts from './EntryFacts.astro';
+import EntryRows from './EntryRows.astro';
+import EntryHeading from './EntryHeading.astro';
+import { entryComponents } from './entry.ts';
+import { atlas, skill } from '../lib/atlas.ts';
+import { KIND, author, connected, entryImage, formatDate, itemDate, readingMinutes, type Item } from '../lib/editorial.ts';
+import { SITE } from '../site.ts';
+import { SECTIONS } from '../editorial/schema.ts';
+import { entryCoverage } from '../editorial/coverage.ts';
+import { figures } from './figures/index.ts';
+
+interface Props {
+  entry: Item;
+}
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content, headings } = await render(entry);
+const skills = d.skills.map(skill);
+const coverage = entryCoverage(atlas(), entry, headings);
+const grouped = coverage.sections.length > 0;
+// Section headings and <MapSummary /> in the body read the resolved coverage from here.
+Astro.locals.coverage = grouped ? coverage : undefined;
+const index = headings.filter((h) => h.depth === 2 && h.text !== 'On the map');
+const minutes = readingMinutes(entry);
+const links = await connected(entry);
+const me = author();
+const section = 'Fieldwork';
+const updated = 'updated' in entry.data ? entry.data.updated : undefined;
+const reviewer = 'person' in entry.data ? entry.data.person?.name : undefined;
+const subjects = 'subjects' in d ? d.subjects : [];
+const person = 'person' in d ? d.person : undefined;
+const image = entryImage(entry);
+const pageUrl = new URL(`/fieldwork/${entry.id}/`, SITE.url).href;
+const abs = (p?: string) => (p ? new URL(p, SITE.url).href : undefined);
+
+// Structured data: the article, who wrote it, and the products and people it is about, so search
+// engines and AI answers can tell what the page covers and cite it.
+const maker = person && {
+  '@type': 'Person',
+  name: person.name,
+  ...(person.url && { url: person.url }),
+  ...(person.avatar && { image: abs(person.avatar) }),
+  ...(person.sameAs?.length && { sameAs: person.sameAs }),
+};
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.summary,
+  url: pageUrl,
+  mainEntityOfPage: pageUrl,
+  datePublished: itemDate(entry),
+  dateModified: updated ?? itemDate(entry),
+  inLanguage: 'en',
+  ...(image && { image: abs(image) }),
+  author: { '@type': 'Person', name: me.name, url: new URL('/about/', SITE.url).href },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  about: subjects.map((s) => ({
+    '@type': 'SoftwareApplication',
+    name: s.name,
+    ...(s.url && { url: s.url }),
+    ...(s.what && { description: s.what }),
+    ...(s.logo && { image: abs(s.logo) }),
+    applicationCategory: 'DeveloperApplication',
+    ...(s.maker && { creator: person && person.name === s.maker ? maker : { '@type': 'Person', name: s.maker } }),
+  })),
+  ...(maker && { mentions: [maker] }),
+  keywords: skills.map((s) => s.name).join(', '),
+};
+---
+
+<Base
+  title={d.title}
+  description={d.summary}
+  noindex={d.placeholder || d.draft}
+  searchable={!d.placeholder && !d.draft}
+  type="article"
+  image={image}
+  imageAlt={image ? d.title : undefined}
+  jsonld={d.placeholder ? undefined : jsonld}
+>
+  <div class="wrap">
+    <Crumbs items={[{ href: '/fieldwork/', label: section }, { label: d.title }]} />
+    <div class="cols" style="margin-top:8px">
+      <article>
+        <header class="page-head">
+          <div class="code-big">{section} · {KIND[d.kind]}</div>
+          <h1 class="title">{d.title}</h1>
+          <p class="lede">{d.summary}</p>
+          {
+            (subjects.some((s) => s.logo) || person?.avatar) && (
+              <div class="entry-people">
+                {subjects.map((s) => (
+                  <a class="entry-person" href={s.url} rel="noopener">
+                    {s.logo && <img src={s.logo} alt="" width="40" height="40" />}
+                    <span>
+                      <b>{s.name}</b>
+                      {s.url && <small>{s.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</small>}
+                    </span>
+                  </a>
+                ))}
+                {person && (
+                  <a class="entry-person" href={person.url} rel="noopener">
+                    {person.avatar && <img class="is-avatar" src={person.avatar} alt="" width="40" height="40" />}
+                    <span>
+                      <b>{person.name}</b>
+                      <small>{person.role}</small>
+                    </span>
+                  </a>
+                )}
+              </div>
+            )
+          }
+          <p class="byline">
+            By <a href="/about/#who-writes-it">{me.name}</a> · {formatDate(itemDate(entry))}
+            {updated && <> · updated {formatDate(updated)}</>}
+            {grouped && <> · {minutes} min read</>}
+          </p>
+        </header>
+
+        {
+          d.placeholder && (
+            <aside class="placeholder-note" role="note">
+              <b>Placeholder</b>
+              <p>
+                This page shows the structure every {KIND[d.kind].toLowerCase()} follows. Nothing in it is a finding yet. Its
+                sections are, in order: {SECTIONS[d.kind].join(' · ')}.
+              </p>
+            </aside>
+          )
+        }
+
+        {
+          d.draft && (
+            <aside class="placeholder-note" role="note">
+              <b>Draft</b>
+              <p>
+                {reviewer ? `${reviewer} has not read this yet. ` : ''}Not published: it is out of the lists, the sitemap and search until
+                it is cleared.
+              </p>
+            </aside>
+          )
+        }
+
+        <EntryFacts entry={entry} />
+
+        {grouped && (
+          <nav class="entry-index" aria-label="In this profile">
+            <div class="pane-head"><span class="label">In this profile</span><span class="label">By territory</span></div>
+            <ol>
+              {index.map((h) => {
+                const section = coverage.sections.find((c) => c.anchor === `#${h.slug}`);
+                return <li><a href={`#${h.slug}`}><span class="entry-index-code">{section?.territory?.code ?? '·'}</span><span>{h.text}</span></a></li>;
+              })}
+            </ol>
+          </nav>
+        )}
+
+        <div class="article">
+          {/* .mdx entries can use every figure by name: see docs/figures.md */}
+          <Content components={{ ...figures, ...entryComponents, h2: EntryHeading }} />
+        </div>
+
+        {
+          links.length > 0 && (
+            <section class="section">
+              <div class="section-head">
+                <h2>Connected work</h2>
+                <span class="label">{links.length}</span>
+              </div>
+              <EntryRows items={links} compact />
+            </section>
+          )
+        }
+      </article>
+
+      <aside aria-label={grouped ? 'Skills discussed' : 'Skills used'} style="padding-top:28px">
+        <div class="sticky-map">
+          <div class="pane-head"><span class="label">{grouped ? 'Skills discussed' : 'Skills used'}</span><span class="label">{skills.length}{!grouped && ' · in order'}</span></div>
+          <MapFigure lit={d.skills} width={520} height={grouped ? 340 : 420} legend={false} />
+          {grouped ? (
+            <nav class="coverage-nav" aria-label="Territories discussed">
+              {coverage.sections.map((c) => (
+                <a href={c.anchor} title={c.note ?? c.section}>
+                  <span class="entry-index-code">{c.territory?.code ?? '·'}</span>
+                  <span>{c.territory?.name ?? c.section}{c.scope === 'general' && <small> · Wider discussion</small>}</span>
+                  <span class="label">{c.skills.length}</span>
+                </a>
+              ))}
+            </nav>
+          ) : <SkillRows skills={skills} compact />}
+        </div>
+      </aside>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .entry-people {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin: 18px 0 4px;
+  }
+  .entry-person {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .entry-person img {
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: 9px;
+  }
+  .entry-person img.is-avatar {
+    border-radius: 50%;
+    image-rendering: pixelated;
+  }
+  .entry-person span {
+    display: grid;
+    line-height: 1.25;
+  }
+  .entry-person b {
+    font: 600 16px/1.2 var(--cond);
+  }
+  .entry-person small {
+    font: 400 11.5px/1.3 var(--mono);
+    color: var(--muted);
+  }
+  .entry-person:hover b {
+    color: var(--accent-ink);
+  }
+  .entry-index {
+    margin: 28px 0 12px;
+    padding: 18px 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .entry-index ol { list-style: none; padding: 0; margin: 0; }
+  .entry-index a, .coverage-nav a {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+  .entry-index a:hover, .coverage-nav a:hover { color: var(--accent-ink); }
+  .entry-index-code { font: 11px var(--mono); color: var(--muted); }
+  .coverage-nav { margin-top: 12px; border-top: 1px solid var(--line); }
+  .coverage-nav a { grid-template-columns: 24px minmax(0, 1fr) auto; border-bottom: 1px solid var(--line); padding: 7px 0; }
+  .coverage-nav small { color: var(--muted); font-size: 11px; }
+  @media (max-width: 900px) {
+    .coverage-nav { display: none; }
+  }
+</style>

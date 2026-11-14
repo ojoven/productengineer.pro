@@ -1,0 +1,301 @@
+---
+// A walkthrough: the screens a person goes through, in order, with what each one asks of them.
+// It counts for you: screens and seconds to the first moment of value, decisions asked before it,
+// and the points of friction.
+import Figure from './Figure.astro';
+import Screen, { type Pin } from './Screen.astro';
+import { clock, type FrameProps } from './lib.ts';
+
+type Kind = 'step' | 'decision' | 'friction' | 'value';
+interface Step {
+  /** What the screen is: "Choose a level". */
+  title: string;
+  /** Path of the screenshot. Leave out to draw a placeholder. */
+  src?: string;
+  /** What the screenshot shows. Default: the title. */
+  alt?: string;
+  /** What happens here, or what it asks of the person. */
+  note?: string;
+  /** Seconds elapsed since the first screen when this one appears. */
+  time?: number;
+  /** decision: the person has to choose before getting anything. friction: where it loses people. value: the first moment it pays off. */
+  kind?: Kind;
+  pins?: Pin[];
+}
+interface Props extends FrameProps {
+  steps: Step[];
+  frame?: 'browser' | 'phone' | 'none';
+  /** CSS aspect ratio of every screen, "9 / 19". */
+  ratio?: string;
+  /** strip: side by side, scrolls sideways (default). stack: one under the other, with room for longer notes. */
+  layout?: 'strip' | 'stack';
+}
+const { steps, frame: device = 'phone', ratio, layout = 'strip', ...frame } = Astro.props;
+
+const WORD: Record<Kind, string> = { step: '', decision: 'Decision', friction: 'Friction', value: 'First value' };
+const TONE: Record<Kind, string> = { step: '', decision: 'is-ink', friction: 'is-signal', value: 'is-lit' };
+const valueAt = steps.findIndex((s) => s.kind === 'value');
+const before = valueAt >= 0 ? steps.slice(0, valueAt) : steps;
+const decisions = before.filter((s) => s.kind === 'decision').length;
+const frictions = steps.filter((s) => s.kind === 'friction').length;
+const lastTime = [...steps].reverse().find((s) => s.time !== undefined)?.time;
+const valueTime = valueAt >= 0 ? steps[valueAt].time : undefined;
+const facts = [
+  valueAt >= 0 ? { n: String(valueAt + 1), text: valueAt === 0 ? 'screen to first value' : 'screens to first value' } : { n: String(steps.length), text: 'screens' },
+  valueTime !== undefined ? { n: clock(valueTime), text: 'to get there' } : lastTime !== undefined ? { n: clock(lastTime), text: 'in total' } : null,
+  { n: String(decisions), text: valueAt >= 0 ? (decisions === 1 ? 'decision asked first' : 'decisions asked first') : decisions === 1 ? 'decision' : 'decisions' },
+  frictions ? { n: String(frictions), text: frictions === 1 ? 'friction point' : 'friction points' } : null,
+].filter((f): f is { n: string; text: string } => !!f);
+---
+
+<Figure kind="Walkthrough" name="screensteps" animate replay {...frame}>
+  <dl class="x-facts">
+    {
+      facts.map((f, i) => (
+        <div data-a="rise" style={`--i:${i}`}>
+          <dd class="fg-num">{f.n}</dd>
+          <dt>{f.text}</dt>
+        </div>
+      ))
+    }
+  </dl>
+  <div class="x-nav" data-layout={layout}>
+    <div class="x-rail" role="group" aria-label="Steps">
+      {
+        steps.map((s, i) => (
+          <button type="button" class:list={['fg-hex', TONE[s.kind ?? 'step']]} data-step={i} aria-label={`Step ${i + 1}: ${s.title}`} title={s.title}>
+            {i + 1}
+          </button>
+        ))
+      }
+    </div>
+    <div class="x-arrows">
+      <button type="button" class="fg-ctl" data-dir="-1" aria-label="Previous step">←</button>
+      <button type="button" class="fg-ctl" data-dir="1" aria-label="Next step">→</button>
+    </div>
+  </div>
+  <ol class:list={['x-strip', `is-${device}`]} data-layout={layout} tabindex="0" aria-label="Screens, in order">
+    {
+      steps.map((s, i) => (
+        <li class:list={['x-step', `k-${s.kind ?? 'step'}`]} data-index={i}>
+          <Screen src={s.src} alt={s.alt ?? s.title} frame={device} ratio={ratio} pins={s.pins} />
+          <div class="x-cap">
+            <div class="x-top">
+              <span class:list={['fg-hex', TONE[s.kind ?? 'step']]}>{i + 1}</span>
+              {WORD[s.kind ?? 'step'] && <span class:list={['fg-tag', TONE[s.kind ?? 'step']]}>{WORD[s.kind ?? 'step']}</span>}
+              {s.time !== undefined && <span class="x-time fg-mono">{clock(s.time)}</span>}
+            </div>
+            <p class="x-title">{s.title}</p>
+            {s.note && <p class="x-note">{s.note}</p>}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Figure>
+
+<style is:global>
+  .fg-screensteps .x-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 0;
+    margin: 0 0 14px;
+  }
+  .fg-screensteps .x-facts > div {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    padding-right: 16px;
+    margin-right: 16px;
+    border-right: 1px solid var(--line);
+  }
+  .fg-screensteps .x-facts > div:last-child {
+    border-right: 0;
+    margin-right: 0;
+    padding-right: 0;
+  }
+  .fg-screensteps .x-facts dd {
+    font-size: 30px;
+  }
+  .fg-screensteps .x-facts dt {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    max-width: 12ch;
+    line-height: 1.2;
+  }
+  .fg-screensteps .x-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-top: 1px solid var(--line);
+  }
+  .fg-screensteps .x-nav[data-layout='stack'] {
+    display: none;
+  }
+  .fg-screensteps .x-rail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  .fg-screensteps .x-rail button {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.15s;
+  }
+  .fg-screensteps .x-rail button:hover,
+  .fg-screensteps .x-rail button[aria-current='true'] {
+    opacity: 1;
+  }
+  .fg-screensteps .x-arrows {
+    display: flex;
+  }
+  .fg-screensteps .x-arrows .fg-ctl {
+    font-size: 15px;
+    padding: 6px 10px;
+    color: var(--ink);
+  }
+  .fg-screensteps .x-strip {
+    display: grid;
+    gap: 18px;
+    outline-offset: 4px;
+  }
+  .fg-screensteps .x-strip[data-layout='strip'] {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(150px, 30%);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    padding: 4px 0 14px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--tile-hover) transparent;
+  }
+  .fg-screensteps .x-strip[data-layout='strip']:is(.is-browser, .is-none) {
+    grid-auto-columns: minmax(220px, 46%);
+  }
+  .fg-screensteps .x-step {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 12px;
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+  .fg-screensteps .x-step .fg-screen.is-phone {
+    max-width: none;
+    width: 100%;
+  }
+  .fg-screensteps .x-cap {
+    display: grid;
+    gap: 5px;
+    align-content: start;
+  }
+  .fg-screensteps .x-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+  }
+  .fg-screensteps .x-time {
+    margin-left: auto;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .fg-screensteps .x-title {
+    font: 600 17px/1.2 var(--cond);
+  }
+  .fg-screensteps .x-note {
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--ink-2);
+  }
+  /* stack: one step per row, picture left, words right */
+  .fg-screensteps .x-strip[data-layout='stack'] {
+    gap: 0;
+  }
+  .fg-screensteps .x-strip[data-layout='stack'] .x-step {
+    grid-template-rows: none;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .fg-screensteps .x-strip[data-layout='stack'].is-phone .x-step {
+    grid-template-columns: minmax(0, 170px) minmax(0, 1fr);
+  }
+  .fg-screensteps .x-strip[data-layout='stack'] .x-time {
+    margin-left: 0;
+  }
+  .fg-screensteps .x-strip[data-layout='stack'] .x-title {
+    font-size: 20px;
+  }
+  .fg-screensteps .x-strip[data-layout='stack'] .x-note {
+    font-size: 14.5px;
+  }
+  @container fg (max-width: 519px) {
+    .fg-screensteps .x-strip[data-layout='strip'] {
+      grid-auto-columns: minmax(140px, 52%);
+    }
+    .fg-screensteps .x-strip[data-layout='strip']:is(.is-browser, .is-none) {
+      grid-auto-columns: 82%;
+    }
+    .fg-screensteps .x-strip[data-layout='stack'] .x-step,
+    .fg-screensteps .x-strip[data-layout='stack'].is-phone .x-step {
+      grid-template-columns: minmax(0, 120px) minmax(0, 1fr);
+      gap: 14px;
+    }
+    .fg-screensteps .x-strip[data-layout='stack']:is(.is-browser, .is-none) .x-step {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .fg-screensteps .x-facts dd {
+      font-size: 24px;
+    }
+  }
+</style>
+
+<script>
+  // The rail and the arrows move the strip one screen at a time; the rail shows where you are.
+  // Without JavaScript the strip still scrolls sideways.
+  document.querySelectorAll<HTMLElement>('.fg-screensteps').forEach((fig) => {
+    const strip = fig.querySelector<HTMLElement>('.x-strip[data-layout="strip"]');
+    if (!strip) return;
+    const steps = [...strip.querySelectorAll<HTMLElement>('.x-step')];
+    const dots = [...fig.querySelectorAll<HTMLButtonElement>('.x-rail button')];
+    let current = 0;
+    const calm = matchMedia('(prefers-reduced-motion: reduce)');
+    const go = (i: number) => {
+      const next = Math.min(steps.length - 1, Math.max(0, i));
+      strip.scrollTo({ left: steps[next].offsetLeft - strip.offsetLeft, behavior: calm.matches ? 'auto' : 'smooth' });
+    };
+    const mark = (i: number) => {
+      current = i;
+      dots.forEach((d, n) => d.setAttribute('aria-current', String(n === i)));
+    };
+    dots.forEach((d) => d.addEventListener('click', () => go(Number(d.dataset.step))));
+    fig.querySelectorAll<HTMLButtonElement>('.x-arrows button').forEach((b) => b.addEventListener('click', () => go(current + Number(b.dataset.dir))));
+    strip.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        go(current + (e.key === 'ArrowRight' ? 1 : -1));
+      }
+    });
+    let frame = 0;
+    strip.addEventListener('scroll', () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const x = strip.scrollLeft + strip.offsetLeft;
+        let best = 0;
+        steps.forEach((s, i) => {
+          if (Math.abs(s.offsetLeft - x) < Math.abs(steps[best].offsetLeft - x)) best = i;
+        });
+        // at the very end the last screen may not reach the left edge
+        if (strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 2) best = steps.length - 1;
+        mark(best);
+      });
+    });
+    mark(0);
+  });
+</script>

@@ -1,0 +1,146 @@
+---
+// A staged rollout: how much of the audience saw the change at each stage, when, and the check
+// that let it move on. A halted stage is where it stopped.
+import Figure from './Figure.astro';
+import type { FrameProps } from './lib.ts';
+
+interface Stage {
+  /** "Internal", "Beta", "Everyone", or just "10%". */
+  label: string;
+  /** Share of users exposed, 0 to 100. */
+  share: number;
+  /** When it started: a date or "day 3". */
+  when?: string;
+  /** The check that had to pass before the next stage. */
+  gate?: string;
+  /** done: passed. current: live now. next: not yet. halted: stopped here. Default: done. */
+  state?: 'done' | 'current' | 'next' | 'halted';
+}
+interface Props extends FrameProps {
+  stages: Stage[];
+}
+const { stages, ...frame } = Astro.props;
+const WORD = { done: 'Passed', current: 'Live now', next: 'Not yet', halted: 'Halted' } as const;
+---
+
+<Figure kind="Rollout" name="rollout" animate replay {...frame}>
+  <ol class="x-stages">
+    {
+      stages.map((s, i) => {
+        const state = s.state ?? 'done';
+        return (
+          <li class:list={['x-stage', `is-${state}`]}>
+            <span class="x-when fg-mono">{s.when ?? ''}</span>
+            <span class="x-share fg-num">
+              {s.share}
+              <small>%</small>
+            </span>
+            <span class="x-body">
+              <span class="x-label">
+                {s.label}
+                <span class:list={['fg-tag', { 'is-ink': state === 'done', 'is-signal': state === 'halted', 'is-lit': state === 'current', 'is-dashed': state === 'next' }]}>{WORD[state]}</span>
+              </span>
+              <span class="x-track" aria-hidden="true">
+                <i class="x-bar" style={`width:${Math.max(0.6, Math.min(100, s.share))}%;--i:${i};--a-step:260ms`} data-a="grow-x" />
+              </span>
+              {s.gate && (
+                <span class="x-gate">
+                  <span class="fg-label">{state === 'halted' ? 'Stopped by' : 'Gate'}</span> {s.gate}
+                </span>
+              )}
+            </span>
+          </li>
+        );
+      })
+    }
+  </ol>
+</Figure>
+
+<style is:global>
+  .fg-rollout .x-stage {
+    display: grid;
+    grid-template-columns: 62px 66px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-rollout .x-stage:first-child {
+    padding-top: 0;
+  }
+  .fg-rollout .x-stage:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-rollout .x-when {
+    font-size: 11.5px;
+    color: var(--muted);
+    padding-top: 7px;
+  }
+  .fg-rollout .x-share {
+    font-size: 30px;
+    text-align: right;
+  }
+  .fg-rollout .x-share small {
+    font-size: 0.5em;
+    color: var(--muted);
+    margin-left: 1px;
+  }
+  .fg-rollout .x-body {
+    display: grid;
+    gap: 7px;
+    min-width: 0;
+  }
+  .fg-rollout .x-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    font: 600 17px/1.2 var(--cond);
+    padding-top: 4px;
+  }
+  .fg-rollout .x-track {
+    display: block;
+    height: 10px;
+    background: var(--tile);
+  }
+  .fg-rollout .x-bar {
+    display: block;
+    height: 100%;
+    background: var(--ink);
+  }
+  .fg-rollout .is-current .x-bar {
+    background: var(--fg-lit);
+    outline: 1px solid var(--ink);
+    outline-offset: -1px;
+  }
+  .fg-rollout .is-halted .x-bar {
+    background: var(--accent);
+  }
+  .fg-rollout .is-next .x-bar {
+    background: repeating-linear-gradient(135deg, var(--muted) 0 1px, transparent 1px 5px);
+  }
+  .fg-rollout .is-next :is(.x-share, .x-label) {
+    color: var(--muted);
+  }
+  .fg-rollout .x-gate {
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  .fg-rollout .x-gate .fg-label {
+    margin-right: 4px;
+  }
+  @container fg (max-width: 519px) {
+    .fg-rollout .x-stage {
+      grid-template-columns: 54px minmax(0, 1fr);
+    }
+    .fg-rollout .x-when {
+      grid-column: 1 / -1;
+      padding: 0 0 2px;
+    }
+    .fg-rollout .x-share {
+      font-size: 26px;
+      text-align: left;
+    }
+  }
+</style>

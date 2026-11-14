@@ -1,0 +1,197 @@
+---
+// A two-by-two: things placed on two axes, numbered, with the list beside it. Impact against
+// effort, importance against evidence, how often against how badly.
+import Figure from './Figure.astro';
+import { clamp, round, type FrameProps } from './lib.ts';
+
+interface Axis {
+  /** What the axis measures: "Effort". */
+  label: string;
+  /** The word at the low end. Default "Low". */
+  low?: string;
+  /** The word at the high end. Default "High". */
+  high?: string;
+}
+interface Item {
+  label: string;
+  /** Position along x, 0 (low) to 1 (high). */
+  x: number;
+  /** Position along y, 0 (low) to 1 (high). */
+  y: number;
+  note?: string;
+  /** The one chosen. Drawn in pink. */
+  pick?: boolean;
+}
+type Corner = 'tl' | 'tr' | 'bl' | 'br';
+interface Props extends FrameProps {
+  x: Axis;
+  y: Axis;
+  items: Item[];
+  /** Names for the four quadrants: top left, top right, bottom left, bottom right. */
+  quadrants?: [string, string, string, string];
+  /** The quadrant to tint: where you want things to be. */
+  focus?: Corner;
+}
+const { x, y, items, quadrants, focus, ...frame } = Astro.props;
+const corners: Corner[] = ['tl', 'tr', 'bl', 'br'];
+---
+
+<Figure kind="Two by two" name="matrix" animate {...frame}>
+  <div class="x-wrap">
+    <div class="x-chart">
+      <div class="x-yaxis" aria-hidden="true">
+        <span>{y.high ?? 'High'}</span>
+        <b>{y.label}</b>
+        <span>{y.low ?? 'Low'}</span>
+      </div>
+      <div class="x-plot" role="img" aria-label={`${y.label} against ${x.label}: ${items.map((it) => it.label).join(', ')}`}>
+        {
+          corners.map((c, i) => (
+            <div class:list={['x-quad', `q-${c}`, { 'is-focus': focus === c }]}>
+              {quadrants?.[i] && <span class="fg-label">{quadrants[i]}</span>}
+            </div>
+          ))
+        }
+        {
+          items.map((it, i) => (
+            <span
+              class:list={['x-point', 'fg-hex', it.pick ? 'is-signal' : 'is-ink']}
+              style={`left:${round(clamp(it.x, 0.06, 0.94) * 100)}%;bottom:${round(clamp(it.y, quadrants ? 0.14 : 0.06, quadrants ? 0.86 : 0.94) * 100)}%;--i:${i}`}
+              data-a="pop"
+            >
+              {i + 1}
+            </span>
+          ))
+        }
+      </div>
+      <div class="x-xaxis" aria-hidden="true">
+        <span>{x.low ?? 'Low'}</span>
+        <b>{x.label}</b>
+        <span>{x.high ?? 'High'}</span>
+      </div>
+    </div>
+    <ol class="x-list">
+      {
+        items.map((it, i) => (
+          <li class:list={{ 'is-pick': it.pick }}>
+            <span class:list={['fg-hex', it.pick ? 'is-signal' : 'is-ink']}>{i + 1}</span>
+            <span class="x-text">
+              <span class="x-name">{it.label}</span>
+              {it.note && <span class="x-note">{it.note}</span>}
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</Figure>
+
+<style is:global>
+  .fg-matrix .x-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  .fg-matrix .x-chart {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 6px;
+  }
+  .fg-matrix .x-plot {
+    position: relative;
+    aspect-ratio: 1 / 0.86;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    border: 1px solid var(--ink);
+  }
+  .fg-matrix .x-quad {
+    padding: 7px 8px;
+    min-width: 0;
+  }
+  .fg-matrix .q-tr,
+  .fg-matrix .q-br {
+    border-left: 1px solid var(--line);
+    text-align: right;
+  }
+  .fg-matrix .q-bl,
+  .fg-matrix .q-br {
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: flex-end;
+  }
+  .fg-matrix .q-br {
+    justify-content: flex-end;
+  }
+  .fg-matrix .x-quad.is-focus {
+    background: color-mix(in srgb, var(--fg-lit) 34%, transparent);
+  }
+  .fg-matrix .x-quad.is-focus .fg-label {
+    color: var(--ink);
+  }
+  .fg-matrix .x-point {
+    position: absolute;
+    margin: 0 0 -13px -11px;
+    outline: none;
+    filter: drop-shadow(0 0 0 var(--bg)) drop-shadow(1.5px 0 0 var(--bg)) drop-shadow(-1.5px 0 0 var(--bg)) drop-shadow(0 1.5px 0 var(--bg)) drop-shadow(0 -1.5px 0 var(--bg));
+  }
+  .fg-matrix :is(.x-xaxis, .x-yaxis) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 500 10px/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .fg-matrix :is(.x-xaxis, .x-yaxis) b {
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .fg-matrix .x-xaxis {
+    grid-column: 2;
+  }
+  .fg-matrix .x-yaxis {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    flex-direction: row-reverse;
+  }
+  .fg-matrix .x-list {
+    display: grid;
+    gap: 0;
+  }
+  .fg-matrix .x-list li {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-matrix .x-list li:first-child {
+    padding-top: 0;
+  }
+  .fg-matrix .x-list li:last-child {
+    border-bottom: 0;
+  }
+  .fg-matrix .x-text {
+    display: grid;
+    gap: 1px;
+    padding-top: 2px;
+  }
+  .fg-matrix .x-name {
+    font: 600 16px/1.2 var(--cond);
+  }
+  .fg-matrix .x-note {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  @container fg (max-width: 519px) {
+    .fg-matrix .x-wrap {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+  }
+</style>

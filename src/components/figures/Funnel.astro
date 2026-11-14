@@ -1,0 +1,254 @@
+---
+// A funnel: how many people reach each step, and where the largest share is lost. The lost share
+// is drawn (hatched) so the drop is something you see, not a number you subtract.
+import Figure from './Figure.astro';
+import { fmt, pct, type FrameProps } from './lib.ts';
+
+interface Step {
+  label: string;
+  value: number;
+  /** A short remark shown under the label: what happens at this step. */
+  note?: string;
+}
+interface Props extends FrameProps {
+  steps: Step[];
+  /** What is counted: "visitors", "accounts". Shown in the column head. */
+  unit?: string;
+  /** Index (from 0) of the step whose drop to flag. Default: the largest relative drop. `false` flags none. */
+  flag?: number | false;
+  /** A second run of the same funnel (the variant), one value per step. Drawn in pink under each bar. */
+  compare?: { name: string; baseName?: string; values: number[] };
+}
+const { steps, unit = 'people', flag, compare, ...frame } = Astro.props;
+
+const top = Math.max(steps[0]?.value ?? 0, compare?.values[0] ?? 0) || 1;
+const rows = steps.map((s, i) => {
+  const prev = i > 0 ? steps[i - 1].value : s.value;
+  const stepRate = prev > 0 ? s.value / prev : 0;
+  return {
+    ...s,
+    i,
+    share: steps[0].value > 0 ? s.value / steps[0].value : 0,
+    stepRate,
+    lost: Math.max(0, prev - s.value),
+    width: (s.value / top) * 100,
+    lostWidth: (Math.max(0, prev - s.value) / top) * 100,
+    cmp: compare ? compare.values[i] : undefined,
+    cmpShare: compare && compare.values[0] > 0 ? compare.values[i] / compare.values[0] : undefined,
+    cmpWidth: compare ? (compare.values[i] / top) * 100 : undefined,
+  };
+});
+// the step that loses the largest share of the people who reached it
+const worst = rows.slice(1).reduce<(typeof rows)[number] | undefined>((w, r) => (!w || r.stepRate < w.stepRate ? r : w), undefined);
+const flagged = flag === false ? -1 : (flag ?? worst?.i ?? -1);
+---
+
+<Figure kind="Funnel" name="funnel" animate replay {...frame}>
+  {
+    compare && (
+      <div class="x-legend">
+        <span>
+          <i class="x-k-base" />
+          {compare.baseName ?? 'Control'}
+        </span>
+        <span>
+          <i class="x-k-cmp" />
+          {compare.name}
+        </span>
+      </div>
+    )
+  }
+  <ol class="x-steps">
+    <li class="x-head" aria-hidden="true">
+      <span class="fg-label x-c-step">Step</span>
+      <span class="fg-label x-c-val">{unit}</span>
+      <span class="fg-label x-c-share">Of start</span>
+      <span class="fg-label x-c-prev">Of previous</span>
+    </li>
+    {
+      rows.map((r) => (
+        <li class:list={['x-step', { 'is-flagged': r.i === flagged }]}>
+          <span class="x-n fg-mono">{String(r.i + 1).padStart(2, '0')}</span>
+          <span class="x-name">
+            {r.label}
+            {r.note && <span class="x-note">{r.note}</span>}
+          </span>
+          <span class="x-val fg-mono">
+            {fmt(r.value)}
+            {r.cmp !== undefined && <b>{fmt(r.cmp)}</b>}
+          </span>
+          <span class="x-share fg-mono">
+            {pct(r.share, r.share < 0.1 ? 1 : 0)}
+            {r.cmpShare !== undefined && <b>{pct(r.cmpShare, r.cmpShare < 0.1 ? 1 : 0)}</b>}
+          </span>
+          <span class="x-prev fg-mono">{r.i === 0 ? '' : pct(r.stepRate, 0)}</span>
+          <span class="x-track" aria-hidden="true">
+            <span class="x-bars">
+              <i class="x-bar" style={`width:${r.width}%;--i:${r.i}`} data-a="grow-x" />
+              {!compare && r.i > 0 && r.lostWidth > 0 && <i class="x-lost" style={`left:${r.width}%;width:${r.lostWidth}%;--i:${r.i}`} data-a="fade" />}
+            </span>
+            {r.cmpWidth !== undefined && (
+              <span class="x-bars x-thin">
+                <i class="x-bar x-cmp" style={`width:${r.cmpWidth}%;--i:${r.i}`} data-a="grow-x" />
+              </span>
+            )}
+          </span>
+          {r.i === flagged && r.i > 0 && (
+            <span class="x-drop fg-mono" data-a="fade" style={`--i:${r.i + 2}`}>
+              {fmt(r.lost)} leave here · {pct(1 - r.stepRate, 0)} of those who got this far
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</Figure>
+
+<style is:global>
+  .fg-funnel .x-steps {
+    display: grid;
+    gap: 0;
+  }
+  .fg-funnel :is(.x-head, .x-step) {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr) 68px 64px 96px;
+    column-gap: 10px;
+    align-items: baseline;
+  }
+  .fg-funnel .x-head {
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-funnel .x-head .x-c-step {
+    grid-column: 1 / 3;
+  }
+  .fg-funnel .x-head .fg-label {
+    white-space: nowrap;
+  }
+  .fg-funnel :is(.x-c-val, .x-c-share, .x-c-prev, .x-val, .x-share, .x-prev) {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .fg-funnel .x-step {
+    padding: 11px 0 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-funnel .x-step:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-funnel .x-n {
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .fg-funnel .x-name {
+    font: 600 16px/1.2 var(--cond);
+  }
+  .fg-funnel .x-note {
+    display: block;
+    font: 400 13px/1.35 var(--fg-ui);
+    color: var(--ink-2);
+    margin-top: 2px;
+  }
+  .fg-funnel .x-val {
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+  .fg-funnel :is(.x-share, .x-prev) {
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  .fg-funnel :is(.x-val, .x-share) b {
+    display: block;
+    font-weight: inherit;
+    color: var(--accent-ink);
+  }
+  .fg-funnel .x-track {
+    grid-column: 2 / -1;
+    display: grid;
+    gap: 2px;
+    margin-top: 8px;
+  }
+  .fg-funnel .x-bars {
+    position: relative;
+    display: block;
+    height: 12px;
+  }
+  .fg-funnel .x-bars.x-thin {
+    height: 5px;
+  }
+  .fg-funnel .x-bar,
+  .fg-funnel .x-lost {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .fg-funnel .x-bar {
+    background: var(--ink);
+  }
+  .fg-funnel .x-bar.x-cmp {
+    background: var(--accent);
+  }
+  /* the people who did not continue from the step before */
+  .fg-funnel .x-lost {
+    background: repeating-linear-gradient(135deg, var(--muted) 0 1px, transparent 1px 5px);
+    border-left: 2px solid var(--bg);
+    opacity: 0.75;
+    --a-delay: 500ms;
+  }
+  .fg-funnel .is-flagged .x-lost {
+    background: repeating-linear-gradient(135deg, var(--accent) 0 1.5px, transparent 1.5px 5px);
+    opacity: 1;
+  }
+  .fg-funnel .is-flagged .x-prev {
+    color: var(--accent-ink);
+    font-weight: 500;
+  }
+  .fg-funnel .x-drop {
+    grid-column: 2 / -1;
+    margin-top: 7px;
+    font-size: 11.5px;
+    color: var(--accent-ink);
+    --a-delay: 500ms;
+  }
+  .fg-funnel .x-legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .fg-funnel .x-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fg-funnel .x-legend i {
+    width: 14px;
+    height: 8px;
+    background: var(--ink);
+  }
+  .fg-funnel .x-legend .x-k-cmp {
+    background: var(--accent);
+    height: 5px;
+  }
+  @container fg (max-width: 519px) {
+    .fg-funnel :is(.x-head, .x-step) {
+      grid-template-columns: 22px minmax(0, 1fr) 56px 50px;
+      column-gap: 8px;
+    }
+    .fg-funnel .x-head .fg-label {
+      font-size: 9px;
+      letter-spacing: 0.03em;
+    }
+    .fg-funnel :is(.x-c-prev, .x-prev) {
+      display: none;
+    }
+    .fg-funnel .x-name {
+      font-size: 15px;
+    }
+  }
+</style>

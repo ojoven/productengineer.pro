@@ -7,6 +7,11 @@ is for, whether people reach its value, and what the evidence says to do next. T
 ground than any one role description. This site maps all of it, so you can see the whole discipline
 at once, find the areas you never touch, and learn them from good sources.
 
+The site has two parts. The **Atlas** maps the discipline. **Fieldwork** brings together reviews,
+comparisons, maker interviews, experiments and shipped changes on real products. Every Fieldwork
+entry lights the atlas skills it used, and each
+skill page links back to it. See [docs/editorial.md](docs/editorial.md).
+
 ## The map
 
 The atlas has three levels. There are **11 territories** plus a cross-cutting group, **72
@@ -115,6 +120,9 @@ All content is YAML. There is no database and no CMS.
 | `src/atlas/geometry.json` | The hex-tile layout. Generated once, then frozen. |
 | `src/atlas/render.ts` | `(content, geometry, state) -> SVG`, shared by pages, the explorer and social images. |
 | `src/atlas/ids.lock` | Every id ever published. Never remove a line. |
+| `src/content/fieldwork/*.md` | Fieldwork entries: Markdown with front matter, fixed sections per kind. See [docs/editorial.md](docs/editorial.md). |
+| `src/components/figures/` | Figures for entries (charts, diagrams, screen walkthroughs, decision figures), used from `.mdx` by name. Gallery at `/figures/`, reference in [docs/figures.md](docs/figures.md), regenerated with `npm run figures:docs`. |
+| `src/content/products.yaml`, `src/content/author.yaml` | Products featured in Fieldwork, and author details used on `/about/`. |
 
 **Add a resource or tool.** Open the URL and confirm it is live and on topic. Add the entry with
 today's `checked` date, then reference its id from a skill or capability. For YouTube links, check

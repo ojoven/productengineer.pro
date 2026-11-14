@@ -1,0 +1,367 @@
+---
+// Change over time, for one to three series on one axis. The baseline is ink, the series the text
+// is about is pink, a reference is dashed grey: told apart by stroke as well as colour, and named
+// at the line end. Hover or use the arrow keys for exact values; the table underneath has them all.
+import Figure from './Figure.astro';
+import { VARIANTS, WIDTHS, niceTicks, round, scale, withUnit, type FrameProps, type Variant } from './lib.ts';
+
+type Role = 'ink' | 'signal' | 'grey';
+interface Series {
+  name: string;
+  /** One value per x label. `null` leaves a gap (not measured). */
+  values: (number | null)[];
+  /** ink: the baseline. signal: the series the text is about. grey: a reference. Default: by position. */
+  role?: Role;
+}
+interface Props extends FrameProps {
+  /** Labels along the x axis, in order: days, weeks, versions. */
+  x: string[];
+  /** One to three series. The first is ink, the second pink, the third dashed grey. */
+  series: Series[];
+  /** Unit after values: "%", "ms", "users". */
+  unit?: string;
+  /** Axis start. Default 0, so heights can be compared. */
+  min?: number;
+  /** Axis end. Default: a round number above the data. */
+  max?: number;
+  /** A horizontal reference: the target, the budget, the baseline. */
+  target?: { value: number; label?: string };
+  /** Vertical markers at an x index: when something shipped or broke. */
+  marks?: { at: number; label: string }[];
+  digits?: number;
+}
+const { x, series, unit = '', min, max, target, marks = [], digits, ...frame } = Astro.props;
+
+const ROLES: Role[] = ['ink', 'signal', 'grey'];
+const list = series.slice(0, 3).map((s, i) => ({ ...s, role: s.role ?? (series.length === 1 ? 'ink' : ROLES[i]) }));
+const present = list.flatMap((s) => s.values.filter((v): v is number => v != null));
+if (target) present.push(target.value);
+const ticks = niceTicks(min ?? Math.min(0, ...present), max ?? Math.max(...present), 4);
+const y0 = min ?? ticks[0];
+const y1 = max ?? ticks[ticks.length - 1];
+const shownTicks = ticks.filter((t) => t >= y0 && t <= y1);
+const n = x.length;
+const val = (v: number) => withUnit(v, unit, { digits });
+
+function layout(v: Variant) {
+  const W = WIDTHS[v];
+  const wide = v === 'wide';
+  const H = wide ? 300 : 236;
+  const m = { l: 40, r: wide ? (list.length > 1 ? 122 : 64) : 16, t: marks.length ? 26 : 14, b: 28 };
+  const px = scale(0, Math.max(1, n - 1), m.l, W - m.r);
+  const py = scale(y0, y1, H - m.b, m.t);
+  const lines = list.map((s) => {
+    let d = '';
+    let pen = false;
+    let last = -1;
+    s.values.forEach((value, i) => {
+      if (value == null) {
+        pen = false;
+        return;
+      }
+      d += `${pen ? 'L' : 'M'}${round(px(i))} ${round(py(value))}`;
+      pen = true;
+      last = i;
+    });
+    const endValue = last >= 0 ? (s.values[last] as number) : 0;
+    return { ...s, d, end: { x: px(Math.max(0, last)), y: py(endValue), value: endValue }, labelY: py(endValue) };
+  });
+  // end labels sit to the right of the plot; when lines finish close together, spread the labels
+  const gap = 32;
+  const sorted = [...lines].sort((a, b) => a.labelY - b.labelY);
+  sorted.forEach((l, i) => {
+    if (i > 0 && l.labelY - sorted[i - 1].labelY < gap) l.labelY = sorted[i - 1].labelY + gap;
+  });
+  const overflow = sorted.length ? sorted[sorted.length - 1].labelY + 14 - (H - m.b) : 0;
+  if (overflow > 0) sorted.forEach((l) => (l.labelY -= overflow));
+  const every = Math.ceil(n / (wide ? 8 : 5));
+  const xl = x.map((label, i) => ({ label, i })).filter(({ i }) => i % every === 0);
+  return { v, W, H, m, px, py, lines, xl, wide };
+}
+const layouts = VARIANTS.map(layout);
+const summary = `${frame.title ?? 'Line chart'}. ${list.map((s) => `${s.name}: ${val(s.values.find((v) => v != null) ?? 0)} to ${val([...s.values].reverse().find((v) => v != null) ?? 0)}`).join('; ')}.`;
+const chart = JSON.stringify({ x, unit, digits, series: list.map((s) => ({ name: s.name, role: s.role, values: s.values })) });
+---
+
+<Figure kind="Line chart" name="linechart" animate replay {...frame}>
+  {
+    list.length > 1 && (
+      <ul class="x-legend">
+        {list.map((s) => (
+          <li>
+            <i class={`k-${s.role}`} />
+            {s.name}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  <div class="x-plot" data-chart={chart} tabindex="0" role="img" aria-label={summary}>
+    {
+      layouts.map((L) => (
+        <svg class={`fg-svg fg-${L.v}`} viewBox={`0 0 ${L.W} ${L.H}`} data-x0={L.m.l} data-x1={L.W - L.m.r} aria-hidden="true">
+          {shownTicks.map((t) => (
+            <>
+              <line class={t === y0 ? 's-axis' : 's-grid'} x1={L.m.l} x2={L.W - L.m.r} y1={round(L.py(t))} y2={round(L.py(t))} />
+              <text class="t-axis" x={L.m.l - 8} y={round(L.py(t)) + 3.5} text-anchor="end">
+                {val(t)}
+              </text>
+            </>
+          ))}
+          {L.xl.map(({ label, i }) => (
+            <text class="t-axis" x={round(L.px(i))} y={L.H - 8} text-anchor={i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle'}>
+              {label}
+            </text>
+          ))}
+          {marks.map((mk) => (
+            <g data-a="fade" style="--a-delay:500ms">
+              <line class="x-mark" x1={round(L.px(mk.at))} x2={round(L.px(mk.at))} y1={L.m.t - 6} y2={L.H - L.m.b} />
+              <text class="t-label halo" x={round(L.px(mk.at)) + (mk.at >= (n - 1) / 2 ? -6 : 6)} y={L.m.t - 12} text-anchor={mk.at >= (n - 1) / 2 ? 'end' : 'start'}>
+                {mk.label}
+              </text>
+            </g>
+          ))}
+          {target && (
+            <g data-a="fade" style="--a-delay:300ms">
+              <line class="x-target" x1={L.m.l} x2={L.W - L.m.r} y1={round(L.py(target.value))} y2={round(L.py(target.value))} />
+              <text class="t-label halo" x={L.m.l + 6} y={round(L.py(target.value)) - 6}>
+                {target.label ?? 'Target'} {val(target.value)}
+              </text>
+            </g>
+          )}
+          {[...L.lines].reverse().map((s, i) => (
+            <g class={`x-series is-${s.role}`}>
+              <path class={`s-${s.role}`} d={s.d} pathLength={s.role === 'grey' ? undefined : 1} data-a={s.role === 'grey' ? 'fade' : 'draw'} style={`--a-dur:1100ms;--a-delay:${i * 150}ms`} />
+              <circle class={`ring f-${s.role}`} cx={round(s.end.x)} cy={round(s.end.y)} r="4.5" data-a="pop" style={`--a-delay:${900 + i * 150}ms`} />
+              {L.wide ? (
+                <g data-a="fade" style={`--a-delay:${1000 + i * 150}ms`}>
+                  {Math.abs(s.labelY - s.end.y) > 3 && <path class="x-leader" d={`M${round(s.end.x + 7)} ${round(s.end.y)}L${round(s.end.x + 14)} ${round(s.labelY)}`} />}
+                  <text class="t-value" x={round(s.end.x + 18)} y={round(s.labelY) + 1}>
+                    {val(s.end.value)}
+                  </text>
+                  {list.length > 1 && (
+                    <text class="t-label x-end-name" x={round(s.end.x + 18)} y={round(s.labelY) + 14}>
+                      {s.name.length > 16 ? s.name.slice(0, 15) + '…' : s.name}
+                    </text>
+                  )}
+                </g>
+              ) : (
+                (s.role === 'signal' || list.length === 1) && (
+                  <text class="t-value halo" x={round(s.end.x)} y={round(s.end.y) - 10} text-anchor="end" data-a="fade" style="--a-delay:1000ms">
+                    {val(s.end.value)}
+                  </text>
+                )
+              )}
+            </g>
+          ))}
+          <line class="x-cross" x1="0" x2="0" y1={L.m.t} y2={L.H - L.m.b} visibility="hidden" />
+        </svg>
+      ))
+    }
+    <div class="x-tip" hidden></div>
+  </div>
+  <details class="fg-data" slot="foot">
+    <summary>Data</summary>
+    <div class="fg-data-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            {list.map((s) => <th>{s.name}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            x.map((label, i) => (
+              <tr>
+                <td>{label}</td>
+                {list.map((s) => <td>{s.values[i] == null ? '–' : val(s.values[i] as number)}</td>)}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+</Figure>
+
+<style is:global>
+  .fg-linechart .x-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-bottom: 10px;
+    font: 500 10.5px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .fg-linechart .x-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .fg-linechart .x-legend i {
+    width: 18px;
+    height: 0;
+    border-top: 2px solid var(--ink);
+  }
+  .fg-linechart .x-legend .k-signal {
+    border-top: 3px solid var(--accent);
+  }
+  .fg-linechart .x-legend .k-grey {
+    border-top: 2px dashed var(--muted);
+  }
+  .fg-linechart .x-plot {
+    position: relative;
+    outline-offset: 4px;
+  }
+  .fg-linechart svg .x-target {
+    stroke: var(--ink);
+    stroke-width: 1;
+    stroke-dasharray: 2 4;
+  }
+  .fg-linechart svg .x-mark {
+    stroke: var(--ink);
+    stroke-width: 1;
+  }
+  .fg-linechart svg .x-leader {
+    stroke: var(--muted);
+    stroke-width: 1;
+    fill: none;
+  }
+  .fg-linechart svg .x-cross {
+    stroke: var(--ink);
+    stroke-width: 1;
+    pointer-events: none;
+  }
+  .fg-linechart svg .t-value {
+    font-size: 15px;
+  }
+  .fg-linechart svg .x-end-name {
+    font-size: 9.5px;
+  }
+  .fg-linechart .x-tip {
+    position: absolute;
+    top: 6px;
+    z-index: 2;
+    min-width: 120px;
+    padding: 8px 10px;
+    background: var(--ink);
+    color: var(--bg);
+    font: 400 11.5px/1.5 var(--mono);
+    pointer-events: none;
+    transform: translateX(10px);
+    white-space: nowrap;
+  }
+  .fg-linechart .x-tip[data-side='left'] {
+    transform: translateX(calc(-100% - 10px));
+  }
+  .fg-linechart .x-tip b {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 2px;
+    opacity: 0.7;
+  }
+  .fg-linechart .x-tip span {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .fg-linechart .x-tip .x-key {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+    background: var(--bg);
+  }
+  .fg-linechart .x-tip .is-signal .x-key {
+    background: var(--accent);
+  }
+  .fg-linechart .x-tip .is-grey .x-key {
+    background: var(--muted);
+  }
+</style>
+
+<script>
+  // Exact values on hover and with the arrow keys. The table under the chart has them all, so
+  // this adds convenience and gates nothing.
+  interface Chart {
+    x: string[];
+    unit: string;
+    digits?: number;
+    series: { name: string; role: string; values: (number | null)[] }[];
+  }
+  const show = (v: number, c: Chart) => {
+    const d = c.digits ?? (Number.isInteger(v) ? 0 : Math.abs(v) < 10 ? 2 : 1);
+    const s = v.toLocaleString('en-GB', { maximumFractionDigits: d });
+    return !c.unit ? s : /^[%×x°]$/.test(c.unit) ? s + c.unit : `${s} ${c.unit}`;
+  };
+  document.querySelectorAll<HTMLElement>('.fg-linechart .x-plot').forEach((plot) => {
+    const chart = JSON.parse(plot.dataset.chart!) as Chart;
+    const n = chart.x.length;
+    const tip = plot.querySelector<HTMLElement>('.x-tip')!;
+    const svgs = [...plot.querySelectorAll<SVGSVGElement>('svg')];
+    const current = () => svgs.find((s) => s.getBoundingClientRect().width > 0);
+    let index = -1;
+
+    function hide() {
+      index = -1;
+      tip.hidden = true;
+      svgs.forEach((s) => s.querySelector('.x-cross')?.setAttribute('visibility', 'hidden'));
+    }
+    function reveal(i: number) {
+      const svg = current();
+      if (!svg) return;
+      index = i;
+      const W = svg.viewBox.baseVal.width;
+      const x0 = Number(svg.dataset.x0);
+      const x1 = Number(svg.dataset.x1);
+      const x = x0 + (n > 1 ? i / (n - 1) : 0) * (x1 - x0);
+      const cross = svg.querySelector('.x-cross')!;
+      cross.setAttribute('x1', String(x));
+      cross.setAttribute('x2', String(x));
+      cross.setAttribute('visibility', 'visible');
+      tip.replaceChildren();
+      const head = document.createElement('b');
+      head.textContent = chart.x[i];
+      tip.append(head);
+      for (const s of chart.series) {
+        const row = document.createElement('span');
+        row.className = `is-${s.role}`;
+        const name = document.createElement('i');
+        name.style.fontStyle = 'normal';
+        const key = document.createElement('i');
+        key.className = 'x-key';
+        name.append(key, s.name);
+        const value = document.createElement('i');
+        value.style.fontStyle = 'normal';
+        const v = s.values[i];
+        value.textContent = v == null ? '–' : show(v, chart);
+        row.append(name, value);
+        tip.append(row);
+      }
+      tip.style.left = `${(x / W) * 100}%`;
+      tip.dataset.side = x / W > 0.5 ? 'left' : 'right';
+      tip.hidden = false;
+    }
+    plot.addEventListener('pointermove', (e) => {
+      const svg = current();
+      if (!svg) return;
+      const r = svg.getBoundingClientRect();
+      const W = svg.viewBox.baseVal.width;
+      const vx = ((e.clientX - r.left) / r.width) * W;
+      const t = (vx - Number(svg.dataset.x0)) / (Number(svg.dataset.x1) - Number(svg.dataset.x0));
+      reveal(Math.min(n - 1, Math.max(0, Math.round(t * (n - 1)))));
+    });
+    plot.addEventListener('pointerleave', hide);
+    plot.addEventListener('blur', hide);
+    plot.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const next = index < 0 ? (e.key === 'ArrowRight' ? 0 : n - 1) : index + (e.key === 'ArrowRight' ? 1 : -1);
+        reveal(Math.min(n - 1, Math.max(0, next)));
+      } else if (e.key === 'Escape') hide();
+    });
+  });
+</script>

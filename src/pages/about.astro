@@ -2,21 +2,71 @@
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import { atlas } from '../lib/atlas.ts';
+import { author } from '../lib/editorial.ts';
 
 const a = atlas();
+const me = author();
 ---
 
-<Base title="About" description="What the Skill Atlas is, how resources are chosen and checked, and what comes next.">
+<Base title="About" description="Hi, I'm Mikel. I built ProductEngineer.pro to make sense of the work around writing software, and to share what I'm learning along the way.">
   <div class="wrap">
     <Crumbs items={[{ label: 'About' }]} />
     <header class="page-head">
       <div class="code-big">About</div>
-      <h1 class="title">A reference, drawn as a map.</h1>
+      <h1 class="title">A place to make sense of the work.</h1>
       <p class="lede">
-        ProductEngineer.pro is a general reference for product engineering. Every territory, capability and skill has a short
-        description, a few resources worth the time, and the tools people use for it.
+        I love building software. Over the years, I've found myself just as interested in the questions around it:
+        who needs this, what would help them, and did the thing we shipped actually work? This site is my way of
+        connecting those questions and sharing what I learn.
       </p>
     </header>
+
+    <section class="section" id="who-writes-it">
+      <div class="section-head"><h2>Who writes it</h2><span class="label">Author</span></div>
+      <div class="about-author">
+        {me.photo && <img class="author-photo" src={me.photo} alt={me.name} width="160" height="160" />}
+        <div class="prose author-intro">
+          <p>
+            Hi, I'm {me.name}, a full-stack engineer and tech lead from Donostia. I've been building software
+            for more than fifteen years, and my own products since 2009. I still love taking an idea all the way
+            to something people can use.
+          </p>
+          <p>
+            At Majestic, I work on campaigns and platforms for global brands. On my own time, I build things like
+            Linguaso, for learning languages through videos, and Etengabe, for learning Basque. Having my own
+            products means I get to live with the decisions after launch, too.
+          </p>
+          <p>
+            I made the atlas because I wanted to see how all these parts of the job fit together, including the ones
+            I'd been doing without a name for them. It's also a reminder of how much I still want to learn.
+            If it helps you find your next question, or put a name to something you already do, I'm glad you're here.
+          </p>
+          <div class="btn-row">
+            {me.links.map((l) => <a class="btn" href={l.href} rel="me noopener">{l.label}</a>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>What you'll find here</h2><span class="label">Two parts</span></div>
+      <div class="cols">
+        <div class="prose">
+          <p>
+            The <a href="/atlas/">Atlas</a> is the map I wish I'd had earlier: the skills of product engineering,
+            with short explanations, resources worth your time and tools to try. You can use it to get your bearings
+            and find something you'd like to learn next.
+          </p>
+        </div>
+        <div class="prose">
+          <p>
+            <a href="/fieldwork/">Fieldwork</a> is where I work through those skills in practice. Sometimes that
+            means looking closely at someone else's product or talking to its maker. Sometimes it means changing
+            one of my own, measuring what happened and writing down what I'd do differently.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <section class="section">
       <div class="section-head"><h2>Three levels</h2><span class="label">01</span></div>
@@ -28,8 +78,8 @@ const a = atlas();
             when it matters elsewhere, other pages link to it instead of repeating it.
           </p>
           <p>
-            The taxonomy is a proposed framework, not an industry certification. Not every skill needs the same depth: a product
-            engineer should do the core work independently, make informed decisions in the wider areas, and go deep selectively.
+            This is how I've organised the discipline so far. You don't need to master every tile. I use it to notice
+            the areas I rarely touch and choose where I'd like to go deeper. I hope you'll find your own way through it.
           </p>
         </div>
         <div class="prose">
@@ -50,7 +100,8 @@ const a = atlas();
     </section>
 
     <section class="section">
-      <div class="section-head"><h2>How resources are chosen</h2><span class="label">02</span></div>
+      <div class="section-head"><h2>What I choose to share</h2><span class="label">02</span></div>
+      <p class="lede">I want the links here to feel like a recommendation from a colleague. These are the things I look for.</p>
       <ol class="index compact">
         {
           [
@@ -72,8 +123,33 @@ const a = atlas();
       </ol>
     </section>
 
+    <section class="section" id="fieldwork">
+      <div class="section-head"><h2>How I write Fieldwork</h2><span class="label">03</span></div>
+      <p class="lede">I want these pieces to be useful to someone facing a similar decision. That means showing how I got there, including what didn't work.</p>
+      <ol class="index compact">
+        {
+          [
+            'Every entry says how I looked: version, platform, dates, time spent and what I left out.',
+            'What I saw stays apart from what I guess about other users.',
+            'Each kind of entry follows the same sections, so you can compare one with another.',
+            'Experiments record the hypothesis, the metric and the guardrails before the result.',
+            'Failed and inconclusive experiments are published with the same detail as the ones that worked.',
+            'Interviewees read their interview before it goes out. No sponsored reviews and no affiliate links.',
+            'Every entry names the atlas skills it used, so the map shows where the evidence is and where it is not.',
+          ].map((t, i) => (
+            <li>
+              <div class="row" style="grid-template-columns:40px minmax(0,1fr)">
+                <span class="code">{String(i + 1).padStart(2, '0')}</span>
+                <span style="font-size:16px">{t}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
     <section class="section" id="privacy">
-      <div class="section-head"><h2>Your progress and privacy</h2><span class="label">03</span></div>
+      <div class="section-head"><h2>Your progress and privacy</h2><span class="label">04</span></div>
       <div class="cols">
         <div class="prose">
           <p>
@@ -95,8 +171,8 @@ const a = atlas();
           <p>
             A link can light any set of skills and join them with a route, for example
             <a href="/atlas/?lit=user-interviews,hypotheses,sample-size,funnel-analysis">user interviews to funnels</a>. It shows
-            which parts of the discipline a piece of work exercised. Later versions will light the map from experiments run on real
-            products.
+            which parts of the discipline a piece of work exercised. Every <a href="/fieldwork/">Fieldwork</a>
+            entry does this for the skills it used.
           </p>
         </div>
       </div>

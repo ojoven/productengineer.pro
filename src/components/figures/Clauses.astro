@@ -1,0 +1,104 @@
+---
+// Internal: a statement set as labelled clauses (IF / THEN / BECAUSE). Hypothesis and JobStory
+// are built on it.
+import Figure from './Figure.astro';
+import type { FrameProps } from './lib.ts';
+
+interface Props extends FrameProps {
+  kind: string;
+  name: string;
+  parts: { label: string; text: string; strong?: boolean }[];
+  /** Small labelled lines under the statement: the metric, the decision rule. */
+  notes?: { label: string; text: string }[];
+}
+const { kind, name, parts, notes = [], ...frame } = Astro.props;
+---
+
+<Figure kind={kind} name={`clauses fg-${name}`} animate {...frame}>
+  <div class="x-parts">
+    {
+      parts.map((p, i) => (
+        <div class:list={['x-part', { 'is-strong': p.strong }]} data-a="rise" style={`--i:${i};--a-step:140ms`}>
+          <span class="fg-label">{p.label}</span>
+          <p class="x-text">{p.text}</p>
+        </div>
+      ))
+    }
+  </div>
+  {
+    notes.length > 0 && (
+      <dl class="x-notes" data-a="fade" style={`--i:${parts.length};--a-step:140ms`}>
+        {notes.map((n) => (
+          <div>
+            <dt class="fg-label">{n.label}</dt>
+            <dd>{n.text}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+</Figure>
+
+<style is:global>
+  .fg-clauses .x-parts {
+    display: grid;
+  }
+  .fg-clauses .x-part {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    column-gap: 14px;
+    align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-clauses .x-part:first-child {
+    padding-top: 0;
+  }
+  .fg-clauses .x-part:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-clauses .x-part .x-text {
+    font: 500 20px/1.25 var(--cond);
+    color: var(--ink-2);
+    max-width: 40ch;
+  }
+  .fg-clauses .x-part.is-strong .x-text {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .fg-clauses .x-part.is-strong .fg-label {
+    color: var(--accent-ink);
+  }
+  .fg-clauses .x-notes {
+    margin-top: 16px;
+    border-top: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 0 20px;
+  }
+  .fg-clauses .x-notes > div {
+    padding: 10px 0 0;
+    display: grid;
+    gap: 3px;
+    align-content: start;
+  }
+  .fg-clauses .x-notes dd {
+    font-size: 14px;
+    color: var(--ink);
+  }
+  @container fg (max-width: 519px) {
+    .fg-clauses .x-part {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 4px;
+    }
+    .fg-clauses .x-part .x-text {
+      font-size: 18px;
+    }
+    .fg-clauses .x-part.is-strong .x-text {
+      font-size: 21px;
+    }
+  }
+</style>

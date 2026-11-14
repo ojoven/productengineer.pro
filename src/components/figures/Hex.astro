@@ -1,0 +1,9 @@
+---
+// The tile: a pointy-top hexagon, the same shape as a skill on the map.
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg class={className} viewBox="0 0 17.32 20" aria-hidden="true" focusable="false"><path d="M8.66 0 17.32 5v10L8.66 20 0 15V5Z"></path></svg>

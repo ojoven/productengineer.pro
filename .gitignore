@@ -6,3 +6,6 @@ playwright-report/
 .env
 .env.*
 .DS_Store
+
+# Raw product evidence may contain personal data. Commit anonymized summaries only.
+/docs/product/evidence/imports/

@@ -1,0 +1,91 @@
+---
+// Two to four numbers that carry a section on their own. When the story is one number, this is
+// the chart.
+import Figure from './Figure.astro';
+import { fmt, type FrameProps } from './lib.ts';
+
+interface Stat {
+  /** A number is formatted (1284 -> 1,284); a string is shown as written. */
+  value: number | string;
+  unit?: string;
+  label: string;
+  /** One line under the label: the comparison, the period, the caveat. */
+  note?: string;
+  /** Marks the number the section is about. One per row. */
+  signal?: boolean;
+}
+interface Props extends FrameProps {
+  stats: Stat[];
+}
+const { stats, ...frame } = Astro.props;
+---
+
+<Figure kind="Numbers" name="statrow" animate {...frame}>
+  <dl class="x-grid" style={`--n:${stats.length}`} data-n={stats.length}>
+    {
+      stats.map((s, i) => (
+        <div class:list={['x-item', { 'is-signal': s.signal }]} data-a="rise" style={`--i:${i}`}>
+          <dd class="x-value fg-num">
+            {typeof s.value === 'number' ? fmt(s.value, { compact: true }) : s.value}
+            {s.unit && <span class="x-unit">{s.unit}</span>}
+          </dd>
+          <dt class="fg-label">{s.label}</dt>
+          {s.note && <dd class="x-note">{s.note}</dd>}
+        </div>
+      ))
+    }
+  </dl>
+</Figure>
+
+<style is:global>
+  .fg-statrow .x-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    margin: 0;
+  }
+  .fg-statrow .x-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 2px 16px 2px 0;
+    min-width: 0;
+  }
+  .fg-statrow .x-item + .x-item {
+    border-left: 1px solid var(--line);
+    padding-left: 18px;
+  }
+  .fg-statrow .x-value {
+    font-size: clamp(34px, 9.5cqi, 60px);
+    overflow-wrap: anywhere;
+  }
+  .fg-statrow .x-unit {
+    font-size: 0.42em;
+    letter-spacing: 0;
+    color: var(--muted);
+    margin-left: 0.18em;
+  }
+  .fg-statrow .is-signal .x-value {
+    color: var(--accent-ink);
+  }
+  .fg-statrow .x-note {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    max-width: 28ch;
+  }
+  @container fg (max-width: 519px) {
+    .fg-statrow .x-grid[data-n='4'] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 18px;
+    }
+    .fg-statrow .x-grid[data-n='4'] .x-item:nth-child(3) {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .fg-statrow .x-item {
+      padding-right: 10px;
+    }
+    .fg-statrow .x-item + .x-item {
+      padding-left: 12px;
+    }
+  }
+</style>

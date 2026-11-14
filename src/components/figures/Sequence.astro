@@ -1,0 +1,192 @@
+---
+// A sequence: who talks to whom, in order. Actors are columns, messages are arrows from top to
+// bottom. For a request between services, an OAuth round trip, an agent calling a tool, a
+// webhook, a support hand-off. The arrows draw one after another.
+import Figure from './Figure.astro';
+import { VARIANTS, WIDTHS, clamp, round, uid, wrap, type FrameProps, type Variant } from './lib.ts';
+
+interface Actor {
+  id: string;
+  label: string;
+  /** external: outside your system, drawn dashed. */
+  kind?: 'system' | 'external';
+}
+interface Message {
+  from: string;
+  to: string;
+  /** What is sent: "GET /mcp", "401 + where to sign in", "Approve". */
+  label: string;
+  /** call: a request or an action (solid). reply: what comes back (dashed). */
+  kind?: 'call' | 'reply';
+  /** signal: the step the text is about. */
+  tone?: 'signal';
+  /** A longer remark, listed under the diagram with the step number. */
+  note?: string;
+}
+interface Props extends FrameProps {
+  actors: Actor[];
+  messages: Message[];
+}
+const { actors, messages, ...frame } = Astro.props;
+const ids = new Set(actors.map((a) => a.id));
+for (const m of messages) {
+  if (!ids.has(m.from) || !ids.has(m.to)) throw new Error(`Sequence: message "${m.label}" names an actor that does not exist (${m.from} -> ${m.to}).`);
+}
+const num = (i: number) => String(i + 1).padStart(2, '0');
+
+function layout(v: Variant) {
+  const W = WIDTHS[v];
+  const wide = v === 'wide';
+  const n = actors.length;
+  const colW = W / n;
+  const boxW = Math.min(wide ? 150 : 96, colW - (wide ? 16 : 6));
+  const chars = Math.max(5, Math.floor((boxW - 12) / (wide ? 7.4 : 6.4)));
+  const heads = actors.map((a, i) => ({ ...a, cx: round(colW * (i + 0.5)), lines: wrap(a.label, chars, 2) }));
+  const headH = Math.max(...heads.map((h) => h.lines.length)) * 15 + 14;
+  const rowH = wide ? 40 : 44;
+  const top = headH + 14;
+  const cx = new Map(heads.map((h) => [h.id, h.cx]));
+  const charW = wide ? 6.5 : 6.1;
+  const rows = messages.map((m, i) => {
+    const y = top + i * rowH + 26;
+    const x0 = cx.get(m.from)!;
+    const x1 = cx.get(m.to)!;
+    const self = m.from === m.to;
+    const d = self ? `M${x0} ${y - 8}h22v14h-18` : `M${x0} ${y}H${x1 + (x1 > x0 ? -2 : 2)}`;
+    const text = `${num(i)}  ${m.label}`;
+    const half = (text.length * charW) / 2;
+    const mid = self ? x0 + 30 + half : (x0 + x1) / 2;
+    return { ...m, i, y, d, text, tx: round(clamp(mid, half + 2, W - half - 2)), ty: self ? y + 2 : y - 8 };
+  });
+  const H = top + messages.length * rowH + 14;
+  return { v, W, H, heads, headH, boxW, rows, key: uid('seq'), wide };
+}
+const layouts = VARIANTS.map(layout);
+const name = (id: string) => actors.find((a) => a.id === id)?.label ?? id;
+const summary = `${frame.title ? frame.title + '. ' : ''}Sequence: ${messages.map((m, i) => `${i + 1}, ${name(m.from)} to ${name(m.to)}: ${m.label}`).join('; ')}.`;
+const notes = messages.map((m, i) => ({ ...m, i })).filter((m) => m.note);
+---
+
+<Figure kind="Sequence" name="sequence" animate replay {...frame}>
+  {
+    layouts.map((L) => (
+      <svg class={`fg-svg fg-${L.v}`} viewBox={`0 0 ${L.W} ${L.H}`} role="img" aria-label={summary}>
+        <defs>
+          <marker id={`${L.key}-a`} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="x-head" d="M1 1 7 4 1 7" />
+          </marker>
+          <marker id={`${L.key}-s`} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="x-head is-signal" d="M1 1 7 4 1 7" />
+          </marker>
+        </defs>
+        {L.heads.map((h) => (
+          <g class:list={['x-actor', `k-${h.kind ?? 'system'}`]}>
+            <line class="x-life" x1={h.cx} x2={h.cx} y1={L.headH} y2={L.H} />
+            <rect x={round(h.cx - L.boxW / 2)} y="0.6" width={L.boxW} height={L.headH} />
+            {h.lines.map((line, k) => (
+              <text class="t-name" x={h.cx} y={round((L.headH - h.lines.length * 15) / 2 + 12 + k * 15)} text-anchor="middle">
+                {line}
+              </text>
+            ))}
+          </g>
+        ))}
+        {L.rows.map((m) => (
+          <g class:list={['x-msg', `k-${m.kind ?? 'call'}`, { 'is-signal': m.tone === 'signal' }]}>
+            <path class="x-arrow" d={m.d} marker-end={`url(#${L.key}-${m.tone === 'signal' ? 's' : 'a'})`} pathLength={m.kind === 'reply' ? undefined : 1} data-a={m.kind === 'reply' ? 'fade' : 'draw'} style={`--i:${m.i};--a-step:280ms;--a-dur:420ms`} />
+            <text class="x-label halo" x={m.tx} y={m.ty} text-anchor="middle" data-a="fade" style={`--i:${m.i};--a-step:280ms;--a-dur:300ms`}>
+              {m.text}
+            </text>
+          </g>
+        ))}
+      </svg>
+    ))
+  }
+  {
+    notes.length > 0 && (
+      <ol class="x-notes">
+        {notes.map((m) => (
+          <li>
+            <span class:list={['x-n', 'fg-mono', { 'is-signal': m.tone === 'signal' }]}>{num(m.i)}</span>
+            <span>{m.note}</span>
+          </li>
+        ))}
+      </ol>
+    )
+  }
+</Figure>
+
+<style is:global>
+  .fg-sequence .x-actor rect {
+    fill: var(--bg);
+    stroke: var(--ink);
+    stroke-width: 1.2;
+  }
+  .fg-sequence .x-actor.k-external rect {
+    stroke: var(--muted);
+    stroke-dasharray: 4 4;
+  }
+  .fg-sequence .x-life {
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+  .fg-sequence .x-arrow {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.4;
+  }
+  .fg-sequence .k-reply .x-arrow {
+    stroke: var(--muted);
+    stroke-dasharray: 4 4;
+  }
+  .fg-sequence .is-signal .x-arrow {
+    stroke: var(--accent-ink);
+    stroke-width: 2;
+  }
+  .fg-sequence .x-head {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.2;
+  }
+  .fg-sequence .x-head.is-signal {
+    stroke: var(--accent-ink);
+  }
+  .fg-sequence svg .x-label {
+    font: 400 11px var(--mono);
+    fill: var(--ink);
+  }
+  .fg-sequence svg .is-signal .x-label {
+    fill: var(--accent-ink);
+    font-weight: 500;
+  }
+  .fg-sequence .fg-narrow .t-name {
+    font-size: 11px;
+  }
+  .fg-sequence .fg-narrow .x-label {
+    font-size: 10.5px;
+  }
+  .fg-sequence .x-notes {
+    margin-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .fg-sequence .x-notes li {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr);
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  .fg-sequence .x-notes li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-sequence .x-n {
+    font-size: 11.5px;
+    color: var(--muted);
+    padding-top: 2px;
+  }
+  .fg-sequence .x-n.is-signal {
+    color: var(--accent-ink);
+  }
+</style>

@@ -1,0 +1,233 @@
+---
+// The numbers an experiment or a change is judged by: the primary metric against its baseline and
+// target, and the guardrails that must not get worse. A metric with no result yet says so.
+import Figure from './Figure.astro';
+import { round, scale, signed, withUnit, type FrameProps } from './lib.ts';
+
+type Status = 'met' | 'missed' | 'held' | 'worse' | 'pending';
+interface Metric {
+  name: string;
+  /** primary: decides the experiment. guardrail: must not get worse. Default: the first is primary, the rest guardrails. */
+  role?: 'primary' | 'guardrail';
+  baseline?: number;
+  target?: number;
+  /** Leave out while it is not measured. */
+  result?: number;
+  unit?: string;
+  /** Set to false when a smaller number is the good direction (latency, churn, cost). */
+  higherIsBetter?: boolean;
+  /** Overrides the computed status, when the call needs judgment (a guardrail inside its noise). */
+  status?: Status;
+  note?: string;
+  digits?: number;
+}
+interface Props extends FrameProps {
+  metrics: Metric[];
+}
+const { metrics, ...frame } = Astro.props;
+
+const LABEL: Record<Status, string> = { met: 'Target met', missed: 'Short of target', held: 'Held', worse: 'Worse', pending: 'Not measured yet' };
+
+const rows = metrics.map((m, i) => {
+  const role = m.role ?? (i === 0 ? 'primary' : 'guardrail');
+  const up = m.higherIsBetter !== false;
+  const better = (a: number, b: number) => (up ? a >= b : a <= b);
+  let status: Status = 'pending';
+  if (m.result !== undefined) {
+    if (role === 'primary') status = m.target !== undefined ? (better(m.result, m.target) ? 'met' : 'missed') : m.baseline !== undefined && better(m.result, m.baseline) ? 'met' : 'missed';
+    else status = m.baseline === undefined || better(m.result, m.baseline) ? 'held' : 'worse';
+  }
+  status = m.status ?? status;
+  const points = [m.baseline, m.target, m.result].filter((v): v is number => v !== undefined);
+  const lo = Math.min(...points);
+  const hi = Math.max(...points);
+  const pad = (hi - lo || Math.abs(hi) || 1) * 0.22;
+  const x = scale(lo - pad, hi + pad, 0, 100);
+  const at = (v?: number) => (v === undefined ? undefined : round(x(v), 2));
+  const v = (n: number) => withUnit(n, m.unit, { digits: m.digits });
+  const delta = m.result !== undefined && m.baseline !== undefined ? m.result - m.baseline : undefined;
+  return { ...m, role, status, at, v, delta, has: points.length > 0 };
+});
+---
+
+<Figure kind="Scorecard" name="scorecard" animate {...frame}>
+  <div class="x-rows">
+    {
+      rows.map((m, i) => (
+        <div class:list={['x-row', `is-${m.role}`, `st-${m.status}`]}>
+          <div class="x-head">
+            <span class="fg-label">{m.role === 'primary' ? 'Primary metric' : 'Guardrail'}</span>
+            <span class="x-name">{m.name}</span>
+            {m.note && <span class="x-note">{m.note}</span>}
+          </div>
+          <div class="x-result">
+            {m.result !== undefined ? (
+              <>
+                <b class="fg-num">{m.v(m.result)}</b>
+                {m.delta !== undefined && (
+                  <span class="fg-mono x-delta">
+                    {signed(m.delta, m.digits ?? 1)} vs baseline
+                  </span>
+                )}
+              </>
+            ) : (
+              <b class="fg-num x-none">–</b>
+            )}
+          </div>
+          <div class="x-track" aria-hidden="true">
+            <i class="x-line" />
+            {m.result === undefined && <i class="x-unknown" />}
+            {m.at(m.baseline) !== undefined && (
+              <span class="x-pin x-base" style={`left:${m.at(m.baseline)}%`}>
+                <i />
+                <em class="fg-mono">Baseline {m.v(m.baseline!)}</em>
+              </span>
+            )}
+            {m.at(m.target) !== undefined && (
+              <span class="x-pin x-goal" style={`left:${m.at(m.target)}%`}>
+                <i />
+                <em class="fg-mono">Target {m.v(m.target!)}</em>
+              </span>
+            )}
+            {m.at(m.result) !== undefined && <i class="x-dot" style={`left:${m.at(m.result)}%;--i:${i};--a-delay:300ms`} data-a="pop" />}
+          </div>
+          <span class:list={['fg-tag', 'x-status', { 'is-ink': m.status === 'met' || m.status === 'held', 'is-signal': m.status === 'missed' || m.status === 'worse', 'is-dashed': m.status === 'pending' }]}>
+            {LABEL[m.status]}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</Figure>
+
+<style is:global>
+  .fg-scorecard .x-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 16px;
+    align-items: end;
+    padding: 14px 0 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-scorecard .x-row:first-child {
+    padding-top: 0;
+  }
+  .fg-scorecard .x-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fg-scorecard .x-head {
+    display: grid;
+    gap: 2px;
+  }
+  .fg-scorecard .x-name {
+    font: 600 17px/1.2 var(--cond);
+  }
+  .fg-scorecard .is-primary .x-name {
+    font-size: 20px;
+  }
+  .fg-scorecard .is-primary .fg-label {
+    color: var(--accent-ink);
+  }
+  .fg-scorecard .x-note {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .fg-scorecard .x-result {
+    display: grid;
+    justify-items: end;
+    gap: 3px;
+    text-align: right;
+  }
+  .fg-scorecard .x-result b {
+    font-size: 26px;
+  }
+  .fg-scorecard .is-primary .x-result b {
+    font-size: 34px;
+  }
+  .fg-scorecard .x-none {
+    color: var(--muted);
+  }
+  .fg-scorecard .x-delta {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .fg-scorecard .x-track {
+    grid-column: 1 / 2;
+    position: relative;
+    height: 44px;
+    margin: 6px 10px 0;
+  }
+  .fg-scorecard .x-line {
+    position: absolute;
+    left: -10px;
+    right: -10px;
+    top: 9px;
+    height: 1px;
+    background: var(--ink);
+  }
+  .fg-scorecard .x-unknown {
+    position: absolute;
+    left: -10px;
+    right: -10px;
+    top: 3px;
+    height: 13px;
+    background: var(--fg-hatch);
+  }
+  .fg-scorecard .x-pin {
+    position: absolute;
+    top: 0;
+    display: grid;
+    justify-items: center;
+    transform: translateX(-50%);
+  }
+  .fg-scorecard .x-pin i {
+    width: 0;
+    height: 19px;
+    border-left: 2px solid var(--ink);
+  }
+  .fg-scorecard .x-goal i {
+    border-left: 2px dashed var(--ink);
+  }
+  .fg-scorecard .x-pin em {
+    font-style: normal;
+    font-size: 10.5px;
+    color: var(--ink-2);
+    white-space: nowrap;
+    margin-top: 5px;
+    background: var(--bg);
+    padding: 0 3px;
+  }
+  .fg-scorecard .x-dot {
+    position: absolute;
+    top: 9px;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 2px solid var(--bg);
+  }
+  .fg-scorecard .is-primary .x-dot {
+    background: var(--accent);
+  }
+  .fg-scorecard .x-status {
+    justify-self: end;
+    align-self: start;
+    margin-top: 10px;
+  }
+  @container fg (max-width: 519px) {
+    .fg-scorecard .x-track {
+      grid-column: 1 / -1;
+    }
+    .fg-scorecard .x-status {
+      grid-column: 1 / -1;
+      justify-self: start;
+      margin-top: 2px;
+    }
+    .fg-scorecard .x-pin em {
+      font-size: 9.5px;
+    }
+  }
+</style>

@@ -1,0 +1,11 @@
+---
+import EntryPage from '../../components/EntryPage.astro';
+import { allItems } from '../../lib/editorial.ts';
+
+export async function getStaticPaths() {
+  // drafts are built too: reachable by URL for review, kept out of every list
+  return (await allItems()).map((entry) => ({ params: { entry: entry.id }, props: { entry } }));
+}
+---
+
+<EntryPage entry={Astro.props.entry} />

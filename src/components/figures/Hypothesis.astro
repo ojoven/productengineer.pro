@@ -1,0 +1,39 @@
+---
+// A hypothesis written so it can fail: if we change this, then that number moves, because of
+// this reason. With the metric that decides it and the rule agreed before looking.
+import Clauses from './Clauses.astro';
+import type { FrameProps } from './lib.ts';
+
+interface Props extends FrameProps {
+  /** The change: "new learners can start a lesson before creating an account". */
+  if: string;
+  /** The expected effect: "more of them finish a first lesson". */
+  then: string;
+  /** The reason it should work. */
+  because: string;
+  /** The one number that decides it. */
+  metric?: string;
+  /** The result that means keep the change, written before the data. */
+  keepIf?: string;
+  /** The result that means stop or revert. */
+  stopIf?: string;
+}
+const { if: change, then, because, metric, keepIf, stopIf, ...frame } = Astro.props;
+const notes = [
+  metric && { label: 'Decided by', text: metric },
+  keepIf && { label: 'Keep if', text: keepIf },
+  stopIf && { label: 'Stop if', text: stopIf },
+].filter((n): n is { label: string; text: string } => !!n);
+---
+
+<Clauses
+  kind="Hypothesis"
+  name="hypothesis"
+  parts={[
+    { label: 'If', text: change },
+    { label: 'Then', text: then, strong: true },
+    { label: 'Because', text: because },
+  ]}
+  notes={notes}
+  {...frame}
+/>

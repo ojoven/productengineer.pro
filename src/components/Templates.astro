@@ -1,0 +1,28 @@
+---
+// The fixed structure of each kind of entry, shown to readers so they know what to expect and
+// where to look. The same list is enforced on every entry by validateEditorial.
+import { SECTIONS, type EntryKind } from '../editorial/schema.ts';
+import { KIND } from '../lib/editorial.ts';
+
+interface Props {
+  kinds: readonly EntryKind[];
+  notes: Partial<Record<EntryKind, string>>;
+}
+const { kinds, notes } = Astro.props;
+---
+
+<div class="templates">
+  {
+    kinds.map((k) => (
+      <div class="template">
+        <h3>{KIND[k]}</h3>
+        {notes[k] && <p>{notes[k]}</p>}
+        <ol>
+          {SECTIONS[k].map((s) => (
+            <li>{s}</li>
+          ))}
+        </ol>
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,162 @@
+---
+// A flow: boxes on a grid, arrows between them, and dots that travel along the arrows to show
+// direction. For user flows, how a system fits together, a pipeline, an agent calling tools.
+// Give each node a column (its stage) and a row (its lane); the layout and the phone version
+// follow from that.
+import Figure from './Figure.astro';
+import { layoutFlow, type FlowEdge, type FlowNode } from './flow.ts';
+import { VARIANTS, uid, type FrameProps } from './lib.ts';
+
+interface Props extends FrameProps {
+  nodes: FlowNode[];
+  edges: FlowEdge[];
+  /** A label for each column, in order: the stages of the flow. */
+  stages?: string[];
+  /** Set to false for a still diagram. Default: dots travel along the arrows, with a pause button. */
+  motion?: boolean;
+}
+const { nodes, edges, stages = [], motion = true, ...frame } = Astro.props;
+// ids used in SVG timing (begin="id.begin") must not contain hyphens: there a hyphen means minus
+const layouts = VARIANTS.map((v) => ({ ...layoutFlow(nodes, edges, v, stages), key: uid('flow').replace(/-/g, '') }));
+const byId = new Map(nodes.map((n) => [n.id, n]));
+// The dots start a little apart. Each stays invisible until its own motion begins (the <set>
+// below), so none waits at the corner of the drawing.
+const summary = `${frame.title ? frame.title + '. ' : ''}Flow: ${edges.map((e) => `${byId.get(e.from)?.label} to ${byId.get(e.to)?.label}${e.label ? ` (${e.label})` : ''}`).join('; ')}.`;
+---
+
+<Figure kind="Flow" name="flow" animate ambient={motion} {...frame}>
+  {
+    layouts.map((L) => (
+      <svg class={`fg-svg fg-${L.variant}`} viewBox={`0 0 ${L.width} ${L.height}`} role="img" aria-label={summary}>
+        <defs>
+          <marker id={`${L.key}-a`} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path class="x-head" d="M1 1 7 4 1 7" />
+          </marker>
+          <marker id={`${L.key}-s`} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path class="x-head is-signal" d="M1 1 7 4 1 7" />
+          </marker>
+        </defs>
+        {L.stages.map((s) => (
+          <text class="t-label" x={s.x} y={s.y}>
+            {s.label}
+          </text>
+        ))}
+        <g class="x-edges" data-a="fade" style="--a-delay:350ms;--a-dur:600ms">
+          {L.edges.map((e) => (
+            <path class:list={['x-edge', { 'is-signal': e.tone === 'signal', 'is-dashed': e.dashed }]} d={e.d} marker-end={`url(#${L.key}-${e.tone === 'signal' ? 's' : 'a'})`} />
+          ))}
+          {L.edges.map(
+            (e) =>
+              e.label &&
+              e.labelAt && (
+                <text class:list={['t-label', 'halo', 'x-elabel', { 't-signal': e.tone === 'signal' }]} x={e.labelAt.x} y={e.labelAt.y} text-anchor={e.labelAt.anchor}>
+                  {e.label}
+                </text>
+              ),
+          )}
+          {motion &&
+            L.edges.map((e, i) => (
+              <circle class="fg-particle" r={e.tone === 'signal' ? 3.4 : 2.6} opacity="0">
+                <animateMotion id={`${L.key}m${i}`} path={e.d} dur={`${Math.max(2.4, Math.round((e.length / 46) * 10) / 10)}s`} begin="indefinite" repeatCount="indefinite" data-ambient-start={(i % 5) * 0.35} />
+                <set attributeName="opacity" to="1" begin={`${L.key}m${i}.begin`} fill="freeze" />
+              </circle>
+            ))}
+        </g>
+        {L.nodes.map((n) => {
+          const Tag = n.href ? 'a' : 'g';
+          return (
+            <Tag href={n.href} class:list={['x-node', `k-${n.kind ?? 'step'}`, n.tone && `t-${n.tone}`]} data-a="rise" style={`--i:${n.col};--a-step:110ms`}>
+              <rect x={n.x} y={n.y} width={n.w} height={n.h} />
+              {n.kind === 'store' && <line class="x-storeline" x1={n.x} x2={n.x + n.w} y1={n.y + n.h - 4} y2={n.y + n.h - 4} />}
+              {n.nameLines.map((line, k) => (
+                <text class="t-name" x={n.x + 11} y={n.y + 24 + k * 16}>
+                  {line}
+                </text>
+              ))}
+              {n.detailLines.map((line, k) => (
+                <text class="t-detail" x={n.x + 11} y={n.y + 24 + (n.nameLines.length - 1) * 16 + 17 + k * 14}>
+                  {line}
+                </text>
+              ))}
+            </Tag>
+          );
+        })}
+      </svg>
+    ))
+  }
+</Figure>
+
+<style is:global>
+  .fg-flow .x-edge {
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 1.4;
+    stroke-linejoin: round;
+  }
+  .fg-flow .x-edge.is-signal {
+    stroke: var(--accent-ink);
+    stroke-width: 2;
+  }
+  .fg-flow .x-edge.is-dashed {
+    stroke-dasharray: 4 4;
+  }
+  .fg-flow .x-head {
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 1.3;
+  }
+  .fg-flow .x-head.is-signal {
+    stroke: var(--accent-ink);
+  }
+  .fg-flow .x-node rect {
+    fill: var(--bg);
+    stroke: var(--ink);
+    stroke-width: 1.2;
+  }
+  .fg-flow a.x-node {
+    text-decoration: none;
+    outline: none;
+  }
+  .fg-flow a.x-node:is(:hover, :focus-visible) rect {
+    fill: var(--bg-2);
+    stroke: var(--accent-ink);
+    stroke-width: 2.4;
+  }
+  .fg-flow .k-decision rect {
+    fill: var(--ink);
+  }
+  .fg-flow .k-decision .t-name,
+  .fg-flow .k-decision .t-detail {
+    fill: var(--bg);
+  }
+  .fg-flow .k-external rect {
+    stroke: var(--muted);
+    stroke-dasharray: 4 4;
+  }
+  .fg-flow .k-store rect {
+    fill: var(--bg-2);
+  }
+  .fg-flow .x-storeline {
+    stroke: var(--ink);
+    stroke-width: 1.2;
+  }
+  .fg-flow .t-signal rect {
+    stroke: var(--accent);
+    stroke-width: 2.4;
+  }
+  .fg-flow .t-lit rect {
+    fill: var(--fg-lit);
+    stroke: var(--ink);
+  }
+  .fg-flow .t-lit .t-name,
+  .fg-flow .t-lit .t-detail {
+    fill: var(--fg-on-lit);
+  }
+  .fg-flow .x-elabel {
+    font-size: 9.5px;
+    fill: var(--ink-2);
+  }
+  .fg-flow .fg-narrow .t-name {
+    font-size: 12px;
+  }
+</style>

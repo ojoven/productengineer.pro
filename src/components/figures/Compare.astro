@@ -1,0 +1,194 @@
+---
+// Products side by side on the same questions. A cell holds a word, a number, yes or no, or a
+// rating. One column can be marked as yours; one cell per row can be marked as the best.
+import Figure from './Figure.astro';
+import { fmt, type FrameProps } from './lib.ts';
+
+type Value = string | number | boolean | null;
+interface Row {
+  /** The question or criterion. */
+  label: string;
+  /** One value per subject. true and false draw yes and no; with `scale`, a number draws a rating. */
+  values: Value[];
+  /** Index of the subject that does best on this row. */
+  best?: number;
+  /** A remark under the label. */
+  note?: string;
+  /** Unit for numbers in this row: "s", "screens", "€". */
+  unit?: string;
+  /** The top of the rating scale for this row. A value of 2 with scale 3 draws two of three tiles. */
+  scale?: number;
+}
+interface Props extends FrameProps {
+  /** Column heads: the products compared. */
+  subjects: string[];
+  rows: Row[];
+  /** Index of the subject to mark (your product, or the one the review is about). */
+  highlight?: number;
+}
+const { subjects, rows, highlight, ...frame } = Astro.props;
+---
+
+<Figure kind="Side by side" name="compare" animate {...frame}>
+  <div class="x-scroll">
+    <table style={`--n:${subjects.length}`}>
+      <thead>
+        <tr>
+          <th></th>
+          {
+            subjects.map((s, i) => (
+              <th scope="col" class:list={{ 'is-hi': highlight === i }}>
+                {s}
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((r, ri) => (
+            <tr data-a="rise" style={`--i:${ri}`}>
+              <th scope="row">
+                {r.label}
+                {r.note && <span class="x-note">{r.note}</span>}
+              </th>
+              {subjects.map((_, i) => {
+                const v = r.values[i];
+                const best = r.best === i;
+                return (
+                  <td class:list={{ 'is-hi': highlight === i, 'is-best': best }}>
+                    {v === null || v === undefined ? (
+                      <span class="x-none" aria-label="not looked at">
+                        –
+                      </span>
+                    ) : typeof v === 'boolean' ? (
+                      <span class:list={['x-bool', v ? 'is-yes' : 'is-no']}>
+                        <i aria-hidden="true" />
+                        {v ? 'Yes' : 'No'}
+                      </span>
+                    ) : typeof v === 'number' && r.scale ? (
+                      <span class="x-rating" role="img" aria-label={`${v} of ${r.scale}`}>
+                        {Array.from({ length: r.scale }, (_, k) => (
+                          <i class:list={{ 'is-on': k < v }} />
+                        ))}
+                      </span>
+                    ) : typeof v === 'number' ? (
+                      <span class="x-number">
+                        <b class="fg-num">{fmt(v)}</b>
+                        {r.unit && <small>{r.unit}</small>}
+                      </span>
+                    ) : (
+                      <span class="x-word">{v}</span>
+                    )}
+                    {best && <span class="fg-tag is-lit x-besttag">Best</span>}
+                  </td>
+                );
+              })}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</Figure>
+
+<style is:global>
+  .fg-compare .x-scroll {
+    overflow-x: auto;
+  }
+  .fg-compare table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    min-width: calc(150px + var(--n) * 104px);
+  }
+  .fg-compare :is(th, td) {
+    padding: 10px 12px 11px 0;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+  .fg-compare thead th {
+    font: 600 18px/1.15 var(--cond);
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    vertical-align: bottom;
+  }
+  .fg-compare thead th:first-child {
+    width: 150px;
+  }
+  .fg-compare thead th.is-hi {
+    box-shadow: inset 0 -3px 0 var(--accent);
+  }
+  .fg-compare tbody th {
+    font: 500 10.5px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 13px;
+    position: sticky;
+    left: 0;
+    background: var(--bg);
+  }
+  .fg-compare .x-note {
+    display: block;
+    font: 400 12.5px/1.35 var(--fg-ui);
+    letter-spacing: 0;
+    text-transform: none;
+    margin-top: 2px;
+  }
+  .fg-compare tbody tr:last-child :is(th, td) {
+    border-bottom: 0;
+  }
+  .fg-compare td {
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .fg-compare .x-number b {
+    font-size: 24px;
+  }
+  .fg-compare .x-number small {
+    font: 600 13px var(--cond);
+    color: var(--muted);
+    margin-left: 4px;
+  }
+  .fg-compare .x-none {
+    color: var(--muted);
+  }
+  .fg-compare .x-bool {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font: 600 16px var(--cond);
+  }
+  .fg-compare .x-bool i {
+    width: 13px;
+    height: 15px;
+    clip-path: var(--fg-hex);
+    background: var(--ink);
+  }
+  .fg-compare .x-bool.is-no {
+    color: var(--muted);
+  }
+  .fg-compare .x-bool.is-no i {
+    background: repeating-linear-gradient(135deg, var(--muted) 0 1.5px, transparent 1.5px 4px);
+  }
+  .fg-compare .x-rating {
+    display: inline-flex;
+    gap: 2px;
+    padding-top: 3px;
+  }
+  .fg-compare .x-rating i {
+    width: 13px;
+    height: 15px;
+    clip-path: var(--fg-hex);
+    background: var(--tile);
+  }
+  .fg-compare .x-rating i.is-on {
+    background: var(--ink);
+  }
+  .fg-compare .x-besttag {
+    display: table;
+    margin-top: 5px;
+  }
+</style>

@@ -1,0 +1,499 @@
+---
+// The gallery of figures: every component with a live example, the MDX that produced it and its
+// props. Rendered from src/components/figures/catalog.ts, the same data docs/figures.md is
+// generated from. Not linked from the navigation and not indexed: a working reference.
+// ?territory=<id> shows the figures for one territory; ?stage=phone starts at phone width.
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { figures } from '../../components/figures/index.ts';
+import { COLOURS, FIGURES, FRAME_PROPS, GROUPS, toMdx } from '../../components/figures/catalog.ts';
+import { atlas, code, path } from '../../lib/atlas.ts';
+import '../../components/figures/figures.css';
+
+const a = atlas();
+const groups = GROUPS.map((g) => ({ ...g, figures: FIGURES.filter((f) => f.group === g.id) })).filter((g) => g.figures.length);
+const total = FIGURES.length;
+const components = figures as Record<string, any>;
+const missing = FIGURES.filter((f) => !components[f.name]).map((f) => f.name);
+if (missing.length) throw new Error(`figures in the catalogue with no component: ${missing.join(', ')}`);
+const territoryName = (id: string) => a.nodes.get(id)?.name ?? id;
+const keyClass: Record<string, string> = { Ink: 'k-ink', Grey: 'k-grey', Pink: 'k-pink', Yellow: 'k-lit', Hatch: 'k-hatch' };
+---
+
+<Base title="Figures" description="The visual vocabulary of fieldwork entries: diagrams, charts, walkthroughs and decision figures." noindex searchable={false}>
+  <div class="wrap fg-scope fg-gallery" data-stage="article">
+    <Crumbs items={[{ href: '/', label: 'Home' }, { label: 'Figures' }]} />
+    <header class="page-head">
+      <div class="code-big">Figures · {total} components</div>
+      <h1 class="title">Figures</h1>
+      <p class="lede">
+        The visual vocabulary of fieldwork entries. Each figure answers one question a reader has, follows the site's rules
+        for colour and type, and says how its content is known. Entries use them from MDX by name.
+      </p>
+      <p class="byline">
+        Reference for writing with them: <code>docs/figures.md</code> · source: <code>src/components/figures/</code>
+      </p>
+    </header>
+
+    <nav class="g-toolbar" aria-label="Figure groups">
+      <div class="g-jump">
+        {
+          groups.map((g) => (
+            <a href={`#${g.id}`}>
+              <span>{g.code}</span> {g.name} <span class="count">{g.figures.length}</span>
+            </a>
+          ))
+        }
+      </div>
+      <label class="g-filter">
+        <span class="visually-hidden">Show figures for a territory</span>
+        <select class="btn small" data-territory-filter>
+          <option value="">All territories</option>
+          {a.territories.map((t) => <option value={t.id}>{code(t.id)} {t.name}</option>)}
+        </select>
+      </label>
+      <div class="g-width" role="group" aria-label="Preview width">
+        <button type="button" class="btn small" data-stage-set="article" aria-pressed="true">Article · 640</button>
+        <button type="button" class="btn small" data-stage-set="phone" aria-pressed="false">Phone · 340</button>
+      </div>
+    </nav>
+
+    <section class="section" id="rules">
+      <div class="section-head">
+        <h2>Rules</h2>
+        <span class="label">Read first</span>
+      </div>
+      <div class="g-rules">
+        <div>
+          <h3>Colour means something</h3>
+          <ul class="g-keys">
+            {
+              COLOURS.map((c) => (
+                <li>
+                  <i class={keyClass[c.name]} />
+                  <b>{c.name}</b> {c.means}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h3>Say how you know</h3>
+          <p>
+            Every figure takes <code>evidence</code> and <code>source</code>. Measured, observed, reported and assumed are different
+            things. Example data is marked <code>illustrative</code> and never ships in a finished entry.
+          </p>
+        </div>
+        <div>
+          <h3>Motion explains</h3>
+          <p>
+            A figure plays once when it scrolls into view and can be replayed. Particles show direction and can be paused. Nothing
+            moves when the reader asks for reduced motion, and every figure reads the same without JavaScript.
+          </p>
+        </div>
+        <div>
+          <h3>One figure, one point</h3>
+          <p>
+            Write the sentence the figure should prove, then pick the figure. The <code>caption</code> is that sentence. If the
+            text already says it well, leave the figure out.
+          </p>
+        </div>
+      </div>
+      <details class="g-frame-props">
+        <summary>Props every figure accepts</summary>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Prop</th><th>Type</th><th>What</th></tr>
+            </thead>
+            <tbody>
+              {
+                FRAME_PROPS.map((p) => (
+                  <tr>
+                    <td><code>{p.name}</code></td>
+                    <td><code>{p.type}</code></td>
+                    <td set:html={p.note.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    {
+      groups.map((g) => (
+        <section class="section g-group" id={g.id}>
+          <div class="section-head">
+            <h2>
+              {g.name}
+            </h2>
+            <span class="label">
+              {g.code} · {g.figures.length} figures
+            </span>
+          </div>
+          <p class="question">{g.question}</p>
+          <p class="lede g-intro">{g.intro}</p>
+
+          {g.figures.map((f) => {
+            const Comp = components[f.name];
+            return (
+              <article class="g-item" id={f.name} data-territories={g.id === 'atlas' ? '*' : f.territories.join(' ')}>
+                <div class="g-info">
+                  <div class="g-code">{f.code}</div>
+                  <h3>
+                    <a href={`#${f.name}`}>{f.name}</a>
+                  </h3>
+                  <p class="g-what">{f.what}</p>
+                  <div class="g-block">
+                    <span class="label">Use it for</span>
+                    <ul>
+                      {f.use.map((u) => (
+                        <li>{u}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  {f.avoid && (
+                    <div class="g-block">
+                      <span class="label">Not for</span>
+                      <p>{f.avoid}</p>
+                    </div>
+                  )}
+                  <div class="g-block">
+                    <span class="label">Atlas</span>
+                    <p class="g-terr">{f.territories.map(territoryName).join(' · ')}</p>
+                    <div class="chips">
+                      {f.skills.map((s) => (
+                        <a href={path(s)}>
+                          <span class="muted">{code(s)}</span> {a.nodes.get(s)?.name}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                  <div class="g-block">
+                    <span class="label">Motion</span>
+                    <p>{f.motion.length ? f.motion.join(' · ') : 'none'}</p>
+                  </div>
+                </div>
+                <div class="g-stage">
+                  {f.examples.map((ex) => (
+                    <div class="g-example">
+                      {ex.label && <div class="label g-ex-label">{ex.label}</div>}
+                      <div class="g-canvas">
+                        <Comp {...ex.props} />
+                      </div>
+                      <details class="g-code-block">
+                        <summary>MDX</summary>
+                        <pre><code>{toMdx(f.name, ex.props)}</code></pre>
+                      </details>
+                    </div>
+                  ))}
+                  <details class="g-props">
+                    <summary>Props</summary>
+                    <div class="table-wrap">
+                      <table>
+                        <thead>
+                          <tr><th>Prop</th><th>Type</th><th>What</th></tr>
+                        </thead>
+                        <tbody>
+                          {f.props.map((p) => (
+                            <tr>
+                              <td>
+                                <code>{p.name}</code>
+                                {p.required && <span class="g-req" title="required">*</span>}
+                              </td>
+                              <td><code>{p.type}</code></td>
+                              <td set:html={p.note.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </details>
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style is:global>
+  .fg-gallery .g-toolbar {
+    position: sticky;
+    top: var(--head);
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding: 10px 0;
+    background: var(--bg);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .fg-gallery .g-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 22px;
+    font: 500 12px/1.8 var(--mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .fg-gallery .g-jump a {
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .fg-gallery .g-jump a span:first-child {
+    color: var(--accent-ink);
+  }
+  .fg-gallery .g-jump .count {
+    color: var(--muted);
+  }
+  .fg-gallery .g-filter {
+    margin-left: auto;
+  }
+  .fg-gallery .g-filter select {
+    padding-right: 34px;
+    background-position: right 12px center;
+  }
+  .fg-gallery .g-width {
+    display: flex;
+  }
+  .fg-gallery .g-width .btn + .btn {
+    border-left: 0;
+  }
+  .fg-gallery .g-width .btn[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .fg-gallery .g-rules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px 32px;
+  }
+  .fg-gallery .g-rules h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .fg-gallery .g-rules p {
+    color: var(--ink-2);
+    font-size: 14.5px;
+    margin: 0;
+  }
+  .fg-gallery code {
+    font: 0.9em var(--mono);
+  }
+  .fg-gallery .g-keys {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  .fg-gallery .g-keys li {
+    display: grid;
+    grid-template-columns: 22px 54px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+  }
+  .fg-gallery .g-keys b {
+    font: 500 11px var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .fg-gallery .g-keys i {
+    width: 22px;
+    height: 12px;
+    background: var(--ink);
+  }
+  .fg-gallery .g-keys .k-grey {
+    background: var(--learning);
+  }
+  .fg-gallery .g-keys .k-pink {
+    background: var(--accent);
+  }
+  .fg-gallery .g-keys .k-lit {
+    background: #f5d547;
+  }
+  .fg-gallery .g-keys .k-hatch {
+    background: repeating-linear-gradient(135deg, var(--muted) 0 1px, transparent 1px 5px);
+    outline: 1px solid var(--line);
+  }
+  .fg-gallery :is(.g-frame-props, .g-props, .g-code-block) summary {
+    cursor: pointer;
+    font: 500 11px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 0;
+  }
+  .fg-gallery :is(.g-frame-props, .g-props, .g-code-block) summary:hover {
+    color: var(--ink);
+  }
+  .fg-gallery .g-frame-props {
+    margin-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .fg-gallery :is(.g-props, .g-frame-props) table {
+    font-size: 13.5px;
+  }
+  .fg-gallery :is(.g-props, .g-frame-props) td code {
+    overflow-wrap: anywhere;
+  }
+  .fg-gallery :is(.g-props, .g-frame-props) td:nth-child(2) {
+    color: var(--ink-2);
+    max-width: 320px;
+  }
+  .fg-gallery .g-req {
+    color: var(--accent-ink);
+    margin-left: 2px;
+  }
+  .fg-gallery .g-group .question {
+    margin-bottom: 8px;
+  }
+  .fg-gallery .g-intro {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .fg-gallery .g-item {
+    display: grid;
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    gap: 0 56px;
+    padding: 28px 0 36px;
+    border-top: 1px solid var(--ink);
+    margin-top: 28px;
+    scroll-margin-top: calc(var(--head) + 64px);
+  }
+  .fg-gallery .g-group {
+    scroll-margin-top: calc(var(--head) + 56px);
+  }
+  .fg-gallery .g-code {
+    font: 500 12px var(--mono);
+    color: var(--accent-ink);
+  }
+  .fg-gallery .g-info h3 {
+    font-size: 30px;
+    margin: 6px 0 8px;
+  }
+  .fg-gallery .g-info h3 a {
+    text-decoration: none;
+  }
+  .fg-gallery .g-what {
+    color: var(--ink-2);
+    font-size: 16px;
+    margin-bottom: 18px;
+  }
+  .fg-gallery .g-block {
+    border-top: 1px solid var(--line);
+    padding: 10px 0 12px;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  .fg-gallery .g-block ul {
+    margin: 6px 0 0;
+    padding-left: 16px;
+  }
+  .fg-gallery .g-block li + li {
+    margin-top: 4px;
+  }
+  .fg-gallery .g-block p {
+    margin: 6px 0 0;
+  }
+  .fg-gallery .g-block .chips {
+    margin-top: 8px;
+  }
+  .fg-gallery .g-terr {
+    color: var(--ink);
+  }
+  .fg-gallery .g-stage {
+    min-width: 0;
+  }
+  .fg-gallery .g-example + .g-example {
+    margin-top: 28px;
+  }
+  .fg-gallery .g-ex-label {
+    margin-bottom: 6px;
+  }
+  /* the stage is as wide as the article column of an entry, or as a phone */
+  .fg-gallery .g-canvas {
+    max-width: 640px;
+    transition: max-width 0.25s ease;
+  }
+  .fg-gallery[data-stage='phone'] .g-canvas {
+    max-width: 340px;
+  }
+  .fg-gallery .g-canvas > .fg {
+    margin: 0;
+  }
+  .fg-gallery .g-code-block {
+    max-width: 640px;
+  }
+  .fg-gallery .g-code-block pre {
+    margin: 0 0 8px;
+    padding: 14px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    font: 12.5px/1.6 var(--mono);
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .fg-gallery .g-props {
+    margin-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 900px) {
+    .fg-gallery .g-item {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 20px;
+    }
+    .fg-gallery .g-toolbar {
+      position: static;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.fg-gallery');
+  root?.querySelectorAll<HTMLButtonElement>('[data-stage-set]').forEach((b) =>
+    b.addEventListener('click', () => {
+      root.dataset.stage = b.dataset.stageSet!;
+      root.querySelectorAll('[data-stage-set]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+    }),
+  );
+  const params = new URLSearchParams(location.search);
+  if (params.get('stage') === 'phone') {
+    root?.querySelector<HTMLButtonElement>('[data-stage-set="phone"]')?.click();
+  }
+
+  // one territory at a time: hide the figures that do not serve it, and the groups left empty
+  const select = root?.querySelector<HTMLSelectElement>('[data-territory-filter]');
+  function show(territory: string) {
+    root?.querySelectorAll<HTMLElement>('.g-item').forEach((item) => {
+      const list = item.dataset.territories ?? '';
+      item.hidden = !!territory && list !== '*' && !list.split(' ').includes(territory);
+    });
+    root?.querySelectorAll<HTMLElement>('.g-group').forEach((group) => {
+      group.hidden = !group.querySelector('.g-item:not([hidden])');
+    });
+  }
+  select?.addEventListener('change', () => {
+    show(select.value);
+    const url = new URL(location.href);
+    if (select.value) url.searchParams.set('territory', select.value);
+    else url.searchParams.delete('territory');
+    history.replaceState(null, '', url);
+  });
+  const wanted = params.get('territory');
+  if (select && wanted && [...select.options].some((o) => o.value === wanted)) {
+    select.value = wanted;
+    show(wanted);
+  }
+</script>

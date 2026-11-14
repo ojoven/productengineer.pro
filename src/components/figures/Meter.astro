@@ -1,0 +1,152 @@
+---
+// A value against a limit: a performance budget, an error budget, a cost cap, a quota. The part
+// over the limit is pink.
+import Figure from './Figure.astro';
+import { round, withUnit, type FrameProps } from './lib.ts';
+
+interface Item {
+  label: string;
+  value: number;
+  /** The budget (stay under it) or the floor (stay above it). */
+  limit: number;
+  unit?: string;
+  /** budget: lower is better, the default. floor: the value must stay at or above the limit. */
+  kind?: 'budget' | 'floor';
+  /** Scale start. Default 0. Raise it for floors that sit near the top (99.5 for an availability target). */
+  min?: number;
+  /** Scale end. Default: a little past the larger of value and limit. */
+  max?: number;
+  note?: string;
+  digits?: number;
+}
+interface Props extends FrameProps {
+  items: Item[];
+}
+const { items, ...frame } = Astro.props;
+const rows = items.map((it) => {
+  const kind = it.kind ?? 'budget';
+  const base = it.min ?? 0;
+  const top = it.max ?? base + (Math.max(it.value, it.limit) - base) * 1.18;
+  const w = (n: number) => round(Math.max(0, Math.min(100, ((n - base) / (top - base || 1)) * 100)), 2);
+  const ok = kind === 'budget' ? it.value <= it.limit : it.value >= it.limit;
+  const v = (n: number) => withUnit(n, it.unit, { digits: it.digits });
+  const gap = Math.abs(it.value - it.limit);
+  const status = ok
+    ? kind === 'budget'
+      ? `${Math.round((it.value / it.limit) * 100)}% of the budget`
+      : `${v(round(gap, 3))} above the floor`
+    : kind === 'budget'
+      ? `Over by ${v(round(gap, 3))}`
+      : `Under by ${v(round(gap, 3))}`;
+  return { ...it, kind, ok, status, v, fill: w(Math.min(it.value, kind === 'budget' ? it.limit : it.value)), over: kind === 'budget' && !ok ? w(it.value) - w(it.limit) : 0, limitAt: w(it.limit), valueAt: w(it.value) };
+});
+---
+
+<Figure kind="Budget" name="meter" animate {...frame}>
+  <div class="x-rows">
+    {
+      rows.map((r, i) => (
+        <div class:list={['x-row', { 'is-over': !r.ok }]}>
+          <span class="x-name">
+            {r.label}
+            {r.note && <span class="x-note">{r.note}</span>}
+          </span>
+          <span class="x-value">
+            <b class="fg-num">{r.v(r.value)}</b>
+            <span class="fg-mono x-status">{r.status}</span>
+          </span>
+          <span class="x-track" aria-hidden="true">
+            <i class="x-fill" style={`width:${r.fill}%;--i:${i}`} data-a="grow-x" />
+            {r.over > 0 && <i class="x-over" style={`left:${r.limitAt}%;width:${round(r.over, 2)}%;--i:${i};--a-delay:500ms`} data-a="grow-x" />}
+            <span class="x-limit" style={`left:${r.limitAt}%`}>
+              <em class="fg-mono">
+                {r.kind === 'budget' ? 'Budget' : 'Floor'} {r.v(r.limit)}
+              </em>
+            </span>
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</Figure>
+
+<style is:global>
+  .fg-meter .x-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 16px;
+    align-items: end;
+    padding: 12px 0 30px;
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-meter .x-row:first-child {
+    padding-top: 0;
+  }
+  .fg-meter .x-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 20px;
+  }
+  .fg-meter .x-name {
+    font: 600 17px/1.2 var(--cond);
+  }
+  .fg-meter .x-note {
+    display: block;
+    font: 400 13px/1.35 var(--fg-ui);
+    color: var(--ink-2);
+    margin-top: 2px;
+  }
+  .fg-meter .x-value {
+    display: grid;
+    justify-items: end;
+    gap: 2px;
+    text-align: right;
+  }
+  .fg-meter .x-value b {
+    font-size: 24px;
+  }
+  .fg-meter .x-status {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .fg-meter .is-over .x-status {
+    color: var(--accent-ink);
+  }
+  .fg-meter .x-track {
+    grid-column: 1 / -1;
+    position: relative;
+    height: 12px;
+    background: var(--tile);
+  }
+  .fg-meter .x-fill,
+  .fg-meter .x-over {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .fg-meter .x-fill {
+    background: var(--ink);
+  }
+  .fg-meter .x-over {
+    background: var(--accent);
+    border-left: 2px solid var(--bg);
+  }
+  .fg-meter .x-limit {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 0;
+    border-left: 2px solid var(--ink);
+  }
+  .fg-meter .x-limit em {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    transform: translateX(-50%);
+    font-style: normal;
+    font-size: 10.5px;
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+</style>

@@ -1,0 +1,34 @@
+---
+// A job story: the situation, what the person wants to do, and the progress they are after.
+import Clauses from './Clauses.astro';
+import type { FrameProps } from './lib.ts';
+
+interface Props extends FrameProps {
+  /** The situation: "I'm responsible for more than the code". */
+  when: string;
+  /** What they want to do: "see what I'm missing". */
+  want: string;
+  /** The progress they are after: "apply it to the problem in front of me". */
+  so: string;
+  /** Who says it, when it is one segment's job: "Senior engineer with a side project". */
+  who?: string;
+  /** What they use today instead. */
+  today?: string;
+}
+const { when, want, so, who, today, ...frame } = Astro.props;
+const notes = [who && { label: 'Who', text: who }, today && { label: 'Today they use', text: today }].filter(
+  (n): n is { label: string; text: string } => !!n,
+);
+---
+
+<Clauses
+  kind="Job story"
+  name="jobstory"
+  parts={[
+    { label: 'When', text: when },
+    { label: 'I want to', text: want, strong: true },
+    { label: 'So I can', text: so },
+  ]}
+  notes={notes}
+  {...frame}
+/>

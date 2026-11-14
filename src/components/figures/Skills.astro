@@ -1,0 +1,146 @@
+---
+// The atlas skills a section used, as chips that link to their pages. Each chip carries the
+// reader's own status for that skill (the tile fills as on the map). With `route`, the chips are
+// joined in order.
+import './figures.css';
+import { atlas, code, path } from '../../lib/atlas.ts';
+
+interface Props {
+  /** Skill ids, in the order the work used them. */
+  ids: string[];
+  /** The label in front. Default "Skills used here". */
+  label?: string;
+  /** Join the chips with arrows: the order matters. */
+  route?: boolean;
+  /** Makes the label a link, to a territory page or a section. */
+  labelHref?: string;
+  /** Code shown before the label, such as a territory's 01. */
+  labelCode?: string;
+  /** One sentence per skill id, shown on hover instead of the skill's summary. */
+  notes?: Record<string, string | null | undefined>;
+}
+const { ids, label = 'Skills used here', route = false, labelHref, labelCode, notes = {} } = Astro.props;
+const a = atlas();
+const skills = ids.map((id) => {
+  const s = a.nodes.get(id);
+  if (!s || s.level !== 'skill') throw new Error(`Skills: "${id}" is not a skill id in the atlas. Look it up with search_atlas on the MCP server or in src/content/atlas/.`);
+  return s;
+});
+---
+
+<aside class:list={['fg-aside', 'fg-skills', { 'is-route': route }]} aria-label={label}>
+  {
+    labelHref ? (
+      <a class="x-label x-label-link" href={labelHref}>
+        {labelCode && <span class="x-label-code">{labelCode}</span>}
+        {label}
+      </a>
+    ) : (
+      <span class="x-label">
+        {labelCode && <span class="x-label-code">{labelCode}</span>}
+        {label}
+      </span>
+    )
+  }
+  <ol class="x-chips">
+    {
+      skills.map((s) => (
+        <li>
+          <a href={path(s)} data-status-for={s.id} title={notes[s.id] ?? s.summary}>
+            <i aria-hidden="true" />
+            <span class="x-code">{code(s.id)}</span>
+            {s.name}
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</aside>
+
+<style is:global>
+  .fg-skills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 14px;
+    margin: 20px 0;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .fg-skills .x-label {
+    font: 500 10.5px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .fg-skills a.x-label-link {
+    display: inline-flex;
+    gap: 6px;
+    padding: 0;
+    border: 0;
+    font: 500 10.5px/1.4 var(--mono);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .fg-skills a.x-label-link:hover {
+    color: var(--accent-ink);
+  }
+  .fg-skills .x-label-code {
+    color: var(--muted);
+  }
+  .fg-skills .x-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .fg-skills .x-chips li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-size: inherit;
+  }
+  .fg-skills.is-route .x-chips li + li::before {
+    content: '→';
+    font: 12px var(--mono);
+    color: var(--accent-ink);
+  }
+  .fg-skills a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 9px 5px 7px;
+    border: 1px solid var(--line);
+    font: 600 15px/1.1 var(--cond);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .fg-skills a:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .fg-skills .x-code {
+    font: 400 11px/1 var(--mono);
+    color: var(--muted);
+  }
+  .fg-skills a i {
+    width: 11px;
+    height: 12.7px;
+    flex: none;
+    clip-path: var(--fg-hex);
+    background: var(--tile-hover);
+  }
+  .fg-skills a[data-status='learning'] i {
+    background: var(--learning);
+  }
+  .fg-skills a[data-status='comfortable'] i {
+    background: var(--ink);
+  }
+  .fg-skills a[data-status='not-interested'] i {
+    background: repeating-linear-gradient(135deg, var(--muted) 0 1px, var(--bg) 1px 4px);
+  }
+</style>

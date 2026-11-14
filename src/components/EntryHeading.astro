@@ -1,0 +1,26 @@
+---
+// The `##` headings of an .mdx entry body. EntryPage hands this in as `h2`. A heading that a
+// profile's `coverage` points at gets a strip under it: the territory it belongs to and the skills
+// the section discusses, so a reader knows where on the map they are before reading it.
+import Skills from './figures/Skills.astro';
+
+interface Props {
+  id?: string;
+}
+const { id } = Astro.props;
+const section = id ? Astro.locals.coverage?.sections.find((s) => s.anchor === `#${id}`) : undefined;
+const notes = Object.fromEntries(section?.skills.map((s) => [s.id, s.note]) ?? []);
+---
+
+<h2 id={id}><slot /></h2>
+{
+  section && (
+    <Skills
+      ids={section.skills.map((s) => s.id)}
+      label={section.territory ? section.territory.name : 'Wider discussion'}
+      labelCode={section.territory?.code}
+      labelHref={section.territory?.url}
+      notes={notes}
+    />
+  )
+}

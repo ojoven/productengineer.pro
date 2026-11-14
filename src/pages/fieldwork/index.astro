@@ -1,0 +1,123 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import Templates from '../../components/Templates.astro';
+import { KIND, fieldwork, products } from '../../lib/editorial.ts';
+import { FIELDWORK_KINDS } from '../../editorial/schema.ts';
+
+const items = await fieldwork();
+// While there are few entries, each published one is shown large. Placeholders are the pieces in
+// the works: they show as "Coming soon", without links to their structure pages.
+const published = items.filter((e) => !e.data.placeholder);
+const planned = items.filter((e) => e.data.placeholder);
+const prods = Object.entries(products());
+const countFor = (id: string) => published.filter((e) => 'product' in e.data && e.data.product === id).length;
+---
+
+<Base title="Fieldwork" description="Product reviews, maker interviews, experiments and shipped changes. Real work, connected to the skills of the atlas it used.">
+  <div class="wrap">
+    <Crumbs items={[{ label: 'Fieldwork' }]} />
+    <header class="page-head">
+      <div class="code-big">Fieldwork</div>
+      <h1 class="title">Real products, lessons from the work.</h1>
+      <p class="lede">
+        Reviews, comparisons, conversations with makers, and experiments on products I own. What I noticed,
+        what I tried, what happened and what I'd do differently. Each piece lights the skills it used on the map.
+      </p>
+      <div class="btn-row">
+        <a class="btn" href="/about/#who-writes-it">Who writes this</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="wrap" aria-label="Published">
+    <div class="pane-head"><span class="label">Published</span><span class="label">{published.length}</span></div>
+    <div class="features">
+      {published.map((e) => <FeatureCard entry={e} />)}
+    </div>
+    {published.length === 0 && <p class="empty">Nothing published yet.</p>}
+  </section>
+
+  {
+    planned.length > 0 && (
+      <section class="wrap section">
+        <div class="section-head"><h2>Coming soon</h2><span class="label">In the works</span></div>
+        <ul class="index soon">
+          {planned.map((e) => (
+            <li>
+              <div class="row soon-row">
+                <span class="tag">{KIND[e.data.kind]}</span>
+                <span class="name">{e.data.title}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="wrap section">
+    <div class="section-head"><h2>The products I work on</h2><span class="label">{prods.length} products</span></div>
+    <ul class="index">
+      {
+        prods.map(([id, p]) => (
+          <li>
+            <div class="row product-row">
+              <span class="code">{p.since ?? ''}</span>
+              {p.url ? <a class="name" href={p.url} rel="noopener">{p.name}</a> : <span class="name">{p.name}</span>}
+              <span class="count">{countFor(id) > 0 && `${countFor(id)} ${countFor(id) === 1 ? 'entry' : 'entries'}`}</span>
+              <span class="sub">{p.what}{p.role && <span class="muted"> {p.role}</span>}</span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="wrap section">
+    <div class="section-head"><h2>How each piece is built</h2><span class="label">Same sections, every time</span></div>
+    <p class="lede" style="margin-bottom:24px">
+      Reviews and interviews start with a question and a method. Experiments start with a problem, a hypothesis
+      and a metric. Each kind follows its own sections, with observations and results kept clear.
+    </p>
+    <Templates
+      kinds={FIELDWORK_KINDS}
+      notes={{
+        review: 'One product, used as a new user would use it.',
+        comparison: 'Two or more products doing the same job, measured the same way.',
+        interview: 'One decision a maker took, from evidence to result.',
+        profile: 'One product across the map, as its maker told it. Plus a section for each territory it covers.',
+        observation: 'One thing noticed. Short. It can grow into a review or an experiment.',
+        experiment: 'A change with a hypothesis, a metric and a decision.',
+        improvement: 'Something shipped without a controlled test, and what it changed.',
+        'case-study': 'A longer piece of past work, the decisions in it and how it went.',
+      }}
+    />
+  </section>
+</Base>
+
+<style>
+  .features {
+    display: grid;
+    gap: 40px;
+    margin-bottom: 8px;
+  }
+  .soon-row {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 6px 16px;
+  }
+  .soon-row .tag {
+    justify-self: start;
+  }
+  .soon-row .name {
+    color: var(--ink-2);
+  }
+  @media (max-width: 640px) {
+    .soon-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,29 @@
+# Products featured in Fieldwork. Work done for someone else is marked owned: false.
+# Ids are permanent once a Fieldwork entry points to them.
+
+etengabe:
+  name: Etengabe
+  url: https://etengabe.eus
+  what: An app for learning Basque, on the web, iOS and Android.
+
+linguaso:
+  name: Linguaso
+  url: https://linguaso.com
+  what: Learn languages by watching YouTube videos with captions and doing exercises on their words.
+  role: Founder. Built it end to end.
+  since: 2015
+
+codiluce:
+  name: Codiluce
+  url: https://codiluce.com
+  what: See how your code fits together, even as agents keep changing it.
+
+the-melee:
+  name: The Mêlée
+  what: A meetup on AI, development and product in Donostia.
+
+productengineer-pro:
+  name: ProductEngineer.pro
+  url: https://productengineer.pro
+  what: This site. A map of product engineering, and the work behind it.
+  since: 2026

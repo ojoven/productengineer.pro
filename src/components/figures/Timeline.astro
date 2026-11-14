@@ -1,0 +1,146 @@
+---
+// What happened when: dated events down a rail. For the history of a product in a case study,
+// the days of an experiment, an incident from first alert to fix, how a maker's decision unfolded.
+import Figure from './Figure.astro';
+import type { FrameProps } from './lib.ts';
+
+type Kind = 'event' | 'decision' | 'ship' | 'problem' | 'result';
+interface Event {
+  /** A date, a time or a relative mark: "2015", "3 Nov", "14:02", "Day 3". */
+  when: string;
+  title: string;
+  note?: string;
+  /** decision: a choice was made. ship: something went out. problem: something broke or failed. result: what came of it. */
+  kind?: Kind;
+}
+interface Props extends FrameProps {
+  events: Event[];
+}
+const { events, ...frame } = Astro.props;
+const WORD: Record<Kind, string> = { event: '', decision: 'Decision', ship: 'Shipped', problem: 'Problem', result: 'Result' };
+const TONE: Record<Kind, string> = { event: 'is-open', decision: 'is-ink', ship: 'is-lit', problem: 'is-signal', result: 'is-ink' };
+---
+
+<Figure kind="Timeline" name="timeline" animate replay {...frame}>
+  <ol class="x-events">
+    {
+      events.map((e, i) => {
+        const kind = e.kind ?? 'event';
+        return (
+          <li class:list={['x-event', `k-${kind}`]}>
+            <span class="x-when fg-mono">{e.when}</span>
+            <span class="x-rail" aria-hidden="true">
+              <i class:list={['x-dot', TONE[kind]]} data-a="pop" style={`--i:${i};--a-step:140ms`} />
+            </span>
+            <span class="x-body" data-a="rise" style={`--i:${i};--a-step:140ms`}>
+              <span class="x-title">
+                {e.title}
+                {WORD[kind] && <span class:list={['fg-tag', kind === 'problem' ? 'is-signal' : kind === 'ship' ? 'is-lit' : 'is-ink']}>{WORD[kind]}</span>}
+              </span>
+              {e.note && <span class="x-note">{e.note}</span>}
+            </span>
+          </li>
+        );
+      })
+    }
+  </ol>
+</Figure>
+
+<style is:global>
+  .fg-timeline .x-event {
+    display: grid;
+    grid-template-columns: 76px 22px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: start;
+  }
+  .fg-timeline .x-when {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: right;
+    padding-top: 4px;
+  }
+  .fg-timeline .x-rail {
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+  }
+  /* the rail: a line through every event, from the first marker to the last */
+  .fg-timeline .x-rail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    margin-left: -0.5px;
+    background: var(--ink);
+  }
+  .fg-timeline .x-event:first-child .x-rail::before {
+    top: 12px;
+  }
+  .fg-timeline .x-event:last-child .x-rail::before {
+    bottom: auto;
+    height: 12px;
+  }
+  .fg-timeline .x-dot {
+    position: relative;
+    width: 20px;
+    height: 23px;
+    clip-path: var(--fg-hex);
+    background: var(--ink);
+  }
+  /* a plain event: an open tile (the page colour inside an ink edge) */
+  .fg-timeline .x-dot.is-open::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    clip-path: var(--fg-hex);
+    background: var(--bg);
+  }
+  .fg-timeline .x-dot.is-signal {
+    background: var(--accent);
+  }
+  .fg-timeline .x-dot.is-lit {
+    background: var(--fg-lit);
+  }
+  .fg-timeline .x-body {
+    display: grid;
+    gap: 2px;
+    padding: 1px 0 18px;
+  }
+  .fg-timeline .x-event:last-child .x-body {
+    padding-bottom: 0;
+  }
+  .fg-timeline .x-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 8px;
+    font: 600 17px/1.25 var(--cond);
+  }
+  .fg-timeline .x-note {
+    font-size: 14px;
+    color: var(--ink-2);
+    max-width: 56ch;
+  }
+  @container fg (max-width: 519px) {
+    .fg-timeline .x-event {
+      grid-template-columns: 22px minmax(0, 1fr);
+    }
+    .fg-timeline .x-when {
+      grid-column: 2;
+      grid-row: 1;
+      text-align: left;
+      padding-top: 5px;
+    }
+    .fg-timeline .x-rail {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+    .fg-timeline .x-body {
+      grid-column: 2;
+      grid-row: 2;
+    }
+  }
+</style>

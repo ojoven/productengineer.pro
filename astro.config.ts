@@ -1,24 +1,36 @@
 import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
 import type { AstroIntegration } from 'astro';
 import type { Plugin } from 'vite';
 import { request as httpRequest, type IncomingMessage, type ServerResponse } from 'node:http';
 import { loadAtlas, loadGeometry, loadSources } from './src/atlas/load.ts';
 import { validateAtlas } from './src/atlas/validate.ts';
 import { atlasRedirects } from './src/atlas/redirects.ts';
+import { loadEditorial } from './src/editorial/load.ts';
+import { validateEditorial } from './src/editorial/validate.ts';
 
-/** Fails the build when a reference does not resolve or a node has no position. */
+/** Fails the build when a reference does not resolve, a node has no position, or an entry breaks its template. */
 function atlasCheck(): AstroIntegration {
   return {
     name: 'atlas-check',
     hooks: {
       'astro:build:start': ({ logger }) => {
-        const report = validateAtlas(loadAtlas(), loadSources(), loadGeometry());
+        const atlas = loadAtlas();
+        const report = validateAtlas(atlas, loadSources(), loadGeometry());
         report.warnings.forEach((w) => logger.warn(w));
         if (report.errors.length) {
           report.errors.forEach((e) => logger.error(e));
           throw new Error(`atlas check failed with ${report.errors.length} error(s)`);
         }
         logger.info('atlas check passed');
+        // Every Fieldwork entry points to real skills and entries, and follows its structure.
+        const editorial = validateEditorial(atlas, loadEditorial());
+        editorial.warnings.forEach((w) => logger.warn(w));
+        if (editorial.errors.length) {
+          editorial.errors.forEach((e) => logger.error(e));
+          throw new Error(`fieldwork check failed with ${editorial.errors.length} error(s)`);
+        }
+        logger.info('fieldwork check passed');
       },
     },
   };
@@ -64,8 +76,17 @@ export default defineConfig({
   trailingSlash: 'always',
   output: 'static',
   build: { format: 'directory' },
-  redirects: atlasRedirects(loadAtlas()),
-  integrations: [atlasCheck()],
+  redirects: {
+    ...atlasRedirects(loadAtlas()),
+    '/lab/': '/fieldwork/',
+    '/lab/etengabe-first-session/': '/fieldwork/etengabe-first-session/',
+    '/lab/linguaso/': '/fieldwork/linguaso/',
+    '/lab/productengineer-synced-progress/': '/fieldwork/productengineer-synced-progress/',
+    '/mikel/': '/about/#who-writes-it',
+    '/about/mikel/': '/about/#who-writes-it',
+  },
+  // MDX lets Fieldwork entries (.mdx) use the figures in src/components/figures/.
+  integrations: [mdx(), atlasCheck()],
   devToolbar: { enabled: false },
   // In development the API server (server/, `npm run api`) answers on the same origin, as Apache
   // does in production.

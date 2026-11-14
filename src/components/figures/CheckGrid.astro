@@ -1,0 +1,219 @@
+---
+// A grid of checks: rows are cases, columns are what was checked or which version ran. For eval
+// results across prompts or models, accessibility checks across pages, criteria across products.
+import Figure from './Figure.astro';
+import type { FrameProps } from './lib.ts';
+
+type State = 'pass' | 'fail' | 'partial' | 'na';
+interface Row {
+  label: string;
+  /** One state per column. */
+  cells: State[];
+  note?: string;
+}
+interface Props extends FrameProps {
+  columns: string[];
+  rows: Row[];
+  /** Adds a bottom row with passes per column. Default true. */
+  totals?: boolean;
+  /** Legend words, when pass and fail mean something more specific: { pass: 'Correct', fail: 'Wrong' }. */
+  labels?: Partial<Record<State, string>>;
+}
+const { columns, rows, totals = true, labels = {}, ...frame } = Astro.props;
+const WORD: Record<State, string> = { pass: 'Pass', fail: 'Fail', partial: 'Partial', na: 'Not applicable', ...labels };
+const used = (['pass', 'partial', 'fail', 'na'] as State[]).filter((s) => rows.some((r) => r.cells.includes(s)));
+const colTotals = columns.map((_, c) => {
+  const counted = rows.map((r) => r.cells[c]).filter((s) => s && s !== 'na');
+  return { pass: counted.filter((s) => s === 'pass').length, of: counted.length };
+});
+const HEX = 'M8.66 0 17.32 5v10L8.66 20 0 15V5Z';
+---
+
+<Figure kind="Checks" name="checkgrid" animate {...frame}>
+  <div class="x-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          {columns.map((c) => <th scope="col">{c}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((r, ri) => (
+            <tr>
+              <th scope="row">
+                {r.label}
+                {r.note && <span class="x-note">{r.note}</span>}
+              </th>
+              {columns.map((_, ci) => {
+                const s = r.cells[ci] ?? 'na';
+                return (
+                  <td class={`is-${s}`}>
+                    <svg viewBox="-1 -1 19.32 22" role="img" aria-label={WORD[s]} data-a="pop" style={`--i:${ri + ci};--a-step:45ms;--a-dur:420ms`}>
+                      {s === 'na' ? <path class="x-dash" d="M5.2 10h7" /> : <path class="x-hex" d={HEX} />}
+                      {s === 'partial' && <path class="x-half" d="M8.66 0 0 5v10l8.66 5Z" />}
+                      {s === 'fail' && <path class="x-cross" d="M5.4 6.6l6.5 6.8M11.9 6.6l-6.5 6.8" />}
+                    </svg>
+                  </td>
+                );
+              })}
+            </tr>
+          ))
+        }
+      </tbody>
+      {
+        totals && (
+          <tfoot>
+            <tr>
+              <th scope="row">Passed</th>
+              {colTotals.map((t) => (
+                <td>
+                  <b>{t.pass}</b>/{t.of}
+                </td>
+              ))}
+            </tr>
+          </tfoot>
+        )
+      }
+    </table>
+  </div>
+  <ul class="x-legend" aria-hidden="true">
+    {
+      used.map((s) => (
+        <li class={`is-${s}`}>
+          <svg viewBox="-1 -1 19.32 22">
+            {s === 'na' ? <path class="x-dash" d="M5.2 10h7" /> : <path class="x-hex" d={HEX} />}
+            {s === 'partial' && <path class="x-half" d="M8.66 0 0 5v10l8.66 5Z" />}
+            {s === 'fail' && <path class="x-cross" d="M5.4 6.6l6.5 6.8M11.9 6.6l-6.5 6.8" />}
+          </svg>
+          {WORD[s]}
+        </li>
+      ))
+    }
+  </ul>
+</Figure>
+
+<style is:global>
+  .fg-checkgrid .x-scroll {
+    overflow-x: auto;
+  }
+  .fg-checkgrid table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .fg-checkgrid :is(th, td) {
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 8px 6px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .fg-checkgrid thead th {
+    font: 500 10.5px/1.3 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--ink);
+    vertical-align: bottom;
+    min-width: 52px;
+  }
+  .fg-checkgrid tbody th,
+  .fg-checkgrid tfoot th {
+    text-align: left;
+    padding-left: 0;
+    font: 600 15.5px/1.2 var(--cond);
+    color: var(--ink);
+    position: sticky;
+    left: 0;
+    background: var(--bg);
+  }
+  .fg-checkgrid .x-note {
+    display: block;
+    font: 400 12.5px/1.35 var(--fg-ui);
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .fg-checkgrid td svg,
+  .fg-checkgrid .x-legend svg {
+    width: 17px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: visible;
+  }
+  .fg-checkgrid .x-hex {
+    fill: var(--ink);
+    stroke: var(--ink);
+    stroke-width: 1.4;
+    stroke-linejoin: round;
+  }
+  .fg-checkgrid .is-fail .x-hex {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+  .fg-checkgrid .x-cross {
+    fill: none;
+    stroke: var(--fg-on-signal);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+  }
+  .fg-checkgrid .is-partial .x-hex {
+    fill: none;
+  }
+  .fg-checkgrid .x-half {
+    fill: var(--ink);
+  }
+  .fg-checkgrid .x-dash {
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 1.6;
+  }
+  .fg-checkgrid tfoot :is(th, td) {
+    border-bottom: 0;
+    border-top: 1px solid var(--ink);
+    font: 400 12px/1 var(--mono);
+    color: var(--muted);
+    padding-top: 10px;
+    padding-bottom: 0;
+  }
+  .fg-checkgrid tfoot th {
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .fg-checkgrid tfoot b {
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 13px;
+  }
+  .fg-checkgrid .x-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-top: 14px;
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .fg-checkgrid .x-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fg-checkgrid .x-legend svg {
+    width: 11px;
+    height: 13px;
+  }
+  @container fg (max-width: 519px) {
+    .fg-checkgrid thead th {
+      min-width: 44px;
+      font-size: 9.5px;
+    }
+    .fg-checkgrid tbody th {
+      font-size: 14px;
+    }
+  }
+</style>

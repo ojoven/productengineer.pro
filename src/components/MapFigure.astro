@@ -11,10 +11,13 @@ interface Props {
   scale?: number;
   legend?: boolean;
   explore?: boolean;
+  /** Skills to light, in order. Joined by a route when `route` is set. */
+  lit?: string[];
+  route?: boolean;
 }
-const { focus = '', selected, width = 640, height = 560, scale, legend = true, explore = true } = Astro.props;
-const svg = mapSvg({ focus, width, height, scale, state: { selected: selected ?? null } });
-const href = `/atlas/?at=${encodeURIComponent(selected ?? focus)}`;
+const { focus = '', selected, width = 640, height = 560, scale, legend = true, explore = true, lit = [], route = false } = Astro.props;
+const svg = mapSvg({ focus, width, height, scale, state: { selected: selected ?? null, lit, route: route && lit.length > 1 } });
+const href = lit.length ? `/atlas/?lit=${lit.join(',')}` : `/atlas/?at=${encodeURIComponent(selected ?? focus)}`;
 ---
 
 <figure class="map" data-pagefind-ignore>
@@ -27,6 +30,7 @@ const href = `/atlas/?at=${encodeURIComponent(selected ?? focus)}`;
         <span><i class="l" />Learning</span>
         <span><i class="c" />Comfortable</span>
         <span><i class="ni" />Not interested</span>
+        {lit.length > 0 && <span><i class="lit" />Used in this work</span>}
       </figcaption>
     )
   }

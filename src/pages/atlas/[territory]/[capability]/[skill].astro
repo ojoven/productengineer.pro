@@ -7,6 +7,8 @@ import SkillRows from '../../../../components/SkillRows.astro';
 import Refs from '../../../../components/Refs.astro';
 import ToolRefs from '../../../../components/ToolRefs.astro';
 import SkillPractice from '../../../../components/SkillPractice.astro';
+import EntryRows from '../../../../components/EntryRows.astro';
+import { itemsForSkill } from '../../../../lib/editorial.ts';
 import { atlas, capability, territory, path, code, skill } from '../../../../lib/atlas.ts';
 import { relatedNodes } from '../../../../atlas/model.ts';
 import type { Skill } from '../../../../atlas/model.ts';
@@ -28,6 +30,7 @@ const capResources = resources.length ? [] : c.resources.map((id) => a.resources
 const i = c.skills.indexOf(s.id);
 const prev = i > 0 ? skill(c.skills[i - 1]) : undefined;
 const next = i < c.skills.length - 1 ? skill(c.skills[i + 1]) : undefined;
+const practice = await itemsForSkill(s.id);
 ---
 
 <Base title={s.name} description={`${s.name}: ${s.summary} ${s.description}`.slice(0, 300)} image={`/og/${c.id}.jpg`}>
@@ -52,6 +55,15 @@ const next = i < c.skills.length - 1 ? skill(c.skills[i + 1]) : undefined;
         <StatusControl id={s.id} name={s.name} />
 
         <SkillPractice skill={s} />
+
+        {
+          practice.length > 0 && (
+            <section class="section" id="in-practice">
+              <div class="section-head"><h2>In practice</h2><span class="label">Fieldwork</span></div>
+              <EntryRows items={practice} compact />
+            </section>
+          )
+        }
 
         <section class="section">
           <div class="section-head"><h2>Resources</h2><span class="label">{resources.length || 'none yet'}</span></div>

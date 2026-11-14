@@ -1,0 +1,136 @@
+---
+// How it ended: what the evidence said about the hypothesis, and what was done about it. The
+// words are the same ones the facts box at the top of an experiment entry uses.
+import Figure from './Figure.astro';
+import type { FrameProps } from './lib.ts';
+
+const VERDICT = { pending: 'No result yet', supported: 'Supported', 'not-supported': 'Not supported', inconclusive: 'Inconclusive' } as const;
+const DECISION = { pending: 'Not decided', keep: 'Kept', iterate: 'Iterating', revert: 'Reverted', stop: 'Stopped' } as const;
+
+interface Props extends FrameProps {
+  verdict: keyof typeof VERDICT;
+  decision: keyof typeof DECISION;
+  /** Why: the number and its uncertainty in one or two sentences. */
+  reason?: string;
+  /** What happens next. */
+  next?: string;
+}
+const { verdict, decision, reason, next, ...frame } = Astro.props;
+if (!(verdict in VERDICT)) throw new Error(`Verdict: unknown verdict "${verdict}". Use ${Object.keys(VERDICT).join(', ')}.`);
+if (!(decision in DECISION)) throw new Error(`Verdict: unknown decision "${decision}". Use ${Object.keys(DECISION).join(', ')}.`);
+const hex = 'M8.66 0 17.32 5v10L8.66 20 0 15V5Z';
+---
+
+<Figure kind="Verdict" name="verdict" animate {...frame}>
+  <div class="x-cells">
+    <div class:list={['x-cell', `v-${verdict}`]}>
+      <span class="fg-label">What the evidence said</span>
+      <p class="x-word fg-num">
+        <svg viewBox="-1.5 -1.5 20.32 23" aria-hidden="true" data-a="pop">
+          <path class="x-shape" d={hex}></path>
+          {verdict === 'not-supported' && <path class="x-slash" d="M3.2 15.8 14.1 4.2" />}
+          {verdict === 'inconclusive' && <path class="x-slash" d="M2 8.6 9.4 1.6M2.6 14.2 14.6 2.9M5.4 17.6 15.6 8M10.4 18.6 15.4 13.9" />}
+        </svg>
+        {VERDICT[verdict]}
+      </p>
+    </div>
+    <div class:list={['x-cell', `d-${decision}`]} data-a="rise" style="--i:3">
+      <span class="fg-label">What I did</span>
+      <p class="x-word fg-num">{DECISION[decision]}</p>
+    </div>
+  </div>
+  {reason && <p class="x-reason" data-a="fade" style="--i:5">{reason}</p>}
+  {
+    next && (
+      <p class="x-next" data-a="fade" style="--i:6">
+        <span class="fg-label">Next</span>
+        {next}
+      </p>
+    )
+  }
+</Figure>
+
+<style is:global>
+  .fg-verdict .x-cells {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  }
+  .fg-verdict .x-cell {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+    padding-right: 16px;
+    min-width: 0;
+  }
+  .fg-verdict .x-cell + .x-cell {
+    border-left: 1px solid var(--line);
+    padding-left: 18px;
+  }
+  .fg-verdict .x-word {
+    display: flex;
+    align-items: center;
+    gap: 0.28em;
+    font-size: clamp(30px, 8cqi, 48px);
+  }
+  .fg-verdict .x-word svg {
+    width: 0.74em;
+    height: 0.84em;
+    flex: none;
+    overflow: visible;
+  }
+  .fg-verdict .x-shape {
+    fill: var(--ink);
+    stroke: var(--ink);
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+  }
+  .fg-verdict .x-slash {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.6;
+  }
+  .fg-verdict .v-not-supported .x-shape,
+  .fg-verdict .v-inconclusive .x-shape {
+    fill: none;
+  }
+  .fg-verdict .v-pending .x-shape {
+    fill: none;
+    stroke-dasharray: 2.5 2.5;
+  }
+  .fg-verdict :is(.v-pending, .d-pending) .x-word {
+    color: var(--muted);
+  }
+  .fg-verdict .v-pending .x-shape {
+    stroke: var(--muted);
+  }
+  .fg-verdict .x-reason {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 64ch;
+  }
+  .fg-verdict .x-next {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 10px;
+    align-items: baseline;
+    font-size: 14.5px;
+    max-width: 64ch;
+  }
+  @container fg (max-width: 419px) {
+    .fg-verdict .x-cells {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 14px;
+    }
+    .fg-verdict .x-cell + .x-cell {
+      border-left: 0;
+      padding-left: 0;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+  }
+</style>
