@@ -51,7 +51,7 @@ const map = (focus: string, lit: string[] = []) =>
 if (only !== 'fieldwork') {
 jobs.push({
   file: 'default.jpg',
-  html: card('The Skill Atlas', 'The map of product engineering', `${atlas.territories.length - 1} territories, ${atlas.capabilities.length} capabilities, ${atlas.skills.length} skills.`, map('')),
+  html: card('Skills Map', 'The map of product engineering', `${atlas.territories.length - 1} territories, ${atlas.capabilities.length} capabilities, ${atlas.skills.length} skills.`, map('')),
 });
 for (const t of atlas.territories) {
   jobs.push({ file: `${t.id}.jpg`, html: card(t.crossCutting ? 'Cross-cutting' : 'Territory', t.name, t.question, map(t.crossCutting ? '' : t.id, t.crossCutting ? t.capabilities : [])) });
@@ -63,7 +63,7 @@ for (const c of atlas.capabilities) {
 }
 
 // ---- fieldwork entries: product logo, the maker's portrait, the title and the lit map
-const KIND: Record<string, string> = { review: 'Review', comparison: 'Comparison', interview: 'Interview', profile: 'Profile', observation: 'Observation', experiment: 'Experiment', improvement: 'Improvement', 'case-study': 'Case study' };
+const KIND: Record<string, string> = { review: 'Review', comparison: 'Comparison', interview: 'Interview', profile: 'Profile', podcast: 'Podcast', observation: 'Observation', experiment: 'Experiment', improvement: 'Improvement', 'case-study': 'Case study' };
 const img = (p: string) => pathToFileURL(join(ROOT, 'public', p)).href;
 
 function entryCard(e: ReturnType<typeof loadEditorial>['fieldwork'][number]) {
@@ -92,7 +92,7 @@ html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#f2f0ea;
 .foot{position:absolute;left:48px;bottom:40px;width:470px;display:flex;justify-content:space-between;font:500 14px 'IBM Plex Mono',monospace;color:#76736a;letter-spacing:.06em;text-transform:uppercase}
 .foot b{color:#141412;font-weight:500}
 </style></head><body><div class="map">${lit}</div><div class="brand"><svg width="22" height="25" viewBox="0 0 17.32 20"><path d="M8.66 0 17.32 5v10L8.66 20 0 15V5Z" fill="#141412"/></svg><span style="color:#141412;text-transform:none;letter-spacing:0;font-size:24px">productengineer<span>.pro</span></span></div>
-<div class="panel"><div class="k">Fieldwork · ${esc(KIND[d.kind] ?? d.kind)}</div>
+<div class="panel"><div class="k">In practice · ${esc(KIND[d.kind] ?? d.kind)}</div>
 <div class="faces">${subject?.logo ? `<img class="logo" src="${img(subject.logo)}">` : ''}${person?.avatar ? `<img class="avatar" src="${img(person.avatar)}">` : ''}</div>
 ${lead ? `<div class="lead">${esc(lead)}</div>` : ''}<div class="rest">${esc(rest)}</div></div>
 <div class="foot"><span>${person ? `<b>${esc(person.name)}</b>` : ''}</span><span>${territories} territories · ${d.skills.length} skills</span></div></body></html>`;

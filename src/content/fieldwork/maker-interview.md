@@ -36,4 +36,4 @@ With hindsight, what they would do differently.
 
 ## What I take from it
 
-What I will apply to my own products, and which atlas skill it changed my view of.
+What I will apply to my own products, and which skill on the Skills Map it changed my view of.

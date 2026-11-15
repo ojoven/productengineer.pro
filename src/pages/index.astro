@@ -2,8 +2,10 @@
 import Base from '../layouts/Base.astro';
 import MapFigure from '../components/MapFigure.astro';
 import TerritoryRows from '../components/TerritoryRows.astro';
+import ProfileCard from '../components/ProfileCard.astro';
 import { atlas, path } from '../lib/atlas.ts';
 import { fieldwork } from '../lib/editorial.ts';
+import { isMapKind } from '../editorial/schema.ts';
 
 const a = atlas();
 // every skill page, for the random skill button; the script prefers skills not marked yet
@@ -18,19 +20,22 @@ const cycle = [
   ['Own the outcome', 'Improve, maintain, grow or remove what was built.'],
 ];
 const example = '/atlas/?lit=user-interviews,hypotheses,sample-size,funnel-analysis,retention-curves';
-const fieldworkCount = (await fieldwork()).length;
+const out = await fieldwork();
+const fieldworkCount = out.length;
+// profiles and podcast profiles: one product across the map, newest first
+const profiles = out.filter((e) => isMapKind(e.data.kind) && !e.data.placeholder);
 ---
 
 <Base>
   <section class="wrap hero">
-    <div class="label">The Skill Atlas · v1.0</div>
+    <div class="label">Skills Map · v1.0</div>
     <h1 class="display">Product engineering on one map.<br /> See where you stand.</h1>
     <p class="lede">
       You already do more than write code. This free map shows the {a.skills.length} skills behind talking to users, deciding
       what to build, shipping it and checking that it worked. Mark what you know and see what to learn next. No sign-up needed.
     </p>
     <div class="btn-row">
-      <a class="btn primary" href="/atlas/">Open the atlas</a>
+      <a class="btn primary" href="/atlas/">Open the Skills Map</a>
       <a class="btn" href="/atlas/" id="random-skill" data-paths={skillPaths}>
         <svg class="die" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"></circle><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"></circle><circle cx="16" cy="16" r="1.5" fill="currentColor" stroke="none"></circle></svg>
         Random skill
@@ -63,22 +68,43 @@ const fieldworkCount = (await fieldwork()).length;
     <div class="site-parts">
       <div>
         <span class="n">01 · Understanding</span>
-        <h3>Atlas</h3>
+        <h3>Skills Map</h3>
         <p>The skills of the discipline, with resources and tools for each. See the whole field, where you stand and what to learn next.</p>
         <a class="btn small" href="/atlas/">{a.skills.length} skills →</a>
       </div>
       <div>
         <span class="n">02 · In practice</span>
-        <h3>Fieldwork</h3>
+        <h3>In practice</h3>
         <p>Product reviews, maker interviews, experiments and shipped changes. What I looked at, what I tried and what happened, connected to the skills on the map.</p>
         <a class="btn small" href="/fieldwork/">{fieldworkCount} entries →</a>
       </div>
     </div>
     <p class="muted" style="margin-top:16px;max-width:72ch">
       They are connected. Every review and experiment lights the skills it used on the map, and each skill page links to the work
-      that used it. Fieldwork is written by <a href="/about/#who-writes-it">Mikel Torres Ugarte</a>.
+      that used it. In practice is written by <a href="/about/#who-writes-it">Mikel Torres Ugarte</a>.
     </p>
   </section>
+
+  {
+    profiles.length > 0 && (
+      <section class="wrap section">
+        <div class="section-head">
+          <h2>In practice: product profiles</h2>
+          <span class="label">{profiles.length} {profiles.length === 1 ? 'product' : 'products'}</span>
+        </div>
+        <p class="lede" style="margin-bottom:20px;max-width:64ch">
+          One product across the map, as its maker told it: how they found the problem, built it, shipped it and got it
+          in front of users. Grouped by territory, with the skills it used lit on the map.
+        </p>
+        <div class="home-profiles">
+          {profiles.map((e) => <ProfileCard entry={e} />)}
+        </div>
+        <div class="btn-row" style="margin-top:20px">
+          <a class="btn" href="/fieldwork/">More from In practice <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    )
+  }
 
   <section class="wrap section">
     <div class="section-head"><h2>How to use it</h2><span class="label">4 steps</span></div>
@@ -86,7 +112,7 @@ const fieldworkCount = (await fieldwork()).length;
       <li><span class="n">01</span><h3>Find your way</h3><p>Open a territory, then a capability. Every level is a page, a map and a list.</p></li>
       <li><span class="n">02</span><h3>Read a skill</h3><p>What it is, why a product engineer needs it, and a few resources and tools worth the time.</p></li>
       <li><span class="n">03</span><h3>Mark it</h3><p>Mark a skill as learning, comfortable or not interested, or set a whole capability at once. Your map fills in.</p></li>
-      <li><span class="n">04</span><h3>Find your focus</h3><p>Filter the <a href="/atlas/">atlas</a> by focus and your progress. A link can also connect skills, <a href={example}>like this</a>.</p></li>
+      <li><span class="n">04</span><h3>Find your focus</h3><p>Filter the <a href="/atlas/">Skills Map</a> by focus and your progress. A link can also connect skills, <a href={example}>like this</a>.</p></li>
     </ol>
   </section>
 
@@ -142,7 +168,7 @@ const fieldworkCount = (await fieldwork()).length;
   import { load } from '../scripts/progress.ts';
   import { track } from '../scripts/track.ts';
 
-  // A new random skill on every visit and every click. Without JavaScript the button opens the atlas.
+  // A new random skill on every visit and every click. Without JavaScript the button opens the Skills Map.
   const btn = document.getElementById('random-skill') as HTMLAnchorElement | null;
   if (btn) {
     const paths = (btn.dataset.paths ?? '').split(' ').filter(Boolean);

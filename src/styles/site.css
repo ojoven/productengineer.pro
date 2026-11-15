@@ -264,6 +264,7 @@ h3 {
 .nav svg {
   width: 16px;
   height: 16px;
+  flex: none;
 }
 .nav > :last-child {
   margin-right: -11px;
@@ -285,14 +286,14 @@ h3 {
   }
 }
 @media (max-width: 560px) {
+  .site-header .wrap {
+    gap: 8px;
+  }
   .brand .wordmark {
     display: none;
   }
 }
 @media (max-width: 380px) {
-  .site-header .wrap {
-    gap: 8px;
-  }
   .nav a,
   .nav button {
     padding: 0 4px;
@@ -1372,6 +1373,35 @@ th {
 .site-parts .n {
   font: 500 12px var(--mono);
   color: var(--accent-ink);
+}
+/* home: the Fieldwork profiles, two side by side */
+.home-profiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.home-profiles > :nth-child(2n + 1) {
+  padding-right: 24px;
+}
+.home-profiles > :nth-child(2n) {
+  border-left: 1px solid var(--line);
+  padding-left: 24px;
+}
+.home-profiles > :nth-child(n + 3) {
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 900px) {
+  .home-profiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .home-profiles > :nth-child(n) {
+    border-left: 0;
+    padding-inline: 0;
+  }
+  .home-profiles > * + * {
+    border-top: 1px solid var(--line);
+  }
 }
 @media (max-width: 900px) {
   .site-parts {

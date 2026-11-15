@@ -19,7 +19,7 @@ import { clientIp, RateLimiter } from './http.ts';
 import { sessionUser } from './account.ts';
 import { fetchClientMetadata, type ClientMetadataFetcher } from './cimd.ts';
 
-export const SCOPES = { 'progress:read': 'Read your skill statuses on the atlas' } as const;
+export const SCOPES = { 'progress:read': 'Read your skill statuses on the Skills Map' } as const;
 export type Scope = keyof typeof SCOPES;
 export const DEFAULT_SCOPE: Scope = 'progress:read';
 
@@ -230,7 +230,7 @@ export function oauthRoutes(deps: Deps) {
     authorization_servers: [issuer],
     scopes_supported: Object.keys(SCOPES),
     bearer_methods_supported: ['header'],
-    resource_name: 'ProductEngineer.pro Skill Atlas',
+    resource_name: 'ProductEngineer.pro Skills Map',
     resource_documentation: `${issuer}/me/#agents`,
   };
 

@@ -24,7 +24,7 @@ function figure(f: FigureDoc): string {
   out.push('**Use it for**', '', ...f.use.map((u) => `- ${u}`), '');
   if (f.avoid) out.push(`**Not for:** ${f.avoid}`, '');
   const atlas = [`territories ${f.territories.join(', ')}`, f.skills.length ? `skills ${f.skills.map((s) => `\`${s}\``).join(', ')}` : ''].filter(Boolean);
-  out.push(`**Atlas:** ${atlas.join('; ')}`, '');
+  out.push(`**Skills Map:** ${atlas.join('; ')}`, '');
   out.push(`**Motion:** ${f.motion.length ? f.motion.join(', ') : 'none'}`, '');
   out.push('**Props**', '', ...f.props.map(prop));
   out.push('', f.frameless ? 'It has no frame, so it takes none of the frame props.' : 'Plus the frame props: `title`, `caption`, `evidence`, `source`.', '');
@@ -56,8 +56,8 @@ function mainDoc(): string {
   const out: string[] = [];
   out.push('# Figures', '', NOTE, '');
   out.push(
-    `Figures are the visual vocabulary of fieldwork entries: ${FIGURES.length} components for screens, flows, numbers,`,
-    'decisions and links to the atlas. An entry written as `.mdx` uses them by name. All of them, live,',
+    `Figures are the visual vocabulary of In practice entries: ${FIGURES.length} components for screens, flows, numbers,`,
+    'decisions and links to the Skills Map. An entry written as `.mdx` uses them by name. All of them, live,',
     'with their examples: `/figures/` (in development, <http://localhost:4321/figures/>).',
     '',
     'A figure proves one point. Its `caption` is that point as a sentence. When the reader could take',
@@ -113,7 +113,7 @@ function mainDoc(): string {
     '- it is example data (`illustrative`, required).',
     '',
     'Leave it out on quotes, screenshots of the product being discussed, diagrams of a process someone',
-    'described, scope lists and atlas figures. `Claims` sorts claims by evidence, so it always shows it.',
+    'described, scope lists and Skills Map figures. `Claims` sorts claims by evidence, so it always shows it.',
     '',
     '| `evidence` | Means |',
     '| --- | --- |',
@@ -151,14 +151,14 @@ function mainDoc(): string {
     out.push('');
   }
 
-  out.push('## Figures by territory', '', 'For an entry that sits in one part of the atlas: the figures that serve each territory.', '', '| Territory | The question it answers | Figures |', '| --- | --- | --- |');
+  out.push('## Figures by territory', '', 'For an entry that sits in one part of the Skills Map: the figures that serve each territory.', '', '| Territory | The question it answers | Figures |', '| --- | --- | --- |');
   const atlas = loadAtlas();
   const codes = nodeCodes(atlas);
   for (const t of atlas.territories) {
     const fits = FIGURES.filter((f) => f.group !== 'atlas' && f.territories.includes(t.id));
     out.push(`| ${codes.get(t.id)} ${t.name} | ${t.question} | ${fits.map((f) => link(f)).join(' · ')} |`);
   }
-  out.push('', 'The Atlas figures (`TerritoryMark`, `Territories`, `Skills`) work in every territory.', '');
+  out.push('', 'The Skills Map figures (`TerritoryMark`, `Territories`, `Skills`) work in every territory.', '');
 
   out.push('## Index', '');
   for (const g of GROUPS) {
@@ -179,7 +179,7 @@ function mainDoc(): string {
     '1. Write `src/components/figures/<Name>.astro` on top of `Figure.astro`. Inside `.fg-<name>`, class names start',
     '   with `x-`. Colours come from the five meanings above. Motion comes from `data-a` (plays once) and `data-l`',
     '   (loops) in `figures.css`; the resting style of every element is its final state.',
-    '2. Add it to `index.ts` and to `catalog.ts`, with at least one example and the atlas skills it serves.',
+    '2. Add it to `index.ts` and to `catalog.ts`, with at least one example and the Skills Map skills it serves.',
     '3. Run `npm run figures:docs` and `npm test`. Look at it in `/figures/` at both preview widths and in the dark theme.',
     '',
   );

@@ -19,7 +19,7 @@ In this file: [StatRow](#statrow) · [Funnel](#funnel) · [Bars](#bars) · [Line
 
 **Not for:** More than four numbers, or numbers that need comparing across rows: use Bars or a table.
 
-**Atlas:** territories measurement, activation; skills `conversion-metrics`, `task-success`, `step-reduction`, `activation-events`
+**Skills Map:** territories measurement, activation; skills `conversion-metrics`, `task-success`, `step-reduction`, `activation-events`
 
 **Motion:** reveal
 
@@ -56,7 +56,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Steps that people do not go through in order. Use Bars for unordered things.
 
-**Atlas:** territories measurement, activation, distribution; skills `funnel-analysis`, `drop-off-analysis`, `funnel-optimization`, `conversion-metrics`, `signup-flow`, `sales-funnels`
+**Skills Map:** territories measurement, activation, distribution; skills `funnel-analysis`, `drop-off-analysis`, `funnel-optimization`, `conversion-metrics`, `signup-flow`, `sales-funnels`
 
 **Motion:** reveal
 
@@ -118,7 +118,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Change over time (LineChart) or steps in order (Funnel). One bar alone is a StatRow.
 
-**Atlas:** territories measurement, distribution, operations, discovery; skills `channel-performance`, `competitive-analysis`, `feature-usage`, `infrastructure-costs`, `problem-severity`, `feedback-analysis`
+**Skills Map:** territories measurement, distribution, operations, discovery; skills `channel-performance`, `competitive-analysis`, `feature-usage`, `infrastructure-costs`, `problem-severity`, `feedback-analysis`
 
 **Motion:** reveal
 
@@ -161,7 +161,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Two measures with different units: draw two charts. More than three series: split them.
 
-**Atlas:** territories measurement, retention, operations; skills `retention-curves`, `retention-metrics`, `engagement-metrics`, `adoption-metrics`, `launch-telemetry`, `performance-monitoring`, `feature-adoption`
+**Skills Map:** territories measurement, retention, operations; skills `retention-curves`, `retention-metrics`, `engagement-metrics`, `adoption-metrics`, `launch-telemetry`, `performance-monitoring`, `feature-adoption`
 
 **Motion:** reveal, interactive
 
@@ -222,7 +222,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Fewer than three cohorts: a LineChart with two curves says it better.
 
-**Atlas:** territories retention, measurement; skills `cohort-analysis`, `retention-curves`, `churn-analysis`, `engagement-frequency`, `meaningful-usage`, `behavioral-segmentation`
+**Skills Map:** territories retention, measurement; skills `cohort-analysis`, `retention-curves`, `churn-analysis`, `engagement-frequency`, `meaningful-usage`, `behavioral-segmentation`
 
 **Motion:** reveal
 
@@ -266,7 +266,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Metrics that are not a share of people (revenue per user, time on task): use Scorecard or Bars and state the interval in the caption.
 
-**Atlas:** territories measurement, activation; skills `ab-tests`, `confidence-intervals`, `effect-sizes`, `statistical-uncertainty`, `sample-size`, `control-groups`, `interpreting-results`, `activation-experiments`
+**Skills Map:** territories measurement, activation; skills `ab-tests`, `confidence-intervals`, `effect-sizes`, `statistical-uncertainty`, `sample-size`, `control-groups`, `interpreting-results`, `activation-experiments`
 
 **Motion:** reveal
 
@@ -318,7 +318,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 - Experiment, "How I measured" (before the result, with results left out) and "What happened" (with them).
 - Improvement, "Effect": the number that moved and the ones that had to hold.
 
-**Atlas:** territories measurement, strategy; skills `guardrail-metrics`, `experiment-guardrails`, `north-star-metric`, `leading-indicators`, `product-goals`, `okrs`, `balancing-signals`
+**Skills Map:** territories measurement, strategy; skills `guardrail-metrics`, `experiment-guardrails`, `north-star-metric`, `leading-indicators`, `product-goals`, `okrs`, `balancing-signals`
 
 **Motion:** reveal
 
@@ -365,7 +365,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 - Performance budgets, error budgets, cost caps, quotas.
 - Improvement, "Effect", when the point is that something now fits inside its limit.
 
-**Atlas:** territories engineering, operations; skills `performance-budgets`, `frontend-performance`, `latency`, `slos`, `availability`, `infrastructure-costs`, `inference-costs`
+**Skills Map:** territories engineering, operations; skills `performance-budgets`, `frontend-performance`, `latency`, `slos`, `availability`, `infrastructure-costs`, `inference-costs`
 
 **Motion:** reveal
 
@@ -408,7 +408,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 - Experiment and improvement, "What I built" or "What I shipped": how the change reached people.
 - An incident write-up: the stage where a release was halted.
 
-**Atlas:** territories shipping, operations; skills `staged-rollouts`, `canary-releases`, `feature-flags`, `beta-programs`, `rollbacks`, `delivery-risk`, `launch-telemetry`
+**Skills Map:** territories shipping, operations; skills `staged-rollouts`, `canary-releases`, `feature-flags`, `beta-programs`, `rollbacks`, `delivery-risk`, `launch-telemetry`
 
 **Motion:** reveal
 
@@ -450,7 +450,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Graded scores. A cell holds a state, not a number.
 
-**Atlas:** territories ai, engineering, experience, shipping; skills `ai-evals`, `reviewing-generated-work`, `wcag`, `release-qa`, `automated-testing`, `acceptance-criteria`, `verification`
+**Skills Map:** territories ai, engineering, experience, shipping; skills `ai-evals`, `reviewing-generated-work`, `wcag`, `release-qa`, `automated-testing`, `acceptance-criteria`, `verification`
 
 **Motion:** reveal
 
@@ -491,7 +491,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 - Experiment, "How I measured": the events and the one that decides the metric.
 - An analytics audit: what is tracked today.
 
-**Atlas:** territories measurement; skills `event-schemas`, `tracking-plans`, `activation-events`, `analytics-data-quality`, `identity-resolution`, `launch-telemetry`
+**Skills Map:** territories measurement; skills `event-schemas`, `tracking-plans`, `activation-events`, `analytics-data-quality`, `identity-resolution`, `launch-telemetry`
 
 **Motion:** reveal
 

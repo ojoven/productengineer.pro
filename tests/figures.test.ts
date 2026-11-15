@@ -127,15 +127,21 @@ describe('docs', () => {
 describe('entries', () => {
   const dir = join(ROOT, 'src', 'content', 'fieldwork');
   const files = existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith('.mdx')) : [];
-  // figures, plus the entry components of src/components/entry.ts
-  const entryOnly = [...readFileSync(join(ROOT, 'src', 'components', 'entry.ts'), 'utf8').matchAll(/^import (\w+) from '\.\/(\w+)\.astro';$/gm)].map((m) => m[1]);
-  const known = new Set([...registered, ...entryOnly]);
+  // a profile's quick tour (src/content/tours) uses the figures plus its own <Stop> and <Hot>
+  const tourDir = join(ROOT, 'src', 'content', 'tours');
+  const tours = existsSync(tourDir) ? readdirSync(tourDir).filter((f) => f.endsWith('.mdx')) : [];
+  const components = (body: string) => [...new Set([...body.replace(/```[\s\S]*?```/g, '').matchAll(/<([A-Z][A-Za-z]*)\b/g)].map((m) => m[1]))];
 
   it('only use figures that exist', () => {
     for (const f of files) {
       const { body } = splitFrontmatter(readFileSync(join(dir, f), 'utf8'));
-      const used = [...body.replace(/```[\s\S]*?```/g, '').matchAll(/<([A-Z][A-Za-z]*)\b/g)].map((m) => m[1]);
-      expect([...new Set(used)].filter((n) => !known.has(n)), f).toEqual([]);
+      expect(components(body).filter((n) => !registered.includes(n)), f).toEqual([]);
+    }
+    const tourKnown = new Set([...registered, 'Stop', 'Hot']);
+    for (const f of tours) {
+      const body = readFileSync(join(tourDir, f), 'utf8');
+      expect(components(body).filter((n) => !tourKnown.has(n)), `tours/${f}`).toEqual([]);
+      expect(/illustrative/.test(body), `tours/${f} has a figure marked illustrative`).toBe(false);
     }
   });
 

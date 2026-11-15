@@ -1,20 +1,20 @@
 # ProductEngineer.pro
 
-**The Skill Atlas: a map of product engineering.** → [productengineer.pro](https://productengineer.pro)
+**Skills Map: a map of product engineering.** → [productengineer.pro](https://productengineer.pro)
 
 A product engineer writes the software and also owns whether it matters. That means knowing who it
 is for, whether people reach its value, and what the evidence says to do next. The job covers more
 ground than any one role description. This site maps all of it, so you can see the whole discipline
 at once, find the areas you never touch, and learn them from good sources.
 
-The site has two parts. The **Atlas** maps the discipline. **Fieldwork** brings together reviews,
-comparisons, maker interviews, experiments and shipped changes on real products. Every Fieldwork
-entry lights the atlas skills it used, and each
+The site has two parts. The **Skills Map** maps the discipline. **In practice** brings together reviews,
+comparisons, maker interviews, experiments and shipped changes on real products. Every In practice
+entry lights the skills it used on the Skills Map, and each
 skill page links back to it. See [docs/editorial.md](docs/editorial.md).
 
 ## The map
 
-The atlas has three levels. There are **11 territories** plus a cross-cutting group, **72
+The Skills Map has three levels. There are **11 territories** plus a cross-cutting group, **72
 capabilities**, and **about 350 skills**. Each skill is one tile on the map and has its own page:
 a short description, a few checked resources (*Start here* and *Go deeper*), and the tools people
 use for it.
@@ -36,7 +36,7 @@ use for it.
 
 Codes such as `06.4.5` read territory, capability, skill. Not every skill needs the same depth: do
 the core work on your own, make informed decisions in the wider areas, and go deep where it pays
-off. The atlas is a proposed framework, not a certification.
+off. The Skills Map is a proposed framework, not a certification.
 
 ## How to use it
 
@@ -46,11 +46,11 @@ off. The atlas is a proposed framework, not a certification.
   browser and nothing is sent anywhere. You can export a copy as a file.
 - **Sign in, if you want,** with GitHub or Google to keep your map on every device. Your provider
   shares your profile and email address.
-- **Connect an AI agent** to `https://productengineer.pro/mcp`. It can look up the whole atlas and,
+- **Connect an AI agent** to `https://productengineer.pro/mcp`. It can look up the whole Skills Map and,
   once you approve it, read your statuses.
 - **Follow the links.** Every skill page links to related skills, so one topic leads to the next.
 - **Browse [resources](https://productengineer.pro/resources/) and
-  [tools](https://productengineer.pro/tools/)** across the whole atlas, filtered by type or
+  [tools](https://productengineer.pro/tools/)** across the whole Skills Map, filtered by type or
   territory.
 
 ## Focus, progress and AI
@@ -108,7 +108,7 @@ npm run test:api       # API tests (node:test)
 
 With `DEV_LOGIN=1` the profile page shows a *Dev sign-in* that needs no OAuth app.
 
-## Editing the atlas
+## Editing the Skills Map
 
 All content is YAML. There is no database and no CMS.
 
@@ -120,9 +120,9 @@ All content is YAML. There is no database and no CMS.
 | `src/atlas/geometry.json` | The hex-tile layout. Generated once, then frozen. |
 | `src/atlas/render.ts` | `(content, geometry, state) -> SVG`, shared by pages, the explorer and social images. |
 | `src/atlas/ids.lock` | Every id ever published. Never remove a line. |
-| `src/content/fieldwork/*.md` | Fieldwork entries: Markdown with front matter, fixed sections per kind. See [docs/editorial.md](docs/editorial.md). |
+| `src/content/fieldwork/*.md` | In practice entries: Markdown with front matter, fixed sections per kind. See [docs/editorial.md](docs/editorial.md). |
 | `src/components/figures/` | Figures for entries (charts, diagrams, screen walkthroughs, decision figures), used from `.mdx` by name. Gallery at `/figures/`, reference in [docs/figures.md](docs/figures.md), regenerated with `npm run figures:docs`. |
-| `src/content/products.yaml`, `src/content/author.yaml` | Products featured in Fieldwork, and author details used on `/about/`. |
+| `src/content/products.yaml`, `src/content/author.yaml` | Products featured in In practice, and author details used on `/about/`. |
 
 **Add a resource or tool.** Open the URL and confirm it is live and on topic. Add the entry with
 today's `checked` date, then reference its id from a skill or capability. For YouTube links, check

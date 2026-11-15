@@ -62,7 +62,7 @@ test('2025-era clients that open with initialize still work', async () => {
   const text = await res.text();
   const json = JSON.parse(text.startsWith('{') ? text : text.split('\n').find((l) => l.startsWith('data:'))!.slice(5));
   assert.equal(json.result.serverInfo.name, 'productengineer-atlas');
-  assert.match(json.result.instructions, /Skill Atlas/);
+  assert.match(json.result.instructions, /Skills Map/);
 });
 
 test('the exported atlas loads and resolves codes, aliases and search', { skip: !existsSync(new URL('../atlas.json', import.meta.url)) }, () => {

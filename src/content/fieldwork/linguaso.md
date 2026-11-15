@@ -21,7 +21,7 @@ What I did myself and what others did. Be exact: this is the section a hiring ma
 
 ## Decisions
 
-The three or four decisions that shaped the product, each with the options I had, what I chose and why. Link the atlas skills they used.
+The three or four decisions that shaped the product, each with the options I had, what I chose and why. Link the skills they used on the Skills Map.
 
 ## Outcome
 

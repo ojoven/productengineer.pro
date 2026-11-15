@@ -1,0 +1,36 @@
+---
+// One card of a quick tour: a skill of the profile, where it sits on the map and what the product
+// did with it. Reads the coverage EntryPage resolved (Astro.locals.coverage), so a tour file only
+// names the skill. MDX: <Stop skill="pricing">Text, a figure, a <Hot>…</Hot>.</Stop>
+import { territory } from '../../lib/atlas.ts';
+
+interface Props {
+  skill: string;
+}
+const { skill } = Astro.props;
+const sections = Astro.locals.coverage?.sections ?? [];
+const all = sections.flatMap((section, si) => section.skills.map((k, ki) => ({ k, ki, si, section })));
+const n = all.findIndex((s) => s.k.id === skill);
+if (n < 0) throw new Error(`Quick tour: "${skill}" is not a skill of this entry's coverage`);
+const { k, ki, si, section } = all[n];
+// "Beyond the product" mixes territories: name the skill's own territory under the section.
+const own = section.territory ? undefined : territory(k.territory);
+const ownCode = k.code.split('.')[0];
+---
+
+<section class="qt-card qt-stop" data-skill={skill} data-sec={si} aria-label={`${n + 1} of ${all.length}: ${k.name}`}>
+  <p class="qt-where">
+    <span class="qt-code">{section.territory?.code ?? '·'}</span>
+    <span>{section.territory?.name ?? section.section}</span>
+    <span class="qt-of">{ki + 1} of {section.skills.length}</span>
+  </p>
+  <h3 class="qt-skill">
+    <a href={k.url}>{k.name}</a>
+    <span class="qt-skill-code">{k.code}</span>
+  </h3>
+  {own && <p class="qt-own">{ownCode} {own.name}</p>}
+  <div class="qt-body">
+    <slot />
+  </div>
+  <a class="qt-read" href={section.anchor} data-qt-read>Read the {section.territory ? `${section.territory.name} section` : `“${section.section}” section`} ↓</a>
+</section>

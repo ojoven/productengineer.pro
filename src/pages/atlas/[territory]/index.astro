@@ -17,7 +17,7 @@ const ids = skillIds(t);
 
 <Base title={t.name} description={`${t.name}: ${t.question} ${t.description}`.slice(0, 300)} image={`/og/${t.id}.jpg`}>
   <div class="wrap">
-    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { label: `${code(t.id)} ${t.name}` }]} />
+    <Crumbs items={[{ href: '/atlas/', label: 'Skills Map' }, { label: `${code(t.id)} ${t.name}` }]} />
     <header class="page-head">
       <div class="code-big">{code(t.id)} · {t.crossCutting ? 'Cross-cutting' : 'Territory'} · {t.tagline}</div>
       <h1 class="title">{t.name}</h1>

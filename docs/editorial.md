@@ -1,13 +1,13 @@
-# Fieldwork: how entries are written
+# In practice: how entries are written
 
 ProductEngineer.pro has two parts:
 
 | Part | Kind of knowledge | What goes there |
 | --- | --- | --- |
-| Atlas | Understanding | Skills, resources, tools. A general reference. |
-| Fieldwork | Practice | Reviews, comparisons, maker interviews, observations, experiments, shipped improvements and case studies. |
+| Skills Map | Understanding | Skills, resources, tools. A general reference. |
+| In practice | Practice | Reviews, comparisons, maker interviews, observations, experiments, shipped improvements and case studies. |
 
-The point is the connection between them. Every entry names the atlas skills it used, so its page
+The point is the connection between them. Every entry names the skills it used on the Skills Map, so its page
 lights them on the map and each skill page links back under *In practice*. Where possible an entry
 also links to another entry: the comparison that led to an experiment, the observation that became
 a review.
@@ -19,8 +19,8 @@ visible: the problem, the decision, the evidence and the result.
 
 | Path | What |
 | --- | --- |
-| `src/content/fieldwork/<id>.md` | One fieldwork entry. The file name is the URL: `/fieldwork/<id>/`. |
-| `src/content/products.yaml` | The products featured in Fieldwork. |
+| `src/content/fieldwork/<id>.md` | One In practice entry. The file name is the URL: `/fieldwork/<id>/`. |
+| `src/content/products.yaml` | The products featured in In practice. |
 | `src/content/author.yaml` | Author details used in “Who writes it” on `/about/`. |
 | `src/editorial/schema.ts` | Front matter schemas and the required sections per kind (the source of truth). |
 | `src/editorial/validate.ts` | The checks below. |
@@ -65,6 +65,7 @@ Placeholders, one per kind:
 | Comparison | Scope · The shared job · Side by side · Where they differ · What I would test · What I take from it |
 | Interview | Who and what · The decision · How they knew · What they measured · What they would change · What I take from it |
 | Profile | Who and what · On the map · one section per territory discussed · Beyond the product · What I take from it |
+| Podcast | Same as Profile |
 | Observation | What I saw · Why it matters · What I take from it |
 | Experiment | Context · What I built · How I measured · What happened · Trade-offs · What I learned |
 | Improvement | Context · What I shipped · Trade-offs · Effect · What I learned |
@@ -72,7 +73,7 @@ Placeholders, one per kind:
 
 ## Front matter
 
-All entries: `title`, `summary` (one or two sentences, used in lists), `skills` (atlas skill ids,
+All entries: `title`, `summary` (one or two sentences, used in lists), `skills` (Skills Map skill ids,
 at least one), `related` (`fieldwork/<id>` or `fieldwork/<id>`), `placeholder`.
 
 Reviews, comparisons, interviews and observations add: `kind`, `date`, `updated`, `subjects` (`name`, `url`, `maker`; two or more for a
@@ -96,7 +97,7 @@ required headings, and add territory sections between **On the map** and **Beyon
 `mamitsu.mdx` is the first example.
 
 Add `coverage` to group the entry's `skills` by section. Each skill must appear exactly once;
-`territory` must be its real atlas territory, and `section` must match a level-two heading exactly.
+`territory` must be its real Skills Map territory, and `section` must match a level-two heading exactly.
 Use `scope: general` for a discussion beyond the featured product (the default is `product`).
 
 Give each skill one sentence in `notes`: how the product applied it. A published profile without a
@@ -119,23 +120,81 @@ What the page does with it:
 - Every heading that `coverage` points at gets a strip under it: the territory, linked, and the
   section's skills as chips (the note shows on hover). Nothing to write in the body.
 - In **On the map**, the `Territories` figure links each lit territory to its section.
-- `<MapSummary />` under a last `## Skill by skill` heading, after **What I take from it**, lists
-  each territory and skill with its note: the summary of the whole piece, at the end.
-- A linked index, a reading time from the prose (aim for 5 to 10 minutes) and a sidebar grouped by
-  territory. The map highlights discussed skills without implying a chronological route.
-- `/fieldwork/<id>/map.json` exports versioned coverage with section anchors, scope, atlas ids,
+- A linked index and a reading time from the prose (aim for 5 to 10 minutes).
+- The side column holds the **quick tour** (below): the map with every discussed skill lit, then one
+  card per skill while the map flies from each skill to the next. It replaces the old side map and the
+  "Skill by skill" summary at the end.
+- `/fieldwork/<id>/map.json` exports versioned coverage with section anchors, scope, Skills Map ids,
   names, codes, links and notes. Consumers can highlight a section's `skills` or select sections
   by `scope`; the content front matter remains the source of truth.
+
+#### The quick tour
+
+Every published profile and podcast has one: `src/content/tours/<id>.mdx`, named after the entry, no
+front matter. It holds one `<Stop skill="…">` per skill of `coverage`, in the same order (the build
+fails otherwise, and warns when a published profile has no tour). A stop only names its skill: the
+territory, the skill's name and code, its position and the link back to its section come from
+`coverage`.
+
+```mdx
+<Stop skill="pricing">
+Per connected account: two free with no card, then $6 a month each up to ten, $3 up to a hundred.
+
+<Bars title="Price per connected account, per month" unit=" USD" items={[...]} />
+
+<Hot>The price per account falls as a customer grows, and the bill still grows with them.</Hot>
+</Stop>
+```
+
+- One to three sentences, specific to the product: what it did with that skill, with its numbers and
+  names. Not the one-line `notes`, which stay for the strips under the headings and `map.json`.
+- A figure or a diagram where it shows something the sentence cannot: a number to compare, a flow, a
+  before and after. Any figure works; it lays itself out for the narrow card. Same evidence rules as in
+  the body, and every number from the entry's own sources (say so when the arithmetic is mine).
+- My opinion goes in `<Hot>`, which labels it *Hot take*, so it is never read as what the maker said.
+- On a phone the tour opens full screen (and the back button closes it); on a desktop it runs in the
+  side column, with a button for full screen. Check every stop at 390 px.
 
 For the product and the maker, put the logo and a square portrait under `public/img/fieldwork/<id>/`
 and point to them: `subjects[].logo`, `person.avatar`. Add `subjects[].what` (one quotable sentence
 on what the product is) and `person.sameAs` (their other profiles). They show in the page head and
-the Fieldwork list, go into the page's structured data, and make its social image: run
+the In practice list, go into the page's structured data, and make its social image: run
 `npm run og -- fieldwork` and commit `public/og/fieldwork/<id>.jpg`.
 
 A profile is also a citation for the maker's product. Say what the product is in one plain sentence
 near the top, name the platforms and the jobs it does in the words people search for, and link to
 the product, its docs or comparison pages and the maker's site.
+
+### Podcasts
+
+Use `kind: podcast` for a profile built from a public episode someone else recorded: a maker on
+another show, not a conversation I had. Everything above about profiles applies (`coverage`,
+`person` for the guest, logo and avatar, the four headings, the quick tour). It adds
+`episode`, which shows in the facts box and goes into the page's structured data as the
+`PodcastEpisode` the article is based on:
+
+```yaml
+episode:
+  show: Itnig podcast
+  title: Lanzó una API en un fin de semana y llegó a 5M€ de ARR en 13 meses   # the episode's own title
+  url: https://www.youtube.com/watch?v=vE2z1XrCA6o
+  host: Bernat Farrero
+  published: 2026-11-12
+  duration: '1:30:46'          # h:mm:ss or m:ss
+  language: Spanish
+```
+
+What changes in the writing:
+
+- The `method` says I did not talk to the guest, where the transcript came from, that quotes are my
+  translation if they are, and that the numbers are the guest's, as said on the show.
+- The host asks the questions: "Bernat asked...", not "I asked him...". My part is what I would
+  ask next and what I would test, kept apart from what was said.
+- Speakers in an automatic transcript are not labelled. When it is unclear who said a line, say so
+  ("the trailer kept a line") instead of guessing.
+- Keep the transcript under `interviews/<domain>/` next to the other source material.
+
+`zernio.mdx` is the first example.
 
 Set `draft: true` while the interviewee reviews the write-up. A draft builds at its URL but is
 excluded from listings, skill backlinks, search and the sitemap. Remove the flag once reviewed.

@@ -1,0 +1,400 @@
+{/* Quick tour of /fieldwork/mamitsu/. One <Stop> per skill of the coverage, in the same order.
+    Facts as in the profile: Unai's account on the call (13 Nov 2026), prices from usemamitsu.com (14 Nov 2026).
+    <Hot> marks my opinion. */}
+
+<Stop skill="unmet-needs">
+A cooking reel holds a recipe; a travel video holds a list of places. **The information is there, but it is locked inside a video,** and apps and agents have no simple way to get it out.
+
+<JobStory
+  who="A developer of an app or an agent"
+  when="my users find a recipe or a place in a social video"
+  want="get it out as data my app can use"
+  so="nobody has to watch the video and type it out."
+  today="Copying by hand, or a transcript that misses what is only on screen"
+/>
+</Stop>
+
+<Stop skill="user-segments">
+The beta of his coffee app could import recipes from videos. That import is what testers wanted, each for something else. What they had in common was not coffee.
+
+<Flow
+  motion={false}
+  nodes={[
+    { id: 'family', label: 'Family recipes', detail: 'A friend', col: 0, row: 0, kind: 'external' },
+    { id: 'coffee', label: 'A coffee app', detail: 'Another friend', col: 0, row: 1, kind: 'external' },
+    { id: 'travel', label: 'A travel app', detail: 'A third', col: 0, row: 2, kind: 'external' },
+    { id: 'need', label: 'Video data', detail: 'The shared need', col: 1, row: 1, tone: 'lit' },
+    { id: 'mamitsu', label: 'Mamitsu', detail: 'For developers', col: 2, row: 1 },
+  ]}
+  edges={[
+    { from: 'family', to: 'need' },
+    { from: 'coffee', to: 'need' },
+    { from: 'travel', to: 'need' },
+    { from: 'need', to: 'mamitsu' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="competitive-analysis">
+Supadata and PostReef do the same job; Apify is the generic version. Mamitsu publishes comparison pages against five rivals, TwelveLabs and ScrapeCreators among them.
+
+<Hot>A comparison page is competitive analysis you publish. It sharpens your own positioning and it is exactly what AI answers like to cite.</Hot>
+</Stop>
+
+<Stop skill="scope-cutting">
+Four platforms and one call: a link and a question in, JSON out. Features built on transcripts and a scraper for any URL stay out.
+
+<Quote
+  text="Not being able to work on everything used to calibrate us. It forced us to prioritise. We do not have that any more."
+  who="Unai Esteibar"
+  context="On what well-made products have in common"
+/>
+
+<Hot>When building is cheap, the cut list is the product decision. The code is the easy part now.</Hot>
+</Stop>
+
+<Stop skill="differentiation">
+The model gets the raw video, not a transcript, and the answer comes back in the same request. The quantity in a recipe may only be on screen; the name of a place may only be said out loud.
+
+<Compare
+  subjects={['A transcript', 'The raw video']}
+  highlight={1}
+  rows={[
+    { label: 'What is said out loud', values: [true, true] },
+    { label: 'Text shown on screen', values: [false, true], best: 1 },
+    { label: 'What the frames show', values: [false, true], best: 1 },
+  ]}
+/>
+</Stop>
+
+<Stop skill="pricing">
+Prepaid credits that do not expire, and a price several times lower than Supadata's for the same extraction.
+
+<Bars
+  title="One extraction, in US cents"
+  unit="¢"
+  digits={1}
+  items={[
+    { label: 'Mamitsu, 45-second reel', value: 0.5, highlight: true },
+    { label: 'Supadata, 45-second reel', value: 2.8 },
+    { label: 'Mamitsu, 10-minute video', value: 3, highlight: true },
+    { label: 'Supadata, 10-minute video', value: 28.3 },
+  ]}
+  evidence="observed"
+  source="usemamitsu.com/compare/mamitsu-vs-supadata, read 14 Nov 2026, early-access offer included"
+/>
+
+<Hot>Several times cheaper opens doors, but it is a weak moat: a rival can cut its price faster than it can copy the bet on raw video.</Hot>
+</Stop>
+
+<Stop skill="target-audience">
+Developers of apps and agents. As a first niche, marketing teams that check sponsored videos really mention their brand, and mention it well: the use he read about on Supadata, and the one he is writing posts for.
+
+<Hot>I suggested another niche: trend analysis. Finding what trends on TikTok is one problem; working out why it works is the one Mamitsu can solve.</Hot>
+</Stop>
+
+<Stop skill="throughput">
+The platforms used to block him after about five requests in half a minute. Now Mamitsu takes 3,000 TikTok requests a minute, and they do not care.
+
+<Bars
+  title="TikTok requests a minute"
+  items={[
+    { label: 'Before, until the block', value: 10, note: 'About five in half a minute' },
+    { label: 'Now, without blocks', value: 3000, highlight: true },
+  ]}
+  evidence="reported"
+  source="Unai Esteibar, on the call"
+/>
+</Stop>
+
+<Stop skill="scalability">
+Holding load was his condition for selling it, so he load-tests every day. The person spending the most money on Mamitsu is him.
+
+<Hot>Load tests as a daily job, not a launch checklist, are what make a one-person API something other developers can rely on. How he got there did not come up: my first question for next time.</Hot>
+</Stop>
+
+<Stop skill="structured-outputs">
+Frames, audio and caption go in; JSON comes out in the shape you asked for, with an optional JSON Schema. A cooking reel becomes ingredients and steps.
+
+<Flow
+  motion={false}
+  nodes={[
+    { id: 'frames', label: 'Frames', col: 0, row: 0, kind: 'external' },
+    { id: 'audio', label: 'Audio', col: 0, row: 1, kind: 'external' },
+    { id: 'caption', label: 'Caption', col: 0, row: 2, kind: 'external' },
+    { id: 'model', label: 'The model', detail: 'Plus your question', col: 1, row: 1 },
+    { id: 'json', label: 'JSON', detail: 'Your fields', col: 2, row: 1, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'frames', to: 'model' },
+    { from: 'audio', to: 'model' },
+    { from: 'caption', to: 'model' },
+    { from: 'model', to: 'json', label: 'Same request' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="mcp">
+Agents such as Claude Code or Codex call Mamitsu through its MCP server and get back only the fields they asked for. The agent plugins are on GitHub.
+
+<Compare
+  subjects={['A transcript tool', 'Mamitsu over MCP']}
+  highlight={1}
+  rows={[
+    { label: "What reaches the agent's context", values: ['The whole video, as text', 'The fields it asked for'], best: 1 },
+    { label: 'A ten-minute video', values: ['A full transcript', 'A few lines'], best: 1 },
+  ]}
+  evidence="observed"
+  source="usemamitsu.com, read 14 Nov 2026"
+/>
+</Stop>
+
+<Stop skill="ai-evals">
+No evals yet. They cost money, and at this volume he can read the extractions himself. When he starts, comparing with a larger model shows where two models disagree, not which one is right.
+
+<Hot>I would also check a sample against the video itself. Disagreement between models finds the hard cases; only the video says who is right.</Hot>
+</Stop>
+
+<Stop skill="ai-agents">
+Hermes runs on a Linux box at home, with nine or ten profiles split by project, so one context does not leak into another. He talks to all of them in Slack.
+
+<Hot>Slack as the interface is the detail I like most. An agent that remembers turns a thread into a colleague, and the history is already there to search.</Hot>
+</Stop>
+
+<Stop skill="delegating-to-agents">
+For code, Hermes launches Pi agents with a leaner setup, because he wants code written more predictably.
+
+<Sequence
+  actors={[
+    { id: 'u', label: 'Unai', kind: 'external' },
+    { id: 'h', label: 'Hermes' },
+    { id: 'pi', label: 'Pi agents' },
+  ]}
+  messages={[
+    { from: 'u', to: 'h', label: 'The feature, roughly how' },
+    { from: 'h', to: 'pi', label: 'Build it' },
+    { from: 'pi', to: 'h', label: 'Code and proof it works', kind: 'reply' },
+    { from: 'h', to: 'u', label: 'A PR for the arbiter', kind: 'reply' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="human-oversight">
+He does not review every change. Which ones he reviews is decided per change, by risk: only the ones an agent scores as risky wait for him.
+
+<Tradeoffs
+  items={[{ left: 'Unai reads every change', right: 'Nobody reads any', at: 0.72, note: 'He reads what the arbiter scores as risky, plus every published page.' }]}
+  evidence="assumed"
+  source="My placement, from his account"
+/>
+</Stop>
+
+<Stop skill="delivery-risk">
+Every PR goes to an arbiter agent. It checks that everything is green and easy to roll back, then gives one of three answers.
+
+<Flow
+  motion={false}
+  nodes={[
+    { id: 'pr', label: 'A PR', detail: 'Code and proof', col: 0, row: 1 },
+    { id: 'arb', label: 'Arbiter', detail: 'Scores the risk', col: 1, row: 1, kind: 'decision', tone: 'signal' },
+    { id: 'back', label: 'Not ready', detail: 'Back to agents', col: 2, row: 0 },
+    { id: 'merge', label: 'Merge', detail: 'Low risk', col: 2, row: 1, tone: 'lit' },
+    { id: 'wait', label: 'Wait', detail: 'Unai approves', col: 2, row: 2 },
+  ]}
+  edges={[
+    { from: 'pr', to: 'arb' },
+    { from: 'arb', to: 'back' },
+    { from: 'arb', to: 'merge' },
+    { from: 'arb', to: 'wait' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="feature-flags">
+New code goes out behind a flag when it needs one, and the agent turns the flag on after the merge.
+
+<Hot>A flag plus an agent that watches the logs is a staged rollout with no release manager.</Hot>
+</Stop>
+
+<Stop skill="launch-telemetry">
+After a merge, an agent watches the logs until about ten requests have gone through the new code.
+
+<Sequence
+  actors={[
+    { id: 'a', label: 'Agent' },
+    { id: 'logs', label: 'Production', kind: 'external' },
+    { id: 'u', label: 'Unai, in Slack', kind: 'external' },
+  ]}
+  messages={[
+    { from: 'a', to: 'logs', label: 'Watch the new code' },
+    { from: 'logs', to: 'a', label: 'About ten requests, fine', kind: 'reply' },
+    { from: 'a', to: 'u', label: 'All is well', tone: 'signal' },
+  ]}
+/>
+
+<Hot>Ten requests is a small sample for a rare path. I would also let it watch for a set time.</Hot>
+</Stop>
+
+<Stop skill="rollbacks">
+How to roll back is part of the first conversation about a feature, with the database migrations, and every PR carries its own rollback plan. It has been used once.
+
+<Hot>Writing the rollback before the code is the cheapest insurance in the pipeline, and it forces the small blast radius he cares about.</Hot>
+</Stop>
+
+<Stop skill="alerting">
+An agent polls Sentry all the time and opens a Slack thread for each new error.
+
+<Hot>An alert that arrives with a first diagnosis is the difference between a side project you keep running and one you abandon.</Hot>
+</Stop>
+
+<Stop skill="issue-investigation">
+In that thread, the agent works out whether the error is real and whether Unai needs to look at all.
+</Stop>
+
+<Stop skill="bug-fixing">
+Fixes go through the same risk check as any other change. Once, a fix reached production before Unai had read about the error.
+
+<Quote
+  text="There was one I only found out about when it was already fixed in production. Well, how nice."
+  who="Unai Esteibar"
+  context="On an error the agents handled on their own"
+/>
+</Stop>
+
+<Stop skill="support-workflows">
+Support works like errors do. He steps in only when he has to.
+
+<Flow
+  motion={false}
+  nodes={[
+    { id: 'mail', label: 'Support email', col: 0, row: 0, kind: 'external' },
+    { id: 'fwd', label: 'Forwarded', detail: 'If it needs it', col: 1, row: 0 },
+    { id: 'thread', label: 'Slack thread', detail: 'An agent digs in', col: 2, row: 0, tone: 'lit' },
+    { id: 'unai', label: 'Unai', detail: 'Only if needed', col: 3, row: 0 },
+  ]}
+  edges={[
+    { from: 'mail', to: 'fwd' },
+    { from: 'fwd', to: 'thread' },
+    { from: 'thread', to: 'unai', dashed: true },
+  ]}
+/>
+</Stop>
+
+<Stop skill="launch-planning">
+A quiet launch, "a tiny bit" of traction, and a product that improved a lot in the week after. Next, a wider relaunch, Hacker News included.
+
+<Hot>Quiet first, loud second is the right order for one maker: the first users find the rough edges, and the second wave meets a better product.</Hot>
+</Stop>
+
+<Stop skill="discovery-platforms">
+Directories that AI answers cite count as much as your own site. For another site of his, a directory contradicted his own page, and the model could not tell which version to believe.
+
+<Hot>Search engines forgive a stale listing; AI answers repeat it. Keeping third-party listings in sync is part of distribution now.</Hot>
+</Stop>
+
+<Stop skill="seo">
+He works on GEO, being cited by AI answers. The day before our call he chose a tool by asking his agent to compare alternatives, without opening a single landing page until after.
+
+<Quote
+  text="I had a decision right there, because I had everything I needed to make it."
+  who="Unai Esteibar"
+  context="On choosing a tool through his agent"
+/>
+</Stop>
+
+<Stop skill="content-marketing">
+Guides, comparison pages and docs. An agent drafts them from the gaps the daily prompts find, and Unai reads everything before it goes out.
+
+<Loop
+  center="AI answers"
+  sub="One turn a day"
+  motion={false}
+  stages={[
+    { label: 'Ask like a user', note: 'Prompts from keywords and rivals' },
+    { label: 'Read the citations', tone: 'lit' },
+    { label: 'Find the gaps', note: 'Questions without Mamitsu' },
+    { label: 'Fix the content', note: 'An agent drafts, Unai approves' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="attribution">
+Mamitsu shows up in more AI answers since he started tracking them. Whether those answers bring users, he cannot see: links in answers carry no tracking.
+
+<Flow
+  motion={false}
+  nodes={[
+    { id: 'cited', label: 'Cited', detail: 'Measured daily', col: 0, row: 0, tone: 'lit' },
+    { id: 'visited', label: 'Visited', detail: 'Unknown', col: 1, row: 0 },
+    { id: 'used', label: 'Used', detail: 'Unknown', col: 2, row: 0 },
+  ]}
+  edges={[
+    { from: 'cited', to: 'visited', dashed: true },
+    { from: 'visited', to: 'used', dashed: true },
+  ]}
+/>
+
+<Hot>The cheapest start is one question at sign-up: where did you hear about Mamitsu?</Hot>
+</Stop>
+
+<Stop skill="usage-observation">
+Web analytics on the site, with Rybbit, self-hosted. Inside the product, nothing tracked yet. He looks at what people ask Mamitsu now and then, by hand.
+
+<Hot>The questions people send are the best product data Mamitsu has: each one is a use case, in the user's own words.</Hot>
+</Stop>
+
+<Stop skill="feedback-analysis">
+Feedback arrives through the support email. What he took from the call: an agent that reads the week's extractions and reports every Monday.
+
+<Hypothesis
+  if="an agent reads last week's extractions every Monday and checks a sample against a larger model"
+  then="Unai learns which answers are wrong and which uses he did not plan for"
+  because="he reads them by hand today, and that stops working as usage grows."
+  metric="Problems and new uses per report that he did not already know"
+  stopIf="Two reports in a row with nothing new"
+/>
+</Stop>
+
+<Stop skill="retention-metrics">
+Not tracked yet. I added a question to that weekly report: which extractions bring users back.
+
+<Hot>Credits that never expire hide churn: nobody cancels, they just stop. I would count the accounts that run an extraction in each of their first four weeks.</Hot>
+</Stop>
+
+<Stop skill="opportunity-cost">
+When code is cheap, what you choose not to build is the decision that matters. Many of his ideas are built in a morning and binned by the afternoon.
+
+<Hot>It works one level up too. Agents make it easy to start another side project, so the cut list should have products on it as well.</Hot>
+</Stop>
+
+<Stop skill="ai-interaction-design">
+Experiences augmented with AI have no settled patterns yet. The labs change the format of their products every few days. It will settle, the way all dashboards ended up looking alike, but not yet.
+</Stop>
+
+<Stop skill="functional-prototypes">
+He used to explain his ideas, badly. Now he often builds a two-hour demo and sends that instead.
+
+<Hot>A demo also answers the question an explanation cannot: whether you still like the idea once it exists.</Hot>
+</Stop>
+
+<Stop skill="channel-selection">
+It will be harder and harder to bring people to new places, he thinks, so products will go where people already are: WhatsApp, Telegram, the assistant they already talk to. His example: AliExpress parcel tracking on WhatsApp.
+
+<Hot>I live this with Etengabe, my Basque-learning app: with a free minute, I open Twitter, not a learning app.</Hot>
+</Stop>
+
+<Stop skill="market-trends">
+Software made for agents to call, more than for people to open. Mamitsu is already in that market: a service other agents call.
+
+<Hot>I no longer open my calendar; I send a voice message. When the user is an agent, the API and the docs are the interface.</Hot>
+</Stop>
+
+<Stop skill="competitive-advantage">
+A product built on the labs' models, or for their agents, gets copied when a lab ships it as a feature. Markets with some regulation, like tax advisers or estate agents, may be safer places to bring agents.
+</Stop>
+
+<Stop skill="reviewing-generated-work">
+We both admitted we have mostly stopped reading the code of our own projects. His point: in sensitive areas like security it still matters, because you have to be able to trust it.
+
+<Hot>Reading code is becoming a decision made by risk, the same way his arbiter decides which PRs he sees.</Hot>
+</Stop>

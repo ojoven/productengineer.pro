@@ -1,5 +1,5 @@
 ---
-// The atlas skills a section used, as chips that link to their pages. Each chip carries the
+// The Skills Map skills a section used, as chips that link to their pages. Each chip carries the
 // reader's own status for that skill (the tile fills as on the map). With `route`, the chips are
 // joined in order.
 import './figures.css';
@@ -23,7 +23,7 @@ const { ids, label = 'Skills used here', route = false, labelHref, labelCode, no
 const a = atlas();
 const skills = ids.map((id) => {
   const s = a.nodes.get(id);
-  if (!s || s.level !== 'skill') throw new Error(`Skills: "${id}" is not a skill id in the atlas. Look it up with search_atlas on the MCP server or in src/content/atlas/.`);
+  if (!s || s.level !== 'skill') throw new Error(`Skills: "${id}" is not a skill id in the Skills Map. Look it up with search_atlas on the MCP server or in src/content/atlas/.`);
   return s;
 });
 ---

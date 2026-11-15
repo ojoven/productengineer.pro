@@ -1,7 +1,7 @@
 // Schemas for the editorial layer that sits beside the atlas:
 //
-//   Fieldwork: product reviews, comparisons, interviews, profiles, observations, experiments,
-//   shipped improvements and case studies on real products.
+//   Fieldwork: product reviews, comparisons, interviews, profiles, podcast profiles, observations,
+//   experiments, shipped improvements and case studies on real products.
 //
 // Every entry names the atlas skills it exercised, in the order they were used, so its page can
 // light them on the map and each skill page can link back to it. The body is Markdown with a
@@ -23,7 +23,9 @@ const PartialDate = z.preprocess(
 /** A link to another entry: `fieldwork/<id>`. */
 export const EntryRef = z.string().regex(/^fieldwork\/[a-z0-9]+(?:-[a-z0-9]+)*$/, 'refs look like fieldwork/<id>');
 
-export const RESEARCH_KINDS = ['review', 'comparison', 'interview', 'profile', 'observation'] as const;
+export const RESEARCH_KINDS = ['review', 'comparison', 'interview', 'profile', 'podcast', 'observation'] as const;
+/** Kinds organised by territory through `coverage`: a maker's product across the map. */
+export const MAP_KINDS = ['profile', 'podcast'] as const;
 export const APPLICATION_KINDS = ['experiment', 'improvement', 'case-study'] as const;
 export const FIELDWORK_KINDS = [...RESEARCH_KINDS, ...APPLICATION_KINDS] as const;
 export const WORK_STATUS = ['planned', 'running', 'shipped', 'concluded', 'abandoned'] as const;
@@ -34,6 +36,8 @@ export const DECISIONS = ['pending', 'keep', 'iterate', 'revert', 'stop'] as con
 
 export type FieldworkKind = (typeof FIELDWORK_KINDS)[number];
 export type EntryKind = FieldworkKind;
+/** Profiles and podcasts: one product across the map, grouped by territory. */
+export const isMapKind = (kind: EntryKind): boolean => (MAP_KINDS as readonly string[]).includes(kind);
 
 /**
  * The sections every entry of a kind has, as `## Heading` lines in this order. Extra sections are
@@ -46,6 +50,8 @@ export const SECTIONS: Record<EntryKind, readonly string[]> = {
   // A profile adds one section per territory it covers between "On the map" and "Beyond the product".
   // Those come from `coverage` in the front matter, and validateEditorial checks each one has its heading.
   profile: ['Who and what', 'On the map', 'Beyond the product', 'What I take from it'],
+  // A podcast is a profile built from a public episode someone else recorded: same sections.
+  podcast: ['Who and what', 'On the map', 'Beyond the product', 'What I take from it'],
   observation: ['What I saw', 'Why it matters', 'What I take from it'],
   experiment: ['Context', 'What I built', 'How I measured', 'What happened', 'Trade-offs', 'What I learned'],
   improvement: ['Context', 'What I shipped', 'Trade-offs', 'Effect', 'What I learned'],
@@ -71,6 +77,23 @@ const Person = z.object({
   avatar: Text.optional(),
   /** Other public profiles of the same person (X, GitHub), for structured data. */
   sameAs: z.array(z.url()).default([]),
+});
+
+/** Podcasts: the public episode the entry is built from. */
+const Episode = z.object({
+  /** The show, as it names itself. */
+  show: Text,
+  /** The episode's own title, in its language. */
+  title: Text.optional(),
+  url: z.url(),
+  /** Who asks the questions. */
+  host: Text,
+  hostUrl: z.url().optional(),
+  published: IsoDate,
+  /** Length as h:mm:ss or m:ss. */
+  duration: z.string().regex(/^\d+:\d{2}(?::\d{2})?$/, 'duration is h:mm:ss or m:ss'),
+  /** Language spoken in the episode. */
+  language: Text.optional(),
 });
 
 /**
@@ -121,8 +144,10 @@ const ResearchEntry = z.object({
   updated: IsoDate.optional(),
   /** Products looked at. A comparison has two or more. */
   subjects: z.array(Subject).min(1),
-  /** Interviews and profiles: who was interviewed. */
+  /** Interviews and profiles: who was interviewed. Podcasts: the guest. */
   person: Person.optional(),
+  /** Podcasts: the episode it is built from. */
+  episode: Episode.optional(),
   /** What I set out to find out, as a question. */
   question: Text,
   /** How I looked: version, platform, dates, time spent, as what kind of user. */
@@ -206,5 +231,6 @@ export const Author = z.object({
 
 export type FieldworkEntry = z.infer<typeof FieldworkEntry>;
 export type Coverage = z.infer<typeof Coverage>;
+export type Episode = z.infer<typeof Episode>;
 export type Product = z.infer<typeof Product>;
 export type Author = z.infer<typeof Author>;

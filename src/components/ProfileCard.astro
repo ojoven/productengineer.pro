@@ -1,0 +1,152 @@
+---
+// One Fieldwork profile, compact, for the home page: the product and its maker, the title and
+// summary, the territories it covers and a small map with its skills lit. Two sit side by side.
+import MapFigure from './MapFigure.astro';
+import { atlas, code } from '../lib/atlas.ts';
+import { KIND, entryTerritories, formatDate, itemDate, itemPath, readingMinutes, type Item } from '../lib/editorial.ts';
+
+interface Props {
+  entry: Item;
+}
+const { entry } = Astro.props;
+const d = entry.data;
+const subjects = 'subjects' in d ? d.subjects : [];
+const person = 'person' in d ? d.person : undefined;
+const episode = 'episode' in d ? d.episode : undefined;
+const a = atlas();
+const territories = entryTerritories(entry).map((id) => a.nodes.get(id)!);
+---
+
+<article class="profile-card">
+  <div class="pc-people">
+    <span class="pc-faces" aria-hidden="true">
+      {subjects.map((s) => s.logo && <img src={s.logo} alt="" width="44" height="44" loading="lazy" />)}
+      {person?.avatar && <img class="is-avatar" src={person.avatar} alt="" width="44" height="44" loading="lazy" />}
+    </span>
+    <span class="pc-names">
+      <b>{subjects.map((s) => s.name).join(', ')}</b>
+      {person && <small>with {person.name}{episode && <> · on {episode.show}</>}</small>}
+    </span>
+  </div>
+  <p class="pc-kicker">
+    <span class="tag">{KIND[d.kind]}</span>
+    <span>{formatDate(itemDate(entry))}</span>
+    <span>{readingMinutes(entry)} min read</span>
+  </p>
+  <h3 class="pc-title"><a href={itemPath(entry)}>{d.title}</a></h3>
+  <p class="pc-summary">{d.summary}</p>
+  <div class="pc-map">
+    <div class="pane-head"><span class="label">Skills covered</span><span class="label">{d.skills.length}</span></div>
+    <MapFigure lit={d.skills} width={560} height={330} legend={false} explore={false} />
+  </div>
+  {
+    territories.length > 0 && (
+      <ul class="pc-territories" aria-label="Territories covered">
+        {territories.map((t) => (
+          <li>
+            <span class="code">{code(t.id)}</span>
+            {t.name}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  <a class="btn small" href={itemPath(entry)}>Read the profile →</a>
+</article>
+
+<style>
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding-block: 22px 26px;
+    min-width: 0;
+  }
+  .pc-people {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .pc-faces {
+    display: flex;
+  }
+  .pc-faces img {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: block;
+  }
+  .pc-faces img + img {
+    margin-left: -7px;
+  }
+  .pc-faces img.is-avatar {
+    border-radius: 50%;
+    image-rendering: pixelated;
+    box-shadow: 0 0 0 3px var(--bg);
+  }
+  .pc-names {
+    display: grid;
+    line-height: 1.2;
+  }
+  .pc-names b {
+    font: 600 19px/1.2 var(--cond);
+  }
+  .pc-names small {
+    font: 400 12px/1.4 var(--mono);
+    color: var(--muted);
+  }
+  .pc-kicker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    margin: 0;
+    font: 400 12px/1.4 var(--mono);
+    color: var(--muted);
+  }
+  .pc-title {
+    margin: 0;
+    font: 600 clamp(24px, 2.4vw, 30px) / 1.08 var(--cond);
+    letter-spacing: -0.01em;
+  }
+  .pc-title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .pc-title a:hover {
+    color: var(--accent-ink);
+  }
+  .pc-summary {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+  .pc-map {
+    width: 100%;
+    margin-top: auto;
+    padding-top: 4px;
+  }
+  .pc-territories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .pc-territories li {
+    display: inline-flex;
+    gap: 6px;
+    align-items: baseline;
+    margin: 0;
+    padding: 3px 7px;
+    border: 1px solid var(--line);
+    font: 600 13px/1.1 var(--cond);
+  }
+  .pc-territories .code {
+    font: 400 10px/1 var(--mono);
+    color: var(--muted);
+  }
+</style>

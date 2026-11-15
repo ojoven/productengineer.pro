@@ -37,7 +37,7 @@ const practice = await itemsForSkill(s.id);
   <div class="wrap">
     <Crumbs
       items={[
-        { href: '/atlas/', label: 'Atlas' },
+        { href: '/atlas/', label: 'Skills Map' },
         { href: path(t), label: `${code(t.id)} ${t.name}` },
         { href: path(c), label: `${code(c.id)} ${c.name}` },
         { label: `${code(s.id)} ${s.name}` },
@@ -59,7 +59,7 @@ const practice = await itemsForSkill(s.id);
         {
           practice.length > 0 && (
             <section class="section" id="in-practice">
-              <div class="section-head"><h2>In practice</h2><span class="label">Fieldwork</span></div>
+              <div class="section-head"><h2>In practice</h2><span class="label">Real products</span></div>
               <EntryRows items={practice} compact />
             </section>
           )

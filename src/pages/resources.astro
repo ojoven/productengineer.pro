@@ -14,9 +14,9 @@ const rows = a.resources
 const types = [...new Set(rows.map((r) => r.type))].sort();
 ---
 
-<Base title="Resources" description="Every article, video, course and book on the atlas, filterable by type and territory. Each link is checked before it is listed.">
+<Base title="Resources" description="Every article, video, course and book on the Skills Map, filterable by type and territory. Each link is checked before it is listed.">
   <div class="wrap">
-    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { label: 'Resources' }]} />
+    <Crumbs items={[{ href: '/atlas/', label: 'Skills Map' }, { label: 'Resources' }]} />
     <header class="page-head">
       <div class="code-big" id="res-count">{rows.length} resources</div>
       <h1 class="title">Resources</h1>

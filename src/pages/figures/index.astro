@@ -20,14 +20,14 @@ const territoryName = (id: string) => a.nodes.get(id)?.name ?? id;
 const keyClass: Record<string, string> = { Ink: 'k-ink', Grey: 'k-grey', Pink: 'k-pink', Yellow: 'k-lit', Hatch: 'k-hatch' };
 ---
 
-<Base title="Figures" description="The visual vocabulary of fieldwork entries: diagrams, charts, walkthroughs and decision figures." noindex searchable={false}>
+<Base title="Figures" description="The visual vocabulary of In practice entries: diagrams, charts, walkthroughs and decision figures." noindex searchable={false}>
   <div class="wrap fg-scope fg-gallery" data-stage="article">
     <Crumbs items={[{ href: '/', label: 'Home' }, { label: 'Figures' }]} />
     <header class="page-head">
       <div class="code-big">Figures · {total} components</div>
       <h1 class="title">Figures</h1>
       <p class="lede">
-        The visual vocabulary of fieldwork entries. Each figure answers one question a reader has, follows the site's rules
+        The visual vocabulary of In practice entries. Each figure answers one question a reader has, follows the site's rules
         for colour and type, and says how its content is known. Entries use them from MDX by name.
       </p>
       <p class="byline">
@@ -161,7 +161,7 @@ const keyClass: Record<string, string> = { Ink: 'k-ink', Grey: 'k-grey', Pink: '
                     </div>
                   )}
                   <div class="g-block">
-                    <span class="label">Atlas</span>
+                    <span class="label">Skills Map</span>
                     <p class="g-terr">{f.territories.map(territoryName).join(' · ')}</p>
                     <div class="chips">
                       {f.skills.map((s) => (

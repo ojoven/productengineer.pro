@@ -12,11 +12,11 @@ const a = atlas();
 const svg = mapSvg({ width: 760, height: 700 });
 ---
 
-<Base title="Atlas" description={`Explore the map of product engineering: ${a.territories.filter((t) => !t.crossCutting).length} territories, ${a.capabilities.length} capabilities and every skill beneath them. Mark what you know and watch your map fill in.`} bodyClass="is-explorer" searchable={false}>
+<Base title="Skills Map" description={`Explore product engineering in the Skills Map: ${a.territories.filter((t) => !t.crossCutting).length} territories, ${a.capabilities.length} capabilities and ${a.skills.length} skills. Mark what you know and see what to learn next.`} bodyClass="is-explorer" searchable={false}>
   <div class="explorer" id="explorer">
     <div class="ex-map" id="ex-map" set:html={svg} />
     <aside class="ex-panel" id="ex-panel" aria-live="polite">
-      <nav class="crumbs" id="ex-crumbs" aria-label="Map level"><span aria-current="page">World</span></nav>
+      <nav class="crumbs" id="ex-crumbs" aria-label="Map level"><span aria-current="page">Skills Map</span></nav>
       <div class="ex-filters" aria-label="Filter skills">
         <div><label for="ex-focus" class="label">Focus</label><select id="ex-focus" disabled>
           <option value="">All focus areas</option>
@@ -30,9 +30,9 @@ const svg = mapSvg({ width: 760, height: 700 });
       </div>
       <noscript><p>Enable JavaScript to filter skills and load your progress. You can still browse every territory below.</p></noscript>
       <div class="ex-head">
-        <div class="code-big" id="ex-code">Atlas · {a.skills.length} skills</div>
-        <h1 class="ex-title" id="ex-title">The Skill Atlas</h1>
-        <p class="ex-text" id="ex-text">Explore every territory, including AI, and the capabilities that cut across them. Pick one to zoom in.</p>
+        <div class="code-big" id="ex-code">Skills Map · {a.skills.length} skills</div>
+        <h1 class="ex-title" id="ex-title">Skills Map</h1>
+        <p class="ex-text" id="ex-text">Explore the skills of product engineering, including AI. Pick a territory to see its capabilities and skills.</p>
         <div id="ex-actions"></div>
         <div id="ex-lit"></div>
       </div>
@@ -410,14 +410,14 @@ const svg = mapSvg({ width: 760, height: 700 });
     const terr = T.get(cap ? cap.territory : at);
     const crumb = (id: string, label: string) => `<a href="${urlFor({ ...state, at: id })}" data-go="${id}">${esc(label)}</a>`;
     const sep = '<span class="sep" aria-hidden="true">/</span>';
-    const crumbs = ['<a href="/atlas/" data-go="">World</a>'];
+    const crumbs = ['<a href="/atlas/" data-go="">Skills Map</a>'];
     if (terr) crumbs.push(crumb(terr.id, `${codeOf(terr.id)} ${terr.name}`));
     if (cap) crumbs.push(crumb(cap.id, `${codeOf(cap.id)} ${cap.name}`));
     $('ex-crumbs').innerHTML = crumbs.join(sep);
 
-    let code = `Atlas · ${data.skills.length} skills`;
-    let title = 'The Skill Atlas';
-    let text = 'Explore every territory, including AI, and the capabilities that cut across them. Pick one to zoom in.';
+    let code = `Skills Map · ${data.skills.length} skills`;
+    let title = 'Skills Map';
+    let text = 'Explore the skills of product engineering, including AI. Pick a territory to see its capabilities and skills.';
     let actions = yourMap(progress);
     let listTitle = 'Territories';
     let list = data.territories.filter((t) => filtered(tSkills(t.id)).length).map((t) => rowGroup(t.id, t.question, filtered(tSkills(t.id)))).join('');

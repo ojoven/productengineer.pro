@@ -20,7 +20,7 @@ interface ToolDeps {
   version: string;
 }
 
-const INSTRUCTIONS = `ProductEngineer.pro is the Skill Atlas, a map of product engineering organised into territories, capabilities and skills, with AI as its own territory. Each skill has a short description, checked learning resources and the tools people use for it. Codes like 06.4.5 read territory.capability.skill.
+const INSTRUCTIONS = `ProductEngineer.pro provides the Skills Map, a map of product engineering organised into territories, capabilities and skills, with AI as its own territory. Each skill has a short description, checked learning resources and the tools people use for it. Codes like 06.4.5 read territory.capability.skill.
 Start with list_territories or search_atlas, then drill down with get_territory, get_capability and get_skill. Ids are lowercase kebab-case slugs; codes work too.`;
 
 const INSTRUCTIONS_USER = `${INSTRUCTIONS}
@@ -36,7 +36,7 @@ const READ_ONLY = { readOnlyHint: true, destructiveHint: false, idempotentHint: 
 export function buildServer(deps: ToolDeps, user: User | undefined): McpServer {
   const { atlas, db, publicUrl } = deps;
   const server = new McpServer(
-    { name: 'productengineer-atlas', title: 'ProductEngineer.pro Skill Atlas', version: deps.version, websiteUrl: publicUrl },
+    { name: 'productengineer-atlas', title: 'ProductEngineer.pro Skills Map', version: deps.version, websiteUrl: publicUrl },
     { instructions: user ? INSTRUCTIONS_USER : INSTRUCTIONS },
   );
 
@@ -67,7 +67,7 @@ export function buildServer(deps: ToolDeps, user: User | undefined): McpServer {
     {
       title: 'List territories',
       description:
-        'The top level of the atlas: the territories plus the cross-cutting group, each with the question it answers and how many capabilities and skills it holds' +
+        'The top level of the Skills Map: the territories plus the cross-cutting group, each with the question it answers and how many capabilities and skills it holds' +
         (user ? ', and the person’s progress in it.' : '.'),
       annotations: READ_ONLY,
     },
@@ -190,8 +190,8 @@ export function buildServer(deps: ToolDeps, user: User | undefined): McpServer {
   server.registerTool(
     'search_atlas',
     {
-      title: 'Search the atlas',
-      description: 'Finds territories, capabilities and skills by words in their names and descriptions. Best for mapping a topic ("pricing", "feature flags", "onboarding") to atlas ids.',
+      title: 'Search the Skills Map',
+      description: 'Finds territories, capabilities and skills by words in their names and descriptions. Best for mapping a topic ("pricing", "feature flags", "onboarding") to Skills Map ids.',
       inputSchema: z.object({
         query: z.string().min(2).max(200).describe('Words to look for'),
         limit: z.number().int().min(1).max(30).optional().describe('Results to return, default 10'),

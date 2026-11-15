@@ -1,4 +1,4 @@
-// The catalogue of figures: what each one is for, the atlas skills it belongs to, its props and
+// The catalogue of figures: what each one is for, the Skills Map skills it belongs to, its props and
 // its examples. One source for three readers:
 //
 //   /figures/            the gallery renders every example from here
@@ -87,9 +87,9 @@ export const GROUPS: Group[] = [
   {
     id: 'atlas',
     code: 'A',
-    name: 'Atlas',
+    name: 'Skills Map',
     question: 'Which part of the map is this?',
-    intro: 'Links back to the Skill Atlas: an animated emblem for each territory and chips for the skills a section used.',
+    intro: 'Links back to the Skills Map: an animated emblem for each territory and chips for the skills a section used.',
   },
 ];
 
@@ -178,7 +178,7 @@ export const FIGURES: FigureDoc[] = [
           ratio: '9 / 18.5',
           steps: [
             { title: 'Landing page', src: '/img/figures/p1-home.webp', time: 0, note: 'Says what it is and who it is for.' },
-            { title: 'The atlas', src: '/img/figures/p2-atlas.webp', time: 8, note: 'The whole map at once. Nothing to fill in.' },
+            { title: 'The Skills Map', src: '/img/figures/p2-atlas.webp', time: 8, note: 'The whole map at once. Nothing to fill in.' },
             { title: 'A territory', src: '/img/figures/p3-territory.webp', time: 21, note: 'Its question, then its capabilities.' },
             { title: 'A skill', src: '/img/figures/p4-skill.webp', time: 40, kind: 'decision', note: 'Where do I stand on this one?' },
             { title: 'Marked as learning', src: '/img/figures/p5-status.webp', time: 52, kind: 'value', note: 'One tap, saved in the browser. No account asked.' },
@@ -369,12 +369,12 @@ export const FIGURES: FigureDoc[] = [
       {
         label: 'How a system fits together',
         props: {
-          title: 'How an agent reads the atlas',
+          title: 'How an agent reads the Skills Map',
           nodes: [
             { id: 'agent', label: 'Agent', detail: 'Any MCP client', col: 0, row: 0, kind: 'external' },
             { id: 'mcp', label: 'MCP server', detail: 'Read-only tools', col: 1, row: 0 },
             { id: 'oauth', label: 'OAuth', detail: 'Sign in and approve', col: 1, row: 1 },
-            { id: 'atlas', label: 'Atlas', detail: 'Skills, resources, tools', col: 2, row: 0, kind: 'store' },
+            { id: 'atlas', label: 'Skills Map', detail: 'Skills, resources, tools', col: 2, row: 0, kind: 'store' },
             { id: 'progress', label: 'Progress', detail: 'One status per skill', col: 2, row: 1, kind: 'store' },
           ],
           edges: [
@@ -408,7 +408,7 @@ export const FIGURES: FigureDoc[] = [
     examples: [
       {
         props: {
-          title: 'The loop the atlas is betting on',
+          title: 'The loop the Skills Map is betting on',
           center: 'Weekly review',
           sub: 'One turn a week',
           stages: [
@@ -446,7 +446,7 @@ export const FIGURES: FigureDoc[] = [
     examples: [
       {
         props: {
-          title: 'An agent connects to the atlas for the first time',
+          title: 'An agent connects to the Skills Map for the first time',
           actors: [
             { id: 'agent', label: 'Agent', kind: 'external' },
             { id: 'mcp', label: '/mcp' },
@@ -461,7 +461,7 @@ export const FIGURES: FigureDoc[] = [
             { from: 'person', to: 'auth', label: 'Approve' },
             { from: 'auth', to: 'agent', label: 'Code, then tokens', kind: 'reply' },
             { from: 'agent', to: 'mcp', label: 'Call with the token' },
-            { from: 'mcp', to: 'agent', label: 'Atlas and statuses', kind: 'reply' },
+            { from: 'mcp', to: 'agent', label: 'Skills Map and statuses', kind: 'reply' },
           ],
           evidence: 'observed',
           source: 'server/README.md, "How an agent connects"',
@@ -1081,7 +1081,7 @@ export const FIGURES: FigureDoc[] = [
             { label: 'Engineers want a map of the discipline', x: 0.15, y: 0.9, pick: true },
             { label: 'A weekly review brings people back', x: 0.2, y: 0.62 },
             { label: 'LinkedIn reaches them', x: 0.4, y: 0.45 },
-            { label: 'The atlas loads fast enough', x: 0.9, y: 0.3 },
+            { label: 'The Skills Map loads fast enough', x: 0.9, y: 0.3 },
           ],
           evidence: 'assumed',
         },
@@ -1258,7 +1258,7 @@ export const FIGURES: FigureDoc[] = [
         name: 'territory',
         type: 'string',
         required: true,
-        note: 'A territory id: discovery, strategy, experience, engineering, shipping, measurement, activation, retention, distribution, operations, ai, cross-cutting. The name, question and counts are read from the atlas.',
+        note: 'A territory id: discovery, strategy, experience, engineering, shipping, measurement, activation, retention, distribution, operations, ai, cross-cutting. The name, question and counts are read from the Skills Map.',
       },
       { name: 'note', type: 'string', note: 'One line on what this section does in that territory.' },
     ],
@@ -1373,6 +1373,16 @@ export const PICKER: { kind: string; label: string; sections: { section: string;
       { section: 'Who and what', figures: ['Shot', 'JobStory', 'Quote'] },
       { section: 'On the map', figures: ['Territories'] },
       { section: 'Beyond the product', figures: ['Quote', 'Claims'] },
+      { section: 'What I take from it', figures: ['Hypothesis', 'Skills'] },
+    ],
+  },
+  {
+    kind: 'podcast',
+    label: 'Podcast',
+    sections: [
+      { section: 'Who and what', figures: ['Shot', 'StatRow', 'Quote'] },
+      { section: 'On the map', figures: ['Territories'] },
+      { section: 'Beyond the product', figures: ['Timeline', 'Quote', 'Claims'] },
       { section: 'What I take from it', figures: ['Hypothesis', 'Skills'] },
     ],
   },

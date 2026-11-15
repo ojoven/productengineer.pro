@@ -21,7 +21,7 @@ const a = atlas();
 const counts = new Map<string, number>();
 for (const id of skills) {
   const s = a.nodes.get(id);
-  if (!s || s.level !== 'skill') throw new Error(`Territories: "${id}" is not a skill id in the atlas.`);
+  if (!s || s.level !== 'skill') throw new Error(`Territories: "${id}" is not a skill id in the Skills Map.`);
   counts.set(s.territory, (counts.get(s.territory) ?? 0) + 1);
 }
 for (const id of territories) {
@@ -41,7 +41,7 @@ const cells = a.territories.map((t) => {
 const litCount = cells.filter((c) => c.lit).length;
 ---
 
-<Figure kind="Atlas" name="territories" animate {...frame}>
+<Figure kind="Skills Map" name="territories" animate {...frame}>
   <ul class="x-grid">
     {
       cells.map(({ t, lit, count, href, section }) => (

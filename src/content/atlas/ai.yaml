@@ -10,7 +10,7 @@ description: >-
   It includes giving models useful context, connecting tools and knowledge, evaluating behaviour
   and keeping people in control. Probabilistic outputs require explicit checks and reliable
   recovery when something goes wrong. General software engineering, product judgment and
-  verification connect this territory to the rest of the atlas.
+  verification connect this territory to the rest of the Skills Map.
 expected: >-
   Delegate bounded work to AI, review its results and build model-powered features with
   measurable quality, clear permissions and useful fallbacks.

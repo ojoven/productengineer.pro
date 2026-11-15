@@ -5,7 +5,9 @@ import { join } from 'node:path';
 import { ROOT } from '../atlas/load.ts';
 import type { Atlas } from '../atlas/model.ts';
 import type { EditorialSources } from './load.ts';
-import { SECTIONS, type Coverage, type EntryKind, type FieldworkEntry } from './schema.ts';
+import { SECTIONS, isMapKind, type Coverage, type EntryKind, type FieldworkEntry } from './schema.ts';
+
+const A_KIND: Partial<Record<EntryKind, string>> = { profile: 'a profile', podcast: 'a podcast', interview: 'an interview' };
 
 export interface EditorialReport {
   errors: string[];
@@ -33,7 +35,7 @@ export const coverageHeading = (atlas: Atlas, c: Coverage): string => c.section 
  */
 export function coverageProblems(atlas: Atlas, d: Pick<FieldworkEntry, 'kind' | 'skills' | 'coverage'>, headings: string[]): string[] {
   const problems: string[] = [];
-  if (d.kind === 'profile' && !d.coverage.length) problems.push('a profile needs `coverage`: the territories it covers, with their skills');
+  if (isMapKind(d.kind) && !d.coverage.length) problems.push(`${A_KIND[d.kind]} needs \`coverage\`: the territories it covers, with their skills`);
   if (!d.coverage.length) return problems;
   const seen = new Set<string>();
   for (const c of d.coverage) {
@@ -57,6 +59,23 @@ export function coverageProblems(atlas: Atlas, d: Pick<FieldworkEntry, 'kind' | 
   const extra = [...seen].filter((s) => !d.skills.includes(s));
   if (missing.length) problems.push(`coverage: in \`skills\` but in no section: ${missing.join(', ')}`);
   if (extra.length) problems.push(`coverage: in a section but not in \`skills\`: ${extra.join(', ')}`);
+  return problems;
+}
+
+/**
+ * A quick tour has one stop per skill of its profile's coverage, in coverage order, so stepping
+ * through it walks the map section by section and leaves no skill out.
+ */
+export function tourProblems(d: Pick<FieldworkEntry, 'coverage'>, stops: string[]): string[] {
+  const problems: string[] = [];
+  const expected = d.coverage.flatMap((c) => c.skills);
+  const unknown = stops.filter((s) => !expected.includes(s));
+  const twice = stops.filter((s, i) => stops.indexOf(s) !== i);
+  const missing = expected.filter((s) => !stops.includes(s));
+  if (unknown.length) problems.push(`quick tour: a stop for ${unknown.join(', ')}, not in \`coverage\``);
+  if (twice.length) problems.push(`quick tour: more than one stop for ${[...new Set(twice)].join(', ')}`);
+  if (missing.length) problems.push(`quick tour: no stop for ${missing.join(', ')}`);
+  if (!problems.length && stops.join('|') !== expected.join('|')) problems.push('quick tour: stops out of order, expected the order of `coverage`');
   return problems;
 }
 
@@ -87,15 +106,30 @@ export function validateEditorial(atlas: Atlas, src: EditorialSources): Editoria
     const d = e.data;
     if (!('subjects' in d)) continue;
     if (d.kind === 'comparison' && d.subjects.length < 2) errors.push(`${where}: a comparison needs two or more subjects`);
-    const talk = d.kind === 'interview' || d.kind === 'profile';
-    if (talk && !d.person) errors.push(`${where}: ${d.kind === 'profile' ? 'a profile' : 'an interview'} needs a person`);
-    if (!talk && d.person) warnings.push(`${where}: person is only shown on interviews and profiles`);
-    if (d.kind === 'profile' && !d.draft && !d.placeholder) {
+    const talk = d.kind === 'interview' || isMapKind(d.kind);
+    if (talk && !d.person) errors.push(`${where}: ${A_KIND[d.kind]} needs a person`);
+    if (!talk && d.person) warnings.push(`${where}: person is only shown on interviews, profiles and podcasts`);
+    if (d.kind === 'podcast' && !d.episode) errors.push(`${where}: a podcast needs its \`episode\`: show, url, host, published, duration`);
+    if (d.kind !== 'podcast' && d.episode) warnings.push(`${where}: episode is only shown on podcasts`);
+    if (isMapKind(d.kind) && !d.draft && !d.placeholder) {
       const bare = d.coverage.flatMap((c) => c.skills.filter((s) => !c.notes[s]));
       if (bare.length) warnings.push(`${where}: no coverage note for ${bare.join(', ')}`);
     }
     for (const img of [...d.subjects.map((s) => s.logo), d.person?.avatar]) {
       if (img && !existsSync(join(ROOT, 'public', img))) errors.push(`${where}: image "${img}" is not in public/`);
+    }
+  }
+
+  for (const t of src.tours) {
+    const entry = src.fieldwork.find((e) => e.id === t.id);
+    if (!entry) errors.push(`tours/${t.id}: no fieldwork entry "${t.id}" for this quick tour`);
+    else if (!isMapKind(entry.data.kind)) errors.push(`tours/${t.id}: only profiles and podcasts have a quick tour`);
+    else for (const p of tourProblems(entry.data, t.stops)) errors.push(`fieldwork/${t.id}: ${p}`);
+  }
+  for (const e of src.fieldwork) {
+    const d = e.data;
+    if (isMapKind(d.kind) && !d.draft && !d.placeholder && !src.tours.some((t) => t.id === e.id)) {
+      warnings.push(`fieldwork/${e.id}: no quick tour (src/content/tours/${e.id}.mdx)`);
     }
   }
 

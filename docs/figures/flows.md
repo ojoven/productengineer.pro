@@ -19,7 +19,7 @@ In this file: [Flow](#flow) · [Loop](#loop) · [Sequence](#sequence) · [Journe
 
 **Not for:** A strict order between a few actors (Sequence), or a cycle (Loop). More than four columns: split the flow in two.
 
-**Atlas:** territories experience, engineering, ai; skills `user-flows`, `information-architecture`, `system-boundaries`, `system-dependencies`, `analytics-architecture`, `ai-agents`, `tool-calling`, `workflow-automation`, `ci-cd`
+**Skills Map:** territories experience, engineering, ai; skills `user-flows`, `information-architecture`, `system-boundaries`, `system-dependencies`, `analytics-architecture`, `ai-agents`, `tool-calling`, `workflow-automation`, `ci-cd`
 
 **Motion:** reveal, ambient
 
@@ -73,14 +73,14 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 ```mdx
 <Flow
-  title="How an agent reads the atlas"
+  title="How an agent reads the Skills Map"
   nodes={[
     { id: 'agent', label: 'Agent', detail: 'Any MCP client', col: 0, row: 0, kind: 'external' },
     { id: 'mcp', label: 'MCP server', detail: 'Read-only tools', col: 1, row: 0 },
     { id: 'oauth', label: 'OAuth', detail: 'Sign in and approve', col: 1, row: 1 },
     {
       id: 'atlas',
-      label: 'Atlas',
+      label: 'Skills Map',
       detail: 'Skills, resources, tools',
       col: 2,
       row: 0,
@@ -117,7 +117,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Steps that happen once. If the last stage does not lead back to the first, it is a Flow.
 
-**Atlas:** territories retention, distribution, cross-cutting; skills `core-loops`, `feedback-loops`, `referral-loops`, `habit-formation`, `network-effects`, `value-reinforcement`, `early-feedback`
+**Skills Map:** territories retention, distribution, cross-cutting; skills `core-loops`, `feedback-loops`, `referral-loops`, `habit-formation`, `network-effects`, `value-reinforcement`, `early-feedback`
 
 **Motion:** reveal, ambient
 
@@ -134,7 +134,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 ```mdx
 <Loop
-  title="The loop the atlas is betting on"
+  title="The loop the Skills Map is betting on"
   center="Weekly review"
   sub="One turn a week"
   stages={[
@@ -160,7 +160,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** More than four actors or ten messages. Branches: a sequence shows one path.
 
-**Atlas:** territories engineering, ai, operations; skills `api-design`, `authentication`, `async-systems`, `mcp`, `tool-calling`, `llm-integration`, `issue-investigation`, `support-workflows`
+**Skills Map:** territories engineering, ai, operations; skills `api-design`, `authentication`, `async-systems`, `mcp`, `tool-calling`, `llm-integration`, `issue-investigation`, `support-workflows`
 
 **Motion:** reveal
 
@@ -175,7 +175,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 ```mdx
 <Sequence
-  title="An agent connects to the atlas for the first time"
+  title="An agent connects to the Skills Map for the first time"
   actors={[
     { id: 'agent', label: 'Agent', kind: 'external' },
     { id: 'mcp', label: '/mcp' },
@@ -196,7 +196,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
     { from: 'person', to: 'auth', label: 'Approve' },
     { from: 'auth', to: 'agent', label: 'Code, then tokens', kind: 'reply' },
     { from: 'agent', to: 'mcp', label: 'Call with the token' },
-    { from: 'mcp', to: 'agent', label: 'Atlas and statuses', kind: 'reply' },
+    { from: 'mcp', to: 'agent', label: 'Skills Map and statuses', kind: 'reply' },
   ]}
   evidence="observed"
   source={'server/README.md, "How an agent connects"'}
@@ -214,7 +214,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Pretending to precision. The heights are a judgment: say whose in the caption and mark the evidence.
 
-**Atlas:** territories experience, discovery, activation; skills `journey-mapping`, `mental-models`, `cognitive-load`, `pain-points`, `expectation-setting`, `motivation`, `adoption-barriers`
+**Skills Map:** territories experience, discovery, activation; skills `journey-mapping`, `mental-models`, `cognitive-load`, `pain-points`, `expectation-setting`, `motivation`, `adoption-barriers`
 
 **Motion:** reveal
 
@@ -265,7 +265,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Events with no dates or order. Durations: a timeline marks moments, not lengths.
 
-**Atlas:** territories shipping, operations, strategy, cross-cutting; skills `incident-response`, `roadmaps`, `lifecycle-stages`, `launch-planning`, `sequencing`, `reflection`, `product-narratives`
+**Skills Map:** territories shipping, operations, strategy, cross-cutting; skills `incident-response`, `roadmaps`, `lifecycle-stages`, `launch-planning`, `sequencing`, `reflection`, `product-narratives`
 
 **Motion:** reveal
 

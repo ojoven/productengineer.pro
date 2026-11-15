@@ -15,15 +15,15 @@ const prods = Object.entries(products());
 const countFor = (id: string) => published.filter((e) => 'product' in e.data && e.data.product === id).length;
 ---
 
-<Base title="Fieldwork" description="Product reviews, maker interviews, experiments and shipped changes. Real work, connected to the skills of the atlas it used.">
+<Base title="In practice" description="Product engineering in practice: product profiles, reviews, maker interviews, experiments and shipped changes, connected to the Skills Map.">
   <div class="wrap">
-    <Crumbs items={[{ label: 'Fieldwork' }]} />
+    <Crumbs items={[{ label: 'In practice' }]} />
     <header class="page-head">
-      <div class="code-big">Fieldwork</div>
+      <div class="code-big">In practice</div>
       <h1 class="title">Real products, lessons from the work.</h1>
       <p class="lede">
         Reviews, comparisons, conversations with makers, and experiments on products I own. What I noticed,
-        what I tried, what happened and what I'd do differently. Each piece lights the skills it used on the map.
+        what I tried, what happened and what I'd do differently. Each piece lights the skills it used on the Skills Map.
       </p>
       <div class="btn-row">
         <a class="btn" href="/about/#who-writes-it">Who writes this</a>
@@ -88,6 +88,7 @@ const countFor = (id: string) => published.filter((e) => 'product' in e.data && 
         comparison: 'Two or more products doing the same job, measured the same way.',
         interview: 'One decision a maker took, from evidence to result.',
         profile: 'One product across the map, as its maker told it. Plus a section for each territory it covers.',
+        podcast: 'One product across the map, as its maker told it on a public podcast. Same sections as a profile.',
         observation: 'One thing noticed. Short. It can grow into a review or an experiment.',
         experiment: 'A change with a hypothesis, a metric and a decision.',
         improvement: 'Something shipped without a controlled test, and what it changed.',

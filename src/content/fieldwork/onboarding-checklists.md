@@ -18,7 +18,7 @@ The observation, with a screenshot. Keep it short: a few paragraphs at most.
 
 ## Why it matters
 
-Which users it affects and what it costs them. Link the atlas skills it touches.
+Which users it affects and what it costs them. Link the skills it touches on the Skills Map.
 
 ## What I take from it
 

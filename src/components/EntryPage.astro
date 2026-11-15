@@ -1,7 +1,7 @@
 ---
 // One fieldwork entry. The same frame for every kind: facts first, then the body in its
 // fixed sections, then the entries it connects to. The map lights the skills it used, in order.
-import { render } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Crumbs from './Crumbs.astro';
 import MapFigure from './MapFigure.astro';
@@ -9,7 +9,7 @@ import SkillRows from './SkillRows.astro';
 import EntryFacts from './EntryFacts.astro';
 import EntryRows from './EntryRows.astro';
 import EntryHeading from './EntryHeading.astro';
-import { entryComponents } from './entry.ts';
+import QuickTour from './tour/QuickTour.astro';
 import { atlas, skill } from '../lib/atlas.ts';
 import { KIND, author, connected, entryImage, formatDate, itemDate, readingMinutes, type Item } from '../lib/editorial.ts';
 import { SITE } from '../site.ts';
@@ -26,17 +26,27 @@ const { Content, headings } = await render(entry);
 const skills = d.skills.map(skill);
 const coverage = entryCoverage(atlas(), entry, headings);
 const grouped = coverage.sections.length > 0;
-// Section headings and <MapSummary /> in the body read the resolved coverage from here.
+// Section headings and the quick tour stops read the resolved coverage from here.
 Astro.locals.coverage = grouped ? coverage : undefined;
 const index = headings.filter((h) => h.depth === 2 && h.text !== 'On the map');
+// A profile's quick tour replaces the side map: src/content/tours/<id>.mdx
+const tour = grouped ? (await getCollection('tours')).find((t) => t.id === entry.id) : undefined;
+const Tour = tour ? (await render(tour)).Content : undefined;
 const minutes = readingMinutes(entry);
 const links = await connected(entry);
 const me = author();
-const section = 'Fieldwork';
+const section = 'In practice';
 const updated = 'updated' in entry.data ? entry.data.updated : undefined;
 const reviewer = 'person' in entry.data ? entry.data.person?.name : undefined;
 const subjects = 'subjects' in d ? d.subjects : [];
 const person = 'person' in d ? d.person : undefined;
+const episode = 'episode' in d ? d.episode : undefined;
+/** "1:30:46" → "PT1H30M46S". */
+const isoDuration = (t: string) => {
+  const p = t.split(':').map(Number);
+  const [h, m, s] = p.length === 3 ? p : [0, p[0], p[1]];
+  return `PT${h ? `${h}H` : ''}${m}M${s}S`;
+};
 const image = entryImage(entry);
 const pageUrl = new URL(`/fieldwork/${entry.id}/`, SITE.url).href;
 const abs = (p?: string) => (p ? new URL(p, SITE.url).href : undefined);
@@ -54,6 +64,7 @@ const jsonld = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: d.title,
+  articleSection: section,
   description: d.summary,
   url: pageUrl,
   mainEntityOfPage: pageUrl,
@@ -73,6 +84,18 @@ const jsonld = {
     ...(s.maker && { creator: person && person.name === s.maker ? maker : { '@type': 'Person', name: s.maker } }),
   })),
   ...(maker && { mentions: [maker] }),
+  ...(episode && {
+    isBasedOn: {
+      '@type': 'PodcastEpisode',
+      ...(episode.title && { name: episode.title }),
+      url: episode.url,
+      datePublished: episode.published,
+      duration: isoDuration(episode.duration),
+      ...(episode.language && { inLanguage: episode.language }),
+      partOfSeries: { '@type': 'PodcastSeries', name: episode.show },
+      actor: [{ '@type': 'Person', name: episode.host, ...(episode.hostUrl && { url: episode.hostUrl }) }, ...(maker ? [maker] : [])],
+    },
+  }),
   keywords: skills.map((s) => s.name).join(', '),
 };
 ---
@@ -89,8 +112,8 @@ const jsonld = {
 >
   <div class="wrap">
     <Crumbs items={[{ href: '/fieldwork/', label: section }, { label: d.title }]} />
-    <div class="cols" style="margin-top:8px">
-      <article>
+    <article class="cols entry-cols" style="margin-top:8px">
+      <div class="entry-top">
         <header class="page-head">
           <div class="code-big">{section} · {KIND[d.kind]}</div>
           <h1 class="title">{d.title}</h1>
@@ -151,7 +174,31 @@ const jsonld = {
         }
 
         <EntryFacts entry={entry} />
+      </div>
 
+      <aside class:list={['entry-side', Tour && 'has-tour']} aria-label={Tour ? 'Quick tour' : grouped ? 'Skills discussed' : 'Skills used'}>
+        {Tour ? (
+          <QuickTour coverage={coverage} product={subjects[0]?.name ?? d.title} Content={Tour} />
+        ) : (
+          <div class="sticky-map">
+            <div class="pane-head"><span class="label">{grouped ? 'Skills discussed' : 'Skills used'}</span><span class="label">{skills.length}{!grouped && ' · in order'}</span></div>
+            <MapFigure lit={d.skills} width={520} height={grouped ? 340 : 420} legend={false} />
+            {grouped ? (
+              <nav class="coverage-nav" aria-label="Territories discussed">
+                {coverage.sections.map((c) => (
+                  <a href={c.anchor} title={c.note ?? c.section}>
+                    <span class="entry-index-code">{c.territory?.code ?? '·'}</span>
+                    <span>{c.territory?.name ?? c.section}{c.scope === 'general' && <small> · Wider discussion</small>}</span>
+                    <span class="label">{c.skills.length}</span>
+                  </a>
+                ))}
+              </nav>
+            ) : <SkillRows skills={skills} compact />}
+          </div>
+        )}
+      </aside>
+
+      <div class="entry-main">
         {grouped && (
           <nav class="entry-index" aria-label="In this profile">
             <div class="pane-head"><span class="label">In this profile</span><span class="label">By territory</span></div>
@@ -166,7 +213,7 @@ const jsonld = {
 
         <div class="article">
           {/* .mdx entries can use every figure by name: see docs/figures.md */}
-          <Content components={{ ...figures, ...entryComponents, h2: EntryHeading }} />
+          <Content components={{ ...figures, h2: EntryHeading }} />
         </div>
 
         {
@@ -180,30 +227,54 @@ const jsonld = {
             </section>
           )
         }
-      </article>
-
-      <aside aria-label={grouped ? 'Skills discussed' : 'Skills used'} style="padding-top:28px">
-        <div class="sticky-map">
-          <div class="pane-head"><span class="label">{grouped ? 'Skills discussed' : 'Skills used'}</span><span class="label">{skills.length}{!grouped && ' · in order'}</span></div>
-          <MapFigure lit={d.skills} width={520} height={grouped ? 340 : 420} legend={false} />
-          {grouped ? (
-            <nav class="coverage-nav" aria-label="Territories discussed">
-              {coverage.sections.map((c) => (
-                <a href={c.anchor} title={c.note ?? c.section}>
-                  <span class="entry-index-code">{c.territory?.code ?? '·'}</span>
-                  <span>{c.territory?.name ?? c.section}{c.scope === 'general' && <small> · Wider discussion</small>}</span>
-                  <span class="label">{c.skills.length}</span>
-                </a>
-              ))}
-            </nav>
-          ) : <SkillRows skills={skills} compact />}
-        </div>
-      </aside>
-    </div>
+      </div>
+    </article>
   </div>
 </Base>
 
 <style>
+  /* header and body in the first column; the side column spans both, so its content can stick */
+  .entry-cols {
+    grid-template-rows: auto 1fr;
+  }
+  .entry-top {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .entry-main {
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+  }
+  .entry-side {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    padding-top: 28px;
+    min-width: 0;
+  }
+  .entry-side.has-tour > :global(.qt:not(.is-full)) {
+    position: sticky;
+    top: calc(var(--head) + 16px);
+  }
+  @media (max-width: 900px) {
+    .entry-top,
+    .entry-main,
+    .entry-side {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    /* the side map of other entries stays after the body; a tour opens right under the facts */
+    .entry-side:not(.has-tour) {
+      order: 3;
+    }
+    .entry-side.has-tour {
+      padding-top: 12px;
+    }
+    .entry-side.has-tour > :global(.qt:not(.is-full)) {
+      position: static;
+    }
+  }
   .entry-people {
     display: flex;
     flex-wrap: wrap;

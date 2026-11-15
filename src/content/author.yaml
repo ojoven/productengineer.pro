@@ -9,7 +9,7 @@ photo: /img/mikel.jpg
 intro:
   - I'm Mikel, a full-stack engineer and tech lead from Donostia. I have built software for more than fifteen years, most of it with real users on the other side and a date that could not move.
   - I started building my own products in 2009 and I still do. At Majestic I have shipped campaigns and platforms for global brands, and helped the team grow from 8 to 23 people.
-  - Fieldwork is the record behind the atlas. What I built, the decisions I made, the experiments I run on my own products and what came out of them. Where something is not measured yet, it says so.
+  - In practice is the record behind the Skills Map. What I built, the decisions I made, the experiments I run on my own products and what came out of them. Where something is not measured yet, it says so.
 
 links:
   - label: LinkedIn
@@ -95,7 +95,7 @@ background:
     text: Full-stack engineer and technical lead. Campaigns and platforms for global brands, working remotely with teams in Toronto, New York and Chicago.
   - years: 2026 – now
     title: ProductEngineer.pro
-    text: The atlas, plus fieldwork and experiments on my own products, written up here.
+    text: The Skills Map, plus product profiles and experiments on my own products in In practice.
 
 next:
   - label: Operating models

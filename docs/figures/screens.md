@@ -19,7 +19,7 @@ In this file: [Shot](#shot) · [ScreenSteps](#screensteps) · [BeforeAfter](#bef
 
 **Not for:** A sequence of screens: use ScreenSteps. More than five pins: the screen is doing too much for one figure.
 
-**Atlas:** territories experience, activation; skills `visual-hierarchy`, `affordances`, `empty-states`, `interface-feedback`, `landing-experience`, `microcopy`, `trust-signals`
+**Skills Map:** territories experience, activation; skills `visual-hierarchy`, `affordances`, `empty-states`, `interface-feedback`, `landing-experience`, `microcopy`, `trust-signals`
 
 **Motion:** reveal
 
@@ -75,7 +75,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Screens that are not a sequence. For two versions of one screen use BeforeAfter.
 
-**Atlas:** territories activation, experience; skills `first-run-flows`, `signup-flow`, `step-reduction`, `aha-moments`, `first-successful-task`, `user-flows`, `task-analysis`, `guided-setup`, `decision-friction`
+**Skills Map:** territories activation, experience; skills `first-run-flows`, `signup-flow`, `step-reduction`, `aha-moments`, `first-successful-task`, `user-flows`, `task-analysis`, `guided-setup`, `decision-friction`
 
 **Motion:** reveal, interactive
 
@@ -103,7 +103,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
       note: 'Says what it is and who it is for.',
     },
     {
-      title: 'The atlas',
+      title: 'The Skills Map',
       src: '/img/figures/p2-atlas.webp',
       time: 8,
       note: 'The whole map at once. Nothing to fill in.',
@@ -180,7 +180,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Screens with different layouts: put two Shots one after the other.
 
-**Atlas:** territories experience, shipping; skills `product-changes`, `friction-reduction`, `form-friction`, `visual-hierarchy`, `responsive-design`, `release-communication`
+**Skills Map:** territories experience, shipping; skills `product-changes`, `friction-reduction`, `form-friction`, `visual-hierarchy`, `responsive-design`, `release-communication`
 
 **Motion:** interactive
 
@@ -226,7 +226,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** One measure only (Bars), or pass and fail across many cases (CheckGrid).
 
-**Atlas:** territories discovery, strategy; skills `competitive-analysis`, `substitutes`, `category-conventions`, `differentiation`, `packaging`, `pricing`
+**Skills Map:** territories discovery, strategy; skills `competitive-analysis`, `substitutes`, `category-conventions`, `differentiation`, `packaging`, `pricing`
 
 **Motion:** reveal
 
@@ -266,7 +266,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 - AI work: a prompt or a context window, part by part.
 - Content design: a line of microcopy, an error message, a landing-page headline, an email.
 
-**Atlas:** territories ai, experience, distribution; skills `prompt-context-engineering`, `structured-outputs`, `microcopy`, `plain-language`, `instructional-copy`, `product-terminology`, `messaging`
+**Skills Map:** territories ai, experience, distribution; skills `prompt-context-engineering`, `structured-outputs`, `microcopy`, `plain-language`, `instructional-copy`, `product-terminology`, `messaging`
 
 **Motion:** reveal
 

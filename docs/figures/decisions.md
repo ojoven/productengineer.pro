@@ -17,7 +17,7 @@ In this file: [Hypothesis](#hypothesis) · [JobStory](#jobstory) · [Matrix](#ma
 - Experiment, "Context" or "How I measured": written before looking at the result.
 - Review and comparison, "What I would test": one figure per hypothesis.
 
-**Atlas:** territories measurement, activation, discovery; skills `hypotheses`, `experiment-guardrails`, `assumption-mapping`, `activation-experiments`, `deciding-under-uncertainty`
+**Skills Map:** territories measurement, activation, discovery; skills `hypotheses`, `experiment-guardrails`, `assumption-mapping`, `activation-experiments`, `deciding-under-uncertainty`
 
 **Motion:** reveal
 
@@ -54,7 +54,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 - Review and comparison, "Who it is for" and "The shared job".
 - Case study, "Context": the user and the progress they were after.
 
-**Atlas:** territories discovery, strategy; skills `jobs-to-be-done`, `user-motivations`, `context-of-use`, `problem-statements`, `value-proposition`, `target-audience`
+**Skills Map:** territories discovery, strategy; skills `jobs-to-be-done`, `user-motivations`, `context-of-use`, `problem-statements`, `value-proposition`, `target-audience`
 
 **Motion:** reveal
 
@@ -91,7 +91,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Positions you cannot defend. If the placement is a feeling, say so in the caption or use a list.
 
-**Atlas:** territories strategy, discovery, cross-cutting; skills `impact-effort`, `opportunity-assessment`, `assumption-mapping`, `evidence-strength`, `product-risk`, `problem-severity`, `sequencing`
+**Skills Map:** territories strategy, discovery, cross-cutting; skills `impact-effort`, `opportunity-assessment`, `assumption-mapping`, `evidence-strength`, `product-risk`, `problem-severity`, `sequencing`
 
 **Motion:** reveal
 
@@ -138,7 +138,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
     { label: 'Engineers want a map of the discipline', x: 0.15, y: 0.9, pick: true },
     { label: 'A weekly review brings people back', x: 0.2, y: 0.62 },
     { label: 'LinkedIn reaches them', x: 0.4, y: 0.45 },
-    { label: 'The atlas loads fast enough', x: 0.9, y: 0.3 },
+    { label: 'The Skills Map loads fast enough', x: 0.9, y: 0.3 },
   ]}
   evidence="assumed"
 />
@@ -155,7 +155,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** A good thing against a bad thing. Both ends must be worth having, or it is not a trade-off.
 
-**Atlas:** territories cross-cutting, strategy, engineering; skills `tradeoffs`, `technical-tradeoffs`, `opportunity-cost`, `differentiation`, `competitive-advantage`, `balancing-signals`, `second-order-effects`
+**Skills Map:** territories cross-cutting, strategy, engineering; skills `tradeoffs`, `technical-tradeoffs`, `opportunity-cost`, `differentiation`, `competitive-advantage`, `balancing-signals`, `second-order-effects`
 
 **Motion:** reveal
 
@@ -206,7 +206,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 - Experiment and improvement, "What I built" and "What I shipped": the smallest version worth learning from.
 - Review and comparison, "Scope": what I looked at and what I left out.
 
-**Atlas:** territories strategy, shipping, cross-cutting; skills `scope-cutting`, `mvp`, `smallest-valuable-increment`, `vertical-slicing`, `small-batches`, `challenging-requirements`
+**Skills Map:** territories strategy, shipping, cross-cutting; skills `scope-cutting`, `mvp`, `smallest-valuable-increment`, `vertical-slicing`, `small-batches`, `challenging-requirements`
 
 **Motion:** reveal
 
@@ -253,7 +253,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 - Review, "Where it loses people": what I saw apart from what I guess about other users.
 - Experiment, "Context": the evidence that the problem is real, and what is still an assumption.
 
-**Atlas:** territories cross-cutting, discovery, measurement; skills `evidence-vs-assumptions`, `evidence-strength`, `research-synthesis`, `verification`, `cognitive-biases`, `causal-reasoning`
+**Skills Map:** territories cross-cutting, discovery, measurement; skills `evidence-vs-assumptions`, `evidence-strength`, `research-synthesis`, `verification`, `cognitive-biases`, `causal-reasoning`
 
 **Motion:** reveal
 
@@ -306,7 +306,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Your own conclusions. A quote is reported evidence, not a pull quote of the article.
 
-**Atlas:** territories discovery, measurement, retention; skills `user-interviews`, `research-synthesis`, `pain-points`, `feedback-analysis`, `usage-observation`, `support-insights`
+**Skills Map:** territories discovery, measurement, retention; skills `user-interviews`, `research-synthesis`, `pain-points`, `feedback-analysis`, `usage-observation`, `support-insights`
 
 **Motion:** reveal
 
@@ -340,7 +340,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Not for:** Before the result exists. A running experiment shows the Hypothesis, not a pending verdict.
 
-**Atlas:** territories measurement, cross-cutting; skills `iterate-expand-stop`, `interpreting-results`, `balancing-signals`, `reversible-decisions`, `accountability`
+**Skills Map:** territories measurement, cross-cutting; skills `iterate-expand-stop`, `interpreting-results`, `balancing-signals`, `reversible-decisions`, `accountability`
 
 **Motion:** reveal
 

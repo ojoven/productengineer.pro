@@ -1,0 +1,508 @@
+{/* Quick tour of /fieldwork/zernio/. One <Stop> per skill of the coverage, in the same order.
+    Facts as in the profile: Miquel's numbers from the episode, product facts from zernio.com (15 Nov 2026).
+    <Hot> marks my opinion. */}
+
+<Stop skill="unmet-needs">
+The need is not "post to Instagram". It is "let my users post to Instagram from my product", and for that Meta first has to approve your app. **Zernio sells the approval, not the posting.**
+
+<JobStory
+  who="A SaaS product team"
+  when="we decide our users should post, reply and run ads from inside our product"
+  want="connect their Instagram, TikTok and ad accounts without our own review with each platform"
+  so="the feature ships without weeks of waiting per network."
+  today="One developer app and one review per platform"
+/>
+</Stop>
+
+<Stop skill="domain-constraints">
+Every platform has its own gate. Meta wants a screencast and about 14 days per permission. YouTube caps uploads until you ask for more. WhatsApp charges for templates outside a 24-hour window. Most of Zernio's product is these rules, gone through once.
+
+<Bars
+  title="Two of the waits Zernio took on for its customers"
+  unit=" days"
+  items={[
+    { label: "Meta's app review, per permission", value: 14 },
+    { label: 'Raising its YouTube upload quota', value: 180, highlight: true, note: 'Six months, in his words' },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode"
+/>
+</Stop>
+
+<Stop skill="substitutes">
+The alternatives are building each integration in-house, or connectors like Zapier and n8n. Both reach the same platforms, and both leave you with your own developer app and your own reviews.
+
+<Compare
+  subjects={['In-house, Zapier or n8n', 'Zernio']}
+  highlight={1}
+  rows={[
+    { label: 'Your own developer app', values: [true, false], best: 1 },
+    { label: 'Who waits for the reviews', values: ['You', 'Zernio, once'], best: 1 },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode"
+/>
+</Stop>
+
+<Stop skill="competitive-analysis">
+He sorts rivals by who they serve. Metricool is the finished tool for marketers. Ayrshare was the direct rival, owned the search results and, as he tells it, moved slowly. Twilio has sold the same model for WhatsApp for years.
+
+<Hot>Twilio is the comparison that matters. It shows the model can last for years, and that it lasts as long as the platform allows it.</Hot>
+</Stop>
+
+<Stop skill="ideal-customer-profile">
+Three kinds of customer, in his order: SaaS products that embed Zernio white-labelled (often AI apps that make images and want to publish them), agencies with their own platform, and last, people managing their own accounts.
+
+<Quote
+  text="Our customers are not marketers. Our customer is a developer whose product team has said: let's build this integration."
+  who="Miquel Palet"
+  context="On who Zernio is for"
+/>
+</Stop>
+
+<Stop skill="revenue-models">
+Three ways of charging in its first year. Each one fitted the stage: one-off money when there were no users, plans once there were some, usage once the biggest customers kept growing.
+
+<Timeline
+  events={[
+    { when: 'Aug 2025', title: 'Lifetime licences on AppSumo', kind: 'ship', note: 'About 2,000 of them.' },
+    { when: 'Aug 2025', title: 'Plans by connected accounts', kind: 'decision', note: '50, 500 or unlimited.' },
+    { when: 'Feb 2026', title: 'Pay per use', kind: 'decision', note: 'Around then: a fee per account, message and number.' },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode"
+/>
+
+<Hot>Lifetime deals usually haunt a SaaS: users who never pay again. Here they paid for the first ads and the first hire, at the one moment nothing else would.</Hot>
+</Stop>
+
+<Stop skill="pricing">
+Per connected account: two free with no card, then $6 a month each up to ten, $3 up to a hundred and $1 beyond. Messages, numbers and managed ads are metered on top.
+
+<Bars
+  title="Price per connected account, per month"
+  unit=" USD"
+  items={[
+    { label: 'Accounts 1 and 2', value: 0, note: 'No card' },
+    { label: '3 to 10', value: 6 },
+    { label: '11 to 100', value: 3 },
+    { label: '101 and up', value: 1, highlight: true },
+  ]}
+  evidence="observed"
+  source="zernio.com/pricing, read 15 Nov 2026"
+/>
+
+<Hot>The price per account falls as a customer grows, and the bill still grows with them. No ceiling for Zernio, no penalty for growing.</Hot>
+</Stop>
+
+<Stop skill="costs-and-margins">
+About 87% gross margin, "without having optimised anything". The costs that grow with use are hosting, now moving from Vercel to Cloudflare, and X's paid API, which Zernio passes through at cost.
+
+<Hot>87% before any optimising is what selling approvals instead of compute looks like.</Hot>
+</Stop>
+
+<Stop skill="product-risk">
+Bernat named two risks: the platforms could cut Zernio out, and the biggest customers could build it themselves. For the first, Miquel stays compliant and gets as close to each platform as he can.
+
+<Claims
+  claims={[
+    { text: 'No integrator has replaced Zernio with its own build', evidence: 'reported', source: '"Not that I know of"' },
+    { text: 'Meta lets Twilio charge on top of WhatsApp fees', evidence: 'reported' },
+    { text: 'Meta will allow the same on Instagram', evidence: 'assumed', source: '"Meta will decide"' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="competitive-advantage">
+By his own account, mapping endpoints is easy to copy. Approved apps, raised quotas and the relationship with each platform are not.
+
+<Hot>When code is cheap, the advantage moves to whatever still takes calendar time. Zernio's is months of reviews, and one YouTube quota alone took six.</Hot>
+</Stop>
+
+<Stop skill="scope-cutting">
+The obvious next product is a scheduler for marketers, the kind of tool its customers build. He will not build it.
+
+<ScopeCut
+  kept={[
+    'One API for posting, messaging and ads',
+    { text: 'MCP server and CLI', note: 'Generated from the API' },
+    { text: 'A dashboard', note: 'Logs, keys and usage, for debugging' },
+  ]}
+  cut={[{ text: 'A tool of its own for marketers', note: 'It would compete with its customers, with a different churn and sale' }]}
+/>
+</Stop>
+
+<Stop skill="roadmaps">
+This year Zernio added ads, WhatsApp, phone numbers and commerce APIs, often because integrators asked. Ads are about 15% of accounts and the most requested, and few APIs cover them.
+
+<Loop
+  title="How a new channel gets in"
+  center="Roadmap"
+  sub="Set by integrators"
+  motion={false}
+  stages={[
+    { label: 'An integrator asks', note: 'A channel or an API' },
+    { label: 'Would others use it?', note: 'Built when the rest of the users would', tone: 'signal' },
+    { label: 'Ship it in the API', note: 'MCP and CLI follow on their own' },
+    { label: 'It bills itself', note: 'Metered, no new checkout', tone: 'lit' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="api-design">
+One posts endpoint for every network. Analytics stored and refreshed on Zernio's side, so one call returns a week across all of a user's accounts. And a rule on the site: if it is not in the API, it does not ship.
+
+<Sequence
+  actors={[
+    { id: 'app', label: 'Your product' },
+    { id: 'z', label: 'Zernio' },
+    { id: 'p', label: '16 networks', kind: 'external' },
+  ]}
+  messages={[
+    { from: 'app', to: 'z', label: 'One post, every account' },
+    { from: 'z', to: 'p', label: 'Publish on each network' },
+    { from: 'p', to: 'z', label: 'Comments, messages', kind: 'reply' },
+    { from: 'z', to: 'app', label: 'One event shape', kind: 'reply' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="scalability">
+About 100,000 posts a day, plus a constant stream of webhooks coming back from the platforms.
+
+<StatRow
+  stats={[
+    { value: '100k', label: 'Posts a day', signal: true },
+    { value: 16, label: 'Social networks' },
+    { value: 9, label: 'Ad networks' },
+  ]}
+  evidence="reported"
+  source="Posts: Miquel on the episode. Networks: zernio.com, 15 Nov 2026"
+/>
+
+<Hot>zernio.com/open shows production numbers, failures included. For an API that is the best sales page there is: developers buy reliability, and that page shows it.</Hot>
+</Stop>
+
+<Stop skill="async-systems">
+Platform events used to run on cron jobs, "not a good way to handle many events". They were the first thing moved to Cloudflare queues, before the rest of the API.
+
+<Compare
+  subjects={['Before', 'Now']}
+  highlight={1}
+  rows={[
+    { label: 'Platform events', values: ['Cron jobs', 'Queues'] },
+    { label: 'Runs on', values: ['Vercel', 'Cloudflare'] },
+  ]}
+/>
+</Stop>
+
+<Stop skill="mcp">
+"The MCP is a wrapper of the API that we generate automatically when the API is generated." So is the CLI. Every new endpoint reaches agents the day it ships, at no extra cost.
+
+<Flow
+  stages={['Written once', 'Generated', 'Used by']}
+  motion={false}
+  nodes={[
+    { id: 'api', label: 'Zernio API', detail: 'The source', col: 0, row: 0, tone: 'lit' },
+    { id: 'mcp', label: 'MCP server', detail: '496 tools', col: 1, row: 0 },
+    { id: 'cli', label: 'CLI', detail: '371 commands', col: 1, row: 1 },
+    { id: 'agents', label: 'Agents', detail: 'Claude, Codex...', col: 2, row: 0, kind: 'external' },
+    { id: 'scripts', label: 'Terminal', detail: 'People and scripts', col: 2, row: 1, kind: 'external' },
+  ]}
+  edges={[
+    { from: 'api', to: 'mcp' },
+    { from: 'api', to: 'cli' },
+    { from: 'mcp', to: 'agents' },
+    { from: 'cli', to: 'scripts' },
+  ]}
+  evidence="observed"
+  source="Tool and command counts from zernio.com, 15 Nov 2026"
+/>
+
+<Hot>For an API company, generating the MCP server from the API is the right agent strategy: one source of truth, nothing to keep in sync.</Hot>
+</Stop>
+
+<Stop skill="ai-agents">
+End users mostly come through MCP, checking their posts and campaigns from Claude or Codex. Some customers sell marketing on autopilot built on Zernio. The home page shows seven coding agents before any code sample.
+
+<Hot>End users bring 2% of the revenue today. If more people run their marketing from an agent, that is the segment where it would show first.</Hot>
+</Stop>
+
+<Stop skill="delegating-to-agents">
+He answered the launch's support tickets with Claude, and Claude writes the migrations. Asked what money would do for the product, he said more people was not the answer: better processes are.
+
+<Sequence
+  title="The loop they want out of"
+  actors={[
+    { id: 'c', label: 'Customer', kind: 'external' },
+    { id: 'm', label: 'The team' },
+    { id: 'ai', label: 'Claude' },
+  ]}
+  messages={[
+    { from: 'c', to: 'm', label: 'A question' },
+    { from: 'm', to: 'ai', label: 'The same question' },
+    { from: 'ai', to: 'm', label: 'An answer', kind: 'reply' },
+    { from: 'm', to: 'c', label: 'The same answer', kind: 'reply', tone: 'signal', note: '"We are trying to improve our processes so that we are not the meat proxy between Claude and our customers."' },
+  ]}
+  caption="My drawing of his phrase, not a process he described step by step."
+/>
+</Stop>
+
+<Stop skill="support-workflows">
+Support grew with the launch, and so did who answers it.
+
+<Timeline
+  events={[
+    { when: 'Aug 2025', title: '300 tickets a day', kind: 'problem', note: 'Miquel answers them, with Claude.' },
+    { when: '3 months in', title: 'Pau joins', kind: 'decision', note: 'The first hire, a developer. They take turns.' },
+    { when: 'Third hire', title: 'Elean, only support', kind: 'decision', note: 'A developer on support full time.' },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode"
+/>
+
+<Hot>A developer on support, not an agent and not a support rep. For an API, answering means reading logs and code, so that hire is as much product as support.</Hot>
+</Stop>
+
+<Stop skill="infrastructure-costs">
+"Vercel at our scale is very expensive." The queues moved to Cloudflare first; the whole API is next.
+
+<Hot>Vercel is a fine first host. Moving when the bill says so, and not before, is the order I would choose too.</Hot>
+</Stop>
+
+<Stop skill="platform-upgrades">
+The move to Cloudflare has one requirement: zero downtime, and not a single user noticing. Claude writes the migrations; someone on the team makes sure nobody notices.
+
+<Hot>The episode did not say how they test it. With 100,000 posts a day, I would run both hosts on a slice of the traffic before switching it all.</Hot>
+</Stop>
+
+<Stop skill="cost-to-serve">
+A free account costs Zernio little. X is the exception: its API is paid, so connecting X asks for a card and Zernio passes the cost through.
+
+<Compare
+  subjects={['Other social networks', 'X']}
+  rows={[
+    { label: 'Card needed to connect', values: [false, true] },
+    { label: 'Platform API cost', values: ['None', 'Passed through at cost'] },
+  ]}
+  evidence="reported"
+  source="Miquel on the episode; zernio.com/pricing, 15 Nov 2026"
+/>
+
+<Hot>Ask for a card only where the cost is real, and the free plan stays free for everything else. A good rule for any free tier: gate on marginal cost, not on features.</Hot>
+</Stop>
+
+<Stop skill="launch-planning">
+Launched on AppSumo on 5 August 2025. Posting the launch on LinkedIn and the like did little: "nobody cares, your ideal customer is not there". AppSumo writes to its own list of buyers.
+
+<StatRow
+  stats={[
+    { value: '~2,000', label: 'Lifetime licences' },
+    { value: '$200k+', label: 'Sales' },
+    { value: '~$100k', label: 'For Zernio', signal: true },
+    { value: 90, label: 'Days to get paid' },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode"
+/>
+</Stop>
+
+<Stop skill="discovery-platforms">
+Zapier and Make integrations, built partly for the link. Paid spots in "best Meta API" rankings. Both put Zernio where developers compare options.
+
+<Hot>An integration doubles as a listing: a Zapier app is a page on a domain that Google and AI answers already trust.</Hot>
+</Stop>
+
+<Stop skill="seo">
+About 40% of new business comes from organic Google, on long-tail searches like "social media API" or "Meta app review". Ayrshare owned those; Zernio now ranks above it on many.
+
+<Quote
+  text="Try searching 'Late API' and you'll understand: generic words make terrible brand names."
+  who="zernio.com/rebrand"
+  context="On why Late became Zernio"
+/>
+
+<Hot>A name you can search for is SEO work too. "Late" was a word; "Zernio" is a result.</Hot>
+</Stop>
+
+<Stop skill="content-marketing">
+A writer outside the team writes only blog posts, meant to be useful. Miquel learned the limit on an earlier product.
+
+<Compare
+  subjects={['His invoice tool', 'Zernio']}
+  highlight={1}
+  rows={[
+    { label: 'Blog posts', values: ['50,000, written by AI', 'By one writer'] },
+    { label: 'Written for', values: ['Volume', 'Being useful'] },
+    { label: 'In Google', values: ['Dropped from the index', 'Above Ayrshare on many searches'], best: 1 },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode"
+/>
+</Stop>
+
+<Stop skill="channel-performance">
+Organic search and paid carry most of the growth. Competitor keywords convert cheapest, which explains the comparison pages and, for Ayrshare's users, a drop-in SDK with the same method signatures.
+
+<StatRow
+  stats={[
+    { value: '40%', label: 'New business from organic search' },
+    { value: '~25%', label: 'New MRR from paid', signal: true },
+    { value: '€50–60k', label: 'Paid spend a month' },
+    { value: '70%', label: 'Of it on Google' },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode"
+/>
+
+<Hot>The two shares are on different bases, new business and new MRR, so they do not add up to a channel mix. A source tagged at signup would.</Hot>
+</Stop>
+
+<Stop skill="customer-acquisition-cost">
+About €20 per paying customer, blended, for about €50 a month of revenue. Paid on its own takes about ten months to pay back.
+
+<Bars
+  title="Months for a customer to pay back what it cost"
+  unit=" months"
+  digits={1}
+  items={[
+    { label: 'Blended, all channels', value: 0.4, note: '€20 against €50 a month' },
+    { label: 'Paid alone', value: 10, highlight: true },
+  ]}
+  evidence="reported"
+  source="Miquel's numbers. The blended payback is my arithmetic, before margin."
+/>
+
+<Hot>A blended cost this low mostly measures search and word of mouth. The paid number is the one that decides how much more to spend.</Hot>
+</Stop>
+
+<Stop skill="sustainable-growth">
+If a customer costs €20 and pays €50 a month, Bernat asked, why not spend more? Because paid is "a bit out of control". The ninth hire, Biel, runs Zernio's own ads through Zernio's own API, so that one day he can manage €10M as he now manages €50,000. More spend comes next month.
+
+<Hot>Hiring someone to run your ads through your own product is growth and dogfooding in one person.</Hot>
+</Stop>
+
+<Stop skill="self-serve-adoption">
+No salesperson until a customer is big. Everything before that is self-serve.
+
+<Flow
+  motion={false}
+  nodes={[
+    { id: 'sign', label: 'Sign up', detail: 'No card', col: 0, row: 0 },
+    { id: 'two', label: 'Two accounts', detail: 'Free', col: 1, row: 0, tone: 'lit' },
+    { id: 'more', label: 'Account three', detail: '$6 a month each', col: 2, row: 0 },
+    { id: 'sales', label: 'Sales', detail: 'Past 2,000 accounts', col: 3, row: 0, kind: 'external' },
+  ]}
+  edges={[
+    { from: 'sign', to: 'two' },
+    { from: 'two', to: 'more' },
+    { from: 'more', to: 'sales', dashed: true },
+  ]}
+/>
+</Stop>
+
+<Stop skill="churn-analysis">
+9% blended, down from 15 to 16%. About 2% for integrators and about 17% for end users. He did not give the period; with €50 a month and a €700 lifetime value, it reads as monthly.
+
+<Bars
+  title="How long a customer stays, if the churn is monthly"
+  unit=" months"
+  items={[
+    { label: 'Integrators, 2%', value: 50, highlight: true },
+    { label: 'All customers, 9%', value: 11 },
+    { label: 'End users, 17%', value: 6 },
+  ]}
+  evidence="reported"
+  source="Churn from Miquel on the episode. Months are my arithmetic: one divided by the churn."
+/>
+</Stop>
+
+<Stop skill="recurring-needs">
+The review is not a one-off. Adding ads means another review with Meta; posting more videos means another quota increase with YouTube.
+
+<Loop
+  center="Integrator"
+  sub="Every new feature"
+  motion={false}
+  stages={[
+    { label: 'Plans a feature', note: 'Ads, more videos, messages' },
+    { label: 'Needs a new permission', note: 'Or a higher quota', tone: 'signal' },
+    { label: 'Faces another review', note: 'Weeks, or months' },
+    { label: 'Zernio already has it', tone: 'lit' },
+  ]}
+/>
+
+<Hot>The best retention mechanism in either profile: the customer's own roadmap brings the need back.</Hot>
+</Stop>
+
+<Stop skill="behavioral-segmentation">
+The weekend before the recording, he split users by use case for the first time.
+
+<StatRow
+  stats={[
+    { value: '50%', label: 'Of MRR from integrators', note: 'From 2% of signups' },
+    { value: '2%', label: 'Of MRR from end users', note: 'From 50% of signups' },
+    { value: '625×', label: 'MRR per signup, integrator against end user', signal: true },
+  ]}
+  evidence="reported"
+  source={'Shares as he rounded them ("maybe 2%", "about 50%"). The ratio is my arithmetic: (50 ÷ 2) ÷ (2 ÷ 50).'}
+/>
+</Stop>
+
+<Stop skill="balancing-signals">
+Bernat pushed: the loudest users bring 2% of the revenue, so say "for integrators" on the home page. Miquel: end users cost nothing extra and they bring reviews and word of mouth. He agreed it will probably go Bernat's way.
+
+<Hot>Both can be right, and the data can settle it: count how many integrators first heard of Zernio from an end user. If few do, Bernat wins.</Hot>
+</Stop>
+
+<Stop skill="revenue-metrics">
+Net MRR expansion, what existing customers add each month, is the main metric.
+
+<StatRow
+  stats={[
+    { value: '~€5M', label: 'ARR, 13 months after launch' },
+    { value: '+€1M', label: 'ARR added a month', signal: true },
+    { value: '87%', label: 'Gross margin' },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode"
+/>
+
+<Hot>Expansion as the main metric only works because the price is per account. Under the old plans it would have counted upgrades, not usage.</Hot>
+</Stop>
+
+<Stop skill="deciding-under-uncertainty">
+He left a growing company to test a belief, then spent a year without cash looking for the idea.
+
+<Timeline
+  events={[
+    { when: 'During COVID', title: 'An exam course', kind: 'ship', note: 'At 18, with his sister and a friend: €30,000 in weeks.' },
+    { when: 'Then', title: 'Ucademy', kind: 'decision', note: 'Late co-founder in Madrid; leaves his degree.' },
+    { when: 'Feb 2024', title: 'Leaves', kind: 'decision', note: 'At 60 to 70 people, to build without VCs.' },
+    { when: '2024–25', title: 'A year he calls lost', kind: 'problem', note: 'An invoice tool reaches €7–8k MRR, later sold for about €200k.' },
+    { when: 'Aug 2025', title: 'Zernio', kind: 'result' },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode"
+/>
+</Stop>
+
+<Stop skill="opportunity-cost">
+Offered a hypothetical million, he would put it in paid: not the best channel, but the most predictable. SEO would not know what to do with it, and product would be hurt by it.
+
+<Quote text="I don't feel the bottleneck is that we need more people." who="Miquel Palet" context="On what money would do for the product" />
+
+<Hot>He left Ucademy to depend less on paid ads, and paid is where a spare million would go. Not a contradiction: a predictable channel is worth more once the product sells itself.</Hot>
+</Stop>
+
+<Stop skill="long-term-direction">
+No plan to sell. If he sold, he would build something similar the next day with the same people. So no stock options and no dividends: everything goes back into growth, and in five years he sees himself in "the same position".
+
+<Hot>Coherent with nine people. The test comes when the team doubles and someone asks what they own.</Hot>
+</Stop>
+
+<Stop skill="professional-development">
+He credits Ucademy's founders, Pablo and Ramiro, with most of what he learned: coming from a technical background, you often only learn technical things.
+
+<Hot>The product engineer's path in one line: the technical half you can train alone; the business half you learn by sitting next to people who have it.</Hot>
+</Stop>

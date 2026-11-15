@@ -4,6 +4,7 @@
 // are only a few entries.
 import MapFigure from './MapFigure.astro';
 import { atlas, code } from '../lib/atlas.ts';
+import { isMapKind } from '../editorial/schema.ts';
 import { KIND, entryTerritories, formatDate, itemDate, itemPath, readingMinutes, type Item } from '../lib/editorial.ts';
 
 interface Props {
@@ -13,9 +14,10 @@ const { entry } = Astro.props;
 const d = entry.data;
 const subjects = 'subjects' in d ? d.subjects : [];
 const person = 'person' in d ? d.person : undefined;
+const episode = 'episode' in d ? d.episode : undefined;
 const a = atlas();
 const territories = entryTerritories(entry).map((id) => a.nodes.get(id)!);
-const read = KIND[d.kind] === 'Profile' ? 'Read the profile' : `Read the ${KIND[d.kind].toLowerCase()}`;
+const read = isMapKind(d.kind) ? 'Read the profile' : `Read the ${KIND[d.kind].toLowerCase()}`;
 ---
 
 <article class="feature">
@@ -34,7 +36,7 @@ const read = KIND[d.kind] === 'Profile' ? 'Read the profile' : `Read the ${KIND[
           </span>
           <span class="feature-names">
             <b>{subjects.map((s) => s.name).join(', ')}</b>
-            {person && <small>with {person.name}</small>}
+            {person && <small>with {person.name}{episode && <> · on {episode.show}</>}</small>}
           </span>
         </div>
       )

@@ -14,6 +14,7 @@ export const KIND: Record<EntryKind, string> = {
   comparison: 'Comparison',
   interview: 'Interview',
   profile: 'Profile',
+  podcast: 'Podcast',
   observation: 'Observation',
   experiment: 'Experiment',
   improvement: 'Improvement',

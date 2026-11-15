@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { loadAtlas } from '../src/atlas/load.ts';
 import { h2s, loadEditorial, splitFrontmatter } from '../src/editorial/load.ts';
-import { coverageProblems, sectionProblems, validateEditorial } from '../src/editorial/validate.ts';
+import { coverageProblems, sectionProblems, tourProblems, validateEditorial } from '../src/editorial/validate.ts';
 import { entryCoverage } from '../src/editorial/coverage.ts';
 import { SECTIONS } from '../src/editorial/schema.ts';
 
@@ -87,6 +87,36 @@ describe('structure checks', () => {
     const { errors } = validateEditorial(atlas, broken);
     expect(errors.some((e) => e.includes('not-a-skill'))).toBe(true);
     expect(errors.some((e) => e.includes('fieldwork/missing'))).toBe(true);
+  });
+
+  it('asks a podcast for its episode, its guest and its coverage, like a profile', () => {
+    const broken = structuredClone(src);
+    const podcast = broken.fieldwork.find((e) => e.data.kind === 'podcast')!;
+    if (!('subjects' in podcast.data)) throw new Error('Expected a research entry');
+    podcast.data.episode = undefined;
+    podcast.data.person = undefined;
+    podcast.data.coverage = [];
+    const { errors } = validateEditorial(atlas, broken);
+    expect(errors.some((e) => e.includes('a podcast needs its `episode`'))).toBe(true);
+    expect(errors.some((e) => e.includes('a podcast needs a person'))).toBe(true);
+    expect(errors.some((e) => e.includes('a podcast needs `coverage`'))).toBe(true);
+  });
+
+  it('gives every published map entry a quick tour with one stop per skill, in coverage order', () => {
+    const published = src.fieldwork.filter((x) => (x.data.kind === 'profile' || x.data.kind === 'podcast') && !x.data.draft && !x.data.placeholder);
+    expect(published.length).toBeGreaterThan(0);
+    for (const e of published) {
+      const tour = src.tours.find((t) => t.id === e.id);
+      expect(tour, `no quick tour for ${e.id}`).toBeTruthy();
+      expect(tour!.stops).toEqual(e.data.coverage.flatMap((c) => c.skills));
+    }
+    const d = src.fieldwork.find((e) => e.id === 'mamitsu')!.data;
+    const stops = d.coverage.flatMap((c) => c.skills);
+    expect(tourProblems(d, stops)).toEqual([]);
+    expect(tourProblems(d, [stops[1], stops[0], ...stops.slice(2)])[0]).toMatch(/out of order/);
+    expect(tourProblems(d, stops.slice(1))[0]).toMatch(/no stop for unmet-needs/);
+    expect(tourProblems(d, [...stops, 'pricing'])[0]).toMatch(/more than one stop for pricing/);
+    expect(tourProblems(d, [...stops, 'cohort-analysis'])[0]).toMatch(/not in `coverage`/);
   });
 
   it('still validates experiment evidence and products in the merged collection', () => {

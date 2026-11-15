@@ -1,0 +1,410 @@
+---
+kind: podcast
+title: 'Zernio: the platform approvals done once, sold to developers as an API'
+summary: Zernio is a unified API for posting, messaging and ads on social networks, WhatsApp and ad platforms, for developers who build those features into their products. On the Itnig podcast, founder Miquel Palet told how he launched it in a weekend and took it to about €5M ARR in 13 months, with nine people and no investors.
+date: 2026-11-15
+subjects:
+  - name: Zernio
+    url: https://zernio.com
+    maker: Miquel Palet
+    logo: /img/fieldwork/zernio/logo.svg
+    what: A unified API, MCP server and CLI for social media, ads, WhatsApp, SMS and email, with each platform's app review already done.
+person:
+  name: Miquel Palet
+  role: Founder of Zernio
+  url: https://linkedin.com/in/miquelpalet
+  avatar: /img/fieldwork/zernio/miquel-palet.jpg
+  sameAs: [https://x.com/paletmiki, https://github.com/mikipalet]
+episode:
+  show: Itnig podcast
+  title: Lanzó una API en un fin de semana y llegó a 5M€ de ARR en 13 meses
+  url: https://www.youtube.com/watch?v=vE2z1XrCA6o
+  host: Bernat Farrero
+  published: 2026-11-12
+  duration: '1:30:46'
+  language: Spanish
+question: How does a developer API go from a weekend launch to €5M ARR in 13 months with nine people, and which parts of the map did it take?
+method: Itnig podcast episode, published on YouTube on 12 Nov 2026, 91 minutes, in Spanish, with Bernat Farrero asking. I did not talk to Miquel. I worked from YouTube's automatic Spanish transcript; the quotes are my translation. Every number is Miquel's, as he said it on the episode; I have not seen Zernio's accounts. Product facts and prices checked on zernio.com on 15 Nov 2026.
+skills:
+  [
+    unmet-needs, domain-constraints, substitutes, competitive-analysis, ideal-customer-profile,
+    revenue-models, pricing, costs-and-margins, product-risk, competitive-advantage, scope-cutting, roadmaps,
+    api-design, scalability, async-systems,
+    mcp, ai-agents, delegating-to-agents,
+    support-workflows, infrastructure-costs, platform-upgrades, cost-to-serve,
+    launch-planning, discovery-platforms, seo, content-marketing, channel-performance, customer-acquisition-cost, sustainable-growth, self-serve-adoption,
+    churn-analysis, recurring-needs,
+    behavioral-segmentation, balancing-signals, revenue-metrics,
+    deciding-under-uncertainty, opportunity-cost, long-term-direction, professional-development
+  ]
+coverage:
+  - territory: discovery
+    section: 'Discovery: a weekend bet on developers, not marketers'
+    skills: [unmet-needs, domain-constraints, substitutes, competitive-analysis, ideal-customer-profile]
+    note: The need sits in the platforms' rules, and the buyer is a developer.
+    notes:
+      unmet-needs: A product that wants its users to post, message or run ads from inside it has to pass each platform's app review first.
+      domain-constraints: Meta asks for a screencast and about 14 days per permission, YouTube caps uploads, WhatsApp charges for templates outside a 24-hour window.
+      substitutes: Building each integration in-house, or connectors like Zapier and n8n that still need your own developer app.
+      competitive-analysis: Metricool serves marketers, Ayrshare was the direct rival, and Twilio has sold the same model for WhatsApp for years.
+      ideal-customer-profile: SaaS teams that embed it white-labelled come first, agencies second, people managing their own accounts last.
+  - territory: strategy
+    section: 'Strategy: from lifetime deals to a price per account'
+    skills: [revenue-models, pricing, costs-and-margins, product-risk, competitive-advantage, scope-cutting, roadmaps]
+    note: How Zernio charges, what it will not build and what could take it all away.
+    notes:
+      revenue-models: Lifetime licences on AppSumo at launch, subscription tiers next to them, usage-based billing since early 2026.
+      pricing: Two accounts free with no card, then $6, $3 and $1 a month per account as the volume grows.
+      costs-and-margins: About 87% gross margin, without having optimised anything yet.
+      product-risk: The platforms could close the door, and the largest customers could build it themselves.
+      competitive-advantage: Endpoints are easy to copy, by his own account; approved apps, quotas and platform relationships are not.
+      scope-cutting: No product of its own for marketers, because it would compete with its customers.
+      roadmaps: Integrators ask for the next channel, and Zernio builds it when the rest of its users would use it too.
+  - territory: engineering
+    section: 'Engineering: the API is the product'
+    skills: [api-design, scalability, async-systems]
+    note: One endpoint per job, whatever the network, and a lot of events coming back.
+    notes:
+      api-design: One posts endpoint for every network, analytics stored and refreshed on Zernio's side, and features that ship in the API before the dashboard.
+      scalability: About 100,000 posts a day, plus a constant flow of webhooks from the platforms.
+      async-systems: Platform events moved from cron jobs to Cloudflare queues.
+  - territory: ai
+    section: 'AI: an MCP server that comes with the API'
+    skills: [mcp, ai-agents, delegating-to-agents]
+    note: Agents get every endpoint for free, and agents do much of the team's work.
+    notes:
+      mcp: The MCP server and the CLI are generated from the API, so each new endpoint reaches agents at no extra cost.
+      ai-agents: End users run their posts and ads from Claude or Codex, and customers sell marketing on autopilot built on Zernio.
+      delegating-to-agents: He answered support with Claude, Claude writes the migrations, and the team wants to stop being the person between Claude and the customer.
+  - territory: operations
+    section: 'Operations: 300 tickets a day and the cloud bill'
+    skills: [support-workflows, infrastructure-costs, platform-upgrades, cost-to-serve]
+    note: Support volume, a hosting bill that grows with use, and free accounts that must stay cheap.
+    notes:
+      support-workflows: 300 tickets a day after launch, answered by Miquel with Claude; the third hire was a developer only for support.
+      infrastructure-costs: Vercel became expensive at Zernio's volume, so parts moved to Cloudflare and the whole API is next.
+      platform-upgrades: The move has to happen with zero downtime and without a single user noticing.
+      cost-to-serve: Free accounts cost little; X is the exception because its API is paid, so connecting X asks for a card.
+  - territory: distribution
+    section: 'Distribution: AppSumo, Google and a name you can search for'
+    skills: [launch-planning, discovery-platforms, seo, content-marketing, channel-performance, customer-acquisition-cost, sustainable-growth, self-serve-adoption]
+    note: A marketplace launch, the long tail of search and paid that pays back in ten months.
+    notes:
+      launch-planning: Launched on AppSumo in August 2025, because the marketplace brings the buyers and nobody else cares what you launch.
+      discovery-platforms: Zapier and Make integrations partly for the link, and paid spots in "best API" rankings.
+      seo: Long-tail searches like "social media API" and "Meta app review", many of them won from Ayrshare.
+      content-marketing: Useful blog posts from a dedicated writer, after an earlier product lost its place in Google to 50,000 AI-written posts.
+      channel-performance: About 40% of new business from organic search; paid brings about a quarter of the new MRR.
+      customer-acquisition-cost: About €20 per paying customer, blended; competitor keywords convert cheapest.
+      sustainable-growth: Paid on its own pays back in about ten months, and he will not spend more until the campaigns are under control.
+      self-serve-adoption: Sign up, connect two accounts with no card and no sales call; sales only past 2,000 accounts.
+  - territory: retention
+    section: 'Retention: the bigger the customer, the less it leaves'
+    skills: [churn-analysis, recurring-needs]
+    note: Integrators barely churn, and the reason is in the platforms again.
+    notes:
+      churn-analysis: 9% blended, about 2% for integrators and about 17% for end users.
+      recurring-needs: Every new permission or quota means another review, so integrators keep needing Zernio after the first one.
+  - territory: measurement
+    section: 'Measurement: the 2% found the weekend before'
+    skills: [behavioral-segmentation, balancing-signals, revenue-metrics]
+    note: Growth came first; segmentation arrived a weekend before the recording.
+    notes:
+      behavioral-segmentation: The first split of users by use case showed integrators are 2% of signups and half the MRR.
+      balancing-signals: Bernat's push, the loudest users bring 2% of the revenue; Miquel thinks they still bring reviews and word of mouth.
+      revenue-metrics: Net MRR expansion is the main metric, with ARR growing about €1M a month.
+  - section: Beyond the product
+    scope: general
+    skills: [deciding-under-uncertainty, opportunity-cost, long-term-direction, professional-development]
+    note: Ucademy, a million euros he would not know where to put, and no plan to sell.
+    notes:
+      deciding-under-uncertainty: He left a growing company to test whether he could build one without investors, and spent a year without cash looking for the idea.
+      opportunity-cost: Given a million euros, he would put it in paid, because product cannot absorb it and SEO would not know what to do with it.
+      long-term-direction: No plan to sell; in five years he sees himself in the same seat.
+      professional-development: He credits Ucademy's non-technical founders with most of what he learned.
+related: [fieldwork/mamitsu]
+---
+
+## Who and what
+
+[Miquel Palet](https://linkedin.com/in/miquelpalet), Miki on [Zernio's team page](https://zernio.com/about), left a computer engineering degree in Barcelona to help build Ucademy, then left Ucademy in 2024 to start again on his own. In August 2025 he launched a new product over a weekend. Thirteen months later it makes about €5 million a year in recurring revenue. He owns all of it and has not raised a euro.
+
+**[Zernio](https://zernio.com) is a unified API for social media, ads and messaging, for developers who want to offer those features inside their own product.** With one integration, a product can publish, schedule, answer comments and DMs and read analytics on Instagram, TikTok, LinkedIn, X, YouTube, Facebook and ten more networks, run campaigns on nine ad networks, and send WhatsApp, SMS and email. It comes as a REST API with eight SDKs, an [MCP server](https://docs.zernio.com/mcp) and a CLI. It used to be called Late.
+
+What it sells is waiting time. Before your users can post to Instagram from your app, Meta has to approve your app. Zernio has done the approvals, and your users connect through its app instead.
+
+I did not talk to Miquel. This piece comes from his conversation with Bernat Farrero on the [Itnig podcast](https://www.youtube.com/watch?v=vE2z1XrCA6o), out on 12 November. Like [Mamitsu](/fieldwork/mamitsu/), the last product I profiled, Zernio is software for other software and for agents, but this one already has the numbers. I grouped it by territory and added what I would ask and test.
+
+<Shot
+  title="Zernio's home page: skip months of platform approvals"
+  src="/img/fieldwork/zernio/home.webp"
+  alt="The Zernio home page: a counter of accounts connected this week, the headline Marketing infrastructure for agents, and logos of the coding agents it works with"
+  url="zernio.com"
+  ratio="16 / 10"
+  width={1280}
+  height={800}
+  pins={[
+    { x: 50, y: 47, note: "The pitch is the waiting it saves, not the endpoints." },
+    { x: 50, y: 26, kind: 'value', note: "Live usage, straight from production, as the first thing on the page." },
+    { x: 56, y: 63, note: "Claude Code, Cursor, Codex and four more agents, before any code sample." },
+  ]}
+/>
+
+<StatRow
+  title="Zernio, 13 months after launch"
+  stats={[
+    { value: '€5M', label: 'ARR', note: 'Almost there, from zero', signal: true },
+    { value: 9, label: 'People', note: 'Six developers, all remote in Spain' },
+    { value: '€0', label: 'Raised', note: 'He owns 100%' },
+    { value: '10k', label: 'Paying users', note: 'Of about 200,000 accounts' },
+  ]}
+  caption="A nine-person team with no investors, growing about €1M of ARR a month."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast, 12 Nov 2026"
+/>
+
+## On the map
+
+The episode reached nine of the twelve territories of the Skills Map and 39 skills. Each icon takes you to its section. The quick tour goes through the 39 skills one at a time, with what each meant for Zernio.
+
+<Territories
+  title="Where the episode went"
+  skills={[
+    'unmet-needs', 'domain-constraints', 'substitutes', 'competitive-analysis', 'ideal-customer-profile',
+    'revenue-models', 'pricing', 'costs-and-margins', 'product-risk', 'competitive-advantage', 'scope-cutting', 'roadmaps',
+    'api-design', 'scalability', 'async-systems',
+    'mcp', 'ai-agents', 'delegating-to-agents',
+    'support-workflows', 'infrastructure-costs', 'platform-upgrades', 'cost-to-serve',
+    'launch-planning', 'discovery-platforms', 'seo', 'content-marketing', 'channel-performance', 'customer-acquisition-cost', 'sustainable-growth', 'self-serve-adoption',
+    'churn-analysis', 'recurring-needs',
+    'behavioral-segmentation', 'balancing-signals', 'revenue-metrics',
+    'deciding-under-uncertainty', 'opportunity-cost', 'long-term-direction', 'professional-development',
+  ]}
+  caption="Experience, Activation and Shipping did not come up. A business podcast leans to Strategy and Distribution: those two hold more than a third of the skills."
+/>
+
+## Discovery: a weekend bet on developers, not marketers
+
+After Ucademy, Miquel spent a year he calls lost, with no cash, trying things. One, a tool that fetches supplier invoices, reached €7,000 to €8,000 MRR and later sold for about €200,000, but it was a crowded idea. On Twitter he saw lots of people building social media schedulers as side projects. His twist was to sell the plumbing to developers instead of the tool to marketers. No market study, a weekend of building and, compared with everything else he had launched, "people wanted it" from day one.
+
+<Quote
+  text="Our customers are not marketers. Our customer is a developer whose product team has said: let's build this integration."
+  who="Miquel Palet"
+  context="On who Zernio is for"
+/>
+
+The need is in the platforms' rules. Bernat, who only uses X, pushed back: on X there is no approval to wait for. True, Miquel said, while the account is your own. The trouble starts when your users connect theirs to your product.
+
+<Compare
+  title="Letting your users post and run ads from your product"
+  subjects={['Your own integration', 'Through Zernio']}
+  highlight={1}
+  rows={[
+    { label: 'Developer app', values: ['One per platform', "Zernio's, already approved"] },
+    { label: "Meta's app review", values: ['A screencast, then about 14 days', 'Done'] },
+    { label: 'A new permission, like ads', values: ['Another review', 'Already covered'] },
+    { label: 'YouTube upload quota', values: ['Ask for an increase', 'Already raised'], note: 'Zernio waited six months for its own' },
+    { label: 'Expiring tokens', values: ['Yours to refresh', 'Refreshed for you'] },
+    { label: 'What your users see', values: ['Your product', 'Your product'], note: 'White label: Zernio never shows' },
+  ]}
+  caption="Each line is a wait or a chore Zernio takes on once, for every customer."
+  evidence="reported"
+  source="Miquel Palet on the episode; white label and token refresh also on zernio.com, read 15 Nov 2026"
+/>
+
+Why not build it in-house? Time, and it is not their core. Zapier and n8n connect to the same platforms, but you still bring your own developer app. Metricool is the finished tool for a marketer: "we let other people build Metricool". The direct rival was Ayrshare, which owned the search results and, as he tells it, moved slowly. And Twilio has sold the same model for WhatsApp for years.
+
+Who pays, in his order: SaaS products that embed Zernio white-labelled, often AI apps that generate images and want to publish them; agencies with their own platform; and last, people managing their own accounts, often from Claude: most of the accounts, the least revenue.
+
+## Strategy: from lifetime deals to a price per account
+
+The first revenue came from lifetime licences on AppSumo. "When you have no users, you prefer users who pay you once to no users who never pay you." About 2,000 licences, a bit over $200,000 in sales, about $100,000 for him, paid 90 days later. It funded the first ads and the first hire.
+
+<Timeline
+  title="How Zernio has charged, from launch to now"
+  events={[
+    { when: 'Aug 2025', title: 'Launch on AppSumo', kind: 'ship', note: 'About 2,000 lifetime licences.' },
+    { when: 'Aug 2025', title: 'Subscriptions on the site', kind: 'decision', note: 'Plans by connected accounts: 50, 500 or unlimited.' },
+    { when: 'Feb 2026', title: 'Pay per use', kind: 'decision', note: 'Around then. Two accounts free with no card, then a fee per account, message and number.' },
+    { when: 'Aug 2026', title: '€3M ARR announced', kind: 'result', note: '"With a bit of delay", he said.' },
+    { when: 'Nov 2026', title: 'Almost €5M ARR', kind: 'result', note: 'Growing about €1M of ARR a month.' },
+  ]}
+  evidence="reported"
+  source="Miquel Palet on the episode; current prices on zernio.com/pricing, read 15 Nov 2026"
+/>
+
+Tiers meant add-ons and upgrade friction, but the main reason was another.
+
+<Quote
+  text="If we have a single plan and our customer gets to 50,000 users, we are not charging them any more. That makes no sense for us."
+  who="Miquel Palet"
+  context="On the move to usage-based pricing"
+/>
+
+Now the price is per connected account: two free, then $6 a month each up to ten, $3 up to a hundred and $1 beyond, with messages, numbers and managed ads metered on top. **Net MRR expansion, what existing customers add each month, is now Zernio's main metric.** New products bill themselves, without a new checkout. Gross margin is around 87%, "without having optimised anything".
+
+Bernat saw pressure from two sides: platforms that could cut Zernio out, and big customers that could build it in-house. The second has not happened that Miquel knows of. For the first, he stays compliant and tries to get as far up each platform as he can.
+
+<Quote
+  text="Zernio captures the cost of Meta's own inefficiency in approving apps. It is money Meta is leaving on the table."
+  who="Bernat Farrero"
+  context="Host of the Itnig podcast"
+/>
+
+Miquel's answer is Twilio again: Meta lets it charge on top of WhatsApp's fees. Whether Meta allows the same on Instagram, "Meta will decide". **The business sits in a grey zone the platforms tolerate today.** And the moat is not the code: mapping endpoints is easy, he said himself.
+
+What he will not build is a Metricool of his own: it would compete with his customers, with different churn and different sales. Instead, this year Zernio added ads, WhatsApp, phone numbers and commerce APIs, often after integrators asked. Ads are about 15% of accounts and get the most requests; few APIs cover them.
+
+## Engineering: the API is the product
+
+"Most features we no longer build for the UI, only for the API." The dashboard shows maybe half of it, mostly logs, keys and usage for debugging. The site states it as a rule: if it is not in the API, it does not ship.
+
+<Flow
+  title="One call from a customer's product, and the events that come back"
+  stages={['Customer product', 'Zernio', 'Platforms']}
+  nodes={[
+    { id: 'app', label: 'Your product', detail: 'One API key', col: 0, row: 0 },
+    { id: 'hook', label: 'Your webhook', detail: 'One event shape', col: 0, row: 2 },
+    { id: 'api', label: 'Zernio API', detail: 'One posts endpoint', col: 1, row: 0, tone: 'lit' },
+    { id: 'apps', label: 'Approved apps', detail: 'Reviews, quotas, tokens', col: 1, row: 1, tone: 'signal' },
+    { id: 'queue', label: 'Queues', detail: 'On Cloudflare', col: 1, row: 2, kind: 'store' },
+    { id: 'social', label: '16 networks', detail: 'Instagram, TikTok, X...', col: 2, row: 0, kind: 'external' },
+    { id: 'ads', label: '9 ad networks', detail: 'Meta, Google...', col: 2, row: 1, kind: 'external' },
+    { id: 'events', label: 'Webhooks', detail: 'Messages, comments', col: 2, row: 2, kind: 'external' },
+  ]}
+  edges={[
+    { from: 'app', to: 'api' },
+    { from: 'api', to: 'apps' },
+    { from: 'apps', to: 'social' },
+    { from: 'apps', to: 'ads' },
+    { from: 'social', to: 'events', dashed: true },
+    { from: 'events', to: 'queue' },
+    { from: 'queue', to: 'hook' },
+  ]}
+  caption="The customer's code talks to one API; the approved apps in the middle are what it pays for."
+/>
+
+Analytics too: Zernio stores and refreshes them, so one call returns a week across all of a user's accounts.
+
+The volume is real: about 100,000 posts a day and a constant stream of platform webhooks. Those events used to run on cron jobs, "not a good way to handle many events", and were the first thing moved to Cloudflare queues.
+
+## AI: an MCP server that comes with the API
+
+"The MCP is a wrapper of the API that we generate automatically when the API is generated." So is the CLI. Agents get every endpoint at no extra cost: the site lists 496 MCP tools and 371 CLI commands. The API "has always been king", and they do not track which interface people use. End users mostly come through MCP, checking their campaigns from Claude or Codex, and some customers sell marketing on autopilot built on Zernio.
+
+Inside the team, agents do much of the work. Miquel had not coded at Ucademy, and Cursor arrived just as he needed to start again. He answered the launch's support tickets with Claude, and Claude writes the migrations, with someone making sure nobody notices. Asked what money would do for the product, he said more people was not the answer.
+
+<Quote
+  text="We are trying to improve our processes so that we are not the meat proxy between Claude and our customers."
+  who="Miquel Palet"
+  context="On why money would not speed up the product"
+/>
+
+## Operations: 300 tickets a day and the cloud bill
+
+The AppSumo launch brought 300 support tickets a day. Who answered? "Me." Three months in he hired Pau, a developer, and they took turns. The third hire, Elean, is a developer who only does support.
+
+Zernio started on Vercel and is moving to Cloudflare because "Vercel at our scale is very expensive". The queues went first; the whole API is next, with zero downtime and without a single user noticing. Free accounts stay cheap, with one exception: X's API is paid, so connecting X asks for a card and Zernio passes the cost through.
+
+Zernio also publishes [its production numbers](https://zernio.com/open), failures included: "APIs break. Tokens expire. Platforms return 500s at 2am."
+
+The episode did not cover how nine people keep up with the changes of some 25 platforms. The site says those changes "are ours to absorb". How, is the first thing I would ask him.
+
+## Distribution: AppSumo, Google and a name you can search for
+
+Posting the launch on LinkedIn and the like did little: "nobody cares, your ideal customer is not there". AppSumo brings the demand itself, writing to its own list. He launched there on 5 August 2025.
+
+Then search. **About 40% of new business comes from organic Google, on long-tail searches like "social media API" or "Meta app review".** Ayrshare owned those; Zernio now ranks above it on many. Landing pages and link building helped early; what worked best was users posting about Zernio and linking to it. A writer outside the team writes only blog posts, meant to be useful. They pay for spots in "best Meta API" rankings and built Zapier and Make integrations partly for the link. He had learned the limits on the invoice tool: 50,000 AI-written posts, then Google dropped the site from its index.
+
+The [rebrand from Late](https://zernio.com/rebrand) was for search too: "Try searching 'Late API' and you'll understand: generic words make terrible brand names."
+
+Search has a ceiling in a niche, so there is paid: €50,000 to €60,000 a month, 70% on Google, bringing about a quarter of the new MRR. Competitor keywords convert cheapest, which explains the [comparison pages](https://zernio.com/compare) and, for Ayrshare's users, a drop-in SDK with the same method signatures.
+
+<StatRow
+  title="The acquisition numbers Miquel gave"
+  stats={[
+    { value: '€20', label: 'Blended cost per paying customer', note: 'All channels together' },
+    { value: '€50', label: 'Average revenue per account', note: 'A month' },
+    { value: 10, label: 'Months for paid to pay back', note: 'Paid alone', signal: true },
+    { value: '€700', label: 'Lifetime value', note: 'About 14 months of revenue' },
+  ]}
+  caption="Blended, it looks like a machine. Paid alone takes ten months to pay back."
+  evidence="reported"
+  source="Miquel Palet on the episode. He gave the payback for paid alone, the rest blended."
+/>
+
+If a customer costs €20 and pays €50 a month, Bernat asked, why not spend more? Because paid is "a bit out of control". The ninth hire, Biel, is a developer who only runs Zernio's own ads, through Zernio's own API, so that one day he can manage €10M as he now manages €50,000. More spend comes next month.
+
+None of it needs a salesperson: two accounts free with no card, and sales only past 2,000 accounts.
+
+## Retention: the bigger the customer, the less it leaves
+
+Has an integrator ever outgrown Zernio and replaced it? "Not that I know of. The bigger the platform, the more churn drops." The review is not a one-off. Adding ads means another review with Meta; posting more videos means another quota increase with YouTube. The need comes back with every feature.
+
+<Bars
+  title="Churn by kind of customer"
+  unit="%"
+  items={[
+    { label: 'Integrators', value: 2, highlight: true, note: 'The ones who pay most' },
+    { label: 'All customers', value: 9, note: 'Down from 15 to 16%' },
+    { label: 'End users', value: 17, note: 'Worked out the day before' },
+  ]}
+  caption="The customers who bring the most revenue are the ones who stay."
+  evidence="reported"
+  source="Miquel Palet on the episode. He did not give the period; with €50 a month and a €700 lifetime value, it reads as monthly."
+/>
+
+## Measurement: the 2% found the weekend before
+
+"We have done everything and watched what worked." Ask him the churn of a segment or the cost of a customer from one Google campaign, and he does not know. The trailer kept a line from this part: whoever spends the day analysing metrics does not grow to €5M of ARR in 13 months. The weekend before the recording, he split users by use case for the first time.
+
+<Bars
+  title="Integrators and end users, as a share of signups and of MRR"
+  unit="%"
+  items={[
+    { label: 'Integrators, of signups', value: 2 },
+    { label: 'Integrators, of MRR', value: 50, highlight: true },
+    { label: 'End users, of signups', value: 50 },
+    { label: 'End users, of MRR', value: 2 },
+  ]}
+  caption="One customer in fifty brings half the revenue. Agencies and the rest make up the difference."
+  evidence="reported"
+  source={'Miquel Palet on the episode, as he rounded them ("maybe 2%", "about 50%")'}
+/>
+
+Bernat pushed: why not say "for integrators" on the home page? Miquel: end users cost nothing extra and they talk about Zernio. Bernat: they also make the most noise. Miquel agreed: "probably we will go that way".
+
+What I would test is narrower. A blended €20 per customer mixes a segment that churns 2% with one that churns 17%. And the segment shows in the first API calls: white-label sign-ins for other people's accounts look nothing like one person posting to their own.
+
+<Hypothesis
+  title="What I would test: paid judged by segment"
+  if="every new account is tagged integrator, agency or end user from its first week of API calls, and paid spend is judged by payback per segment"
+  then="budget moves to the keywords that bring integrators, and paid pays back in less than the blended ten months"
+  because="an integrator churns about 2% and an end user about 17%, and a blended cost per customer hides which clicks pay back."
+  metric="Months for paid acquisition to pay back, per segment"
+  stopIf="The first week of API calls cannot tell integrators from end users in a sample checked by hand"
+/>
+
+## Beyond the product
+
+What stayed with me:
+
+### The beliefs he left Ucademy to test
+
+At 18, during COVID, he sold an entrance exam course with his sister and a friend: €30,000 in a few weeks, nearly all of it spent on ads, teachers and taxes. Ucademy's founders, Pablo and Ramiro, bought the content, and he joined them in Madrid, left his degree and became a late co-founder. He says he learned most from them: coming from a technical background, you often only learn technical things. He left in February 2024, at 60 to 70 people, to test whether he could build a company without venture capital, less dependent on paid ads, remote. "I want hypergrowth, though not necessarily with VCs."
+
+### A million euros he would not know where to put
+
+Offered a hypothetical million, he would put it in paid: not the best channel, but the most predictable. SEO would not know what to do with it, and product would be hurt by it: "I don't feel the bottleneck is that we need more people".
+
+### Not for sale
+
+If he sold, he would build something similar the next day with the same people. So there are no stock options and no dividends, everything goes back into growth, and in five years he sees himself in "the same position".
+
+## What I take from it
+
+- **When code is cheap, sell what is slow.** Miquel says it himself: endpoints are easy. Zernio sells the months of reviews, quotas and token refreshes every developer would otherwise go through, done once and shared. In [Mamitsu's profile](/fieldwork/mamitsu/), Unai said code is solved if you pay; Zernio is a business built on the parts that are not code. I want to look at my own products for the slow part someone would pay to skip.
+- **Charge on the unit that grows with the customer.** Per-account pricing made expansion the main metric and lets each new product bill itself. If I start charging for one of my products, the first question is which unit grows when the customer does well.
+- **Tag the segment at signup, from day one.** Doing everything and watching what worked got Zernio to €5M ARR, and I would not argue with that. But the 2% that brings half the revenue showed up a weekend before a podcast. One question at signup, or a rule on the first API calls, is cheap and sharpens every later number. It is the same suggestion I made to Unai, about where users come from.
+
+<Skills label="What I want to practise next" ids={['pricing', 'behavioral-segmentation', 'customer-acquisition-cost', 'domain-constraints', 'seo', 'mcp']} />

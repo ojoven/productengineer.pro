@@ -1,0 +1,672 @@
+---
+// The quick tour of a profile: the map of every skill it discussed, then one card per skill, in
+// coverage order, while the map flies from each skill to the next. It sits in the page's side
+// column and opens full screen (always on phones). The cards come from src/content/tours/<id>.mdx.
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import type { EntryCoverage } from '../../editorial/coverage.ts';
+import { mapSvg } from '../../lib/atlas.ts';
+import { figures } from '../figures/index.ts';
+import Stop from './Stop.astro';
+import Hot from './Hot.astro';
+
+interface Props {
+  coverage: EntryCoverage;
+  /** The product's name, for the intro. */
+  product: string;
+  /** The rendered tour file (render(tour).Content). */
+  Content: AstroComponentFactory;
+}
+const { coverage, product, Content } = Astro.props;
+const lit = coverage.skills;
+const total = coverage.sections.reduce((n, s) => n + s.skills.length, 0);
+const territories = new Set(coverage.sections.flatMap((s) => s.skills.map((k) => k.territory))).size;
+let next = 1;
+const chapters = coverage.sections.map((s) => {
+  const start = next;
+  next += s.skills.length;
+  return { ...s, start };
+});
+const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { lit } });
+const explore = `/atlas/?lit=${lit.join(',')}`;
+---
+
+<div class="qt" data-qt data-lit={lit.join(' ')} data-total={total} tabindex="-1" aria-label={`Quick tour of ${product}`}>
+  <script is:inline>
+    document.documentElement.classList.add('qt-js');
+  </script>
+  <div class="qt-bar">
+    <span class="label">Quick tour</span>
+    <span class="qt-count" data-qt-count aria-live="polite">{total} skills</span>
+    <button type="button" class="qt-icon" data-qt-expand aria-label="Open the tour full screen" title="Full screen">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" /></svg>
+    </button>
+    <button type="button" class="qt-icon" data-qt-close aria-label="Close the tour" title="Close">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" /></svg>
+    </button>
+  </div>
+
+  <div class="qt-map" data-qt-map data-pagefind-ignore>
+    <div class="qt-layer" data-qt-transit></div>
+    <div class="qt-layer qt-detail" data-qt-detail><Fragment set:html={svg} /></div>
+  </div>
+
+  <div class="qt-progress" data-qt-progress aria-hidden="true">
+    {
+      chapters.map((c) => (
+        <button type="button" tabindex="-1" style={`flex-grow:${c.skills.length}`} data-qt-go={c.start} data-from={c.start} data-to={c.start + c.skills.length - 1} title={c.territory?.name ?? c.section}>
+          <i />
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="qt-cards" data-qt-cards>
+    <section class="qt-card qt-intro is-on" aria-label="Overview">
+      <p class="qt-lede"><b>{total} skills</b> in {territories} territories of the Skills Map, one card each: what {product} did with it, and my take where I have one.</p>
+      <div class="btn-row qt-start">
+        <button type="button" class="btn small primary" data-qt-go="1">Start the tour →</button>
+        <a class="btn small" href={explore}>Explore in the Skills Map ↗</a>
+      </div>
+      <ol class="qt-chapters">
+        {
+          chapters.map((c) => (
+            <li>
+              <button type="button" data-qt-go={c.start}>
+                <span class="qt-code">{c.territory?.code ?? '·'}</span>
+                <span>
+                  {c.territory?.name ?? c.section}
+                  {c.scope === 'general' && <small> · Wider discussion</small>}
+                </span>
+                <span class="qt-n">{c.skills.length}</span>
+              </button>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="qt-hint">Tap a lit hexagon to jump to its skill. Arrow keys and swipes move the tour.</p>
+    </section>
+
+    <Content components={{ ...figures, Stop, Hot }} />
+
+    <section class="qt-card qt-end" aria-label="End of the tour">
+      <p class="qt-lede"><b>That is all {total}.</b> The profile tells the story behind them, territory by territory.</p>
+      <div class="btn-row">
+        <button type="button" class="btn small" data-qt-go="0">Back to the map</button>
+        <a class="btn small" href="#top" data-qt-read>Read the profile ↑</a>
+        <a class="btn small" href={explore}>Explore in the Skills Map ↗</a>
+      </div>
+    </section>
+  </div>
+
+  <div class="qt-nav">
+    <button type="button" class="btn small" data-qt-prev>← Back</button>
+    <button type="button" class="btn small primary" data-qt-next>Start the tour →</button>
+  </div>
+</div>
+
+<script>
+  import { TourMap } from './tour-map.ts';
+  import { track } from '../../scripts/track.ts';
+
+  const phone = matchMedia('(max-width: 900px)');
+
+  function init(root: HTMLElement) {
+    const cards = [...root.querySelectorAll<HTMLElement>('.qt-card')];
+    const last = cards.length - 1; // the end card; stops are 1..last-1
+    const total = Number(root.dataset.total);
+    const lit = (root.dataset.lit ?? '').split(' ').filter(Boolean);
+    const map = new TourMap(root.querySelector<HTMLElement>('[data-qt-map]')!, lit);
+    const scroller = root.querySelector<HTMLElement>('[data-qt-cards]')!;
+    const count = root.querySelector<HTMLElement>('[data-qt-count]')!;
+    const prev = root.querySelector<HTMLButtonElement>('[data-qt-prev]')!;
+    const next = root.querySelector<HTMLButtonElement>('[data-qt-next]')!;
+    const segments = [...root.querySelectorAll<HTMLElement>('[data-qt-progress] [data-qt-go]')];
+    const stepOf = new Map(cards.map((c, i) => [c.dataset.skill ?? '', i]));
+    let at = 0;
+    let lastFocus: HTMLElement | null = null;
+
+    function go(i: number, animate = true) {
+      i = Math.max(0, Math.min(last, i));
+      if (i === at && animate) return;
+      cards[at].classList.remove('is-on', 'from-next', 'from-prev');
+      const card = cards[i];
+      card.classList.add('is-on');
+      if (animate) card.classList.add(i > at ? 'from-next' : 'from-prev');
+      at = i;
+      scroller.scrollTop = 0;
+      root.dataset.step = i === 0 ? 'intro' : i === last ? 'end' : 'stop';
+      count.textContent = i === 0 ? `${total} skills` : i === last ? 'Done' : `${i} / ${total}`;
+      prev.disabled = i === 0;
+      next.textContent = i === 0 ? 'Start the tour →' : i === last - 1 ? 'Finish →' : i === last ? 'Start again →' : 'Next →';
+      for (const s of segments) {
+        const from = Number(s.dataset.from);
+        const to = Number(s.dataset.to);
+        const done = i >= last ? 1 : Math.max(0, Math.min(1, (i - from + 1) / (to - from + 1)));
+        s.style.setProperty('--done', String(done));
+        s.classList.toggle('is-here', i >= from && i <= to);
+      }
+      const skill = card.dataset.skill;
+      map.show(skill ? { focus: skill, selected: skill } : { focus: '', selected: null }, animate);
+      if (i === last) track('Quick tour finished');
+    }
+
+    const isFull = () => root.classList.contains('is-full');
+
+    function open() {
+      if (isFull()) return;
+      lastFocus = document.activeElement as HTMLElement | null;
+      root.classList.add('is-full');
+      root.setAttribute('role', 'dialog');
+      root.setAttribute('aria-modal', 'true');
+      document.documentElement.classList.add('qt-lock');
+      history.pushState({ qt: true }, '', `${location.pathname}${location.search}#tour`);
+      root.focus();
+      track('Quick tour opened');
+    }
+    function shut() {
+      if (!isFull()) return;
+      root.classList.remove('is-full');
+      root.removeAttribute('role');
+      root.removeAttribute('aria-modal');
+      document.documentElement.classList.remove('qt-lock');
+      // on a phone the inline tour only shows the overview: start from there next time
+      if (phone.matches) go(0, false);
+      lastFocus?.focus({ preventScroll: true });
+    }
+    function close() {
+      if (history.state?.qt) history.back(); // popstate closes it, so the back button and this agree
+      else {
+        shut();
+        if (location.hash === '#tour') history.replaceState(history.state, '', `${location.pathname}${location.search}`);
+      }
+    }
+    addEventListener('popstate', () => {
+      if (isFull() && location.hash !== '#tour') shut();
+    });
+
+    next.addEventListener('click', () => {
+      if (phone.matches) open();
+      go(at === last ? 1 : at + 1);
+    });
+    prev.addEventListener('click', () => go(at - 1));
+    root.querySelector('[data-qt-expand]')!.addEventListener('click', open);
+    root.querySelector('[data-qt-close]')!.addEventListener('click', close);
+    root.addEventListener('click', (e) => {
+      const target = e.target as Element;
+      const jump = target.closest<HTMLElement>('[data-qt-go]');
+      if (jump) {
+        if (phone.matches && Number(jump.dataset.qtGo) > 0) open();
+        go(Number(jump.dataset.qtGo));
+        return;
+      }
+      const read = target.closest<HTMLAnchorElement>('[data-qt-read]');
+      if (read && isFull()) {
+        // leave the tour for the section it points at
+        e.preventDefault();
+        const hash = read.getAttribute('href')!;
+        shut();
+        history.replaceState(null, '', hash === '#top' ? `${location.pathname}${location.search}` : hash);
+        if (hash === '#top') scrollTo({ top: 0 });
+        else document.getElementById(hash.slice(1))?.scrollIntoView();
+        return;
+      }
+      // a lit hexagon on the map opens its skill
+      const tile = target.closest<SVGElement>('[data-qt-map] [data-skill]');
+      const step = tile && stepOf.get(tile.dataset.skill ?? '');
+      if (step) {
+        if (phone.matches) open();
+        go(step);
+      }
+    });
+
+    root.addEventListener('keydown', (e) => {
+      if (e.target instanceof HTMLInputElement) return;
+      if (e.key === 'ArrowRight') go(at + 1);
+      else if (e.key === 'ArrowLeft') go(at - 1);
+      else if (e.key === 'Escape' && isFull()) close();
+      else if (e.key === 'Tab' && isFull()) {
+        // keep focus inside the full-screen tour
+        const focusable = [...root.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter((el) => el.offsetParent !== null && el.tabIndex >= 0);
+        const first = focusable[0];
+        const end = focusable[focusable.length - 1];
+        if (e.shiftKey && (document.activeElement === first || document.activeElement === root)) {
+          e.preventDefault();
+          end?.focus();
+        } else if (!e.shiftKey && document.activeElement === end) {
+          e.preventDefault();
+          first?.focus();
+        }
+      } else return;
+      if (e.key.startsWith('Arrow')) e.preventDefault();
+    });
+
+    // swipes: left for the next card, right for the previous one
+    let start: { x: number; y: number; id: number } | undefined;
+    let swiped = false;
+    root.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'touch' || (!isFull() && phone.matches)) return;
+      start = { x: e.clientX, y: e.clientY, id: e.pointerId };
+      swiped = false;
+    });
+    root.addEventListener('pointerup', (e) => {
+      if (!start || e.pointerId !== start.id) return;
+      const dx = e.clientX - start.x;
+      const dy = e.clientY - start.y;
+      start = undefined;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        swiped = true;
+        go(at + (dx < 0 ? 1 : -1));
+      }
+    });
+    root.addEventListener('pointercancel', () => (start = undefined));
+    root.addEventListener(
+      'click',
+      (e) => {
+        if (swiped) {
+          e.stopPropagation();
+          e.preventDefault();
+          swiped = false;
+        }
+      },
+      true,
+    );
+
+    // load the Skills Map when the reader shows interest, not on every page view
+    root.addEventListener('pointerenter', () => map.prepare(), { once: true });
+    root.addEventListener('focusin', () => map.prepare(), { once: true });
+    phone.addEventListener('change', () => {
+      if (!phone.matches && isFull()) return;
+      if (phone.matches && !isFull() && at !== 0) go(0, false);
+    });
+
+    go(0, false);
+    if (location.hash === '#tour') {
+      root.classList.add('is-full');
+      root.setAttribute('role', 'dialog');
+      root.setAttribute('aria-modal', 'true');
+      document.documentElement.classList.add('qt-lock');
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-qt]').forEach(init);
+</script>
+
+<style is:global>
+  /* global: the cards come from Stop and Hot, other components */
+  html.qt-lock,
+  html.qt-lock body {
+    overflow: hidden;
+  }
+  .qt {
+    --qt-map-h: 300px;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - var(--head) - 32px);
+    max-height: calc(100dvh - var(--head) - 32px);
+    background: var(--bg);
+    outline: none;
+  }
+  .qt-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 10px;
+  }
+  .qt-bar .label {
+    flex: 1;
+  }
+  .qt-count {
+    font: 400 12px/1 var(--mono);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .qt-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .qt-icon:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .qt-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+  [data-qt-close] {
+    display: none;
+  }
+
+  /* ---- map: the detail layer fades out while the transit layer flies */
+  .qt-map {
+    position: relative;
+    flex: none;
+    height: var(--qt-map-h);
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+  .qt-layer {
+    position: absolute;
+    inset: 0;
+  }
+  .qt-layer svg {
+    width: 100%;
+    height: 100%;
+  }
+  .qt-detail {
+    transition: opacity 0.2s ease;
+  }
+  .qt-map.is-moving .qt-detail {
+    opacity: 0;
+    transition-duration: 0.12s;
+  }
+  .qt-map .tile.is-lit {
+    cursor: pointer;
+  }
+
+  /* ---- progress: one segment per section, as wide as its skills */
+  .qt-progress {
+    display: flex;
+    gap: 3px;
+    margin: 10px 0 0;
+  }
+  .qt-progress button {
+    --done: 0;
+    flex-basis: 0;
+    height: 14px;
+    padding: 5px 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .qt-progress i {
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, var(--ink) calc(var(--done) * 100%), var(--line) 0);
+  }
+  .qt-progress button.is-here i {
+    background: linear-gradient(90deg, var(--accent) calc(var(--done) * 100%), var(--line) 0);
+  }
+
+  /* ---- cards */
+  .qt-cards {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 6px 2px 16px 0;
+    border-top: 1px solid var(--ink);
+    margin-top: 8px;
+  }
+  .qt-js .qt-card:not(.is-on) {
+    display: none;
+  }
+  .qt-js .qt-card.from-next {
+    animation: qt-in 0.28s ease both;
+  }
+  .qt-js .qt-card.from-prev {
+    animation: qt-in 0.28s ease both reverse;
+    animation-name: qt-back;
+  }
+  @keyframes qt-in {
+    from {
+      opacity: 0;
+      transform: translateX(18px);
+    }
+  }
+  @keyframes qt-back {
+    from {
+      opacity: 0;
+      transform: translateX(-18px);
+    }
+  }
+  .qt-card {
+    padding-top: 12px;
+  }
+  .qt-card + .qt-card {
+    border-top: 1px solid var(--line);
+  }
+  .qt-js .qt-card + .qt-card {
+    border-top: 0;
+  }
+  .qt-lede {
+    margin: 4px 0 14px;
+    font-size: 15.5px;
+    line-height: 1.5;
+  }
+  .qt-chapters {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .qt-chapters button {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 10px;
+    width: 100%;
+    padding: 7px 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: none;
+    color: var(--ink);
+    font: 400 14px/1.4 var(--sans);
+    text-align: left;
+    cursor: pointer;
+  }
+  .qt-chapters button:hover {
+    color: var(--accent-ink);
+  }
+  .qt-chapters small {
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .qt-code,
+  .qt-n,
+  .qt-of,
+  .qt-skill-code,
+  .qt-own {
+    font: 400 11px/1.2 var(--mono);
+    color: var(--muted);
+  }
+  .qt-hint {
+    margin: 12px 0 0;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .qt-where {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0;
+    font: 600 12px/1.3 var(--cond);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .qt-of {
+    margin-left: auto;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .qt-skill {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    margin: 6px 0 0;
+    font: 600 24px/1.15 var(--cond);
+  }
+  .qt-skill a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .qt-skill a:hover {
+    color: var(--accent-ink);
+  }
+  .qt-own {
+    margin: 4px 0 0;
+  }
+  .qt-body {
+    margin-top: 10px;
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .qt-body > p {
+    margin: 0 0 10px;
+  }
+  .qt-body .fg {
+    margin: 14px 0;
+  }
+  .qt-body .fg-meta {
+    display: none;
+  }
+  .qt-body .fg-head {
+    padding-top: 8px;
+  }
+  .qt-body .fg-title {
+    font-size: 17px;
+  }
+  .qt-body .fg-body {
+    padding: 12px 0;
+  }
+  .qt-hot {
+    margin: 12px 0;
+    padding: 2px 0 2px 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .qt-hot-label {
+    display: block;
+    margin-bottom: 3px;
+    font: 500 10.5px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+  .qt-hot > p {
+    margin: 0 0 6px;
+  }
+  .qt-read {
+    display: inline-block;
+    margin-top: 6px;
+    font: 400 12px/1.4 var(--mono);
+    color: var(--muted);
+  }
+  .qt-read:hover {
+    color: var(--accent-ink);
+  }
+
+  .qt-nav {
+    display: flex;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+  }
+  .qt-nav [data-qt-next] {
+    margin-left: auto;
+  }
+  .qt-nav button:disabled {
+    opacity: 0.35;
+    cursor: default;
+    background: transparent;
+    color: var(--ink);
+  }
+  .qt[data-step='intro'] .qt-nav {
+    display: none;
+  }
+  .qt-start {
+    margin: 0 0 16px;
+  }
+
+  /* ---- full screen */
+  .qt.is-full {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    margin: 0;
+    max-height: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) min(480px, 42vw);
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    grid-template-areas: 'bar bar' 'map progress' 'map cards' 'map nav';
+    gap: 0 32px;
+    padding: 16px var(--gutter) 20px;
+  }
+  .qt.is-full .qt-bar {
+    grid-area: bar;
+  }
+  .qt.is-full .qt-map {
+    grid-area: map;
+    height: auto;
+    touch-action: none;
+  }
+  .qt.is-full .qt-progress {
+    grid-area: progress;
+  }
+  .qt.is-full .qt-cards {
+    grid-area: cards;
+  }
+  .qt.is-full .qt-nav {
+    grid-area: nav;
+  }
+  .qt.is-full [data-qt-close] {
+    display: inline-grid;
+  }
+  .qt.is-full [data-qt-expand] {
+    display: none;
+  }
+
+  /* ---- phones: an overview inline, the tour itself full screen */
+  @media (max-width: 900px) {
+    .qt {
+      --qt-map-h: 240px;
+      max-height: none;
+      margin: 8px 0 4px;
+    }
+    [data-qt-expand] {
+      display: none;
+    }
+    .qt:not(.is-full) :is(.qt-progress, .qt-chapters, .qt-hint) {
+      display: none;
+    }
+    .qt:not(.is-full) .qt-cards {
+      overflow: visible;
+    }
+    .qt:not(.is-full) .qt-start {
+      margin-bottom: 4px;
+    }
+    .qt.is-full {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto 36vh auto minmax(0, 1fr) auto;
+      grid-template-rows: auto 36dvh auto minmax(0, 1fr) auto;
+      grid-template-areas: 'bar' 'map' 'progress' 'cards' 'nav';
+      padding: 10px 16px calc(12px + env(safe-area-inset-bottom));
+    }
+    .qt.is-full .qt-cards {
+      touch-action: pan-y;
+    }
+    .qt.is-full .qt-nav .btn {
+      padding: 12px 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .qt-js .qt-card.from-next,
+    .qt-js .qt-card.from-prev {
+      animation: none;
+    }
+    .qt-detail {
+      transition: none;
+    }
+  }
+</style>

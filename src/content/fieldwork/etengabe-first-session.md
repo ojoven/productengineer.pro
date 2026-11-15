@@ -21,7 +21,7 @@ related: [fieldwork/language-apps-first-lesson, fieldwork/onboarding-checklists]
 
 ## Context
 
-The product, the users and the problem, with the evidence that the problem is real. Link the fieldwork that led here.
+The product, the users and the problem, with the evidence that the problem is real. Link the In practice entries that led here.
 
 ## What I built
 

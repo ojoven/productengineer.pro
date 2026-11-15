@@ -26,7 +26,7 @@ const siblings = t.capabilities.filter((id) => id !== c.id).map((id) => a.nodes.
 
 <Base title={c.name} description={`${c.name} (${t.name}): ${c.description}`} image={`/og/${c.id}.jpg`}>
   <div class="wrap">
-    <Crumbs items={[{ href: '/atlas/', label: 'Atlas' }, { href: path(t), label: `${code(t.id)} ${t.name}` }, { label: `${code(c.id)} ${c.name}` }]} />
+    <Crumbs items={[{ href: '/atlas/', label: 'Skills Map' }, { href: path(t), label: `${code(t.id)} ${t.name}` }, { label: `${code(c.id)} ${c.name}` }]} />
     <header class="page-head">
       <div class="code-big">{code(c.id)} · Capability in {t.name}</div>
       <h1 class="title">{c.name}</h1>

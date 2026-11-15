@@ -2,7 +2,7 @@ export const SITE = {
   name: 'ProductEngineer.pro',
   url: 'https://productengineer.pro',
   description:
-    'A free map of product engineering for software engineers. Explore every skill with checked resources and tools, mark what you know and see what to learn next.',
+    'Explore the free Skills Map of product engineering, mark what you know and see what to learn next. Learn from real products and experiments in In practice.',
   /** Privacy-friendly analytics. Leave empty to load nothing. */
   analytics: {
     /** Plausible-compatible script URL, e.g. https://plausible.io/js/script.js or a self-hosted one. */

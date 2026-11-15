@@ -28,7 +28,7 @@ The path from the landing page to the first moment of value, step by step, with 
 
 ## What works
 
-Two or three things it does well, each with its evidence: a screenshot, a step count, a quote from the product. Link the atlas skill it shows when that helps the reader.
+Two or three things it does well, each with its evidence: a screenshot, a step count, a quote from the product. Link the skill it shows on the Skills Map when that helps the reader.
 
 ## Where it loses people
 

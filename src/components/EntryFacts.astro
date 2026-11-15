@@ -9,6 +9,13 @@ interface Props {
 const { entry } = Astro.props;
 const prods = products();
 const notYet = 'Not measured yet';
+/** "1:30:46" → "1 h 31 min", "42:10" → "42 min". */
+const runtime = (d: string) => {
+  const p = d.split(':').map(Number);
+  const [h, m, s] = p.length === 3 ? p : [0, p[0], p[1]];
+  const total = h * 60 + m + Math.round(s / 60);
+  return total >= 60 ? `${Math.floor(total / 60)} h ${total % 60} min` : `${total} min`;
+};
 ---
 
 <dl class="facts">
@@ -36,9 +43,22 @@ const notYet = 'Not measured yet';
             ))}
           </dd>
         </div>
+        {entry.data.episode && (
+          <div>
+            <dt>Episode</dt>
+            <dd>
+              <a href={entry.data.episode.url} rel="noopener">{entry.data.episode.show}</a>
+              <span class="muted">
+                {' '}hosted by {entry.data.episode.hostUrl ? <a href={entry.data.episode.hostUrl} rel="noopener">{entry.data.episode.host}</a> : entry.data.episode.host}
+                {' '}· {formatDate(entry.data.episode.published)} · {runtime(entry.data.episode.duration)}
+                {entry.data.episode.language && <> · in {entry.data.episode.language}</>}
+              </span>
+            </dd>
+          </div>
+        )}
         {entry.data.person && (
           <div>
-            <dt>Interviewed</dt>
+            <dt>{entry.data.kind === 'podcast' ? 'Guest' : 'Interviewed'}</dt>
             <dd>
               {entry.data.person.url ? <a href={entry.data.person.url} rel="noopener">{entry.data.person.name}</a> : entry.data.person.name}
               <span class="muted">, {entry.data.person.role}</span>
