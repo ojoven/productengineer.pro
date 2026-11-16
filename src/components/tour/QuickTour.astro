@@ -27,7 +27,6 @@ const chapters = coverage.sections.map((s) => {
   return { ...s, start };
 });
 const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { lit } });
-const explore = `/skills-map/?lit=${lit.join(',')}`;
 ---
 
 <div class="qt" data-qt data-lit={lit.join(' ')} data-total={total} tabindex="-1" aria-label={`Quick tour of ${product}`}>
@@ -63,9 +62,8 @@ const explore = `/skills-map/?lit=${lit.join(',')}`;
   <div class="qt-cards" data-qt-cards>
     <section class="qt-card qt-intro is-on" aria-label="Overview">
       <p class="qt-lede"><b>{total} skills</b> in {territories} territories of the Skills Map, one card each: what {product} did with it, and my take where I have one.</p>
-      <div class="btn-row qt-start">
-        <button type="button" class="btn small primary" data-qt-go="1" data-qt-resume>Start the tour →</button>
-        <a class="btn small" href={explore}>Explore in the Skills Map ↗</a>
+      <div class="qt-start">
+        <button type="button" class="btn primary qt-start-btn" data-qt-go="1" data-qt-resume>Start the tour →</button>
       </div>
       <ol class="qt-chapters">
         {
@@ -93,7 +91,6 @@ const explore = `/skills-map/?lit=${lit.join(',')}`;
       <div class="btn-row">
         <button type="button" class="btn small" data-qt-go="0">Back to the map</button>
         <a class="btn small" href="#top" data-qt-read>Read the profile ↑</a>
-        <a class="btn small" href={explore}>Explore in the Skills Map ↗</a>
       </div>
     </section>
   </div>
@@ -137,7 +134,6 @@ const explore = `/skills-map/?lit=${lit.join(',')}`;
     // The last skill card seen, so a reader who leaves the tour can continue it (0: not started or
     // finished). Kept for the visit, so it survives a trip to a skill page and back.
     const resumeButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-qt-resume]')];
-    const dock = root.querySelector<HTMLElement>('[data-qt-dock]')!;
     const dockSub = root.querySelector<HTMLElement>('[data-qt-dock-sub]')!;
     const KEY = `pe-tour:${location.pathname}`;
     let resume = 0;
@@ -328,15 +324,6 @@ const explore = `/skills-map/?lit=${lit.join(',')}`;
       root.setAttribute('role', 'dialog');
       root.setAttribute('aria-modal', 'true');
       document.documentElement.classList.add('qt-lock');
-    }
-
-    // phones: the bar steps aside while the tour's own start button is on screen
-    const startRow = root.querySelector<HTMLElement>('.qt-start');
-    if (startRow && 'IntersectionObserver' in window) {
-      new IntersectionObserver(([e]) => {
-        dock.classList.toggle('is-away', e.isIntersecting);
-        dock.inert = e.isIntersecting;
-      }).observe(startRow);
     }
   }
 
@@ -639,6 +626,13 @@ const explore = `/skills-map/?lit=${lit.join(',')}`;
   .qt-start {
     margin: 0 0 16px;
   }
+  /* the main way through a profile: full width, a size up from the other buttons */
+  .qt-start-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 15px 18px;
+    font-size: 13px;
+  }
 
   /* ---- full screen */
   .qt.is-full {
@@ -694,8 +688,9 @@ const explore = `/skills-map/?lit=${lit.join(',')}`;
     .qt:not(.is-full) .qt-cards {
       overflow: visible;
     }
+    /* the fixed bar starts the tour, so the overview drops its own button */
     .qt:not(.is-full) .qt-start {
-      margin-bottom: 4px;
+      display: none;
     }
     .qt.is-full {
       grid-template-columns: minmax(0, 1fr);
@@ -732,10 +727,6 @@ const explore = `/skills-map/?lit=${lit.join(',')}`;
       padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
       background: var(--bg);
       border-top: 1px solid var(--ink);
-      transition: transform 0.2s ease;
-    }
-    .qt-js .qt-dock.is-away {
-      transform: translateY(110%);
     }
     .qt.is-full .qt-dock {
       display: none;
@@ -757,9 +748,6 @@ const explore = `/skills-map/?lit=${lit.join(',')}`;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .qt-dock {
-      transition: none;
-    }
     .qt-js .qt-card.from-next,
     .qt-js .qt-card.from-prev {
       animation: none;
