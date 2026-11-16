@@ -99,7 +99,7 @@ const Episode = z.object({
 /**
  * Where on the map an entry went, section by section. One item per `##` section of the body that
  * discusses atlas skills. Together the items list every skill in `skills`, each once.
- * `/fieldwork/<id>/map.json` serves it with names, codes and anchors, to light the map from it.
+ * `/in-practice/<id>/map.json` serves it with names, codes and anchors, to light the map from it.
  */
 export const COVERAGE_SCOPES = ['product', 'general'] as const;
 const Coverage = z

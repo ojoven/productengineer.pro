@@ -170,9 +170,9 @@ export function resolveNode(atlas: Atlas, id: string): AtlasNode | undefined {
 }
 
 export function nodePath(atlas: Atlas, node: AtlasNode): string {
-  if (node.level === 'territory') return `/atlas/${node.id}/`;
-  if (node.level === 'capability') return `/atlas/${node.territory}/${node.id}/`;
-  return `/atlas/${node.territory}/${node.capability}/${node.id}/`;
+  if (node.level === 'territory') return `/skills-map/${node.id}/`;
+  if (node.level === 'capability') return `/skills-map/${node.territory}/${node.id}/`;
+  return `/skills-map/${node.territory}/${node.capability}/${node.id}/`;
 }
 
 export function territoryOf(atlas: Atlas, node: AtlasNode): Territory {

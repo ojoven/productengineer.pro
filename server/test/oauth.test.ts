@@ -153,7 +153,7 @@ test('an agent registers, the person approves, and the agent reads their progres
 
   const skill = toolJson(await client.callTool({ name: 'get_skill', arguments: { id: '06.1.1' } }));
   assert.equal(skill.status, 'learning');
-  assert.equal(skill.url, `${PUBLIC}/atlas/measurement/experiment-design/sample-size/`);
+  assert.equal(skill.url, `${PUBLIC}/skills-map/measurement/experiment-design/sample-size/`);
 
   // the connection shows on the profile page, and revoking it locks the agent out
   const { connections } = await (await browser.request('/api/connections')).json();

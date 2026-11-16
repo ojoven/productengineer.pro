@@ -369,6 +369,17 @@ h3 {
 .crumbs .sep {
   opacity: 0.6;
 }
+.crumb-short {
+  display: none;
+}
+@media (max-width: 900px) {
+  .crumb-long {
+    display: none;
+  }
+  .crumb-short {
+    display: inline;
+  }
+}
 .page-head {
   padding: 28px 0 32px;
   display: grid;

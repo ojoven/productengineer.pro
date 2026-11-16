@@ -49,24 +49,7 @@ remote_server_install
 remote_pm2_reload
 api_healthcheck
 
-echo "-> apache: HTTPS vhost with the API proxy"
-scp -q "${DEPLOY_ROOT}/deploy/apache-productengineer.pro-le-ssl.conf" "${REMOTE_HOST}:/tmp/${SSL_CONF_NAME}"
-ssh_remote "bash -s" <<REMOTE
-set -euo pipefail
-conf=/etc/apache2/sites-available/${SSL_CONF_NAME}
-backup="\${conf}.bak-\$(date +%Y%m%d%H%M%S)"
-sudo cp "\${conf}" "\${backup}"
-sudo a2enmod proxy proxy_http headers >/dev/null
-sudo mv /tmp/${SSL_CONF_NAME} "\${conf}"
-if sudo apache2ctl configtest; then
-  sudo systemctl reload apache2
-  echo "installed; previous vhost kept at \${backup}"
-else
-  sudo cp "\${backup}" "\${conf}"
-  echo "Apache rejected the new vhost; restored \${backup}" >&2
-  exit 1
-fi
-REMOTE
+install_vhost
 
 echo "-> nightly database backup (03:30)"
 ssh_remote "bash -s" <<REMOTE

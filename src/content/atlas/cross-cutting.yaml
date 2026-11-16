@@ -69,7 +69,7 @@ capabilities:
         resources: [xyproblem, wikipedia-five-whys, nngroup-problem-statements]
 
       - id: verification
-        previousPaths: [/atlas/cross-cutting/ai-assisted-work/verification/]
+        previousPaths: [/skills-map/cross-cutting/ai-assisted-work/verification/]
         focus: [evidence]
         name: Verification
         summary: Proving that work, human or AI, actually does what it should.
@@ -129,7 +129,7 @@ capabilities:
         resources: [fs-second-order]
 
       - id: workflow-automation
-        previousPaths: [/atlas/cross-cutting/ai-assisted-work/workflow-automation/]
+        previousPaths: [/skills-map/cross-cutting/ai-assisted-work/workflow-automation/]
         focus: [ai, systems]
         name: Workflow automation
         summary: Automating repeated tasks with scripts, integrations and appropriate checks.

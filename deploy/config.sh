@@ -61,6 +61,29 @@ pm2 save
 EOF
 }
 
+# Installs deploy/apache-productengineer.pro-le-ssl.conf, keeping a backup of the old vhost and
+# restoring it if Apache rejects the new one. Used by setup-api.sh and vhost.sh.
+install_vhost() {
+  echo "-> apache: HTTPS vhost (proxy rules and redirects)"
+  scp -q "${DEPLOY_ROOT}/deploy/apache-productengineer.pro-le-ssl.conf" "${REMOTE_HOST}:/tmp/${SSL_CONF_NAME}"
+  ssh_remote "bash -s" <<REMOTE
+set -euo pipefail
+conf=/etc/apache2/sites-available/${SSL_CONF_NAME}
+backup="\${conf}.bak-\$(date +%Y%m%d%H%M%S)"
+sudo cp "\${conf}" "\${backup}"
+sudo a2enmod proxy proxy_http headers rewrite >/dev/null
+sudo mv /tmp/${SSL_CONF_NAME} "\${conf}"
+if sudo apache2ctl configtest; then
+  sudo systemctl reload apache2
+  echo "installed; previous vhost kept at \${backup}"
+else
+  sudo cp "\${backup}" "\${conf}"
+  echo "Apache rejected the new vhost; restored \${backup}" >&2
+  exit 1
+fi
+REMOTE
+}
+
 api_healthcheck() {
   echo "-> checking the API on ${REMOTE_HOST} 127.0.0.1:${API_PORT}"
   for i in 1 2 3 4 5; do
@@ -77,7 +100,9 @@ api_healthcheck() {
 remote_healthcheck() {
   echo "-> checking https://${SITE_DOMAIN}/"
   curl -fsS -o /dev/null -w '%{http_code}\n' "https://${SITE_DOMAIN}/"
-  curl -fsS -o /dev/null -w '%{http_code}\n' "https://${SITE_DOMAIN}/atlas/measurement/"
+  curl -fsS -o /dev/null -w '%{http_code}\n' "https://${SITE_DOMAIN}/skills-map/measurement/"
+  # the old section URLs answer with a permanent redirect (installed by vhost.sh)
+  curl -sS -o /dev/null -w '%{http_code} /atlas/measurement/ -> %{redirect_url}\n' "https://${SITE_DOMAIN}/atlas/measurement/?lit=sample-size"
 }
 
 public_api_healthcheck() {

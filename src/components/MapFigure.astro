@@ -17,7 +17,7 @@ interface Props {
 }
 const { focus = '', selected, width = 640, height = 560, scale, legend = true, explore = true, lit = [], route = false } = Astro.props;
 const svg = mapSvg({ focus, width, height, scale, state: { selected: selected ?? null, lit, route: route && lit.length > 1 } });
-const href = lit.length ? `/atlas/?lit=${lit.join(',')}` : `/atlas/?at=${encodeURIComponent(selected ?? focus)}`;
+const href = lit.length ? `/skills-map/?lit=${lit.join(',')}` : `/skills-map/?at=${encodeURIComponent(selected ?? focus)}`;
 ---
 
 <figure class="map" data-pagefind-ignore>

@@ -37,7 +37,7 @@ export function entryCoverage(atlas: Atlas, entry: { id: string; data: Fieldwork
   });
   return {
     version: 1,
-    entry: { id: entry.id, title: entry.data.title, url: `/fieldwork/${entry.id}/`, draft: entry.data.draft },
+    entry: { id: entry.id, title: entry.data.title, url: `/in-practice/${entry.id}/`, draft: entry.data.draft },
     skills: entry.data.skills,
     sections,
   };

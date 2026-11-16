@@ -9,7 +9,7 @@ export const Id = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'ids are lowerc
 const Text = z.string().trim().min(1);
 const IdList = z.array(Id).default([]);
 /** Former page locations are kept when a capability or skill changes home. */
-const PreviousPaths = z.array(z.string().regex(/^\/atlas\/(?:[a-z0-9]+(?:-[a-z0-9]+)*\/)+$/)).default([]);
+const PreviousPaths = z.array(z.string().regex(/^\/skills-map\/(?:[a-z0-9]+(?:-[a-z0-9]+)*\/)+$/)).default([]);
 
 export const AiLeverage = z.object({
   workflow: Text,

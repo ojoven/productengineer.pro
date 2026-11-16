@@ -200,10 +200,10 @@ export function renderMap(atlas: MapAtlas, g: Geometry, opts: RenderOptions = {}
   const nameOf = (id: string) => idx.skill.get(id)?.name ?? idx.cap.get(id)?.name ?? idx.terr.get(id)?.name ?? id;
   const href = (id: string) => {
     const s = idx.skill.get(id);
-    if (s) return `${base}/atlas/${s.territory}/${s.capability}/${s.id}/`;
+    if (s) return `${base}/skills-map/${s.territory}/${s.capability}/${s.id}/`;
     const c = idx.cap.get(id);
-    if (c) return `${base}/atlas/${c.territory}/${c.id}/`;
-    return `${base}/atlas/${id}/`;
+    if (c) return `${base}/skills-map/${c.territory}/${c.id}/`;
+    return `${base}/skills-map/${id}/`;
   };
 
   const lit = new Set<string>();

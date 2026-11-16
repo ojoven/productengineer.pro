@@ -89,60 +89,14 @@ export function replaceFromAccount(progress: Record<string, { status: Status; at
   save(data);
 }
 
-export function setName(name: string) {
-  const data = load();
-  data.name = name.trim().slice(0, 60) || undefined;
-  save(data);
-}
-
-/**
- * Erases every status in this browser. When signed in, the cleared skills are sent as changes
- * too, so the account is erased as well. `forget` only drops this browser's copy (signing out).
- */
-export function reset(opts: { forget?: boolean } = {}) {
-  const before = load();
-  const at = Date.now();
+/** Drops this browser's copy of the progress, when signing out. The account keeps its own. */
+export function forgetLocal() {
   try {
     localStorage.removeItem(KEY);
   } catch {
     /* ignore */
   }
   window.dispatchEvent(new CustomEvent('pe:progress'));
-  const changes: Change[] = Object.keys(before.progress).map((id) => ({ id, status: 'none', at }));
-  if (!opts.forget && changes.length) window.dispatchEvent(new CustomEvent<Change[]>('pe:local-change', { detail: changes }));
-}
-
-export function exportFile() {
-  const data = load();
-  const blob = new Blob([JSON.stringify({ ...data, exported: new Date().toISOString(), site: 'productengineer.pro' }, null, 2)], {
-    type: 'application/json',
-  });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `productengineer-progress-${new Date().toISOString().slice(0, 10)}.json`;
-  document.body.append(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-}
-
-export async function importFile(file: File, known: Set<string>): Promise<{ imported: number; skipped: number }> {
-  const parsed = JSON.parse(await file.text());
-  if (!parsed || typeof parsed.progress !== 'object') throw new Error('This file does not look like a progress export.');
-  const data = load();
-  const at = Date.now();
-  const changes: Change[] = [];
-  let skipped = 0;
-  for (const [id, st] of Object.entries(parsed.progress as Record<string, unknown>)) {
-    if (isStatus(st) && known.has(id)) {
-      apply(data, id, st, at);
-      changes.push({ id, status: st, at });
-    } else skipped++;
-  }
-  const imported = changes.length;
-  if (typeof parsed.name === 'string' && !data.name) data.name = parsed.name.slice(0, 60);
-  save(data, changes);
-  return { imported, skipped };
 }
 
 export function onChange(fn: () => void) {

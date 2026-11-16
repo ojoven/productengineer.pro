@@ -17,7 +17,7 @@ expected: >-
 capabilities:
   - id: ai-engineering
     name: AI engineering
-    previousPaths: [/atlas/engineering/ai-engineering/]
+    previousPaths: [/skills-map/engineering/ai-engineering/]
     description: >-
       Building product features on top of language models and agents, where behavior is
       probabilistic and must be measured rather than assumed.
@@ -25,7 +25,7 @@ capabilities:
     tools: [langfuse, promptfoo]
     skills:
       - id: llm-integration
-        previousPaths: [/atlas/engineering/ai-engineering/llm-integration/]
+        previousPaths: [/skills-map/engineering/ai-engineering/llm-integration/]
         focus: [systems, ai]
         name: LLM integration
         summary: Calling language models from a product reliably.
@@ -46,7 +46,7 @@ capabilities:
             - Model choice is justified against the actual task and a simpler baseline.
 
       - id: structured-outputs
-        previousPaths: [/atlas/engineering/ai-engineering/structured-outputs/]
+        previousPaths: [/skills-map/engineering/ai-engineering/structured-outputs/]
         focus: [systems, ai]
         name: Structured outputs
         summary: Getting model responses in a reliable machine-readable format.
@@ -67,7 +67,7 @@ capabilities:
             - Refusals and incomplete output do not silently become valid records.
 
       - id: retrieval
-        previousPaths: [/atlas/engineering/ai-engineering/retrieval/]
+        previousPaths: [/skills-map/engineering/ai-engineering/retrieval/]
         focus: [systems, ai]
         name: Retrieval (RAG)
         summary: Giving a model the right context from your own data.
@@ -87,7 +87,7 @@ capabilities:
             - Missing evidence, stale documents and conflicting sources are tested.
 
       - id: ai-agents
-        previousPaths: [/atlas/engineering/ai-engineering/ai-agents/]
+        previousPaths: [/skills-map/engineering/ai-engineering/ai-agents/]
         focus: [systems, ai]
         name: Agents
         summary: Systems where a model plans and takes multiple steps with tools.
@@ -108,7 +108,7 @@ capabilities:
             - Loops terminate and partial failures can be recovered without duplicate actions.
 
       - id: tool-calling
-        previousPaths: [/atlas/engineering/ai-engineering/tool-calling/]
+        previousPaths: [/skills-map/engineering/ai-engineering/tool-calling/]
         focus: [systems, ai]
         name: Tool calling
         summary: Letting a model call functions and APIs in your product.
@@ -128,7 +128,7 @@ capabilities:
             - Tool errors give enough information to recover without exposing sensitive data.
 
       - id: mcp
-        previousPaths: [/atlas/engineering/ai-engineering/mcp/]
+        previousPaths: [/skills-map/engineering/ai-engineering/mcp/]
         focus: [systems, ai]
         name: Model Context Protocol
         summary: An open standard for connecting AI applications to tools and data.
@@ -149,7 +149,7 @@ capabilities:
             - The integration grants only the access needed for the workflow.
 
       - id: ai-evals
-        previousPaths: [/atlas/engineering/ai-engineering/ai-evals/]
+        previousPaths: [/skills-map/engineering/ai-engineering/ai-evals/]
         focus: [ai, systems, evidence]
         name: Evals and datasets
         summary: Measuring AI behavior with test sets and repeatable evaluation runs.
@@ -171,7 +171,7 @@ capabilities:
             - Model-based graders are checked against independent human judgments.
 
       - id: llm-observability
-        previousPaths: [/atlas/engineering/ai-engineering/llm-observability/]
+        previousPaths: [/skills-map/engineering/ai-engineering/llm-observability/]
         focus: [ai, systems, evidence]
         name: AI observability
         summary: Tracing and inspecting what models and agents actually did in production.
@@ -193,7 +193,7 @@ capabilities:
             - Trace access and stored content respect data boundaries.
 
       - id: ai-guardrails
-        previousPaths: [/atlas/engineering/ai-engineering/ai-guardrails/]
+        previousPaths: [/skills-map/engineering/ai-engineering/ai-guardrails/]
         focus: [ai, systems]
         name: Guardrails
         summary: Checks that keep AI output safe, on topic and within policy.
@@ -214,7 +214,7 @@ capabilities:
             - Authorization does not depend on the model following a prompt.
 
       - id: llm-fundamentals
-        previousPaths: [/atlas/engineering/ai-engineering/llm-fundamentals/]
+        previousPaths: [/skills-map/engineering/ai-engineering/llm-fundamentals/]
         focus: [systems, ai]
         name: AI and language model fundamentals
         summary: Understanding learned behavior, language models and their practical limits.
@@ -237,7 +237,7 @@ capabilities:
               from a small sample.
 
       - id: prompt-context-engineering
-        previousPaths: [/atlas/engineering/ai-engineering/prompt-context-engineering/]
+        previousPaths: [/skills-map/engineering/ai-engineering/prompt-context-engineering/]
         focus: [systems, ai]
         name: Prompt and context engineering
         summary: Giving a model the instructions and information it needs for a bounded task.
@@ -261,14 +261,14 @@ capabilities:
 
   - id: ai-assisted-work
     name: AI-assisted work
-    previousPaths: [/atlas/cross-cutting/ai-assisted-work/]
+    previousPaths: [/skills-map/cross-cutting/ai-assisted-work/]
     description: >-
       Using AI tools and agents to do more, while keeping responsibility for the result.
     resources: [willison-llms-for-code, claude-code-best-practices, anthropic-effective-agents]
     tools: [aider]
     skills:
       - id: delegating-to-agents
-        previousPaths: [/atlas/cross-cutting/ai-assisted-work/delegating-to-agents/]
+        previousPaths: [/skills-map/cross-cutting/ai-assisted-work/delegating-to-agents/]
         focus: [ai, people]
         name: Delegating to agents
         summary: Handing tasks to AI agents with clear goals and context.
@@ -296,7 +296,7 @@ capabilities:
             - A human can explain and maintain the accepted result.
 
       - id: reviewing-generated-work
-        previousPaths: [/atlas/cross-cutting/ai-assisted-work/reviewing-generated-work/]
+        previousPaths: [/skills-map/cross-cutting/ai-assisted-work/reviewing-generated-work/]
         focus: [ai, evidence, systems]
         name: Reviewing generated work
         summary: Critically checking code and content produced by AI.
@@ -308,7 +308,7 @@ capabilities:
         resources: [willison-llms-for-code, google-code-review]
 
       - id: human-oversight
-        previousPaths: [/atlas/cross-cutting/ai-assisted-work/human-oversight/]
+        previousPaths: [/skills-map/cross-cutting/ai-assisted-work/human-oversight/]
         focus: [ai, people]
         name: Human oversight
         summary: Keeping people in control of important AI-driven actions.

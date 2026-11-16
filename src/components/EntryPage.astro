@@ -48,7 +48,7 @@ const isoDuration = (t: string) => {
   return `PT${h ? `${h}H` : ''}${m}M${s}S`;
 };
 const image = entryImage(entry);
-const pageUrl = new URL(`/fieldwork/${entry.id}/`, SITE.url).href;
+const pageUrl = new URL(`/in-practice/${entry.id}/`, SITE.url).href;
 const abs = (p?: string) => (p ? new URL(p, SITE.url).href : undefined);
 
 // Structured data: the article, who wrote it, and the products and people it is about, so search
@@ -111,11 +111,11 @@ const jsonld = {
   jsonld={d.placeholder ? undefined : jsonld}
 >
   <div class="wrap">
-    <Crumbs items={[{ href: '/fieldwork/', label: section }, { label: d.title }]} />
+    <Crumbs items={[{ href: '/in-practice/', label: section }, { label: d.title, short: subjects[0]?.name }]} />
     <article class="cols entry-cols" style="margin-top:8px">
       <div class="entry-top">
         <header class="page-head">
-          <div class="code-big">{section} · {KIND[d.kind]}</div>
+          <div class="code-big">{KIND[d.kind]}</div>
           <h1 class="title">{d.title}</h1>
           <p class="lede">{d.summary}</p>
           {

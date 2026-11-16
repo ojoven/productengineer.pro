@@ -19,7 +19,7 @@ visible: the problem, the decision, the evidence and the result.
 
 | Path | What |
 | --- | --- |
-| `src/content/fieldwork/<id>.md` | One In practice entry. The file name is the URL: `/fieldwork/<id>/`. |
+| `src/content/fieldwork/<id>.md` | One In practice entry. The file name is the URL: `/in-practice/<id>/`. |
 | `src/content/products.yaml` | The products featured in In practice. |
 | `src/content/author.yaml` | Author details used in “Who writes it” on `/about/`. |
 | `src/editorial/schema.ts` | Front matter schemas and the required sections per kind (the source of truth). |
@@ -124,7 +124,7 @@ What the page does with it:
 - The side column holds the **quick tour** (below): the map with every discussed skill lit, then one
   card per skill while the map flies from each skill to the next. It replaces the old side map and the
   "Skill by skill" summary at the end.
-- `/fieldwork/<id>/map.json` exports versioned coverage with section anchors, scope, Skills Map ids,
+- `/in-practice/<id>/map.json` exports versioned coverage with section anchors, scope, Skills Map ids,
   names, codes, links and notes. Consumers can highlight a section's `skills` or select sections
   by `scope`; the content front matter remains the source of truth.
 
@@ -217,5 +217,5 @@ These are also on the About page.
 the page out of search and the sitemap. The pages still build and are reachable by URL. Replace or
 delete the placeholders before deploying, or keep them only while the sections are empty.
 
-Former `/lab/` URLs redirect to `/fieldwork/`, including individual entries. The separate author
+Former `/lab/` URLs redirect to `/in-practice/`, including individual entries. The separate author
 URLs `/mikel/` and `/about/mikel/` redirect to `/about/#who-writes-it`.

@@ -273,14 +273,14 @@ const svg = mapSvg({ width: 760, height: 700 });
     if (s.progress) q.set('progress', s.progress);
     if (s.lit.length) q.set('lit', s.lit.join(','));
     const qs = q.toString().replace(/%2C/g, ',');
-    return `/atlas/${qs ? `?${qs}` : ''}`;
+    return `/skills-map/${qs ? `?${qs}` : ''}`;
   }
   const pagePath = (id: string) => {
     const s = S.get(id);
-    if (s) return `/atlas/${s.territory}/${s.capability}/${s.id}/`;
+    if (s) return `/skills-map/${s.territory}/${s.capability}/${s.id}/`;
     const c = C.get(id);
-    if (c) return `/atlas/${c.territory}/${c.id}/`;
-    return `/atlas/${id}/`;
+    if (c) return `/skills-map/${c.territory}/${c.id}/`;
+    return `/skills-map/${id}/`;
   };
   const nameOf = (id: string) => T.get(id)?.name ?? C.get(id)?.name ?? S.get(id)?.name ?? id;
   const codeOf = (id: string) => codes.get(id) ?? '';
@@ -410,7 +410,7 @@ const svg = mapSvg({ width: 760, height: 700 });
     const terr = T.get(cap ? cap.territory : at);
     const crumb = (id: string, label: string) => `<a href="${urlFor({ ...state, at: id })}" data-go="${id}">${esc(label)}</a>`;
     const sep = '<span class="sep" aria-hidden="true">/</span>';
-    const crumbs = ['<a href="/atlas/" data-go="">Skills Map</a>'];
+    const crumbs = ['<a href="/skills-map/" data-go="">Skills Map</a>'];
     if (terr) crumbs.push(crumb(terr.id, `${codeOf(terr.id)} ${terr.name}`));
     if (cap) crumbs.push(crumb(cap.id, `${codeOf(cap.id)} ${cap.name}`));
     $('ex-crumbs').innerHTML = crumbs.join(sep);

@@ -7,7 +7,7 @@
 // - After that, each change is queued, sent shortly after, and kept until the server has it,
 //   so changes made offline go out later. Pages pull the account's state when they open or come
 //   back into view.
-import { load, replaceFromAccount, reset, type Change } from './progress.ts';
+import { forgetLocal, load, replaceFromAccount, type Change } from './progress.ts';
 import type { Status } from '../atlas/render.ts';
 
 const KEY = 'pe-sync:v1';
@@ -228,7 +228,7 @@ export async function signOut() {
   await api('/api/auth/logout', { method: 'POST', json: {} }).catch(() => {});
   document.cookie = 'pe_auth=; Max-Age=0; Path=/';
   write({ pending: {} });
-  reset({ forget: true });
+  forgetLocal();
   announce();
 }
 

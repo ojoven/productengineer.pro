@@ -29,7 +29,7 @@ its content for something it is not, its `evidence` says how it is known.
 7. **Check it.** The figure is done when all of these hold:
    - `npm test` passes. It fails on a figure name that does not exist and on `illustrative` data in
      an entry without `placeholder: true`.
-   - `/fieldwork/<id>/` renders with no error, and each figure reads well at desktop width and at
+   - `/in-practice/<id>/` renders with no error, and each figure reads well at desktop width and at
      390 px. An unknown skill or territory id in a figure stops the page with a message naming it.
    - Every number in the figure comes from the entry’s own data, and no "Screenshot to add"
      placeholder is left, unless the entry still has `placeholder: true`.

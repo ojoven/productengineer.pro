@@ -27,7 +27,7 @@ const chapters = coverage.sections.map((s) => {
   return { ...s, start };
 });
 const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { lit } });
-const explore = `/atlas/?lit=${lit.join(',')}`;
+const explore = `/skills-map/?lit=${lit.join(',')}`;
 ---
 
 <div class="qt" data-qt data-lit={lit.join(' ')} data-total={total} tabindex="-1" aria-label={`Quick tour of ${product}`}>
@@ -64,7 +64,7 @@ const explore = `/atlas/?lit=${lit.join(',')}`;
     <section class="qt-card qt-intro is-on" aria-label="Overview">
       <p class="qt-lede"><b>{total} skills</b> in {territories} territories of the Skills Map, one card each: what {product} did with it, and my take where I have one.</p>
       <div class="btn-row qt-start">
-        <button type="button" class="btn small primary" data-qt-go="1">Start the tour →</button>
+        <button type="button" class="btn small primary" data-qt-go="1" data-qt-resume>Start the tour →</button>
         <a class="btn small" href={explore}>Explore in the Skills Map ↗</a>
       </div>
       <ol class="qt-chapters">
@@ -102,6 +102,15 @@ const explore = `/atlas/?lit=${lit.join(',')}`;
     <button type="button" class="btn small" data-qt-prev>← Back</button>
     <button type="button" class="btn small primary" data-qt-next>Start the tour →</button>
   </div>
+
+  <!-- phones: the tour is the main way through a profile, so its button stays at the bottom -->
+  <div class="qt-dock" data-qt-dock>
+    <span class="qt-dock-text">
+      <span class="label">Quick tour</span>
+      <span class="qt-dock-sub" data-qt-dock-sub>{total} skills, one card each</span>
+    </span>
+    <button type="button" class="btn primary" data-qt-go="1" data-qt-resume>Start the tour →</button>
+  </div>
 </div>
 
 <script>
@@ -125,6 +134,35 @@ const explore = `/atlas/?lit=${lit.join(',')}`;
     let at = 0;
     let lastFocus: HTMLElement | null = null;
 
+    // The last skill card seen, so a reader who leaves the tour can continue it (0: not started or
+    // finished). Kept for the visit, so it survives a trip to a skill page and back.
+    const resumeButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-qt-resume]')];
+    const dock = root.querySelector<HTMLElement>('[data-qt-dock]')!;
+    const dockSub = root.querySelector<HTMLElement>('[data-qt-dock-sub]')!;
+    const KEY = `pe-tour:${location.pathname}`;
+    let resume = 0;
+    try {
+      resume = Number(sessionStorage.getItem(KEY)) || 0;
+    } catch {
+      /* storage blocked: start from the beginning */
+    }
+    if (resume < 1 || resume >= last) resume = 0;
+
+    function setResume(step: number) {
+      resume = step;
+      try {
+        if (step) sessionStorage.setItem(KEY, String(step));
+        else sessionStorage.removeItem(KEY);
+      } catch {
+        /* ignore */
+      }
+      for (const b of resumeButtons) {
+        b.dataset.qtGo = String(step || 1);
+        b.textContent = step ? 'Continue the tour →' : 'Start the tour →';
+      }
+      dockSub.textContent = step ? `At skill ${step} of ${total}` : `${total} skills, one card each`;
+    }
+
     function go(i: number, animate = true) {
       i = Math.max(0, Math.min(last, i));
       if (i === at && animate) return;
@@ -145,6 +183,9 @@ const explore = `/atlas/?lit=${lit.join(',')}`;
         s.style.setProperty('--done', String(done));
         s.classList.toggle('is-here', i >= from && i <= to);
       }
+      if (i > 0 && i < last) {
+        if (i !== resume) setResume(i);
+      } else if (i === last && resume) setResume(0);
       const skill = card.dataset.skill;
       map.show(skill ? { focus: skill, selected: skill } : { focus: '', selected: null }, animate);
       if (i === last) track('Quick tour finished');
@@ -152,7 +193,7 @@ const explore = `/atlas/?lit=${lit.join(',')}`;
 
     const isFull = () => root.classList.contains('is-full');
 
-    function open() {
+    function open(from = 'page') {
       if (isFull()) return;
       lastFocus = document.activeElement as HTMLElement | null;
       root.classList.add('is-full');
@@ -161,7 +202,7 @@ const explore = `/atlas/?lit=${lit.join(',')}`;
       document.documentElement.classList.add('qt-lock');
       history.pushState({ qt: true }, '', `${location.pathname}${location.search}#tour`);
       root.focus();
-      track('Quick tour opened');
+      track('Quick tour opened', { from, continued: resume > 0 });
     }
     function shut() {
       if (!isFull()) return;
@@ -189,13 +230,13 @@ const explore = `/atlas/?lit=${lit.join(',')}`;
       go(at === last ? 1 : at + 1);
     });
     prev.addEventListener('click', () => go(at - 1));
-    root.querySelector('[data-qt-expand]')!.addEventListener('click', open);
+    root.querySelector('[data-qt-expand]')!.addEventListener('click', () => open('expand'));
     root.querySelector('[data-qt-close]')!.addEventListener('click', close);
     root.addEventListener('click', (e) => {
       const target = e.target as Element;
       const jump = target.closest<HTMLElement>('[data-qt-go]');
       if (jump) {
-        if (phone.matches && Number(jump.dataset.qtGo) > 0) open();
+        if (phone.matches && Number(jump.dataset.qtGo) > 0) open(jump.closest('[data-qt-dock]') ? 'dock' : 'page');
         go(Number(jump.dataset.qtGo));
         return;
       }
@@ -279,12 +320,23 @@ const explore = `/atlas/?lit=${lit.join(',')}`;
       if (phone.matches && !isFull() && at !== 0) go(0, false);
     });
 
-    go(0, false);
+    setResume(resume);
+    // back from a skill page with the tour open: pick it up where the reader left it
+    go(location.hash === '#tour' ? resume : 0, false);
     if (location.hash === '#tour') {
       root.classList.add('is-full');
       root.setAttribute('role', 'dialog');
       root.setAttribute('aria-modal', 'true');
       document.documentElement.classList.add('qt-lock');
+    }
+
+    // phones: the bar steps aside while the tour's own start button is on screen
+    const startRow = root.querySelector<HTMLElement>('.qt-start');
+    if (startRow && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => {
+        dock.classList.toggle('is-away', e.isIntersecting);
+        dock.inert = e.isIntersecting;
+      }).observe(startRow);
     }
   }
 
@@ -660,7 +712,54 @@ const explore = `/atlas/?lit=${lit.join(',')}`;
     }
   }
 
+  /* ---- phones: the start or continue button, fixed at the bottom of the profile */
+  .qt-dock {
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .qt-js body {
+      padding-bottom: calc(68px + env(safe-area-inset-bottom));
+    }
+    .qt-js .qt-dock {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 150;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      background: var(--bg);
+      border-top: 1px solid var(--ink);
+      transition: transform 0.2s ease;
+    }
+    .qt-js .qt-dock.is-away {
+      transform: translateY(110%);
+    }
+    .qt.is-full .qt-dock {
+      display: none;
+    }
+    .qt-dock-text {
+      display: grid;
+      gap: 3px;
+      flex: 1;
+      min-width: 0;
+    }
+    .qt-dock-sub {
+      font: 400 12px/1.3 var(--mono);
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .qt-dock .btn {
+      flex: none;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .qt-dock {
+      transition: none;
+    }
     .qt-js .qt-card.from-next,
     .qt-js .qt-card.from-prev {
       animation: none;

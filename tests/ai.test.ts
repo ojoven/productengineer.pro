@@ -22,10 +22,10 @@ describe('AI skills and contextual applications', () => {
     for (const node of [...atlas.capabilities, ...atlas.skills]) {
       for (const previous of node.previousPaths) expect(redirects[previous]).toBe(nodePath(atlas, node));
     }
-    expect(redirects['/atlas/engineering/ai-engineering/']).toBe('/atlas/ai/ai-engineering/');
-    expect(redirects['/atlas/engineering/ai-engineering/llm-integration/']).toBe('/atlas/ai/ai-engineering/llm-integration/');
-    expect(redirects['/atlas/cross-cutting/ai-assisted-work/']).toBe('/atlas/ai/ai-assisted-work/');
-    expect(redirects['/atlas/cross-cutting/ai-assisted-work/verification/']).toBe('/atlas/cross-cutting/critical-thinking/verification/');
+    expect(redirects['/skills-map/engineering/ai-engineering/']).toBe('/skills-map/ai/ai-engineering/');
+    expect(redirects['/skills-map/engineering/ai-engineering/llm-integration/']).toBe('/skills-map/ai/ai-engineering/llm-integration/');
+    expect(redirects['/skills-map/cross-cutting/ai-assisted-work/']).toBe('/skills-map/ai/ai-assisted-work/');
+    expect(redirects['/skills-map/cross-cutting/ai-assisted-work/verification/']).toBe('/skills-map/cross-cutting/critical-thinking/verification/');
   });
 
   it('preserves concrete applications and evidence across every territory', () => {

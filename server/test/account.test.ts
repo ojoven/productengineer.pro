@@ -6,9 +6,9 @@ import { safeReturn } from '../src/http.ts';
 test('signing in sets an httpOnly session and a readable signed-in flag, and returns to the page', async () => {
   const { fetch } = makeApp();
   const b = new Browser(fetch);
-  const res = await b.signIn('alice', { returnTo: '/atlas/measurement/' });
+  const res = await b.signIn('alice', { returnTo: '/skills-map/measurement/' });
   assert.equal(res.status, 302);
-  assert.equal(location(res).pathname, '/atlas/measurement/');
+  assert.equal(location(res).pathname, '/skills-map/measurement/');
   assert.ok(b.cookies.get('pe_session'));
   assert.equal(b.cookies.get('pe_auth'), '1');
   const cookieLine = res.headers.getSetCookie().find((l) => l.startsWith('pe_session='))!;

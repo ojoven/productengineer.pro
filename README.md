@@ -43,7 +43,7 @@ off. The Skills Map is a proposed framework, not a certification.
 - **Scan the map** and look for the territories you rarely work in. That is usually where the next
   lesson is.
 - **Mark skills** as *learning*, *comfortable* or *not interested*. Without an account your progress stays in your
-  browser and nothing is sent anywhere. You can export a copy as a file.
+  browser and nothing is sent anywhere.
 - **Sign in, if you want,** with GitHub or Google to keep your map on every device. Your provider
   shares your profile and email address.
 - **Connect an AI agent** to `https://productengineer.pro/mcp`. It can look up the whole Skills Map and,
@@ -59,7 +59,7 @@ The explorer combines two filters: overlapping focus areas (People & collaborati
 business, Software & systems, Data & evidence, AI & automation) and your progress. Each skill's
 `focus` field lists its relevant areas. Both filters narrow the index and fill matching map tiles yellow;
 they stay in the URL while you explore. `Not interested` is a reversible status, preserved by
-export/import and account sync. Choose `Exclude not interested` to set those skills aside.
+account sync. Choose `Exclude not interested` to set those skills aside.
 
 The AI territory contains AI engineering and AI-assisted work. General verification and workflow
 automation remain cross-cutting; AI interaction design and inference costs connect from their own territories. Relevant skill pages

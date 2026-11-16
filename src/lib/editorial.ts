@@ -25,7 +25,7 @@ export const STATUS = { planned: 'Planned', running: 'Running', shipped: 'Shippe
 export const VERDICT = { pending: 'No result yet', supported: 'Supported', 'not-supported': 'Not supported', inconclusive: 'Inconclusive' } as const;
 export const DECISION = { pending: 'Not decided', keep: 'Kept', iterate: 'Iterating', revert: 'Reverted', stop: 'Stopped' } as const;
 
-export const itemPath = (e: Item) => `/fieldwork/${e.id}/`;
+export const itemPath = (e: Item) => `/in-practice/${e.id}/`;
 export const itemRef = (e: Item) => `fieldwork/${e.id}`;
 /** Published date for research, start date for applied work. */
 export const itemDate = (e: Item) => ('date' in e.data ? e.data.date : e.data.started);

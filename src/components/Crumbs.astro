@@ -1,17 +1,28 @@
 ---
 interface Props {
-  items: { href?: string; label: string }[];
+  /** `short` replaces the label on phones, where a long title would wrap. */
+  items: { href?: string; label: string; short?: string }[];
 }
 const { items } = Astro.props;
 ---
 
 <nav class="crumbs" aria-label="Breadcrumb">
   {
-    items.map((item, i) => (
-      <>
-        {i > 0 && <span class="sep" aria-hidden="true">/</span>}
-        {item.href ? <a href={item.href}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
-      </>
-    ))
+    items.map((item, i) => {
+      const text = item.short ? (
+        <>
+          <span class="crumb-long">{item.label}</span>
+          <span class="crumb-short">{item.short}</span>
+        </>
+      ) : (
+        item.label
+      );
+      return (
+        <>
+          {i > 0 && <span class="sep" aria-hidden="true">/</span>}
+          {item.href ? <a href={item.href}>{text}</a> : <span aria-current="page">{text}</span>}
+        </>
+      );
+    })
   }
 </nav>

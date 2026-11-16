@@ -6,9 +6,9 @@ import { SITE } from '../site.ts';
 const mcp = `${SITE.url}/mcp`;
 ---
 
-<Base title="Account" description="Keep your map on every device, connect an AI agent and manage your data." searchable={false} noindex>
+<Base title="Account" description="Keep your map on every device and connect an AI agent." searchable={false} noindex>
   <div class="wrap">
-    <Crumbs items={[{ href: '/atlas/', label: 'Skills Map' }, { label: 'Account' }]} />
+    <Crumbs items={[{ href: '/skills-map/', label: 'Skills Map' }, { label: 'Account' }]} />
     <header class="page-head">
       <div class="code-big">Account · <span class="anon-only">optional</span><span class="account-only">signed in</span></div>
       <h1 class="title">Account</h1>
@@ -19,7 +19,7 @@ const mcp = `${SITE.url}/mcp`;
         </span>
         <span class="account-only">Your map is saved to your account, so it follows you to any device, and agents you approve can read it.</span>
       </p>
-      <p><a href="/atlas/">Open your Skills Map →</a></p>
+      <p><a href="/skills-map/">Open your Skills Map →</a></p>
       <p id="auth-msg" role="status" class="label" hidden></p>
     </header>
 
@@ -48,31 +48,11 @@ const mcp = `${SITE.url}/mcp`;
             <div class="btn-row">
               <a class="btn small" id="link-other" href="#" hidden></a>
               <button class="btn small" type="button" id="signout">Sign out</button>
+              <button class="btn small" type="button" id="delete-account">Delete account</button>
             </div>
             <p class="muted" style="font-size:14px;margin-top:14px">
               Signing out removes the map from this browser. It stays in your account. <span id="link-hint"></span>
             </p>
-          </div>
-        </div>
-        <div id="data">
-          <div class="section-head"><h2>Your data</h2><span class="label anon-only">Local only</span><span class="label account-only">Account and this browser</span></div>
-          <form id="name-form" class="btn-row" style="margin-bottom:18px">
-            <label class="visually-hidden" for="display-name">Display name</label>
-            <input id="display-name" name="name" maxlength="60" placeholder="Display name (optional)" class="btn" style="flex:1;min-width:0;text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:15px" />
-            <button class="btn" type="submit">Save</button>
-          </form>
-          <p class="muted anon-only" style="font-size:15px">
-            Progress lives in this browser's storage. Clearing site data, or using a private window, loses it. Export a file to keep
-            a copy or to move it to another browser.
-          </p>
-          <p class="muted account-only" style="font-size:15px">
-            Your map is saved in your account and copied in this browser. Export a file to keep a copy of your own.
-          </p>
-          <div class="btn-row">
-            <button class="btn" type="button" id="export">Export</button>
-            <label class="btn" style="cursor:pointer">Import<input type="file" id="import" accept="application/json,.json" class="visually-hidden" /></label>
-            <button class="btn" type="button" id="reset">Reset</button>
-            <button class="btn account-only" type="button" id="delete-account">Delete account</button>
           </div>
           <p id="data-msg" role="status" class="label" style="margin-top:12px"></p>
         </div>
@@ -167,12 +147,9 @@ const mcp = `${SITE.url}/mcp`;
 </style>
 
 <script>
-  import { load, setName, exportFile, importFile, reset, onChange } from '../scripts/progress.ts';
-  import { account, connections, deleteAccount, isSignedIn, providers, refreshAccount, rename, revokeConnection, signInUrl, signOut } from '../scripts/sync.ts';
+  import { account, connections, deleteAccount, providers, refreshAccount, revokeConnection, signInUrl, signOut } from '../scripts/sync.ts';
   import { track } from '../scripts/track.ts';
 
-  // the skill ids, to skip unknown ones when importing a file
-  let skillIds = new Set<string>();
   const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
   const msg = $('data-msg');
   const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
@@ -182,13 +159,6 @@ const mcp = `${SITE.url}/mcp`;
   $('mcp-url').textContent = `${location.origin}/mcp`;
   $('mcp-cmd').textContent = `claude mcp add --transport http productengineer ${location.origin}/mcp`;
   $('mcp-public').textContent = `${location.origin}/mcp/public`;
-
-  function render() {
-    const acct = account();
-    const name = acct ? acct.name : load().name;
-    const input = $<HTMLInputElement>('display-name');
-    if (document.activeElement !== input) input.value = name ?? '';
-  }
 
   function renderAccount() {
     const acct = account();
@@ -273,17 +243,7 @@ const mcp = `${SITE.url}/mcp`;
     $('signin-buttons').append(a);
   });
 
-  fetch('/atlas-data.json')
-    .then((r) => r.json())
-    .then((d: { skills: { id: string }[] }) => {
-      skillIds = new Set(d.skills.map((s) => s.id));
-    });
-  render();
-  onChange(render);
-  window.addEventListener('pe:account', () => {
-    renderAccount();
-    render();
-  });
+  window.addEventListener('pe:account', renderAccount);
   renderAccount();
 
   document.querySelectorAll<HTMLButtonElement>('button[data-copy]').forEach((b) =>
@@ -298,36 +258,11 @@ const mcp = `${SITE.url}/mcp`;
     }),
   );
 
-  $('name-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const value = $<HTMLInputElement>('display-name').value;
-    if (isSignedIn()) msg.textContent = (await rename(value)) ? 'Name saved.' : 'Could not save the name.';
-    else {
-      setName(value);
-      msg.textContent = 'Name saved.';
-    }
-  });
   $('signout').addEventListener('click', async () => {
     await signOut();
     msg.textContent = 'Signed out. Your map is in your account; sign in again to bring it back.';
     track('Signed out');
   });
-  $('export').addEventListener('click', () => {
-    exportFile();
-    track('Progress exported');
-  });
-  $('import').addEventListener('change', async (e) => {
-    const file = (e.target as HTMLInputElement).files?.[0];
-    if (!file) return;
-    try {
-      const { imported, skipped } = await importFile(file, skillIds);
-      msg.textContent = `Imported ${imported} statuses${skipped ? `, skipped ${skipped} unknown` : ''}.`;
-      track('Progress imported');
-    } catch (err) {
-      msg.textContent = (err as Error).message || 'Could not read that file.';
-    }
-  });
-
   /** A destructive button asks for a second click. */
   function armed(btn: HTMLElement, label: string, warning: () => string, action: () => Promise<void> | void) {
     btn.addEventListener('click', async () => {
@@ -342,18 +277,6 @@ const mcp = `${SITE.url}/mcp`;
       msg.textContent = warning();
     });
   }
-  armed(
-    $('reset'),
-    'Reset',
-    () =>
-      isSignedIn()
-        ? 'This erases every status, here and in your account. Export first if you want a copy.'
-        : 'This erases every status in this browser. Export first if you want a copy.',
-    () => {
-      reset();
-      msg.textContent = 'Progress cleared.';
-    },
-  );
   armed(
     $('delete-account'),
     'Delete account',

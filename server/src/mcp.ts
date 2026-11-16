@@ -73,7 +73,7 @@ export function buildServer(deps: ToolDeps, user: User | undefined): McpServer {
     },
     async () =>
       text({
-        atlas: { territories: atlas.territories.length, capabilities: atlas.capabilities.length, skills: atlas.skills.length, url: `${publicUrl}/atlas/` },
+        atlas: { territories: atlas.territories.length, capabilities: atlas.capabilities.length, skills: atlas.skills.length, url: `${publicUrl}/skills-map/` },
         territories: atlas.territories.map((t) => {
           const skills = atlas.skillsIn(t);
           return {
@@ -281,7 +281,7 @@ export function buildServer(deps: ToolDeps, user: User | undefined): McpServer {
           learning,
           untouched_territories: territories.filter((t) => !t.comfortable && !t.learning && !t.not_interested).map((t) => t.name),
           recent_changes: changes.slice(0, 10).map(([id, v]) => ({ id, name: atlas.skill(id)?.name ?? id, status: v.status, at: new Date(v.at).toISOString() })),
-          map_url: `${publicUrl}/atlas/`,
+          map_url: `${publicUrl}/skills-map/`,
         });
       },
     );

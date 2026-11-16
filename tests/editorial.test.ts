@@ -40,7 +40,7 @@ describe('profile coverage', () => {
       for (const skill of section.skills) {
         expect(skill.name).toBeTruthy();
         expect(skill.code).toBeTruthy();
-        expect(skill.url).toMatch(/^\/atlas\//);
+        expect(skill.url).toMatch(/^\/skills-map\//);
         // the wider discussion can reach any territory; a territory section stays inside its own
         if (section.territory) expect(skill.territory).toBe(section.territory.id);
         // a published profile says, per skill, how the product applied it
