@@ -85,6 +85,10 @@ Write specific applications where they help; omit these fields rather than addin
 
 ## Run it locally
 
+The searchable tools & resources library and its discovery/review panel are documented in
+[docs/catalog.md](docs/catalog.md). Run `npm run dev:catalog` to open the local site and API together;
+the panel is at <http://localhost:4322/operations/>.
+
 The site is a static [Astro](https://astro.build) build with [Pagefind](https://pagefind.app)
 search. Use Node 24 (`nvm use`, see `.nvmrc`); Astro 7 needs Node 22.23 or newer.
 

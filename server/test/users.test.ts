@@ -56,7 +56,14 @@ test('an existing version 1 database migrates without losing accounts, sessions 
     const session = createSession(db, user.id);
     writeChanges(db, user.id, [{ id: 'sample-size', status: 'learning', at: 1 }]);
     // Recreate the previous schema, before email columns existed.
-    db.exec('ALTER TABLE identities DROP COLUMN email; ALTER TABLE identities DROP COLUMN email_verified; PRAGMA user_version = 1;');
+    db.exec(`
+      DROP TABLE catalog_events;
+      DROP TABLE catalog_entries;
+      DROP TABLE discovery_runs;
+      ALTER TABLE identities DROP COLUMN email;
+      ALTER TABLE identities DROP COLUMN email_verified;
+      PRAGMA user_version = 1;
+    `);
     db.close();
     db = openDb(path);
     assert.equal(identitiesOf(db, user.id)[0].email, null);
@@ -87,6 +94,9 @@ test('an existing progress table migrates to support opting out without losing c
       { id: 'ab-tests', status: 'none', at: 3 },
     ]);
     db.exec(`
+      DROP TABLE catalog_events;
+      DROP TABLE catalog_entries;
+      DROP TABLE discovery_runs;
       CREATE TABLE progress_previous (
         user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         skill_id TEXT NOT NULL,

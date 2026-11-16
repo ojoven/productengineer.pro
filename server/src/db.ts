@@ -132,6 +132,31 @@ const MIGRATIONS: string[] = [
   DROP TABLE progress;
   ALTER TABLE progress_next RENAME TO progress;
   `,
+  `
+  CREATE TABLE catalog_entries (
+    id TEXT PRIMARY KEY,
+    canonical_url TEXT NOT NULL UNIQUE,
+    data TEXT NOT NULL CHECK (json_valid(data))
+  );
+  CREATE TABLE catalog_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    entry_id TEXT NOT NULL REFERENCES catalog_entries(id),
+    actor TEXT NOT NULL,
+    action TEXT NOT NULL,
+    note TEXT NOT NULL,
+    at TEXT NOT NULL
+  );
+  CREATE INDEX catalog_events_entry ON catalog_events(entry_id, id);
+  CREATE TABLE discovery_runs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    actor TEXT NOT NULL,
+    source TEXT NOT NULL,
+    query TEXT NOT NULL,
+    data TEXT NOT NULL CHECK (json_valid(data)),
+    cost_usd REAL NOT NULL DEFAULT 0,
+    at TEXT NOT NULL
+  );
+  `,
 ];
 
 export function openDb(path: string): Db {

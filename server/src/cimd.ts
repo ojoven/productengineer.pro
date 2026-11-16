@@ -76,7 +76,7 @@ export function isPublicAddress(address: string): boolean {
 
 type LookupCallback = (err: NodeJS.ErrnoException | null, address: string | LookupAddress[], family?: number) => void;
 
-function safeLookup(hostname: string, options: object, callback: LookupCallback) {
+export function safeLookup(hostname: string, options: object, callback: LookupCallback) {
   dnsLookup(hostname, { ...options, all: true }, (err, addresses) => {
     if (err) return callback(err, []);
     const list = addresses as LookupAddress[];

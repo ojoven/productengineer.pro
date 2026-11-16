@@ -1,8 +1,11 @@
 export const SITE = {
   name: 'ProductEngineer.pro',
   url: 'https://productengineer.pro',
+  /** Follows the name in the home page title. */
+  tagline: 'Product engineering, mapped and in practice',
+  /** The home page passes its own, with the live skill count. */
   description:
-    'Explore the free Skills Map of product engineering, mark what you know and see what to learn next. Learn from real products and experiments in In practice.',
+    'A free map of the skills of product engineering. Mark what you know, see what to learn next and how real products use those skills, told by their makers.',
   /** Privacy-friendly analytics. Leave empty to load nothing. */
   analytics: {
     /** Plausible-compatible script URL, e.g. https://plausible.io/js/script.js or a self-hosted one. */

@@ -39,6 +39,7 @@ export interface Skill {
   tools: string[];
 }
 export interface Resource {
+  checked?: string;
   title: string;
   url: string;
   author: string;
@@ -50,6 +51,7 @@ export interface Resource {
   paid: boolean;
 }
 export interface Tool {
+  checked?: string;
   name: string;
   url: string;
   what: string;

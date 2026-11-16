@@ -1,5 +1,6 @@
 ---
 import type { Tool } from '../atlas/model.ts';
+import ToolIcon from './ToolIcon.astro';
 
 interface Props {
   tools: Tool[];
@@ -19,7 +20,7 @@ const PRICING: Record<string, string> = { 'open-source': 'Open source', free: 'F
             {PRICING[t.pricing]}
           </span>
           <div>
-            <a class="t" href={`/tools/${t.id}/`}>{t.name}</a>
+            <a class="t tool-ref-title" href={`/tools/${t.id}/`}><ToolIcon url={t.url} size={26} />{t.name}</a>
             <div class="by">
               <a href={t.url} rel="noopener" target="_blank">{new URL(t.url).hostname.replace(/^www\./, '')} ↗</a>
             </div>
@@ -32,3 +33,4 @@ const PRICING: Record<string, string> = { 'open-source': 'Open source', free: 'F
     <p class="empty">{emptyText}</p>
   )
 }
+<style>.tool-ref-title { display: inline-flex; align-items: center; gap: 10px; }</style>

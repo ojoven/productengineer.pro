@@ -3,7 +3,6 @@ import { openDb } from '../src/db.ts';
 import { createApp, type Deps } from '../src/app.ts';
 import { loadConfig } from '../src/config.ts';
 import { providersFrom } from '../src/providers.ts';
-import type { ClientMetadataFetcher } from '../src/cimd.ts';
 
 export const PUBLIC = 'http://localhost:4321';
 
@@ -102,7 +101,7 @@ export function fixtureAtlas(): Atlas {
   });
 }
 
-export function makeApp(opts: { fetchClientMetadata?: ClientMetadataFetcher } = {}) {
+export function makeApp(opts: Pick<Deps, 'fetchClientMetadata' | 'fetchCatalogPage' | 'discoverCatalog'> = {}) {
   // The SDK also checks expiry against the wall clock. Start alongside it, then let tests
   // advance this clock explicitly to exercise expiry without waiting.
   const clock = { now: Date.now() };
@@ -115,6 +114,8 @@ export function makeApp(opts: { fetchClientMetadata?: ClientMetadataFetcher } = 
     now: () => clock.now,
     version: 'test',
     fetchClientMetadata: opts.fetchClientMetadata ?? (async () => Promise.reject(new Error('no network in tests'))),
+    fetchCatalogPage: opts.fetchCatalogPage,
+    discoverCatalog: opts.discoverCatalog,
   };
   const app = createApp(deps);
   const fetch = (input: string | URL | Request, init?: RequestInit) => {

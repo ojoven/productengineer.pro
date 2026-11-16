@@ -53,10 +53,10 @@ const out = {
   resources: Object.fromEntries(
     atlas.resources.map((r) => [
       r.id,
-      { title: r.title, url: r.url, author: r.author, type: r.type, level: r.level, length: r.length, year: r.year, why: r.why, paid: r.paid },
+      { title: r.title, url: r.url, author: r.author, type: r.type, level: r.level, length: r.length, year: r.year, why: r.why, paid: r.paid, checked: r.checked },
     ]),
   ),
-  tools: Object.fromEntries(atlas.tools.map((t) => [t.id, { name: t.name, url: t.url, what: t.what, pricing: t.pricing }])),
+  tools: Object.fromEntries(atlas.tools.map((t) => [t.id, { name: t.name, url: t.url, what: t.what, pricing: t.pricing, checked: t.checked }])),
   aliases: Object.fromEntries(atlas.aliases),
 };
 

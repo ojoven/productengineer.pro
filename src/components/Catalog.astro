@@ -1,0 +1,56 @@
+---
+import { atlas } from '../lib/atlas.ts';
+import { catalogEntries } from '../lib/catalog.ts';
+import { hostOf } from '../../server/src/catalog-model.ts';
+import '../catalog/catalog.css';
+interface Props { kind?: 'tool' | 'resource' }
+const { kind = '' } = Astro.props;
+const a = atlas();
+const entries = catalogEntries(a);
+const shown = entries.filter(e => !kind || e.kind === kind);
+---
+<div class="wrap library" id="catalog-app" data-kind={kind}>
+  <header class="library-head">
+    <div class="library-overline"><span class="label">The product engineering library</span><a href="/operations/" class="library-ops">Operations panel ↗</a></div>
+    <div class="library-title-row"><h1 class="title">{kind === 'tool' ? 'Find your next tool.' : kind === 'resource' ? 'Find something worth learning.' : 'Good sources. Useful tools.'}</h1><span class="library-mark" aria-hidden="true">↗</span></div>
+    <p class="lede">A checked collection for the work of building products. Search by topic, tool, author or the skill you want to develop.</p>
+    <form id="catalog-search" class="library-search" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+      <label class="visually-hidden" for="catalog-q">Search tools and resources</label>
+      <input type="search" id="catalog-q" name="q" placeholder="Try analytics, user interviews, accessibility…" autocomplete="off" />
+      <kbd aria-hidden="true">/</kbd><button class="btn primary" type="submit">Search</button>
+    </form>
+    <div class="library-suggestions"><span class="label">Explore</span>{['User interviews', 'Analytics', 'Accessibility', 'AI', 'Open source'].map(q => <button type="button" data-suggestion={q === 'Open source' ? '' : q} data-pricing={q === 'Open source' ? 'open-source' : ''}>{q} ↗</button>)}</div>
+  </header>
+  <nav class="library-tabs" aria-label="Catalog type">
+    <a href="/library/" data-kind-tab="" aria-current={!kind ? 'page' : undefined}>All entries <span>{entries.length}</span></a>
+    <a href="/tools/" data-kind-tab="tool" aria-current={kind === 'tool' ? 'page' : undefined}>Tools <span>{entries.filter(e => e.kind === 'tool').length}</span></a>
+    <a href="/resources/" data-kind-tab="resource" aria-current={kind === 'resource' ? 'page' : undefined}>Learning resources <span>{entries.filter(e => e.kind === 'resource').length}</span></a>
+  </nav>
+  <div class="library-layout">
+    <aside class="library-facets" aria-label="Filter catalog">
+      <div class="library-filter-head"><h2>Refine your search</h2><button type="button" id="catalog-reset" class="text-button">Reset</button></div>
+      <form id="catalog-filters" class="catalog-fields">
+        <label>Territory<select name="territory"><option value="">All territories</option>{a.territories.map(t => <option value={t.id}>{t.name}</option>)}</select></label>
+        <label>Format<select name="type"><option value="">Every format</option>{['tool', 'article', 'video', 'course', 'book', 'docs', 'talk', 'podcast', 'tool-guide', 'post'].map(t => <option value={t}>{t === 'docs' ? 'Documentation' : t.replace('-', ' ')}</option>)}</select></label>
+        <label>Pricing<select name="pricing"><option value="">Any price</option><option value="free">Free</option><option value="open-source">Open source</option><option value="freemium">Freemium</option><option value="paid">Paid</option><option value="unknown">Not assessed</option></select></label>
+        <label>Depth<select name="level"><option value="">Any depth</option><option value="intro">Start here</option><option value="deep">Go deeper</option></select></label>
+      </form>
+      <div class="library-note"><span class="label">Chosen with care</span><p>Sources by practitioners. Tools linked to real skills. No affiliate links.</p><a href="/about/">About the atlas ↗</a></div>
+      <details class="library-help"><summary>Search tips</summary><p>Use <code>"exact phrases"</code>, <code>-exclude</code>, or <code>site:github.com</code>. Search includes descriptions, authors and related skills.</p></details>
+    </aside>
+    <section class="library-results" aria-label="Search results" aria-busy="false">
+      <div class="library-results-head"><div><strong id="catalog-count" role="status" aria-live="polite">{shown.length} entries</strong><span id="catalog-context" class="muted"> across the atlas</span></div><label class="library-sort">Sort by <select id="catalog-sort"><option value="relevance">Relevance</option><option value="alpha">Name A–Z</option><option value="newest">Recently updated</option><option value="oldest">Oldest checked</option></select></label></div>
+      <p id="catalog-notice" class="catalog-notice" role="status" hidden></p>
+      <div id="catalog-active" class="active-filters"></div>
+      <ul class="catalog-list" id="catalog-results">
+        {shown.slice(0, 24).map(e => <li class="catalog-card"><div class="catalog-card-icon"><img src={e.icon} alt="" loading="lazy" width="32" height="32" referrerpolicy="no-referrer" /></div><div class="catalog-card-main"><div class="catalog-card-meta"><span>{e.type}</span><span>{hostOf(e.url)}</span></div><h2><a href={e.url} target="_blank" rel="noopener noreferrer">{e.title} ↗</a></h2><p>{e.description}</p></div><span class="catalog-price">{e.pricing.replace('-', ' ')}</span></li>)}
+      </ul>
+      <div class="catalog-empty" id="catalog-empty" hidden><span aria-hidden="true">⌕</span><h2>No matches this time.</h2><p>Try a broader topic or remove a filter.</p><button class="btn" id="catalog-empty-reset" type="button">Clear search & filters</button></div>
+      <nav class="catalog-pagination" id="catalog-pagination" aria-label="Results pages"></nav>
+      <noscript><p>The first 24 entries are shown. Enable JavaScript to search and filter the complete catalog.</p></noscript>
+    </section>
+  </div>
+</div>
+<script id="catalog-data" type="application/json" set:html={JSON.stringify({ entries, territories: a.territories.map(t => ({ id: t.id, name: t.name })) }).replace(/</g, '\\u003c')} />
+<script>import '../catalog/catalog.ts';</script>

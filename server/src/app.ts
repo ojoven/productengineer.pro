@@ -9,6 +9,9 @@ import type { Provider, ProviderId } from './providers.ts';
 import { accountRoutes } from './account.ts';
 import { oauthRoutes, tokenVerifier, DEFAULT_SCOPE } from './oauth.ts';
 import { mcpHandlers } from './mcp.ts';
+import { catalogRoutes } from './catalog.ts';
+import type { PageFetcher } from './catalog-fetch.ts';
+import type { Discoverer } from './catalog-discovery.ts';
 
 export interface Deps {
   config: Config;
@@ -19,6 +22,8 @@ export interface Deps {
   version: string;
   /** Tests replace the network fetch of client metadata documents. */
   fetchClientMetadata?: ClientMetadataFetcher;
+  fetchCatalogPage?: PageFetcher;
+  discoverCatalog?: Discoverer;
 }
 
 export function createApp(deps: Deps) {
@@ -32,6 +37,7 @@ export function createApp(deps: Deps) {
 
   app.get('/api/health', (c) => c.json({ ok: true, version: deps.version, atlas: deps.atlas.generated }));
   app.route('/', oauthRoutes(deps));
+  app.route('/api', catalogRoutes(deps));
   app.route('/api', accountRoutes(deps));
 
   // ---- MCP ---------------------------------------------------------------------------------

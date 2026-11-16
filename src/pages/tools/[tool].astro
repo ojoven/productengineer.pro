@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import SkillRows from '../../components/SkillRows.astro';
 import CapabilityRows from '../../components/CapabilityRows.astro';
+import ToolIcon from '../../components/ToolIcon.astro';
 import { atlas } from '../../lib/atlas.ts';
 import { usersOf } from '../../atlas/model.ts';
 import type { Capability, Skill, Tool } from '../../atlas/model.ts';
@@ -23,7 +24,7 @@ const PRICING: Record<string, string> = { 'open-source': 'Open source', free: 'F
     <Crumbs items={[{ href: '/tools/', label: 'Tools' }, { label: t.name }]} />
     <header class="page-head">
       <div class="code-big">Tool · {PRICING[t.pricing]}</div>
-      <h1 class="title">{t.name}</h1>
+      <h1 class="title" style="display:flex;align-items:center;gap:18px"><ToolIcon url={t.url} size={48} />{t.name}</h1>
       <p class="lede">{t.what}</p>
       <div class="btn-row"><a class="btn" href={t.url} rel="noopener" target="_blank">{new URL(t.url).hostname.replace(/^www\./, '')} ↗</a></div>
     </header>

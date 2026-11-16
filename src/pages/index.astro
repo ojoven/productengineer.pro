@@ -24,14 +24,16 @@ const out = await fieldwork();
 const fieldworkCount = out.length;
 // profiles and podcast profiles: one product across the map, newest first
 const profiles = out.filter((e) => isMapKind(e.data.kind) && !e.data.placeholder);
+const description = `A free map of the ${a.skills.length} skills of product engineering. Mark what you know, see what to learn next and how real products use those skills, told by their makers.`;
 ---
 
-<Base>
+<Base description={description}>
   <section class="wrap hero">
-    <h1 class="display">Product engineering on one map.<br /> See where you stand.</h1>
+    <h1 class="display">You already do more<br /> than write code.</h1>
     <p class="lede">
-      You already do more than write code. This free map shows the {a.skills.length} skills behind talking to users, deciding
-      what to build, shipping it and checking that it worked. Mark what you know and see what to learn next. No sign-up needed.
+      Talking to users, deciding what to build, shipping it and checking that it worked: that is product engineering. This free
+      map shows its {a.skills.length} skills. Mark what you know and see what to learn next, then see the skills at work in real
+      products, told by their makers. No sign-up needed.
     </p>
     <div class="btn-row">
       <a class="btn primary" href="/skills-map/">Open the Skills Map</a>

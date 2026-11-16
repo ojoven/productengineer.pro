@@ -20,6 +20,12 @@ export interface Config {
   devLogin: boolean;
   /** Trust X-Forwarded-For from the local reverse proxy (Apache). */
   trustProxy: boolean;
+  opsAdminIds?: string[];
+  opsAdminEmails?: string[];
+  tregToken?: string;
+  tregOrg?: string;
+  tregCli?: string;
+  discoveryDailyBudget?: number;
 }
 
 const SERVER_ROOT = join(import.meta.dirname, '..');
@@ -51,6 +57,12 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     google: credentials(env, 'GOOGLE'),
     devLogin,
     trustProxy: env.TRUST_PROXY !== '0',
+    opsAdminIds: (env.OPS_ADMIN_IDS ?? '').split(',').map(s => s.trim()).filter(Boolean),
+    opsAdminEmails: (env.OPS_ADMIN_EMAILS ?? '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean),
+    tregToken: env.TREG_TOKEN?.trim(),
+    tregOrg: env.TREG_ORG?.trim(),
+    tregCli: env.TREG_CLI?.trim(),
+    discoveryDailyBudget: Math.max(0, Math.min(100, Number(env.DISCOVERY_DAILY_BUDGET ?? '1') || 0)),
   };
   return config;
 }
