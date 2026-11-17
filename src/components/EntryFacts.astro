@@ -28,7 +28,10 @@ const runtime = (d: string) => {
         </div>
         <div>
           <dt>How I looked</dt>
-          <dd>{entry.data.method}</dd>
+          <dd>
+            <div class="clamp" id="facts-method" data-clamp>{entry.data.method}</div>
+            <button type="button" class="read-more" aria-controls="facts-method" aria-expanded="false" hidden>Read more</button>
+          </dd>
         </div>
         <div>
           <dt>{entry.data.subjects.length > 1 ? 'Products' : 'Product'}</dt>
@@ -140,3 +143,26 @@ const runtime = (d: string) => {
     )
   }
 </dl>
+
+<script>
+  // Cut a long fact to three lines with a Read more button. Without JS the full text shows.
+  document.querySelectorAll<HTMLElement>('[data-clamp]').forEach((text) => {
+    const button = text.parentElement?.querySelector<HTMLButtonElement>('.read-more');
+    if (!button) return;
+    const measure = () => {
+      if (button.getAttribute('aria-expanded') === 'true') return;
+      text.classList.add('is-clamped');
+      const overflows = text.scrollHeight > text.clientHeight + 1;
+      text.classList.toggle('is-clamped', overflows);
+      button.hidden = !overflows;
+    };
+    button.addEventListener('click', () => {
+      const open = button.getAttribute('aria-expanded') !== 'true';
+      button.setAttribute('aria-expanded', String(open));
+      button.textContent = open ? 'Show less' : 'Read more';
+      text.classList.toggle('is-clamped', !open);
+    });
+    measure();
+    new ResizeObserver(measure).observe(text.parentElement!);
+  });
+</script>

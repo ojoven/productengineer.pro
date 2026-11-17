@@ -1135,6 +1135,32 @@ th {
   margin: 0;
   padding-left: 18px;
 }
+/* a long fact cut to three lines until the reader asks for the rest */
+.facts .clamp.is-clamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+.facts .read-more {
+  margin-top: 6px;
+  padding: 0;
+  background: none;
+  border: 0;
+  font: 500 11px/1.6 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  cursor: pointer;
+}
+.facts .read-more:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.facts .read-more[hidden] {
+  display: none;
+}
 .facts .metric {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
