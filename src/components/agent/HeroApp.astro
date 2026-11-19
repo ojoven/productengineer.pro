@@ -1,0 +1,275 @@
+---
+// The hero illustration: what the agent's home screen could look like on a Monday morning.
+import Brand from './Brand.astro';
+import { WEEKS, hexPath, honeycomb, overallScore, territoryScores } from './sample.ts';
+
+const scores = territoryScores();
+const overall = overallScore();
+const weeks = [...WEEKS, { week: 'W47', score: overall }];
+const spark = weeks.map((w, i) => [208 + (i * 220) / (weeks.length - 1), 276 - (w.score - 58) * 2.2]);
+const comb = honeycomb(460 + (276 - 4 * 48) / 2, 146, 48);
+const nav = [
+  { label: 'Overview', active: true },
+  { label: 'Findings', count: '12' },
+  { label: 'Approvals', count: '3', hot: true },
+  { label: 'Scorecard' },
+  { label: 'Weekly review' },
+  { label: 'Connectors', count: '9' },
+  { label: 'Context' },
+];
+const cards = [
+  { icon: 'github', tag: 'Activation · Pull request', title: 'Revert the third signup step added in #482', why: 'Signup to first project fell from 41% to 29% since Tuesday.' },
+  { icon: 'posthog', tag: 'Measurement · Pull request', title: 'Track plan upgrades in PostHog', why: 'Upgrades happen in Stripe, but no event records them.' },
+  { icon: 'googleads', tag: 'Distribution · Campaigns', title: 'Pause two Google Ads campaigns', why: '€38 per activated user, against €11 on average.', done: true },
+] as const;
+---
+
+<figure class="hero-app" aria-labelledby="hero-app-cap">
+  <div class="hero-app-crop">
+    <svg viewBox="0 0 760 560" role="img" aria-labelledby="hero-app-title hero-app-desc">
+      <title id="hero-app-title">The agent’s overview screen, with sample data</title>
+      <desc id="hero-app-desc">
+        A product health score of {overall} out of 100, up 4 on last week. A honeycomb scores each Skills Map territory.
+        Below, three changes wait for approval: revert a signup step, track plan upgrades, and pause two ad campaigns.
+      </desc>
+      <rect class="win" x="0.5" y="0.5" width="759" height="559"></rect>
+      <rect class="chrome" x="1" y="1" width="758" height="35"></rect>
+      <path class="sep-ink" d="M0 36.5H760"></path>
+      {[14, 27, 40].map((x) => <rect class="dot" x={x} y="14" width="8" height="8"></rect>)}
+      <text class="mono t11 muted wide-only" x="62" y="22">acme · product health</text>
+      <path class="hexmini" d={hexPath(578, 18, 8)}></path>
+      <text class="mono t10 muted" x="746" y="22" text-anchor="end">9 sources synced · 06:00</text>
+
+      <!-- sidebar -->
+      <path class="sep" d="M168.5 37V560"></path>
+      {
+        nav.map((n, i) => (
+          <g>
+            {n.active && <rect class="nav-on" x="1" y={50 + i * 30} width="167" height="28"></rect>}
+            {n.active && <rect class="accent" x="1" y={50 + i * 30} width="3" height="28"></rect>}
+            <path class:list={['hexmini', { on: n.active }]} d={hexPath(22, 64 + i * 30, 9)}></path>
+            <text class:list={['t13', { strong: n.active }]} x="36" y={68.5 + i * 30}>{n.label}</text>
+            {n.count && <text class:list={['mono t11', n.hot ? 'accent-ink' : 'muted']} x="154" y={68.5 + i * 30} text-anchor="end">{n.count}</text>}
+          </g>
+        ))
+      }
+      <path class="sep" d="M0 446.5H168"></path>
+      <text class="mono t9 muted caps" x="16" y="470">Your engineer</text>
+      <circle class="avatar" cx="32" cy="502" r="16"></circle>
+      <circle class="avatar-ink" cx="32" cy="497" r="5.5"></circle>
+      <path class="avatar-ink" d="M22 513c1.5-6 5.5-8.5 10-8.5s8.5 2.5 10 8.5"></path>
+      <text class="t12 strong" x="56" y="498">Forward deployed</text>
+      <text class="t12 strong" x="56" y="513">engineer</text>
+      <text class="mono t10 muted" x="16" y="542">Next review · Thu 10:00</text>
+
+      <!-- main -->
+      <text class="cond t22" x="192" y="76">Good morning. 3 changes need your yes.</text>
+      <text class="mono t11 muted" x="192" y="98">Overnight: 1,204 sessions · 37 commits · 4 campaigns · 61 tickets</text>
+
+      <rect class="panel" x="192.5" y="114.5" width="252" height="180"></rect>
+      <text class="mono t9 muted caps" x="208" y="136">Product health</text>
+      <text class="cond t72" x="204" y="208">{overall}</text>
+      <text class="mono t13 muted" x="284" y="208">/100</text>
+      <text class="mono t11" x="208" y="230">+4 on last week</text>
+      <polyline class="spark" points={spark.map((p) => p.join(',')).join(' ')}></polyline>
+      <circle class="spark-dot" cx={spark.at(-1)![0]} cy={spark.at(-1)![1]} r="4"></circle>
+      <text class="mono t9 muted" x="208" y="289">{weeks[0].week}</text>
+      <text class="mono t9 muted" x="428" y="289" text-anchor="end">{weeks.at(-1)!.week}</text>
+
+      <rect class="panel" x="460.5" y="114.5" width="276" height="180"></rect>
+      <text class="mono t9 muted caps" x="476" y="136">By territory</text>
+      {
+        scores.map((t, i) => {
+          const c = comb.cells[i];
+          return (
+            <g class={`cell b-${t.band}`}>
+              <path d={hexPath(c.cx, c.cy, 45)}></path>
+              <text class="mono t8 caps" x={c.cx} y={c.cy - 7} text-anchor="middle">{t.short}</text>
+              <text class="cond t17" x={c.cx} y={c.cy + 12} text-anchor="middle">{t.score}</text>
+            </g>
+          );
+        })
+      }
+
+      <text class="mono t9 muted caps" x="192" y="322">Needs your yes</text>
+      <text class="mono t10 muted" x="736" y="322" text-anchor="end">All 12 findings →</text>
+      {
+        cards.map((c, i) => {
+          const y = 332 + i * 72;
+          return (
+            <g>
+              <rect class="card" x="192.5" y={y + 0.5} width="544" height="64"></rect>
+              <g class="ico"><Brand id={c.icon} size={14} x={208} y={y + 11} /></g>
+              <text class="mono t9 muted caps" x="230" y={y + 22}>{c.tag}</text>
+              <text class="t14 strong" x="208" y={y + 41}>{c.title}</text>
+              <text class="t12 muted" x="208" y={y + 57}>{c.why}</text>
+              {'done' in c && c.done ? (
+                <text class="mono t11 muted" x="724" y={y + 37} text-anchor="end">✓ Approved · 07:42</text>
+              ) : (
+                <g>
+                  <rect class="btn-yes" x="592" y={y + 19} width="70" height="26"></rect>
+                  <text class="mono t10 caps on-ink" x="627" y={y + 36} text-anchor="middle">Approve</text>
+                  <rect class="btn-no" x="668.5" y={y + 19.5} width="56" height="25"></rect>
+                  <text class="mono t10 caps" x="696.5" y={y + 36} text-anchor="middle">Reject</text>
+                </g>
+              )}
+            </g>
+          );
+        })
+      }
+    </svg>
+  </div>
+  <figcaption id="hero-app-cap" class="label">Concept screen · sample data for a made-up product, Acme</figcaption>
+</figure>
+
+<style>
+  .hero-app {
+    margin: 0;
+    min-width: 0;
+  }
+  .hero-app-crop {
+    overflow: hidden;
+  }
+  .hero-app svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: var(--sans);
+  }
+  .hero-app figcaption {
+    margin-top: 10px;
+  }
+  /* Phones: crop away the sidebar so the main column stays readable. The crop starts on the
+     sidebar's border line (x = 168 of 760), which then reads as the window's left edge. */
+  @media (max-width: 640px) {
+    .hero-app svg {
+      width: calc(100% * 760 / 592);
+      max-width: none;
+      margin-left: calc(-100% * 168 / 592);
+    }
+    .wide-only {
+      display: none;
+    }
+  }
+  .win {
+    fill: var(--bg);
+    stroke: var(--ink);
+  }
+  .chrome {
+    fill: var(--bg-2);
+  }
+  .sep-ink {
+    stroke: var(--ink);
+  }
+  .sep {
+    stroke: var(--line);
+  }
+  .dot {
+    fill: none;
+    stroke: var(--muted);
+  }
+  .hexmini {
+    fill: var(--tile);
+    stroke: var(--ink);
+    stroke-width: 1;
+  }
+  .hexmini.on {
+    fill: var(--ink);
+  }
+  .nav-on {
+    fill: var(--bg-2);
+  }
+  .accent {
+    fill: var(--accent);
+  }
+  .panel,
+  .card {
+    fill: none;
+    stroke: var(--line);
+  }
+  .card {
+    fill: var(--bg);
+  }
+  .avatar {
+    fill: var(--tile);
+  }
+  .avatar-ink {
+    fill: var(--ink-2);
+  }
+  path.avatar-ink {
+    fill: var(--ink-2);
+  }
+  .spark {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+  }
+  .spark-dot {
+    fill: var(--accent);
+  }
+  .cell path {
+    stroke: none;
+  }
+  .cell.b-strong path {
+    fill: var(--ink);
+  }
+  .cell.b-strong text {
+    fill: var(--bg);
+  }
+  .cell.b-fair path {
+    fill: var(--tile);
+  }
+  .cell.b-low path {
+    fill: var(--accent);
+  }
+  .cell.b-low text {
+    fill: #fff;
+  }
+  .ico {
+    color: var(--ink);
+  }
+  .btn-yes {
+    fill: var(--ink);
+  }
+  .btn-no {
+    fill: none;
+    stroke: var(--ink);
+  }
+  text {
+    fill: var(--ink);
+  }
+  .muted {
+    fill: var(--muted);
+  }
+  .accent-ink {
+    fill: var(--accent-ink);
+  }
+  .on-ink {
+    fill: var(--bg);
+  }
+  .strong {
+    font-weight: 600;
+  }
+  .mono {
+    font-family: var(--mono);
+  }
+  .cond {
+    font-family: var(--cond);
+    font-weight: 600;
+  }
+  .caps {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .t8 { font-size: 8px; }
+  .t9 { font-size: 9.5px; }
+  .t10 { font-size: 10px; }
+  .t11 { font-size: 11px; }
+  .t12 { font-size: 12px; }
+  .t13 { font-size: 13px; }
+  .t14 { font-size: 14px; }
+  .t17 { font-size: 17px; }
+  .t22 { font-size: 22px; letter-spacing: -0.01em; }
+  .t72 { font-size: 72px; letter-spacing: -0.03em; }
+</style>

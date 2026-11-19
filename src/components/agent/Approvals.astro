@@ -1,0 +1,274 @@
+---
+// An interactive approval queue. Sample work for the made-up product Acme; nothing is sent anywhere.
+import Brand from './Brand.astro';
+import type { IconId } from './icons.ts';
+
+interface Item {
+  icon: IconId;
+  kind: string;
+  title: string;
+  why: string;
+  preview: { type: 'diff' | 'code' | 'text'; lines: string[] };
+  approved: string;
+  rejected: string;
+}
+const items: Item[] = [
+  {
+    icon: 'github',
+    kind: 'Pull request #483',
+    title: 'Revert the third signup step added in #482',
+    why: 'Signup to first project fell from 41% to 29% since Tuesday. Only #482 touched that flow.',
+    preview: { type: 'diff', lines: ["- steps: ['account', 'workspace', 'invite']", "+ steps: ['account', 'workspace']"] },
+    approved: 'Approved. #483 is ready to merge.',
+    rejected: 'Rejected. It will watch the funnel for 7 more days.',
+  },
+  {
+    icon: 'posthog',
+    kind: 'Pull request #484',
+    title: 'Track plan upgrades',
+    why: 'Upgrades happen in Stripe, but no PostHog event records them. The upgrade funnel is blind.',
+    preview: { type: 'code', lines: ["posthog.capture('plan_upgraded', { plan, interval })"] },
+    approved: 'Approved. #484 is ready to merge.',
+    rejected: 'Rejected. Logged as a known gap in the scorecard.',
+  },
+  {
+    icon: 'googleads',
+    kind: 'Campaign change',
+    title: 'Pause two Google Ads campaigns',
+    why: '€38 per activated user, against €11 on average. Visits are up, activated users are not.',
+    preview: { type: 'text', lines: ['Pause: Generic · ES', 'Pause: Competitors · EN', 'Saves about €620 a month'] },
+    approved: 'Approved. Both campaigns are paused.',
+    rejected: 'Rejected. It will check them again next Monday.',
+  },
+  {
+    icon: 'linkedin',
+    kind: 'Draft post',
+    title: 'Post this week’s changelog',
+    why: 'The last three changelog posts brought 212 visits and 19 signups. They work.',
+    preview: { type: 'text', lines: ['New this week in Acme: projects open twice as fast,', 'and CSV import now reads Excel files.'] },
+    approved: 'Approved. Scheduled for Tuesday, 09:00.',
+    rejected: 'Rejected. The draft stays in the review folder.',
+  },
+  {
+    icon: 'linear',
+    kind: 'Issue',
+    title: 'CSV import fails on files saved from Excel',
+    why: 'Three customers reported it this week. Fourteen sessions show the same error in Sentry.',
+    preview: { type: 'text', lines: ['Priority: high · 3 customers · 14 sessions', 'Likely cause: UTF-16 encoding'] },
+    approved: 'Approved. Added to the backlog as ACME-212.',
+    rejected: 'Rejected. The threads stay grouped in the weekly review.',
+  },
+];
+---
+
+<div class="queue" data-queue>
+  <div class="q-bar">
+    <span class="label">Approvals · Acme</span>
+    <span class="label q-count" data-count aria-live="polite">{items.length} waiting</span>
+  </div>
+  <ol class="q-list">
+    {
+      items.map((it) => (
+        <li class="q-item" data-item data-approved={it.approved} data-rejected={it.rejected}>
+          <span class="q-icon"><Brand id={it.icon} size={18} /></span>
+          <div class="q-body">
+            <span class="label">{it.kind}</span>
+            <h4>{it.title}</h4>
+            <p>{it.why}</p>
+            <pre class:list={['q-preview', it.preview.type]}>{it.preview.lines.join('\n')}</pre>
+          </div>
+          <div class="q-actions">
+            <div class="q-buttons">
+              <button type="button" class="btn small primary" data-act="approve" aria-label={`Approve: ${it.title}`}>Approve</button>
+              <button type="button" class="btn small" data-act="reject" aria-label={`Reject: ${it.title}`}>Reject</button>
+            </div>
+            <p class="q-status" data-status role="status"></p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="q-done" data-done hidden>
+    <p><strong>All five done.</strong> That was your whole review.</p>
+    <button type="button" class="btn small" data-restart>Start again</button>
+  </div>
+</div>
+
+<script>
+  for (const queue of document.querySelectorAll<HTMLElement>('[data-queue]')) {
+    const items = [...queue.querySelectorAll<HTMLElement>('[data-item]')];
+    const count = queue.querySelector<HTMLElement>('[data-count]')!;
+    const done = queue.querySelector<HTMLElement>('[data-done]')!;
+    const render = () => {
+      const left = items.filter((it) => !it.dataset.state).length;
+      count.textContent = left ? `${left} waiting` : 'Inbox empty';
+      done.hidden = left > 0;
+    };
+    for (const it of items) {
+      const status = it.querySelector<HTMLElement>('[data-status]')!;
+      it.addEventListener('click', (e) => {
+        const btn = (e.target as Element).closest<HTMLButtonElement>('button[data-act]');
+        if (!btn || it.dataset.state) return;
+        const state = btn.dataset.act === 'approve' ? 'approved' : 'rejected';
+        it.dataset.state = state;
+        status.textContent = (state === 'approved' ? it.dataset.approved : it.dataset.rejected) ?? '';
+        // keep keyboard focus in the queue once the buttons hide
+        const next = items.find((x) => !x.dataset.state)?.querySelector<HTMLButtonElement>('button[data-act="approve"]');
+        (next ?? queue.querySelector<HTMLButtonElement>('[data-restart]'))?.focus({ preventScroll: true });
+        render();
+      });
+    }
+    queue.querySelector('[data-restart]')!.addEventListener('click', () => {
+      for (const it of items) {
+        delete it.dataset.state;
+        it.querySelector<HTMLElement>('[data-status]')!.textContent = '';
+      }
+      render();
+      items[0].querySelector<HTMLButtonElement>('button[data-act="approve"]')?.focus({ preventScroll: true });
+    });
+    render();
+  }
+</script>
+
+<style>
+  .queue {
+    border: 1px solid var(--ink);
+    background: var(--bg);
+  }
+  .q-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--ink);
+  }
+  .q-count {
+    color: var(--accent-ink);
+  }
+  .q-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .q-item {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 150px;
+    gap: 12px 14px;
+    padding: 16px 14px;
+    border-top: 1px solid var(--line);
+    transition: background 0.2s, opacity 0.2s;
+  }
+  .q-item:first-child {
+    border-top: 0;
+  }
+  .q-icon {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+  .q-body h4 {
+    margin: 4px 0 4px;
+    font: 600 19px/1.2 var(--cond);
+  }
+  .q-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  .q-preview {
+    margin: 10px 0 0;
+    padding: 8px 10px;
+    font: 12px/1.6 var(--mono);
+    background: var(--bg-2);
+    border-left: 2px solid var(--line);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    color: var(--ink-2);
+  }
+  .q-preview.diff {
+    border-left-color: var(--accent);
+  }
+  .q-actions {
+    display: grid;
+    align-content: start;
+  }
+  .q-buttons {
+    display: grid;
+    gap: 6px;
+  }
+  .q-buttons .btn {
+    justify-content: center;
+  }
+  .q-status {
+    margin: 0;
+    font: 12px/1.5 var(--mono);
+    color: var(--ink-2);
+  }
+  .q-status:empty {
+    display: none;
+  }
+  .q-item[data-state] .q-buttons {
+    display: none;
+  }
+  .q-item[data-state] .q-body h4::before {
+    font-family: var(--mono);
+    font-weight: 500;
+    margin-right: 8px;
+  }
+  .q-item[data-state='approved'] .q-body h4::before {
+    content: '✓';
+    color: var(--accent-ink);
+  }
+  .q-item[data-state='rejected'] .q-body h4::before {
+    content: '×';
+    color: var(--muted);
+  }
+  .q-item[data-state='approved'] {
+    background: color-mix(in srgb, var(--accent) 6%, var(--bg));
+  }
+  .q-item[data-state='rejected'] {
+    opacity: 0.6;
+  }
+  .q-done {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px;
+    border-top: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .q-done[hidden] {
+    display: none;
+  }
+  .q-done p {
+    margin: 0;
+  }
+  .q-done .btn {
+    border-color: var(--bg);
+    color: var(--bg);
+  }
+  .q-done .btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  @media (max-width: 560px) {
+    .q-item {
+      grid-template-columns: 34px minmax(0, 1fr);
+    }
+    .q-actions {
+      grid-column: 2;
+    }
+    .q-buttons {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

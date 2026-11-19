@@ -1,0 +1,29 @@
+---
+// One connector mark, drawn in the current text colour. Works in HTML and nested in an SVG figure.
+import { ICONS, type IconId } from './icons.ts';
+
+interface Props {
+  id: IconId;
+  size?: number;
+  x?: number;
+  y?: number;
+  class?: string;
+  /** Show the brand name to assistive technology. Off when a visible name sits next to the mark. */
+  labelled?: boolean;
+}
+const { id, size = 20, x, y, class: className, labelled = false } = Astro.props;
+const icon = ICONS[id];
+---
+
+<svg
+  class:list={['brand-mark', className]}
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  x={x}
+  y={y}
+  role={labelled ? 'img' : undefined}
+  aria-label={labelled ? icon.title : undefined}
+  aria-hidden={labelled ? undefined : 'true'}
+  focusable="false"
+><path d={icon.d} fill="currentColor"></path></svg>

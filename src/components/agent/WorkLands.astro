@@ -1,0 +1,243 @@
+---
+// Where the agent's work shows up: a chat alert, a pull request and the Monday review. Sample data.
+import Brand from './Brand.astro';
+import { hexPath, overallScore } from './sample.ts';
+
+const overall = overallScore();
+---
+
+<div class="lands">
+  <figure>
+    <svg viewBox="0 0 360 320" role="img" aria-labelledby="land-chat-t">
+      <title id="land-chat-t">A chat message from the agent: activation fell after a deploy, with two pull requests to choose from</title>
+      <rect class="frame" x="0.5" y="0.5" width="359" height="319"></rect>
+      <rect class="bar" x="1" y="1" width="358" height="33"></rect>
+      <path class="ink-line" d="M0 34.5H360"></path>
+      <g class="ico"><Brand id="slack" size={13} x={14} y={11} /></g>
+      <text class="mono t12" x="34" y="22"># product</text>
+      <text class="mono t10 muted" x="346" y="22" text-anchor="end">Today</text>
+
+      <path class="agent-tile" d={hexPath(25, 62, 22)}></path>
+      <path class="agent-core" d={hexPath(25, 62, 8)}></path>
+      <text class="t12 b" x="46" y="58">Agent Product Engineer</text>
+      <text class="mono t10 muted" x="46" y="72">09:12</text>
+      <text class="t13" x="46" y="96">Signup to first project fell from 41%</text>
+      <text class="t13" x="46" y="113">to 29% after Tuesday’s deploy (#482).</text>
+      <text class="t13" x="46" y="130">I opened two pull requests:</text>
+      <rect class="opt" x="46.5" y="140.5" width="298" height="28"></rect>
+      <text class="mono t11" x="56" y="159">#483 · Revert the third step</text>
+      <rect class="opt" x="46.5" y="174.5" width="298" height="28"></rect>
+      <text class="mono t11" x="56" y="193">#485 · Make the step optional</text>
+      <text class="t13" x="46" y="224">Which one should go out?</text>
+      <rect class="btn-ink" x="46" y="234" width="78" height="24"></rect>
+      <text class="mono t10 caps on-ink" x="85" y="250" text-anchor="middle">Ship #483</text>
+      <rect class="btn-line" x="130.5" y="234.5" width="78" height="23"></rect>
+      <text class="mono t10 caps" x="169.5" y="250" text-anchor="middle">Ship #485</text>
+      <path class="line" d="M14 272.5H346"></path>
+      <circle class="you" cx="25" cy="292" r="10"></circle>
+      <text class="t12 b" x="46" y="290">You</text>
+      <text class="mono t10 muted" x="74" y="290">09:20</text>
+      <text class="t13" x="46" y="307">#485. Keep the invite, but later.</text>
+    </svg>
+    <figcaption>
+      <h3>Alerts and questions, where you already talk</h3>
+      <p>When something moves, it posts what changed, what it found and what it proposes. You answer in the thread.</p>
+    </figcaption>
+  </figure>
+
+  <figure>
+    <svg viewBox="0 0 360 320" role="img" aria-labelledby="land-pr-t">
+      <title id="land-pr-t">A pull request from the agent that adds tracking for plan upgrades, with three passing checks</title>
+      <rect class="frame" x="0.5" y="0.5" width="359" height="319"></rect>
+      <rect class="bar" x="1" y="1" width="358" height="33"></rect>
+      <path class="ink-line" d="M0 34.5H360"></path>
+      <g class="ico"><Brand id="github" size={13} x={14} y={11} /></g>
+      <text class="mono t12" x="34" y="22">acme/web</text>
+      <rect class="pill" x="298.5" y="9.5" width="48" height="16"></rect>
+      <text class="mono t9 caps accent-ink" x="322.5" y="21" text-anchor="middle">Open</text>
+
+      <text class="cond t20" x="16" y="66">Track plan upgrades <tspan class="muted">#484</tspan></text>
+      <text class="mono t10 muted" x="16" y="86">agent wants to merge 1 commit into main</text>
+      <rect class="chip" x="16.5" y="96.5" width="84" height="17"></rect>
+      <text class="mono t9" x="58.5" y="108.5" text-anchor="middle">measurement</text>
+      <rect class="chip" x="106.5" y="96.5" width="44" height="17"></rect>
+      <text class="mono t9" x="128.5" y="108.5" text-anchor="middle">agent</text>
+      <text class="t13 ink2" x="16" y="140">Why: upgrades happen in Stripe, but no</text>
+      <text class="t13 ink2" x="16" y="157">event records them. The upgrade funnel</text>
+      <text class="t13 ink2" x="16" y="174">is blind. Evidence: measured, 30 days.</text>
+
+      <rect class="code" x="16" y="186" width="328" height="88"></rect>
+      <text class="mono t10 muted" x="26" y="202">src/billing/upgrade.ts</text>
+      <text class="mono t11 muted" x="26" y="222">  await subscriptions.update(id, plan)</text>
+      <rect class="add" x="16" y="228" width="328" height="17"></rect>
+      <text class="mono t11" x="26" y="240"><tspan class="accent-ink">+</tspan> posthog.capture('plan_upgraded', {'{'}</text>
+      <rect class="add" x="16" y="245" width="328" height="17"></rect>
+      <text class="mono t11" x="26" y="257"><tspan class="accent-ink">+</tspan>   plan, interval, from: previous {'})'}</text>
+
+      <text class="mono t11" x="16" y="301">✓ 3 checks passed</text>
+      <text class="mono t10 accent-ink" x="344" y="301" text-anchor="end">Waiting for your review</text>
+    </svg>
+    <figcaption>
+      <h3>Pull requests, ready to review</h3>
+      <p>Code changes arrive as pull requests with the evidence, the diff and passing checks. It never pushes to main.</p>
+    </figcaption>
+  </figure>
+
+  <figure>
+    <svg viewBox="0 0 360 320" role="img" aria-labelledby="land-doc-t">
+      <title id="land-doc-t">The Monday review for week 47: health {overall}, activation down, three changes to approve and the next bet</title>
+      <rect class="frame" x="0.5" y="0.5" width="359" height="319"></rect>
+      <rect class="bar" x="1" y="1" width="358" height="33"></rect>
+      <path class="ink-line" d="M0 34.5H360"></path>
+      <path class="doc" d="M15.5 10.5h7l3 3v11h-10z"></path>
+      <text class="mono t10" x="34" y="22">docs/product/reviews/2026-11-16.md</text>
+
+      <text class="cond t20" x="16" y="66">Monday review · week 47</text>
+      <path class="line" d="M16 82.5H344"></path>
+      <text class="mono t9 caps muted" x="16" y="100">Health</text>
+      <text class="cond t24" x="16" y="126">{overall} <tspan class="mono t11 muted">+4</tspan></text>
+      <text class="mono t9 caps muted" x="126" y="100">Activation</text>
+      <text class="cond t24" x="126" y="126">29% <tspan class="mono t11 accent-ink">−12 pts</tspan></text>
+      <text class="mono t9 caps muted" x="246" y="100">Shipped</text>
+      <text class="cond t24" x="246" y="126">14 <tspan class="mono t11 muted">deploys</tspan></text>
+      <path class="line" d="M16 140.5H344"></path>
+
+      <text class="mono t9 caps muted" x="16" y="162">What moved</text>
+      <text class="t12" x="16" y="180">• Activation fell after #482. A fix is ready.</text>
+      <text class="t12" x="16" y="196">• Changelog posts keep bringing signups.</text>
+      <text class="mono t9 caps muted" x="16" y="222">Needs your yes</text>
+      <text class="t12" x="16" y="240">• 3 changes. About two minutes.</text>
+      <text class="mono t9 caps muted" x="16" y="266">Next bet</text>
+      <text class="t12" x="16" y="284">• Shorter signup: two steps, invite later.</text>
+      <text class="mono t10 muted" x="16" y="303">Review date: 30 November · bets/004.md</text>
+    </svg>
+    <figcaption>
+      <h3>A Monday review, in your repo</h3>
+      <p>One page a week: the score, what moved, what needs your yes and the next bet. Plain Markdown, versioned with your code.</p>
+    </figcaption>
+  </figure>
+</div>
+
+<style>
+  .lands {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+  }
+  figure {
+    margin: 0;
+    min-width: 0;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: var(--sans);
+  }
+  figcaption h3 {
+    font-size: 22px;
+    margin: 16px 0 6px;
+  }
+  figcaption p {
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  .frame {
+    fill: var(--bg);
+    stroke: var(--ink);
+  }
+  .bar {
+    fill: var(--bg-2);
+  }
+  .ink-line {
+    stroke: var(--ink);
+  }
+  .line {
+    stroke: var(--line);
+  }
+  .ico {
+    color: var(--ink);
+  }
+  .agent-tile {
+    fill: var(--ink);
+  }
+  .agent-core {
+    fill: var(--accent);
+  }
+  .you {
+    fill: var(--tile);
+  }
+  .opt,
+  .chip {
+    fill: none;
+    stroke: var(--line);
+  }
+  .pill {
+    fill: none;
+    stroke: var(--accent-ink);
+  }
+  .btn-ink {
+    fill: var(--ink);
+  }
+  .btn-line {
+    fill: none;
+    stroke: var(--ink);
+  }
+  .code {
+    fill: var(--bg-2);
+  }
+  .add {
+    fill: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+  .doc {
+    fill: none;
+    stroke: var(--ink);
+  }
+  text {
+    fill: var(--ink);
+  }
+  .muted {
+    fill: var(--muted);
+  }
+  .ink2 {
+    fill: var(--ink-2);
+  }
+  .accent-ink {
+    fill: var(--accent-ink);
+  }
+  .on-ink {
+    fill: var(--bg);
+  }
+  .b {
+    font-weight: 600;
+  }
+  .mono {
+    font-family: var(--mono);
+  }
+  .cond {
+    font-family: var(--cond);
+    font-weight: 600;
+  }
+  .caps {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .t9 { font-size: 9.5px; }
+  .t10 { font-size: 10px; }
+  .t11 { font-size: 11px; }
+  .t12 { font-size: 12.5px; }
+  .t13 { font-size: 13px; }
+  .t20 { font-size: 20px; }
+  .t24 { font-size: 24px; }
+  @media (max-width: 1000px) {
+    .lands {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .lands {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

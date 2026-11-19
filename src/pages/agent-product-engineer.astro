@@ -1,0 +1,722 @@
+---
+// Concept page for Agent Product Engineer: an agent that reviews, audits and scores a product
+// every day, set up by a forward deployed engineer. Not linked from the site, not in the sitemap.
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import MapFigure from '../components/MapFigure.astro';
+import Brand from '../components/agent/Brand.astro';
+import HeroApp from '../components/agent/HeroApp.astro';
+import Flow from '../components/agent/Flow.astro';
+import Connectors from '../components/agent/Connectors.astro';
+import Approvals from '../components/agent/Approvals.astro';
+import Scorecard from '../components/agent/Scorecard.astro';
+import WorkLands from '../components/agent/WorkLands.astro';
+import Engineer from '../components/agent/Engineer.astro';
+import { ICONS, type IconId } from '../components/agent/icons.ts';
+import { path, skill } from '../lib/atlas.ts';
+import { author } from '../lib/editorial.ts';
+
+const contact = author().links.find((l) => l.label === 'LinkedIn')?.href ?? '/about/#who-writes-it';
+const strip = Object.keys(ICONS) as IconId[];
+
+const triggers: { icons: IconId[]; when: string; does: string; out: string }[] = [
+  { icons: ['github', 'posthog'], when: 'A deploy changes the signup flow, and activation drops.', does: 'Finds the commit, shows the funnel before and after, and opens a revert pull request.', out: 'Pull request' },
+  { icons: ['github'], when: 'A pull request adds a feature with no tracking.', does: 'Comments on the pull request with the events to add and where to fire them.', out: 'Review comment' },
+  { icons: ['sentry', 'stripe'], when: 'Checkout errors go up.', does: 'Counts the users and the revenue affected, and opens an issue with a likely fix.', out: 'Issue' },
+  { icons: ['linkedin', 'x'], when: 'A post brings visits, but no signups.', does: 'Walks the landing page as a new visitor, and drafts a page that matches the post.', out: 'Draft' },
+  { icons: ['googleads', 'meta'], when: 'Ad spend grows, but activated users do not.', does: 'Compares the cost per activated user of each campaign, and proposes what to pause.', out: 'Proposal' },
+  { icons: ['posthog'], when: 'A feature has had no use for 60 days.', does: 'Proposes removing it, with the code to delete and the last accounts that used it.', out: 'Proposal' },
+  { icons: ['posthog'], when: 'An experiment reaches its sample size.', does: 'Reads the result against the criteria set before the build: keep, iterate or stop.', out: 'Review' },
+  { icons: ['intercom'], when: 'Three customers report the same problem in one week.', does: 'Groups the conversations, links them to sessions and errors, and adds one issue to the backlog.', out: 'Issue' },
+];
+
+const audits: { name: string; note: string; items: [string, string][] }[] = [
+  {
+    name: 'Product',
+    note: 'Activation and retention',
+    items: [
+      ['activation-events', 'Signup to first value'],
+      ['first-run-flows', 'The first run, as a new user'],
+      ['retention-curves', 'Retention by cohort'],
+      ['feature-adoption', 'Feature adoption'],
+      ['feedback-analysis', 'Support threads and reviews'],
+      ['trial-conversion', 'Trial to paid'],
+    ],
+  },
+  {
+    name: 'Engineering',
+    note: 'Code, shipping and operations',
+    items: [
+      ['alerting', 'Errors that reach users'],
+      ['frontend-performance', 'Page speed on key pages'],
+      ['end-to-end-tests', 'Tests on critical paths'],
+      ['rollbacks', 'Failed deploys and rollbacks'],
+      ['dependency-updates', 'Dependencies and known vulnerabilities'],
+      ['cost-to-serve', 'Cost per active user'],
+    ],
+  },
+  {
+    name: 'Measurement',
+    note: 'Can you trust the numbers?',
+    items: [
+      ['tracking-plans', 'Tracking plan against real events'],
+      ['analytics-data-quality', 'Duplicate and broken events'],
+      ['sample-size', 'Sample size before a test ends'],
+      ['interpreting-results', 'Experiment readouts'],
+      ['attribution', 'From channel to activated user'],
+      ['guardrail-metrics', 'Guardrail metrics'],
+    ],
+  },
+  {
+    name: 'Distribution',
+    note: 'Channels and growth',
+    items: [
+      ['customer-acquisition-cost', 'Cost per activated user'],
+      ['landing-experience', 'The landing page matches the ad'],
+      ['social-platforms', 'Posts that bring users, not only visits'],
+      ['seo', 'Search queries and rankings'],
+      ['channel-performance', 'Channel performance'],
+      ['referral-loops', 'Referral and invite loops'],
+    ],
+  },
+];
+const lit = audits.flatMap((g) => g.items.map(([id]) => id));
+const auditGroups = audits.map((g) => ({ ...g, items: g.items.map(([id, label]) => ({ label, href: path(skill(id)), skill: skill(id).name })) }));
+
+const steps = [
+  ['Context', 'Your engineer interviews you: who the product is for, the goal, the business and what is off limits. The answers become the agent’s brief.'],
+  ['Connectors', 'Your engineer connects your tools with read-only access and tests each one with a real query. Gaps are written down, not guessed.'],
+  ['First audit', 'In the second week you get the first scorecard. You go through it together and correct what the agent got wrong.'],
+  ['Stays', 'The same engineer joins a weekly review, tunes the agent and does the work that needs a person: talking to users and the hard calls.'],
+];
+
+const faq = [
+  ['Who is it for?', 'Small product teams where engineers also own the product side: what to build, whether it worked and what to fix next. It helps most when there is no full-time product manager or analyst.'],
+  ['Does it replace my team?', 'No. It does the reading, the audits and the first version of the work. People make the decisions, talk to users and own the results.'],
+  ['What does it need access to?', 'Read access to the tools you connect, and a GitHub app that can open pull requests. You can start with two sources, for example GitHub and your analytics, and add more later.'],
+  ['What does the forward deployed engineer do?', 'They run the context interview, connect your tools, go through the first audit with you and join a weekly review. When the agent gets something wrong, they fix its instructions, not only the output.'],
+  ['Is the score a grade for my team?', 'No. It shows where the product needs attention. Each number links to its evidence, so you can check it and disagree with it.'],
+  ['Can I use it today?', 'Not yet. This page describes a concept. The first teams will shape what it becomes.'],
+];
+---
+
+<Base
+  title="Agent Product Engineer"
+  description="An agent that reviews, audits and scores the health of your product every day, the way a product engineer would. A forward deployed engineer sets it up with you, and stays."
+  noindex
+  searchable={false}
+>
+  <div class="wrap ape">
+    <Crumbs items={[{ href: '/', label: 'Home' }, { label: 'Agent Product Engineer' }]} />
+
+    <header class="ape-hero">
+      <div class="ape-hero-copy">
+        <div class="label eyebrow">Concept · Early access</div>
+        <h1 class="display">Product and engineering, <span>in one agent.</span></h1>
+        <p class="lede">
+          It connects to your analytics, your code and your channels. Every day it reviews, audits and scores the health of
+          your product, the way a product engineer would. Then it does the work, and you approve it.
+        </p>
+        <p class="lede fde-line">A forward deployed engineer sets it up with you, and stays.</p>
+        <div class="btn-row">
+          <a class="btn primary" href={contact}>Ask for early access <span aria-hidden="true">↗</span></a>
+          <a class="btn" href="#how">See how it works <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="hero-note">Read-only by default · Nothing ships without your yes · Built on <a href="/skills/">open skills</a></p>
+      </div>
+      <HeroApp />
+    </header>
+
+    <div class="tool-strip">
+      <span class="label">Reads the tools you already use</span>
+      <ul>
+        {strip.map((id) => <li title={ICONS[id].title}><Brand id={id} size={22} labelled /></li>)}
+      </ul>
+    </div>
+
+    <nav class="page-nav" aria-label="On this page">
+      <a href="#how">01 / How it works</a>
+      <a href="#watch">02 / What it watches</a>
+      <a href="#approve">03 / Your yes</a>
+      <a href="#score">04 / Health score</a>
+      <a href="#checks">05 / What it checks</a>
+      <a href="#lands">06 / Where the work lands</a>
+      <a href="#engineer">07 / Your engineer</a>
+      <a href="#faq">08 / Questions</a>
+    </nav>
+
+    <section class="section" id="how" aria-labelledby="how-title">
+      <div class="section-head"><h2 id="how-title">Give it context and your tools. It does the rest.</h2><span class="label">01</span></div>
+      <p class="section-intro">
+        You give it two things: the context of your product and access to your tools. From then on it works every day,
+        without waiting for a prompt. It reads what changed, checks it against your goal and prepares the work.
+      </p>
+      <Flow />
+      <h3 class="sub-head">Connectors</h3>
+      <Connectors />
+    </section>
+
+    <section class="section" id="watch" aria-labelledby="watch-title">
+      <div class="section-head"><h2 id="watch-title">It does not wait to be asked.</h2><span class="label">02</span></div>
+      <p class="section-intro">It watches your product, notices when something changes and starts the work. These are some of the moments it looks for.</p>
+      <ol class="triggers">
+        {
+          triggers.map((t, i) => (
+            <li>
+              <span class="code">{String(i + 1).padStart(2, '0')}</span>
+              <span class="tr-icons">{t.icons.map((id) => <Brand id={id} size={18} labelled />)}</span>
+              <p class="tr-when"><span class="label">When</span>{t.when}</p>
+              <span class="tr-arrow" aria-hidden="true">→</span>
+              <p class="tr-does"><span class="label">Then it</span>{t.does}</p>
+              <span class="tag">{t.out}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="section" id="approve" aria-labelledby="approve-title">
+      <div class="section-head"><h2 id="approve-title">It does the work. You approve it.</h2><span class="label">03</span></div>
+      <div class="approve">
+        <div>
+          <p class="lede">
+            Every change starts as a proposal: a pull request, a draft, a campaign change or a new issue, each with the
+            evidence behind it. You say yes or no. Often, that is your whole review.
+          </p>
+          <ul class="principles">
+            <li><strong>Nothing ships without your yes.</strong><span>Code, campaigns, posts and issues all wait for approval.</span></li>
+            <li><strong>Code arrives as pull requests.</strong><span>With tests and passing checks. It never pushes to main.</span></li>
+            <li><strong>Every claim says how it knows.</strong><span>Measured, observed, reported or assumed. Thin evidence is called thin.</span></li>
+            <li><strong>A no is also an answer.</strong><span>It records why, and does not ask about the same thing again next week.</span></li>
+          </ul>
+          <p class="try label">Try it: approve or reject the sample queue →</p>
+        </div>
+        <Approvals />
+      </div>
+    </section>
+
+    <section class="section" id="score" aria-labelledby="score-title">
+      <div class="section-head"><h2 id="score-title">One score for the health of your product.</h2><span class="label">04</span></div>
+      <p class="section-intro">
+        It scores your product across the eleven territories of the <a href="/skills-map/">Skills Map</a>, from discovery to
+        operations. Each score points to the audits and the evidence behind it, so you know where to look first.
+      </p>
+      <Scorecard />
+    </section>
+
+    <section class="section" id="checks" aria-labelledby="checks-title">
+      <div class="section-head"><h2 id="checks-title">Everything a product engineer checks. Every day.</h2><span class="label">05</span></div>
+      <p class="section-intro">
+        Some of the audits it runs, by area. Each one is a skill on the Skills Map, so you can read what it means and how to
+        learn it yourself.
+      </p>
+      <div class="checks">
+        <div class="checks-map">
+          <MapFigure width={640} height={560} legend={false} lit={lit} />
+          <p class="legend"><span><i class="lit"></i>The {lit.length} skills these audits cover</span></p>
+        </div>
+        <div class="audit-groups">
+          {
+            auditGroups.map((g, gi) => (
+              <div class="audit-group">
+                <span class="label">0{gi + 1} · {g.note}</span>
+                <h3>{g.name}</h3>
+                <ul>
+                  {g.items.map((it) => (
+                    <li><a href={it.href} title={`Skills Map: ${it.skill}`}>{it.label}</a></li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="lands" aria-labelledby="lands-title">
+      <div class="section-head"><h2 id="lands-title">Where the work lands.</h2><span class="label">06</span></div>
+      <p class="section-intro">
+        There is an app with the score and the approval queue. But most of the work comes to the tools your team already uses.
+      </p>
+      <WorkLands />
+    </section>
+
+    <section class="section" id="engineer" aria-labelledby="engineer-title">
+      <div class="section-head"><h2 id="engineer-title">A forward deployed engineer sets it up with you. And stays.</h2><span class="label">07</span></div>
+      <p class="section-intro">
+        An agent does not know your product on day one. A person does the setup with you, checks the agent’s first work and
+        stays after launch. Always the same person. It is part of every plan, not an extra.
+      </p>
+      <Engineer />
+      <ol class="steps">
+        {steps.map(([t, d], i) => <li><span class="n">0{i + 1}</span><h3>{t}</h3><p>{d}</p></li>)}
+      </ol>
+    </section>
+
+    <section class="section" id="yours" aria-labelledby="yours-title">
+      <div class="section-head"><h2 id="yours-title">Your context stays yours.</h2><span class="label">In your repo</span></div>
+      <div class="yours">
+        <figure class="tree" aria-label="Files the agent keeps in your repository">
+          <div class="tree-bar"><span class="label">acme/web</span></div>
+          <pre><code><b>docs/product/</b>
+  brief.md              <i>who it is for, the goal, the business</i>
+  sources.md            <i>every connector, with a working query</i>
+  scorecards/
+    2026-W47.md         <i>this week’s health score</i>
+  reviews/
+    2026-11-16.md       <i>the Monday review</i>
+  bets/
+    004-shorter-signup.md
+  evidence/</code></pre>
+        </figure>
+        <ul class="principles">
+          <li><strong>Everything it learns is in your repo.</strong><span>The brief, the sources, the scorecards, the reviews and the bets are Markdown files. Read them, edit them, keep them.</span></li>
+          <li><strong>Read-only by default.</strong><span>It reads your tools. It writes only where you allow it, and only after your yes.</span></li>
+          <li><strong>Built on open skills.</strong><span>It runs the <a href="/skills/">Product Engineering Skills</a>, which you can read and use for free in your own agent.</span></li>
+          <li><strong>Leave at any time.</strong><span>The files are already in your repo. There is nothing to export.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="section-head"><h2 id="faq-title">Questions</h2><span class="label">08</span></div>
+      <div class="faq">
+        {
+          faq.map(([q, a]) => (
+            <details>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="ape-cta" aria-labelledby="cta-title">
+      <div>
+        <span class="label">Early access</span>
+        <h2 id="cta-title">Run your product the way a product engineer would.</h2>
+        <p>Tell me about your product. I will tell you what the agent would look at first.</p>
+      </div>
+      <div class="cta-links">
+        <a class="btn primary" href={contact}>Ask for early access <span aria-hidden="true">↗</span></a>
+        <a href="/skills/">Read the open skills <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .ape {
+    --section-offset: calc(var(--head) + 24px);
+  }
+  section[id] {
+    scroll-margin-top: var(--section-offset);
+  }
+
+  /* hero */
+  .ape-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    gap: 48px;
+    align-items: center;
+    padding: 40px 0 44px;
+  }
+  .eyebrow {
+    margin-bottom: 20px;
+    color: var(--accent-ink);
+  }
+  .ape-hero h1 {
+    font-size: clamp(46px, 5.6vw, 82px);
+    max-width: 12ch;
+  }
+  .ape-hero h1 span {
+    color: var(--accent-ink);
+  }
+  .ape-hero .lede {
+    margin: 24px 0 0;
+    max-width: 48ch;
+  }
+  .ape-hero .fde-line {
+    margin: 12px 0 28px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .hero-note {
+    margin: 16px 0 0;
+    font: 12px/1.6 var(--mono);
+    color: var(--muted);
+  }
+  .hero-note a {
+    color: var(--ink);
+  }
+
+  /* the connector strip under the hero */
+  .tool-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 28px;
+    padding: 18px 0;
+    border-top: 1px solid var(--ink);
+  }
+  .tool-strip ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 22px;
+    color: var(--ink);
+  }
+  .tool-strip li {
+    display: grid;
+    place-items: center;
+    opacity: 0.85;
+  }
+
+  .page-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    padding: 16px 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .page-nav a {
+    font: 11px/1.5 var(--mono);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .page-nav a:hover {
+    text-decoration: underline;
+  }
+  .section-intro {
+    max-width: 78ch;
+    color: var(--ink-2);
+    margin-bottom: 28px;
+  }
+  .sub-head {
+    font-size: 26px;
+    margin: 40px 0 14px;
+  }
+
+  /* triggers */
+  .triggers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .triggers li {
+    display: grid;
+    grid-template-columns: 28px 56px minmax(0, 1fr) 24px minmax(0, 1.2fr) 120px;
+    gap: 6px 14px;
+    align-items: start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .triggers .code {
+    padding-top: 3px;
+  }
+  .tr-icons {
+    display: flex;
+    gap: 8px;
+    padding-top: 1px;
+    color: var(--ink);
+  }
+  .triggers p {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.45;
+  }
+  .triggers p .label {
+    display: block;
+    margin-bottom: 2px;
+  }
+  .tr-when {
+    font-family: var(--cond);
+    font-weight: 600;
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+  }
+  .tr-when .label {
+    font-weight: 400;
+  }
+  .tr-does {
+    color: var(--ink-2);
+  }
+  .tr-arrow {
+    font: 16px var(--mono);
+    color: var(--accent-ink);
+    padding-top: 16px;
+  }
+  .triggers .tag {
+    justify-self: end;
+    margin-top: 18px;
+  }
+
+  /* approvals */
+  .approve {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 48px;
+    align-items: start;
+  }
+  .approve .lede {
+    margin-top: 0;
+  }
+  .principles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .principles li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .principles strong,
+  .principles span {
+    display: block;
+  }
+  .principles span {
+    margin-top: 4px;
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .try {
+    margin: 20px 0 0;
+    color: var(--accent-ink);
+  }
+
+  /* what it checks */
+  .checks {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+  .checks-map .legend {
+    margin: 10px 0 0;
+  }
+  .audit-groups {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    border-top: 1px solid var(--ink);
+  }
+  .audit-group {
+    padding: 16px 16px 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .audit-group:nth-child(2n) {
+    padding-left: 16px;
+    border-left: 1px solid var(--line);
+  }
+  .audit-group .label {
+    color: var(--accent-ink);
+  }
+  .audit-group h3 {
+    font-size: 24px;
+    margin: 8px 0 10px;
+  }
+  .audit-group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .audit-group li {
+    padding: 5px 0;
+    font-size: 15px;
+    line-height: 1.35;
+    border-top: 1px solid var(--line);
+  }
+  .audit-group li:first-child {
+    border-top: 0;
+  }
+  .audit-group a {
+    text-decoration: none;
+    color: var(--ink-2);
+  }
+  .audit-group a:hover {
+    color: var(--accent-ink);
+    text-decoration: underline;
+  }
+
+  /* your engineer */
+  #engineer .steps {
+    margin-top: 20px;
+  }
+
+  /* your context */
+  .yours {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+  .tree {
+    margin: 0;
+    border: 1px solid var(--ink);
+    min-width: 0;
+  }
+  .tree-bar {
+    padding: 8px 14px;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--ink);
+  }
+  .tree pre {
+    margin: 0;
+    padding: 16px 14px;
+    overflow-x: auto;
+    font: 13px/1.75 var(--mono);
+  }
+  .tree b {
+    font-weight: 500;
+    color: var(--accent-ink);
+  }
+  .tree i {
+    font-style: normal;
+    color: var(--muted);
+  }
+
+  /* questions */
+  .faq {
+    max-width: 82ch;
+    border-top: 1px solid var(--ink);
+  }
+  .faq details {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 32px 16px 0;
+    position: relative;
+    font: 600 20px/1.25 var(--cond);
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq summary::after {
+    content: '+';
+    position: absolute;
+    right: 4px;
+    top: 14px;
+    font: 20px var(--mono);
+    color: var(--accent-ink);
+  }
+  .faq details[open] summary::after {
+    content: '−';
+  }
+  .faq summary:hover {
+    color: var(--accent-ink);
+  }
+  .faq details p {
+    margin: 0 0 18px;
+    max-width: 70ch;
+    color: var(--ink-2);
+  }
+
+  /* closing call to action */
+  .ape-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    border-top: 3px solid var(--accent);
+    border-bottom: 1px solid var(--ink);
+    padding: 32px 0;
+    margin-top: 64px;
+  }
+  .ape-cta h2 {
+    font-size: clamp(30px, 3.4vw, 46px);
+    margin: 14px 0 12px;
+    max-width: 22ch;
+  }
+  .ape-cta p {
+    margin: 0;
+    color: var(--ink-2);
+  }
+  .cta-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+    gap: 14px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 1200px) {
+    .ape-hero {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+    .ape-hero h1 {
+      max-width: 16ch;
+    }
+  }
+  @media (max-width: 1100px) {
+    .checks {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .checks-map {
+      max-width: 640px;
+    }
+  }
+  @media (max-width: 1000px) {
+    .triggers li {
+      grid-template-columns: 28px minmax(0, 1fr) auto;
+    }
+    .tr-icons {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .triggers .tag {
+      grid-column: 3;
+      grid-row: 1;
+      margin-top: 0;
+    }
+    .tr-when,
+    .tr-does {
+      grid-column: 2 / 4;
+    }
+    .tr-arrow {
+      display: none;
+    }
+    .approve,
+    .yours {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+    }
+  }
+  @media (max-width: 900px) {
+    .ape-cta {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 560px) {
+    .ape-hero {
+      padding-top: 24px;
+    }
+    .page-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 12px;
+    }
+    .audit-groups {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .audit-group:nth-child(2n) {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .tool-strip ul {
+      gap: 12px 16px;
+    }
+    /* the file notes do not fit next to the names on a phone; the list beside the tree explains them */
+    .tree i {
+      display: none;
+    }
+  }
+</style>

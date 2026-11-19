@@ -1,0 +1,266 @@
+---
+// The product health scorecard: one score per Skills Map territory, with the finding behind it.
+import { WEEKS, hexPath, overallScore, territoryScores, type Band } from './sample.ts';
+
+const scores = territoryScores();
+const overall = overallScore();
+const weeks = [...WEEKS, { week: 'W47', score: overall }];
+const bandLabel: Record<Band, string> = { strong: 'Healthy', fair: 'Watch', low: 'Needs work' };
+// weekly bars on the full 0-100 scale: bars always start at zero
+const base = 0;
+const chart = { w: 320, h: 150, top: 18, bottom: 22 };
+// bars use the left 288 units; the gridline labels sit in the gutter on the right
+const barW = 24;
+const step = 288 / weeks.length;
+const y = (v: number) => chart.top + (1 - v / 100) * (chart.h - chart.top - chart.bottom);
+---
+
+<div class="scorecard">
+  <div class="sc-summary">
+    <span class="label">Product health · Acme · week 47</span>
+    <div class="sc-big"><b>{overall}</b><span>/100</span></div>
+    <p class="sc-delta">+4 on last week. Up 11 since the agent started in week 40.</p>
+    <svg class="sc-chart" viewBox={`0 0 ${chart.w} ${chart.h}`} role="img" aria-labelledby="sc-chart-title">
+      <title id="sc-chart-title">Weekly product health score, week 40 to week 47: {weeks.map((w) => w.score).join(', ')}.</title>
+      {[0, 50, 100].map((v) => (
+        <g>
+          <line class="sc-grid" x1="0" x2={chart.w} y1={y(v)} y2={y(v)}></line>
+          {v > 0 && <text class="sc-axis" x={chart.w} y={y(v) - 4} text-anchor="end">{v}</text>}
+        </g>
+      ))}
+      {
+        weeks.map((w, i) => {
+          const x = i * step + (step - barW) / 2;
+          const last = i === weeks.length - 1;
+          return (
+            <g class:list={['sc-bar', { last }]}>
+              <title>{w.week}: {w.score}</title>
+              <rect class="sc-hit" x={i * step} y="0" width={step} height={chart.h}></rect>
+              <path d={`M${x} ${y(base)}V${y(w.score) + 4}q0 -4 4 -4h${barW - 8}q4 0 4 4V${y(base)}Z`}></path>
+              {(i === 0 || last) && <text class="sc-val" x={x + barW / 2} y={y(w.score) - 6} text-anchor="middle">{w.score}</text>}
+              <text class="sc-axis" x={x + barW / 2} y={chart.h - 6} text-anchor="middle">{w.week}</text>
+            </g>
+          );
+        })
+      }
+    </svg>
+    <ul class="sc-legend" aria-label="Score bands">
+      <li><i class="b-strong"></i>80 and up · Healthy</li>
+      <li><i class="b-fair"></i>65 to 79 · Watch</li>
+      <li><i class="b-low"></i>Under 65 · Needs work</li>
+    </ul>
+    <p class="sc-how">
+      Each territory score comes from the audits in that part of the <a href="/skills-map/">Skills Map</a>. The overall score is their average.
+      Every number links to the evidence behind it, and says when the evidence is thin.
+    </p>
+  </div>
+
+  <ol class="sc-rows">
+    {
+      scores.map((t) => {
+        const filled = Math.round(t.score / 10);
+        return (
+          <li class={`sc-row b-${t.band}`}>
+            <span class="code">{t.code}</span>
+            <a class="sc-name" href={t.href}>{t.name}</a>
+            <span class="sc-meter" aria-hidden="true">
+              <svg viewBox="0 0 120 13" width="120" height="13">
+                {Array.from({ length: 10 }, (_, i) => (
+                  <path class:list={{ on: i < filled }} d={hexPath(6 + i * 12, 6.5, 10.4)}></path>
+                ))}
+              </svg>
+            </span>
+            <span class="sc-score">
+              <b>{t.score}</b>
+              <span class="sc-band">{bandLabel[t.band]}</span>
+            </span>
+            <p class="sc-finding">{t.finding}</p>
+          </li>
+        );
+      })
+    }
+  </ol>
+</div>
+
+<style>
+  .scorecard {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 0 48px;
+    border-top: 1px solid var(--ink);
+  }
+  .sc-summary {
+    padding-top: 18px;
+  }
+  .sc-big {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .sc-big b {
+    font: 600 clamp(80px, 9vw, 128px)/0.9 var(--cond);
+    letter-spacing: -0.04em;
+  }
+  .sc-big span {
+    font: 15px var(--mono);
+    color: var(--muted);
+  }
+  .sc-delta {
+    margin: 10px 0 18px;
+    color: var(--ink-2);
+  }
+  .sc-chart {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+  }
+  .sc-grid {
+    stroke: var(--line);
+  }
+  .sc-axis {
+    font: 10px var(--mono);
+    fill: var(--muted);
+  }
+  .sc-val {
+    font: 600 13px var(--cond);
+    fill: var(--ink);
+  }
+  .sc-bar path {
+    fill: var(--learning);
+  }
+  .sc-bar.last path {
+    fill: var(--ink);
+  }
+  .sc-hit {
+    fill: transparent;
+  }
+  .sc-bar:hover path {
+    fill: var(--accent);
+  }
+  .sc-legend {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    font: 11px/1.4 var(--mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .sc-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sc-legend i {
+    width: 12px;
+    height: 13px;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  }
+  i.b-strong {
+    background: var(--ink);
+  }
+  i.b-fair {
+    background: var(--learning);
+  }
+  i.b-low {
+    background: var(--accent);
+  }
+  .sc-how {
+    margin: 18px 0 0;
+    font-size: 14.5px;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+  .sc-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .sc-row {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 124px 132px;
+    gap: 2px 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .sc-name {
+    font: 600 19px/1.2 var(--cond);
+    text-decoration: none;
+  }
+  .sc-name:hover {
+    text-decoration: underline;
+  }
+  .sc-meter svg {
+    display: block;
+  }
+  .sc-meter path {
+    fill: var(--tile);
+  }
+  .b-strong .sc-meter path.on {
+    fill: var(--ink);
+  }
+  .b-fair .sc-meter path.on {
+    fill: var(--learning);
+  }
+  .b-low .sc-meter path.on {
+    fill: var(--accent);
+  }
+  .sc-score {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .sc-score b {
+    font: 600 22px/1 var(--cond);
+  }
+  .sc-band {
+    font: 10.5px/1 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    min-width: 10ch;
+    white-space: nowrap;
+  }
+  .b-low .sc-band {
+    color: var(--accent-ink);
+  }
+  .sc-finding {
+    grid-column: 2 / 5;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  @media (max-width: 1000px) {
+    .scorecard {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .sc-rows {
+      margin-top: 24px;
+      border-top: 1px solid var(--ink);
+    }
+  }
+  @media (max-width: 560px) {
+    .sc-row {
+      grid-template-columns: 30px minmax(0, 1fr) auto;
+    }
+    .sc-meter {
+      grid-column: 2;
+      grid-row: 2;
+    }
+    .sc-score {
+      grid-column: 3;
+      grid-row: 1 / 3;
+    }
+    .sc-finding {
+      grid-column: 2 / 4;
+    }
+  }
+</style>

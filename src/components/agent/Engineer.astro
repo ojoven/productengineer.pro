@@ -1,0 +1,170 @@
+---
+// The forward deployed engineer and the agent, side by side over the first weeks.
+import { hexPath } from './sample.ts';
+
+const cols = [
+  { label: 'Week 1', x: 168 },
+  { label: 'Week 2', x: 496 },
+  { label: 'Every week after', x: 692 },
+];
+const lanes = [
+  {
+    label: 'Your engineer',
+    y: 46,
+    blocks: [
+      { x: 168, w: 150, t: 'Context interview', s: 'With you and your team' },
+      { x: 324, w: 166, t: 'Connects your tools', s: 'Read-only, all tested' },
+      { x: 496, w: 144, t: 'First audit', s: 'Together, you fix it' },
+      { x: 646, w: 298, t: 'Weekly review and tuning', s: 'The same person, every week', live: true },
+    ],
+  },
+  {
+    label: 'The agent',
+    y: 146,
+    blocks: [
+      { x: 168, w: 150, t: 'Reads the repo', s: 'Code, docs, history' },
+      { x: 324, w: 166, t: 'Queries each source', s: 'Writes down the gaps' },
+      { x: 496, w: 144, t: 'Baseline score', s: '11 territories' },
+      { x: 646, w: 298, t: 'Daily audits, pull requests, alerts', s: 'On its own, with your yes', agent: true },
+    ],
+  },
+];
+---
+
+<figure class="fde" aria-hidden="true">
+  <svg viewBox="0 0 960 236">
+    {cols.map((c) => <text class="mono t10 caps muted" x={c.x} y="24">{c.label}</text>)}
+    <path class="axis" d="M160 34.5H950"></path>
+    <path class="live-line" d="M642 30V230"></path>
+    <rect class="live-flag" x="642" y="12" width="40" height="16"></rect>
+    <text class="mono t9 caps on-accent" x="662" y="24" text-anchor="middle">Live</text>
+
+    {
+      lanes.map((lane, li) => (
+        <g>
+          {li === 0 ? (
+            <g class="who">
+              <circle cx="30" cy={lane.y + 34} r="15" class="avatar"></circle>
+              <circle cx="30" cy={lane.y + 29} r="5" class="avatar-ink"></circle>
+              <path class="avatar-ink" d={`M20.5 ${lane.y + 45}c1.5-5.5 5-8 9.5-8s8 2.5 9.5 8`}></path>
+            </g>
+          ) : (
+            <g>
+              <path class="agent-tile" d={hexPath(30, lane.y + 34, 28)}></path>
+              <path class="agent-core" d={hexPath(30, lane.y + 34, 10)}></path>
+            </g>
+          )}
+          <text class="cond t17" x="56" y={lane.y + 32}>{lane.label}</text>
+          <text class="mono t10 muted" x="56" y={lane.y + 48}>{li === 0 ? 'Forward deployed' : 'Runs every day'}</text>
+          {lane.blocks.map((b) => (
+            <g class:list={['blk', { live: 'live' in b && b.live, agent: 'agent' in b && b.agent }]}>
+              <rect x={b.x + 0.5} y={lane.y + 0.5} width={b.w} height="68"></rect>
+              <text class="t14 b" x={b.x + 12} y={lane.y + 29}>{b.t}</text>
+              <text class="t12 sub" x={b.x + 12} y={lane.y + 49}>{b.s}</text>
+            </g>
+          ))}
+        </g>
+      ))
+    }
+    {[243, 407, 568].map((x) => <path class="handoff" d={`M${x} 115V146`}></path>)}
+    <path class="handoff" d="M795 115V146"></path>
+    <path class="arrow" d="M944 80.5H954M949 75.5l5 5-5 5"></path>
+    <path class="arrow" d="M944 180.5H954M949 175.5l5 5-5 5"></path>
+  </svg>
+</figure>
+
+<style>
+  .fde {
+    margin: 0 0 8px;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: var(--sans);
+  }
+  .axis {
+    stroke: var(--ink);
+  }
+  .live-line {
+    stroke: var(--accent);
+    stroke-dasharray: 3 3;
+  }
+  .live-flag {
+    fill: var(--accent);
+  }
+  .on-accent {
+    fill: #fff;
+  }
+  .avatar {
+    fill: var(--tile);
+  }
+  .avatar-ink {
+    fill: var(--ink-2);
+  }
+  .agent-tile {
+    fill: var(--ink);
+  }
+  .agent-core {
+    fill: var(--accent);
+  }
+  .blk rect {
+    fill: var(--bg);
+    stroke: var(--line);
+  }
+  .blk.live rect {
+    stroke: var(--ink);
+  }
+  .blk.agent rect {
+    fill: var(--ink);
+    stroke: var(--ink);
+  }
+  .blk.agent text {
+    fill: var(--bg);
+  }
+  .blk .sub {
+    fill: var(--muted);
+  }
+  .blk.agent .sub {
+    fill: var(--bg);
+    opacity: 0.7;
+  }
+  .handoff {
+    stroke: var(--muted);
+    stroke-dasharray: 2 3;
+  }
+  .arrow {
+    fill: none;
+    stroke: var(--ink);
+  }
+  text {
+    fill: var(--ink);
+  }
+  .muted {
+    fill: var(--muted);
+  }
+  .b {
+    font-weight: 600;
+  }
+  .mono {
+    font-family: var(--mono);
+  }
+  .cond {
+    font-family: var(--cond);
+    font-weight: 600;
+  }
+  .caps {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .t9 { font-size: 9.5px; }
+  .t10 { font-size: 10px; }
+  .t12 { font-size: 12px; }
+  .t14 { font-size: 14px; }
+  .t17 { font-size: 17px; }
+  @media (max-width: 760px) {
+    .fde {
+      display: none;
+    }
+  }
+</style>
