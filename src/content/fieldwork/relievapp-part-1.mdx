@@ -1,0 +1,402 @@
+---
+kind: profile
+title: 'RelievApp, Part I: is it a meditation app?'
+summary: RelievApp is a web app of two-minute, hands-on sessions that help you move from a hard feeling to a more manageable one. Part I of building it with agents covers five promises in five weeks, a broad catalog held together by a playful design system and a mascot, and a session you can give to someone you love.
+date: 2026-11-18
+subjects:
+  - name: RelievApp
+    url: https://reliev.app
+    maker: Mikel Torres Ugarte
+    logo: /img/fieldwork/relievapp-part-1/logo.svg
+    what: A web app of two-minute, hands-on sessions that help you move from a hard feeling, such as anxiety, anger or overthinking, to a more manageable one, with your eyes open and one hand.
+person:
+  name: Mikel Torres Ugarte
+  role: Maker of RelievApp
+  url: https://www.linkedin.com/in/mikeltorresugarte/
+  avatar: /img/mikel.jpg
+  sameAs: [https://github.com/ojoven]
+question: How do you position, design and distribute a new kind of wellbeing product when you are not sure yet which category it belongs to, and what changes when agents build every version?
+method: My own product, so this is a maker writing about his own decisions, not an interview. Sources are the git history of the code (June to 18 Nov 2026), my decision log, the transcripts of eleven coding-agent sessions (Claude Code, 20 Oct to 18 Nov), the agents' audit and second review, an outside strategy review I asked ChatGPT for, and my spoken feedback on the Ten Shifts prototypes. Retired versions were rendered from their commits; the current one was captured on staging at phone size on 18 Nov 2026. There are no usage numbers yet. Production (reliev.app) still runs the 14 Oct version, so every score here is a judgment, mine or an agent's, and says so.
+skills:
+  [
+    jobs-to-be-done, competitive-analysis, substitutes, market-structure,
+    category-positioning, value-proposition, target-audience, scope-cutting, differentiation,
+    design-systems, color, interface-feedback, plain-language,
+    channel-selection, customer-acquisition-cost, sharing-mechanics, referral-loops,
+    event-schemas, iterate-expand-stop,
+    delegating-to-agents, human-oversight, reviewing-generated-work,
+    reversible-decisions, updating-beliefs
+  ]
+coverage:
+  - territory: discovery
+    section: 'Discovery: who else helps people feel better'
+    skills: [jobs-to-be-done, competitive-analysis, substitutes, market-structure]
+    note: Meditation apps, breathing apps and immersive apps all help, and none of them asks you to change the picture with your hands.
+    notes:
+      jobs-to-be-done: The strongest of seven jobs was "a way in that isn't meditation", and it was only said in a FAQ.
+      competitive-analysis: Calm and Headspace teach meditation, Breathwrk guides breathing, Lumenate and TRIPP make you watch; RelievApp asks you to act.
+      substitutes: For someone anxious right now, the alternative is a breathing video or the phone's feed, not another app.
+      market-structure: An outside review mapped four categories, from meditation to digital therapeutics, and placed Reliev in interactive wellness.
+  - territory: strategy
+    section: 'Strategy: five promises in five weeks'
+    skills: [category-positioning, value-proposition, target-audience, scope-cutting, differentiation]
+    note: Transitions, toy, reset, meditation, emotional regulator; then a broad catalog to let usage decide.
+    notes:
+      category-positioning: From its own category ("transitions") to a meditation app with superpowers, then to "your personal emotional regulator".
+      value-proposition: 'The promise moved from one picture to a place to go: "Whatever you feel, feel better."'
+      target-audience: People who want what meditation gives but can't sit still with it, most of all when they are anxious.
+      scope-cutting: On 16 Nov the catalog was cut from 18 sessions to 12 and the brain left; on 18 Nov it grew to 21.
+      differentiation: Eyes open, hands on, two minutes, against products you listen to.
+  - territory: experience
+    section: 'Experience: playful on purpose'
+    skills: [design-systems, color, interface-feedback, plain-language]
+    note: A playful system and a mascot, strict enough that 21 different sessions read as one product.
+    notes:
+      design-systems: Written rules every session follows, for people and agents, with Lev as the one character.
+      color: Ten colours and no others, each with a meaning; a session moves from its hard colour to its settled one.
+      interface-feedback: Every touch is answered with shape, sound or a haptic, one gesture per phase, and nothing can be failed.
+      plain-language: No engine words in the copy, checked by a script, and English written for people who learned it second.
+  - territory: distribution
+    section: 'Distribution: a session you can give'
+    skills: [channel-selection, customer-acquisition-cost, sharing-mechanics, referral-loops]
+    note: From front doors per channel and €50 a month of ads to a free session people send to someone they love.
+    notes:
+      channel-selection: On 15 Nov each channel got its own front door, a toy for TikTok and a reset for Reels; on 16 Nov they were folded into one.
+      customer-acquisition-cost: At €49.50 a year, paid ads alone can't carry the product, so distribution has to live inside it.
+      sharing-mechanics: A link that names the session, never the feeling, and opens free with the sender's name.
+      referral-loops: The gift card appears after a session that helped, and the person who receives one can give one too.
+  - territory: measurement
+    section: 'Measurement: one arc, the same events'
+    skills: [event-schemas, iterate-expand-stop]
+    note: Every session runs the same arc and sends the same events, so 21 different sessions can be compared.
+    notes:
+      event-schemas: Check-in, start, complete, exit with progress, and a before and after rating that only counts if you touched it.
+      iterate-expand-stop: The catalog is broad so the numbers can say which sessions to keep, change or drop.
+  - territory: ai
+    section: 'AI: a studio of agents'
+    skills: [delegating-to-agents, human-oversight, reviewing-generated-work]
+    note: Agents built, researched and reviewed every version; I chose.
+    notes:
+      delegating-to-agents: Three agents worked on the same code in parallel, told each other what they committed, and committed only their own changes.
+      human-oversight: Agents built nine sessions, a mascot and a new front door in about 45 minutes; I chose the category, the catalog and what went to staging.
+      reviewing-generated-work: 'Agents also reviewed: an audit at 5 out of 10, a second pass at 7, and an outside view from ChatGPT.'
+  - section: Beyond the product
+    scope: general
+    skills: [reversible-decisions, updating-beliefs]
+    note: When an option costs an hour, changing direction is cheap, and moving can be confused with learning.
+    notes:
+      reversible-decisions: A version that costs an hour can be decided with less evidence, as long as it can be undone.
+      updating-beliefs: The category changed again and again in five weeks, each time for a reason I could write down.
+related: [fieldwork/papermark, fieldwork/mamitsu]
+---
+
+## Who and what
+
+**RelievApp is a web app of two-minute, hands-on sessions that help you move from a hard feeling to a more manageable one.** You feel anxious, angry, overthinking or low. You say how strong it is, you play a short session with one hand and your eyes open, and you say how you feel after. It runs in the browser on a phone or a computer, in English and Spanish, with nothing to install.
+
+It is my own product. I started it because meditation helps me, but I find it hard to stay with. A picture, and something to do with my hands, work better for me. I build it with coding agents, and in five weeks it made five different promises.
+
+This is Part I: from the launch on 14 October to 18 November 2026. There are no usage numbers in it yet. As I write, [reliev.app](https://reliev.app) still runs the October version, and everything new is on a staging server. Part II comes with traffic and numbers.
+
+<Shot
+  title="The front door on 18 November: a promise, one button, a deck of sessions"
+  src="/img/fieldwork/relievapp-part-1/hero.webp"
+  alt="RelievApp's front door on a phone: the label Your personal emotional regulator, the headline Whatever you feel, feel better, a Find what helps now button and a deck of session cards"
+  frame="phone"
+  ratio="9 / 19.5"
+  width={560}
+  height={1212}
+  pins={[
+    { x: 74, y: 11, note: 'The category it claims now: a personal emotional regulator.' },
+    { x: 93, y: 50, kind: 'value', note: 'One button. A map of feelings picks the session for you.' },
+    { x: 50, y: 83, note: 'Live session cards, each one playing its own before and after.' },
+  ]}
+/>
+
+## On the map
+
+Part I reached seven territories of the Skills Map and 24 skills. Each icon takes you to its section; the quick tour goes through the skills one by one.
+
+<Territories
+  title="Where Part I went"
+  skills={[
+    'jobs-to-be-done', 'competitive-analysis', 'substitutes', 'market-structure',
+    'category-positioning', 'value-proposition', 'target-audience', 'scope-cutting', 'differentiation',
+    'design-systems', 'color', 'interface-feedback', 'plain-language',
+    'channel-selection', 'customer-acquisition-cost', 'sharing-mechanics', 'referral-loops',
+    'event-schemas', 'iterate-expand-stop',
+    'delegating-to-agents', 'human-oversight', 'reviewing-generated-work',
+    'reversible-decisions', 'updating-beliefs',
+  ]}
+  caption="Activation, Retention, Engineering, Shipping and Operations wait for Part II, when real people use it."
+/>
+
+## Discovery: who else helps people feel better
+
+Under every version there was one question: is this a meditation app? The answer depends on who you compare it with. I looked at what people already use when they feel bad, and I gave ChatGPT the prototype for an outside view: how to categorize it, whether people would pay, how to distribute it.
+
+It came back with four categories: meditation and mindfulness, stress relief and breathwork, interactive digital wellness, and digital therapeutics. Reliev fits the first two. It would be most different in the third. It is not the fourth, which needs clinical evidence and medical-device rules. One line from that review stayed with me: "Calm teaches meditation. Breathwrk guides breathing. TRIPP creates immersive environments. Reliev could make emotional regulation a short, tangible, interactive action."
+
+<Matrix
+  title="Where RelievApp sits among the products people use to feel better"
+  x={{ label: 'How you take part', low: 'Listen or watch', high: 'Use your hands' }}
+  y={{ label: 'What it covers', low: 'One need', high: 'Many' }}
+  quadrants={['Libraries you listen to', 'Hands-on, for many feelings', 'One technique, followed', 'One tool, hands-on']}
+  focus="tr"
+  items={[
+    { label: 'Calm', x: 0.12, y: 0.76, note: 'Audio meditation, sleep stories, a huge library' },
+    { label: 'Headspace', x: 0.24, y: 0.68, note: 'Guided meditation with drawn characters' },
+    { label: 'TRIPP', x: 0.34, y: 0.54, note: 'Immersive scenes in VR and on the phone' },
+    { label: 'Finch', x: 0.58, y: 0.64, note: 'A pet that grows with your self-care' },
+    { label: 'Breathwrk', x: 0.42, y: 0.3, note: 'Breathing exercises; Peloton bought it in 2025' },
+    { label: 'Rootd', x: 0.48, y: 0.18, note: 'Help in a panic attack' },
+    { label: 'Lumenate', x: 0.08, y: 0.32, note: 'Light patterns, with your eyes closed' },
+    { label: 'RelievApp', x: 0.88, y: 0.74, pick: true, note: 'Two-minute sessions you do with your hands' },
+  ]}
+  caption="The top right was empty. That is a reason to be there, and also a warning: maybe nobody looks for it."
+  evidence="assumed"
+  source="Placed by my judgment from each product's site and store page, Nov 2026"
+/>
+
+The closest products are not the biggest ones: Breathwrk for short breathing exercises, Lumenate for light you watch with your eyes closed, Finch for a pet that brings you back. And for someone anxious right now, the real alternative is not an app at all: a breathing video, a walk, the feed.
+
+The jobs said the same. An agent's audit listed seven. The strongest was not "calm me down" but "a way in that isn't meditation": I know breathing helps, but I can't sit with it. That was my own story, and the product only said it in a FAQ.
+
+## Strategy: five promises in five weeks
+
+Every version answered the category question in a different way.
+
+<Timeline
+  title="Five promises in five weeks"
+  events={[
+    { when: '14 Oct', title: 'Launch: "Transition from anxious to calm."', kind: 'ship', note: 'One glowing sphere you change with your hands. Its own category, "transitions". Production still runs it.', src: '/img/fieldwork/relievapp-part-1/t-launch.webp', alt: 'The launch version: a glowing sphere in a dark nebula' },
+    { when: '20 Oct', title: 'Three worlds: a sphere, a brain, a body', kind: 'ship', note: '14 moods and 18 transitions, on staging.', src: '/img/fieldwork/relievapp-part-1/t-worlds.webp', alt: 'A wireframe brain session from the three worlds version' },
+    { when: '15 Nov', title: 'A front door per channel', kind: 'decision', note: 'A stress toy for TikTok, a nervous-system reset for Reels, the old page as the control. One app behind all of them.', src: '/img/fieldwork/relievapp-part-1/t-play.webp', alt: 'The Play door: pop your stress, the stress toy for your brain' },
+    { when: '15 Nov', title: 'Visual meditations', kind: 'ship', note: '"Meditate with your eyes open", then "See your mind change". Headspace was the reference.', src: '/img/fieldwork/relievapp-part-1/t-meditate.webp', alt: 'The meditate door: See your mind change, on an iris blue page' },
+    { when: '16 Nov', title: 'Audit: 5 out of 10', kind: 'problem', note: 'Four promises at once, and 40 to 60 seconds before the first calming gesture.' },
+    { when: '16 Nov', title: 'One door: a meditation app with superpowers', kind: 'decision', note: 'Eight moods, twelve sessions, the brain out. Second review: 7 out of 10.', src: '/img/fieldwork/relievapp-part-1/t-single.webp', alt: 'The single meditate door with a before and after slider' },
+    { when: '18 Nov', title: 'Ten Shifts: ten prototypes, from zero', note: 'Interactive emotional regulation, "without considering what we\'ve already done".', src: '/img/fieldwork/relievapp-part-1/t-shifts.webp', alt: 'Scribble and Settle, one of the ten prototypes: orange scribbles on a dark screen' },
+    { when: '18 Nov', title: 'Your personal emotional regulator', kind: 'decision', note: 'A broad catalog of 21 sessions, a design system and a mascot. On staging.', src: '/img/fieldwork/relievapp-part-1/t-regulator.webp', alt: 'The new front door: Whatever you feel, feel better' },
+    { when: '18 Nov', title: 'Give a session', kind: 'ship', note: 'A free session as a link, for someone you love. Reliev becomes RelievApp.', src: '/img/fieldwork/relievapp-part-1/t-gift.webp', alt: 'The gift page: Mikel sent you this' },
+  ]}
+/>
+
+At launch, Reliev had its own category: transitions. It set the product apart, but nobody searches for a transition. On 15 November I wanted to grow through TikTok and Reels, and instead of choosing a promise, the agents built several front doors on the same app. On 16 November an agent's audit said that was the problem: four promises, and slow to help. It recommended "in-the-moment anxiety relief", a small shelf next to Rootd and DARE. I chose "a meditation app with superpowers" instead, and accepted the comparison with Calm and Headspace.
+
+Two days later I asked an agent for ten prototypes of interactive emotional regulation, built without looking at what we had: a pendulum, a worry jar, a map where you place your feeling, a scribble you calm down. Then the real question: a few consistent metaphors, or a broad catalog where almost anything fits? **I chose broad, and let usage decide.**
+
+<Quote
+  text="We'll be able to establish and define certain metrics, see which sessions perform better, which ones users repeat most often, which ones they like best, and use that information to develop a product ideation strategy. In other words, the product itself will ultimately help us discover what it should become."
+  who="Mikel Torres Ugarte"
+  context="Spoken feedback on the Ten Shifts prototypes, 18 Nov 2026"
+/>
+
+So the promise moved from the picture to the place: your personal emotional regulator. "Whatever you feel, feel better." Is it a meditation app? The front door now answers that itself: "Partly, in a new form: slow breathing, focused attention, letting go. Some sessions are more like a game."
+
+<Bars
+  title="Sessions in the catalog, version by version"
+  unit=" sessions"
+  items={[
+    { label: 'Launch, 14 Oct', value: 12, note: '3 free' },
+    { label: 'Three worlds, 20 Oct', value: 18, note: '5 free' },
+    { label: 'Visual meditations, 15 Nov', value: 17, note: '5 free' },
+    { label: 'One door, 16 Nov', value: 12, note: '4 free' },
+    { label: 'Emotional regulator, 18 Nov', value: 21, note: '10 free', highlight: true },
+  ]}
+  caption="The catalog grew, was cut by a third, then grew past where it started."
+  evidence="observed"
+  source="Each version's pages, rendered from its commit; the regulator on staging, 18 Nov 2026"
+/>
+
+Going broad has a price, and I want it written down. A catalog is harder to say in one line: "personal emotional regulator", like "transitions", is a phrase nobody searches for. It gives more choice to someone who is struggling, which is what the cut of 16 November tried to avoid. And with little traffic, 21 sessions split the sample 21 ways, so it takes longer to tell a good session from a lucky one. The catalog is a research tool as much as a product, and it may get narrow again.
+
+<Tradeoffs
+  title="What going broad moved, from 16 to 18 November"
+  names={{ was: '16 Nov', at: '18 Nov' }}
+  items={[
+    { left: 'One picture people learn', right: 'Many kinds of session', was: 0.2, at: 0.85 },
+    { left: 'Easy to say in one line', right: 'Room to find what works', was: 0.3, at: 0.75 },
+    { left: 'Few choices when you struggle', right: 'A session for every feeling', was: 0.25, at: 0.7, note: 'The router suggests three' },
+    { left: 'Measure one first session', right: 'Measure many at once', was: 0.15, at: 0.8, note: 'Less traffic per session' },
+  ]}
+  caption="The positions are my judgment. The design system and the router are there to pull the first and third rows back a little."
+  evidence="assumed"
+/>
+
+The answer to too much choice is on the first button. "Find what helps now" opens a map of feelings: you drag a light to where you are, name it with a word, and it suggests three sessions.
+
+<Shot
+  title="Find what helps now: place yourself, name it, get three sessions"
+  src="/img/fieldwork/relievapp-part-1/router.webp"
+  alt="The emotion map on a phone: a light placed on the map, and the sheet Anxious. These sessions often help, with three sessions"
+  frame="phone"
+  ratio="9 / 19.5"
+  width={560}
+  height={1212}
+  pins={[{ x: 90, y: 55, kind: 'value', note: 'Three sessions for the word you picked, free ones first.' }]}
+/>
+
+## Experience: playful on purpose
+
+The launch looked like a screensaver: dark, with a purple glass sphere in a nebula. Beautiful, and serious. The new front door is flat colour and round shapes on an iris blue ground, with yellow buttons and a mascot.
+
+<Shot
+  title="The front door at launch and on 18 November"
+  src="/img/fieldwork/relievapp-part-1/launch-vs-now.webp"
+  alt="Two phone screens side by side. Left, 14 October: a glowing sphere in a dark nebula and the headline Transition from distracted to focused. Right, 18 November: an iris blue page, Whatever you feel, feel better, and a deck of session cards"
+  frame="none"
+  width={1248}
+  height={1298}
+  pins={[
+    { x: 6, y: 4, note: '14 Oct: dark, a glass sphere, a category of its own.' },
+    { x: 56, y: 4, note: '18 Nov: flat colour, round shapes, a deck of sessions.' },
+  ]}
+/>
+
+The playful look is a decision, for three reasons. The first is sharing: if distribution has to live inside the product, people must be happy to show it. A brand that is warm and a little funny is easier to send to a friend than a dark, clinical one. Headspace showed that with its drawn characters, and it was my reference from the meditate door on. The second is a mascot: a playful system can carry a character. The third is range. A broad catalog needs a system loose enough for a breathing ring, a shooting star and a fire, and strict enough that all of them look like one product.
+
+<Shot
+  title="Lev, the mascot: it feels what you feel, then shows you the way back"
+  src="/img/fieldwork/relievapp-part-1/lev.webp"
+  alt="The Meet Lev section: six versions of a round yellow character, angry, anxious, low, calm, energized and sleepy"
+  frame="none"
+  width={560}
+  height={489}
+/>
+
+Lev is the sun dot from the logo, come alive. It shows how you feel, at the check-in and on the front door, and never decorates a session.
+
+The rules are written down for people and for agents. Ten colours and no others, each with a meaning: coral is the hard end, sun is energy that works for you, mint is settled. One gesture per phase: first show where you are, then change it. Nothing can be failed, and the change shows early. The words have rules too: no engine words like "particles" or "nucleus", checked by a script. And the English is written for people who learned it as a second language, because many of the people it is for did.
+
+## Distribution: a session you can give
+
+On 16 November the second review moved most scores up. Distribution readiness stayed at the bottom. The product was better, and nobody new would see it.
+
+<Compare
+  title="The agent's two reviews of 16 November"
+  subjects={['Audit, morning', 'Second pass, afternoon']}
+  highlight={1}
+  rows={[
+    { label: 'Positioning and category', values: [5, 7], unit: '/10' },
+    { label: 'Landing page', values: [7, 8], unit: '/10' },
+    { label: 'Onboarding into the first session', values: [4, 8], unit: '/10' },
+    { label: 'Inside a session', values: [5, 7], unit: '/10' },
+    { label: 'Distribution readiness', values: [3, 4], unit: '/10', note: 'Production and the ads still showed the old product' },
+    { label: 'Overall', values: [5, 7], unit: '/10' },
+  ]}
+  caption="Nine changes in one day fixed the product's worst scores. Distribution barely moved, because nothing in it had changed."
+  evidence="assumed"
+  source="An agent's judgment on staging at phone size, without usage data"
+/>
+
+At launch the plan was paid ads: €50 a month, pointed at reliev.app. The ChatGPT review was blunt: at €49.50 a year, a product can't pay app-store prices for each customer, so distribution has to be part of the product. "The link is the distribution unit."
+
+On 18 November I asked for that. **Is someone you love struggling right now? Give them a session, free.**
+
+<Shot
+  title="What the person who receives a session sees first"
+  src="/img/fieldwork/relievapp-part-1/gift-landing.webp"
+  alt="The gift page on a phone: Lev waving, A gift for you, Mikel sent you this, the session Turn it into fuel and an Open it button"
+  frame="phone"
+  ratio="9 / 19.5"
+  width={560}
+  height={1212}
+  pins={[
+    { x: 93, y: 39, note: "The sender's name comes from the link." },
+    { x: 15, y: 62, note: 'The link names the session, never a feeling.' },
+    { x: 88, y: 73, kind: 'value', note: 'It opens free: no account, nothing to install.' },
+  ]}
+/>
+
+You find it in two places: in a section of the front door, and at the end of a session that helped. You pick how the other person feels, sign it with your name if you like, and send it through the phone's share menu, WhatsApp, Telegram, Messages or email, or post it on X, Facebook, Threads or LinkedIn. They see "Mikel sent you this.", and the session plays free. Two details matter more than the buttons. Nobody receives a link that says "anxious". And the gift replaced the "email me a link to come back" box: the moment after a session that helped is now spent on someone else.
+
+<Loop
+  title="The loop a gift could start"
+  center="One gift"
+  sub="two minutes each side"
+  stages={[
+    { label: 'A session helps', tone: 'lit' },
+    { label: 'You give it', note: 'Your name, a link, any app' },
+    { label: 'They open it free', note: 'No account' },
+    { label: 'It helps them too' },
+    { label: 'They give one, or join', tone: 'signal', note: 'Not measured yet' },
+  ]}
+/>
+
+The gift is also why the name changed the same day. Reliev became RelievApp, so someone who hears the name can type reliev.app. (I also asked an agent for other names. Its advice: keep RelievApp for now, and if I rename, use Lev, the mascot as the brand.) Next comes a landing page only for giving a session, to use in marketing.
+
+## Measurement: one arc, the same events
+
+A broad catalog is only research if every session is measured the same way. All 21 run inside the same arc: say how strong the feeling is, do the session, rate it again, then keep it, go again or try another. Every one sends the same events.
+
+<ScreenSteps
+  title="Turn it into fuel, one of the nine new sessions, from check-in to the gift"
+  frame="phone"
+  ratio="9 / 19.5"
+  steps={[
+    { title: 'How angry are you?', src: '/img/fieldwork/relievapp-part-1/fuel-checkin.webp', alt: 'Check-in: How angry are you right now, 8 out of 10, with an angry Lev', note: 'One slider, the same in every session.' },
+    { title: 'Hit it, draw all over it', src: '/img/fieldwork/relievapp-part-1/fuel-hit.webp', alt: 'Coral scribbles over a red core', note: 'First, show where you are.' },
+    { title: 'Now spin it', src: '/img/fieldwork/relievapp-part-1/fuel-spin.webp', alt: 'The scribbles become particles orbiting a yellow core', note: 'The same energy becomes an engine, not calm.' },
+    { title: '8 before, 4 after', src: '/img/fieldwork/relievapp-part-1/fuel-after.webp', alt: 'The rating sheet: 8 before, 4 after, and the card Is someone you love struggling right now', kind: 'value', note: 'The rating, then the gift card.' },
+  ]}
+/>
+
+That session shows a change from my feedback: transform the energy instead of only reducing it. The rating is honest by design: no head start on the "after" score, and a rating you did not touch does not count. Still, it is how someone says they feel, not proof that it works. The numbers will say which sessions to keep, change or drop.
+
+## AI: a studio of agents
+
+I did not write the code. At least eleven agent sessions built the versions, researched the channels, audited the product and turned my spoken feedback into sessions. On 18 November one agent took the prototypes I liked and rebuilt them as nine sessions in the house style, with Lev and a new front door: about 45 minutes from my message to staging. In the afternoon, three agents worked on the same code at the same time.
+
+<Sequence
+  title="Three agents on one codebase, 18 November, afternoon"
+  actors={[
+    { id: 'me', label: 'Me' },
+    { id: 'copy', label: 'Copy agent', kind: 'system' },
+    { id: 'name', label: 'Name agent', kind: 'system' },
+    { id: 'gift', label: 'Gift agent', kind: 'system' },
+  ]}
+  messages={[
+    { from: 'me', to: 'gift', label: 'Give a session, 13:47' },
+    { from: 'me', to: 'copy', label: 'English, 13:50', note: 'Rewrite the copy in international English.' },
+    { from: 'me', to: 'name', label: 'RelievApp, other names, 13:56' },
+    { from: 'name', to: 'gift', label: 'Renamed, 14:02', note: 'Committed, and it told the copy agent too.' },
+    { from: 'copy', to: 'me', label: 'Copy done, 14:02', kind: 'reply' },
+    { from: 'gift', to: 'copy', label: 'Gift on top, live, 14:08', tone: 'signal', note: 'Sent to both. Each agent committed only its own changes.' },
+    { from: 'gift', to: 'me', label: 'One decision for you', kind: 'reply', note: 'Who may give a members-only session.' },
+  ]}
+/>
+
+Agents also review: the audit, the second pass and ChatGPT each saw something I did not. But they do not decide. The audit said "anxiety relief", I chose meditation, then I chose something else.
+
+## Beyond the product
+
+When a version costs an hour, changing direction twice in a week is affordable. That changes how I decide. A decision that is cheap to undo can be made with less evidence, so I make it, ship it to staging and look. The risk is to confuse moving with learning. Five promises in five weeks, with no real users, are five opinions, most of them mine.
+
+<Claims
+  title="What I know after Part I, and what is still a bet"
+  claims={[
+    { text: 'reliev.app still runs the 14 October version; everything new is on staging.', evidence: 'observed', source: 'Both sites, 18 Nov 2026' },
+    { text: 'Nine sessions, Lev and a new front door took about 45 minutes from my message to staging.', evidence: 'observed', source: 'Session transcript and commit eb7293a' },
+    { text: 'Paid ads alone are a risky way to grow a product sold at €49.50 a year.', evidence: 'reported', source: 'ChatGPT strategy review, Nov 2026' },
+    { text: 'A playful brand with a mascot makes people more willing to share it.', evidence: 'assumed' },
+    { text: 'The sessions people finish, repeat and rate best show what the product should become.', evidence: 'assumed' },
+    { text: 'People will give a session to someone they love, and some of them will come back.', evidence: 'assumed' },
+  ]}
+/>
+
+## What I take from it
+
+- **A category is a bet on who you will be compared with.** "Meditation" meant a comparison with Calm and Headspace. "Personal emotional regulator" brings nobody yet, which is good for being different and bad for being found.
+- **Put distribution where the product just worked.** Papermark grows through the links its customers send. If RelievApp grows, it will be through the sessions people give, right after one helped them.
+- **Breadth needs stricter rules, not looser ones.** The design system is what makes 21 sessions one product.
+- **Next, in Part II:** production gets the new version, traffic arrives, and the numbers say which sessions stay.
+
+<Hypothesis
+  title="What Part II has to answer"
+  if="All traffic goes to the broad catalog, with the same check-in, rating and events in every session"
+  then="A few sessions will clearly lead on finishes, repeats and the change people report"
+  because="People in different states need different things, and a broad catalog lets them show us which"
+  metric="Repeat use within 14 days, per session"
+  keepIf="Three to five sessions lead, with enough people in each to tell them apart"
+  stopIf="Nothing stands out after a month: narrow to the best few and test again"
+/>

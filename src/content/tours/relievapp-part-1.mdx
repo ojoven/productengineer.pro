@@ -1,0 +1,173 @@
+{/* Quick tour of /in-practice/relievapp-part-1/. One <Stop> per skill of the coverage, in the same order.
+    Facts as in the profile: the git history of /var/www/html/relieving, the decision log and agent transcripts in
+    interviews/reliev.app/, the agents' two reviews of 16 Nov, the ChatGPT strategy review, and staging on 18 Nov 2026.
+    <Hot> marks my opinion. */}
+
+<Stop skill="jobs-to-be-done">
+An agent's audit listed seven jobs. The strongest was "a way in that isn't meditation": I know breathing helps, but I can't sit with it. My own reason for building it, and the page only said it in a FAQ.
+
+<Hot>The job you started the product for is easy to forget once you are deep in features. Write it at the top of the brief, every time.</Hot>
+</Stop>
+
+<Stop skill="competitive-analysis">
+Calm and Headspace teach meditation, Breathwrk guides breathing, Lumenate and TRIPP make you watch. None of them asks you to change the picture with your hands.
+
+<Hot>An empty corner on the map is a reason to go there, and a reason to check that someone is looking for it.</Hot>
+</Stop>
+
+<Stop skill="substitutes">
+For someone anxious right now, the alternative is not another app. It is a breathing video, a walk, or scrolling the feed until it passes.
+
+<Hot>The feed is the real competitor: it is already open, and it costs nothing. Two minutes has to beat that.</Hot>
+</Stop>
+
+<Stop skill="market-structure">
+An outside review from ChatGPT mapped four categories: meditation, stress relief and breathwork, interactive digital wellness, and digital therapeutics. Reliev fits the first two, is most different in the third, and stays out of the fourth.
+
+<Hot>Asking another model for the market view was fast and useful. I still check its numbers before I repeat them; one of them I could not confirm.</Hot>
+</Stop>
+
+<Stop skill="category-positioning">
+Transitions, then a stress toy and a reset, then visual meditations, then a meditation app with superpowers, then a personal emotional regulator. Five promises in five weeks.
+
+<Hot>A category is a bet on who you will be compared with. "Meditation" is easy to find and hard to win.</Hot>
+</Stop>
+
+<Stop skill="value-proposition">
+The promise moved from one picture to a place to go: "Whatever you feel, feel better." The sphere is no longer the product; the change in how you feel is.
+
+<Hot>When the product is a catalog, the promise has to be about the person, not about the visuals.</Hot>
+</Stop>
+
+<Stop skill="target-audience">
+People who want what meditation gives but can't sit still with it, most of all when they are anxious. Since 18 Nov also people who are angry, low or can't focus.
+
+<Hot>The audience got wider with the catalog. Part II has to show which part of it comes back.</Hot>
+</Stop>
+
+<Stop skill="scope-cutting">
+On 16 Nov the catalog went from 18 sessions to 12, moods from 14 to 8, and the brain left the product. Two days later it grew to 21 sessions.
+
+<Bars
+  title="Sessions in the catalog"
+  unit=" sessions"
+  items={[
+    { label: '20 Oct', value: 18 },
+    { label: '16 Nov', value: 12 },
+    { label: '18 Nov', value: 21, highlight: true },
+  ]}
+  evidence="observed"
+  source="Each version's pages, from the git history and staging"
+/>
+
+<Hot>Cutting and then growing in the same week looks like indecision. It is fine if the growth is measured and the cut is the fallback.</Hot>
+</Stop>
+
+<Stop skill="differentiation">
+Eyes open, hands on, about two minutes, one hand. Against products you listen to with your eyes closed.
+
+<Hot>The difference is easy to show in a 15-second clip, which matters more than being easy to say.</Hot>
+</Stop>
+
+<Stop skill="design-systems">
+The rules every session follows are written down for people and for agents: the look, the anatomy of a session, the gesture rules, the words, and Lev.
+
+<Hot>With agents, a design system is also a prompt. The written rules are why nine sessions built in under an hour look like one product.</Hot>
+</Stop>
+
+<Stop skill="color">
+Ten colours and no others, each with a meaning: coral is the hard end, sun is energy that works for you, mint is settled. A session moves from its hard colour to its settled one, and the sliders use the same pair.
+
+<Hot>Colour that carries the feeling does half of the explaining, in any language.</Hot>
+</Stop>
+
+<Stop skill="interface-feedback">
+Every touch is answered with a shape, a sound or a haptic. One gesture per phase: first match where you are, then change it. Nothing can be failed: a missed shooting star is followed by another.
+
+<Hot>A game you can lose is the wrong game for someone who is anxious. Forgiving is a feature here.</Hot>
+</Stop>
+
+<Stop skill="plain-language">
+No engine words like "particles", "nucleus" or "transition" in what people read, checked by a script. The English copy is written for people who learned English as a second language.
+
+<Hot>The words you use while building leak into the product. A script that fails the build is cheaper than a review.</Hot>
+</Stop>
+
+<Stop skill="channel-selection">
+On 15 Nov each channel got its own front door: a stress toy for TikTok, a nervous-system reset for Reels. On 16 Nov they were folded into one door.
+
+<Hot>A door per channel is right once the channels send traffic. Before that, it splits a small sample into smaller ones.</Hot>
+</Stop>
+
+<Stop skill="customer-acquisition-cost">
+The launch plan was €50 a month of ads. The ChatGPT review argued that a product sold at €49.50 a year can't pay app-store prices for each customer.
+
+<Hot>With a low annual price, the cheapest customer is the one a friend sends you.</Hot>
+</Stop>
+
+<Stop skill="sharing-mechanics">
+A gift link names the session, never the feeling, and opens with the sender's name: "Mikel sent you this." Free, no account.
+
+<Hot>The detail that a link never says "anxious" is what makes people willing to send it.</Hot>
+</Stop>
+
+<Stop skill="referral-loops">
+The gift card appears after a session that helped, in place of "email me a link to come back". The person who receives a session can give one too.
+
+<Hot>The best moment to ask someone to share is the moment the product just worked for them. That is where the card is.</Hot>
+</Stop>
+
+<Stop skill="event-schemas">
+Every session sends the same events: check-in, start, complete, exit with progress, and a before and after rating that only counts if it was touched.
+
+<Hot>Same events everywhere is what turns a broad catalog into an experiment instead of a mess.</Hot>
+</Stop>
+
+<Stop skill="iterate-expand-stop">
+The catalog is broad on purpose: the sessions people finish, repeat and rate best will decide what stays.
+
+<Hot>I want the rule for dropping a session written before the data arrives, or nothing will ever be dropped.</Hot>
+</Stop>
+
+<Stop skill="delegating-to-agents">
+On 18 Nov three agents worked on the same code at the same time: copy, name and gift. They told each other what they committed and committed only their own changes.
+
+<Hot>Parallel agents work when each one has a clear job and says what it touched. Same rule as for people.</Hot>
+</Stop>
+
+<Stop skill="human-oversight">
+Nine sessions, Lev and a new front door: about 45 minutes from my message to staging. Ten prototypes that morning took a bit more than an hour. I chose the category, the catalog and what went to staging.
+
+<Hot>When building costs an hour, my time goes into choosing. That is the part I can't delegate.</Hot>
+</Stop>
+
+<Stop skill="reviewing-generated-work">
+An agent's audit gave the product 5 out of 10, and its second pass 7. ChatGPT gave an outside view. I followed some of it and not the rest.
+
+<Compare
+  title="The agent's two reviews"
+  subjects={['Audit', 'Second pass']}
+  highlight={1}
+  rows={[
+    { label: 'Onboarding', values: [4, 8], unit: '/10' },
+    { label: 'Distribution', values: [3, 4], unit: '/10' },
+    { label: 'Overall', values: [5, 7], unit: '/10' },
+  ]}
+  evidence="assumed"
+  source="An agent's judgment on staging, 16 Nov 2026, no usage data"
+/>
+
+<Hot>A review by an agent is a second opinion, not a measurement. Useful, and still an opinion.</Hot>
+</Stop>
+
+<Stop skill="reversible-decisions">
+When a version costs an hour and old versions live on their own branch, changing direction is cheap. So I decide with less evidence, ship to staging and look.
+
+<Hot>Cheap to reverse is not the same as free. Every change of promise costs the people who saw the last one.</Hot>
+</Stop>
+
+<Stop skill="updating-beliefs">
+The category changed again and again in five weeks, each time for a reason I could write down: the audit, the cut, the prototypes, the feedback.
+
+<Hot>Changing my mind is fine. Changing it without new evidence from users is the habit Part II has to break.</Hot>
+</Stop>

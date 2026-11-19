@@ -507,7 +507,7 @@ export const FIGURES: FigureDoc[] = [
     code: 'D-05',
     group: 'flows',
     what: 'Dated events down a rail, with decisions, releases, problems and results told apart.',
-    use: ['Case study, "Context" and "Decisions": the history of the product.', 'Experiment, "How I measured": the days it ran. Interview, "The decision": how it unfolded. An incident, from alert to fix.'],
+    use: ['Case study, "Context" and "Decisions": the history of the product.', 'Experiment, "How I measured": the days it ran. Interview, "The decision": how it unfolded. An incident, from alert to fix.', 'Profile: the versions of a product, each with a screenshot (`src`) of how it looked then.'],
     avoid: 'Events with no dates or order. Durations: a timeline marks moments, not lengths.',
     territories: ['shipping', 'operations', 'strategy', 'cross-cutting'],
     skills: ['incident-response', 'roadmaps', 'lifecycle-stages', 'launch-planning', 'sequencing', 'reflection', 'product-narratives'],
@@ -515,9 +515,9 @@ export const FIGURES: FigureDoc[] = [
     props: [
       {
         name: 'events',
-        type: "{ when: string; title: string; note?: string; kind?: 'event' | 'decision' | 'ship' | 'problem' | 'result' }[]",
+        type: "{ when: string; title: string; note?: string; kind?: 'event' | 'decision' | 'ship' | 'problem' | 'result'; src?: string; alt?: string }[]",
         required: true,
-        note: 'In order. `when` is a date, a time or a relative mark ("Day 3"). `kind` adds a tag and colours the marker.',
+        note: 'In order. `when` is a date, a time or a relative mark ("Day 3"). `kind` adds a tag and colours the marker. `src` adds a small screenshot of that moment beside the text (a phone screen, 240 px wide, under `/img/fieldwork/<entry>/`), for a history of versions; `alt` says what it shows.',
       },
     ],
     examples: [

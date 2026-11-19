@@ -1,6 +1,7 @@
 ---
 // What happened when: dated events down a rail. For the history of a product in a case study,
 // the days of an experiment, an incident from first alert to fix, how a maker's decision unfolded.
+// An event can carry a small screenshot (`src`), for a history of versions you can see.
 import Figure from './Figure.astro';
 import type { FrameProps } from './lib.ts';
 
@@ -12,6 +13,10 @@ interface Event {
   note?: string;
   /** decision: a choice was made. ship: something went out. problem: something broke or failed. result: what came of it. */
   kind?: Kind;
+  /** A screenshot of that moment (a phone screen reads best), shown small beside the text. */
+  src?: string;
+  /** What the screenshot shows. Required with `src`. */
+  alt?: string;
 }
 interface Props extends FrameProps {
   events: Event[];
@@ -32,12 +37,15 @@ const TONE: Record<Kind, string> = { event: 'is-open', decision: 'is-ink', ship:
             <span class="x-rail" aria-hidden="true">
               <i class:list={['x-dot', TONE[kind]]} data-a="pop" style={`--i:${i};--a-step:140ms`} />
             </span>
-            <span class="x-body" data-a="rise" style={`--i:${i};--a-step:140ms`}>
-              <span class="x-title">
-                {e.title}
-                {WORD[kind] && <span class:list={['fg-tag', kind === 'problem' ? 'is-signal' : kind === 'ship' ? 'is-lit' : 'is-ink']}>{WORD[kind]}</span>}
+            <span class:list={['x-body', { 'has-shot': !!e.src }]} data-a="rise" style={`--i:${i};--a-step:140ms`}>
+              <span class="x-text">
+                <span class="x-title">
+                  {e.title}
+                  {WORD[kind] && <span class:list={['fg-tag', kind === 'problem' ? 'is-signal' : kind === 'ship' ? 'is-lit' : 'is-ink']}>{WORD[kind]}</span>}
+                </span>
+                {e.note && <span class="x-note">{e.note}</span>}
               </span>
-              {e.note && <span class="x-note">{e.note}</span>}
+              {e.src && <img class="x-shot" src={e.src} alt={e.alt ?? ''} loading="lazy" decoding="async" />}
             </span>
           </li>
         );
@@ -106,8 +114,27 @@ const TONE: Record<Kind, string> = { event: 'is-open', decision: 'is-ink', ship:
   }
   .fg-timeline .x-body {
     display: grid;
-    gap: 2px;
+    gap: 2px 16px;
     padding: 1px 0 18px;
+  }
+  .fg-timeline .x-text {
+    display: grid;
+    gap: 2px;
+    align-content: start;
+  }
+  /* an event with a screenshot: text on the left, the screen beside it */
+  .fg-timeline .x-body.has-shot {
+    grid-template-columns: minmax(0, 1fr) 84px;
+  }
+  .fg-timeline .x-shot {
+    display: block;
+    width: 84px;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    object-position: top;
+    border: 1px solid var(--ink);
+    border-radius: 8px;
+    background: var(--bg);
   }
   .fg-timeline .x-event:last-child .x-body {
     padding-bottom: 0;
@@ -141,6 +168,13 @@ const TONE: Record<Kind, string> = { event: 'is-open', decision: 'is-ink', ship:
     .fg-timeline .x-body {
       grid-column: 2;
       grid-row: 2;
+    }
+    .fg-timeline .x-body.has-shot {
+      grid-template-columns: minmax(0, 1fr) 64px;
+    }
+    .fg-timeline .x-shot {
+      width: 64px;
+      border-radius: 6px;
     }
   }
 </style>

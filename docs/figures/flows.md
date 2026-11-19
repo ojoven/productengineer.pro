@@ -262,6 +262,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 - Case study, "Context" and "Decisions": the history of the product.
 - Experiment, "How I measured": the days it ran. Interview, "The decision": how it unfolded. An incident, from alert to fix.
+- Profile: the versions of a product, each with a screenshot (`src`) of how it looked then.
 
 **Not for:** Events with no dates or order. Durations: a timeline marks moments, not lengths.
 
@@ -271,7 +272,7 @@ Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
 **Props**
 
-- **`events`** *(required)* `{ when: string; title: string; note?: string; kind?: 'event' | 'decision' | 'ship' | 'problem' | 'result' }[]`: In order. `when` is a date, a time or a relative mark ("Day 3"). `kind` adds a tag and colours the marker.
+- **`events`** *(required)* `{ when: string; title: string; note?: string; kind?: 'event' | 'decision' | 'ship' | 'problem' | 'result'; src?: string; alt?: string }[]`: In order. `when` is a date, a time or a relative mark ("Day 3"). `kind` adds a tag and colours the marker. `src` adds a small screenshot of that moment beside the text (a phone screen, 240 px wide, under `/img/fieldwork/<entry>/`), for a history of versions; `alt` says what it shows.
 
 Plus the frame props: `title`, `caption`, `evidence`, `source`.
 
