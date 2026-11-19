@@ -1,0 +1,429 @@
+{/* Quick tour of /in-practice/papermark/. One <Stop> per skill of the coverage, in the same order.
+    Facts as in the profile: Marc on Top Founders (recorded July 2026), Starter Story (Aug 2025), Papermark's
+    $2M and $3M posts, Marc's blog, papermark.com and the GitHub repository (17 Nov 2026).
+    <Hot> marks my opinion. */}
+
+<Stop skill="desirability-tests">
+Before writing code, Marc bet his wife a tweet about the idea would get 50 likes. It got 265. The launch tweet after the weekend build got 450 likes and over 95,000 views.
+
+<Bars
+  title="Likes, against the bar they set"
+  unit=" likes"
+  items={[
+    { label: 'The bet', value: 50 },
+    { label: 'The idea tweet', value: 265 },
+    { label: 'The launch tweet', value: 450, highlight: true },
+  ]}
+  evidence="reported"
+  source="Marc's post From Tweet to Launch, 4 Sep 2023"
+/>
+
+<Hot>A test with a number agreed before it ran. Most "validation" tweets have no bar, so any result counts as a yes.</Hot>
+</Stop>
+
+<Stop skill="competitive-analysis">
+"Everyone knew DocSend and everyone didn't like it." In Marc's telling, it stopped improving after Dropbox bought it, and later dropped its free plan.
+
+<Hot>The best incumbent to copy is one people already pay for and complain about: the market is proven and the complaints are your roadmap.</Hot>
+</Stop>
+
+<Stop skill="market-trends">
+In 2023 open-source alternatives to older SaaS were a wave: Cal.com for Calendly, Documenso for DocuSign. Papermark was early to do the same for DocSend, and its OSS Friends page still lists the others.
+
+<Hot>Marc's own view is that the timing was luck. The choice of incumbent was not: he picked the one nobody else in that wave had taken.</Hot>
+</Stop>
+
+<Stop skill="willingness-to-pay">
+"The first customers started saying: can we pay you money?" Iuliia said they paid even though the payment flow was not finished.
+
+<Hot>When people ask to pay before you have a checkout, the price is not your problem yet. Finish the checkout.</Hot>
+</Stop>
+
+<Stop skill="ideal-customer-profile">
+The first customer was a founder sending a deck. By 2026 most new customers came for a data room: fundraising, M&A, due diligence. The home page now lists customers by assets under management.
+
+<Compare
+  subjects={['2023', '2026']}
+  highlight={1}
+  rows={[
+    { label: 'Typical customer', values: ['A founder raising', 'A deal team'] },
+    { label: 'What they share', values: ['One deck', 'A whole data room'] },
+    { label: 'What the home page shows', values: ['Open source, DocSend', 'SOC 2, ISO 27001, AUM'] },
+  ]}
+/>
+</Stop>
+
+<Stop skill="mvp">
+One weekend, on a stack chosen to ship in one: Next.js, Tailwind, Vercel Postgres, Vercel Blob, Prisma and NextAuth. Upload a PDF, share a link, see who read which page.
+
+<Quote text="Pick a tech stack that lets you ship in a weekend. Momentum is a feature." who="Marc Seitz" context="From Tweet to Launch, 2023" />
+</Stop>
+
+<Stop skill="revenue-models">
+Open core. The AGPL core is free to read and self-host. Papermark charges for the hosted service and licenses the features in the `ee/` folders.
+
+<Flow
+  stages={['Free', 'Paid']}
+  motion={false}
+  nodes={[
+    { id: 'core', label: 'AGPL core', detail: 'Read, run, contribute', col: 0, row: 0 },
+    { id: 'self', label: 'Self-hosted', detail: 'Your servers', col: 0, row: 1 },
+    { id: 'cloud', label: 'papermark.com', detail: 'Free to Unlimited', col: 1, row: 0, tone: 'lit' },
+    { id: 'ee', label: 'Enterprise licence', detail: 'ee/ features, self-hosted', col: 1, row: 1 },
+  ]}
+  edges={[
+    { from: 'core', to: 'cloud' },
+    { from: 'core', to: 'self' },
+    { from: 'self', to: 'ee', dashed: true },
+  ]}
+/>
+</Stop>
+
+<Stop skill="competitive-advantage">
+Marc's four reasons, on Starter Story: nobody can charge less than a free core, anyone can try it, the community adds R&D, and a bank can audit the code instead of asking for access.
+
+<Hot>The audit point is the one that pays. Deal teams buy trust, and code anyone can read is trust they can check.</Hot>
+</Stop>
+
+<Stop skill="differentiation">
+A custom domain out of the box, and rooms that look like the customer, where "the incumbents put their own brand front and center".
+
+<Hot>It also hands control to the customer: with a custom domain, the papermark.com loop stops. They give up some viral reach on the plans that pay most.</Hot>
+</Stop>
+
+<Stop skill="pricing">
+Flat plans with users included. Business is €59 a month billed yearly for three people; Papermark's own comparison prices DocSend's closest plan at $45 per user.
+
+<Compare
+  title="Three people sharing branded links, per month"
+  subjects={['DocSend Standard', 'Papermark Business']}
+  highlight={1}
+  rows={[
+    { label: 'Price model', values: ['Per user', 'Flat, 3 users included'] },
+    { label: 'Three users', values: ['$135', '€59'] },
+  ]}
+  evidence="reported"
+  source="DocSend's price from Papermark's own comparison page, not checked on docsend.com; the multiplication is mine"
+/>
+</Stop>
+
+<Stop skill="packaging">
+Seven plans from €0 to €999 a month (billed yearly), four of them data rooms. Iuliia said they hesitated to add the highest tier, and it became the fastest-growing.
+
+<Bars
+  unit=" €"
+  items={[
+    { label: 'Pro', value: 24 },
+    { label: 'Business', value: 59 },
+    { label: 'Data Rooms', value: 99, highlight: true },
+    { label: 'Plus', value: 249 },
+    { label: 'Premium', value: 549 },
+    { label: 'Unlimited', value: 999 },
+  ]}
+  evidence="observed"
+  source="papermark.com/pricing and ee/stripe/utils.ts, 17 Nov 2026"
+/>
+
+<Hot>The about page says watermarks and NDA gates are "the floor", not paywalled; the pricing page puts both in Data Rooms. One of the two pages should change.</Hot>
+</Stop>
+
+<Stop skill="category-positioning">
+In 2023 Papermark was "the open-source DocSend alternative". In 2026 its page title is "Secure data rooms for modern dealmakers", and "open source" is not above the fold.
+
+<Hot>The right move: the people with the biggest budgets don't search for "open source". They search for "data room".</Hot>
+</Stop>
+
+<Stop skill="north-star-metric">
+Views of shared documents, the founders said on Starter Story: 800,000 by mid-2025.
+
+<Hot>A good pick for a viral product: every view is value for the sender and a chance of a new signup at the same time.</Hot>
+</Stop>
+
+<Stop skill="costs-and-margins">
+About 80% of spend on freelancers and the founders' salaries, 15% on marketing and growth experiments, the rest on tools. Profitable, and only now "can afford a proper salary".
+
+<Bars
+  title="Where the money goes"
+  unit="%"
+  items={[
+    { label: 'Freelancers and founder salaries', value: 80, highlight: true },
+    { label: 'Marketing and growth experiments', value: 15 },
+    { label: 'Tools', value: 5 },
+  ]}
+  evidence="reported"
+  source="Starter Story, Aug 2025, as rounded on the show"
+/>
+</Stop>
+
+<Stop skill="early-feedback">
+Building in public meant sharing unfinished features anyway. Marc also wrote six dev.to posts on how he built each part, "a forcing function: ship something small, write it up, get feedback, repeat."
+
+<Hot>Open source makes this the default: the code is already public, so the only thing left to hide is the progress.</Hot>
+</Stop>
+
+<Stop skill="small-batches">
+Weekends and nights at first. Today they "ship to production almost every day".
+
+<Hot>Two founders shipping daily is why the third million took four months. Their pace is the advantage over incumbents.</Hot>
+</Stop>
+
+<Stop skill="release-communication">
+A public changelog, and milestone posts that list every release month by month with what it does for a deal team. The $2M post lists more than 20 releases from October 2025 to March 2026.
+
+<Hot>A revenue milestone post that is mostly a changelog: the customer learns what is new, and Google gets another page that says "data room".</Hot>
+</Stop>
+
+<Stop skill="communities">
+The first 1,000 GitHub stars came in the first couple of months, from viral posts and a circle of commercial open-source founders: "we had each other's back". They also joined Hacktoberfest.
+
+<StatRow
+  stats={[
+    { value: '9,382', label: 'GitHub stars', signal: true },
+    { value: 60, label: 'Contributors' },
+    { value: '1,433', label: 'Forks' },
+  ]}
+  evidence="observed"
+  source="GitHub API, 17 Nov 2026"
+/>
+</Stop>
+
+<Stop skill="social-platforms">
+Twitter launched it. "None of our customers today are on Twitter itself. Most of them are on LinkedIn." So the strategy moved, even if LinkedIn is "very hard to track".
+
+<Hot>Builders live on X and buyers live on LinkedIn. For a product sold to deal teams, the launch channel was never going to be the growth channel.</Hot>
+</Stop>
+
+<Stop skill="channel-selection">
+Iuliia told Horizons they tried more than 14 channels and kept three. Neither episode said which.
+
+<Bars
+  unit=" channels"
+  items={[
+    { label: 'Tried', value: 14 },
+    { label: 'Kept', value: 3, highlight: true },
+  ]}
+  evidence="reported"
+  source="Iuliia Shnai on Horizons, Jul 2025 ('14+')"
+/>
+</Stop>
+
+<Stop skill="seo">
+Alternative pages for DocSend, Intralinks, Datasite, Firmex and others, plus an investor database, a fundraising report and a pitch competition. Latka read a domain rating of 73 on air, with 5,200 organic clicks.
+
+<Hot>"X alternative" is the search of someone already unhappy and ready to switch. Iuliia said as much: people search for alternatives when they dislike the leader.</Hot>
+</Stop>
+
+<Stop skill="sharing-mechanics">
+Every link without a custom domain is on papermark.com, so every investor, buyer or lawyer who opens a room sees the product, and many of them run deals too.
+
+<Quote text="If they don't add a custom domain, it defaults to papermark.com. So that's an inherent viral loop for us." who="Marc Seitz" context="On Top Founders" />
+
+<Hot>The loop needs no incentive. Using the product is the invitation.</Hot>
+</Stop>
+
+<Stop skill="self-serve-adoption">
+A free plan with no card, about 100 signups a day, and about 100 new paying customers a month. Free users who never pay are "totally fine".
+
+<Flow
+  motion={false}
+  nodes={[
+    { id: 'link', label: 'Sees a room', detail: 'On papermark.com', col: 0, row: 0, kind: 'external' },
+    { id: 'free', label: 'Free plan', detail: '~100 signups a day', col: 1, row: 0 },
+    { id: 'trial', label: 'Data room trial', detail: '7 days', col: 2, row: 0, tone: 'lit' },
+    { id: 'paid', label: 'Paying', detail: '~100 a month', col: 3, row: 0 },
+  ]}
+  edges={[
+    { from: 'link', to: 'free' },
+    { from: 'free', to: 'trial' },
+    { from: 'trial', to: 'paid' },
+  ]}
+  evidence="reported"
+  source="Marc on Top Founders; trial length from papermark.com/pricing"
+/>
+</Stop>
+
+<Stop skill="trust-signals">
+The home page opens with "ISO 27001 certified · SOC 2 Type II", then the headline, then "Trusted by 80,000+ global companies", customer logos and a 4.9 rating.
+
+<Hot>For someone about to upload a company's financials, the first question is whether it is safe, and only then what it does. The page answers in that order.</Hot>
+</Stop>
+
+<Stop skill="step-reduction">
+Start empty, from a template, or describe the deal and let AI propose the folders. "Launch your data room in under 60 seconds."
+
+<Compare
+  subjects={['A data room by hand', 'On Papermark']}
+  highlight={1}
+  rows={[
+    { label: 'Folder structure', values: ['Built by hand', 'Template or AI'] },
+    { label: 'Time to a shareable room', values: ['An afternoon', 'Under a minute'] },
+  ]}
+  evidence="reported"
+  source="Papermark's $2M and $3M posts; 'an afternoon' is my estimate"
+/>
+</Stop>
+
+<Stop skill="recurring-needs">
+A data room lives as long as a deal. A founder raises every year or two; an M&A advisor runs deals all year. Neither episode touched churn.
+
+<Hot>Same product, two retention curves. I would want them apart before reading any blended churn number.</Hot>
+</Stop>
+
+<Stop skill="re-engagement">
+Cancelling offers a pause: three months at $0, links still live. A reminder goes out three days before billing resumes, and a visit to a paused room sends an email: someone looked, unpause to see who.
+
+<Sequence
+  actors={[
+    { id: 't', label: 'Paused team' },
+    { id: 'p', label: 'Papermark' },
+    { id: 'v', label: 'Visitor', kind: 'external' },
+  ]}
+  messages={[
+    { from: 't', to: 'p', label: 'Pause, $0 for 3 months' },
+    { from: 'v', to: 'p', label: 'Opens the room' },
+    { from: 'p', to: 't', label: 'Someone visited', kind: 'reply', tone: 'signal', note: 'Details after unpausing' },
+    { from: 'p', to: 't', label: 'Billing resumes in 3 days', kind: 'reply' },
+  ]}
+  evidence="observed"
+  source="ee/features/billing/cancellation and components/emails, 17 Nov 2026"
+/>
+
+<Hot>The best bit is hiding the visitor's name. The reason to come back is a real person reading your room, and you only learn who once you pay again.</Hot>
+</Stop>
+
+<Stop skill="code-organization">
+The licence draws the line in folders: `ee/` and `app/(ee)` are commercial, the rest is AGPLv3. Inside `ee/features` are AI, billing, conversations, permissions, security, storage, templates and workflows.
+
+<Compare
+  subjects={['Rest of the repository', 'ee/ and app/(ee)']}
+  highlight={1}
+  rows={[
+    { label: 'Licence', values: ['AGPLv3', 'Commercial'] },
+    { label: 'Examples', values: ['Viewer, links, page analytics', 'Permissions, AI, workflows, billing'] },
+  ]}
+  evidence="observed"
+  source="LICENSE and the repository tree, 17 Nov 2026"
+/>
+</Stop>
+
+<Stop skill="async-systems">
+PDF-to-image conversion, video optimisation, bulk downloads, visit exports and notifications run as Trigger.dev jobs in `lib/trigger`, outside the request.
+
+<Hot>For a document viewer this is most of the backend: the slow work is converting files, and none of it should block a visitor.</Hot>
+</Stop>
+
+<Stop skill="data-protection">
+Dynamic watermarks with the viewer's details, screenshot protection, NDAs before access, email verification, allow and block lists, and one-time codes for bulk downloads.
+
+<Hot>Every one of these is a sentence an M&A lawyer can tick on a checklist. Here, protection is what the product sells.</Hot>
+</Stop>
+
+<Stop skill="mcp">
+Papermark Agents, June 2026: an MCP server with 57 tools, each mapped to a REST endpoint, scoped tokens, and an audit log. Install with `npx -y @papermark/mcp-server`. A verified connector in Claude.
+
+<StatRow
+  stats={[
+    { value: 57, label: 'MCP tools', signal: true },
+    { value: 'Jun 2026', label: 'Shipped', note: 'With the API and CLI' },
+  ]}
+  evidence="observed"
+  source="papermark.com/agents, 17 Nov 2026"
+/>
+</Stop>
+
+<Stop skill="ai-agents">
+AI builds a room's folders from a deal description, and agents answer questions across documents with citations, "only from documents the token is allowed to read".
+
+<Hot>In a data room the permission model is the product, so an agent that respects it is worth more than a smarter one that doesn't.</Hot>
+</Stop>
+
+<Stop skill="delegating-to-agents">
+Marc showed the contribution graph: "a lot of the code on me, and then you've got Cursor and CodeRabbit sneaking in there as well". AI holds a big code base better than a casual contributor.
+
+<Hot>An honest note from an open-source founder: AI makes the maintainer faster and the drive-by contributor less needed. Translations and security reports are what is left for them.</Hot>
+</Stop>
+
+<Stop skill="regulatory-compliance">
+SOC 2 Type II audited and ISO 27001 certified, with GDPR, HIPAA and CCPA workflows. It is the first line of the home page.
+
+<Hot>For two founders an audit is a big cost in time. For deal teams it is the ticket in, which is why it sits above the headline.</Hot>
+</Stop>
+
+<Stop skill="data-governance">
+Data in the EU by default, US residency for enterprise, multi-region storage since June 2025. Self-hosting keeps everything in the customer's own cloud.
+
+<Compare
+  subjects={['Papermark Cloud', 'Self-hosted']}
+  rows={[
+    { label: 'Where data lives', values: ['EU by default, US for enterprise', "The customer's own cloud"] },
+    { label: 'Who sees it', values: ['Papermark, under its audits', 'Only the customer'] },
+  ]}
+/>
+</Stop>
+
+<Stop skill="support-workflows">
+Every request still goes to a founder. Marc's rules: one inbox for support, sales and bugs, a 15-minute reply, and "every ticket is a product meeting".
+
+<Quote text="If two people hit the same edge case in a week, it's in the next release. Support is the roadmap." who="Marc Seitz" context="As CEO, I do customer support, 2024" />
+</Stop>
+
+<Stop skill="event-schemas">
+One `page_views` event per viewed page, in Tinybird, with the link, document, room, page number, duration and document version.
+
+<EventTable
+  events={[
+    { name: 'page_views', when: 'A visitor views one page', props: ['documentId', 'versionNumber', 'pageNumber', 'duration'], key: true },
+    { name: 'click_events', when: 'A visitor clicks a link in a document', props: ['document_id', 'session_id'] },
+  ]}
+  evidence="observed"
+  source="lib/tinybird/datasources, 17 Nov 2026"
+/>
+
+<Hot>Putting the version on every event is the detail I like most. It turns "they skipped slide 7" into a before-and-after of your fix.</Hot>
+</Stop>
+
+<Stop skill="engagement-metrics">
+Time per page, completion and visits per document and per room: the measurement customers pay for. The mock dashboard on the home page leads with exactly those three: visits, average view duration, average completion.
+
+<Hot>Papermark sells engagement metrics to people who never thought of them that way: "who read the financials" is a dwell-time query.</Hot>
+</Stop>
+
+<Stop skill="revenue-metrics">
+$1M ARR in 18 months, $2M six months later, $3M four after that. Q1 2026 grew 8.7% a month; July 2026 added $26,000 of MRR.
+
+<Bars
+  title="Months to each extra $1M of ARR"
+  unit=" months"
+  items={[
+    { label: 'First', value: 18 },
+    { label: 'Second', value: 6 },
+    { label: 'Third', value: 4, highlight: true },
+  ]}
+  evidence="reported"
+  source="Papermark's $3M ARR post, 13 Aug 2026"
+/>
+</Stop>
+
+<Stop skill="deciding-under-uncertainty">
+They had good jobs and savings to get through the first year, so quitting was never close. Marc counts five or six failures before Papermark and calls it "a lucky break".
+
+<Hot>Savings bought what investors would have: time to reach feature parity without a deadline.</Hot>
+</Stop>
+
+<Stop skill="opportunity-cost">
+$30M cash from Dropbox? "Dropbox bought DocSend for 140 million, so we'll probably not sell yet." Dropbox announced $165M, of which $30.7M was retention pay.
+
+<Hot>The comparison he reached for is DocSend's own price. That tells you who he thinks Papermark is replacing.</Hot>
+</Stop>
+
+<Stop skill="long-term-direction">
+The next goal is $10M ARR, "still bootstrapped and still with customers first". For 2026 he expected $4M to $4.5M, five "in the wishful case".
+
+<Hot>Going from $3M to $10M with two founders means the freelancers and the agents carry more and more of the work. Support by founders is the habit I would watch.</Hot>
+</Stop>
+
+<Stop skill="professional-development">
+Iuliia came from academia and learned to code by building on open-source projects and opening her own. Marc credits her with the website's design.
+
+<Quote text="I didn't know how to code at all. I took existing open source to build on top of, and what I built I also made open source." who="Iuliia Shnai" context="On Starter Story" />
+</Stop>

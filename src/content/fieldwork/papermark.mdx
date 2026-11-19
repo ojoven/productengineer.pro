@@ -1,0 +1,470 @@
+---
+kind: podcast
+title: 'Papermark: open source to launch, data rooms to pay'
+summary: Papermark is an open-source platform for sharing documents and running virtual data rooms with page-by-page analytics, used for fundraising, M&A and due diligence. On Nathan Latka's show, co-founder Marc Seitz told how a tweet and a weekend build became a bootstrapped company at $3M ARR, run by two founders.
+date: 2026-11-17
+subjects:
+  - name: Papermark
+    url: https://www.papermark.com
+    maker: Marc Seitz and Iuliia Shnai
+    logo: /img/fieldwork/papermark/logo.svg
+    what: An open-source alternative to DocSend for sharing documents and running virtual data rooms, with page-by-page analytics, custom domains and an MCP server for agents.
+person:
+  name: Marc Seitz
+  role: Co-founder of Papermark
+  url: https://mfts.io
+  avatar: /img/fieldwork/papermark/marc-seitz.jpg
+  sameAs: [https://x.com/mfts0, https://github.com/mfts]
+episode:
+  show: Top Founders with Nathan Latka
+  title: How he made $3m on his weekend open source project (live example)
+  url: https://www.youtube.com/watch?v=NKEEbYj2i6o
+  host: Nathan Latka
+  published: 2026-11-10
+  duration: '17:19'
+  language: English
+question: How does a weekend open-source DocSend alternative become a $3M ARR data room business with two founders and no investors, and which parts of the map did it take?
+method: Two public episodes and Papermark's own writing. Main source, Top Founders with Nathan Latka, published on YouTube on 10 Nov 2026, 17 minutes, in English, with Marc Seitz; Latka's site dates the recording to 7 July 2026. Second, Starter Story, published on 16 Aug 2025, 15 minutes, with Marc and Iuliia Shnai and Pat Walls asking. I worked from YouTube's automatic English captions and cut filler words from the quotes. I did not talk to Marc or Iuliia. Every number is theirs, said on a show or written in Papermark's posts ($2M ARR, 31 Mar 2026; $3M ARR, 13 Aug 2026) and Marc's blog; I have not seen Papermark's accounts, and where the sources disagree I say so. Product facts, prices and code checked on papermark.com and the public GitHub repository on 17 Nov 2026.
+skills:
+  [
+    desirability-tests, competitive-analysis, market-trends, willingness-to-pay, ideal-customer-profile,
+    mvp, revenue-models, competitive-advantage, differentiation, pricing, packaging, category-positioning, north-star-metric, costs-and-margins,
+    early-feedback, small-batches, release-communication,
+    communities, social-platforms, channel-selection, seo, sharing-mechanics, self-serve-adoption,
+    trust-signals, step-reduction,
+    recurring-needs, re-engagement,
+    code-organization, async-systems, data-protection,
+    mcp, ai-agents, delegating-to-agents,
+    regulatory-compliance, data-governance, support-workflows,
+    event-schemas, engagement-metrics, revenue-metrics,
+    deciding-under-uncertainty, opportunity-cost, long-term-direction, professional-development
+  ]
+coverage:
+  - territory: discovery
+    section: 'Discovery: a tweet before the code'
+    skills: [desirability-tests, competitive-analysis, market-trends, willingness-to-pay, ideal-customer-profile]
+    note: Demand was tested in public before a line of code, against an incumbent people already disliked.
+    notes:
+      desirability-tests: Marc bet his wife a tweet about the idea would get 50 likes before he built anything; it got 265.
+      competitive-analysis: DocSend was the tool everyone knew and few liked, and it had slowed down after Dropbox bought it.
+      market-trends: In 2023 open-source alternatives to older SaaS were a wave, and Papermark joined it early.
+      willingness-to-pay: The first customers asked to pay before payments were finished.
+      ideal-customer-profile: From founders sending one deck to deal teams running fundraising, M&A and due diligence in data rooms.
+  - territory: strategy
+    section: 'Strategy: open core, feature parity, then a different buyer'
+    skills: [mvp, revenue-models, competitive-advantage, differentiation, pricing, packaging, category-positioning, north-star-metric, costs-and-margins]
+    note: Give the core away, match the incumbent, charge flat, and follow the buyers to data rooms.
+    notes:
+      mvp: A weekend build on Next.js and Vercel; upload a PDF, share a link, see who read which page.
+      revenue-models: Open core, with a free AGPL core, a hosted service and a commercial licence for the features in ee/.
+      competitive-advantage: Nobody can undercut a free core, and anyone can audit it.
+      differentiation: The customer's domain and brand on every link and room, where incumbents show their own.
+      pricing: Flat monthly plans with three users included, against DocSend's price per user.
+      packaging: Seven plans from free to €999 a month; the top tier they hesitated to add grew fastest.
+      category-positioning: From "the open-source DocSend alternative" to "secure data rooms for dealmakers".
+      north-star-metric: Views of shared documents, 800,000 by mid-2025.
+      costs-and-margins: About 80% of spend on freelancers and the founders' salaries, 15% on growth experiments, the rest on tools; profitable.
+  - territory: shipping
+    section: 'Shipping: weekends, then almost every day'
+    skills: [early-feedback, small-batches, release-communication]
+    note: Build in public from the first weekend, release small and write every release down.
+    notes:
+      early-feedback: Unfinished features shared anyway, and six dev.to posts on how each part was built.
+      small-batches: Weekends and nights at first; now they ship to production almost every day.
+      release-communication: A public changelog, and milestone posts that list every release month by month.
+  - territory: distribution
+    section: 'Distribution: every shared link is an ad'
+    skills: [communities, social-platforms, channel-selection, seo, sharing-mechanics, self-serve-adoption]
+    note: The product spreads each time a customer uses it; the channels around it were picked by testing.
+    notes:
+      communities: A circle of commercial open-source founders, Hacktoberfest, and 1,000 GitHub stars in the first months.
+      social-platforms: Twitter launched it; LinkedIn is where the customers are now.
+      channel-selection: They tested more than 14 channels and kept 3.
+      seo: Alternative pages for DocSend and the data room incumbents; Latka read a domain rating of 73 on air.
+      sharing-mechanics: Every link without a custom domain is on papermark.com, so every visitor sees the product.
+      self-serve-adoption: About 100 signups a day on a free plan with no card, and about 100 new paying customers a month.
+  - territory: activation
+    section: 'Activation: badges first, a room in a minute'
+    skills: [trust-signals, step-reduction]
+    note: The first screen sells safety; the first minute builds the room.
+    notes:
+      trust-signals: ISO 27001 and SOC 2 Type II above the headline, then customer logos and a rating.
+      step-reduction: Templates and an AI-generated folder structure, so a data room is up in under a minute.
+  - territory: retention
+    section: 'Retention: deals end, so the plan can pause'
+    skills: [recurring-needs, re-engagement]
+    note: A data room lives as long as a deal; the code keeps the customer around for the next one.
+    notes:
+      recurring-needs: A fundraise or a sale ends, so the need comes back only with the next deal.
+      re-engagement: A three-month pause instead of cancelling, with links still live and an email when someone views a paused room.
+  - territory: engineering
+    section: 'Engineering: an open repo with a paid folder'
+    skills: [code-organization, async-systems, data-protection]
+    note: One public codebase, split by licence, with the heavy work in background jobs.
+    notes:
+      code-organization: Paid features live in ee/ folders under a commercial licence; the rest of the repository is AGPLv3.
+      async-systems: PDF-to-image conversion, video optimisation, bulk downloads and notifications run as Trigger.dev jobs.
+      data-protection: Dynamic watermarks, screenshot protection, NDA gates, email verification and one-time codes for bulk downloads.
+  - territory: ai
+    section: 'AI: agents that open data rooms'
+    skills: [mcp, ai-agents, delegating-to-agents]
+    note: An MCP server over the whole product, and AI in the codebase where contributors used to be.
+    notes:
+      mcp: An MCP server with 57 tools mapped to the REST API, and a verified connector in Claude.
+      ai-agents: Agents build a room's folders from a deal description and answer questions across documents with citations.
+      delegating-to-agents: Cursor and CodeRabbit show up in the repository's contribution graph.
+  - territory: operations
+    section: 'Operations: compliance as the product'
+    skills: [regulatory-compliance, data-governance, support-workflows]
+    note: Selling to deal teams means audits, data residency and a founder on every ticket.
+    notes:
+      regulatory-compliance: SOC 2 Type II and ISO 27001, with GDPR, HIPAA and CCPA workflows.
+      data-governance: Data in the EU by default, US residency for enterprise, multi-region storage since June 2025.
+      support-workflows: Every support request is still answered by one of the two founders.
+  - territory: measurement
+    section: 'Measurement: page by page for customers, ARR in public for themselves'
+    skills: [event-schemas, engagement-metrics, revenue-metrics]
+    note: What Papermark sells is a measurement, and its own revenue is posted in public.
+    notes:
+      event-schemas: One page_views event per page viewed, with its duration, page number and document version.
+      engagement-metrics: Time per page, completion and visits per document and room, which is what customers pay for.
+      revenue-metrics: $1M ARR in 18 months, $2M six months later, $3M four months after that.
+  - section: Beyond the product
+    scope: general
+    skills: [deciding-under-uncertainty, opportunity-cost, long-term-direction, professional-development]
+    note: Savings as runway, a $30M question and a next goal of $10M.
+    notes:
+      deciding-under-uncertainty: Savings from good jobs carried the first year, and Marc counts five or six failures before this one.
+      opportunity-cost: Asked about $30M cash from Dropbox, he said probably not yet, with DocSend's own price in mind.
+      long-term-direction: The next goal is $10M ARR, still bootstrapped.
+      professional-development: Iuliia learned to code by building on open-source projects and opening her own.
+related: [fieldwork/zernio, fieldwork/mamitsu]
+---
+
+## Who and what
+
+[Marc Seitz](https://mfts.io) studied physics, still writes about dark energy, and taught himself software. Before Papermark he co-founded Hackerbay as CTO, worked as CTO at the venture fund AQVC and, as Nathan Latka introduced him, helped launch Intel Ignite in Europe. In May 2023 he started an open-source side project in Munich. Today he runs it with his wife and co-founder, [Iuliia Shnai](https://x.com/shnai0), and it makes $3 million a year in recurring revenue. They split it 50/50 and have not raised a cent.
+
+**[Papermark](https://www.papermark.com) is an open-source platform for sharing documents and running virtual data rooms, with page-by-page analytics on who read what.** You upload a pitch deck or a whole due diligence folder, share a link on your own domain, and set what the visitor must do first: verify an email, accept an NDA. Then you see who opened which page and for how long. It started as the [open-source DocSend alternative](https://www.papermark.com/docsend-alternatives); founders use it to raise, and M&A advisors, funds and banks to run deals. It runs on [papermark.com](https://www.papermark.com) or your own servers, from the [code on GitHub](https://github.com/papermark/papermark), and agents use it through an [MCP server](https://www.papermark.com/agents).
+
+I did not talk to Marc. This piece comes from his conversation with Nathan Latka on [Top Founders](https://www.youtube.com/watch?v=NKEEbYj2i6o), out on 10 November, plus an earlier [Starter Story episode](https://www.youtube.com/watch?v=F8i0kkrQ8_o) with both founders, Papermark's [milestone posts](https://www.papermark.com/news/papermark-reaches-3m-arr), Marc's [blog](https://mfts.io) and the code. Like [Zernio](/in-practice/zernio/), it began with a weekend build; unlike Zernio, its code is public, so I could read it. I grouped it by territory and added what I would ask and test.
+
+<Shot
+  title="Papermark's home page in November 2026"
+  src="/img/fieldwork/papermark/home.webp"
+  alt="The Papermark home page: a banner about the Claude connector, ISO 27001 and SOC 2 badges above the headline Close Deals Faster, and customer logos"
+  url="papermark.com"
+  ratio="16 / 10"
+  width={1280}
+  height={800}
+  pins={[
+    { x: 18, y: 36, note: 'Two audit badges, before the headline says what the product does.' },
+    { x: 30, y: 45, kind: 'value', note: 'The buyer now is a deal team, not a founder with a deck.' },
+    { x: 50, y: 3, note: 'Agents get the banner at the top: a verified connector in Claude.' },
+  ]}
+/>
+
+<StatRow
+  title="Papermark at $3M ARR, August 2026"
+  stats={[
+    { value: '$3M', label: 'ARR', note: 'Reached 13 Aug 2026', signal: true },
+    { value: 2, label: 'Founders', note: 'Plus freelancers' },
+    { value: '$0', label: 'Raised', note: 'Bootstrapped and profitable' },
+    { value: '1.7k', label: 'Paying customers', note: '1,737 at the end of July 2026' },
+  ]}
+  caption="Two founders, no investors, and each million faster than the one before."
+  evidence="reported"
+  source="Papermark's $3M ARR post, 13 Aug 2026. Marc gave about 3,000 paying customers on the episode; more on that under Measurement."
+/>
+
+## On the map
+
+The sources reached eleven of the twelve territories of the Skills Map and 43 skills. Each icon takes you to its section. The quick tour goes through the 43 skills one at a time, with what each meant for Papermark.
+
+<Territories
+  title="Where the episodes and the code went"
+  skills={[
+    'desirability-tests', 'competitive-analysis', 'market-trends', 'willingness-to-pay', 'ideal-customer-profile',
+    'mvp', 'revenue-models', 'competitive-advantage', 'differentiation', 'pricing', 'packaging', 'category-positioning', 'north-star-metric', 'costs-and-margins',
+    'early-feedback', 'small-batches', 'release-communication',
+    'communities', 'social-platforms', 'channel-selection', 'seo', 'sharing-mechanics', 'self-serve-adoption',
+    'trust-signals', 'step-reduction',
+    'recurring-needs', 're-engagement',
+    'code-organization', 'async-systems', 'data-protection',
+    'mcp', 'ai-agents', 'delegating-to-agents',
+    'regulatory-compliance', 'data-governance', 'support-workflows',
+    'event-schemas', 'engagement-metrics', 'revenue-metrics',
+    'deciding-under-uncertainty', 'opportunity-cost', 'long-term-direction', 'professional-development',
+  ]}
+  caption="Only Experience is missing. The episodes covered Discovery, Strategy and Distribution best; the posts and the open code filled in most of Shipping, Retention, Engineering and Measurement."
+/>
+
+## Discovery: a tweet before the code
+
+Marc wanted to build something open source, and he saw nobody building an open alternative to DocSend or the data room tools. Iuliia set the rule.
+
+<Quote
+  text="Don't just build something, no one's going to use it. Test it on Twitter first. If people like it, if they share it, comment, then you can build it over the weekend."
+  who="Iuliia Shnai, as Marc told it"
+  context="On Top Founders, about the start of Papermark"
+/>
+
+On 23 May 2023 [he bet her](https://mfts.io/blog/from-tweet-to-launch-open-source-journey) the tweet would get 50 likes. It got 265. He built the first version that weekend; the launch tweet got 450 likes and over 95,000 views. (Latka's intro gave those numbers to the first tweet. Marc's own post gives them to the launch.) Soon after, "the first customers started saying: can we pay you money?" Iuliia told [Horizons](https://horizonspod.substack.com/p/frustrated-customers-might-be-your) they paid even though the payment flow was not finished.
+
+Why DocSend? "Everyone knew DocSend and everyone didn't like it." Dropbox bought it during the COVID boom and, in Marc's view, it stopped improving. DocSend later dropped its free plan, "an opening for us". The timing was a wave too. In 2023 commercial open source was rebuilding older SaaS products: Cal.com for Calendly, Documenso for DocuSign. Papermark's [OSS Friends page](https://www.papermark.com/oss-friends) still lists them.
+
+<JobStory
+  who="A founder raising a round"
+  when="I send my deck to thirty investors"
+  want="share it as a link I control and see who read which page, and for how long"
+  so="I follow up with the ones who read the numbers and stop chasing the ones who did not."
+  today="A PDF attached to an email, or DocSend at a price per user"
+/>
+
+That was the first customer. By 2026 it was another: most new customers come for a data room for fundraising, M&A or due diligence. The home page now lists customers by assets under management.
+
+## Strategy: open core, feature parity, then a different buyer
+
+The model is open core: an AGPLv3 core anyone can self-host, a hosted service, and an enterprise licence for the features in the repository's `ee/` folders. On Starter Story, Marc gave four reasons it works: nobody can charge less than a free core, anyone can try it, the community adds R&D, and a bank can audit the code instead of asking for access.
+
+Open source got them attention; revenue waited for feature parity. The first $1M ARR took until September 2025, because "no one wants a half-baked product" and Papermark was "missing maybe one or two features" buyers expected. **Once it matched the incumbents at a lower price, "it became a no-brainer".**
+
+<Quote
+  text="You need to reach at least feature parity with the existing tools in the market, and then you need to out-ship them. You want to become the clear successor to the incumbents."
+  who="Marc Seitz"
+  context="On Starter Story, his advice for open-source alternatives"
+/>
+
+Where Marc chose to differ is the brand: a custom domain out of the box, and rooms that look like the customer, where "the incumbents put their own brand front and center".
+
+Pricing is flat, with unlimited visitors. Business includes three users for €59 a month, billed yearly; Papermark's [own comparison](https://www.papermark.com/blog/papermark-vs-docsend) prices DocSend's closest plan at $45 per user (a competitor's numbers: DocSend's pricing page would not open for me). The amounts are also in the public code, in `ee/stripe/utils.ts`.
+
+<Bars
+  title="Papermark's plans, price per month billed yearly"
+  unit=" €"
+  items={[
+    { label: 'Free', value: 0, note: '50 documents, one user' },
+    { label: 'Pro', value: 24, note: '€29 billed monthly' },
+    { label: 'Business', value: 59, note: 'Three users included' },
+    { label: 'Data Rooms', value: 99, highlight: true, note: 'The plan the posts point to' },
+    { label: 'Data Rooms Plus', value: 249 },
+    { label: 'Data Rooms Premium', value: 549 },
+    { label: 'Data Rooms Unlimited', value: 999, note: '€1,499 billed monthly' },
+  ]}
+  caption="Four of the seven plans are data rooms. The top one costs about forty times the first paid plan."
+  evidence="observed"
+  source="papermark.com/pricing and ee/stripe/utils.ts in the repository, 17 Nov 2026"
+/>
+
+Iuliia [told Horizons](https://horizonspod.substack.com/p/frustrated-customers-might-be-your) they hesitated to add the highest tier, and it became the fastest-growing. One inconsistency I noticed: the [about page](https://www.papermark.com/about) says watermarks and NDA gates "are not paywalled add-ons. They are the floor." On the pricing page both start at the €99 Data Rooms plan.
+
+The positioning followed the buyers: from "the open-source DocSend alternative" in 2023 to "Close Deals Faster" in 2026, with "open source" below the fold. The North Star they gave on Starter Story was views of shared documents, 800,000 by mid-2025. About 80% of the money goes to freelancers and the founders' salaries, 15% to growth experiments, the rest to tools. They are profitable, and only now "can afford a proper salary".
+
+## Shipping: weekends, then almost every day
+
+The first months were weekends and nights, shared in public even when unfinished. Marc wrote six dev.to posts on how he built each part, "a forcing function: ship something small, write it up, get feedback, repeat." Product Hunt came on 4 September 2023, after weeks of that: "the launch is the harvest, not the seed".
+
+Today they "ship to production almost every day", with a public [changelog](https://www.papermark.com/changelog), and each milestone post lists the releases month by month: more than 20 in the [$2M post](https://www.papermark.com/news/papermark-reaches-2m-arr) alone.
+
+<Timeline
+  title="Releases that moved Papermark from documents to deals"
+  events={[
+    { when: 'Apr 2024', title: 'Data rooms', kind: 'ship', note: 'One link for many documents, analytics across the room.' },
+    { when: 'Sep 2024', title: 'Groups, file permissions, watermarks', kind: 'ship', note: 'Each bidder sees only its slice: usable for M&A.' },
+    { when: 'Apr–May 2025', title: 'Q&A, file requests, NDAs', kind: 'ship', note: 'The deal conversation moves into the room.' },
+    { when: 'Sep 2025', title: '$1M ARR', kind: 'result', note: '18 months in.' },
+    { when: 'Feb 2026', title: 'SAML SSO and SCIM', kind: 'ship', note: 'Banks, law firms and funds roll it out through IT.' },
+    { when: 'Jun 2026', title: 'Papermark Agents', kind: 'ship', note: 'API, CLI and MCP server.' },
+    { when: 'Aug 2026', title: '$3M ARR', kind: 'result' },
+  ]}
+  evidence="reported"
+  source="Papermark's $2M and $3M ARR posts, 31 Mar and 13 Aug 2026"
+/>
+
+## Distribution: every shared link is an ad
+
+The first thousand GitHub stars came "within the first couple of months", from viral posts, Hacktoberfest and a circle of commercial open-source founders: "we had each other's back". A thousand was Marc's own validation; the repository has 9,382 today.
+
+The channels changed with the buyer: "None of our customers today are on Twitter itself. Most of them are on LinkedIn." Iuliia told Horizons they tried more than 14 channels and kept three, without saying which.
+
+What carries the growth is built into the product.
+
+<Quote
+  text="If they don't add a custom domain, it defaults to papermark.com. So that's an inherent viral loop for us."
+  who="Marc Seitz"
+  context="On Top Founders, on how 60,000 teams bring the next ones"
+/>
+
+<Loop
+  title="How a data room sells the next one"
+  center="A shared room"
+  sub="On papermark.com"
+  motion={false}
+  stages={[
+    { label: 'A team shares a room', note: 'Investors, buyers, lawyers' },
+    { label: 'A visitor opens it', note: 'Often someone who runs deals too', tone: 'signal' },
+    { label: 'Sees papermark.com', note: 'No education needed: they use a tool like it' },
+    { label: 'Starts a room of their own', tone: 'lit' },
+  ]}
+/>
+
+Visitors need no education, Marc said: they already use a tool like it, and a good visit sells the admin side. The $2M post puts it directly: every deal shows Papermark "to people who will run deals of their own".
+
+Search does the rest: alternative pages for DocSend, Intralinks, Datasite and others, an investor database, a fundraising report. Latka read a domain rating of 73 on air, and Marc said "surprisingly a lot is still organic, by now it might be word of mouth".
+
+All of it ends in a free plan with no card. About 100 signups a day, some into trials, "others just stay on the free version forever and that's totally fine". New paying customers: about 100 a month, he said.
+
+## Activation: badges first, a room in a minute
+
+The first thing the home page says is not what Papermark does. It says "ISO 27001 certified · SOC 2 Type II", then the headline, then "Trusted by 80,000+ global companies", logos and a 4.9 rating. For someone about to upload a company's financials, that is the order of questions.
+
+The second job is setup time. You start from a template for fundraising, M&A or LP reporting, or describe the deal and AI proposes the folders, so "the first hour goes into the deal, not into folders". Data room plans start with a 7-day trial.
+
+## Retention: deals end, so the plan can pause
+
+Neither episode touched churn. Data rooms are a hard case: the need lasts as long as a fundraise or a sale. A founder raises every year or two. An M&A advisor runs deals all year.
+
+The code shows how Papermark handles it. The cancellation flow offers a pause: "Take a break for 3 months and resume when you're ready. You pay $0 for 3 months. All your links continue to work." Three days before billing resumes, an email says so. And if someone opens a paused team's room, the team gets an email anyway: "Your team is currently paused, so detailed visitor information is not available. To see who visited your dataroom and access full analytics, please unpause your subscription."
+
+<Flow
+  title="What the code does when a team pauses instead of cancelling"
+  motion={false}
+  nodes={[
+    { id: 'cancel', label: 'Clicks cancel', detail: 'Billing settings', col: 0, row: 0 },
+    { id: 'pause', label: 'Pauses', detail: '3 months at $0', col: 1, row: 0, tone: 'lit' },
+    { id: 'view', label: 'A visitor opens a room', detail: 'Links still work', col: 2, row: 0, kind: 'external' },
+    { id: 'mail', label: 'Email: someone visited', detail: 'Details after unpausing', col: 2, row: 1, tone: 'signal' },
+    { id: 'remind', label: 'Reminder', detail: '3 days before resuming', col: 1, row: 1 },
+    { id: 'resume', label: 'Billing resumes', detail: 'Automatically', col: 0, row: 1 },
+  ]}
+  edges={[
+    { from: 'cancel', to: 'pause' },
+    { from: 'pause', to: 'view', dashed: true },
+    { from: 'view', to: 'mail' },
+    { from: 'pause', to: 'remind' },
+    { from: 'remind', to: 'resume' },
+  ]}
+  caption="The room keeps working while the plan sleeps, and each visit is a reason to come back."
+  evidence="observed"
+  source="ee/features/billing/cancellation and components/emails in the repository, 17 Nov 2026"
+/>
+
+Whether it works, the sources do not say. The test I would run is below.
+
+<Hypothesis
+  title="What I would test: retention by who runs the deal"
+  if="each new paying team is tagged as running deals for others (advisors, funds, banks) or for itself (a founder raising, a company selling), and the pause is offered to the second group before the end of their deal"
+  then="paid retention at twelve months is clearly higher for the first group, and paused one-off teams come back for their next deal more often than cancelled ones"
+  because="a data room's life is a deal's life: a team that runs one deal a year needs a reason to stay between deals, and a team that runs deals all year does not"
+  metric="Teams paying twelve months after their first payment, per group; and share of paused teams that resume, against cancelled teams that return"
+  stopIf="Fewer than one in five teams can be tagged from signup answers and room templates"
+/>
+
+## Engineering: an open repo with a paid folder
+
+Papermark is two Next.js projects in TypeScript: the marketing site, and the open-source app behind app.papermark.com. On Starter Story they named Vercel, Postgres on PlanetScale, Trigger.dev, Resend and Stripe; the code adds Tinybird for analytics events.
+
+The open-core line is drawn in folders. The licence makes everything under `ee/` and `app/(ee)` commercial and the rest AGPLv3. Inside `ee/features` are AI, billing, permissions, security, templates and workflows: the data room features people pay for. The [about page](https://www.papermark.com/about) goes further than the licence file: "self-hosting on your own infrastructure for production or commercial use requires an enterprise license".
+
+The heavy work runs outside the request. Jobs in `lib/trigger` turn PDFs into page images, optimise videos, build bulk downloads and send notifications, so none of it happens while a visitor waits. And protection is most of the product: dynamic watermarks, screenshot protection, NDAs before access, email verification, one-time codes for bulk downloads, SAML SSO and SCIM.
+
+## AI: agents that open data rooms
+
+In June 2026 Papermark shipped [Papermark Agents](https://www.papermark.com/agents): a full API, a CLI and an MCP server, "so an AI agent can create a room, upload files, set permissions and read analytics". The page lists 57 typed tools, each mapped to a REST endpoint, scoped tokens, and an append-only audit log. Install is one line, `npx -y @papermark/mcp-server`. The home page banner says Papermark is now a verified connector in Claude.
+
+Inside the product, AI shortens the dull parts: it builds a room's folders from a description of the deal, and answers questions across documents with citations, "only from documents the token is allowed to read".
+
+Marc was more careful about AI in the code. Outside contributions fall as a project grows, and his contribution graph showed "a lot of the code on me, and then you've got Cursor and CodeRabbit sneaking in there as well". AI holds a big code base better than a casual contributor, "to the detriment of individual contributors, unfortunately". What is left for them: translations, bug fixes, security reports.
+
+<Quote
+  text="Building something that is inherently not AI-first is probably unthinkable today. But I'd urge anyone listening to look for these markets that are saturated."
+  who="Marc Seitz"
+  context="On Top Founders"
+/>
+
+## Operations: compliance as the product
+
+A deal team buys proof. Papermark is SOC 2 Type II audited and ISO 27001 certified, with GDPR, HIPAA and CCPA workflows. Data sits in the EU by default, enterprise plans can keep it in the US, and since June 2025 teams can pick the region their rules require. A regulated customer can still self-host.
+
+Support stays with the founders: both milestone posts say every request is answered by one of them. Marc [wrote about it in 2024](https://mfts.io/blog/ceo-customer-support): one inbox for support, sales and bugs, reply in 15 minutes, and "every ticket is a product meeting. If two people hit the same edge case in a week, it's in the next release."
+
+## Measurement: page by page for customers, ARR in public for themselves
+
+What customers pay for is a measurement: which pages an investor read, for how long, and whether they came back. In the code it is a Tinybird data source. Each viewed page is one event.
+
+<EventTable
+  title="The page_views event behind Papermark's analytics"
+  events={[
+    { name: 'page_views', when: 'A visitor views one page of a document', props: ['linkId', 'documentId', 'viewId', 'dataroomId', 'versionNumber', 'pageNumber', 'duration', 'country', 'device', 'referer'], key: true },
+    { name: 'video_views', when: 'A visitor views a video', props: ['link_id', 'document_id', 'view_id', 'dataroom_id'] },
+    { name: 'click_events', when: 'A visitor clicks a link inside a document', props: ['link_id', 'document_id', 'session_id', 'dataroom_id'] },
+  ]}
+  caption="Time per page by document version is what makes 'which slide lost them' answerable."
+  evidence="observed"
+  source="lib/tinybird/datasources in the repository, 17 Nov 2026"
+/>
+
+The `versionNumber` matters: a founder who fixes slide 7 can compare how long people stay on the old slide and the new one.
+
+Their own numbers go out in public too, on X and in posts, as they did from $100k ARR on. Each million came faster.
+
+<Bars
+  title="Months to each extra million of ARR"
+  unit=" months"
+  items={[
+    { label: 'First $1M', value: 18, note: 'To September 2025' },
+    { label: 'Second $1M', value: 6, note: 'To March 2026' },
+    { label: 'Third $1M', value: 4, highlight: true, note: 'To August 2026' },
+  ]}
+  caption="The first million took longest: that was the wait for feature parity."
+  evidence="reported"
+  source="Papermark's $3M ARR post, 13 Aug 2026"
+/>
+
+Q1 2026 grew 8.7% a month in MRR with 367 new customers; July 2026 alone added $26,000 of MRR. The episode and the posts do not always agree, though.
+
+<Compare
+  title="Where the episode and Papermark's own posts differ"
+  subjects={['Marc on Top Founders', 'The written record']}
+  highlight={1}
+  rows={[
+    { label: '$2M ARR', values: ['January 2026', 'March 2026'], note: "Papermark's $2M post" },
+    { label: 'Paying customers', values: ['About 3,000', '1,737 at the end of July 2026'], note: "Papermark's $3M post" },
+    { label: 'DocSend sold for', values: ['$140M, at 10× on $15M ARR', '$165M, announced March 2021'], note: "Dropbox's press release" },
+  ]}
+  caption="I use the written numbers: they were posted at the time. The gaps do not change the story."
+  evidence="reported"
+  source="Top Founders episode (recorded 7 Jul 2026 per Latka); Papermark's posts of 31 Mar and 13 Aug 2026; Dropbox press release, 9 Mar 2021"
+/>
+
+The customer count changes one number I wanted. At $3M ARR and 1,737 paying customers, the average is about $144 a month: well above the €99 data room plan. With Marc's 3,000, it would be about $83. My arithmetic, and the first thing I would ask him about.
+
+## Beyond the product
+
+What stayed with me:
+
+### A buffer, and five or six tries before
+
+Did the bank ever get so low they thought of quitting? No: they had good jobs before and saved enough for the first year. Marc counts "five, six failures" before Papermark and calls it "a lucky break". Two co-founders is his number, and the 50/50 split "was never a question".
+
+### $30 million, all cash
+
+Latka asked: Dropbox offers $30M cash, do you sell? "Dropbox bought DocSend for 140 million, so we'll probably not sell yet." Dropbox announced $165 million, of which $30.7 million was retention pay, so Marc's figure is close to what the company itself cost. The next goal is [$10M ARR](https://www.papermark.com/news/papermark-reaches-3m-arr), "still bootstrapped and still with customers first".
+
+### Learning to code in the open
+
+Iuliia [moved from academia to indie hacking](https://horizonspod.substack.com/p/frustrated-customers-might-be-your). Her GitHub bio still says she "started coding 6 months ago from open source projects", and Marc credits her with the website's design. On Starter Story she gave the advice I liked most from either episode:
+
+<Quote
+  text="I didn't know how to code at all. I took existing open source to build on top of, and what I built I also made open source. You will not get the whole idea if you're not going to build."
+  who="Iuliia Shnai"
+  context="On Starter Story"
+/>
+
+## What I take from it
+
+- **Open source got them attention; parity got them paid.** The repository brought stars, trust and the first customers within months. Revenue took 18 months to the first million, because buyers already knew what they wanted. When I build an alternative to something people know, I want the list of features that make buyers stay with the incumbent, written down and worked through, before I count stars.
+- **Put your name on the customer's work.** Every free link on papermark.com shows the product to an investor, a buyer or a lawyer who runs deals too. Zernio grows through search and paid ads; Papermark grows through the link itself. For my own products the question is the same: what does a user send to someone else, and does it carry my name?
+- **For project-shaped products, retention is a pause, not a renewal.** Deals end. Papermark's answer is in the code, not in the episodes: pause for three months, keep the links alive, and let a visitor be the reminder. I want to know how many paused teams come back, and I would design the same thing into any product used once per project.
+
+<Skills label="What I want to practise next" ids={['sharing-mechanics', 'packaging', 're-engagement', 'event-schemas', 'category-positioning', 'mcp']} />
