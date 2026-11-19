@@ -1,0 +1,242 @@
+---
+kind: profile
+title: 'Edorta Ramírez: Design Ops when anyone can build with a prompt'
+summary: Edorta Ramírez is a senior product designer who specialises in design systems and Design Ops. We talked about one design process for many teams, why governance is the hard problem now that anyone can build with a prompt, and how Edorta designs with Figma, Claude and Storybook connected.
+date: 2026-11-19
+draft: true
+person:
+  name: Edorta Ramírez
+  role: Senior Product Designer, design systems and Design Ops
+  url: https://www.linkedin.com/in/edortaramirez/
+  avatar: /img/fieldwork/edorta-ramirez/edorta-ramirez.jpg
+question: What does Design Ops look like when anyone in a company can build with a prompt, and how does a product designer work with AI today?
+method: Video call on 18 Nov 2026, in Spanish, about an hour. I had eleven questions ready by territory of the Skills Map, and the conversation soon went to AI. The automatic transcript was unusable, so I wrote this from the call's automatic notes (Gemini in Google Meet). The three quotes are rebuilt from those notes and translated, and Edorta confirms their wording before this goes out. Edorta works for a large company with strict confidentiality rules, so the company is not named and the profile describes patterns, not internal details. How the team works is Edorta's account. The personal design system I saw on a shared screen during the call.
+skills:
+  [
+    working-with-designers, working-with-pms,
+    product-risk, return-on-investment,
+    prompt-context-engineering, reviewing-generated-work, human-oversight, delegating-to-agents, mcp,
+    sketching, functional-prototypes, design-systems, visual-hierarchy,
+    competitive-advantage, differentiation, market-trends, substitutes, professional-development, scalability, guided-setup
+  ]
+coverage:
+  - territory: cross-cutting
+    section: 'Cross-cutting: one process for many design teams'
+    skills: [working-with-designers, working-with-pms]
+    note: Design Ops decides how designers work, and how they work with engineering and product management.
+    notes:
+      working-with-designers: Edorta's team defines how the design team works with engineering, with the same stages in every team.
+      working-with-pms: The same process sets where design and product management meet.
+  - territory: strategy
+    section: 'Strategy: speed is cheap, fit is not'
+    skills: [product-risk, return-on-investment]
+    note: Governance is the hard problem now that anyone can build with a prompt.
+    notes:
+      product-risk: Product managers can release from a prompt with no design or engineering experience, and quality, scale and fit with users are the risks.
+      return-on-investment: Something built in an afternoon still has to pay back, and speed says nothing about that.
+  - territory: ai
+    section: 'AI: design rules the models read first'
+    skills: [prompt-context-engineering, reviewing-generated-work, human-oversight, delegating-to-agents, mcp]
+    note: Context as the source of truth, feedback that flows back, and roles for the people in the loop.
+    notes:
+      prompt-context-engineering: Guidelines, good and bad practices, priority patterns and specs, in design markdown files that Claude reads first.
+      reviewing-generated-work: For Edorta, the tools should learn from what product managers, developers and business people say about their output.
+      human-oversight: A framework that sets the steps a piece of work goes through and the role each person takes.
+      delegating-to-agents: Tactical, mechanical and repetitive design work no longer needs a person.
+      mcp: Edorta's Claude is connected to the code repository and Storybook; MCP lets assistants reach a component library directly.
+  - territory: experience
+    section: 'Experience: one design system, in Figma and in code'
+    skills: [sketching, functional-prototypes, design-systems, visual-hierarchy]
+    note: Figma to think, Claude to check, HTML to show, and one design system under all of it.
+    notes:
+      sketching: Figma stays as an abstract blank canvas, where Edorta turns a user problem into first ideas.
+      functional-prototypes: After Claude checks the edge cases, the prototype is working HTML and CSS, not a static file.
+      design-systems: In a white-label design system, one prompt changed the primary colour in Figma and in Storybook at the same time.
+      visual-hierarchy: Recent models handle composition, hierarchy, balance and rhythm when they get visual references and the reasons behind them.
+  - section: Beyond the work
+    scope: general
+    skills: [competitive-advantage, differentiation, market-trends, substitutes, professional-development, scalability, guided-setup]
+    note: Figma, side products, the tech bubble, spreadsheets, learning the tools, weak foundations and this site.
+    notes:
+      competitive-advantage: Edorta sees Figma in a fragile position, now that assistants reach component libraries without it.
+      differentiation: Simple side products, like palette generators, lost their value because many designers build the same thing.
+      market-trends: People in tech are a tiny, early share; most sectors have never heard of Claude or Stitch.
+      substitutes: Many company processes still run on Excel, and many small businesses have never used SaaS.
+      professional-development: AI cuts costs and delivery times, so professionals have to adopt the tools, like people once adopted the computer.
+      scalability: Companies and products grow fast on weak foundations built for the short term.
+      guided-setup: "Edorta's idea for this site: a conversation that assesses how mature a team is and returns a plan."
+related: [fieldwork/mamitsu, fieldwork/relievapp-part-1]
+---
+
+## Who and what
+
+**[Edorta Ramírez](https://www.linkedin.com/in/edortaramirez/) is a senior product designer who specialises in design systems and Design Ops.** Design Ops designs how a design team works: its process, its tools and its rituals, and how it works with product management and engineering.
+
+Edorta started in graphic design about fifteen years ago, with a focus on web design. Agency work in UX and UI came next, then product design, then design systems. The clients include large companies and small startups: the Guggenheim Museum Bilbao, Kutxabank, Euskaltel, Lookiero, Eroski and Sherpa AI, among others.
+
+I had prepared eleven questions by territory of the Skills Map, most of them about the design system as a product and the daily work of Design Ops. On the call, on 18 November, the conversation soon went somewhere else: what AI does to a design team when anyone in the company can build with a prompt. This write-up groups what we talked about by territory, not by minute, and ends with the wider conversation.
+
+## On the map
+
+The Skills Map is how I divide product engineering: twelve territories, like Discovery or Experience, and inside each the skills a person uses there, like design systems or pricing. Skills as in what you know how to do, not agent skills. This conversation reached seven territories and 20 skills. Each icon takes you to its section. The quick tour goes through the 20 skills one at a time, with what each meant for Edorta's work.
+
+<Territories
+  title="Where the conversation went"
+  skills={[
+    'working-with-designers', 'working-with-pms',
+    'product-risk', 'return-on-investment',
+    'prompt-context-engineering', 'reviewing-generated-work', 'human-oversight', 'delegating-to-agents', 'mcp',
+    'sketching', 'functional-prototypes', 'design-systems', 'visual-hierarchy',
+    'competitive-advantage', 'differentiation', 'market-trends', 'substitutes', 'professional-development', 'scalability', 'guided-setup',
+  ]}
+  caption="Cross-cutting, Strategy, AI and Experience have their own sections. Discovery, Engineering and Activation only came up in the wider conversation."
+/>
+
+## Cross-cutting: one process for many design teams
+
+When Edorta's Design Ops team started, each team in the design organisation worked in a different way. To give all of them the same stages, the team adopted the Double Diamond, a public framework from the [UK Design Council](https://www.designcouncil.org.uk/resources/the-double-diamond/). Most teams follow it now. In a large and complex company, that is already a result.
+
+<Flow
+  title="The Double Diamond: the same four stages in every design team"
+  stages={['Widen', 'Narrow', 'Widen', 'Narrow']}
+  nodes={[
+    { id: 'discover', label: 'Discover', detail: 'Open the problem up', col: 0, row: 0 },
+    { id: 'define', label: 'Define', detail: 'Agree on one problem', col: 1, row: 0, kind: 'decision' },
+    { id: 'develop', label: 'Develop', detail: 'Explore solutions', col: 2, row: 0 },
+    { id: 'deliver', label: 'Deliver', detail: 'Test, keep what works', col: 3, row: 0, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'discover', to: 'define' },
+    { from: 'define', to: 'develop' },
+    { from: 'develop', to: 'deliver' },
+  ]}
+  caption="The first diamond is about the problem and the second about the solution. Each one opens up, then narrows down. For Edorta's team, the value was that every team now uses the same stages."
+/>
+
+The framework is the visible part. The daily work is at the edges: where design meets engineering, and where it meets product management. Edorta's team defines both. As an engineer, that is the part I care about. A shared process tells me when design expects me, and what I will get from it.
+
+## Strategy: speed is cheap, fit is not
+
+For Edorta, the main problem in large companies today is governance.
+
+<Quote
+  text="The big problem in large companies now is governance. Anyone can build something fast with a prompt, with no experience. Product managers release very quickly, but it costs quality, scalability, fit with what users need and return on investment."
+  who="Edorta Ramírez"
+  context="On what building with a prompt changed in large companies"
+/>
+
+The cost comes later, and return on investment is part of it: something built in an afternoon still has to pay back, and speed says nothing about that. **When anyone can build, someone has to decide what is good enough to keep.**
+
+I read this as the point Unai Esteibar made about [Mamitsu](/in-practice/mamitsu/), at company scale. For one maker, cheap code removes the limit that forced you to prioritise. In a large company, it also removes the path that work used to take through design and engineering.
+
+## AI: design rules the models read first
+
+Edorta's answer starts with context. The team gives the models as much of it as possible: guidelines, good and bad practices, the patterns that come first, and specifications. All of it lives in design markdown files, plain text files that tools like Claude read before they start. They work as a single source of truth. The model makes fewer mistakes, and its first version has a basis.
+
+Context is not enough on its own. For Edorta, the tools have to be smart enough to learn from feedback, both proactively and reactively, and from every role: product managers, developers and business people.
+
+<Loop
+  title="Design rules as context, and the feedback Edorta wants to flow back"
+  center="Design markdown"
+  sub="One source of truth"
+  stages={[
+    { label: 'Write the rules', note: 'Guidelines, good and bad practices, priority patterns, specs' },
+    { label: 'Claude starts from them', note: 'Fewer errors, a first version with a basis', tone: 'lit' },
+    { label: 'People review', note: 'Product managers, developers, business' },
+    { label: 'The rules learn', note: 'Proactively and reactively', tone: 'signal' },
+  ]}
+  caption="The first two stages are how Edorta's team works. The last two are what Edorta asks of the tools: to learn from the feedback of every role."
+/>
+
+My example was a small one. I told my agents to write international English instead of native American English, because many readers of this site learned English as a second language. That rule is now in a file they read in every session. I also said that software development has accepted AI faster than design, because code is more structured and more deterministic. We agreed that rules for coding agents matter less with each new model, because the models now know good practice on their own. In large projects, strict rules still help.
+
+Context and feedback are not governance yet. Edorta wants a structured framework that sets the steps a piece of work goes through and the role each person takes in it, so the speed of the tools turns into quality. **Edorta even thought about turning that framework into a product.**
+
+For Edorta, tactical, mechanical and repetitive work no longer needs a person. When a machine does that work, the manual effort behind it stops being worth much on its own.
+
+Edorta's own Claude is connected to the code repository and to Storybook, where the components live in code. MCP, the protocol agents use to connect to tools, lets assistants like Claude reach a component library directly. That matters for the next section, and for Figma.
+
+## Experience: one design system, in Figma and in code
+
+Edorta's own way of working uses three tools. Figma is an abstract blank canvas: the place to turn a user problem into first ideas, freely. Claude checks the edge cases. What comes out is a functional prototype in HTML and CSS, not a static file.
+
+Then Edorta shared a screen with a personal project: a white-label design system, not tied to any brand, with foundations for colour and typography and a library of components in Storybook. One prompt to Claude changed the primary colour from orange to electric blue, in Figma and in Storybook at the same time.
+
+<Flow
+  title="Edorta's design lab: one prompt, two places"
+  stages={['In', 'Through', 'Out']}
+  nodes={[
+    { id: 'prompt', label: 'A prompt', detail: 'Primary to electric blue', col: 0, row: 0 },
+    { id: 'section', label: 'A web section', detail: 'Browser extension', col: 0, row: 1, kind: 'external' },
+    { id: 'prod', label: 'Production', detail: 'The code that shipped', col: 0, row: 2, kind: 'external' },
+    { id: 'claude', label: 'Claude', detail: 'Repo and Storybook', col: 1, row: 1, tone: 'signal' },
+    { id: 'figma', label: 'Figma', detail: 'The canvas', col: 2, row: 0 },
+    { id: 'storybook', label: 'Storybook', detail: 'Components in code', col: 2, row: 1, kind: 'store' },
+    { id: 'docs', label: 'Docs', detail: 'One page per component', col: 2, row: 2 },
+  ]}
+  edges={[
+    { from: 'prompt', to: 'claude' },
+    { from: 'section', to: 'claude' },
+    { from: 'prod', to: 'claude', dashed: true },
+    { from: 'claude', to: 'figma' },
+    { from: 'claude', to: 'storybook' },
+    { from: 'claude', to: 'docs' },
+  ]}
+  caption="In the demo, one prompt changed the primary colour in Figma and in Storybook at once. A captured web section, or production code, takes the same route and comes out as a component with its documentation."
+/>
+
+The second demo went the other way. With a browser extension, Edorta captures a section of a website that is good inspiration. Claude lays it out as a component and writes its documentation. It is reverse engineering, and it solves an old problem of design systems: what Figma documents and what is in production drift apart. Import the production code, and the design catches up with what really shipped. **The design file can now follow production, not only the other way round.**
+
+Edorta also sees a change in taste. Recent models, like Opus 5, got much better at composition, structure, hierarchy, balance and rhythm.
+
+<Quote
+  text="We thought composition, hierarchy, balance and rhythm needed a human eye. Give the models visual references and explain the context, and they read the principles and apply them precisely."
+  who="Edorta Ramírez"
+  context="On recent models and design"
+/>
+
+## Beyond the work
+
+Half the call was about what AI does outside design. What stayed with me:
+
+### Figma in a fragile position
+
+Edorta thinks Figma is exposed. Assistants like Claude now connect to component repositories through MCP, and people prefer to pay for the AI tool they already use than for Figma's own AI features. The risk Edorta sees: canvases built into the models themselves take Figma's place.
+
+### Side products that no longer sell
+
+Building with a prompt is so easy that simple side projects lost their commercial value: a colour palette generator, a basic design system. Many designers are building the same things on their own. Competition is fierce, and nothing makes one of them worth paying for.
+
+### Outside the tech bubble
+
+People who work in tech are a tiny share of humanity, and early adopters. We assume everyone moves at our pace. Edorta reminded me that a huge traditional sector has never heard of Stitch, Google's AI tool for interface design, or Claude, and that bringing this technology to other kinds of work will take many years. We agreed on the evidence. Many basic processes in companies still run on Excel spreadsheets with no automation at all, and many small local businesses do not know what management software or SaaS is.
+
+### Cheaper by a multiple, so learn the tools
+
+For Edorta, AI is a clear catalyst: it cuts costs and delivery times. The example was promotional videos. With tools like Magnific, a team avoids the much higher cost of an external agency. So people in this profession have to adopt these tools to stay competitive, the way people once adopted the steam engine or the personal computer.
+
+### Quality before scale
+
+Edorta's last point: companies and products now grow very fast on foundations that are weak, hard to scale and built for the short term. The work to do is on the quality of what we build.
+
+### This site: an open world with no starting point
+
+Edorta gave me honest feedback on productengineer.pro.
+
+<Quote
+  text="It is like an open-world video game. There are so many territories and so much detail that you do not know where to start."
+  who="Edorta Ramírez"
+  context="On productengineer.pro"
+/>
+
+The suggestion was to turn the catalogue into a conversational tool that assesses how mature a team or a company is, and gives it a personal plan of action.
+
+I liked it at once. It fits what I want to try with agent skills like Matt Pocock's Grill Me, which asks one question after another until the context is solid. And it points the site at a new reader: companies that grow fast, or large ones that need to bring order to how they build.
+
+## What I take from it
+
+- **Learn the Double Diamond properly.** It is my homework from the call. My first reading: its first diamond is Discovery and Strategy on the map, and its second is Experience, Engineering and Shipping. If that holds, it could be the simpler way into the map that Edorta asked for.
+- **Build the product that brings a product engineer agent into a company.** Edorta's two ideas, a framework with clear steps and roles and a tool that assesses how mature a team is, answer the same need: companies that can now build fast need someone to bring order. That is the idea behind the [Agent Product Engineer](/agent-product-engineer/): an agent that reviews and scores the health of a product every day, set up with each company by a forward deployed engineer.
+- **Roles overlap, expertise still counts.** Engineers, product managers and designers now do more of each other's work. A background in design still makes a difference, and as engineers we still have a lot to learn from designers and product managers.
+
+<Skills label="What I want to practise next" ids={['working-with-designers', 'working-with-pms', 'human-oversight', 'design-systems']} />

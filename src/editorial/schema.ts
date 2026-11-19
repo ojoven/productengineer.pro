@@ -58,6 +58,15 @@ export const SECTIONS: Record<EntryKind, readonly string[]> = {
   'case-study': ['Context', 'My role', 'Decisions', 'Outcome', 'What I would do differently'],
 };
 
+/**
+ * The sections of one entry. A profile or podcast about a person and their work, with no product
+ * in `subjects`, ends its territory sections with "Beyond the work" instead of "Beyond the product".
+ */
+export function sectionsFor(d: { kind: EntryKind; subjects?: readonly unknown[] }): readonly string[] {
+  const aboutPerson = isMapKind(d.kind) && d.subjects !== undefined && d.subjects.length === 0;
+  return aboutPerson ? SECTIONS[d.kind].map((h) => (h === 'Beyond the product' ? 'Beyond the work' : h)) : SECTIONS[d.kind];
+}
+
 const Subject = z.object({
   name: Text,
   url: z.url().optional(),
@@ -142,8 +151,11 @@ const ResearchEntry = z.object({
   kind: z.enum(RESEARCH_KINDS),
   date: IsoDate,
   updated: IsoDate.optional(),
-  /** Products looked at. A comparison has two or more. */
-  subjects: z.array(Subject).min(1),
+  /**
+   * Products looked at. A comparison has two or more. A profile or podcast about a person and their
+   * work, not a product, has none: the page then leads with the person.
+   */
+  subjects: z.array(Subject).default([]),
   /** Interviews and profiles: who was interviewed. Podcasts: the guest. */
   person: Person.optional(),
   /** Podcasts: the episode it is built from. */

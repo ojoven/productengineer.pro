@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { ROOT } from '../atlas/load.ts';
 import type { Atlas } from '../atlas/model.ts';
 import type { EditorialSources } from './load.ts';
-import { SECTIONS, isMapKind, type Coverage, type EntryKind, type FieldworkEntry } from './schema.ts';
+import { SECTIONS, isMapKind, sectionsFor, type Coverage, type EntryKind, type FieldworkEntry } from './schema.ts';
 
 const A_KIND: Partial<Record<EntryKind, string>> = { profile: 'a profile', podcast: 'a podcast', interview: 'an interview' };
 
@@ -15,8 +15,7 @@ export interface EditorialReport {
 }
 
 /** Missing required sections, or required sections out of order. */
-export function sectionProblems(kind: EntryKind, headings: string[]): string[] {
-  const required = SECTIONS[kind];
+export function sectionProblems(kind: EntryKind, headings: string[], required: readonly string[] = SECTIONS[kind]): string[] {
   const problems: string[] = [];
   const missing = required.filter((h) => !headings.includes(h));
   if (missing.length) problems.push(`missing section(s): ${missing.map((h) => `"## ${h}"`).join(', ')}`);
@@ -97,7 +96,7 @@ export function validateEditorial(atlas: Atlas, src: EditorialSources): Editoria
       if (r === where) errors.push(`${where}: relates to itself`);
     }
     if (!d.related.length) warnings.push(`${where}: not connected to any other fieldwork entry`);
-    for (const p of sectionProblems(d.kind, e.headings)) errors.push(`${where}: ${p}`);
+    for (const p of sectionProblems(d.kind, e.headings, sectionsFor(d))) errors.push(`${where}: ${p}`);
     for (const p of coverageProblems(atlas, d, e.headings)) errors.push(`${where}: ${p}`);
   }
 
@@ -106,6 +105,7 @@ export function validateEditorial(atlas: Atlas, src: EditorialSources): Editoria
     const d = e.data;
     if (!('subjects' in d)) continue;
     if (d.kind === 'comparison' && d.subjects.length < 2) errors.push(`${where}: a comparison needs two or more subjects`);
+    if (!d.subjects.length && !isMapKind(d.kind)) errors.push(`${where}: needs at least one subject (only a profile or podcast about a person can have none)`);
     const talk = d.kind === 'interview' || isMapKind(d.kind);
     if (talk && !d.person) errors.push(`${where}: ${A_KIND[d.kind]} needs a person`);
     if (!talk && d.person) warnings.push(`${where}: person is only shown on interviews, profiles and podcasts`);

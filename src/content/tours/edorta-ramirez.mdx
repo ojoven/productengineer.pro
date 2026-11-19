@@ -1,0 +1,175 @@
+{/* Quick tour of /in-practice/edorta-ramirez/. One <Stop> per skill of the coverage, in the same order.
+    Facts as in the profile: Edorta's account on the call (18 Nov 2026), from the call's automatic notes,
+    and the personal design system seen on a shared screen. No product, and the company is not named.
+    <Hot> marks my opinion. */}
+
+<Stop skill="working-with-designers">
+Edorta's team decides how designers work with engineering. With one shared process, an engineer knows at which stage design expects them, in every team.
+
+<Hot>I would rather join ten teams with one process, even a heavy one, than ten teams with ten processes.</Hot>
+</Stop>
+
+<Stop skill="working-with-pms">
+The same process sets where design and product management meet. Before it, each team worked in a different way. Now most teams use the four stages of the Double Diamond.
+
+<Flow
+  motion={false}
+  stages={['Widen', 'Narrow', 'Widen', 'Narrow']}
+  nodes={[
+    { id: 'discover', label: 'Discover', detail: 'The problem', col: 0, row: 0 },
+    { id: 'define', label: 'Define', detail: 'One problem', col: 1, row: 0, kind: 'decision' },
+    { id: 'develop', label: 'Develop', detail: 'Solutions', col: 2, row: 0 },
+    { id: 'deliver', label: 'Deliver', detail: 'What works', col: 3, row: 0, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'discover', to: 'define' },
+    { from: 'define', to: 'develop' },
+    { from: 'develop', to: 'deliver' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="product-risk">
+Anyone can now build fast with a prompt, with no design or engineering experience, and product managers do. Quality, scalability and fit with what users need are the risks nobody checks on the way.
+
+<Hot>The question used to be whether we could build it. Now it is whether it should exist, and whether it will hold.</Hot>
+</Stop>
+
+<Stop skill="return-on-investment">
+Fast is not the same as worth it. Something built in an afternoon still has to pay back, and Edorta counts return on investment among the costs of building without a process.
+
+<Hot>Cheap building makes the pay-back question easier to skip. It does not make it less important.</Hot>
+</Stop>
+
+<Stop skill="prompt-context-engineering">
+Guidelines, good and bad practices, priority patterns and specifications, in design markdown files that Claude reads first. **One source of truth:** fewer errors, and a first version with a basis.
+
+<Hot>This is the CLAUDE.md idea for a design team, and design needs it more than code does. There is no compiler for taste.</Hot>
+</Stop>
+
+<Stop skill="reviewing-generated-work">
+For Edorta, the tools should learn from what every role says about their output: product managers, developers and business people, proactively and reactively.
+
+<Loop
+  motion={false}
+  center="Design markdown"
+  stages={[
+    { label: 'Write the rules' },
+    { label: 'Claude starts from them', tone: 'lit' },
+    { label: 'People review' },
+    { label: 'The rules learn', tone: 'signal' },
+  ]}
+/>
+
+<Hot>Most review today fixes the output and loses the lesson. The lesson belongs in the rules file.</Hot>
+</Stop>
+
+<Stop skill="human-oversight">
+Edorta's answer to governance is a framework that sets the steps a piece of work goes through and the role each person takes in it. Edorta even thought about turning it into a product.
+
+<Hot>The roles matter more than the steps. A step without an owner is the first one to go when there is a deadline.</Hot>
+</Stop>
+
+<Stop skill="delegating-to-agents">
+Tactical, mechanical and repetitive design work no longer needs a person. When a machine does it, the manual effort behind it stops being worth much on its own.
+
+<Hot>What stays with people is deciding what to ask for, and saying no to the result.</Hot>
+</Stop>
+
+<Stop skill="mcp">
+Edorta's Claude is connected to the code repository and to Storybook. MCP lets assistants like Claude reach a component library directly, without going through Figma.
+
+<Hot>Once the agent reads the components in code, the design tool is one client among several.</Hot>
+</Stop>
+
+<Stop skill="sketching">
+Figma stays, as an abstract blank canvas: the place where Edorta turns a user problem into first ideas, freely.
+
+<Hot>Figma moves from where the design lives to where the thinking happens. A smaller job, and maybe a better one.</Hot>
+</Stop>
+
+<Stop skill="functional-prototypes">
+After Claude checks the edge cases, the prototype is HTML and CSS that works, not a static file.
+
+<Hot>A working prototype answers what a static file cannot: a very long name, an empty list, a slow answer.</Hot>
+</Stop>
+
+<Stop skill="design-systems">
+A white-label design system with colour and typography foundations and its components in Storybook. One prompt changed the primary colour from orange to electric blue in Figma and in Storybook at the same time.
+
+<Sequence
+  actors={[
+    { id: 'edorta', label: 'Edorta', kind: 'external' },
+    { id: 'claude', label: 'Claude' },
+    { id: 'figma', label: 'Figma' },
+    { id: 'storybook', label: 'Storybook' },
+  ]}
+  messages={[
+    { from: 'edorta', to: 'claude', label: 'Primary: electric blue' },
+    { from: 'claude', to: 'figma', label: 'Orange to electric blue' },
+    { from: 'claude', to: 'storybook', label: 'Orange to electric blue' },
+    { from: 'claude', to: 'edorta', label: 'Same blue in both', kind: 'reply', tone: 'signal' },
+  ]}
+/>
+</Stop>
+
+<Stop skill="visual-hierarchy">
+Recent models, like Opus 5, got much better at composition, structure, hierarchy, balance and rhythm. With visual references and an explanation of why they work, they apply the principles well.
+
+<Hot>Taste you can explain becomes a rule a model can follow. Taste you cannot explain stays with the designer.</Hot>
+</Stop>
+
+<Stop skill="competitive-advantage">
+Edorta sees Figma in a fragile position. Assistants reach component repositories through MCP, and people pay for the AI tool they already use rather than for Figma's own AI features. The risk is canvases built into the models.
+
+<Hot>Figma's advantage was being the place where the components live. If they live in code and the agent reads code, that advantage gets thin.</Hot>
+</Stop>
+
+<Stop skill="differentiation">
+A colour palette generator or a basic design system used to be a side project you could sell. Now many designers build the same thing with a prompt, and nothing makes one worth paying for.
+
+<Hot>When anyone can build it in an afternoon, the difference has to come from knowing a domain or a group of users well.</Hot>
+</Stop>
+
+<Stop skill="market-trends">
+People in tech are a tiny share of humanity, and early adopters. A huge traditional sector has never heard of Stitch or Claude, and bringing them this technology will take many years.
+
+<Hot>Good news for people who build: most of the market has not started yet.</Hot>
+</Stop>
+
+<Stop skill="substitutes">
+Many company processes still run on Excel with no automation, and many small local businesses do not know what management software or SaaS is.
+
+<Hot>The spreadsheet is still the real competitor, and a strong one: everyone already knows how to use it.</Hot>
+</Stop>
+
+<Stop skill="professional-development">
+AI cuts costs and delivery times. A promotional video made with tools like Magnific costs much less than one from an external agency. Edorta's advice: adopt the tools, the way people adopted the steam engine or the personal computer.
+
+<Hot>Adopt them, and keep the judgment that tells you when the result is not good enough.</Hot>
+</Stop>
+
+<Stop skill="scalability">
+Companies and products now grow very fast on weak foundations, built for the short term. Edorta's conclusion: put the effort into the quality of what we build.
+
+<Hot>Fast building made this worse. It is now easy to add features faster than anyone checks what they stand on.</Hot>
+</Stop>
+
+<Stop skill="guided-setup">
+Edorta's feedback on this site: an open-world video game, with many territories, a lot of detail and no clear place to start. The suggestion: a conversation that assesses how mature a team is and returns a personal plan.
+
+<Flow
+  motion={false}
+  nodes={[
+    { id: 'questions', label: 'Questions', detail: 'About your team', col: 0, row: 0 },
+    { id: 'assess', label: 'Assessment', detail: 'How mature it is', col: 1, row: 0, kind: 'decision' },
+    { id: 'plan', label: 'A plan', detail: 'Where to start', col: 2, row: 0, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'questions', to: 'assess' },
+    { from: 'assess', to: 'plan' },
+  ]}
+/>
+
+<Hot>Fair. The map shows everything at once. A few questions and three skills to start with would be a better first visit.</Hot>
+</Stop>

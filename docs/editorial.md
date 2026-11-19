@@ -161,6 +161,16 @@ on what the product is) and `person.sameAs` (their other profiles). They show in
 the In practice list, go into the page's structured data, and make its social image: run
 `npm run og -- fieldwork` and commit `public/og/fieldwork/<id>.jpg`.
 
+#### A profile about a person
+
+When the conversation is about a person and their work, not a product (a designer, a team lead),
+leave `subjects` out. `person` is then required, with the avatar. The page head, the In practice
+lists and the social image lead with the person, the facts box has no Product row, the structured
+data is `about` the person, and the third required heading becomes **Beyond the work** instead of
+**Beyond the product**. Territory sections keep the default `scope: product`: they are about the
+person's work. `edorta-ramirez.mdx` is the first example. When the person works for a company that
+must not be named, say so in `method` and describe patterns, not internal details.
+
 A profile is also a citation for the maker's product. Say what the product is in one plain sentence
 near the top, name the platforms and the jobs it does in the words people search for, and link to
 the product, its docs or comparison pages and the maker's site.

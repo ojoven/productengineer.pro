@@ -33,19 +33,21 @@ const runtime = (d: string) => {
             <button type="button" class="read-more" aria-controls="facts-method" aria-expanded="false" hidden>Read more</button>
           </dd>
         </div>
-        <div>
-          <dt>{entry.data.subjects.length > 1 ? 'Products' : 'Product'}</dt>
-          <dd>
-            {entry.data.subjects.map((s, i) => (
-              <>
-                {i > 0 && ', '}
-                {s.url ? <a href={s.url} rel="noopener">{s.name}</a> : s.name}
-                {s.maker && s.maker !== s.name && <span class="muted"> by {s.maker}</span>}
-                {s.what && 'subjects' in entry.data && entry.data.subjects.length === 1 && <span class="muted">. {s.what}</span>}
-              </>
-            ))}
-          </dd>
-        </div>
+        {entry.data.subjects.length > 0 && (
+          <div>
+            <dt>{entry.data.subjects.length > 1 ? 'Products' : 'Product'}</dt>
+            <dd>
+              {entry.data.subjects.map((s, i) => (
+                <>
+                  {i > 0 && ', '}
+                  {s.url ? <a href={s.url} rel="noopener">{s.name}</a> : s.name}
+                  {s.maker && s.maker !== s.name && <span class="muted"> by {s.maker}</span>}
+                  {s.what && 'subjects' in entry.data && entry.data.subjects.length === 1 && <span class="muted">. {s.what}</span>}
+                </>
+              ))}
+            </dd>
+          </div>
+        )}
         {entry.data.episode && (
           <div>
             <dt>Episode</dt>

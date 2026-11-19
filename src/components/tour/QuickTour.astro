@@ -11,12 +11,14 @@ import Hot from './Hot.astro';
 
 interface Props {
   coverage: EntryCoverage;
-  /** The product's name, for the intro. */
+  /** The product's name, for the intro. Or the person's, when the profile has no product. */
   product: string;
+  /** The profile is about a person and their work, not a product. */
+  person?: boolean;
   /** The rendered tour file (render(tour).Content). */
   Content: AstroComponentFactory;
 }
-const { coverage, product, Content } = Astro.props;
+const { coverage, product, person = false, Content } = Astro.props;
 const lit = coverage.skills;
 const total = coverage.sections.reduce((n, s) => n + s.skills.length, 0);
 const territories = new Set(coverage.sections.flatMap((s) => s.skills.map((k) => k.territory))).size;
@@ -61,7 +63,7 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
 
   <div class="qt-cards" data-qt-cards>
     <section class="qt-card qt-intro is-on" aria-label="Overview">
-      <p class="qt-lede"><b>{total} skills</b> in {territories} territories of the Skills Map, one card each: what {product} did with it, and my take where I have one.</p>
+      <p class="qt-lede"><b>{total} skills</b> in {territories} territories of the Skills Map, one card each: {person ? `what ${product} told me about it` : `what ${product} did with it`}, and my take where I have one.</p>
       <div class="qt-start">
         <button type="button" class="btn primary qt-start-btn" data-qt-go="1" data-qt-resume>Start the tour →</button>
       </div>

@@ -3,7 +3,7 @@ import { loadAtlas } from '../src/atlas/load.ts';
 import { h2s, loadEditorial, splitFrontmatter } from '../src/editorial/load.ts';
 import { coverageProblems, sectionProblems, tourProblems, validateEditorial } from '../src/editorial/validate.ts';
 import { entryCoverage } from '../src/editorial/coverage.ts';
-import { SECTIONS } from '../src/editorial/schema.ts';
+import { SECTIONS, sectionsFor } from '../src/editorial/schema.ts';
 
 const atlas = loadAtlas();
 const src = loadEditorial();
@@ -72,6 +72,20 @@ describe('structure checks', () => {
     expect(sectionProblems('observation', ['What I saw', 'Screenshots', 'Why it matters', 'What I take from it'])).toEqual([]);
     expect(sectionProblems('observation', ['What I saw', 'What I take from it'])[0]).toMatch(/Why it matters/);
     expect(sectionProblems('observation', ['Why it matters', 'What I saw', 'What I take from it'])[0]).toMatch(/order/);
+  });
+
+  it('lets a profile about a person go without a product, and only a profile or podcast', () => {
+    expect(sectionsFor({ kind: 'profile', subjects: [] })).toContain('Beyond the work');
+    expect(sectionsFor({ kind: 'profile', subjects: [{ name: 'Mamitsu' }] })).toContain('Beyond the product');
+    const person = src.fieldwork.find((e) => e.id === 'edorta-ramirez')!;
+    if (!('subjects' in person.data)) throw new Error('Expected a research entry');
+    expect(person.data.subjects).toEqual([]);
+    expect(sectionProblems(person.data.kind, person.headings, sectionsFor(person.data))).toEqual([]);
+    const broken = structuredClone(src);
+    const review = broken.fieldwork.find((e) => e.data.kind === 'review')!;
+    if (!('subjects' in review.data)) throw new Error('Expected a research entry');
+    review.data.subjects = [];
+    expect(validateEditorial(atlas, broken).errors.some((e) => e.includes('needs at least one subject'))).toBe(true);
   });
 
   it('reads front matter and level-two headings, ignoring code blocks', () => {

@@ -13,7 +13,7 @@ import QuickTour from './tour/QuickTour.astro';
 import { atlas, skill } from '../lib/atlas.ts';
 import { KIND, author, connected, entryImage, formatDate, itemDate, readingMinutes, type Item } from '../lib/editorial.ts';
 import { SITE } from '../site.ts';
-import { SECTIONS } from '../editorial/schema.ts';
+import { sectionsFor } from '../editorial/schema.ts';
 import { entryCoverage } from '../editorial/coverage.ts';
 import { figures } from './figures/index.ts';
 
@@ -74,7 +74,8 @@ const jsonld = {
   ...(image && { image: abs(image) }),
   author: { '@type': 'Person', name: me.name, url: new URL('/about/', SITE.url).href },
   publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
-  about: subjects.map((s) => ({
+  // A profile about a person and their work, with no product, is about the person.
+  about: !subjects.length && maker ? [maker] : subjects.map((s) => ({
     '@type': 'SoftwareApplication',
     name: s.name,
     ...(s.url && { url: s.url }),
@@ -83,7 +84,7 @@ const jsonld = {
     applicationCategory: 'DeveloperApplication',
     ...(s.maker && { creator: person && person.name === s.maker ? maker : { '@type': 'Person', name: s.maker } }),
   })),
-  ...(maker && { mentions: [maker] }),
+  ...(maker && subjects.length > 0 && { mentions: [maker] }),
   ...(episode && {
     isBasedOn: {
       '@type': 'PodcastEpisode',
@@ -111,7 +112,7 @@ const jsonld = {
   jsonld={d.placeholder ? undefined : jsonld}
 >
   <div class="wrap">
-    <Crumbs items={[{ href: '/in-practice/', label: section }, { label: d.title, short: subjects[0]?.name }]} />
+    <Crumbs items={[{ href: '/in-practice/', label: section }, { label: d.title, short: subjects[0]?.name ?? person?.name }]} />
     <article class="cols entry-cols" style="margin-top:8px">
       <div class="entry-top">
         <header class="page-head">
@@ -155,7 +156,7 @@ const jsonld = {
               <b>Placeholder</b>
               <p>
                 This page shows the structure every {KIND[d.kind].toLowerCase()} follows. Nothing in it is a finding yet. Its
-                sections are, in order: {SECTIONS[d.kind].join(' · ')}.
+                sections are, in order: {sectionsFor(d).join(' · ')}.
               </p>
             </aside>
           )
@@ -178,7 +179,7 @@ const jsonld = {
 
       <aside class:list={['entry-side', Tour && 'has-tour']} aria-label={Tour ? 'Quick tour' : grouped ? 'Skills discussed' : 'Skills used'}>
         {Tour ? (
-          <QuickTour coverage={coverage} product={subjects[0]?.name ?? d.title} Content={Tour} />
+          <QuickTour coverage={coverage} product={subjects[0]?.name ?? person?.name ?? d.title} person={!subjects.length && !!person} Content={Tour} />
         ) : (
           <div class="sticky-map">
             <div class="pane-head"><span class="label">{grouped ? 'Skills discussed' : 'Skills used'}</span><span class="label">{skills.length}{!grouped && ' · in order'}</span></div>

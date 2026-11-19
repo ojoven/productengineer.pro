@@ -35,8 +35,8 @@ const read = isMapKind(d.kind) ? 'Read the profile' : `Read the ${KIND[d.kind].t
             {person?.avatar && <img class="is-avatar" src={person.avatar} alt="" width="52" height="52" />}
           </span>
           <span class="feature-names">
-            <b>{subjects.map((s) => s.name).join(', ')}</b>
-            {person && <small>with {person.name}{episode && <> · on {episode.show}</>}</small>}
+            <b>{subjects.length ? subjects.map((s) => s.name).join(', ') : person?.name}</b>
+            {person && (subjects.length ? <small>with {person.name}{episode && <> · on {episode.show}</>}</small> : <small>{person.role}</small>)}
           </span>
         </div>
       )

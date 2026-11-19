@@ -24,8 +24,8 @@ const territories = entryTerritories(entry).map((id) => a.nodes.get(id)!);
       {person?.avatar && <img class="is-avatar" src={person.avatar} alt="" width="44" height="44" loading="lazy" />}
     </span>
     <span class="pc-names">
-      <b>{subjects.map((s) => s.name).join(', ')}</b>
-      {person && <small>with {person.name}{episode && <> · on {episode.show}</>}</small>}
+      <b>{subjects.length ? subjects.map((s) => s.name).join(', ') : person?.name}</b>
+      {person && (subjects.length ? <small>with {person.name}{episode && <> · on {episode.show}</>}</small> : <small>{person.role}</small>)}
     </span>
   </div>
   <p class="pc-kicker">
