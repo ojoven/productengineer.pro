@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Register to vote (GOV.UK)
+    url: https://www.gov.uk/register-to-vote
+  - title: Start using a service (GOV.UK Design System)
+    url: https://design-system.service.gov.uk/patterns/start-using-a-service/
+  - title: 'Mobile-app onboarding: an analysis of components and techniques (NN/g)'
+    url: https://www.nngroup.com/articles/mobile-app-onboarding/
+---
+
+## Why it matters for a product engineer
+
+People give up when the effort is bigger than they expected. Saying how long a task takes, how many
+steps it has and what to have ready keeps them going, and it reduces support requests. For a product
+engineer, the promise must match the real behaviour: if an import takes ten minutes, the product must
+say so and show progress.
+
+## How to do it
+
+1. Before a long task, say roughly how long it takes and what people need to have at hand.
+2. Say what happens if they do not have it, so one missing detail does not stop them.
+3. Show progress inside the task, such as "step 2 of 4".
+4. For slow work, such as imports, give an estimate, and tell people when it is done.
+5. Check the promises against real data, such as the median completion time, and update them.
+
+## Common mistakes
+
+- "It only takes a minute" for a task that takes ten.
+- Asking for a document halfway through, with no warning at the start.
+- Progress bars that do not move.
+- Promises written once and never checked against the product.
+
+## Example
+
+GOV.UK's guidance says that a service's start page should say roughly how long the service takes and
+what users need before they start. The Register to vote page does this in four short lines. It says
+how often you need to register, how long it takes, and which number you will be asked for. It also
+says that you can register without that number.
+
+<Anatomy
+  title="The start of GOV.UK's Register to vote page"
+  as="copy"
+  parts={[
+    { text: 'You normally only need to register once - not for every election.\n', label: 'How often', note: 'The size of the commitment' },
+    { text: 'It usually takes about 5 minutes.\n', label: 'How long', note: 'Short, specific and honest', kind: 'signal' },
+    { text: 'Start now\n', label: 'One action' },
+    { text: 'You’ll be asked for your National Insurance number (but you can still register if you do not have one).', label: 'What to have ready', note: 'And what happens if you do not have it' },
+  ]}
+  caption="Before the first question, people know the effort, the one thing to find, and that a missing number will not stop them."
+  evidence="observed"
+  source="GOV.UK, Register to vote, read on 23 Nov 2026"
+/>

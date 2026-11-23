@@ -605,18 +605,18 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 31 · Activation · 12 skills
 
-- [ ] `07.1.1` [Landing experience](https://productengineer.pro/skills-map/activation/first-user-experience/landing-experience/) · `landing-experience` · 1 resource
-- [ ] `07.1.2` [Signup and account creation](https://productengineer.pro/skills-map/activation/first-user-experience/signup-flow/) · `signup-flow` · map coverage
-- [ ] `07.1.3` [First-run flows](https://productengineer.pro/skills-map/activation/first-user-experience/first-run-flows/) · `first-run-flows` · has evidence, technicalLeverage, aiLeverage
-- [ ] `07.1.4` [Expectation setting](https://productengineer.pro/skills-map/activation/first-user-experience/expectation-setting/) · `expectation-setting` · has evidence, technicalLeverage; 1 resource
-- [ ] `07.2.1` [Guided setup](https://productengineer.pro/skills-map/activation/onboarding-design/guided-setup/) · `guided-setup` · 1 resource
-- [ ] `07.2.2` [Progressive onboarding](https://productengineer.pro/skills-map/activation/onboarding-design/progressive-onboarding/) · `progressive-onboarding` · map coverage
-- [ ] `07.2.3` [Contextual guidance](https://productengineer.pro/skills-map/activation/onboarding-design/contextual-guidance/) · `contextual-guidance` · map coverage
-- [ ] `07.2.4` [Tutorials and walkthroughs](https://productengineer.pro/skills-map/activation/onboarding-design/tutorials/) · `tutorials` · map coverage
-- [ ] `07.3.3` [First successful task](https://productengineer.pro/skills-map/activation/time-to-value/first-successful-task/) · `first-successful-task` · 1 resource
-- [ ] `07.4.1` [Form friction](https://productengineer.pro/skills-map/activation/conversion-optimization/form-friction/) · `form-friction` · map coverage
-- [ ] `07.4.3` [Funnel optimization](https://productengineer.pro/skills-map/activation/conversion-optimization/funnel-optimization/) · `funnel-optimization` · map coverage
-- [ ] `07.4.4` [Signup and trial conversion](https://productengineer.pro/skills-map/activation/conversion-optimization/trial-conversion/) · `trial-conversion` · 1 resource
+- [x] `07.1.1` [Landing experience](https://productengineer.pro/skills-map/activation/first-user-experience/landing-experience/) · `landing-experience` · 1 resource
+- [x] `07.1.2` [Signup and account creation](https://productengineer.pro/skills-map/activation/first-user-experience/signup-flow/) · `signup-flow` · map coverage
+- [x] `07.1.3` [First-run flows](https://productengineer.pro/skills-map/activation/first-user-experience/first-run-flows/) · `first-run-flows` · has evidence, technicalLeverage, aiLeverage
+- [x] `07.1.4` [Expectation setting](https://productengineer.pro/skills-map/activation/first-user-experience/expectation-setting/) · `expectation-setting` · has evidence, technicalLeverage; 1 resource
+- [x] `07.2.1` [Guided setup](https://productengineer.pro/skills-map/activation/onboarding-design/guided-setup/) · `guided-setup` · 1 resource
+- [x] `07.2.2` [Progressive onboarding](https://productengineer.pro/skills-map/activation/onboarding-design/progressive-onboarding/) · `progressive-onboarding` · map coverage
+- [x] `07.2.3` [Contextual guidance](https://productengineer.pro/skills-map/activation/onboarding-design/contextual-guidance/) · `contextual-guidance` · map coverage
+- [x] `07.2.4` [Tutorials and walkthroughs](https://productengineer.pro/skills-map/activation/onboarding-design/tutorials/) · `tutorials` · map coverage
+- [x] `07.3.3` [First successful task](https://productengineer.pro/skills-map/activation/time-to-value/first-successful-task/) · `first-successful-task` · 1 resource
+- [x] `07.4.1` [Form friction](https://productengineer.pro/skills-map/activation/conversion-optimization/form-friction/) · `form-friction` · map coverage
+- [x] `07.4.3` [Funnel optimization](https://productengineer.pro/skills-map/activation/conversion-optimization/funnel-optimization/) · `funnel-optimization` · map coverage
+- [x] `07.4.4` [Signup and trial conversion](https://productengineer.pro/skills-map/activation/conversion-optimization/trial-conversion/) · `trial-conversion` · 1 resource
 
 ### Batch 32 · Activation + Retention · 6 skills
 

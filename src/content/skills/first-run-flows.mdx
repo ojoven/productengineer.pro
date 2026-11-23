@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Designing empty states in complex applications: 3 guidelines (NN/g)'
+    url: https://www.nngroup.com/articles/empty-state-interface-design/
+  - title: User onboarding teardowns (Samuel Hulick)
+    url: https://www.useronboard.com/
+---
+
+## Why it matters for a product engineer
+
+The first screen after signup is often an empty product: no data, no projects, nothing to look at.
+The new user then has to guess what to do. Designing that first run on purpose, with a clear first
+task, sample data or a template, decides whether people see value or leave. It is also code: seed
+data, templates and empty states must be built, and kept up to date as the product changes.
+
+## How to do it
+
+1. Write down the first useful thing a new user can do, and design the first screen around it.
+2. Replace blank panels with empty states that say what will appear there, and how to fill them.
+3. Next to the path with real data, offer a safe way to explore, such as demo data or a template.
+4. Do not show loading content as "no items". Say when the system is still working.
+5. Watch a few new users go through the first run, and instrument where they stop.
+
+## Common mistakes
+
+- An empty dashboard with no next step.
+- Demo data that is hard to remove, or mixed with real data.
+- A "No results" message while the data is still loading.
+- A first run designed once and never checked again.
+
+## Example
+
+NN/g describes Loggly, a cloud tool for managing logs. A new account has no logs yet, so its empty
+state offers two direct paths: add real log sources, or load demo data and explore safely. In
+Datadog, an empty favourites panel says "Star your favorites to list them here", which explains both
+the feature and the purpose of the space.
+
+<Flow
+  title="Loggly's first screen when an account has no logs"
+  nodes={[
+    { id: 'empty', label: 'No logs yet', detail: 'A new account', col: 0, row: 0 },
+    { id: 'real', label: 'Add a source', detail: 'Your real logs', col: 1, row: 0, tone: 'lit' },
+    { id: 'demo', label: 'Demo data', detail: 'Explore safely', col: 1, row: 1 },
+  ]}
+  edges={[
+    { from: 'empty', to: 'real' },
+    { from: 'empty', to: 'demo' },
+  ]}
+  caption="An empty screen with two ways forward: real data for people who are ready, demo data for people who want to look first."
+  evidence="reported"
+  source="NN/g, Designing empty states in complex applications"
+/>

@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Onboarding tutorials vs. contextual help (NN/g)
+    url: https://www.nngroup.com/articles/onboarding-tutorials/
+  - title: Instructional overlays and coach marks for mobile apps (NN/g)
+    url: https://www.nngroup.com/articles/mobile-instructional-overlay/
+  - title: Help and documentation, usability heuristic 10 (NN/g)
+    url: https://www.nngroup.com/articles/help-and-documentation/
+---
+
+## Why it matters for a product engineer
+
+Help is most useful at the moment someone needs it, next to the thing they are trying to use.
+Contextual guidance puts a hint on an unfamiliar field, or a tip on the first use of a tool. It is
+easy to overdo, because every tip interrupts someone. Each tip should solve a problem you have
+observed.
+
+## How to do it
+
+1. Start from observed problems: support tickets, session replays, usability tests.
+2. Choose the lightest form that works: better labels or hint text first, then a tooltip, then an
+   overlay.
+3. Trigger the help by what the user is doing, such as pointing at a new icon or starting a related
+   task.
+4. Keep it to one short sentence, and let people dismiss it.
+5. Remove the tip when a design change fixes the problem.
+
+## Common mistakes
+
+- Tips at launch about things people are not doing.
+- Guessing intent badly, so help appears at the wrong time.
+- Information people need, hidden in a tooltip.
+- Adding tips instead of fixing a confusing design.
+
+## Example
+
+NN/g calls help that appears out of context a push revelation, and help triggered by what the user
+is doing a pull revelation. Figma used a pull revelation to explain a change to its default text
+rendering: the tip appeared only when the user was doing something related. Photoshop shows a
+tooltip with a short animation when someone points at a tool. Microsoft's Clippy tried to do this
+with AI and failed: it was intrusive, and it often guessed wrongly what the user was doing.
+
+<Compare
+  title="Push and pull revelations"
+  subjects={['Push revelation', 'Pull revelation']}
+  highlight={1}
+  rows={[
+    { label: 'When it appears', values: ['At launch, or at random', 'During a related activity'] },
+    { label: 'Example', values: ['A tour of new features', 'A tooltip on a tool'] },
+    { label: 'Main risk', values: ['Interrupts, then is forgotten', 'Needs to know the goal'] },
+  ]}
+  caption="Pull revelations are harder to build, because the product must know what the user is doing. That is also why they arrive when the help is useful."
+  evidence="reported"
+  source="NN/g, Onboarding tutorials vs. contextual help"
+/>

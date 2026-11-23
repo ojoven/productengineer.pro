@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Obama's $60 million dollar experiment (Dan Siroker, Optimizely)"
+    url: https://www.optimizely.com/field-notes/articles/how-obama-raised-60-million-by-running-a-simple-experiment
+  - title: User onboarding teardowns (Samuel Hulick)
+    url: https://www.useronboard.com/
+---
+
+## Why it matters for a product engineer
+
+The first page a new visitor sees has a few seconds to say what the product does, for whom, and what
+to do next. It is where the promise of an ad or a link meets the product. A product engineer
+controls what loads first, how fast it loads and what the main button does, so this page is as much
+engineering as copy.
+
+## How to do it
+
+1. Write one sentence that says what the product does and for whom, and put it first.
+2. Give one main action, with a label that says what happens next.
+3. Make the first screen load fast on a phone, on a slow connection.
+4. Match the message to where visitors come from: the ad, the search or the post they clicked.
+5. Test the parts that carry the most weight, such as the headline, the image and the button.
+6. Measure what happens after the click too, not only the click.
+
+## Common mistakes
+
+- A clever headline that does not say what the product is.
+- Several buttons with the same weight.
+- Heavy video or animation that delays the first screen.
+- Choosing the version the team likes best without testing it.
+
+## Example
+
+In December 2007, Barack Obama's campaign tested its splash page, the page that asked visitors to
+sign up. It tried four buttons and six media, three images and three videos, in 24 combinations,
+with 310,382 visitors. The campaign staff favoured one of the videos. In the test, every video did
+worse than every image. The winner, a family photo with a "Learn More" button, raised the sign-up
+rate from 8.26% to 11.6%, an improvement of 40.6%.
+
+<Bars
+  title="Sign-up rate on the Obama campaign's splash page"
+  unit="%"
+  digits={2}
+  items={[
+    { label: 'Original page', value: 8.26 },
+    { label: 'Family photo, "Learn More"', value: 11.6, highlight: true },
+  ]}
+  caption="The team's favourite was a video. Every video lost to every image, and the simplest button won."
+  evidence="reported"
+  source="Dan Siroker, Optimizely, 29 Nov 2010"
+/>

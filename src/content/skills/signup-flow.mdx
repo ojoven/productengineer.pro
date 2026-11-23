@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The $300 million button (Jared Spool, Center Centre)
+    url: https://articles.centercentre.com/three_hund_million_button/
+  - title: Save account creation for the confirmation step (Baymard Institute)
+    url: https://baymard.com/research-articles/delayed-account-creation
+  - title: "Don't force users to register before they can buy (NN/g)"
+    url: https://www.nngroup.com/articles/optional-registration/
+---
+
+## Why it matters for a product engineer
+
+Every field and every step before value loses some people. Signup is also where product and
+engineering meet: what the account model needs, which sign-in methods you support, what you store.
+A product engineer who can delay or simplify account creation often gains more than any new feature
+would.
+
+## How to do it
+
+1. Ask what the user gets before the account, and what the account adds. Let people reach value
+   first when you can.
+2. Offer a path without an account, such as guest checkout, and make it as visible as sign-in.
+3. Ask for the minimum: often an email address, or sign-in with an account people already have.
+4. Offer to create an account after the value, for example on the confirmation page, as Baymard
+   recommends.
+5. Plan for returning users who forget which email they used: magic links, clear errors, account
+   lookup.
+6. Measure drop-off at each signup step.
+
+## Common mistakes
+
+- A login wall before people can see anything.
+- Strict password rules that make people stop.
+- Treating duplicate accounts as the user's problem.
+- Asking for data the product does not need yet.
+
+## Example
+
+Jared Spool describes a large retailer whose checkout started with a form: Login or Register. In
+usability tests, first-time buyers resented it. One said: "I'm not here to enter into a
+relationship. I just want to buy something." Returning buyers could not remember their details: 45%
+of customers had more than one account, and about 160,000 people a day asked for their password. The
+team replaced Register with Continue, and a message: you do not need an account to buy.
+
+<StatRow
+  title="What changed when Register became Continue"
+  stats={[
+    { value: 45, unit: '%', label: 'More customers buying', signal: true },
+    { value: '$15M', label: 'Extra revenue, first month' },
+    { value: '$300M', label: 'Extra revenue, first year' },
+  ]}
+  caption="Checkout asked for the same details as before. Only the account wall was gone."
+  evidence="reported"
+  source="Jared Spool, UIE, 2009"
+/>

@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Onboarding tutorials vs. contextual help (NN/g)
+    url: https://www.nngroup.com/articles/onboarding-tutorials/
+  - title: New users need support with generative-AI tools (NN/g)
+    url: https://www.nngroup.com/articles/new-AI-users-onboarding/
+---
+
+## Why it matters for a product engineer
+
+A good tutorial teaches by doing, with the user's own data or a realistic task. A bad one is a
+slideshow that people skip and forget. For a product engineer, the measure is not whether people
+finish the tutorial, but whether they then succeed on their own.
+
+## How to do it
+
+1. Use a tutorial only when the interaction is new to most users. For familiar patterns, use
+   contextual help.
+2. Make people perform each step, not watch it.
+3. Use their real task or data when possible.
+4. Keep the help available after the tutorial, at the place where people need it.
+5. Let people skip the tutorial, and come back to it later.
+6. Measure task success after the tutorial, and compare it with users who skipped it.
+
+## Common mistakes
+
+- A tour of the interface instead of a task.
+- Counting tutorial completion as success.
+- Dropping people into the product with nothing after the last step.
+- Assuming people know what kind of product it is. NN/g saw new users of AI chatbots who did not know
+  the interface was a conversation.
+
+## Example
+
+NN/g describes the Gates Carbon Drive app, which checks the tension of a bike's belt. You pluck the
+belt like a guitar string, and the app measures the sound through the phone's microphone. A new
+interaction like this is a good reason for a tutorial, and this one made users perform the task, not
+only watch it. But when the tutorial ended, the app dropped users into the main screen with no
+further guidance, so they had to remember the steps. They could open the tutorial again later.
+
+<Flow
+  title="The Gates Carbon Drive app's first launch"
+  nodes={[
+    { id: 'tut', label: 'Long tutorial', detail: 'At first launch', col: 0, row: 0 },
+    { id: 'do', label: 'Do the task', detail: 'Pluck the belt', col: 1, row: 0, tone: 'lit' },
+    { id: 'end', label: 'Tutorial ends', detail: 'Steps to remember', col: 2, row: 0 },
+    { id: 'main', label: 'Main screen', detail: 'No more guidance', col: 3, row: 0, tone: 'signal' },
+  ]}
+  edges={[
+    { from: 'tut', to: 'do' },
+    { from: 'do', to: 'end' },
+    { from: 'end', to: 'main' },
+  ]}
+  caption="Doing the task inside the tutorial helped. The help stopped when the real task started."
+  evidence="reported"
+  source="NN/g, Onboarding tutorials vs. contextual help"
+/>

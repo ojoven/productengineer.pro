@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Cart abandonment rate: 50 statistics and why people abandon (Baymard Institute)'
+    url: https://baymard.com/blog/cart-abandonment-rate
+  - title: Interpret your funnel analysis (Amplitude docs)
+    url: https://amplitude.com/docs/analytics/charts/funnel-analysis/funnel-analysis-interpret
+  - title: How to reduce cart abandonment (Baymard Institute)
+    url: https://baymard.com/blog/reduce-cart-abandonment
+---
+
+## Why it matters for a product engineer
+
+A funnel shows where people stop. Funnel optimization chooses the step that loses the most people,
+finds out why, and fixes that step first. Some reasons are outside the flow, such as price, and some
+are problems a team can fix. A product engineer also checks that a gain survives further down the
+funnel.
+
+## How to do it
+
+1. Build the funnel from events, with a conversion window that fits the product.
+2. Find the step that loses the most people in absolute numbers, not only in percent.
+3. Find out why, with research: surveys, session replays and usability tests.
+4. Separate the reasons you can fix, such as errors and forced accounts, from the ones you cannot,
+   such as people who are only browsing.
+5. Test the fix, and check the steps after it, such as activation or refunds.
+
+## Common mistakes
+
+- Improving every step a little instead of fixing the worst one.
+- Treating people who were only browsing as a problem to solve.
+- Hiding costs until the last step, to raise early conversion.
+- Celebrating more signups that never activate.
+
+## Example
+
+Baymard Institute averages 50 studies to a documented cart abandonment rate of 70.22%. In its survey
+of US online shoppers, 42% had abandoned a cart because they were just browsing. Among the other
+reasons, extra costs such as delivery, tax and fees were the most common, at 40%. Slow delivery,
+distrust of the site with card details, forced account creation, a long checkout and site errors
+were each named by 17% to 20%.
+
+<Bars
+  title="Why US shoppers abandoned a checkout, apart from just browsing"
+  unit="%"
+  items={[
+    { label: 'Extra costs too high', value: 40, highlight: true },
+    { label: 'Delivery too slow', value: 20 },
+    { label: 'Did not trust the site with a card', value: 19 },
+    { label: 'Had to create an account', value: 18 },
+    { label: 'Checkout too long or complicated', value: 17 },
+    { label: 'Errors or crashes', value: 17 },
+  ]}
+  caption="Extra costs come first. Several of the other reasons, such as forced accounts, long forms and errors, are design and engineering problems a team can fix."
+  evidence="reported"
+  source="Baymard Institute, cart abandonment survey, 2026"
+/>

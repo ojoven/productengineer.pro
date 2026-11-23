@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Design and evaluation of personalized free trials (Yoganarasimhan, Barzegary and Pani)
+    url: https://arxiv.org/abs/2006.13420
+  - title: What is activation rate? (Amplitude)
+    url: https://amplitude.com/explore/digital-analytics/what-is-activation-rate
+---
+
+## Why it matters for a product engineer
+
+A trial converts when people reach value before it ends. Trial length, card requirements and
+reminders all shift the numbers, but the main lever is activation during the trial. A product
+engineer can measure who reaches value, and when, and shape the trial around that.
+
+## How to do it
+
+1. Define activation for the trial: the action that predicts a purchase, within a fixed time window.
+2. Report conversion separately for users who activated during the trial and users who did not.
+3. Test the trial length instead of assuming that longer is better.
+4. Test whether to ask for a card up front. It changes who signs up, not only how many.
+5. Send reminders tied to progress, not only to the end date.
+6. Look at segments: different users may need different trials.
+
+## Common mistakes
+
+- A long trial by default, to be generous.
+- Counting trial signups as success.
+- Reminders only on the last day.
+- A paywall that blocks the action that shows the value.
+
+## Example
+
+A large company that sells a suite of software products ran a field experiment with 337,724 new users
+in six markets. Each new user got a 7, 14 or 30-day free trial at random. A 7-day trial for everyone
+increased subscriptions by 5.59% compared with the usual 30 days. A 14-day trial made no significant
+difference. Choosing the length per user did better still. The users who did best with 7 days were
+more often beginners and students.
+
+<Bars
+  title="Gain in subscriptions over a 30-day trial for everyone"
+  unit="%"
+  digits={2}
+  items={[
+    { label: '7 days for everyone', value: 5.59 },
+    { label: 'Length chosen per user', value: 6.81, highlight: true },
+  ]}
+  caption="The generous default converted fewer users. A shorter trial did better, and choosing the length per user added a little more."
+  evidence="reported"
+  source="Yoganarasimhan, Barzegary and Pani, field experiment, arXiv 2020"
+/>

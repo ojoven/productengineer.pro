@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Deploying to Vercel without logging in (Vercel docs)
+    url: https://vercel.com/docs/deployments/deploy-without-logging-in
+  - title: 'Time to value: the key to driving user retention (Amplitude)'
+    url: https://amplitude.com/blog/time-to-value-drives-user-retention
+---
+
+## Why it matters for a product engineer
+
+Completing one real task early builds confidence, and it shows the product's value better than any
+tour. The task should be quick, common and satisfying. A product engineer can remove what stands in
+the way: the account, the setup, the empty project, the wait.
+
+## How to do it
+
+1. Choose the first task: the smallest action that gives most users what they came for.
+2. Remove every step before it that is not needed, including signup when you can.
+3. Provide defaults or a template, so the task works with no configuration.
+4. Show the result clearly, so people know that they succeeded.
+5. Then ask for the next commitment, such as an account, to keep the result.
+6. Measure the time from first visit to first success, and the share of new users who get there.
+
+## Common mistakes
+
+- A first task that only works after full setup.
+- Celebrating a step that is not value, such as "profile completed".
+- Asking for an account before people know what they will get.
+- Reporting the average time, which hides the people who never finish.
+
+## Example
+
+Vercel lets developers deploy a project before they create an account, with `vercel deploy
+--temporary` or by dropping a folder on the Vercel Drop page. The result is a live production URL,
+shown with a Claim Project button and a countdown. Claiming moves the project into the developer's
+account. If nobody claims it, the deployment expires and is gone. Vercel says this lets a developer,
+or an AI agent, reach a live URL right away. Framework builds still need an account.
+
+<Flow
+  title="Vercel's first deploy, before any account"
+  nodes={[
+    { id: 'deploy', label: 'Deploy', detail: 'No account', col: 0, row: 0 },
+    { id: 'url', label: 'Live URL', detail: 'In production', col: 1, row: 0, tone: 'lit' },
+    { id: 'claim', label: 'Claim it?', detail: 'Before it expires', col: 2, row: 0, kind: 'decision' },
+    { id: 'acct', label: 'Your account', detail: 'Keep deploying', col: 3, row: 0, kind: 'store' },
+    { id: 'gone', label: 'Expires', detail: 'Then it is gone', col: 3, row: 1 },
+  ]}
+  edges={[
+    { from: 'deploy', to: 'url' },
+    { from: 'url', to: 'claim' },
+    { from: 'claim', to: 'acct' },
+    { from: 'claim', to: 'gone' },
+  ]}
+  caption="The account comes after the first success, as the way to keep it."
+  evidence="reported"
+  source="Vercel docs, Deploying to Vercel without logging in"
+/>

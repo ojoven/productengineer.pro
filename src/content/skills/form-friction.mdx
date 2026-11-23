@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Checkout optimization: minimize form fields (Baymard Institute)'
+    url: https://baymard.com/research-articles/checkout-flow-average-form-fields
+  - title: 'Website forms usability: top 10 recommendations (NN/g)'
+    url: https://www.nngroup.com/articles/web-form-design/
+  - title: 'Few guesses, more success: 4 principles to reduce cognitive load in forms (NN/g)'
+    url: https://www.nngroup.com/articles/4-principles-reduce-cognitive-load/
+---
+
+## Why it matters for a product engineer
+
+Each field costs effort, and some cost trust. Long forms, unclear labels, strict validation and early
+questions about sensitive data all make people stop. A product engineer often owns the validation
+rules and the data model, and those decide how many fields a form needs.
+
+## How to do it
+
+1. List every field and why the product needs it now. Remove or delay the rest.
+2. Use defaults where you can, such as a billing address that equals the delivery address.
+3. Use one field where people think of one thing, such as a full name.
+4. Validate gently: accept common formats, and explain errors next to the field.
+5. Hide optional fields, such as promotion codes, behind a link.
+6. Measure drop-off and errors for each field.
+
+## Common mistakes
+
+- Separate fields that people fill in wrongly, such as first and last name.
+- Rejecting spaces or dashes in phone and card numbers.
+- Asking for a phone number without saying why.
+- Showing every optional field by default.
+
+## Example
+
+Baymard Institute found that most e-commerce sites need only 8 form fields for checkout, but the
+average checkout in 2024 had 11.3. Defaults explain part of the gap. In Baymard's tests, 42% of
+participants typed their full name into a "First name" field at least once. On sites with one "Full
+name" field, only 4% hesitated briefly. And 24% of sites show separate billing address fields by
+default, a whole set of fields that most people do not need.
+
+<Meter
+  title="Form fields in the average checkout"
+  items={[
+    { label: 'Average checkout, 2024', value: 11.3, limit: 8, unit: ' fields', kind: 'budget', digits: 1, note: 'Most sites need only 8' },
+  ]}
+  caption="The extra fields come from defaults, not from what a purchase needs: split names, separate billing addresses, visible optional fields."
+  evidence="reported"
+  source="Baymard Institute, checkout form fields research"
+/>

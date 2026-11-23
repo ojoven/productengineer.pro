@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Instructional overlays and coach marks for mobile apps (NN/g)
+    url: https://www.nngroup.com/articles/mobile-instructional-overlay/
+  - title: Onboarding tutorials vs. contextual help (NN/g)
+    url: https://www.nngroup.com/articles/onboarding-tutorials/
+---
+
+## Why it matters for a product engineer
+
+New users do not need every feature on the first day, and they forget what a long tour shows them.
+Progressive onboarding teaches each feature when people reach it, so the lesson arrives with the
+need. It depends on usage data: the product must know what each person has already done.
+
+## How to do it
+
+1. Order the features by when most users need them, using your usage data.
+2. Attach a short hint to the first use of each feature, not to the first launch of the product.
+3. Show one hint at a time, with a visual and very little text.
+4. Store which hints each user has seen or dismissed, across devices, and do not repeat them.
+5. Measure whether people use the feature after the hint, not how many saw the hint.
+
+## Common mistakes
+
+- A five-screen tour at first launch.
+- Several hints in a row, so people dismiss all of them.
+- Hints that cover the control they explain.
+- Hint state stored on one device, so people see the same tips again on another.
+
+## Example
+
+NN/g compared two approaches in mobile apps. The Makr iPad app showed a series of text tips before
+people could use the tool, so they had to read and remember every step first. People who tapped
+through quickly reached the workspace with no idea how to continue. The YouTube Android app showed
+hints one at a time, as the user reached the relevant section, and each hint was about one element
+of the interface.
+
+<Compare
+  title="Two ways to show hints in a mobile app"
+  subjects={['Makr: a series of tips', 'YouTube: one hint']}
+  highlight={1}
+  rows={[
+    { label: 'When it appears', values: ['Before using the tool', 'On reaching a section'] },
+    { label: 'How much at once', values: ['Several tips', 'One element'] },
+    { label: 'What people must do', values: ['Remember every step', 'Try one action'] },
+  ]}
+  caption="A hint that arrives with the need can be tried at once. A series of tips must be memorized first."
+  evidence="reported"
+  source="NN/g, Instructional overlays and coach marks for mobile apps"
+/>

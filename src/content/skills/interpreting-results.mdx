@@ -37,14 +37,13 @@ as their first example of a result not to trust. There were about 80 users per v
 even a 10% change, this test needed about 41,642 users per variant, so its power was about 3%. After
 feedback, the site added that the experiment was underpowered.
 
-<ABResult
-  title="The 337% landing page test, with its uncertainty"
-  metric="Visitors who converted"
-  arms={[
-    { name: 'Control', users: 82, conversions: 3 },
-    { name: 'Treatment', users: 75, conversions: 12 },
+<Bars
+  title="Users per variant in the 337% test, and the number it needed"
+  items={[
+    { label: 'In the test, about', value: 80, highlight: true },
+    { label: 'Needed to detect a 10% change', value: 41642 },
   ]}
-  caption="Fifteen conversions in total. With power this low, a significant result is likely to be a false positive, or a large overestimate."
+  caption="The test needed about 500 times more users to detect even a 10% change with 80% power. With power near 3%, a significant result is likely to be a false positive or a large overestimate."
   evidence="reported"
   source="Kohavi, Deng and Vermeer, KDD 2022"
 />

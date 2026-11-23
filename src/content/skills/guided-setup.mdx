@@ -1,0 +1,60 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Complete multiple tasks (GOV.UK Design System)
+    url: https://design-system.service.gov.uk/patterns/complete-multiple-tasks/
+  - title: 'Mobile-app onboarding: an analysis of components and techniques (NN/g)'
+    url: https://www.nngroup.com/articles/mobile-app-onboarding/
+---
+
+## Why it matters for a product engineer
+
+Some products need setup before they are useful: connecting data, inviting a team, choosing
+settings. Guided setup splits that work into clear steps, shows progress and lets people come back
+later. A product engineer decides what can have a default, what can wait, and what state to save
+between sessions.
+
+## How to do it
+
+1. List the setup tasks, and remove or give a default to every one you can.
+2. Group the rest into a few tasks with clear names, and show the status of each one.
+3. Let people do the tasks in any order, unless one really depends on another.
+4. Save progress after every task, so people can stop and return.
+5. Keep visual customization, such as choosing a theme, out of the first setup. NN/g advises saving
+   it for later.
+6. Measure which task people stop at.
+
+## Common mistakes
+
+- One long form for all the setup.
+- Forcing an order that the data does not need.
+- Losing answers when someone leaves halfway.
+- So many status labels that people cannot remember them.
+
+## Example
+
+GOV.UK services with long applications use a task list page. Each task shows a status, such as
+"Completed" or "Incomplete", and "Cannot start yet" when it depends on another task. Users can
+complete the tasks in any order. At the end of a task, they are asked whether they have completed it,
+and they can answer "No, I'll come back to it later". The guidance says to start with as few
+statuses as possible, because more statuses are harder to remember.
+
+<Flow
+  title="How a GOV.UK task list guides a long application"
+  nodes={[
+    { id: 'list', label: 'Task list', detail: 'A status per task', col: 0, row: 0 },
+    { id: 'task', label: 'One task', detail: 'In any order', col: 1, row: 0 },
+    { id: 'done', label: 'Finished?', detail: 'Asked at the end', col: 2, row: 0, kind: 'decision' },
+    { id: 'yes', label: 'Completed', detail: 'Shown on the list', col: 3, row: 0, tone: 'lit' },
+    { id: 'later', label: 'Come back', detail: 'Marked incomplete', col: 3, row: 1 },
+  ]}
+  edges={[
+    { from: 'list', to: 'task' },
+    { from: 'task', to: 'done' },
+    { from: 'done', to: 'yes' },
+    { from: 'done', to: 'later' },
+  ]}
+  caption="People see what is left, choose the order, and can stop without losing their work."
+  evidence="reported"
+  source="GOV.UK Design System, Complete multiple tasks"
+/>
