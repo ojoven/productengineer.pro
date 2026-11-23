@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Contextual inquiry: inspire design by observing and interviewing users in their context (NN/g)'
+    url: https://www.nngroup.com/articles/contextual-inquiry/
+---
+
+## Why it matters for a product engineer
+
+Analytics show what people do, not what they were trying to do. Sitting with someone while they use
+the live product, in their own setting, shows the workaround, the second tab and the moment they give
+up. It is the cheapest way to find uses you never designed for. Engineers who watch real use stop
+arguing about edge cases: they have seen them.
+
+## How to do it
+
+1. Ask people to use the product for their own work, not for tasks you set. That is the difference
+   from a usability test.
+2. Watch where they really use it: at their desk, on their phone, or remotely with a shared screen.
+3. Ask about what you see as it happens: "What were you looking for there?"
+4. Note what they use alongside your product, such as spreadsheets, notes or another tool.
+5. Write down what surprised you straight after the session, before you forget.
+6. Compare what you saw with your analytics, and turn each surprise into a question for the data.
+
+## Common mistakes
+
+- Turning the session into a demo or a test with tasks.
+- Explaining the product when they get stuck, so you never see where it fails.
+- Watching only power users, or only friends.
+- Sessions that end as a recording nobody watches.
+
+## Example
+
+This site's own goal is ten engineers who use a personal map in two separate weeks. Its analytics
+are anonymous on purpose: they cannot tell whether two visits are the same person, and they never
+see search terms. So observed sessions and follow-ups are part of the plan, not an extra. Mamitsu's
+maker does the simplest version: now and then, he reads what people ask the product.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Compare
+  title="What this site's analytics see, and what an observed session sees"
+  subjects={['Anonymous analytics', 'An observed session']}
+  highlight={1}
+  rows={[
+    { label: 'Who the person is', values: ['Not collected', 'Known, with consent'] },
+    { label: 'The same person a week later', values: ['Cannot tell', 'A follow-up'] },
+    { label: 'What they searched for', values: ['Only the length', 'The words, and why'] },
+    { label: 'Why they left a page', values: ['Not known', 'Seen, and asked'] },
+  ]}
+  caption="The analytics count what happened. Only watching shows why, and whether it was the same person."
+  evidence="observed"
+  source="docs/analytics.md in this site's repository, Nov 2026"
+/>

@@ -298,31 +298,31 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 11 · Measurement + Activation + Retention · 13 skills
 
-- [ ] `06.2.2` [Engagement](https://productengineer.pro/skills-map/measurement/product-metrics/engagement-metrics/) · `engagement-metrics` · 1 In practice note
+- [x] `06.2.2` [Engagement](https://productengineer.pro/skills-map/measurement/product-metrics/engagement-metrics/) · `engagement-metrics` · 1 In practice note
   - Papermark: Time per page, completion and visits per document and room, which is what customers pay for. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `06.2.5` [Retention](https://productengineer.pro/skills-map/measurement/product-metrics/retention-metrics/) · `retention-metrics` · 1 In practice note
+- [x] `06.2.5` [Retention](https://productengineer.pro/skills-map/measurement/product-metrics/retention-metrics/) · `retention-metrics` · 1 In practice note
   - Mamitsu: Not tracked yet; I suggested asking which extractions bring users back. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `06.3.3` [Segmentation](https://productengineer.pro/skills-map/measurement/behavioral-analysis/behavioral-segmentation/) · `behavioral-segmentation` · 1 In practice note; 1 resource
+- [x] `06.3.3` [Segmentation](https://productengineer.pro/skills-map/measurement/behavioral-analysis/behavioral-segmentation/) · `behavioral-segmentation` · 1 In practice note; 1 resource
   - Zernio: The first split of users by use case showed integrators are 2% of signups and half the MRR. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `06.6.1` [Feedback analysis](https://productengineer.pro/skills-map/measurement/qualitative-evaluation/feedback-analysis/) · `feedback-analysis` · 1 In practice note
+- [x] `06.6.1` [Feedback analysis](https://productengineer.pro/skills-map/measurement/qualitative-evaluation/feedback-analysis/) · `feedback-analysis` · 1 In practice note
   - Mamitsu: Feedback arrives through the support email; since the call, a weekly agent report reads the extractions. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `06.6.3` [Observing real usage](https://productengineer.pro/skills-map/measurement/qualitative-evaluation/usage-observation/) · `usage-observation` · 1 In practice note; 1 resource
+- [x] `06.6.3` [Observing real usage](https://productengineer.pro/skills-map/measurement/qualitative-evaluation/usage-observation/) · `usage-observation` · 1 In practice note; 1 resource
   - Mamitsu: He looks at what people ask Mamitsu now and then, by hand. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `06.7.3` [Balancing signals](https://productengineer.pro/skills-map/measurement/evidence-based-decisions/balancing-signals/) · `balancing-signals` · 1 In practice note
+- [x] `06.7.3` [Balancing signals](https://productengineer.pro/skills-map/measurement/evidence-based-decisions/balancing-signals/) · `balancing-signals` · 1 In practice note
   - Zernio: Bernat's push, the loudest users bring 2% of the revenue; Miquel thinks they still bring reviews and word of mouth. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `06.7.4` [Iterate, expand or stop](https://productengineer.pro/skills-map/measurement/evidence-based-decisions/iterate-expand-stop/) · `iterate-expand-stop` · 1 In practice note
+- [x] `06.7.4` [Iterate, expand or stop](https://productengineer.pro/skills-map/measurement/evidence-based-decisions/iterate-expand-stop/) · `iterate-expand-stop` · 1 In practice note
   - RelievApp: The catalog is broad so the numbers can say which sessions to keep, change or drop. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `07.3.1` [Aha moments](https://productengineer.pro/skills-map/activation/time-to-value/aha-moments/) · `aha-moments` · search term; 1 resource
-- [ ] `07.3.4` [Removing unnecessary steps](https://productengineer.pro/skills-map/activation/time-to-value/step-reduction/) · `step-reduction` · 1 In practice note; 1 resource
+- [x] `07.3.1` [Aha moments](https://productengineer.pro/skills-map/activation/time-to-value/aha-moments/) · `aha-moments` · search term; 1 resource
+- [x] `07.3.4` [Removing unnecessary steps](https://productengineer.pro/skills-map/activation/time-to-value/step-reduction/) · `step-reduction` · 1 In practice note; 1 resource
   - Papermark: Templates and an AI-generated folder structure, so a data room is up in under a minute. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `07.4.2` [Trust signals](https://productengineer.pro/skills-map/activation/conversion-optimization/trust-signals/) · `trust-signals` · 1 In practice note; 1 resource
+- [x] `07.4.2` [Trust signals](https://productengineer.pro/skills-map/activation/conversion-optimization/trust-signals/) · `trust-signals` · 1 In practice note; 1 resource
   - Papermark: ISO 27001 and SOC 2 Type II above the headline, then customer logos and a rating. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `08.2.2` [Churn](https://productengineer.pro/skills-map/retention/retention-analysis/churn-analysis/) · `churn-analysis` · search term; 1 In practice note; has evidence, technicalLeverage, aiLeverage
+- [x] `08.2.2` [Churn](https://productengineer.pro/skills-map/retention/retention-analysis/churn-analysis/) · `churn-analysis` · search term; 1 In practice note; has evidence, technicalLeverage, aiLeverage
   - Zernio: 9% blended, about 2% for integrators and about 17% for end users. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `08.1.2` [Recurring needs](https://productengineer.pro/skills-map/retention/recurring-value/recurring-needs/) · `recurring-needs` · 2 In practice notes; 1 resource
+- [x] `08.1.2` [Recurring needs](https://productengineer.pro/skills-map/retention/recurring-value/recurring-needs/) · `recurring-needs` · 2 In practice notes; 1 resource
   - Zernio: Every new permission or quota means another review, so integrators keep needing Zernio after the first one. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: A fundraise or a sale ends, so the need comes back only with the next deal. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `08.4.1` [Re-engaging dormant users](https://productengineer.pro/skills-map/retention/customer-lifecycle/re-engagement/) · `re-engagement` · 1 In practice note
+- [x] `08.4.1` [Re-engaging dormant users](https://productengineer.pro/skills-map/retention/customer-lifecycle/re-engagement/) · `re-engagement` · 1 In practice note
   - Papermark: A three-month pause instead of cancelling, with links still live and an email when someone views a paused room. ([entry](https://productengineer.pro/in-practice/papermark/))
 
 ### Batch 12 · Distribution · 8 skills

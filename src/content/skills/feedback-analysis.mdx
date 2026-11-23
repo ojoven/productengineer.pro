@@ -1,0 +1,60 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'How to analyze qualitative data from UX research: thematic analysis (NN/g)'
+    url: https://www.nngroup.com/articles/thematic-analysis/
+---
+
+## Why it matters for a product engineer
+
+Support tickets, reviews and comments explain what the metrics only show. A drop in completion says
+that something is wrong; ten tickets about the same error message say what. Engineers are often the
+ones who can read a ticket and see the bug behind it, and with AI tools they can now read hundreds a
+week instead of a handful.
+
+## How to do it
+
+1. Collect feedback in one place: support email, reviews, in-product comments and sales notes.
+2. Read a sample yourself first. Write short codes for what each item is about.
+3. Group the codes into themes. Name each theme as the user's problem, not as your solution.
+4. Count themes over time. A theme that grows after a release is evidence; one loud email is not.
+5. Use AI to code large volumes, but check its themes against the original messages.
+6. Link each theme to data: who reported it, which plan they are on, and what they did in the
+   product.
+
+## Common mistakes
+
+- Reacting to the loudest or most recent message.
+- Themes that describe features ("wants export") instead of problems.
+- Trusting AI-generated themes without reading the source text.
+- Analysing feedback once, for a report, instead of every week.
+- Forgetting that people who write are not everyone. See
+  [sampling bias](/skills-map/measurement/statistical-reasoning/sampling-bias/).
+
+## Example
+
+Mamitsu turns social videos into data for apps and AI agents. Its feedback came through the support
+email, and its maker read what people asked now and then, by hand. After a call for In practice, he set
+up an agent that reads the week's requests every Monday. The first report arrived three days later.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Flow
+  title="Mamitsu's weekly review, set up after the call"
+  motion={false}
+  nodes={[
+    { id: 'week', label: "The week's extractions", detail: 'What users asked for', col: 0, row: 0, kind: 'store' },
+    { id: 'agent', label: 'An agent reads them', detail: 'Every Monday', col: 1, row: 0 },
+    { id: 'check', label: 'A sample is checked', detail: 'Against a larger model', col: 1, row: 1, kind: 'decision' },
+    { id: 'report', label: 'Report', detail: 'Problems and unplanned uses', col: 2, row: 0, tone: 'lit' },
+    { id: 'maker', label: 'The maker', detail: 'Reads one page, not all', col: 2, row: 1 },
+  ]}
+  edges={[
+    { from: 'week', to: 'agent' },
+    { from: 'agent', to: 'check' },
+    { from: 'check', to: 'report' },
+    { from: 'report', to: 'maker' },
+  ]}
+  caption="Reading by hand stops working as usage grows. The agent reads everything; the maker reads what it found."
+  evidence="reported"
+  source="The call with Mamitsu's maker, 13 Nov 2026; first report on 16 Nov"
+/>

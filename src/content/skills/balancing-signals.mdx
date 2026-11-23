@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Measuring the user experience on a large scale: user-centered metrics for web applications (Google)'
+    url: https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/
+  - title: Guardrail metrics for A/B tests, explained (PostHog)
+    url: https://posthog.com/product-engineers/guardrail-metrics
+---
+
+## Why it matters for a product engineer
+
+Numbers show what is happening, users' words show why, and neither shows what the company should do.
+A metric can point one way while interviews point the other. Product engineers often hold both
+pieces: they see the data and they read the tickets. The decision still needs a view on strategy and
+cost, made openly.
+
+## How to do it
+
+1. Write the decision first, and what would change your mind.
+2. Collect the numbers: the main metric and the guardrails, the metrics that must not get worse.
+3. Collect the qualitative side: interviews, tickets, sessions you watched.
+4. When they disagree, look for the reason. Often each describes a different group of users.
+5. Add what the data cannot show, such as word of mouth, brand or the cost of support.
+6. Decide, and write down which signal won and why, so you can check later.
+
+## Common mistakes
+
+- Letting one metric decide because it is the easiest to defend.
+- Dismissing a pattern in interviews because it is "anecdotal".
+- Weighing the loudest users as if they were the most important.
+- Deciding without recording the reasons.
+
+## Example
+
+On the Itnig podcast, Zernio's founder had just learned that developers building Zernio into their
+products were 2% of signups and half the revenue. The host pushed for the obvious move. The founder
+weighed what the revenue number does not show, and the host weighed the noise those users make.
+([Zernio in In practice](/in-practice/zernio/))
+
+<Sequence
+  title="Two signals in one conversation about Zernio's home page"
+  actors={[
+    { id: 'host', label: 'Bernat, the host' },
+    { id: 'founder', label: 'Miquel, the founder' },
+  ]}
+  messages={[
+    { from: 'host', to: 'founder', label: 'Why not say "for integrators" on the home page?' },
+    { from: 'founder', to: 'host', label: 'End users cost nothing extra, and they talk about Zernio', kind: 'reply' },
+    { from: 'host', to: 'founder', label: 'They also make the most noise' },
+    { from: 'founder', to: 'host', label: '"Probably we will go that way"', kind: 'reply', tone: 'signal' },
+  ]}
+  caption="Revenue pointed to integrators. Reviews and word of mouth pointed to end users. The noise end users make decided it, for now."
+  evidence="reported"
+  source="Itnig podcast, 12 Nov 2026, translated from Spanish"
+/>

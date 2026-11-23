@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Resurrected user retention (Amplitude)
+    url: https://amplitude.com/books/mastering-retention/resurrected-user-retention
+  - title: 6 essential lifecycle marketing campaigns (Customer.io)
+    url: https://customer.io/learn/lifecycle-marketing/essential-lifecycle-marketing-campaigns
+---
+
+## Why it matters for a product engineer
+
+Users who stopped are cheaper to bring back than new users are to find. They already know the
+product and have set it up. But a message that brings them back to the same product that lost them
+usually loses them again. Engineers build the triggers, the data behind each message and the state
+that is waiting when the user returns.
+
+## How to do it
+
+1. Define "dormant" for your product's rhythm, and send the first message soon after usage drops.
+2. Trigger messages from events, not from a calendar: something new for them, a task left half done,
+   a change they asked for.
+3. Show value they have missed, with their own data, not a generic "we miss you".
+4. Make the return easy: saved work, the same settings, one click back to where they stopped.
+5. Ask the ones who do not return why they left.
+6. Measure what share of returning users are still active a month later, not only the clicks.
+
+## Common mistakes
+
+- Messages so late that the user has already moved on.
+- Discounts as the first move, which teach people to leave and wait.
+- Bringing users back to the problem that made them leave.
+- Counting an open or a click as a user won back.
+
+## Example
+
+Papermark offers a three-month pause instead of a cancellation, and the links keep working. If someone
+opens a paused team's data room, the team still gets an email about the visit. The details are held
+back until they unpause. Each visit becomes a reason to return, at the moment a deal is active again.
+([Papermark in In practice](/in-practice/papermark/))
+
+<Anatomy
+  title="The email a paused Papermark team gets when someone opens its data room"
+  parts={[
+    { text: 'New Dataroom Visitor', label: 'The trigger', note: 'Sent by a real event, not a calendar.' },
+    { text: '\n\nYour dataroom [name] was just viewed by ' },
+    { text: 'someone', label: 'Held back', note: 'The name is what a paused team does not get.' },
+    { text: ' from the link [link].\n\nYour team is currently paused, so detailed visitor information is not available. ' },
+    { text: 'To see who visited your dataroom and access full analytics, please unpause your subscription.', label: 'The way back', kind: 'signal' },
+    { text: '\n\n[Manage Subscription]', label: 'One button' },
+  ]}
+  caption="The email shows that the product is still working for them, and what they would get by coming back."
+  evidence="observed"
+  source="components/emails/viewed-dataroom-paused.tsx in Papermark's repository, 23 Nov 2026"
+/>

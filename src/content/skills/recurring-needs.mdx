@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'The power user curve: the best way to understand your most engaged users (Andreessen Horowitz)'
+    url: https://a16z.com/the-power-user-curve-the-best-way-to-understand-your-most-engaged-users/
+---
+
+## Why it matters for a product engineer
+
+A product retains when the problem it solves comes back. If people need it every week, good retention
+is possible. If they need it once a year, no amount of reminders will make them daily users. Knowing
+how often the need returns sets honest targets, and tells you whether to design for habits or for
+coming back after a long break.
+
+## How to do it
+
+1. Write the problem in the user's words, and ask how often it happens without your product.
+2. Check it in the data: the power user curve, a histogram of active days per month, shows the real
+   rhythm.
+3. Set retention targets at that rhythm: weekly for a weekly need, yearly for a yearly one.
+4. For rare needs, keep the account alive between uses: saved work, a pause instead of a
+   cancellation, a reminder when the need is likely to return.
+5. Look for a second, more frequent need next to the first. That is often how products grow.
+
+## Common mistakes
+
+- Daily targets for a product people need once a month.
+- Reminders that create a reason to open the app, but no need.
+- Treating a quiet period as churn, when the need simply has not returned.
+- Adding features for a frequent need that your users do not have.
+
+## Example
+
+Papermark and Zernio sell to similar customers, but their needs return at very different rhythms. A
+data room lasts as long as a fundraise or a sale. Zernio's customers need it again with every new
+platform feature, because each one means another review or quota. Each product's design follows the
+rhythm. ([Papermark](/in-practice/papermark/), [Zernio](/in-practice/zernio/))
+
+<Compare
+  title="How often the need comes back, and what each product does about it"
+  subjects={['Papermark', 'Zernio']}
+  rows={[
+    { label: 'The need', values: ['A data room for a deal', 'Access to the social platforms'] },
+    { label: 'When it ends', values: ['When the deal closes', 'Rarely: each new feature needs another review'] },
+    { label: 'When it returns', values: ['With the next deal, maybe a year later', 'With every feature the customer adds'] },
+    { label: 'What the product does', values: ['A three-month pause at $0, links still live', 'Prices per connected account'] },
+  ]}
+  caption="A rare need needs a way to stay between uses. A need that keeps growing needs a price that grows with it."
+  evidence="reported"
+  source="Papermark's repository, 17 Nov 2026; Zernio's founder on the Itnig podcast, Nov 2026"
+/>

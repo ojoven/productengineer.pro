@@ -1,0 +1,63 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Churn analysis: steps to understanding why customers leave (Chargebee)'
+    url: https://www.chargebee.com/blog/churn-analysis/
+  - title: 'Voluntary vs. involuntary churn: what they are and how to reduce them (Paddle)'
+    url: https://www.paddle.com/resources/reduce-voluntary-and-involuntary-churn
+  - title: Involuntary churn 101 (Stripe)
+    url: https://stripe.com/resources/more/involuntary-churn-101-what-it-is-why-it-happens-and-seven-ways-to-reduce-it
+---
+
+## Why it matters for a product engineer
+
+Every customer who leaves has to be replaced before the product can grow. Churn analysis finds who
+leaves, when, and after what, so a team can fix the causes it controls. Part of churn is not a choice
+at all: a card expires and the payment fails. That part is an engineering problem, and often the
+easiest to reduce.
+
+## How to do it
+
+1. Separate churn that customers choose from churn caused by failed payments. They need different
+   fixes.
+2. Measure churn per segment and per cohort. A blended rate mixes groups that behave very differently.
+3. Look at what churned customers did before they left: falling usage, a feature they never used, a
+   support ticket.
+4. Ask at cancellation, with one short question and a free-text field.
+5. Compare churned customers with similar ones who stayed, so the cause is not only a guess.
+6. For failed payments, add smart retries, card updates and clear emails before the account closes.
+
+## Common mistakes
+
+- One blended churn rate for all customers.
+- Trusting cancellation reasons alone. "Too expensive" often means "not enough value".
+- Counting a failed card as a lost customer, with no retry.
+- Fighting churn that is natural, such as a project that has ended.
+
+## Example
+
+Zernio's churn fell from 15 or 16% to 9%, as its founder gave it. Split by kind of customer, it is
+about 2% for integrators, the developers who build Zernio into their products, and about 17% for end
+users who post to their own accounts. The fix for one group is not the fix for the other.
+([Zernio in In practice](/in-practice/zernio/))
+
+<Flow
+  title="Two kinds of churn, two kinds of fix"
+  motion={false}
+  nodes={[
+    { id: 'left', label: 'A customer leaves', col: 0, row: 0 },
+    { id: 'chose', label: 'Did they choose to?', col: 1, row: 0, kind: 'decision' },
+    { id: 'vol', label: 'Voluntary', detail: 'Usage before, exit question, cohort', col: 2, row: 0 },
+    { id: 'invol', label: 'Involuntary', detail: 'A payment failed: 20 to 40% of churn', col: 2, row: 1, tone: 'lit' },
+    { id: 'fix', label: 'Retries and card updates', detail: 'Emails before the account closes', col: 1, row: 1, kind: 'external' },
+  ]}
+  edges={[
+    { from: 'left', to: 'chose' },
+    { from: 'chose', to: 'vol', label: 'Yes' },
+    { from: 'chose', to: 'invol', label: 'No' },
+    { from: 'invol', to: 'fix' },
+  ]}
+  caption="Product work reduces the first kind. Payment engineering reduces the second, and it is often a large share."
+  evidence="reported"
+  source="Paddle, 'Voluntary vs. involuntary churn', for the 20 to 40% range"
+/>

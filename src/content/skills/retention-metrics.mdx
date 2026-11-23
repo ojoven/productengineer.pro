@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How Duolingo reignited user growth (Jorge Mazal, Lenny's Newsletter)
+    url: https://www.lennysnewsletter.com/p/how-duolingo-reignited-user-growth
+  - title: Meet the Duolingo growth model (Duolingo blog)
+    url: https://blog.duolingo.com/growth-model-duolingo/
+---
+
+## Why it matters for a product engineer
+
+Retention is the share of people who come back. It shows whether the product keeps giving value
+after the first visit, which no launch or campaign can fake. For engineers, it is also the metric that
+decides what to build: work that helps people return compounds, and work that only brings new
+visitors has to be repeated.
+
+## How to do it
+
+1. Define "retained" with an action that shows value, at the product's natural rhythm: weekly for a
+   planning tool, daily for a language app.
+2. Choose the kind of retention: returning on a given day or week, or returning at any time after it.
+   Write down which one you use.
+3. Split users into groups by how recently they were active: new, current, at risk, dormant. Measure
+   how many move between groups each week.
+4. Find the rate that moves your main metric most. Often it is not new-user retention.
+5. Give one team that rate as its goal, and test changes against it.
+6. Report retention by cohort, so the effect of each change is visible.
+
+## Common mistakes
+
+- Counting logins or app opens as "retained".
+- Mixing daily, weekly and monthly definitions in one report.
+- Working only on new-user retention because it is the first problem you see.
+- Retention numbers inflated by reminders that bring people back without value.
+
+## Example
+
+In 2018 Duolingo's daily active users had almost stopped growing. Its growth model split users into seven
+states, and showed that the retention of current users, people active in the past week, had five
+times the effect on daily users of the next best rate. A new team took that rate as its goal. Mamitsu
+does not track usage yet; the first retention question suggested to its maker is which extractions
+bring users back. ([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<StatRow
+  title="Four years of work on one retention rate at Duolingo"
+  stats={[
+    { value: 21, unit: '%', label: 'Higher current user retention' },
+    { value: '40%+', label: 'Less daily churn among the best users' },
+    { value: '4.5×', label: 'Daily active users', note: 'With other bets', signal: true },
+  ]}
+  caption="A rate that looked small moved the top line more than anything else, because retained users stay in the group they are in."
+  evidence="reported"
+  source="Jorge Mazal, Duolingo's former chief product officer, in Lenny's Newsletter"
+/>

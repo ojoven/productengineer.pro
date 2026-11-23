@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'The aha moment: a guide to user breakthroughs (Amplitude)'
+    url: https://amplitude.com/blog/aha-moment
+  - title: How Calm increased retention 3x (Amplitude)
+    url: https://amplitude.com/blog/calm-increased-retention-amplitude
+---
+
+## Why it matters for a product engineer
+
+The aha moment is the first time someone sees why the product is worth their time. Users who reach
+it tend to stay, and users who do not reach it tend to leave. Once you know the moment, you know what
+the first run should lead to, and which steps before it you can cut. That makes it one of the most
+useful facts an engineer can have about onboarding.
+
+## How to do it
+
+1. Compare users who stayed with users who left. Look for actions in the first days that the first
+   group did much more often.
+2. Check the timing: the action must happen early enough to matter, and before retention, not after.
+3. Treat the pattern as a correlation. Power users do many things, and not all of them cause staying.
+4. Test it: make the action easier or more visible for some new users, and see whether their
+   retention changes.
+5. If it does, design the first run to lead there, and measure the share of new users who reach it.
+
+## Common mistakes
+
+- Choosing the aha moment in a meeting, with no data.
+- Treating a correlation as the cause, and pushing every user through an action that does not help.
+- An aha moment so late that most users never get there.
+- One moment for every kind of user, when different segments find value in different places.
+
+## Example
+
+Calm's daily reminder was hidden in the settings, and fewer than 1% of users set one. On a hunch, the
+team compared users who set a reminder with those who did not: retention was almost three times
+higher. That could have been power users finding the setting, so Calm tested it. After the first
+meditation, some new users saw a screen that offered a reminder.
+
+<StatRow
+  title="Calm's daily reminder, from a hidden setting to the first session"
+  stats={[
+    { value: '<1', unit: '%', label: 'Found it in the settings' },
+    { value: 40, unit: '%', label: 'Set one when offered after the first session', signal: true },
+    { value: '~3×', label: 'Retention for users with a reminder', note: 'Before and in the test' },
+  ]}
+  caption="The test showed the same lift for users who were prompted, so the reminder helped, not only the people who found it."
+  evidence="reported"
+  source="Amplitude's case study about Calm, 14 Jul 2016"
+/>

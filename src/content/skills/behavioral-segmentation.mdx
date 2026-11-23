@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Simpson's paradox: discover possibilities with your segments, not shipping decisions (Optimizely)"
+    url: https://docs.optimizely.com/experimentation-strategy/docs/simpson-s-paradox-discover-possibilities-with-your-segments-not-shipping-decisions
+---
+
+## Why it matters for a product engineer
+
+An average describes nobody. A change can help mobile users and hurt desktop users, and the total can
+show no effect. Splitting results by the way people use the product often explains numbers that made
+no sense. Engineers own the events and properties that make a split possible, so they decide whether
+the question can be answered at all.
+
+## How to do it
+
+1. Before you look at a result, choose a few segments that could plausibly behave differently: plan,
+   platform, channel, the first action, or what people use the product for.
+2. Prefer segments based on behaviour over demographics. What someone does in the first week often
+   says more than their country or job title.
+3. Record what you need at the source, as event properties, so you do not have to rebuild it later.
+4. Compare each segment's share of users with its share of the outcome: revenue, retention or
+   support load.
+5. Treat a surprise in one segment as a new hypothesis. Test it, rather than shipping because of it.
+
+## Common mistakes
+
+- Splitting until something looks significant. With enough segments, one always will.
+- Segments too small to say anything.
+- Deciding from one segment's win and ignoring the total.
+- Never splitting at all, and running the product on blended numbers.
+
+## Example
+
+Zernio, an API for posting to social networks, grew to about €5M of annual recurring revenue in 13
+months without splitting its users. The weekend before a podcast recording, its founder split them by
+use case for the first time. Developers who build Zernio into their own products were about 2% of
+signups and half the monthly revenue, and they churned far less. ([Zernio in In practice](/in-practice/zernio/))
+
+<StatRow
+  title="Zernio's integrators, the first time users were split"
+  stats={[
+    { value: 2, unit: '%', label: 'Of signups' },
+    { value: 50, unit: '%', label: 'Of monthly recurring revenue', signal: true },
+    { value: '2 vs 17', unit: '%', label: 'Churn, integrators against end users' },
+  ]}
+  caption="One customer in fifty brings half the revenue and almost never leaves. A blended number hid both facts."
+  evidence="reported"
+  source={'Miquel Palet, Zernio\'s founder, on the Itnig podcast, Nov 2026, as he rounded them ("maybe 2%", "about 50%")'}
+/>

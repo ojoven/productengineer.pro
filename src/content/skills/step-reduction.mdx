@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How to reduce cart abandonment (Baymard Institute)
+    url: https://baymard.com/blog/reduce-cart-abandonment
+---
+
+## Why it matters for a product engineer
+
+Every screen, field and confirmation between sign-up and value loses some people. Most of those
+steps were added for a reason that made sense once, and nobody checked them again. Removing or
+postponing them is often the cheapest activation work there is, and engineers can do much of it
+alone: defaults, saved state, fewer fields.
+
+## How to do it
+
+1. Walk the flow as a new user, on a phone, and count every screen, field and tap before value.
+2. For each step, ask what would break without it. If nothing, remove it.
+3. Postpone what is needed later: ask for the account after the first value, and for details when
+   they are used.
+4. Replace typing with defaults, templates and data you already have.
+5. Measure where people drop out before and after. One step removed can move more than a redesign.
+6. Check the steps again after each release. They come back.
+
+## Common mistakes
+
+- Forced account creation before the person has seen anything.
+- A form that asks for everything "in case".
+- Counting screens and missing a slow one, such as an email to confirm.
+- Merging steps into one long page and calling it shorter.
+
+## Example
+
+Papermark's data rooms start from a template for fundraising, M&A or reporting, or AI proposes the
+folders from a description of the deal, so "the first hour goes into the deal, not into folders".
+On staging, RelievApp's first session went from about seven screens before the first breath to three:
+Start, one question, Continue. ([Papermark](/in-practice/papermark/), [RelievApp](/in-practice/relievapp-part-1/))
+
+<Bars
+  title="Why shoppers leave a checkout, from Baymard's research"
+  unit="%"
+  items={[
+    { label: 'Extra costs, such as delivery and taxes', value: 40 },
+    { label: 'Delivery too slow', value: 20 },
+    { label: 'Forced to create an account', value: 18, highlight: true },
+    { label: 'The process felt too difficult', value: 17 },
+  ]}
+  caption="Two of the four main reasons are about steps: an account the shopper did not need yet, and a flow that felt too long."
+  evidence="reported"
+  source="Baymard Institute, 'How to reduce cart abandonment', updated 2 Nov 2026"
+/>

@@ -1,0 +1,49 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Large scale experimentation at Bing (Microsoft Bing blog)
+    url: https://blogs.bing.com/search-quality-insights/2013/08/08/large-scale-experimentation-at-bing
+  - title: The betting table (Shape Up, chapter 8)
+    url: https://basecamp.com/shapeup/2.2-chapter-08
+---
+
+## Why it matters for a product engineer
+
+At Bing, less than a third of the ideas tested moved the metrics they were designed to improve. So
+most results call for a change or a stop, not a celebration. Engineers live with every feature that
+stays: its code, its bugs and its support. Deciding honestly what to do with a result keeps the
+product, and the codebase, from filling up with things that do not work.
+
+## How to do it
+
+1. Before the release, write the success criterion, the guardrails and what result would mean stop.
+2. When the result comes in, compare it with those criteria, not with what you hoped.
+3. Iterate when the idea works in part: one group responds, or a guardrail fails for a reason you can
+   fix.
+4. Expand when the criteria are met: roll out to more users, more platforms, or the next step.
+5. Stop when the criteria are missed with enough data. Remove the code, not only the button.
+6. Write the decision and the reason where the team can find it later.
+
+## Common mistakes
+
+- Choosing the criteria after seeing the result.
+- Iterating forever on a feature that never meets its goal.
+- Expanding because a feature has fans, while the metric did not move.
+- Hiding a feature instead of removing it, so its cost stays.
+
+## Example
+
+Bing tested links to parts of an advertiser's site under its ads. The rule was set in advance: more
+revenue per user, without hurting engagement. The first version failed it, so the team iterated
+instead of shipping. RelievApp built a broad catalog of 21 sessions on purpose, so that the numbers
+can say which ones to keep, change or drop. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Verdict
+  title="Bing's ads with site links"
+  verdict="supported"
+  decision="keep"
+  reason="The first version raised revenue but hurt user engagement, because the ads took more space. With fewer ads per search, the feature added tens of millions of dollars a year with a neutral effect on users."
+  next="Keep, with fewer ads per search. The rule was set before the test, not after."
+  evidence="reported"
+  source="Microsoft Bing blog, 8 Aug 2013"
+/>
