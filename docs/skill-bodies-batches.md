@@ -327,27 +327,27 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 12 · Distribution · 8 skills
 
-- [ ] `09.2.2` [Content](https://productengineer.pro/skills-map/distribution/organic-acquisition/content-marketing/) · `content-marketing` · search term; 2 In practice notes; 1 resource
+- [x] `09.2.2` [Content](https://productengineer.pro/skills-map/distribution/organic-acquisition/content-marketing/) · `content-marketing` · search term; 2 In practice notes; 1 resource
   - Mamitsu: Guides, comparison pages and docs, drafted by an agent from the gaps and read by him before they go out. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: Useful blog posts from a dedicated writer, after an earlier product lost its place in Google to 50,000 AI-written posts. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `09.4.1` [Self-serve adoption](https://productengineer.pro/skills-map/distribution/product-led-growth/self-serve-adoption/) · `self-serve-adoption` · search term; 2 In practice notes; 1 resource
+- [x] `09.4.1` [Self-serve adoption](https://productengineer.pro/skills-map/distribution/product-led-growth/self-serve-adoption/) · `self-serve-adoption` · search term; 2 In practice notes; 1 resource
   - Zernio: Sign up, connect two accounts with no card and no sales call; sales only past 2,000 accounts. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: About 100 signups a day on a free plan with no card, and about 100 new paying customers a month. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `09.6.1` [Customer acquisition cost](https://productengineer.pro/skills-map/distribution/growth-economics/customer-acquisition-cost/) · `customer-acquisition-cost` · search term; 2 In practice notes
+- [x] `09.6.1` [Customer acquisition cost](https://productengineer.pro/skills-map/distribution/growth-economics/customer-acquisition-cost/) · `customer-acquisition-cost` · search term; 2 In practice notes
   - Zernio: About €20 per paying customer, blended; competitor keywords convert cheapest. ([entry](https://productengineer.pro/in-practice/zernio/))
   - RelievApp: At €49.50 a year, paid ads alone can't carry the product, so distribution has to live inside it. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `09.1.1` [Channel selection](https://productengineer.pro/skills-map/distribution/go-to-market/channel-selection/) · `channel-selection` · 3 In practice notes; 1 resource
+- [x] `09.1.1` [Channel selection](https://productengineer.pro/skills-map/distribution/go-to-market/channel-selection/) · `channel-selection` · 3 In practice notes; 1 resource
   - Mamitsu: Take the product to where people already are, like WhatsApp or the assistant they use. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Papermark: They tested more than 14 channels and kept 3. ([entry](https://productengineer.pro/in-practice/papermark/))
   - RelievApp: On 15 Nov each channel got its own front door, a toy for TikTok and a reset for Reels; on 16 Nov they were folded into one. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `09.3.1` [Referral loops](https://productengineer.pro/skills-map/distribution/viral-growth/referral-loops/) · `referral-loops` · search term; 1 In practice note; 1 resource
+- [x] `09.3.1` [Referral loops](https://productengineer.pro/skills-map/distribution/viral-growth/referral-loops/) · `referral-loops` · search term; 1 In practice note; 1 resource
   - RelievApp: The gift card appears after a session that helped, and the person who receives one can give one too. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `09.6.3` [Attribution](https://productengineer.pro/skills-map/distribution/growth-economics/attribution/) · `attribution` · search term; 1 In practice note; 1 resource
+- [x] `09.6.3` [Attribution](https://productengineer.pro/skills-map/distribution/growth-economics/attribution/) · `attribution` · search term; 1 In practice note; 1 resource
   - Mamitsu: He can see Mamitsu cited more often, but not whether those citations bring users. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `09.1.2` [Launch planning](https://productengineer.pro/skills-map/distribution/go-to-market/launch-planning/) · `launch-planning` · 2 In practice notes; 1 resource
+- [x] `09.1.2` [Launch planning](https://productengineer.pro/skills-map/distribution/go-to-market/launch-planning/) · `launch-planning` · 2 In practice notes; 1 resource
   - Mamitsu: A quiet launch first, and a wider relaunch next, Hacker News included. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: Launched on AppSumo in August 2025, because the marketplace brings the buyers and nobody else cares what you launch. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `09.2.6` [Directories and app stores](https://productengineer.pro/skills-map/distribution/organic-acquisition/discovery-platforms/) · `discovery-platforms` · 2 In practice notes
+- [x] `09.2.6` [Directories and app stores](https://productengineer.pro/skills-map/distribution/organic-acquisition/discovery-platforms/) · `discovery-platforms` · 2 In practice notes
   - Mamitsu: Directories that AI answers cite count, and one that disagrees with your own site makes you less credible. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: Zapier and Make integrations partly for the link, and paid spots in "best API" rankings. ([entry](https://productengineer.pro/in-practice/zernio/))
 

@@ -1,0 +1,60 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Get started with attribution (Google Analytics Help)
+    url: https://support.google.com/analytics/answer/10596866
+---
+
+## Why it matters for a product engineer
+
+Attribution decides which channel gets credit for a customer, and so where the next euro goes. Every
+model is a simplification, and privacy rules, blocked scripts and AI answers hide more of the path
+each year. Engineers decide what is collected and how long it is kept. A simple, honest setup with
+known gaps is worth more than a detailed one nobody can explain.
+
+## How to do it
+
+1. Tag every link you control with campaign labels, such as UTM parameters, using one naming scheme.
+2. Choose a model and a lookback window, and write them down. Last click and data-driven models
+   give different answers.
+3. Keep only what you need: the labels and the origin of the referrer, not full URLs or identities.
+4. Ask new customers how they heard about you, with a free-text answer. It finds podcasts, friends
+   and AI answers that leave no trace.
+5. Compare channels by what their users do later, not by visits.
+6. Write down what your setup cannot see, and do not read the gaps as "direct" traffic.
+
+## Common mistakes
+
+- Treating the model's answer as the truth about cause.
+- Giving all credit to the last click, which favours search ads and brand searches.
+- Tracking people across sites and devices without consent.
+- Never asking customers, because the dashboard seems complete.
+
+## Example
+
+Mamitsu's maker can see Mamitsu cited more often in AI answers, but not whether those citations bring
+users. People may read an answer and search for the name later. The cheapest next step is one question
+at sign-up. This
+site keeps campaign labels for 30 minutes in one browser tab, and no further.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Flow
+  title="How this site attributes a visit, and where it stops"
+  motion={false}
+  nodes={[
+    { id: 'in', label: 'A visit from a tagged link', col: 0, row: 0, kind: 'external' },
+    { id: 'keep', label: 'Four UTM labels kept', detail: 'The referrer cut to its origin', col: 1, row: 0 },
+    { id: 'attach', label: 'Attached to events', detail: 'For 30 minutes, in one tab', col: 2, row: 0, tone: 'lit' },
+    { id: 'use', label: 'Compared with real use', detail: 'Map use, saved progress', col: 3, row: 0 },
+    { id: 'lost', label: 'Not seen', detail: 'Another device or another day', col: 2, row: 1 },
+  ]}
+  edges={[
+    { from: 'in', to: 'keep' },
+    { from: 'keep', to: 'attach' },
+    { from: 'attach', to: 'use' },
+    { from: 'attach', to: 'lost', dashed: true },
+  ]}
+  caption="The labels follow a visit for half an hour, not a person. Anything wider needs a question, not more tracking."
+  evidence="observed"
+  source="docs/analytics.md in this site's repository, Nov 2026"
+/>

@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: SaaS Metrics 2.0 (David Skok)
+    url: https://www.forentrepreneurs.com/saas-metrics-2/
+  - title: 16 startup metrics (Andreessen Horowitz)
+    url: https://a16z.com/16-startup-metrics/
+---
+
+## Why it matters for a product engineer
+
+Customer acquisition cost (CAC) is what you spend to win one paying customer. Next to lifetime value
+and payback time, it shows whether growth makes money or burns it. Product engineers change it
+directly: a better trial, a referral flow or a free tool lowers the cost of every customer, and
+tracking that tells you which channel each customer came from.
+
+## How to do it
+
+1. Add up sales and marketing spend for a period, including salaries and tools, and divide by the new
+   paying customers in that period.
+2. Calculate it per channel as well as blended. A cheap organic channel can hide an expensive paid one.
+3. Calculate payback: months of gross margin from a customer needed to cover their CAC.
+4. Compare CAC with lifetime value. A common target is lifetime value at least three times CAC.
+5. Recalculate as you spend more. The next customer from a channel usually costs more than the last.
+
+## Common mistakes
+
+- Only counting ad spend and leaving out salaries.
+- A blended CAC that makes paid channels look cheap.
+- Using signups instead of paying customers.
+- Comparing CAC with revenue instead of gross margin.
+
+## Example
+
+Zernio's blended cost per paying customer is about €20, because about 40% of new business comes from
+organic search. Paid ads alone take ten months to pay back. At €49.50 a year, RelievApp could not pay
+for each customer with ads, so its distribution has to be part of the product.
+([Zernio](/in-practice/zernio/), [RelievApp](/in-practice/relievapp-part-1/))
+
+<StatRow
+  title="Zernio's acquisition numbers"
+  stats={[
+    { value: '€20', label: 'Blended cost per paying customer', note: 'All channels together' },
+    { value: '€50', label: 'Average revenue per account', note: 'A month' },
+    { value: 10, label: 'Months for paid to pay back', note: 'Paid alone', signal: true },
+    { value: '€700', label: 'Lifetime value', note: 'About 14 months of revenue' },
+  ]}
+  caption="Blended, a customer costs less than one month of revenue. Paid alone takes ten months to pay back, which is why the founder spends carefully."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast, Nov 2026. He gave the payback for paid alone, the rest blended."
+/>

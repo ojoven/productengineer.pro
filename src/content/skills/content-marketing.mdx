@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'SEO starter guide: the basics (Google Search Central)'
+    url: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+---
+
+## Why it matters for a product engineer
+
+Content brings people who have the problem your product solves, at the moment they search for an
+answer. Unlike ads, a useful page keeps working after you stop paying. Engineers are well placed to
+write it: technical guides, honest comparisons, documentation and small free tools are content that
+ranks, gets shared and gets cited by AI answers.
+
+## How to do it
+
+1. Start from the questions your users ask before they find you, in their words. Search data,
+   support tickets and sales calls show them.
+2. Write one page per question, and answer it on the page, not after a sign-up.
+3. Prefer formats where engineers have an advantage: guides with working code, comparison pages, docs
+   and free tools.
+4. Use AI to draft and to find gaps, and have a person who knows the subject read every page before
+   it goes out.
+5. Link each page to the next step in the product.
+6. Measure what each page brings: sign-ups and activated users, not only visits.
+
+## Common mistakes
+
+- Publishing at volume with AI and no review. Search engines treat it as spam.
+- Writing about the company instead of the reader's problem.
+- Content with no link to the product, which brings visitors who never sign up.
+- Judging content after a month. It takes longer to rank.
+
+## Example
+
+Before Zernio, its founder ran a tool that published 50,000 AI-written posts, and Google dropped the
+site from its index. At Zernio, one writer outside the team writes only blog posts meant to be useful.
+Mamitsu's maker uses an agent to draft guides and comparison pages from gaps in AI answers, and he
+reads everything before it goes out. ([Zernio](/in-practice/zernio/), [Mamitsu](/in-practice/mamitsu/))
+
+<Compare
+  title="Two approaches to content, from the same founder"
+  subjects={['His invoice tool', 'Zernio']}
+  highlight={1}
+  rows={[
+    { label: 'The posts', values: ['50,000, written by AI', 'Written by one person, meant to be useful'] },
+    { label: 'What else works', values: ['—', 'Users who post about Zernio and link to it'] },
+    { label: 'What Google did', values: ['Dropped the site from its index', 'About 40% of new business comes from organic search'] },
+  ]}
+  caption="Volume without value was treated as spam. Fewer, useful pages became the largest channel."
+  evidence="reported"
+  source="Miquel Palet, Zernio's founder, on the Itnig podcast, Nov 2026"
+/>

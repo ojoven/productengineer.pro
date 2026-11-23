@@ -1,0 +1,49 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Do things that don't scale (Paul Graham)"
+    url: https://www.paulgraham.com/ds.html
+---
+
+## Why it matters for a product engineer
+
+A launch concentrates attention on one day, and engineers carry most of the risk: the load, the bugs
+and the support that arrive with new users. Choosing where to launch matters more than how loud the
+launch is. And the days after count as much as the day itself, because that is when new users decide
+whether to stay.
+
+## How to do it
+
+1. Choose the place where your buyers already are, with the intent to try something new: a
+   marketplace, a community, a newsletter, a directory.
+2. Write what people should do next, and make that path work before the day.
+3. Prepare for the load and the support: monitoring, a way to roll back, and someone who answers.
+4. Plan the follow-up: answers to questions, fixes in the first week, and a second moment later.
+5. Consider a quiet launch first. Fix what the first users find, then launch more widely.
+6. Measure the launch by users who stay a month later, not by votes or visits.
+
+## Common mistakes
+
+- Launching where your peers are, not your buyers.
+- One big day with no plan for the next week.
+- No capacity for support when the users arrive.
+- Treating a quiet launch as a failure, instead of as a test.
+
+## Example
+
+Zernio's founder found that posts on LinkedIn "and the like" did little: "nobody cares, your ideal
+customer is not there". He launched on AppSumo, which sends the offer to its own list of buyers.
+Mamitsu chose a quiet launch first, with a wider relaunch next, Hacker News included.
+([Zernio](/in-practice/zernio/), [Mamitsu](/in-practice/mamitsu/))
+
+<StatRow
+  title="Zernio's launch on AppSumo, August 2025"
+  stats={[
+    { value: '~2,000', label: 'Lifetime licences sold' },
+    { value: '$200k+', label: 'In sales', note: 'About $100,000 for Zernio, paid 90 days later' },
+    { value: 300, label: 'Support tickets a day', note: 'Answered by the founder', signal: true },
+  ]}
+  caption="The launch paid for the first ads and the first hire. It also brought the support load that the next hires were for."
+  evidence="reported"
+  source="Miquel Palet, Zernio's founder, on the Itnig podcast, Nov 2026"
+/>

@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Creating your product page (Apple Developer)
+    url: https://developer.apple.com/app-store/product-page/
+  - title: Store listings (Google Play Console)
+    url: https://google.play/business/storelistings/
+---
+
+## Why it matters for a product engineer
+
+App stores, marketplaces, integration directories and launch sites put a product in front of people
+who are already looking. Each has its own rules for listings and ranking, and many of those rules are
+technical: limits on text, screenshot sizes, integration review. Today the same listings are also read
+by AI answers, so what a directory says about your product can decide whether you are recommended.
+
+## How to do it
+
+1. List the places your users browse: the App Store or Google Play, integration directories such as
+   Zapier, marketplaces, and the comparison pages that rank for your category.
+2. Read each platform's rules, and write the listing within them, as you would for a search result.
+3. Show the product in use: screenshots and short videos of the main task, not the logo.
+4. Keep every listing consistent with your own site: the same name, price and description.
+5. Test listing elements where the platform allows it, such as icons and screenshots.
+6. Track installs or sign-ups per platform, and keep the listings that bring users who stay.
+
+## Common mistakes
+
+- A listing written once at launch and never updated.
+- Screenshots of the interface with no hint of what it does.
+- Different facts on different platforms, which confuses people and AI answers.
+- Paying for a place in a list nobody reads.
+
+## Example
+
+Zernio built Zapier and Make integrations partly for the link, and pays for places in "best API"
+rankings. Mamitsu's maker watches the directories that AI answers cite. When a directory disagrees
+with a product's own site, the model cannot tell which version to believe.
+([Zernio](/in-practice/zernio/), [Mamitsu](/in-practice/mamitsu/))
+
+<StatRow
+  title="What fits on an App Store product page"
+  stats={[
+    { value: 30, unit: 'characters', label: 'For the app name' },
+    { value: 30, unit: 'characters', label: 'For the subtitle', signal: true },
+    { value: 10, label: 'Screenshots at most' },
+    { value: 3, label: 'App previews, up to 30 seconds each' },
+  ]}
+  caption="A few words and images decide whether someone installs. The subtitle can be changed with each new version, so it is the easiest part to test."
+  evidence="reported"
+  source="Apple Developer, 'Creating your product page', read 23 Nov 2026"
+/>
