@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Why is esbuild fast? (esbuild FAQ)
+    url: https://esbuild.github.io/faq/
+  - title: Continuous integration (Martin Fowler)
+    url: https://martinfowler.com/articles/continuousIntegration.html
+---
+
+## Why it matters for a product engineer
+
+The build runs many times a day, for every engineer and for every CI run. A slow build slows every
+change. A flaky one teaches people to retry instead of reading the error. A product engineer who
+understands the build can fix strange errors, make bundles smaller and keep feedback fast.
+
+## How to do it
+
+1. Measure the build: the total time and the time of each step, locally and in CI.
+2. Cache by content. If the inputs have not changed, reuse the output. Hash the inputs; do not trust
+   timestamps.
+3. Run independent steps in parallel.
+4. Use fast tools on the path you run most, such as a native bundler for development builds.
+5. Make builds reproducible: pinned versions, a lock file, and the same command locally and in CI.
+6. Read what the bundle contains, and why. Keep the whole build well under Fowler's ten-minute
+   guideline.
+
+## Common mistakes
+
+- Cache keys based on timestamps or branch names, which give stale or missed results.
+- A build that works only on one machine.
+- Ignoring warnings until there are hundreds of them.
+- A new plugin for every small need.
+
+## Example
+
+esbuild was written to show that web build tools could be 10 to 100 times faster. Its FAQ gives
+the reasons. It is written in Go and compiles to native code, so no JavaScript engine has to read
+the bundler's own code first. It uses every CPU core for parsing and code generation, and its
+threads share memory. And it was written from scratch, with performance in mind from the start.
+
+<Bars
+  title="Time to bundle 10 copies of three.js, from scratch"
+  unit=" s"
+  digits={2}
+  items={[
+    { label: 'esbuild', value: 0.39, highlight: true },
+    { label: 'Parcel 2', value: 14.91 },
+    { label: 'Rollup 4 + Terser', value: 34.1 },
+    { label: 'webpack 5', value: 41.21 },
+  ]}
+  caption="The same production bundle, with minification and source maps, takes under half a second or over 40. Nothing is cached, so the difference is the tool."
+  evidence="reported"
+  source="esbuild's own benchmark, esbuild.github.io"
+/>

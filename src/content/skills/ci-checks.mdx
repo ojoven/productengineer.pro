@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Keeping developers happy with a fast CI (Shopify)
+    url: https://shopify.engineering/faster-shopify-ci
+  - title: Continuous integration (Martin Fowler)
+    url: https://martinfowler.com/articles/continuousIntegration.html
+---
+
+## Why it matters for a product engineer
+
+CI checks catch problems before review and before users do. But they run on every change, so their
+speed and reliability set the pace for the whole team. A slow or flaky CI makes people wait, batch
+their changes, or ignore a red build.
+
+## How to do it
+
+1. Run the fast checks first: format, lint, type check and unit tests. Then the slower ones.
+2. Set a target for CI time at p95, not the average, and measure each step.
+3. Skip work that a change cannot affect: run only the related tests, and reuse cached dependencies
+   when their inputs have not changed.
+4. Track flaky tests. Fix them or set them aside, each with an owner.
+5. Add checks for what reviews miss: security scans, performance budgets, accessibility and broken
+   links.
+6. Make a red main branch the team's first priority.
+
+## Common mistakes
+
+- A check that fails at random, so people run it again without reading it.
+- New checks added, while slow or useless ones are never removed.
+- Every test on every change.
+- Checks that run only after the merge.
+
+## Example
+
+Shopify's core monolith had more than 170,000 tests, and its CI took 45 minutes at p95. The team
+measured every command and found that 68% of the time went to work before any test ran: preparing
+machines and building dependencies. They fixed a disk bottleneck that slowed containers. They
+skipped database migrations when a hash of the migration files had not changed. And they ran only
+the tests related to each change.
+
+<Compare
+  title="Shopify's CI before and after the project"
+  subjects={['Before', 'After']}
+  rows={[
+    { label: 'CI time, p95', values: ['45 min', '18 min'] },
+    { label: 'Builds that skip some tests', values: ['45%', 'Over 60%'] },
+    { label: 'Test stability', values: ['88%', '97%'] },
+  ]}
+  highlight={1}
+  caption="Most of the gain came from work CI stopped doing, not from faster tests. Running fewer tests also made the builds more stable."
+  evidence="reported"
+  source="Christian Bruckmayer, Shopify, 24 Feb 2021"
+/>

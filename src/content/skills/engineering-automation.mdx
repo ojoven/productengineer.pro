@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Accelerating large-scale test migration with LLMs (Airbnb)
+    url: https://medium.com/airbnb-engineering/accelerating-large-scale-test-migration-with-llms-9565c208023b
+---
+
+## Why it matters for a product engineer
+
+A task done by hand every week costs hours over a year, and it is done a little differently each
+time. Automation makes it cheap, repeatable and checked. With coding agents, large changes that were
+never worth the time, such as migrating thousands of files, now are.
+
+## How to do it
+
+1. List the repeated tasks: dependency updates, release notes, environment setup, migrations, and
+   code that follows a known pattern.
+2. Automate the ones that are frequent, boring and easy to check. Start with a script, then move it
+   into CI or a bot.
+3. Let a bot such as Renovate open dependency updates, and let the tests decide whether to merge.
+4. For a large code change, build a pipeline of steps that each end in a check: tests, lint, types.
+   Retry a failed step with its error, and stop after a limit.
+5. Run on a sample first, fix the common failures, then run on everything.
+6. Keep a person reviewing what the checks cannot verify.
+
+## Common mistakes
+
+- Automating a process nobody understands yet.
+- Bots that open more pull requests than people can review.
+- Automation without checks, so mistakes spread faster.
+- Chasing the last few percent with automation, when hand work is cheaper.
+
+## Example
+
+Airbnb had nearly 3,500 React test files on Enzyme, a library it had stopped using for new tests in
+2020. By hand, the migration was estimated at 1.5 years of engineering time. A pipeline moved each
+file through steps: convert from Enzyme, fix Jest, fix lint and types. When a check failed, an LLM
+got the errors and tried again. Some hard files were retried 50 to 100 times. Then the team stopped
+tuning and fixed the last 3% by hand, in about a week.
+
+<StatRow
+  title="Airbnb's automated test migration"
+  stats={[
+    { value: 75, unit: '%', label: 'Files migrated in the first 4 hours' },
+    { value: 97, unit: '%', label: 'After 4 days of tuning prompts and scripts' },
+    { value: '6 wk', label: 'The whole migration', note: 'Estimated at 1.5 years by hand', signal: true },
+  ]}
+  caption="A check at every step made it safe to run on thousands of files. The last 3% was cheaper by hand."
+  evidence="reported"
+  source="Charles Covey-Brandt, Airbnb, 13 Mar 2025"
+/>

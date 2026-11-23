@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How GitHub uses merge queue to ship hundreds of changes every day (GitHub)
+    url: https://github.blog/engineering/engineering-principles/how-github-uses-merge-queue-to-ship-hundreds-of-changes-every-day/
+  - title: Ship / show / ask (Rouan Wilsenach)
+    url: https://martinfowler.com/articles/ship-show-ask.html
+  - title: Trunk-based development (DORA)
+    url: https://dora.dev/capabilities/trunk-based-development/
+---
+
+## Why it matters for a product engineer
+
+Every feature goes through the same workflow: a branch, a review, CI, a merge and a release.
+Friction there is paid on every change. A product engineer who ships small changes often needs a
+workflow that makes small changes cheap.
+
+## How to do it
+
+1. Work in small changes on one main branch. DORA's research links better delivery to three or fewer
+   active branches, merges to the main branch at least once a day, and no code freezes.
+2. Decide how much review each change needs. Ship a routine change without a pull request. Show an
+   interesting one in a pull request that you merge at once. Ask before merging when you need input.
+3. Make local setup one command, and keep the feedback loop fast: tests and checks that run in
+   seconds on your machine.
+4. Protect the main branch with required checks, so it always builds.
+5. Hide unfinished work behind feature flags, not in long-lived branches.
+6. Ask the developers where they wait, and measure it.
+
+## Common mistakes
+
+- Branches that live for weeks and end in a painful merge.
+- The same heavy review for every change.
+- A main branch that is often red, so nobody trusts it.
+- Release steps that only one person knows.
+
+## Example
+
+By 2016, nearly 1,000 pull requests a month merged into GitHub's largest monorepo. They shipped in
+"trains": a person, the conductor, grouped up to 15 pull requests, deployed them and handled the
+conflicts. Internal surveys rated deployment the most painful part of a developer's day. GitHub
+replaced trains with a merge queue. The queue forms the groups, runs the checks and removes
+conflicting pull requests by itself. All production repositories used it by 2023.
+
+<StatRow
+  title="GitHub's main monorepo after the move to a merge queue"
+  stats={[
+    { value: '2,500', label: 'Pull requests merged each month', note: 'By more than 500 engineers' },
+    { value: '30+', label: 'Changes in one deploy when needed', note: 'Trains allowed 15' },
+    { value: 33, unit: '%', label: 'Shorter average wait to ship a change', signal: true },
+  ]}
+  caption="The work did not get smaller. The waiting did, because the queue does what the conductor did by hand."
+  evidence="reported"
+  source="Will Smythe and Lawrence Gripper, GitHub, 6 Mar 2024"
+/>

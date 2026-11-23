@@ -554,12 +554,12 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 27 · Engineering · 6 skills
 
-- [ ] `04.7.1` [Internal tooling](https://productengineer.pro/skills-map/engineering/developer-experience/internal-tooling/) · `internal-tooling` · 1 resource
-- [ ] `04.7.2` [Developer workflows](https://productengineer.pro/skills-map/engineering/developer-experience/developer-workflows/) · `developer-workflows` · map coverage
-- [ ] `04.7.3` [Developer documentation](https://productengineer.pro/skills-map/engineering/developer-experience/developer-docs/) · `developer-docs` · map coverage
-- [ ] `04.7.4` [Build systems](https://productengineer.pro/skills-map/engineering/developer-experience/build-systems/) · `build-systems` · 1 resource
-- [ ] `04.7.5` [Engineering automation](https://productengineer.pro/skills-map/engineering/developer-experience/engineering-automation/) · `engineering-automation` · 0 resource
-- [ ] `04.7.6` [CI quality checks](https://productengineer.pro/skills-map/engineering/developer-experience/ci-checks/) · `ci-checks` · 1 resource
+- [x] `04.7.1` [Internal tooling](https://productengineer.pro/skills-map/engineering/developer-experience/internal-tooling/) · `internal-tooling` · 1 resource
+- [x] `04.7.2` [Developer workflows](https://productengineer.pro/skills-map/engineering/developer-experience/developer-workflows/) · `developer-workflows` · map coverage
+- [x] `04.7.3` [Developer documentation](https://productengineer.pro/skills-map/engineering/developer-experience/developer-docs/) · `developer-docs` · map coverage
+- [x] `04.7.4` [Build systems](https://productengineer.pro/skills-map/engineering/developer-experience/build-systems/) · `build-systems` · 1 resource
+- [x] `04.7.5` [Engineering automation](https://productengineer.pro/skills-map/engineering/developer-experience/engineering-automation/) · `engineering-automation` · 0 resource
+- [x] `04.7.6` [CI quality checks](https://productengineer.pro/skills-map/engineering/developer-experience/ci-checks/) · `ci-checks` · 1 resource
 
 ### Batch 28 · Shipping · 11 skills
 

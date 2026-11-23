@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The 2022 state of internal tools (Retool)
+    url: https://retool.com/blog/state-of-internal-tools-2022
+---
+
+## Why it matters for a product engineer
+
+Internal tools save hours of support and operations work. A product engineer knows the data model,
+so they can build in a day an admin view that saves a colleague an hour every week. These tools are
+product work with colleagues as users. They need the same care as customer features: research,
+access control and an audit trail.
+
+## How to do it
+
+1. Watch the work first. Sit with support or operations, and note every manual step, every copy and
+   paste, and every request to engineering.
+2. Start with the most frequent task, not the most interesting one. A read-only view often removes
+   many requests on its own.
+3. Build on the real data model, and reuse the product's own validation, so the tool cannot create
+   states the product does not allow.
+4. Control access on the server: who can open the tool, and who can change data. Log every change:
+   who, what and when.
+5. Make risky actions hard to do by mistake. Show what will change, ask for confirmation, and allow
+   undo where you can.
+6. Measure the result in time saved or requests removed, and ask the users again.
+
+## Common mistakes
+
+- Scripts on one engineer's laptop that nobody else can run.
+- Direct database access instead of a tool, with no log of changes.
+- No access control because "it is internal". In Retool's survey, over a quarter of respondents had
+  none.
+- A tool with no owner, which breaks when the product changes.
+
+## Example
+
+This site's library of tools and resources is curated in an operations panel on the site itself. The
+panel searches the web, retrieves an excerpt of each source as evidence, and puts the results in a
+review queue. Each entry keeps a history of reviews, and each search run records its cost. The API,
+not the page, decides access: only accounts on an allowlist, by id or by verified email, can use it.
+
+<Bars
+  title="Teams that engineers build internal tools for"
+  unit="%"
+  items={[
+    { label: 'Operations', value: 55, highlight: true },
+    { label: 'Customer support', value: 52 },
+    { label: 'Sales', value: 39 },
+    { label: 'Engineering', value: 38 },
+  ]}
+  caption="Most internal tools serve teams outside engineering. Their users are colleagues, and they need the same research as customers."
+  evidence="reported"
+  source="Retool survey of 2,285 developers and technical leaders, May 2022; 87% were Retool customers"
+/>

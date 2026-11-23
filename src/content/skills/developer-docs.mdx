@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Documenting architecture decisions (Michael Nygard)
+    url: https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions
+  - title: Diátaxis (Daniele Procida)
+    url: https://diataxis.fr/
+---
+
+## Why it matters for a product engineer
+
+Docs let people, and now agents, change code without asking its author. Good developer docs sit
+close to the code and are short enough to keep current. An agent reads them at the start of every
+session, so a wrong line costs more than before: the agent follows it every time.
+
+## How to do it
+
+1. Keep docs in the repository, next to the code they describe. Change them in the same pull
+   request as the code.
+2. Write each doc for one need: a tutorial to learn, a how-to guide for a task, a reference to look
+   something up, an explanation to understand. Diátaxis shows why mixing them fails.
+3. Make the README answer four questions: what is this, how do I run it, how do I test it, and where
+   do I start.
+4. Record each significant decision in a short architecture decision record, with its context and
+   its consequences.
+5. Give agents a short instruction file, such as `AGENTS.md`, with the rules and links to the longer
+   docs.
+6. Delete docs that are no longer true.
+
+## Common mistakes
+
+- A wiki far from the code, out of date a month later.
+- Docs that repeat what the code does, line by line, but not why.
+- Long agent instructions that copy the docs and then drift from them.
+- Decisions that live only in a chat thread.
+
+## Example
+
+This site's `AGENTS.md` is 13 lines. Most of them are the analytics rules: one shared adapter, no
+personal data, and no events sent from development or agent runs. The details live in
+`docs/analytics.md`, which people read too. It ends with a ready prompt for an agent's weekly
+analytics review. The rules stay short in one place, and the details live in another.
+
+<Anatomy
+  title="The five parts of an architecture decision record"
+  as="prompt"
+  parts={[
+    { text: 'ADR 9: LDAP for Multitenant Integration\n', label: 'Title', note: 'A short noun phrase, with a number' },
+    { text: 'Context: the forces at play, described as facts.\n', label: 'Context', note: 'Often in tension, and stated without judgement' },
+    { text: 'Decision: We will …\n', label: 'Decision', note: 'Full sentences, in the active voice', kind: 'signal' },
+    { text: 'Status: proposed, accepted, deprecated or superseded\n', label: 'Status', note: 'A superseded record points to its replacement' },
+    { text: 'Consequences: all of them, not only the good ones', label: 'Consequences', note: 'The context after the decision' },
+  ]}
+  caption="One or two pages, written as a conversation with a future developer. The consequences include the costs, so the trade-off is still visible years later."
+  evidence="reported"
+  source="Michael Nygard, 15 Nov 2011"
+/>
