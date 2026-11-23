@@ -370,16 +370,16 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 14 · Operations · 6 skills
 
-- [ ] `10.4.1` [Support workflows](https://productengineer.pro/skills-map/operations/user-support/support-workflows/) · `support-workflows` · 3 In practice notes; has evidence, technicalLeverage, aiLeverage; 0 resource
+- [x] `10.4.1` [Support workflows](https://productengineer.pro/skills-map/operations/user-support/support-workflows/) · `support-workflows` · 3 In practice notes; has evidence, technicalLeverage, aiLeverage; 0 resource
   - Mamitsu: Support emails he forwards become Slack threads that an agent investigates. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: 300 tickets a day after launch, answered by Miquel with Claude; the third hire was a developer only for support. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: Every support request is still answered by one of the two founders. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `10.2.3` [Incident response](https://productengineer.pro/skills-map/operations/reliability-engineering/incident-response/) · `incident-response` · search term; has evidence, technicalLeverage, aiLeverage
-- [ ] `10.2.2` [SLOs and error budgets](https://productengineer.pro/skills-map/operations/reliability-engineering/slos/) · `slos` · search term
-- [ ] `10.3.2` [Technical debt](https://productengineer.pro/skills-map/operations/maintenance/technical-debt/) · `technical-debt` · search term; 1 resource
-- [ ] `10.1.5` [Alerting](https://productengineer.pro/skills-map/operations/product-observability/alerting/) · `alerting` · 1 In practice note
+- [x] `10.2.3` [Incident response](https://productengineer.pro/skills-map/operations/reliability-engineering/incident-response/) · `incident-response` · search term; has evidence, technicalLeverage, aiLeverage
+- [x] `10.2.2` [SLOs and error budgets](https://productengineer.pro/skills-map/operations/reliability-engineering/slos/) · `slos` · search term
+- [x] `10.3.2` [Technical debt](https://productengineer.pro/skills-map/operations/maintenance/technical-debt/) · `technical-debt` · search term; 1 resource
+- [x] `10.1.5` [Alerting](https://productengineer.pro/skills-map/operations/product-observability/alerting/) · `alerting` · 1 In practice note
   - Mamitsu: An agent polls Sentry and opens a Slack thread for each new error. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `10.3.1` [Bug triage and fixes](https://productengineer.pro/skills-map/operations/maintenance/bug-fixing/) · `bug-fixing` · 1 In practice note; 1 resource
+- [x] `10.3.1` [Bug triage and fixes](https://productengineer.pro/skills-map/operations/maintenance/bug-fixing/) · `bug-fixing` · 1 In practice note; 1 resource
   - Mamitsu: Fixes go through the same risk check; one reached production before Unai read about the error. ([entry](https://productengineer.pro/in-practice/mamitsu/))
 
 ### Batch 15 · Operations · 6 skills

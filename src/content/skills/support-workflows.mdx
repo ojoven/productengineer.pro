@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "As CEO, I do customer support, and it's the best thing I've ever done for my business (Marc Seitz)"
+    url: https://mfts.io/blog/ceo-customer-support
+---
+
+## Why it matters for a product engineer
+
+Support is where the product's real problems arrive, in the users' own words. A clear workflow
+decides how fast a request reaches the person who can solve it. Engineers who take part see bugs and
+confusing screens first, and can fix the cause instead of answering the same question every week.
+
+## How to do it
+
+1. Choose the channels you can staff well, and send them all to one place.
+2. Sort each request by type and urgency: question, bug, account problem, feature request, outage.
+3. Write down when a request goes to engineering, and who decides.
+4. Set response targets you can keep, and tell users what to expect.
+5. Link tickets to the product: the account, the logs, the issue in the tracker.
+6. Review the week's tickets for patterns. Two reports of the same problem are a reason to fix it.
+
+## Common mistakes
+
+- Several inboxes, so requests get lost between them.
+- Engineers who never see a ticket.
+- Fast replies with no fix behind them.
+- Automated answers that cannot reach a person when it matters.
+
+## Example
+
+At Papermark, every request is still answered by one of the two founders, from one inbox. Zernio's
+founder answered 300 tickets a day after launch with Claude, then hired a developer only for
+support. Mamitsu's maker forwards emails that need attention to an address that starts a Slack
+thread, where an agent investigates first. ([Papermark](/in-practice/papermark/),
+[Zernio](/in-practice/zernio/), [Mamitsu](/in-practice/mamitsu/))
+
+<Compare
+  title="Two small teams, two support workflows"
+  subjects={['Papermark', 'Mamitsu']}
+  rows={[
+    { label: 'Where requests arrive', values: ['One inbox for support, sales and bugs', 'Email, forwarded into a Slack thread'] },
+    { label: 'Who looks first', values: ['A founder', 'An agent'] },
+    { label: 'The rule', values: ['Reply in 15 minutes', 'The maker steps in only when he has to'] },
+    { label: 'Into the product', values: ['Two reports of one edge case in a week: next release', 'The agent investigates and can propose a fix'] },
+  ]}
+  caption="One team keeps the founders in every conversation. The other lets an agent do the first look. Both connect tickets to changes in the product."
+  evidence="reported"
+  source="Marc Seitz's blog, 26 Sep 2024; the call with Mamitsu's maker, 13 Nov 2026"
+/>

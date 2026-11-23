@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: A debugging manifesto (Julia Evans)
+    url: https://jvns.ca/blog/2022/12/08/a-debugging-manifesto/
+---
+
+## Why it matters for a product engineer
+
+Every product has more bugs than time to fix them. Triage decides which ones matter: how many users
+they affect, how badly, and how often. A good fix removes the cause and adds a test so the bug cannot
+return quietly. A growing backlog is a signal, too: something upstream is letting bugs through.
+
+## How to do it
+
+1. Rank bugs by impact and frequency: users affected, data at risk, workarounds available.
+2. Reproduce the bug before fixing it. A bug you cannot reproduce is a guess.
+3. Read the actual error message and the logs before forming a theory.
+4. Fix the cause, not only the symptom, and add a test that fails without the fix.
+5. Ship the fix with a way to roll it back, and check that the error stops in production.
+6. Look at where bugs come from. Many in one area point to a design problem.
+
+## Common mistakes
+
+- Fixing the loudest bug, not the most harmful one.
+- Fixes with no test, so the bug returns.
+- A backlog nobody reviews, full of bugs that no longer exist.
+- Fixing the symptom in the interface while the data stays wrong.
+
+## Example
+
+At Mamitsu, a new error in Sentry starts a Slack thread, and an agent investigates. If it finds a
+fix, the fix goes through the same risk check as any other change: a referee agent merges it only if
+everything is green and easy to roll back. Once, the first its maker heard of an error was that it was
+already fixed in production. ([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Flow
+  title="Mamitsu's path from a new error to a fix"
+  motion={false}
+  nodes={[
+    { id: 'err', label: 'New error in Sentry', col: 0, row: 0, kind: 'external' },
+    { id: 'thread', label: 'Slack thread', detail: 'Real error? Needs the maker?', col: 1, row: 0 },
+    { id: 'pr', label: 'Fix as a PR', detail: 'From the agent', col: 2, row: 0 },
+    { id: 'ref', label: 'Referee', detail: 'Green and easy to roll back?', col: 3, row: 0, kind: 'decision' },
+    { id: 'merge', label: 'Merged', detail: 'Fixed in production', col: 3, row: 1, tone: 'lit' },
+    { id: 'wait', label: 'Waits for the maker', col: 2, row: 1 },
+  ]}
+  edges={[
+    { from: 'err', to: 'thread' },
+    { from: 'thread', to: 'pr' },
+    { from: 'pr', to: 'ref' },
+    { from: 'ref', to: 'merge', label: 'Low risk' },
+    { from: 'ref', to: 'wait', label: 'Not sure', dashed: true },
+  ]}
+  caption="Fixes take the same path as features. The risk check, not the source of the change, decides whether a person is needed."
+  evidence="reported"
+  source="The call with Mamitsu's maker, 13 Nov 2026"
+/>

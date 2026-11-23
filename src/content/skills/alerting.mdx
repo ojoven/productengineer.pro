@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Alerting on SLOs (The Site Reliability Workbook, chapter 5)
+    url: https://sre.google/workbook/alerting-on-slos/
+  - title: Monitoring distributed systems (Site Reliability Engineering, chapter 6)
+    url: https://sre.google/sre-book/monitoring-distributed-systems/
+---
+
+## Why it matters for a product engineer
+
+An alert should mean that a person needs to act now. When alerts fire for things nobody needs to fix,
+people learn to ignore them, and then they miss the one that matters. Good alerting is a product
+decision as much as a technical one: it encodes what "broken for users" means, and who must wake up
+for it.
+
+## How to do it
+
+1. Alert on symptoms users feel, such as errors and slow responses, not on every possible cause.
+2. Tie alerts to your service level objectives, so an alert means the error budget is at risk.
+3. Use two speeds: fast burns page someone, slow burns become a ticket.
+4. Give every alert an owner and a short note: what it means and the first step.
+5. Send everything else, such as single errors and warnings, to a place people read during the day.
+6. Review alerts every month. Remove or fix every alert that fired without action.
+
+## Common mistakes
+
+- Paging on CPU or memory when users notice nothing.
+- One channel where alerts, logs and messages mix.
+- Alerts with no owner.
+- Thresholds so sensitive that people silence them.
+
+## Example
+
+Mamitsu's maker does not watch his error tracker. An agent checks Sentry all the time, and for each
+new error it opens a Slack thread: is it a real error, and does it need him? Sometimes the agent has a fix
+ready before he has read the thread. ([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Bars
+  title="When Google's SRE workbook suggests alerting, for a 30-day SLO"
+  unit="× normal rate"
+  items={[
+    { label: '2% of the budget used in 1 hour: page', value: 14.4, highlight: true },
+    { label: '5% used in 6 hours: page', value: 6 },
+    { label: '10% used in 3 days: ticket', value: 1 },
+  ]}
+  caption="Each bar is the burn rate: how much faster than normal the budget is being used. Fast burns wake someone up. Slow burns can wait until morning."
+  evidence="reported"
+  source="The Site Reliability Workbook, chapter 5, suggested starting values"
+/>

@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Technical debt quadrant (Martin Fowler)
+    url: https://martinfowler.com/bliki/TechnicalDebtQuadrant.html
+---
+
+## Why it matters for a product engineer
+
+Technical debt is the extra cost of change caused by earlier shortcuts. Some of it is a good trade: a
+quick version that tests an idea is worth more than a clean one that ships too late. Some of it is
+just mess. Product engineers make these trades every week, so they need to know which kind they are
+taking on, and where paying it down will speed up the next change.
+
+## How to do it
+
+1. When you take a shortcut on purpose, write it down: what you skipped, why, and what would make you
+   fix it.
+2. Make debt visible where work is planned, as issues with a cost, not as complaints.
+3. Pay down debt in the code you change most often. Debt in code nobody touches can wait.
+4. Fix debt as part of feature work when you can, in small steps.
+5. Watch the signals: changes that take longer each time, the same bugs returning, areas people
+   avoid.
+6. Accept that some debt is only visible later, once you understand the problem better.
+
+## Common mistakes
+
+- Calling every piece of code you dislike "debt".
+- A big rewrite instead of steady repair.
+- Shortcuts with no record, so nobody knows they were shortcuts.
+- Never paying down, so every change gets slower.
+
+## Example
+
+Not all debt is in the code. Zernio started on Vercel, a fast choice for a weekend launch. At its
+current scale, "Vercel at our scale is very expensive", so it is moving to Cloudflare in steps: the
+queues first, the whole API next, with no downtime. The debt is paid where it costs most, without a
+big rewrite. ([Zernio in In practice](/in-practice/zernio/))
+
+<Matrix
+  title="Four kinds of technical debt"
+  x={{ label: 'Intent', low: 'Inadvertent', high: 'Deliberate' }}
+  y={{ label: 'Judgement', low: 'Reckless', high: 'Prudent' }}
+  quadrants={['Learned later', 'A considered trade', 'Did not know better', 'Quick and dirty']}
+  focus="tr"
+  items={[
+    { label: 'Ship now, and plan the repair', x: 0.8, y: 0.82, pick: true, note: 'The payoff of an early release is worth the cost' },
+    { label: 'Now we know how it should have been built', x: 0.2, y: 0.78, note: 'Inevitable, even for excellent designers' },
+    { label: 'Design practices the team did not know', x: 0.22, y: 0.2 },
+    { label: 'No time for clean code', x: 0.8, y: 0.22, note: 'Usually slower, not faster' },
+  ]}
+  caption="Debt taken on deliberately and with care is a tool. Debt taken on recklessly, on purpose or not, is the kind to avoid."
+  source="Martin Fowler, 'Technical debt quadrant', 2009"
+/>

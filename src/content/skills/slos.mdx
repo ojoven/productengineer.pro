@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Implementing SLOs (The Site Reliability Workbook, chapter 2)
+    url: https://sre.google/workbook/implementing-slos/
+  - title: Zernio open analytics
+    url: https://zernio.com/open
+---
+
+## Why it matters for a product engineer
+
+A service level objective (SLO) is a reliability target that the team agrees on, such as "99.9% of
+requests succeed over 30 days". The error budget is what is left: 0.1% may fail. It turns the endless
+argument between speed and stability into a number. While budget remains, the team ships. When it
+runs out, reliability work comes first.
+
+## How to do it
+
+1. Choose indicators that match what users feel: successful requests, fast responses, jobs finished
+   on time.
+2. Measure them as close to the user as you can, for example at the load balancer, not inside one
+   server.
+3. Set a target lower than 100%. Users cannot tell 99.99% from 100%, and it costs much more.
+4. Agree in writing what happens when the budget runs out, such as a pause on risky releases.
+5. Alert on how fast the budget is being used, not on every error.
+6. Review the targets every few months against complaints and real use.
+
+## Common mistakes
+
+- A 100% target, which leaves no room for any release.
+- Indicators from inside the system that users never feel, such as CPU use.
+- Targets set without the product team, so nobody acts when they are missed.
+- An error budget that never changes a decision.
+
+## Example
+
+Zernio publishes its production numbers, failures included. In the 30 days to 23 November 2026, 97.1%
+of 5.2 million posts were published. The page says why it shows failures: "APIs break. Tokens
+expire. Platforms return 500s at 2am." An SLO for such a product has to separate failures the team controls
+from failures on the platforms. ([Zernio in In practice](/in-practice/zernio/))
+
+<Bars
+  title="Downtime allowed in 30 days, by availability target"
+  unit=" minutes"
+  items={[
+    { label: '99%', value: 432 },
+    { label: '99.5%', value: 216 },
+    { label: '99.9%', value: 43.2, highlight: true },
+    { label: '99.99%', value: 4.3 },
+  ]}
+  caption="Each extra nine divides the budget by ten. At 99.9%, the team has 43 minutes a month for failed releases and outages together."
+  source="Calculated: 30 days × (100% − target)"
+/>

@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Postmortem of database outage of January 31 (GitLab)
+    url: https://about.gitlab.com/blog/postmortem-of-database-outage-of-january-31/
+  - title: Managing incidents (Site Reliability Engineering, chapter 14)
+    url: https://sre.google/sre-book/managing-incidents/
+---
+
+## Why it matters for a product engineer
+
+Every product fails sometimes. What users remember is how long it lasted and how they were told.
+Incident response is the plan for those hours: who leads, who fixes, who talks to users. Product
+engineers are often the people closest to the failing code, so they need to know the plan before
+they need it.
+
+## How to do it
+
+1. Decide in advance how an incident is declared, and that anyone may declare one.
+2. Give clear roles: one person leads and decides, others fix, one person communicates.
+3. Restore service first. Roll back, turn off a flag or move traffic, then look for the cause.
+4. Keep a running log with times, actions and decisions, where everyone can read it.
+5. Tell users early and regularly, even when you do not know the cause yet.
+6. Write a blameless postmortem: what happened, why the system allowed it, and the actions that will
+   stop it from happening again.
+
+## Common mistakes
+
+- Everyone fixing at once, with nobody in charge.
+- Looking for the root cause while users are still down.
+- Silence towards users until the fix is ready.
+- Postmortems that blame a person, so the next mistake is hidden.
+- Backups and recovery steps that nobody has tested.
+
+## Example
+
+In January 2017 an engineer at GitLab, working on a database problem, deleted data on the primary
+database instead of the secondary. None of the backups worked. A snapshot taken six hours
+earlier saved most of the data. GitLab worked in the open, with a public document and a live stream,
+and published a blameless postmortem.
+
+<Timeline
+  title="GitLab's database outage, 31 January to 1 February 2017"
+  events={[
+    { when: '31 Jan, 17:20 UTC', title: 'A snapshot, by chance', kind: 'decision', note: 'Taken for other work. It became the copy that saved the data.' },
+    { when: '31 Jan, about 23:30', title: 'The wrong database is wiped', kind: 'problem', note: 'About 300 GB removed from the primary. The daily backups had been failing for some time, unnoticed.' },
+    { when: 'During recovery', title: 'Recovery in public', kind: 'decision', note: 'A public document, a YouTube stream with about 5,000 viewers, and Twitter updates.' },
+    { when: '1 Feb, 18:00 UTC', title: 'Service restored', kind: 'result', note: 'From the 17:20 snapshot. About 5,000 projects, 5,000 comments and 700 new accounts lost changes.' },
+  ]}
+  caption="The engineer's mistake took seconds. The real cause was recovery steps nobody had tested."
+  evidence="reported"
+  source="GitLab's postmortem, 10 Feb 2017"
+/>
