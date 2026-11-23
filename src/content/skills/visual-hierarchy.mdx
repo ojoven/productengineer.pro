@@ -1,0 +1,49 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Applying UX principles to the visual design of graphical artifacts (NN/g)
+    url: https://www.nngroup.com/articles/visual-design-heuristics-posters/
+---
+
+## Why it matters for a product engineer
+
+Visual hierarchy uses size, weight, colour and position to guide the eye. A screen with no clear
+hierarchy feels busy even when there is little on it. For engineers who build interfaces without a
+designer, it is the most useful visual skill: most of it is a few CSS properties applied with intent.
+
+## How to do it
+
+1. Decide the one thing each screen is for, and make it the most noticeable element.
+2. Rank everything else: primary, secondary, the rest. Use size, weight and contrast to show the rank,
+   and use few levels.
+3. Put related things together and the most important at the top, where people start reading.
+4. Remove or merge elements that say the same thing.
+5. Do the squint test: blur your eyes, or the screenshot. What stands out should be what matters.
+6. Check that the action is next to the thing it changes, so the eye does not have to travel.
+
+## Common mistakes
+
+- Everything bold, large or coloured, so nothing stands out.
+- Several texts that repeat one message.
+- The main action styled like a secondary one.
+- The control in one place and its effect in another, far away.
+
+## Example
+
+An agent's audit of RelievApp counted five texts at the start of the breathing scene, and three said
+the same thing. Some sat on top of the sphere that the session is about. The control was at the
+bottom and the change at the top, so people watched the control, not the payoff. The audit's rule for
+every scene: two texts at most, and none over the subject.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<StatRow
+  title="Text at the start of RelievApp's breathing scene"
+  stats={[
+    { value: 5, label: 'Texts on the screen' },
+    { value: 3, label: 'Saying the same thing' },
+    { value: 2, label: 'The most the audit allows', note: 'And none over the subject', signal: true },
+  ]}
+  caption="When five texts compete, the sphere, the one thing the session is about, loses. Fewer words give the subject the top of the hierarchy."
+  evidence="observed"
+  source="An agent's audit of RelievApp, 16 Nov 2026"
+/>

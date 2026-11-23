@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Butterick's practical typography: summary of key rules (Matthew Butterick)"
+    url: https://practicaltypography.com/summary-of-key-rules.html
+---
+
+## Why it matters for a product engineer
+
+Most of an interface is text. Font, size, line spacing and line length decide whether it is easy to
+read. These are a handful of CSS values, and good defaults make an interface look deliberate before
+any other styling.
+
+## How to do it
+
+1. Set body text first. Matthew Butterick names four choices that matter most: size, line spacing,
+   line length and font.
+2. Use 15 to 25 pixels for body text on the web, and line spacing of 120 to 145% of the size.
+3. Keep lines between 45 and 90 characters, with a maximum width in `ch` or `rem`.
+4. Choose one well-made font family, and use few sizes: body, a small size, and two or three for
+   headings.
+5. Use bold and italic rarely, and not together. Never underline anything except links.
+6. Check the text on a phone and on a large screen, in light and dark themes.
+
+## Common mistakes
+
+- Body text below 15 px to fit more on the screen.
+- Lines that run across a wide monitor.
+- Many sizes that differ only a little, so the hierarchy is unclear.
+- Light grey text on white, which looks elegant and reads badly.
+
+## Example
+
+This page sets body text in IBM Plex Sans at 16 px, with line spacing of 155%, a little above
+Butterick's range. A line holds about 88 characters on a laptop and about 49 on a phone, both inside
+the range. We measured it in Chrome while writing this.
+
+<Compare
+  title="Butterick's rules for body text, and this page"
+  subjects={["Butterick's range", 'This page']}
+  highlight={1}
+  rows={[
+    { label: 'Size on the web', values: ['15–25 px', '16 px'] },
+    { label: 'Line spacing', values: ['120–145% of the size', '155%'] },
+    { label: 'Line length', values: ['45–90 characters', 'About 88 on a laptop, 49 on a phone'] },
+  ]}
+  caption="Three numbers decide most of how body text reads. This page is inside the range for two of them, and a little loose on the third."
+  evidence="measured"
+  source="Butterick's Practical Typography; this page in Chrome at 390 and 1280 px, 23 Nov 2026"
+/>

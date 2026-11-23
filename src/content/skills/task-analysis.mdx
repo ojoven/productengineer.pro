@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Task analysis: support users in achieving their goals (NN/g)'
+    url: https://www.nngroup.com/articles/task-analysis/
+  - title: When to use which user-experience research methods (NN/g)
+    url: https://www.nngroup.com/articles/which-ux-research-methods/
+---
+
+## Why it matters for a product engineer
+
+Task analysis breaks a goal into the steps and decisions people take to reach it. It shows which steps
+the goal really needs and which exist only because of today's tools. Engineers write the code for
+each step, so they can often remove a step that only the old tool needed.
+
+## How to do it
+
+1. Separate the goal from the tasks. Nobody's goal is to fill in a form; the form is a task on the way
+   to something they want.
+2. Watch people do the work, or talk to experts who do it, and write each step and each decision.
+3. Note what triggers each step, what information it needs and what can go wrong.
+4. Group the steps into a hierarchy: the goal, its tasks, and the steps inside each task.
+5. Mark each step as needed by the goal or needed by the tool.
+6. Design to remove the tool's steps first, and to support the goal's steps.
+
+## Common mistakes
+
+- Confusing goals with tasks, and optimising a task nobody wants.
+- Writing the steps from the documentation instead of from what people do.
+- Ignoring the decisions between steps, where people hesitate.
+- Analysing one person and treating it as everyone.
+
+## Example
+
+Before Mamitsu, its maker built a coffee app from a daily routine. Each new bag starts from a base
+recipe and changes a little each day: a bit finer, a bit more water. The hard part was not the recipe
+but the grinders: one goes by numbers, another by clicks. "It looks easy. It is a mess." So the app
+translated a recipe for one grinder to yours. ([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Loop
+  title="The task behind a coffee recipe app"
+  center="A new bag"
+  sub="One turn a day"
+  stages={[
+    { label: 'Brew the recipe', note: 'Step by step' },
+    { label: 'Taste it' },
+    { label: 'Change one thing', note: 'A bit finer, a bit more water' },
+    { label: 'Set your grinder', note: 'Numbers on one, clicks on another', tone: 'signal' },
+  ]}
+  motion={false}
+  caption="The goal needs the brewing, tasting and changing. The grinder step exists only because every grinder uses its own units, so the app does it for you."
+  evidence="reported"
+  source="The call with Mamitsu's maker, 13 Nov 2026"
+/>

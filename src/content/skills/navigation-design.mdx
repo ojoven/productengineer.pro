@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Information architecture articles (NN/g)
+    url: https://www.nngroup.com/topic/information-architecture/
+  - title: Back link (GOV.UK Design System)
+    url: https://design-system.service.gov.uk/components/back-link/
+  - title: Breadcrumbs (GOV.UK Design System)
+    url: https://design-system.service.gov.uk/components/breadcrumbs/
+---
+
+## Why it matters for a product engineer
+
+Navigation tells people where they are, where they can go and how to get back. Good navigation is
+predictable and follows the structure of the content. Much of it is engineering: URLs that can be
+shared, a back button that works, state that survives a reload. A broken back button can cost a user
+their progress.
+
+## How to do it
+
+1. Make the structure visible: the current place is marked, and the main areas are always one step
+   away.
+2. Give every important state a URL: a filter, a tab, an open item. People share links and use
+   bookmarks.
+3. Make the browser's back button take people to the previous page, in the state they last saw it.
+4. Choose one way back per page. A multi-page form needs a back link; a deep site needs breadcrumbs.
+5. Name things with the users' words, the same everywhere.
+6. Test with real tasks: can people find something, and can they return to where they were?
+
+## Common mistakes
+
+- A back button that loses what the user typed, so people learn to avoid it.
+- State that lives only in memory, so a reload or a shared link loses it.
+- Menus that mirror the company's departments instead of what users look for.
+- A different navigation pattern on each page.
+
+## Example
+
+The GOV.UK Design System adds a back link to every question page in a service. Its reason: browsers
+have a back button, but some sites break when you use it, so many users avoid it rather than lose
+their progress. The back link must return people to the previous page, in the state they last saw it.
+
+<Compare
+  title="Two ways back, and when GOV.UK uses each one"
+  subjects={['Back link', 'Breadcrumbs']}
+  rows={[
+    { label: 'Use it for', values: ['A multi-page transaction', 'A site with several levels'] },
+    { label: 'Takes people to', values: ['The previous page, as they left it', 'Any level above this page'] },
+    { label: 'Do not use it for', values: ['Pages with breadcrumbs', 'A flat site, or progress through a journey'] },
+  ]}
+  caption="Each one answers a different question: “How do I go back a step?” or “Where am I in this site?”. GOV.UK never puts both on one page."
+  evidence="reported"
+  source="GOV.UK Design System, back link and breadcrumbs"
+/>

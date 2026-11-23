@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Website forms usability: top 10 recommendations (NN/g)'
+    url: https://www.nngroup.com/articles/web-form-design/
+  - title: 'Few guesses, more success: 4 principles to reduce cognitive load in forms (NN/g)'
+    url: https://www.nngroup.com/articles/4-principles-reduce-cognitive-load/
+---
+
+## Why it matters for a product engineer
+
+Forms are where people give a product information, and where many of them give up. Most form problems
+are small: a missing label, the wrong keyboard, an error shown in the wrong place. An engineer who knows
+the basics can fix most of them in an afternoon.
+
+## How to do it
+
+1. Ask only for what you need now. Every field must have a reason, and the user should see it.
+2. Put labels above the fields, and keep them visible while people type. Do not use placeholder text
+   as a label.
+3. Use the right input type, so phones show the right keyboard, and support autofill.
+4. Size each field to its expected answer. NN/g found that 99.9% of 2,130 city names fit in 19
+   characters.
+5. Validate after people finish a field, not while they type. Show the error next to the field, and
+   keep what they typed.
+6. Mark the optional fields, or better, remove them.
+
+## Common mistakes
+
+- Asking for everything at sign-up "because we might need it".
+- Clearing the whole form after one error.
+- One field for things people think of as separate, or several fields for one thing.
+- Buttons that say "Submit" instead of what will happen.
+
+## Example
+
+Zernio gives two connected accounts free, with no card. It asks for a card only when someone connects
+X, because X's API is paid. The form asks for payment at the moment the reason is
+clear to the user. ([Zernio in In practice](/in-practice/zernio/))
+
+<StatRow
+  title="People who sent a form without errors at the first try"
+  stats={[
+    { value: 78, unit: '%', label: 'Forms that follow basic usability guidelines', signal: true },
+    { value: 42, unit: '%', label: 'Forms that break them' },
+  ]}
+  caption="Following the basics almost doubled the share of people who got through at the first try. Completion time also fell."
+  evidence="reported"
+  source="Seckler and colleagues, CHI 2014, as reported by NN/g"
+/>

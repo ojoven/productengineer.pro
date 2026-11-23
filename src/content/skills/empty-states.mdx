@@ -1,0 +1,49 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Designing empty states in complex applications: 3 guidelines (NN/g)'
+    url: https://www.nngroup.com/articles/empty-state-interface-design/
+---
+
+## Why it matters for a product engineer
+
+An empty state is the screen with nothing in it yet: no projects, no results, no messages. It is often
+the first screen a new user sees, and engineers often build it last, as a blank area or a bare "No
+records". A good empty state says what will appear here, and how to make it appear.
+
+## How to do it
+
+1. Find every place that can be empty: first use, no results for a search, everything cleared, an
+   error while loading.
+2. Say what the status is, so people know nothing is broken.
+3. Explain in one sentence what appears here and where it comes from.
+4. Offer the next action directly, as a button, not as instructions to go somewhere else.
+5. Consider sample data, so people can see what the product does before they add their own.
+6. Make each kind of empty different. "No results for this search" needs other help than "You have no
+   projects yet".
+
+## Common mistakes
+
+- A blank area, which looks like a bug.
+- "No records" with no explanation and no next step.
+- The same message for first use, an empty search and a failed load.
+- A long tutorial instead of one action.
+
+## Example
+
+When a new Loggly account has no log data yet, its empty state offers two direct ways in: add a log
+source, or explore the product with demo data. The second lets a new user see what the product does
+before connecting anything.
+
+<Compare
+  title="Three jobs of an empty state, with examples NN/g found"
+  subjects={['What it does', 'Example']}
+  rows={[
+    { label: 'Show status', values: ['Says that nothing is here yet, and why', 'A clear message, not a blank area'] },
+    { label: 'Teach', values: ['Explains how content gets here', 'Power BI, on its empty list of recent items'] },
+    { label: 'Give a way in', values: ['Offers the next action directly', 'Loggly: add a log source, or try demo data'] },
+  ]}
+  caption="An empty screen is the cheapest place to teach the product, because the user is looking at it with nothing else to read."
+  evidence="reported"
+  source="NN/g, Designing empty states in complex applications"
+/>

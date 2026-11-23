@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: An error messages scoring rubric (NN/g)
+    url: https://www.nngroup.com/articles/error-messages-scoring-rubric/
+  - title: Hostile patterns in error messages (NN/g)
+    url: https://www.nngroup.com/articles/hostile-error-messages/
+  - title: Confirmation dialogs can prevent user errors (NN/g)
+    url: https://www.nngroup.com/articles/confirmation-dialog/
+---
+
+## Why it matters for a product engineer
+
+Errors are where a product shows whether it respects people's time. Engineers often write error
+messages at the last minute, and they decide what the system does after a failure. A good error is
+prevented, or it explains what happened in plain words and offers a way out.
+
+## How to do it
+
+1. Prevent the likely mistakes first: constrain inputs, use good defaults, and offer undo for
+   destructive actions.
+2. Ask "Are you sure?" only for actions that are hard to undo. NN/g warns that frequent confirmations
+   teach people to click through without reading. Label the buttons with the action, such as
+   "Delete file" and "Keep file".
+3. Show the message next to the problem, after the user has acted, not while they are still typing.
+4. Say what happened and how to fix it, in plain words. Put the blame on the system, not the user.
+5. Keep what the user entered, and make the fix one step.
+6. Score your messages with NN/g's rubric: twelve guidelines in three groups, visibility,
+   communication and efficiency.
+
+## Common mistakes
+
+- Error codes and technical words in the message.
+- Messages that blame the user, or sound like a reprimand.
+- Errors shown at the top of the page, far from the field that caused them.
+- Silent failures: nothing happens, and nothing says why.
+
+## Example
+
+An agent's audit of RelievApp found silent misses. In the pain scene the agent pressed above the
+point for seven seconds; nothing moved and nothing said why. In a session for someone in pain, a
+silent miss feels like the person failed. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="A silent miss in RelievApp's pain scene, against three of NN/g's guidelines"
+  subjects={['What happened', 'What the guideline asks']}
+  rows={[
+    { label: 'Close to the source', values: ['Nothing appeared', 'A message next to the element'] },
+    { label: 'Describe the issue', values: ['No explanation', 'What went wrong, in plain words'] },
+    { label: 'Constructive advice', values: ['None', 'A fix that takes little effort'] },
+  ]}
+  caption="A miss with no answer fails all three at once. The audit's rule for every scene: every input gets an answer."
+  evidence="observed"
+  source="An agent's audit of RelievApp, 16 Nov 2026; NN/g's error message rubric"
+/>

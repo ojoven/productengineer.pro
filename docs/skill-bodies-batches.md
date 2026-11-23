@@ -480,18 +480,18 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 21 · Experience · 12 skills
 
-- [ ] `03.1.3` [Task analysis](https://productengineer.pro/skills-map/experience/user-journeys/task-analysis/) · `task-analysis` · 1 resource
-- [ ] `03.1.4` [Mental models](https://productengineer.pro/skills-map/experience/user-journeys/mental-models/) · `mental-models` · map coverage
-- [ ] `03.2.1` [Navigation](https://productengineer.pro/skills-map/experience/interaction-design/navigation-design/) · `navigation-design` · 1 resource
-- [ ] `03.2.2` [Forms](https://productengineer.pro/skills-map/experience/interaction-design/form-design/) · `form-design` · map coverage
-- [ ] `03.2.4` [Errors and recovery](https://productengineer.pro/skills-map/experience/interaction-design/error-recovery/) · `error-recovery` · has evidence, technicalLeverage
-- [ ] `03.2.5` [Empty states](https://productengineer.pro/skills-map/experience/interaction-design/empty-states/) · `empty-states` · 1 resource
-- [ ] `03.2.6` [Affordances](https://productengineer.pro/skills-map/experience/interaction-design/affordances/) · `affordances` · 1 resource
-- [ ] `03.2.7` [Progressive disclosure](https://productengineer.pro/skills-map/experience/interaction-design/progressive-disclosure/) · `progressive-disclosure` · 1 resource
-- [ ] `03.3.1` [Visual hierarchy](https://productengineer.pro/skills-map/experience/ui-design/visual-hierarchy/) · `visual-hierarchy` · 1 resource
-- [ ] `03.3.2` [Typography](https://productengineer.pro/skills-map/experience/ui-design/typography/) · `typography` · 1 resource
-- [ ] `03.3.3` [Spacing and layout](https://productengineer.pro/skills-map/experience/ui-design/spacing-and-layout/) · `spacing-and-layout` · 1 resource
-- [ ] `03.3.5` [Responsive design](https://productengineer.pro/skills-map/experience/ui-design/responsive-design/) · `responsive-design` · map coverage
+- [x] `03.1.3` [Task analysis](https://productengineer.pro/skills-map/experience/user-journeys/task-analysis/) · `task-analysis` · 1 resource
+- [x] `03.1.4` [Mental models](https://productengineer.pro/skills-map/experience/user-journeys/mental-models/) · `mental-models` · map coverage
+- [x] `03.2.1` [Navigation](https://productengineer.pro/skills-map/experience/interaction-design/navigation-design/) · `navigation-design` · 1 resource
+- [x] `03.2.2` [Forms](https://productengineer.pro/skills-map/experience/interaction-design/form-design/) · `form-design` · map coverage
+- [x] `03.2.4` [Errors and recovery](https://productengineer.pro/skills-map/experience/interaction-design/error-recovery/) · `error-recovery` · has evidence, technicalLeverage
+- [x] `03.2.5` [Empty states](https://productengineer.pro/skills-map/experience/interaction-design/empty-states/) · `empty-states` · 1 resource
+- [x] `03.2.6` [Affordances](https://productengineer.pro/skills-map/experience/interaction-design/affordances/) · `affordances` · 1 resource
+- [x] `03.2.7` [Progressive disclosure](https://productengineer.pro/skills-map/experience/interaction-design/progressive-disclosure/) · `progressive-disclosure` · 1 resource
+- [x] `03.3.1` [Visual hierarchy](https://productengineer.pro/skills-map/experience/ui-design/visual-hierarchy/) · `visual-hierarchy` · 1 resource
+- [x] `03.3.2` [Typography](https://productengineer.pro/skills-map/experience/ui-design/typography/) · `typography` · 1 resource
+- [x] `03.3.3` [Spacing and layout](https://productengineer.pro/skills-map/experience/ui-design/spacing-and-layout/) · `spacing-and-layout` · 1 resource
+- [x] `03.3.5` [Responsive design](https://productengineer.pro/skills-map/experience/ui-design/responsive-design/) · `responsive-design` · map coverage
 
 ### Batch 22 · Experience · 11 skills
 

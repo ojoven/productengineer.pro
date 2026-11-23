@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Flat UI elements attract less attention and cause uncertainty (NN/g)
+    url: https://www.nngroup.com/articles/flat-ui-less-attention-cause-uncertainty/
+  - title: Mental models and user experience design (NN/g)
+    url: https://www.nngroup.com/articles/mental-models/
+---
+
+## Why it matters for a product engineer
+
+An interface has to show what can be clicked, dragged or changed. A button that looks like a button,
+a link that looks like a link and a handle that looks draggable all save people from guessing. Many of
+these cues are CSS decisions that engineers make: underline or not, border or not, a cursor, a focus
+style.
+
+## How to do it
+
+1. Give every interactive element a strong cue: a button shape, link colour and underline, a visible
+   handle.
+2. Keep the cues consistent. If blue text is a link in one place, it is a link everywhere.
+3. Do not make decorative elements look interactive, or interactive ones look decorative.
+4. Show hover, focus and pressed states, so the interface answers when someone acts.
+5. Test findability: give people a task and watch where they look before they click.
+
+## Common mistakes
+
+- Flat text that is secretly a link.
+- Ghost buttons, with a thin outline and no fill, for the main action.
+- Icons with no label for actions people rarely use.
+- Removing focus outlines, so keyboard users cannot see where they are.
+
+## Example
+
+In NN/g's study, people were asked to cancel a car rental on two versions of Hertz's home page. On the
+version with strong cues, their eyes went to the right tab. On the version with weak cues, their eyes
+also wandered to footer links, promotions and the form next to the tab: they had seen the target but
+did not recognise it.
+
+<StatRow
+  title="What weak clickability cues cost, in NN/g's eye-tracking study"
+  stats={[
+    { value: 71, label: 'Participants' },
+    { value: 22, unit: '%', label: 'More time on the page' },
+    { value: 25, unit: '%', label: 'More fixations', note: 'Places the eyes stopped', signal: true },
+  ]}
+  caption="With weak cues, people looked at more things for longer before they clicked. That is effort, not engagement."
+  evidence="reported"
+  source="NN/g, Flat UI elements attract less attention and cause uncertainty"
+/>

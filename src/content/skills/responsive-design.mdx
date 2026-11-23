@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Responsive web design basics (web.dev)
+    url: https://web.dev/articles/responsive-web-design-basics
+  - title: Learn responsive design (Jeremy Keith, web.dev)
+    url: https://web.dev/learn/design
+---
+
+## Why it matters for a product engineer
+
+People use the same product on a phone, a tablet and a laptop, with touch, a mouse or a keyboard.
+Responsive design adapts the layout and the interaction to each. It is more than making things
+smaller: on a small screen the order of content and the size of targets change too. Almost all of it
+is code.
+
+## How to do it
+
+1. Add the viewport meta tag. Without it, a phone renders the page at a desktop width, often about
+   980 px, and shrinks it.
+2. Start from the smallest screen and add layout as space allows.
+3. Let the content choose the breakpoints: add one where the layout starts to look wrong, not at the
+   width of a popular device.
+4. Size things in relative units, and let images and media scale with their container.
+5. Make touch targets large enough for a thumb, and do not depend on hover.
+6. Test on real devices, at real widths such as 390 px, in both orientations.
+
+## Common mistakes
+
+- Designing for desktop and squeezing it onto a phone.
+- Hiding content on small screens that people need there.
+- Breakpoints for specific devices, which break on the next device.
+- Text or controls that only work with a mouse.
+
+## Example
+
+An agent's audit of RelievApp asked for every scene to be checked at 390 px in each look. The
+minimal look needed its own contrast pass: white text over the pale sphere was hard to read, and
+"Drag up to breathe in" almost disappeared. A layout that works at one width and in one theme is not
+yet done. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Anatomy
+  title="The one line every responsive page needs"
+  as="prompt"
+  parts={[
+    { text: '<meta name="viewport" content="' },
+    { text: 'width=device-width', label: 'Match the screen', note: "Use the device's width, not a desktop width.", kind: 'signal' },
+    { text: ', ' },
+    { text: 'initial-scale=1', label: 'No zoom', note: 'Start at 100%, so the page is not shrunk to fit.' },
+    { text: '">' },
+  ]}
+  caption="Without this line, phones lay the page out about 980 px wide and shrink it, and people have to zoom to read."
+  evidence="reported"
+  source="web.dev, Responsive web design basics"
+/>

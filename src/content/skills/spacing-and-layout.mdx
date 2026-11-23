@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Learn responsive design (Jeremy Keith, web.dev)
+    url: https://web.dev/learn/design
+---
+
+## Why it matters for a product engineer
+
+Space shows structure. Things close together read as a group; things far apart read as separate.
+A consistent spacing scale and a simple grid remove most visual mess. With flexbox and grid,
+engineers can be very precise here, often more precise than a static mockup.
+
+## How to do it
+
+1. Choose a spacing scale with few steps, such as 4, 8, 16, 24, 32 and 48 pixels, and use only those
+   values.
+2. Put less space inside a group than between groups, so the eye sees the groups.
+3. Align things to a few shared edges. Every extra edge adds noise.
+4. Give each kind of content a reserved place on the screen, so it never covers something more
+   important.
+5. Let the layout follow the content: use grid for two dimensions and flexbox for one, with `gap`
+   instead of margins on each child.
+6. Check the result at phone width and at a wide width, with long and short content.
+
+## Common mistakes
+
+- Spacing values picked by eye, a different one in every component.
+- The same space between everything, so nothing groups.
+- Text placed over the subject of the screen.
+- Layouts that only work with the example content from the design.
+
+## Example
+
+An agent's audit of RelievApp found text on top of the subject in several scenes. In the breathing
+scene a headline and a chip sat on the sphere; in the pain scene, text covered the figure's head and
+chest. The fix it proposed was layout, not copy: reserved bands for text, so no text can sit over the
+subject. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="Where text sat in RelievApp's scenes, and where the audit put it"
+  subjects={['What the audit saw', 'The rule it proposed']}
+  rows={[
+    { label: 'Breathing', values: ['A headline and a chip on top of the sphere', 'Text only in reserved bands'] },
+    { label: 'Pain', values: ["Text over the figure's head and chest", 'Text only in reserved bands'] },
+    { label: 'Every scene', values: ['Up to five texts', 'Two texts at most, none over the subject'] },
+  ]}
+  caption="A layout rule protects the subject in every scene at once, including scenes nobody has designed yet."
+  evidence="observed"
+  source="An agent's audit of RelievApp, 16 Nov 2026"
+/>

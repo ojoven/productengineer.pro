@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Mental models and user experience design (NN/g)
+    url: https://www.nngroup.com/articles/mental-models/
+  - title: "Jakob's law (Laws of UX)"
+    url: https://lawsofux.com/jakobs-law/
+---
+
+## Why it matters for a product engineer
+
+People act on what they believe a product does, not on how it works. When the interface matches that
+belief, the product feels obvious. When the implementation leaks through, such as a sync state or an
+internal status, people get confused and make mistakes. Engineers decide much of what leaks.
+
+## How to do it
+
+1. Learn what people already believe, from interviews, usability tests and the products they use
+   every day.
+2. Watch for the moment people hesitate or say "I thought it would…". That is a gap between their
+   model and the product.
+3. Teach one model and keep it the same everywhere: on the landing page, in the product and in help.
+4. Hide the parts of the implementation people do not need, such as queues, retries and internal
+   states. Show only what changes their decisions.
+5. When the product must work differently from what people expect, say so where it matters, at the
+   moment they need it.
+
+## Common mistakes
+
+- Designing from the database or the architecture, so the interface mirrors the code.
+- Teaching one thing on the landing page and doing another in the product.
+- Assuming people will read an explanation before they act.
+- Changing a familiar pattern without a reason users would agree with.
+
+## Example
+
+An agent's audit of RelievApp found that the front door taught one breathing gesture and the session
+used another. People learned to press and hold, then met a handle on a track. Worse, the change they
+came for happened at the top of the screen while the control was at the bottom. The audit's answer was
+one breathing gesture, on the sphere itself. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="What RelievApp's front door taught, and what its session asked"
+  subjects={['The front door', 'The session']}
+  rows={[
+    { label: 'Breathe in', values: ['Press and hold', 'Drag a handle up a track'] },
+    { label: 'Breathe out', values: ['Let go', 'Drag it down again'] },
+    { label: 'Where your eyes go', values: ['The sphere', 'The handle and a dashed ring'] },
+  ]}
+  caption="People arrived with the model the front door gave them. The session broke it at the first breath."
+  evidence="observed"
+  source="An agent's audit of RelievApp, 16 Nov 2026"
+/>
