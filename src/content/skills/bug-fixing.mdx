@@ -42,15 +42,15 @@ already fixed in production. ([Mamitsu in In practice](/in-practice/mamitsu/))
     { id: 'thread', label: 'Slack thread', detail: 'Real error? Needs the maker?', col: 1, row: 0 },
     { id: 'pr', label: 'Fix as a PR', detail: 'From the agent', col: 2, row: 0 },
     { id: 'ref', label: 'Referee', detail: 'Green and easy to roll back?', col: 3, row: 0, kind: 'decision' },
-    { id: 'merge', label: 'Merged', detail: 'Fixed in production', col: 3, row: 1, tone: 'lit' },
-    { id: 'wait', label: 'Waits for the maker', col: 2, row: 1 },
+    { id: 'merge', label: 'Low risk: merged', detail: 'Fixed in production', col: 3, row: 1, tone: 'lit' },
+    { id: 'wait', label: 'Not sure: waits', detail: 'For the maker', col: 2, row: 1 },
   ]}
   edges={[
     { from: 'err', to: 'thread' },
     { from: 'thread', to: 'pr' },
     { from: 'pr', to: 'ref' },
-    { from: 'ref', to: 'merge', label: 'Low risk' },
-    { from: 'ref', to: 'wait', label: 'Not sure', dashed: true },
+    { from: 'ref', to: 'merge' },
+    { from: 'ref', to: 'wait', dashed: true },
   ]}
   caption="Fixes take the same path as features. The risk check, not the source of the change, decides whether a person is needed."
   evidence="reported"
