@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Grand jury subpoena for Signal user data, Central District of California (Signal)
+    url: https://signal.org/bigbrother/central-california-grand-jury/
+  - title: Government requests (Signal)
+    url: https://signal.org/bigbrother/
+---
+
+## Why it matters for a product engineer
+
+Every piece of personal data a product keeps is a risk: it can leak, be misused, or be demanded by
+someone else. Privacy by design means making the private choice the default: collect less, keep it for
+less time, and limit who can see it. It is much cheaper to do at the start than to add later, because
+data models, logs and analytics all depend on it. It also builds trust, and it reduces what any
+breach can expose.
+
+## How to do it
+
+1. For each field you plan to collect, write down why you need it and for how long.
+2. Collect the minimum, and prefer data that does not identify a person.
+3. Set deletion by default: logs, backups and analytics expire.
+4. Encrypt sensitive data, and limit who and what can read it.
+5. Make the private option the default, and let users choose to share more.
+
+## Common mistakes
+
+- Collecting data "in case it is useful later".
+- Logging full request bodies, with personal data in them, to debug one problem.
+- Deleting data from the database but keeping it for years in backups and analytics.
+- Asking legal to review privacy after the feature is built.
+
+## Example
+
+Signal publishes the legal requests it receives for user data. In 2021, a grand jury subpoena from
+California asked for, among other things, users' names, addresses and correspondence. Signal could not
+provide any of it, because its servers never had it: messages, contacts, groups and profiles are
+end-to-end encrypted. Its answer was the same as in 2016: the time each account was created and the date
+it last connected. The response to the subpoena had been decided years earlier, in the design.
+
+<Compare
+  title="What Signal could give a court in 2021"
+  subjects={['Does Signal have it?', 'Handed over']}
+  rows={[
+    { label: 'Messages, contacts, groups', values: ['No', 'Nothing'] },
+    { label: 'Profile name and avatar', values: ['No', 'Nothing'] },
+    { label: 'Account creation time', values: ['Yes', 'Yes'] },
+    { label: 'Last connection date', values: ['Yes', 'Yes'] },
+  ]}
+  highlight={1}
+  caption="Data that is never collected cannot be handed over, sold or leaked. Two facts per account were all that existed."
+  evidence="reported"
+  source="Signal, government requests, 27 Apr 2021"
+/>

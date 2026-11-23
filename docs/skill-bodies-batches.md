@@ -719,9 +719,9 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 40 · Cross-cutting · 6 skills
 
-- [ ] `X.7.1` [Reflection](https://productengineer.pro/skills-map/cross-cutting/continuous-learning/reflection/) · `reflection` · map coverage
-- [ ] `X.7.2` [Seeking feedback](https://productengineer.pro/skills-map/cross-cutting/continuous-learning/seeking-feedback/) · `seeking-feedback` · 1 resource
-- [ ] `X.8.1` [User autonomy](https://productengineer.pro/skills-map/cross-cutting/responsible-product/user-autonomy/) · `user-autonomy` · map coverage
-- [ ] `X.8.2` [Fairness](https://productengineer.pro/skills-map/cross-cutting/responsible-product/fairness/) · `fairness` · map coverage
-- [ ] `X.8.3` [Privacy by design](https://productengineer.pro/skills-map/cross-cutting/responsible-product/privacy-by-design/) · `privacy-by-design` · map coverage
-- [ ] `X.8.4` [Safety](https://productengineer.pro/skills-map/cross-cutting/responsible-product/user-safety/) · `user-safety` · map coverage
+- [x] `X.7.1` [Reflection](https://productengineer.pro/skills-map/cross-cutting/continuous-learning/reflection/) · `reflection` · map coverage
+- [x] `X.7.2` [Seeking feedback](https://productengineer.pro/skills-map/cross-cutting/continuous-learning/seeking-feedback/) · `seeking-feedback` · 1 resource
+- [x] `X.8.1` [User autonomy](https://productengineer.pro/skills-map/cross-cutting/responsible-product/user-autonomy/) · `user-autonomy` · map coverage
+- [x] `X.8.2` [Fairness](https://productengineer.pro/skills-map/cross-cutting/responsible-product/fairness/) · `fairness` · map coverage
+- [x] `X.8.3` [Privacy by design](https://productengineer.pro/skills-map/cross-cutting/responsible-product/privacy-by-design/) · `privacy-by-design` · map coverage
+- [x] `X.8.4` [Safety](https://productengineer.pro/skills-map/cross-cutting/responsible-product/user-safety/) · `user-safety` · map coverage

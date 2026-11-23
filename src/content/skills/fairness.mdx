@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Image cropping on Twitter: fairness metrics, their limitations, and the importance of representation, design, and agency (Yee, Tantipongpipat and Mishra, arXiv)"
+    url: https://arxiv.org/abs/2105.08667
+---
+
+## Why it matters for a product engineer
+
+Rules, models and defaults can treat groups of people differently even when nobody intends it. A
+ranking model learns from past behaviour; a fraud rule matches one group's habits more than another's;
+a default suits the people who designed it. Product engineers build and ship these systems, so they
+are in a good position to test them. Fairness matters most where the product decides about access,
+price, visibility or opportunity.
+
+## How to do it
+
+1. List the decisions your product makes about people, and who could be treated unfairly by each one.
+2. Measure outcomes by group, not only overall: error rates, approval rates, who is shown.
+3. Test with data that represents the people who will use the product.
+4. Ask whether the decision needs to be automatic at all, or whether users could choose.
+5. Give people a way to report a problem, and review those reports.
+
+## Common mistakes
+
+- Checking only the average, which hides differences between groups.
+- Assuming a model is fair because it does not use sensitive attributes.
+- Treating a fairness metric as the whole answer.
+- Testing once at launch and never again.
+
+## Example
+
+In 2020, Twitter users raised concerns that automatic image cropping favoured lighter-skinned people
+over darker-skinned people. Twitter's researchers tested it: for each pair of groups, they combined
+photos 10,000 times and recorded which face the crop chose. A fair crop would choose each group 50% of
+the time. They found that women were chosen 58% of the time and white people 54%. They also argued that
+numbers alone could not capture the harm. Twitter removed the automatic crop and, in May 2021, released a design
+close to showing photos with no crop at all.
+
+<Bars
+  title="How often Twitter's crop focused on the first group in each pair"
+  unit="%"
+  items={[
+    { label: 'No preference', value: 50 },
+    { label: 'White men over Black men', value: 52 },
+    { label: 'White over Black', value: 54 },
+    { label: 'White women over Black women', value: 57 },
+    { label: 'Women over men', value: 58 },
+    { label: 'White women over Black men', value: 64, highlight: true },
+  ]}
+  caption="No single crop looks unfair, but the model made this choice on every image posted. The researchers recommended giving the choice back to users."
+  evidence="measured"
+  source="Yee, Tantipongpipat and Mishra, Twitter, CSCW 2021"
+/>

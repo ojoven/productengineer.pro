@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Apple introduces AirTag (Apple Newsroom)
+    url: https://www.apple.com/newsroom/2021/04/apple-introduces-airtag/
+  - title: An update on AirTag and unwanted tracking (Apple Newsroom)
+    url: https://www.apple.com/newsroom/2022/02/an-update-on-airtag-and-unwanted-tracking/
+  - title: Apple and Google deliver support for unwanted tracking alerts in iOS and Android (Apple Newsroom)
+    url: https://www.apple.com/newsroom/2024/05/apple-and-google-deliver-support-for-unwanted-tracking-alerts-in-ios-and-android/
+---
+
+## Why it matters for a product engineer
+
+Any product that connects people, shows content or knows where someone is can be used to hurt
+someone. The person at risk is often not your user: it is the person being harassed, tracked or
+defrauded. Safety features such as reporting, blocking, rate limits and alerts are product features.
+They need design, testing and owners like any other feature. Thinking about misuse before launch is
+much cheaper than reacting to it in the news.
+
+## How to do it
+
+1. Before launch, ask how a bad actor could use each feature, and who would be hurt.
+2. Include the people who are not your users: the person being tracked, messaged or reviewed.
+3. Build reporting, blocking and limits into the first version, not after the first incident.
+4. Work with safety groups and law enforcement, who see patterns that you cannot.
+5. Watch for misuse after launch, and keep improving the protections.
+
+## Common mistakes
+
+- Designing only for the intended use.
+- Protecting only your own users, when the person at risk uses another platform.
+- Treating safety as a moderation team's job, not a product decision.
+- Waiting for a public incident before acting.
+
+## Example
+
+When Apple launched AirTag in April 2021, it included protection against unwanted tracking: iPhones
+could warn their owners about an unknown AirTag travelling with them. People without an iPhone had less
+protection: an AirTag away from its owner for an extended time would play a sound. In February 2022,
+Apple said it had seen reports of misuse and announced more protections. In May 2024, Apple and Google
+added alerts for unknown trackers to both iOS and Android, based on a shared specification.
+
+<Timeline
+  title="How AirTag's protection against unwanted tracking grew"
+  events={[
+    { when: 'Apr 2021', title: 'AirTag launched', kind: 'ship', note: 'Alerts on iPhone; a sound for others' },
+    { when: 'Feb 2022', title: 'Misuse reported', kind: 'problem', note: 'Apple: rare, but one too many' },
+    { when: 'Feb 2022', title: 'More protections announced', kind: 'decision', note: 'Setup warnings, earlier alerts' },
+    { when: 'May 2024', title: 'Alerts on iOS and Android', kind: 'result', note: 'A shared specification with Google' },
+  ]}
+  caption="The first version protected iPhone users best. People at risk do not all use iPhones, so the protection had to work across platforms."
+  evidence="reported"
+  source="Apple Newsroom, 2021, 2022 and 2024"
+/>

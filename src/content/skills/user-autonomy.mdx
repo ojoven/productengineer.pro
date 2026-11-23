@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Amazon to pay $2.5 billion to settle FTC allegations it duped customers into enrolling in Prime (AP, via PBS NewsHour)
+    url: https://www.pbs.org/newshour/economy/amazon-to-pay-2-5-billion-to-settle-ftc-allegations-it-duped-customers-into-enrolling-in-prime
+---
+
+## Why it matters for a product engineer
+
+Users should be able to understand what a product does for them and to change it: turn a setting off,
+leave a plan, delete their data. Every product team is tempted to make some of these paths harder,
+because a confused user does not cancel. That trades long-term trust for short-term numbers, and it
+increasingly breaks consumer law. Product engineers build these flows, so they are often the first to
+see when a design works against the user.
+
+## How to do it
+
+1. Make leaving as easy as joining: the same number of steps, in the same channel.
+2. Use honest defaults; ask before you opt people into anything that costs money or shares data.
+3. Use clear labels on every choice, with no confusing double negatives or guilt-based wording.
+4. Test the exit paths with real users, and measure how long they take.
+5. When you see a design that works against users, say so, with the data.
+
+## Common mistakes
+
+- A sign-up that takes one click and a cancellation that takes many pages.
+- Pre-ticked boxes and settings that quietly reset after an update.
+- Measuring success by fewer cancellations instead of fewer reasons to cancel.
+- Treating a cancellation flow as a place to win the user back at any cost.
+
+## Example
+
+In September 2025, Amazon agreed to pay $2.5 billion to settle a case brought by the US Federal Trade
+Commission. The FTC said Amazon had tricked customers into joining Prime and then made it hard
+to cancel. Internally, Amazon called the cancellation process "Iliad", after the Greek poem about a long
+siege. According to the FTC's complaint, leadership slowed or rejected changes that would have made
+cancelling easier. Amazon admitted no wrongdoing. The settlement says that cancelling "must not be
+difficult, costly, confusing or time consuming".
+
+<StatRow
+  title="The cost of Amazon's Prime sign-up and cancellation flows"
+  stats={[
+    { value: '$1B', label: 'Civil penalty, the largest in the FTC’s history', signal: true },
+    { value: '$1.5B', label: 'Paid back to customers' },
+    { value: '$51', label: 'Automatic refund per customer, at most' },
+    { value: '30M+', label: 'Customers who could claim for other issues' },
+  ]}
+  caption="A flow that keeps users by confusing them only delays the cost. Here the cost came as the largest civil penalty in the FTC’s history."
+  evidence="reported"
+  source="Associated Press, via PBS NewsHour, 25 Sep 2025"
+/>

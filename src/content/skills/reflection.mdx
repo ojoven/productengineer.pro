@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Get your work recognized: write a brag document (Julia Evans)"
+    url: https://jvns.ca/blog/brag-documents/
+  - title: "Postmortem culture: learning from failure (Google SRE book)"
+    url: https://sre.google/sre-book/postmortem-culture/
+---
+
+## Why it matters for a product engineer
+
+Experience only teaches you something if you look back at it. Without reflection, ten years of work
+can be one year repeated ten times. Product engineers make many bets: features, designs, estimates,
+technical choices. Most of them are never checked against what actually happened. Writing down what
+you expected, and comparing it with the result a few months later, is one of the cheapest ways to
+improve your judgement. Retrospectives and postmortems do the same for a team.
+
+## How to do it
+
+1. Before a project, write down what you expect: the result, the effort, the main risk.
+2. After it ships, wait long enough to see the real effect, then write down what happened.
+3. Compare the two, and ask why they differ: missing information, bad luck or a wrong belief.
+4. Keep a running document of your work, and review it every few weeks or months.
+5. Choose one or two changes to try next time, and check later whether they helped.
+
+## Common mistakes
+
+- Reflecting only after failures, so successes teach nothing.
+- Judging a decision only by its outcome, not by what was known at the time.
+- Retrospectives that produce long lists and no changes.
+- Writing down what you did but never what it achieved.
+
+## Example
+
+Julia Evans, a software engineer, writes about keeping a "brag document": a running list of the work
+she has done. It helps with promotions, but she finds it more useful for reflection. She suggests going
+back a few months after a launch to write down what actually happened. Then she asks questions such as:
+which projects had the effect I wanted, and which did not? Why? Some people update the document every
+two weeks; she prefers one long review every six months or every year.
+
+<Loop
+  title="A brag document used for reflection"
+  center="Brag document"
+  sub="Updated every few weeks or months"
+  stages={[
+    { label: 'Do the work', note: 'Projects, fuzzy work too' },
+    { label: 'Write it down', note: 'Goals and what you did' },
+    { label: 'Add the results', note: 'A few months later', tone: 'signal' },
+    { label: 'Ask why', note: 'Which had the effect I wanted?' },
+    { label: 'Change something', note: 'What to do differently' },
+  ]}
+  caption="The step most people skip is going back to add the results. Without it, the document records activity, not learning."
+  evidence="reported"
+  source="Julia Evans, jvns.ca, 2019"
+/>
