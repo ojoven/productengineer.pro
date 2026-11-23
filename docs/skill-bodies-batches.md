@@ -424,19 +424,19 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 17 · Cross-cutting · 5 skills
 
-- [ ] `X.3.4` [Opportunity cost](https://productengineer.pro/skills-map/cross-cutting/decision-making/opportunity-cost/) · `opportunity-cost` · 3 In practice notes
+- [x] `X.3.4` [Opportunity cost](https://productengineer.pro/skills-map/cross-cutting/decision-making/opportunity-cost/) · `opportunity-cost` · 3 In practice notes
   - Mamitsu: When code is cheap, what you choose not to build is the decision that matters. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: Given a million euros, he would put it in paid, because product cannot absorb it and SEO would not know what to do with it. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: Asked about $30M cash from Dropbox, he said probably not yet, with DocSend's own price in mind. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `X.3.2` [Deciding under uncertainty](https://productengineer.pro/skills-map/cross-cutting/decision-making/deciding-under-uncertainty/) · `deciding-under-uncertainty` · 2 In practice notes
+- [x] `X.3.2` [Deciding under uncertainty](https://productengineer.pro/skills-map/cross-cutting/decision-making/deciding-under-uncertainty/) · `deciding-under-uncertainty` · 2 In practice notes
   - Zernio: He left a growing company to test whether he could build one without investors, and spent a year without cash looking for the idea. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: Savings from good jobs carried the first year, and Marc counts five or six failures before this one. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `X.7.4` [Professional development](https://productengineer.pro/skills-map/cross-cutting/continuous-learning/professional-development/) · `professional-development` · 2 In practice notes
+- [x] `X.7.4` [Professional development](https://productengineer.pro/skills-map/cross-cutting/continuous-learning/professional-development/) · `professional-development` · 2 In practice notes
   - Zernio: He credits Ucademy's non-technical founders with most of what he learned. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: Iuliia learned to code by building on open-source projects and opening her own. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `X.3.3` [Reversible and irreversible decisions](https://productengineer.pro/skills-map/cross-cutting/decision-making/reversible-decisions/) · `reversible-decisions` · 1 In practice note
+- [x] `X.3.3` [Reversible and irreversible decisions](https://productengineer.pro/skills-map/cross-cutting/decision-making/reversible-decisions/) · `reversible-decisions` · 1 In practice note
   - RelievApp: A version that costs an hour can be decided with less evidence, as long as it can be undone. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `X.7.3` [Updating mental models](https://productengineer.pro/skills-map/cross-cutting/continuous-learning/updating-beliefs/) · `updating-beliefs` · 1 In practice note
+- [x] `X.7.3` [Updating mental models](https://productengineer.pro/skills-map/cross-cutting/continuous-learning/updating-beliefs/) · `updating-beliefs` · 1 In practice note
   - RelievApp: The category changed again and again in five weeks, each time for a reason I could write down. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
 
 ## Wave 2: the rest of the map, by capability

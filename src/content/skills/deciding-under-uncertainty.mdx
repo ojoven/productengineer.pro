@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 2016 letter to shareholders (Jeff Bezos, Amazon)
+    url: https://www.aboutamazon.com/news/company-news/2016-letter-to-shareholders
+  - title: "Predicting the future with Bayes' theorem (Farnam Street)"
+    url: https://fs.blog/bayes-theorem/
+---
+
+## Why it matters for a product engineer
+
+Most product decisions must be made before the facts are in: which feature to build, which market to
+try, whether to rewrite a system. Waiting for certainty is also a decision, and often the most
+expensive one. Jeff Bezos wrote that most decisions should be made with about 70% of the information
+you wish you had, because if you wait for 90%, you are probably being slow. The skill is to act
+anyway, while limiting how much you can lose.
+
+## How to do it
+
+1. Write the decision, the options and what you expect each one to produce.
+2. Estimate how likely you are to be right, as a rough percentage, not "probably".
+3. Limit the downside before you start: a budget, a time box, or a way back.
+4. Name the signal that would change your mind, and when you will look for it.
+5. Review the decision on that date, and judge the process, not only the result.
+
+## Common mistakes
+
+- Waiting for data that will never arrive.
+- Treating a bad result as proof of a bad decision, or a good result as proof of a good one.
+- Risking more than you can afford to lose on a first attempt.
+- No date to review the decision, so it is never revisited.
+
+## Example
+
+Zernio's Miquel Palet left Ucademy in February 2024, when it had 60 to 70 people, to test whether he
+could build a company without investors. He then spent a year without cash, trying ideas. One reached
+€7,000 to €8,000 a month and later sold for about €200,000. In August 2025 he launched Zernio over a
+weekend. Papermark's founders had savings from good jobs for their first year, and Marc counts five or
+six failures before Papermark. ([Zernio](/in-practice/zernio/), [Papermark](/in-practice/papermark/))
+
+<Timeline
+  title="Miquel Palet's path from Ucademy to Zernio"
+  events={[
+    { when: 'Feb 2024', title: 'Leaves Ucademy', note: 'To test building without investors', kind: 'decision' },
+    { when: '2024–25', title: 'A year without cash', note: 'One idea, an invoice tool, later sold for about €200,000', kind: 'problem' },
+    { when: 'Aug 2025', title: 'Zernio, built in a weekend', note: '"People wanted it" from day one', kind: 'ship' },
+    { when: '13 months later', title: 'About €5M a year', note: 'No investors', kind: 'result' },
+  ]}
+  caption="One uncertain decision, then many small attempts. The one that worked was built in a weekend."
+  evidence="reported"
+  source="In practice: Zernio, from Miquel Palet's podcast episode"
+/>

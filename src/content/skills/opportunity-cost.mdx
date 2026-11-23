@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Cost of delay (Joshua Arnold, Black Swan Farming)
+    url: https://blackswanfarming.com/cost-of-delay
+---
+
+## Why it matters for a product engineer
+
+Every week of work spent on one thing is a week not spent on everything else. That cost does not
+appear on any invoice, so it is easy to ignore. A small feature that "only takes two days" looks free
+until you ask what else those two days could have done. When agents make code cheap, this matters
+more, not less: building is no longer the limit, so choosing what not to build becomes the real
+decision.
+
+## How to do it
+
+1. For each option, name the best alternative you give up, not just "doing nothing".
+2. Compare value per week of work, not total value.
+3. Include the cost of delay: what the other options lose while they wait.
+4. Count time after launch too: support, maintenance and the attention a feature takes.
+5. Say the "no" out loud, so the team knows what was not chosen and why.
+
+## Common mistakes
+
+- Judging an option only by its own value, without the alternatives.
+- Small tasks that pass because each one is cheap, and together fill the month.
+- Ignoring the cost of a decision that is not made.
+- Comparing money now with money later as if they were the same.
+
+## Example
+
+Two makers in In practice answered big hypothetical offers by naming what the money would cost them.
+Nathan Latka asked Papermark's Marc Seitz whether he would sell for $30 million in cash. "Dropbox
+bought DocSend for 140 million, so we'll probably not sell yet." Zernio's Miquel Palet, offered a
+million euros, would put it all in paid ads: not the best channel, but the most predictable. SEO
+would not know what to do with it, and more people would not help the product. ([Papermark](/in-practice/papermark/), [Zernio](/in-practice/zernio/))
+
+<Compare
+  title="Two hypothetical offers, and what each answer was weighed against"
+  subjects={['Papermark', 'Zernio']}
+  rows={[
+    { label: 'The question', values: ['Sell for $30M in cash?', 'Where would €1M go?'] },
+    { label: 'The answer', values: ['Probably not yet', 'All of it into paid ads'] },
+    { label: 'Weighed against', values: ['What Dropbox paid for DocSend', 'SEO and product, where it would not help'] },
+  ]}
+  caption="Neither answer judged the offer alone. Each one compared it with the best use of the same company or the same money."
+  evidence="reported"
+  source="In practice: Papermark and Zernio, from the makers' podcast episodes"
+/>

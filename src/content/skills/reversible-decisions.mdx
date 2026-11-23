@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 2016 letter to shareholders (Jeff Bezos, Amazon)
+    url: https://www.aboutamazon.com/news/company-news/2016-letter-to-shareholders
+  - title: Reversible and irreversible decisions (Farnam Street)
+    url: https://fs.blog/reversible-irreversible-decisions/
+---
+
+## Why it matters for a product engineer
+
+Jeff Bezos calls them one-way and two-way doors. Through a two-way door you can walk back, so you can
+decide fast and learn from the result. A one-way door, such as a public API, a data model in
+production or a price promise to customers, is hard or impossible to undo, and deserves slow, careful
+thought. Teams get both wrong: they debate small choices for weeks, and rush the few that will stay
+for years. Product engineers can often turn a one-way door into a two-way door with a feature flag,
+a staging environment or a migration path.
+
+## How to do it
+
+1. Before a decision, ask: if this is wrong, what does it cost to undo, and who is affected?
+2. Decide cheap, reversible choices quickly, and let one person own them.
+3. For hard-to-reverse choices, write the options down, ask for review and take your time.
+4. Make more decisions reversible: flags, staged rollouts, versioned APIs, data you can migrate.
+5. Check from time to time whether a reversible change has quietly become permanent.
+
+## Common mistakes
+
+- Treating every decision as a one-way door, so the team moves slowly everywhere.
+- Treating a public API or pricing change as easy to reverse.
+- Changing direction so often that moving is confused with learning.
+- Reversible experiments that are never removed or decided.
+
+## Example
+
+In RelievApp, built with agents by the author of In practice, a new version costs about an hour.
+That changed how decisions were made: a change that is cheap to undo was made with less evidence,
+shipped to staging and looked at. Production kept the 14 October launch version the whole time. The
+entry names the risk too: five promises in five weeks, with no real users, are five opinions.
+([RelievApp](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="Where RelievApp's decisions went, after Part I"
+  subjects={['Staging', 'Production']}
+  highlight={0}
+  rows={[
+    { label: 'What runs there', values: ['Every version since 20 October', 'The 14 October launch version'] },
+    { label: 'Cost of a new version', values: ['About an hour', 'Real users would see it'] },
+    { label: 'Evidence needed', values: ['Less: it can be undone', 'More: it reaches users'] },
+  ]}
+  caption="Fast changes stayed where they could be undone. The version real users see did not move until there was more to go on."
+  evidence="observed"
+  source="In practice: RelievApp, Part I, 18 November 2026"
+/>

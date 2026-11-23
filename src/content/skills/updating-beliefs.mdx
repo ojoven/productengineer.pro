@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Why you think you're right, even if you're wrong (Julia Galef, TED)"
+    url: https://www.ted.com/talks/julia_galef_why_you_think_you_re_right_even_if_you_re_wrong
+  - title: "Predicting the future with Bayes' theorem (Farnam Street)"
+    url: https://fs.blog/bayes-theorem/
+---
+
+## Why it matters for a product engineer
+
+Every product starts from beliefs about users, markets and what will work. Some of them will be wrong.
+The question is how fast you notice, and whether you change course or defend the plan. Julia Galef
+calls the useful attitude the scout mindset: wanting to see things as they are, not as you hoped.
+Product engineers see real usage early, so they are often the first people able to say "we were
+wrong about this".
+
+## How to do it
+
+1. Write down what you believe before a launch or a test, and how sure you are.
+2. Say in advance what result would change your mind.
+3. When the result comes, compare it with what you wrote, not with what you remember.
+4. Change the belief in proportion to the evidence: a strong signal moves it more than a weak one.
+5. Keep a log of changes and their reasons, so others can follow them.
+
+## Common mistakes
+
+- Explaining away every result that does not fit.
+- Changing your mind after every anecdote, so nothing is ever settled.
+- Treating a change of mind as a loss of face.
+- Updating on opinions, including your own, as if they were evidence.
+
+## Example
+
+RelievApp, the author's own product, changed its category several times in five weeks. It launched on
+14 October with a category of its own, "transitions", but nobody searches for that. On 16 November an
+agent's audit found four promises at once, and the product became "a meditation app with
+superpowers". Two days later it became "your personal emotional regulator". Each change had a written
+reason. With no real users yet, most of them were updates of opinion, not of evidence.
+([RelievApp](/in-practice/relievapp-part-1/))
+
+<Timeline
+  title="How RelievApp's category changed, autumn 2026"
+  events={[
+    { when: '14 Oct', title: 'Launch: "transitions"', note: 'Its own category, but nobody searches for it', kind: 'ship' },
+    { when: '15 Nov', title: 'A front door per channel', note: 'TikTok, Reels and the old page' },
+    { when: '16 Nov', title: 'Audit: 5 out of 10', note: 'Four promises at once', kind: 'problem' },
+    { when: '16 Nov', title: 'A meditation app with superpowers', note: 'Compared with Calm and Headspace', kind: 'decision' },
+    { when: '18 Nov', title: 'Your personal emotional regulator', note: 'A broad catalog; usage will decide', kind: 'decision' },
+  ]}
+  caption="Each change came with a reason. The next update has to come from real usage, not from another opinion."
+  evidence="observed"
+  source="In practice: RelievApp, Part I, 18 November 2026"
+/>
