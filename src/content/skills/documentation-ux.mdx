@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Diátaxis (Daniele Procida)
+    url: https://diataxis.fr/
+  - title: The compass (Diátaxis)
+    url: https://diataxis.fr/compass/
+  - title: Help and documentation, usability heuristic 10 (NN/g)
+    url: https://www.nngroup.com/articles/help-and-documentation/
+  - title: Django documentation (Django Software Foundation)
+    url: https://docs.djangoproject.com/en/stable/
+---
+
+## Why it matters for a product engineer
+
+Documentation is part of the product. People open it when they are stuck or about to build
+something, so it shapes whether they continue. For developer products it is often the most visited
+part of the product. It needs structure, search, examples and maintenance, the same as the code it
+describes.
+
+## How to do it
+
+1. Separate four kinds of pages: tutorials to learn, how-to guides for a task, reference for facts,
+   and explanation for understanding. Do not mix them on one page.
+2. For each page, ask two questions: does it help the reader act or understand, and is the reader
+   studying or working?
+3. Start every how-to guide with the goal and list concrete steps. Put background in a link to an
+   explanation page.
+4. Make reference complete and consistent. Generate it from the code where you can.
+5. Add search, and read what people search for and do not find.
+6. Update the docs in the same change as the feature, and test the examples.
+
+## Common mistakes
+
+- A tutorial that stops to explain every option, so the reader never finishes it.
+- Reference pages with only obvious information, written by someone who already knows the answer.
+- Help pushed at people when they start, before they have a problem.
+- Examples that no longer run after a release.
+
+## Example
+
+Django's documentation tells readers how it is organised before anything else. Tutorials "take you by
+the hand" to build a web application. Topic guides discuss key concepts and give background. Reference
+guides describe the APIs and assume the concepts are known. How-to guides are recipes for key
+problems. A reader can choose the right page by the need they have now.
+
+<Matrix
+  title="Django's documentation on the Diátaxis compass"
+  x={{ label: 'The reader is', low: 'Studying', high: 'Working' }}
+  y={{ label: 'The page gives', low: 'Knowledge', high: 'Action' }}
+  quadrants={['Tutorials', 'How-to guides', 'Explanation', 'Reference']}
+  items={[
+    { label: 'Tutorials', x: 0.22, y: 0.78, note: 'Build a web app step by step' },
+    { label: 'How-to guides', x: 0.78, y: 0.78, note: 'Recipes for key problems' },
+    { label: 'Topic guides', x: 0.22, y: 0.22, pick: true, note: 'Concepts and background' },
+    { label: 'Reference guides', x: 0.78, y: 0.22, note: 'APIs, for people who know the concepts' },
+  ]}
+  caption="Each of Django's four kinds of pages answers one need. Only the explanation pages have a different name: topic guides."
+  evidence="reported"
+  source="Diátaxis compass and the Django documentation home page"
+/>

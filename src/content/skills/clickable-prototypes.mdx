@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'UX prototypes: low fidelity vs. high fidelity (NN/g)'
+    url: https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/
+  - title: Making prototypes (GOV.UK Service Manual)
+    url: https://www.gov.uk/service-manual/design/making-prototypes
+  - title: GOV.UK Prototype Kit
+    url: https://prototype-kit.service.gov.uk/
+---
+
+## Why it matters for a product engineer
+
+A clickable prototype simulates a flow well enough to test it, without real logic. It answers whether
+people understand the flow before anyone writes production code. For engineers, it is also a cheap
+way to settle a debate: put both versions in front of five people and watch.
+
+## How to do it
+
+1. Write the question the prototype must answer, such as "Do people find the export option?".
+2. Choose fidelity for that question on three separate scales: interactivity, visuals and content.
+3. Make only the paths the test needs clickable, and use real content where people read it.
+4. Test with a few real users and a task, and watch what they do, not what they say.
+5. Change the prototype between sessions when a problem is clear.
+6. Keep it apart from production code, so it stays quick to change and nobody ships it by accident.
+
+## Common mistakes
+
+- A prototype so polished that the team cannot bear to throw it away.
+- Fake content, such as lorem ipsum, where the test depends on reading.
+- Testing a prototype that only covers the happy path, then trusting the result for every path.
+- Asking "Do you like it?" instead of giving a task.
+
+## Example
+
+GOV.UK requires service teams to make prototypes in the alpha phase, to explore and test different
+designs before they commit to building anything. Teams across government use the GOV.UK Prototype Kit,
+which makes realistic, interactive prototypes from the same components as the real services. The
+guidance is to make several, test them, and discard the ones that do not test well.
+
+<Compare
+  title="What high and low fidelity mean, in three separate areas"
+  subjects={['High fidelity', 'Low fidelity']}
+  rows={[
+    { label: 'Interactivity', values: ['Links work by themselves', 'A person plays “the computer” and swaps screens'] },
+    { label: 'Visuals', values: ['Layout and spacing like the live system', 'A sketch or a wireframe'] },
+    { label: 'Content', values: ['All the real content', 'A summary, or stand-ins for images'] },
+  ]}
+  caption="A prototype can be high in one area and low in another. Choose each one for what the test needs to learn."
+  evidence="reported"
+  source="NN/g, UX prototypes: low fidelity vs. high fidelity"
+/>

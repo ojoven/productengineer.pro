@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Accessibility tooling and assistive technology (MDN Web Docs)
+    url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/Tooling
+  - title: The WebAIM Million, 2026 report (WebAIM)
+    url: https://webaim.org/projects/million/
+---
+
+## Why it matters for a product engineer
+
+Screen readers, magnifiers and voice control read and operate the interface for the people who use
+them. Automated checkers find only part of the problems. Ten minutes with a screen reader shows things
+no checklist catches: an unnamed button, a confusing order, an update nobody announces. Engineers can
+do this basic pass themselves.
+
+## How to do it
+
+1. Learn one screen reader on a device you have. VoiceOver is built into Macs and iPhones; NVDA is
+   free on Windows; TalkBack is built into Android.
+2. Learn a few commands: move to the next item, next heading, next link and next form field.
+3. Do a key task with the screen off or your eyes closed: sign up, search, buy.
+4. Listen for what is missing: names on buttons and fields, headings, the result of an action.
+5. Try zoom at 200% and the operating system's text size settings.
+6. Run an automated checker too, but treat it as the start, not the proof.
+
+## Common mistakes
+
+- Testing only with automated tools.
+- Testing with a screen reader only once, at the end of a project.
+- Fixing what the checker reports and calling the page accessible.
+- Dynamic updates, such as "Saved" or an error, that a screen reader never announces.
+
+## Example
+
+WebAIM's 2026 scan found that a third of form inputs on the top million home pages had no proper label.
+An automated checker can catch a missing label. It cannot tell you that the label is "Field 1", or that
+the error appears where nobody hears it. That takes a person with a screen reader.
+
+<Compare
+  title="Screen readers you can test with"
+  subjects={['Platform', 'How you get it']}
+  rows={[
+    { label: 'VoiceOver', values: ['macOS, iOS and iPadOS', 'Built in, free'] },
+    { label: 'NVDA', values: ['Windows', 'Free, to install'] },
+    { label: 'TalkBack', values: ['Android', 'Built in, free'] },
+    { label: 'JAWS', values: ['Windows', 'Paid'] },
+    { label: 'Orca', values: ['Linux', 'Free'] },
+  ]}
+  caption="Every engineer has a free screen reader within reach. The cost of a first test is ten minutes."
+  evidence="reported"
+  source="MDN Web Docs, Accessibility tooling and assistive technology"
+/>

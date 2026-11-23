@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Describing interactions with the UI (Microsoft Style Guide)
+    url: https://learn.microsoft.com/en-us/style-guide/procedures-instructions/describing-interactions-with-ui
+  - title: Writing for user interfaces (GOV.UK Service Manual)
+    url: https://www.gov.uk/service-manual/design/writing-for-user-interfaces
+---
+
+## Why it matters for a product engineer
+
+Instructions explain how to do something at the moment it is needed. The best interface needs few of
+them, but complex tasks always need some: a setup step, an import, an API key. Instructions that
+people skip, or that need their own explanation, show where the design needs work. That is a signal
+for the engineer, not only for the writer.
+
+## How to do it
+
+1. First try to remove the need: a better default, a clearer control, one less step.
+2. Put the instruction next to the control it is about, at the moment it is needed.
+3. Write it as numbered steps, one action per step, in the order people do them.
+4. Start each step with the verb and name the control as it appears on the screen.
+5. Use verbs that work with any input: mouse, keyboard, touch or voice.
+6. Watch people follow it. Where they stop, change the interface or the step.
+
+## Common mistakes
+
+- A long text before the task, which people skip.
+- Verbs for one input only, such as "click" or "swipe".
+- Directions by colour or position: "the button on the right".
+- Instructions that no longer match the interface after a release.
+
+## Example
+
+An agent's audit of RelievApp found that its visual language had to be studied before the first
+session. A guide taught it in order: you, your thoughts, your edge, colour, a meaning for each scene,
+then a legend. On "This is your edge", the guide pointed at a line that was hard to see in the minimal
+look. The audit's point: the body needs none of this. A scene where you tap where it hurts needs no
+lesson. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="Verbs for any input"
+  subjects={['Instead of', 'Write']}
+  rows={[
+    { label: 'Buttons and links', values: ['Click Save', 'Select Save'] },
+    { label: 'Text fields', values: ['Type a name', 'Enter a name'] },
+    { label: 'Checkboxes', values: ['Uncheck Header row', 'Clear Header row'] },
+    { label: 'Press and hold', values: ['Right-click the taskbar', 'Select and hold (or right-click) the taskbar'] },
+  ]}
+  caption="Microsoft's style guide replaces input-specific verbs, so one instruction works for mouse, keyboard, touch and voice."
+  evidence="reported"
+  source="Microsoft Style Guide, Describing interactions with the UI"
+/>

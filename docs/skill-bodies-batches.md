@@ -495,17 +495,17 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 22 · Experience · 11 skills
 
-- [ ] `03.4.1` [Sketching](https://productengineer.pro/skills-map/experience/prototyping/sketching/) · `sketching` · 1 resource
-- [ ] `03.4.3` [Clickable prototypes](https://productengineer.pro/skills-map/experience/prototyping/clickable-prototypes/) · `clickable-prototypes` · 1 resource
-- [ ] `03.5.1` [Inclusive design](https://productengineer.pro/skills-map/experience/accessibility/inclusive-design/) · `inclusive-design` · 1 resource
-- [ ] `03.5.2` [Keyboard interaction](https://productengineer.pro/skills-map/experience/accessibility/keyboard-interaction/) · `keyboard-interaction` · 1 resource
-- [ ] `03.5.3` [Semantic markup](https://productengineer.pro/skills-map/experience/accessibility/semantic-markup/) · `semantic-markup` · map coverage
-- [ ] `03.5.4` [Assistive technology support](https://productengineer.pro/skills-map/experience/accessibility/assistive-technology/) · `assistive-technology` · 1 resource
-- [ ] `03.6.1` [Microcopy](https://productengineer.pro/skills-map/experience/content-design/microcopy/) · `microcopy` · map coverage
-- [ ] `03.6.2` [Instructions](https://productengineer.pro/skills-map/experience/content-design/instructional-copy/) · `instructional-copy` · 1 resource
-- [ ] `03.6.3` [Terminology](https://productengineer.pro/skills-map/experience/content-design/product-terminology/) · `product-terminology` · map coverage
-- [ ] `03.6.5` [Documentation UX](https://productengineer.pro/skills-map/experience/content-design/documentation-ux/) · `documentation-ux` · map coverage
-- [ ] `03.6.6` [Localization](https://productengineer.pro/skills-map/experience/content-design/localization/) · `localization` · 1 resource
+- [x] `03.4.1` [Sketching](https://productengineer.pro/skills-map/experience/prototyping/sketching/) · `sketching` · 1 resource
+- [x] `03.4.3` [Clickable prototypes](https://productengineer.pro/skills-map/experience/prototyping/clickable-prototypes/) · `clickable-prototypes` · 1 resource
+- [x] `03.5.1` [Inclusive design](https://productengineer.pro/skills-map/experience/accessibility/inclusive-design/) · `inclusive-design` · 1 resource
+- [x] `03.5.2` [Keyboard interaction](https://productengineer.pro/skills-map/experience/accessibility/keyboard-interaction/) · `keyboard-interaction` · 1 resource
+- [x] `03.5.3` [Semantic markup](https://productengineer.pro/skills-map/experience/accessibility/semantic-markup/) · `semantic-markup` · map coverage
+- [x] `03.5.4` [Assistive technology support](https://productengineer.pro/skills-map/experience/accessibility/assistive-technology/) · `assistive-technology` · 1 resource
+- [x] `03.6.1` [Microcopy](https://productengineer.pro/skills-map/experience/content-design/microcopy/) · `microcopy` · map coverage
+- [x] `03.6.2` [Instructions](https://productengineer.pro/skills-map/experience/content-design/instructional-copy/) · `instructional-copy` · 1 resource
+- [x] `03.6.3` [Terminology](https://productengineer.pro/skills-map/experience/content-design/product-terminology/) · `product-terminology` · map coverage
+- [x] `03.6.5` [Documentation UX](https://productengineer.pro/skills-map/experience/content-design/documentation-ux/) · `documentation-ux` · map coverage
+- [x] `03.6.6` [Localization](https://productengineer.pro/skills-map/experience/content-design/localization/) · `localization` · 1 resource
 
 ### Batch 23 · Experience · 6 skills
 

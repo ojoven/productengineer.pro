@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Internationalization (web.dev, Google)
+    url: https://web.dev/learn/design/internationalization
+---
+
+## Why it matters for a product engineer
+
+Localization adapts a product to another language and region: the words, the formats for dates and
+money, the length of text and what people expect. Most of the work is engineering that must exist
+before the first translation: strings outside the code, layouts that grow, and the language marked in
+the HTML. Adding these later is expensive.
+
+## How to do it
+
+1. Keep every user-facing string in a dictionary per language from the first release, never in the
+   components.
+2. Mark the language with `lang` on the `html` element, and link translations with `hreflang`.
+3. Use logical CSS properties, such as `margin-inline-start`, so the layout works in any direction.
+4. Format dates, numbers and prices with the platform's locale tools, not by hand.
+5. Leave room for longer text. German words are long, and accents need line height. Never put text
+   inside images.
+6. Write each language natively for its market, and have a native speaker review it in the product.
+
+## Common mistakes
+
+- Concatenated strings, such as "You have " + n + " items", that do not work in other grammars.
+- Fixed-width buttons that cut off translated labels.
+- A word-for-word translation that sounds wrong to a native speaker.
+- Reviewing only the source language before release.
+
+## Example
+
+RelievApp's first market is Spain. The briefs for two new versions asked for Spanish copy written
+natively, with informal "tú", not a word-for-word translation of English lines such as "pop your
+stress." Each version stores its copy as an overlay per language. An agent's first audit did not
+review the Spanish copy at all. A second pass did, and noted: "Spanish reads naturally."
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="Physical and logical CSS properties"
+  subjects={['margin-left', 'margin-inline-start']}
+  rows={[
+    { label: 'In English', values: ['Left side', 'Left side'] },
+    { label: 'In Arabic or Hebrew', values: ['Still the left side', 'Right side'] },
+    { label: 'In vertical Japanese', values: ['Still the left side', 'Top'] },
+    { label: 'Stylesheets needed', values: ['One per direction', 'One for all'] },
+  ]}
+  highlight={1}
+  caption="A logical property follows the flow of the text. The same stylesheet then works for translations in any writing direction."
+  evidence="reported"
+  source="web.dev, Internationalization"
+/>

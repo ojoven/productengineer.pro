@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Writing and editing: plain language (Office for National Statistics)'
+    url: https://service-manual.ons.gov.uk/content/writing-for-users/plain-language
+  - title: Ubiquitous language (Martin Fowler)
+    url: https://martinfowler.com/bliki/UbiquitousLanguage.html
+---
+
+## Why it matters for a product engineer
+
+If the same thing has two names, or two things share one name, users get confused quickly. Names also
+live in URLs, APIs, data models and analytics events, so engineers choose many of them and pay for
+every change. A short glossary keeps the interface, the documentation, support and the code aligned.
+
+## How to do it
+
+1. List the nouns in the product: objects, sections, states and roles.
+2. Choose one name for each concept, from the words your users use, and write it in a glossary with a
+   one-line definition.
+3. Check that no two concepts share a name, and that no concept has two.
+4. Use the same names in the interface, the docs, support replies and, where you can, in the code.
+5. When a name changes, plan the whole change: copy, URLs with redirects, metadata, API and docs.
+   Record any old name that stays in the code.
+6. Review new copy against the glossary, the same way you review code.
+
+## Common mistakes
+
+- Synonyms for variety. In a product, a new word suggests a new thing.
+- Internal or engine names that reach the interface.
+- Renaming a section in the interface but not in the URL, emails or help pages.
+- A glossary that nobody updates after a release.
+
+## Example
+
+On 15 November 2026 this site renamed two sections: "Atlas" became "Skills Map" and "Fieldwork" became
+"In practice". The change touched the pages, metadata, social images, documentation and the MCP server.
+The next day the URLs moved too, and old links get a permanent redirect. The content folders kept the
+old names, so the editorial guide says which folder holds which section.
+
+<Compare
+  title="Two section names on this site, before and after"
+  subjects={['Skills Map', 'In practice']}
+  rows={[
+    { label: 'Old name', values: ['Atlas', 'Fieldwork'] },
+    { label: 'URL now', values: ['/skills-map/', '/in-practice/'] },
+    { label: 'Old URLs', values: ['Permanent redirect', 'Permanent redirect'] },
+    { label: 'Name in the code', values: ['atlas', 'fieldwork'] },
+  ]}
+  caption="A rename is a product change, not a text edit. The old names that stay in the code are written down, so they do not reach users again."
+  evidence="observed"
+  source="productengineer.pro commit history, 15 and 16 Nov 2026"
+/>

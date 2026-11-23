@@ -1,0 +1,49 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Design and user experience (web.dev)
+    url: https://web.dev/learn/accessibility/design-ux
+---
+
+## Why it matters for a product engineer
+
+Inclusive design considers the whole range of human ability and situation: a permanent disability, a
+broken arm, a phone in bright sunlight. It treats accessibility as an input to design from the start,
+not a fix at the end. Fixes at the end cost the most, and engineers are the ones who make them.
+
+## How to do it
+
+1. Include disability in your personas from the start: as separate personas, inside existing ones, or
+   as a spectrum of permanent, temporary and situational limits.
+2. Design for one specific person or case, then extend the solution to others.
+3. Recruit disabled people for research and usability tests. Personas never replace testing.
+4. Check every design for the basics before it reaches code: colour contrast, text size, target size,
+   focus states and plain language.
+5. Design every state of an action: default, focus, hover, active and disabled.
+6. Write down the accessibility decisions next to the design, so the engineer builds them in.
+
+## Common mistakes
+
+- An accessibility review only at the end, when changes are expensive.
+- Personas based on stereotypes or on real, identifiable people.
+- Designing for "the average user", who does not exist.
+- Treating accessibility as a separate project instead of part of every feature.
+
+## Example
+
+WebAIM tests the home pages of the top million websites every year. In 2026 the share with detectable
+WCAG failures rose to 95.9%, ending six years of small improvements. Pages also grew, by 14.3% more
+elements in one year. Accessibility checked at the end does not keep up with that growth; the most
+common failure, low-contrast text, is decided in design.
+
+<StatRow
+  title="The top million home pages, 2025 to 2026"
+  stats={[
+    { value: 94.8, unit: '%', label: 'With detectable failures, 2025' },
+    { value: 95.9, unit: '%', label: 'With detectable failures, 2026', signal: true },
+    { value: 56.1, label: 'Errors per page in 2026', note: 'Up 10.1% in a year' },
+  ]}
+  caption="After six years of slow progress, the numbers went the wrong way. Fixing pages one by one at the end is not enough."
+  evidence="measured"
+  source="WebAIM, The WebAIM Million, 2026 report"
+/>

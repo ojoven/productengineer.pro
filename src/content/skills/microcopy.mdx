@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Writing for user interfaces (GOV.UK Service Manual)
+    url: https://www.gov.uk/service-manual/design/writing-for-user-interfaces
+  - title: An error messages scoring rubric (NN/g)
+    url: https://www.nngroup.com/articles/error-messages-scoring-rubric/
+  - title: The $300 million button (Jared Spool, Center Centre)
+    url: https://articles.centercentre.com/three_hund_million_button/
+---
+
+## Why it matters for a product engineer
+
+Microcopy is the text people read while they do something: a button label, a hint, an error. Engineers
+write much of it, often as a placeholder that ships. People scan this text in a second and act on it,
+so one word can change what they do. It is also cheap to change and easy to test.
+
+## How to do it
+
+1. Name the action on the button with a verb and its object: "Save draft", not "OK".
+2. Put the important words first and remove the rest. "Total cost", not "This is the total cost".
+3. Use the words your users use, the same word for the same thing on every screen.
+4. In errors, say what happened and how to fix it. Keep "sorry" for serious failures.
+5. Add help text only when research shows people need it. If the interface needs an explanation, fix
+   the interface.
+6. Read every string in place, at phone width, before release.
+
+## Common mistakes
+
+- Placeholder text, such as "Submit" or "Error 500", that nobody replaces.
+- Jokes in error messages. People often meet errors when they are stressed.
+- Instructions that rely on colour or position: "click the green button".
+- Link text such as "click here", which means nothing when a screen reader lists the links.
+
+## Example
+
+On a large online shop, the checkout started with a login form: two fields and the buttons "Login" and
+"Register". In usability tests, first-time buyers resented registering. The team replaced "Register"
+with "Continue" and one sentence: you do not need an account to buy. Jared Spool reports that the
+number of customers who bought went up by 45%, with $300 million more revenue in the first year.
+
+<Compare
+  title="GOV.UK's rules for interface text"
+  subjects={['Instead of', 'Write']}
+  rows={[
+    { label: 'Help text', values: ['This is the total cost', 'Total cost'] },
+    { label: 'Error message', values: ['You have entered the wrong password', 'Wrong password'] },
+    { label: 'Button', values: ['Apply now', 'Apply'] },
+    { label: 'Confirmation', values: ['Thank you for your application', 'Application complete'] },
+  ]}
+  highlight={1}
+  caption="Every change removes words that do not help the user act. GOV.UK keeps 'now' only when 'later' is also an option."
+  evidence="reported"
+  source="GOV.UK Service Manual, Writing for user interfaces"
+/>

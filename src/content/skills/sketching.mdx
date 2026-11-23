@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'UX prototypes: low fidelity vs. high fidelity (NN/g)'
+    url: https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/
+  - title: Making prototypes (GOV.UK Service Manual)
+    url: https://www.gov.uk/service-manual/design/making-prototypes
+  - title: Making sense of MVP (Henrik Kniberg)
+    url: https://blog.crisp.se/2016/01/25/henrikkniberg/making-sense-of-mvp
+---
+
+## Why it matters for a product engineer
+
+Sketching is the fastest way to explore layouts and flows. Its value is in quantity: several rough
+ideas beat one polished idea, because you compare instead of defending. Engineers who sketch before
+they code often find a simpler solution, and they throw away paper, not a branch.
+
+## How to do it
+
+1. Set a short time, such as ten minutes, and draw several different answers to one question.
+2. Keep them rough: boxes, arrows and real words for the important labels. No colour, no pixels.
+3. Make the ideas really different, not small variations of the first one.
+4. Put them side by side and compare them against the user's task, not against taste.
+5. Show the best two or three to someone else, or to a user, and watch where they get confused.
+6. Only then move to a wireframe or code.
+
+## Common mistakes
+
+- One sketch, polished until it feels like a decision.
+- Sketches so detailed that people comment on colours instead of the flow.
+- Drawing only screens, and forgetting the steps between them.
+- Skipping sketching because "coding is faster". For one idea, perhaps; for ten, it is not.
+
+## Example
+
+When Lego explored the Nexo Knights theme, designers made paper prototypes and showed them to small
+children. The children's first reaction: "Hey, who are the bad guys? I can't see who's good and who's
+bad!" The designers kept changing and testing the designs until children could tell.
+
+<Compare
+  title="A sketch and a code prototype, as GOV.UK uses them"
+  subjects={['Sketch', 'Code prototype']}
+  rows={[
+    { label: 'Best for', values: ['Exploring basic ideas with colleagues', 'Research with users'] },
+    { label: 'Looks like', values: ['Pen and paper', 'Almost exactly the real thing, on phone and desktop'] },
+    { label: 'Cost to throw away', values: ['Nothing', 'Some work'] },
+  ]}
+  caption="Use the cheapest form that answers the question. Sketches are for choosing between ideas; code prototypes are for testing one with users."
+  evidence="reported"
+  source="GOV.UK Service Manual, Making prototypes"
+/>

@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'HTML: a good basis for accessibility (MDN Web Docs)'
+    url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/HTML
+  - title: WAI-ARIA basics (MDN Web Docs)
+    url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/WAI-ARIA_basics
+  - title: The WebAIM Million, 2026 report (WebAIM)
+    url: https://webaim.org/projects/million/
+---
+
+## Why it matters for a product engineer
+
+Semantic HTML uses the element that means what you want: a `button`, a heading, a `label`, a `nav`.
+Assistive technology reads that structure, search engines read it, and so does the next engineer.
+The right element does most of the accessibility work for free. ARIA exists for the gaps, not to
+replace the right element.
+
+## How to do it
+
+1. Use headings in order, `h1` to `h3`, to show the structure of the page, not to make text large.
+2. Use landmarks: `header`, `nav`, `main` and `footer`, so people can jump between regions.
+3. Give every form field a `label` connected to it.
+4. Use `button` for actions and `a href` for navigation, never a `div` for either.
+5. Use lists for lists and tables for tabular data.
+6. Add ARIA only when no HTML element does the job, and test the result with a screen reader.
+
+## Common mistakes
+
+- `div` and `span` for everything, with ARIA roles added on top.
+- Headings chosen for their size, so the outline makes no sense.
+- Placeholder text instead of a label.
+- `aria-hidden="true"` on content that people need.
+
+## Example
+
+WebAIM's 2026 scan of the top million home pages found 133 ARIA attributes per page on average, more than
+six times as many as in 2019. Pages with ARIA had more accessibility errors than pages without it. WebAIM is
+careful: those pages were also more complex, so ARIA is not proven to cause the errors. But more ARIA
+did not mean more accessible.
+
+<StatRow
+  title="ARIA and errors on the top million home pages, 2026"
+  stats={[
+    { value: 133, label: 'ARIA attributes per page', note: 'More than six times 2019' },
+    { value: 59.1, label: 'Errors per page with ARIA', signal: true },
+    { value: 42, label: 'Errors per page without ARIA' },
+  ]}
+  caption="ARIA is meant to help, yet pages that use it had about 17 more barriers on average. The right HTML element comes first."
+  evidence="measured"
+  source="WebAIM, The WebAIM Million, 2026 report"
+/>

@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Keyboard accessible (MDN Web Docs)
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/Guides/Understanding_WCAG/Keyboard
+  - title: The WebAIM Million, 2026 report (WebAIM)
+    url: https://webaim.org/projects/million/
+---
+
+## Why it matters for a product engineer
+
+Many people use a keyboard instead of a mouse: screen reader users, people who cannot use a pointing
+device, people whose mouse just stopped working, and people who are simply faster with keys. A page is
+only accessible if everything works from the keyboard. Keyboard failures are common, and they are among
+the easiest to test: put the mouse away and try.
+
+## How to do it
+
+1. Use native elements: a `button` for actions, an `a` with `href` for navigation. They are focusable
+   and work with Enter and Space by default.
+2. Keep the focus order logical by keeping the HTML in a logical order. Do not reorder it with a
+   positive `tabindex`.
+3. Show focus clearly on every interactive element. Never remove the outline without a better one.
+4. If you must build a custom control, make it focusable with `tabindex="0"` and handle the keys people
+   expect, the same way you handle clicks.
+5. In dialogs and menus, move focus in when they open, keep it there, close with Escape, and return
+   focus to where it was.
+6. Test every new flow with the keyboard only, before release.
+
+## Common mistakes
+
+- A `div` with a click handler and nothing else.
+- Focus outlines removed for looks.
+- Keyboard traps, such as a widget that focus enters but cannot leave.
+- Actions that appear only on hover.
+
+## Example
+
+WebAIM's 2026 scan found 4.8 elements with `role="button"` per home page, up from 3.6 a year before.
+Each one is a control that was not built as a `button`. To work from the keyboard, each needs focus,
+Enter and Space handling and a visible focus style: the things a native `button` has for free.
+
+<Compare
+  title="What tabindex does, and when to use it"
+  subjects={['What it does', 'When to use it']}
+  rows={[
+    { label: 'No tabindex on a native control', values: ['Focusable in the order of the page', 'Almost always'] },
+    { label: 'tabindex="0"', values: ['Adds an element to the normal order', 'A custom control that also handles keys'] },
+    { label: 'tabindex above 0', values: ['Jumps ahead of everything else', 'Avoid: the order stops matching the page'] },
+  ]}
+  caption="Most keyboard problems disappear when the HTML is in a logical order and uses native controls."
+  evidence="reported"
+  source="MDN Web Docs, Keyboard accessible"
+/>
