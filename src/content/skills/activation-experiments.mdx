@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Add a link: experiment analysis, December 2021 (Wikimedia Growth team)'
+    url: https://www.mediawiki.org/wiki/Growth/Personalized_first_day/Structured_tasks/Add_a_link/Experiment_analysis,_December_2021
+  - title: How not to run an A/B test (Evan Miller)
+    url: https://www.evanmiller.org/how-not-to-run-an-ab-test.html
+---
+
+## Why it matters for a product engineer
+
+Activation experiments test changes to the first experience: a shorter signup, a different first
+task, new guidance. Every day brings new users who have not seen the old version, which makes these
+tests easier to run than most. The hard part is the metric: it must predict retention, not only count
+people who finished the onboarding flow.
+
+## How to do it
+
+1. Define activation as an action with value, within a fixed window after signup.
+2. Add a quality condition when you can, so that low-value actions do not count.
+3. Randomize new users only, at signup, and keep a control group with the current experience.
+4. Decide the sample size and duration before the test, and do not stop early when the result looks
+   good.
+5. Read activation, then retention for the same users, and a quality guardrail.
+
+## Common mistakes
+
+- Counting completion of the onboarding flow as activation.
+- Mixing existing users into a test about the first experience.
+- Stopping the test on the first significant day.
+- Ignoring the quality of what new users do.
+
+## Example
+
+Wikipedia's Growth team tested "Add a link", a task that suggests links for newcomers to add. On ten
+Wikipedias, 130,179 new accounts were split at random: 20% got the usual experience, 40% got Add a
+link, and 40% got an older task without suggestions. The metric was constructive activation: a first
+edit within 24 hours that is not reverted within 48 hours. Add a link raised it by 16.6% over the
+control. Retention rose too, and the share of reverted edits fell.
+
+<Bars
+  title="Newcomers with a first edit that was not reverted, by group"
+  unit="%"
+  digits={1}
+  items={[
+    { label: 'Control, usual experience', value: 20.7 },
+    { label: 'Task without suggestions', value: 22.0 },
+    { label: 'Add a link', value: 24.2, highlight: true },
+  ]}
+  caption="The metric counted only edits that stayed, so a task that produced more low-quality edits could not win."
+  evidence="reported"
+  source="Wikimedia Growth team, experiment analysis, Dec 2021"
+/>

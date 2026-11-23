@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The Duolingo streak uses habit research to keep you motivated (Duolingo)
+    url: https://blog.duolingo.com/how-duolingo-streak-builds-habit/
+  - title: The retention lifecycle framework (Amplitude)
+    url: https://amplitude.com/books/mastering-retention/the-retention-lifecycle-framework
+---
+
+## Why it matters for a product engineer
+
+People stop noticing value they receive every day. Showing progress, time saved or results reached
+helps them see what the product already does for them. It works when the value is real, and it fails
+when the numbers are inflated. A product engineer owns the data behind these summaries, so they can
+make sure the numbers are true.
+
+## How to do it
+
+1. Choose one number that reflects real value for the user: progress, time saved, results.
+2. Show it at a natural moment, such as the end of a task, a week or a milestone.
+3. Make early progress visible. Small numbers grow fast, and that motivates.
+4. Compute it from real events, and say how it was calculated if it is not obvious.
+5. Test it: compare retention for users who see it with users who do not.
+
+## Common mistakes
+
+- Vanity numbers, such as "you opened the app 40 times".
+- Inflated estimates of time or money saved.
+- The same summary for every user, whatever they did.
+- Celebrating so often that it means nothing.
+
+## Example
+
+Duolingo shows a learner's streak, the number of days in a row they have practised. Its team notes
+that early days feel the biggest: going from 2 to 3 days is a 50% increase, while going from 200 to
+201 is 0.5%. So the screen after a lesson celebrates the streak, with special animations on some
+milestone days. Seeing those animations made a brand-new learner 1.7% more likely to still use
+Duolingo 7 days later.
+
+<StatRow
+  title="Why Duolingo celebrates early streak days"
+  stats={[
+    { value: 50, unit: '%', label: 'Longer, from day 2 to day 3' },
+    { value: 0.5, unit: '%', label: 'Longer, from day 200 to day 201' },
+    { value: '+1.7', unit: '%', label: 'New learners still active after 7 days', signal: true },
+  ]}
+  caption="Progress feels largest at the start, so that is where showing it matters most. The streak counts real practice."
+  evidence="reported"
+  source="Duolingo blog, 'The Duolingo streak uses habit research'"
+/>

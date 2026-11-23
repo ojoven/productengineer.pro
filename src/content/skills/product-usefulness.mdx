@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How machine learning helps Instagram improve notification management (Meta Engineering)
+    url: https://engineering.fb.com/2022/10/31/ml-applications/instagram-notification-management-machine-learning/
+  - title: 'What is good retention: an exhaustive benchmark study (Casey Winters, with Lenny Rachitsky)'
+    url: https://www.caseyaccidental.com/p/what-is-good-retention-an-exhaustive-benchmark-study-with-lenny-rachitsky
+  - title: The power user curve (Andreessen Horowitz)
+    url: https://a16z.com/the-power-user-curve-the-best-way-to-understand-your-most-engaged-users/
+---
+
+## Why it matters for a product engineer
+
+People keep using a product because it solves their problem, again and again. Usefulness is the
+foundation of retention. Reminders, streaks and rewards can bring people back to value, but they
+cannot create it. Casey Winters lists three ways to raise retention, and the first is to make the
+product more valuable. For a product engineer, that means work on the job itself: speed, reliability,
+and fewer steps for the task people repeat.
+
+## How to do it
+
+1. Name the job people hire the product for, and how often that job naturally happens.
+2. Measure how many days a month people use the product, not only how many use it.
+3. Talk to people who stayed and people who left about the job, not about features.
+4. Improve the repeated task: make it faster, more reliable, or able to save work for next time.
+5. Remove a reminder in a test, and see who comes back anyway.
+
+## Common mistakes
+
+- Treating notifications as a retention strategy.
+- Comparing retention with products that have a different natural frequency.
+- Adding features for new users while the core task stays slow.
+- Reading high usage among power users as proof for everyone.
+
+## Example
+
+Instagram sent daily digest notifications about stories, chosen by a model that predicted clicks. The
+team saw that many went to very active users, who would see those stories anyway. So they built a
+model of the notification's added effect, and stopped sending to people who would come back without
+it. They sent substantially fewer notifications, and saw no fall in engagement.
+
+<Compare
+  title="Instagram's daily story digest, before and after"
+  subjects={['Model of clicks', 'Model of added effect']}
+  highlight={1}
+  rows={[
+    { label: 'Chooses people who', values: ['Are likely to click', 'Would not come anyway'] },
+    { label: 'Digests sent', values: ['Many, often to active users', 'Substantially fewer'] },
+    { label: 'Engagement', values: ['Baseline', 'No decline'] },
+  ]}
+  caption="Active users came for the stories, not for the reminder. The product's value was already bringing them back."
+  evidence="reported"
+  source="Meta Engineering, 31 Oct 2022"
+/>

@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Vodafone: a 31% improvement in LCP increased sales by 8% (web.dev)'
+    url: https://web.dev/case-studies/vodafone
+  - title: The most effective ways to improve Core Web Vitals (web.dev)
+    url: https://web.dev/articles/top-cwv
+---
+
+## Why it matters for a product engineer
+
+Many activation problems are technical: slow pages, flows that break in one browser, emails that
+never arrive, error messages nobody understands. A design review does not show them, but error logs
+and real-user data do. Product engineers can see both the friction and the cause, so they are the
+right people to find and fix it.
+
+## How to do it
+
+1. Measure performance on real users' devices, not only in the lab, and send it to your analytics
+   with the funnel events.
+2. Split activation by browser, device, connection and country, and look for the outliers.
+3. Track client errors, failed requests and undelivered emails in the first session.
+4. Fix the biggest causes first. For slow pages, the usual ones are render-blocking JavaScript,
+   large images and work done in the browser that the server could do.
+5. Prove the effect with an A/B test where the only difference is speed or reliability.
+
+## Common mistakes
+
+- Testing only on fast laptops and office Wi-Fi.
+- Error messages that say "Something went wrong" and nothing more.
+- Treating performance as a technical score, not as a business metric.
+- Shipping a fix without checking that the field data improved.
+
+## Example
+
+Vodafone ran an A/B test on a landing page that received paid traffic. The two versions looked and
+worked the same. Version A moved a widget's rendering from the browser to the server, rendered the
+critical HTML on the server and optimized images. Its Largest Contentful Paint (LCP), measured on
+real users' devices, was 31% better. Version A had 8% more sales.
+
+<StatRow
+  title="What a faster landing page did at Vodafone"
+  stats={[
+    { value: 31, unit: '%', label: 'Better LCP', note: 'Measured on real users' },
+    { value: 8, unit: '%', label: 'More sales', signal: true },
+    { value: 15, unit: '%', label: 'Better lead to visit rate' },
+    { value: 11, unit: '%', label: 'Better cart to visit rate' },
+  ]}
+  caption="Same page, same design, same traffic. Speed was the only difference, so the sales came from speed."
+  evidence="reported"
+  source="web.dev case study, 17 Mar 2021"
+/>

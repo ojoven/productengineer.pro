@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Fail them faster (Tom Adams, Government Digital Service)
+    url: https://gds.blog.gov.uk/2015/07/21/fail-them-faster/
+  - title: Interpret your funnel analysis (Amplitude docs)
+    url: https://amplitude.com/docs/analytics/charts/funnel-analysis/funnel-analysis-interpret
+---
+
+## Why it matters for a product engineer
+
+New users leave at specific places, and the funnel shows where. Research then explains why. A
+product engineer can join the funnel with errors, load times and replays, so the team does not
+redesign a page that was actually broken. And not every drop-off is bad: sometimes the right users
+are leaving at the right moment.
+
+## How to do it
+
+1. Define the first experience as a funnel of events, for one cohort of new users, with one
+   denominator.
+2. Find the step with the largest absolute loss, then split it by device, browser, country and
+   entry point.
+3. Watch replays of sessions that stopped there, and of sessions that continued.
+4. Ask what the people who left needed at that moment. Some needed a fix, some needed an earlier
+   answer.
+5. Change one thing, then look at the whole funnel, not only the step you changed.
+6. Repeat the analysis after every important change.
+
+## Common mistakes
+
+- Comparing funnels built from different cohorts or definitions.
+- Assuming every drop-off is a problem to remove.
+- Fixing one step, and not checking whether the loss moved to another.
+- Explaining a drop from the numbers alone, without watching or asking users.
+
+## Example
+
+In GOV.UK's Carer's Allowance service, about 5% of first-time users left at a legal disclaimer two
+screens before the end. It told them that the person they cared for could lose some benefits. The
+team moved a shorter, clearer version to the start and added a way out. Drop-off on that page rose
+to 9%, but abandonment fell elsewhere, and there was no fall in applications. In the week of the
+change, the completion rate rose 6%, and it later passed 80%.
+
+<Compare
+  title="The Carer's Allowance disclaimer, moved from the end to the start"
+  subjects={['At the end', 'At the start']}
+  highlight={1}
+  rows={[
+    { label: 'Time to reach it', values: ['About 25 minutes', 'About 30 seconds'] },
+    { label: 'First-time users who leave there', values: ['About 5%', '9%'] },
+    { label: 'A way back to GOV.UK', values: [false, true] },
+    { label: 'Completion rate', values: ['Lower', 'Over 80%, later'] },
+  ]}
+  caption="A bigger drop-off on one page, and a better service. People who could not continue now learned it in seconds, not after 25 minutes."
+  evidence="reported"
+  source="Tom Adams, GDS blog, 21 Jul 2015"
+/>

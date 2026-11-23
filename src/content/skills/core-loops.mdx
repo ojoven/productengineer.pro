@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Spotify users have spent over 2.3 billion hours streaming Discover Weekly playlists since 2015 (Spotify)
+    url: https://newsroom.spotify.com/2020-07-09/spotify-users-have-spent-over-2-3-billion-hours-streaming-discover-weekly-playlists-since-2015/
+  - title: Designing habit-forming products (Nir Eyal)
+    url: https://www.nirandfar.com/designing-habit-forming-products/
+---
+
+## Why it matters for a product engineer
+
+A core loop is what users do again and again to get the product's main value. Each turn of the loop
+should make the next one more likely, or more valuable. Mapping the loop shows which step is weak, so
+a product engineer can improve the step that moves retention most, instead of adding features beside
+the loop.
+
+## How to do it
+
+1. Write the loop as three to five steps, such as action, result, trigger to return.
+2. Check that each step feeds the next. If one step leads nowhere, the loop is broken.
+3. Instrument each step, and measure how many users complete a full turn each week.
+4. Find the weakest step, and improve it before you add new loops.
+5. Make the loop better with use: more data, better results, more saved work.
+
+## Common mistakes
+
+- Calling a list of features a loop.
+- A trigger, such as a notification, with no value at the end of it.
+- Measuring each step alone, never the full turn.
+- A loop that only works for power users.
+
+## Example
+
+Spotify's Discover Weekly started as a Hack Week project. It is a personal playlist that updates
+every Monday, based on what each person listens to. That creates a weekly loop: people listen, their
+listening shapes the next playlist, and on Monday there is new music to discover. In its first five
+years, listeners spent over 2.3 billion hours streaming it.
+
+<Loop
+  title="The weekly loop of Spotify's Discover Weekly"
+  center="Discover Weekly"
+  sub="One turn a week"
+  stages={[
+    { label: 'New playlist', note: 'Every Monday', tone: 'lit' },
+    { label: 'Listen', note: 'Find new artists and tracks' },
+    { label: 'Listening habits', note: 'What each person plays' },
+    { label: 'Next playlist', note: 'Built from those habits' },
+  ]}
+  caption="Using the product is what improves it. Each week of listening becomes the input for next Monday."
+  evidence="reported"
+  source="Spotify newsroom, 9 Jul 2020"
+/>

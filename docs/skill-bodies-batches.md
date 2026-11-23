@@ -620,12 +620,12 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 32 · Activation + Retention · 6 skills
 
-- [ ] `07.5.1` [Drop-off analysis](https://productengineer.pro/skills-map/activation/activation-diagnosis/drop-off-analysis/) · `drop-off-analysis` · has evidence, technicalLeverage, aiLeverage; 1 resource
-- [ ] `07.5.2` [Technical friction](https://productengineer.pro/skills-map/activation/activation-diagnosis/technical-friction/) · `technical-friction` · 1 resource
-- [ ] `07.5.3` [Activation experiments](https://productengineer.pro/skills-map/activation/activation-diagnosis/activation-experiments/) · `activation-experiments` · 1 resource
-- [ ] `08.1.1` [Core usage loops](https://productengineer.pro/skills-map/retention/recurring-value/core-loops/) · `core-loops` · 1 resource
-- [ ] `08.1.3` [Product usefulness](https://productengineer.pro/skills-map/retention/recurring-value/product-usefulness/) · `product-usefulness` · map coverage
-- [ ] `08.1.4` [Value reinforcement](https://productengineer.pro/skills-map/retention/recurring-value/value-reinforcement/) · `value-reinforcement` · 1 resource
+- [x] `07.5.1` [Drop-off analysis](https://productengineer.pro/skills-map/activation/activation-diagnosis/drop-off-analysis/) · `drop-off-analysis` · has evidence, technicalLeverage, aiLeverage; 1 resource
+- [x] `07.5.2` [Technical friction](https://productengineer.pro/skills-map/activation/activation-diagnosis/technical-friction/) · `technical-friction` · 1 resource
+- [x] `07.5.3` [Activation experiments](https://productengineer.pro/skills-map/activation/activation-diagnosis/activation-experiments/) · `activation-experiments` · 1 resource
+- [x] `08.1.1` [Core usage loops](https://productengineer.pro/skills-map/retention/recurring-value/core-loops/) · `core-loops` · 1 resource
+- [x] `08.1.3` [Product usefulness](https://productengineer.pro/skills-map/retention/recurring-value/product-usefulness/) · `product-usefulness` · map coverage
+- [x] `08.1.4` [Value reinforcement](https://productengineer.pro/skills-map/retention/recurring-value/value-reinforcement/) · `value-reinforcement` · 1 resource
 
 ### Batch 33 · Retention · 11 skills
 
