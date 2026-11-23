@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Personal observations on the reliability of the Shuttle (Richard Feynman, Rogers Commission report, appendix F)"
+    url: https://www.nasa.gov/history/rogersrep/v2appf.htm
+  - title: Write simply (Paul Graham)
+    url: https://paulgraham.com/simply.html
+---
+
+## Why it matters for a product engineer
+
+Product engineers explain technical things to people who decide: a risk to a manager, a trade-off to
+a designer, a limit to a customer. If the explanation is unclear, the decision is made on a guess. A
+clear explanation starts from what the listener already knows, uses an example they can picture, and
+keeps the numbers that matter. It is simple, but not less accurate.
+
+## How to do it
+
+1. Ask what the listener needs to decide, and explain only what that decision needs.
+2. Start from something they already know, and connect the new idea to it.
+3. Turn abstract numbers into a picture: a day, a user, a cost they recognise.
+4. Use one concrete example before any general rule.
+5. Check understanding by asking them to explain it back, or to make the decision.
+
+## Common mistakes
+
+- Starting with how it works instead of why it matters to the listener.
+- Jargon and acronyms the listener does not share.
+- Numbers without a comparison, so nobody can tell if they are big or small.
+- Simplifying so much that the explanation becomes wrong.
+
+## Example
+
+After the Challenger disaster in 1986, Richard Feynman asked how likely NASA thought a Shuttle loss
+was. Estimates ranged from roughly 1 in 100, from working engineers, to 1 in 100,000, from management.
+He explained what the low number meant: you could launch a Shuttle every day for 300 years and expect
+to lose only one. Put that way, anyone could question the number without any statistics.
+
+<Compare
+  title="Two estimates of the chance of losing a Space Shuttle"
+  subjects={['Working engineers', 'NASA management']}
+  highlight={1}
+  rows={[
+    { label: 'Estimate', values: ['About 1 in 100', '1 in 100,000'] },
+    { label: 'Said another way', values: ['One loss in about 100 flights', 'A flight every day for 300 years, one loss'] },
+  ]}
+  caption="The same number became easy to judge once it was turned into something people could picture."
+  evidence="reported"
+  source="Richard Feynman, Rogers Commission report, appendix F, 1986"
+/>

@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Postmortem of database outage of January 31 (GitLab)
+    url: https://about.gitlab.com/blog/postmortem-of-database-outage-of-january-31/
+  - title: Building effective AI agents (Anthropic)
+    url: https://www.anthropic.com/research/building-effective-agents
+---
+
+## Why it matters for a product engineer
+
+Every team repeats tasks by hand: reports, data fixes, releases, onboarding steps. Automating them
+saves time and removes mistakes, but only if the automation is reliable. A script that fails silently
+is worse than no script, because people stop checking. With AI, more of these tasks can be automated,
+including ones that need judgement. The engineering is the same: a clear process, explicit handling of
+failures, and a person in the loop where an error costs a lot.
+
+## How to do it
+
+1. Do the task by hand a few times and write the steps down before you automate them.
+2. Automate the steps that are clear and repeated; keep judgement steps for a person or a reviewed AI step.
+3. Make every run report success, not only failure, so silence is a warning.
+4. Handle partial failures: retry safe steps, stop and alert on the others.
+5. Test the result, not the run: restore the backup, open the report, check the record.
+
+## Common mistakes
+
+- Alerts that only fire on failure, sent to a channel nobody reads.
+- Automation that depends on a version or setting that can change without notice.
+- No owner, so a broken job runs for months.
+- Using an agent where a simple script would do the job reliably.
+
+## Example
+
+On 31 January 2017, an engineer at GitLab deleted the production database by mistake, thinking it was
+a replica. The team then found that the daily backups were missing. The job used pg_dump 9.2
+against a PostgreSQL 9.6 database, so it failed every time. The failure emails were rejected because
+of an email security setting, so nobody knew. GitLab restored from a copy made for staging six hours
+earlier, and lost data for about 5,000 projects.
+
+<Flow
+  title="How GitLab's daily backup failed without anyone knowing"
+  nodes={[
+    { id: 'job', label: 'Daily backup', detail: 'pg_dump 9.2', col: 0, row: 0 },
+    { id: 'fail', label: 'Job fails', detail: 'Database is 9.6', col: 1, row: 0, tone: 'signal' },
+    { id: 'mail', label: 'Alert email', detail: 'Rejected', col: 2, row: 0 },
+    { id: 'wipe', label: 'Data deleted', detail: '31 Jan 2017', col: 1, row: 1 },
+    { id: 'restore', label: 'Restore', detail: 'Staging copy', col: 2, row: 1, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'job', to: 'fail' },
+    { from: 'fail', to: 'mail' },
+    { from: 'wipe', to: 'restore' },
+  ]}
+  caption="The automation ran every day and produced nothing. An alert that only fires on failure cannot warn you when the alert itself fails."
+  evidence="reported"
+  source="GitLab postmortem, 10 February 2017"
+/>

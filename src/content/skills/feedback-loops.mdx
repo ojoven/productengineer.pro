@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "The rise and decline of an open collaboration system (Halfaker, Geiger, Morgan and Riedl, American Behavioral Scientist, 2013)"
+    url: https://stuartgeiger.com/papers/abs-rise-and-decline-wikipedia.pdf
+  - title: "Research: the rise and decline (Meta-Wiki)"
+    url: https://meta.wikimedia.org/wiki/Research:The_Rise_and_Decline
+  - title: "Leverage points: places to intervene in a system (Donella Meadows)"
+    url: https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/
+---
+
+## Why it matters for a product engineer
+
+Many product metrics feed back into themselves. More users bring more content, which brings more
+users: a reinforcing loop, and the reason some products grow faster and faster. Other loops balance:
+more load brings slower pages, which bring fewer visits. When a metric speeds up or stops for no clear
+reason, a loop is often the cause. Product engineers who can see the loop know where to act, and which
+fixes will only push the problem around.
+
+## How to do it
+
+1. Draw the metric you care about, and ask what it causes, and what causes it.
+2. Follow the arrows until one comes back to the start. That is a loop.
+3. Mark each loop as reinforcing (it grows itself) or balancing (it limits itself).
+4. Look for delays: a loop with a long delay often surprises people.
+5. Change the part of the loop you control, and watch the whole loop, not one number.
+
+## Common mistakes
+
+- Treating each metric as separate when they drive each other.
+- Expecting a growth loop to continue forever without a limit.
+- Fixing one symptom of a balancing loop, so the pressure moves somewhere else.
+- Forgetting your own response is part of the loop.
+
+## Example
+
+English Wikipedia grew in a reinforcing loop: a more valuable encyclopedia attracted more editors. It
+peaked in March 2007 at 56,400 active editors, then declined. Researchers found that the community's
+own response to growth was part of the cause. To fight vandalism, editors used fast tools and bots,
+which also rejected the work of good-faith newcomers. By mid-2008, 75% of new users got their first
+message from a tool. Rejected newcomers were less likely to stay.
+
+<Loop
+  title="The balancing loop the researchers describe"
+  center="Active editors"
+  sub="English Wikipedia, from 2007"
+  stages={[
+    { label: 'Growth', note: 'Peak: 56,400 in March 2007' },
+    { label: 'More to check', note: 'Vandalism and spam' },
+    { label: 'Tools and bots', note: 'Fast, impersonal reverts' },
+    { label: 'Newcomers rejected', note: 'Good-faith work too', tone: 'signal' },
+    { label: 'Fewer stay', note: 'Retention falls' },
+  ]}
+  caption="The quality controls that answered growth also limited it. The fix had to change how newcomers were treated, not only how fast edits were checked."
+  evidence="reported"
+  source="Halfaker, Geiger, Morgan and Riedl, 2013"
+/>

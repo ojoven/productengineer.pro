@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: More details about the October 4 outage (Engineering at Meta)
+    url: https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/
+  - title: "Conway's law (Martin Fowler)"
+    url: https://martinfowler.com/bliki/ConwaysLaw.html
+---
+
+## Why it matters for a product engineer
+
+No part of a product works alone. A pricing change affects support tickets, activation and server
+load. A new database index speeds up one page and slows down every write. A team boundary becomes a
+system boundary, as Conway's law says. The surprises come from connections nobody drew. Product
+engineers see both the code and the product, so they are often the ones who can draw them before a
+change, not after an incident.
+
+## How to do it
+
+1. Before a change, list what reads from it, writes to it, or depends on it, in code and in people.
+2. Draw the connections on one page, including teams, vendors and manual steps.
+3. Look for hidden shared parts: DNS, authentication, a shared database, one person who knows.
+4. Check that the tools you need to fix a failure do not depend on the thing that failed.
+5. Tell the owners of the affected parts before the change, not after.
+
+## Common mistakes
+
+- Mapping only the code, and forgetting support, sales, billing and operations.
+- Recovery tools that run on the same system they are meant to recover.
+- Assuming a dependency is reliable because it has never failed.
+- Changing a shared part without telling the teams that use it.
+
+## Example
+
+On 4 October 2021, a command run during routine maintenance took down every connection in Facebook's
+backbone network. An audit tool should have stopped it, but had a bug. Without the backbone, Facebook's
+DNS servers marked themselves unhealthy and withdrew their routes, so the rest of the internet could
+not find any Facebook service. The loss of DNS also broke many internal tools, so engineers had to go
+to the data centers in person.
+
+<Flow
+  title="How one maintenance command reached everything at Facebook"
+  nodes={[
+    { id: 'cmd', label: 'Command', detail: 'During upkeep', col: 0, row: 0 },
+    { id: 'backbone', label: 'Backbone', detail: 'All links down', col: 1, row: 0, tone: 'signal' },
+    { id: 'dns', label: 'DNS', detail: 'Routes withdrawn', col: 2, row: 0 },
+    { id: 'tools', label: 'Own tools', detail: 'Broken too', col: 1, row: 1 },
+    { id: 'onsite', label: 'Engineers', detail: 'Sent onsite', col: 2, row: 1, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'cmd', to: 'backbone' },
+    { from: 'backbone', to: 'dns' },
+    { from: 'backbone', to: 'tools' },
+    { from: 'tools', to: 'onsite' },
+  ]}
+  caption="The tools for fixing the outage depended on the same network that failed, so recovery needed people in the buildings."
+  evidence="reported"
+  source="Engineering at Meta, 5 October 2021"
+/>

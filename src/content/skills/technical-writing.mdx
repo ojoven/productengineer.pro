@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Design docs at Google (Malte Ubl)
+    url: https://www.industrialempathy.com/posts/design-docs-at-google/
+  - title: Technical writing one (Google for Developers)
+    url: https://developers.google.com/tech-writing/one
+  - title: Diátaxis (Daniele Procida)
+    url: https://diataxis.fr/
+---
+
+## Why it matters for a product engineer
+
+Code shows what a system does, not why it was built that way or how to use it. Design docs, READMEs,
+specs and runbooks carry that knowledge to people you will never talk to, including future you. A
+clear document lets a reviewer find a problem while it is still cheap to fix. It also lets a new
+teammate start without a meeting. As more code is written by agents, written intent matters more:
+it is what both people and agents work from.
+
+## How to do it
+
+1. Name the reader and what they need to do after reading.
+2. Start with the context and the goal, then the details.
+3. Keep one kind of document per page: a tutorial, a how-to guide, a reference or an explanation.
+4. Use short sentences, lists for steps, and a diagram where words get long.
+5. Ask someone from the target audience to use the document, and fix where they get stuck.
+
+## Common mistakes
+
+- Writing for yourself, with steps you skip because you already know them.
+- A wall of text where a list or a table would be clearer.
+- Mixing a tutorial, a reference and a design rationale in one page.
+- Documents that are never updated, so readers stop trusting them.
+
+## Example
+
+Malte Ubl describes how Google uses design docs. They are informal, but most follow the same
+structure, and the part that matters most is the trade-offs. Non-goals are things that could
+reasonably be goals but were chosen not to be. Alternatives considered explain why the other designs
+lost. For a larger project, the sweet spot is about 10 to 20 pages, and a one-to-three-page "mini
+design doc" is also possible.
+
+<Anatomy
+  title="The usual sections of a design doc at Google"
+  parts={[
+    { text: 'Context and scope', label: 'The facts', note: 'A rough overview of the landscape and what is being built' },
+    { text: '\nGoals and non-goals', label: 'What it must do, and what it will not', kind: 'lit' },
+    { text: '\nThe actual design', label: 'Overview first, then the details' },
+    { text: '\nAlternatives considered', label: 'Why the other designs lost', kind: 'signal' },
+    { text: '\nCross-cutting concerns', label: 'Security, privacy, observability' },
+  ]}
+  caption="Most of the value is in the trade-offs: what the design will not do, and why the alternatives were not chosen."
+  evidence="reported"
+  source="Malte Ubl, Design docs at Google"
+/>

@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "An insider look at Amazon's culture and processes (Colin Bryar and Bill Carr, excerpt from Working Backwards)"
+    url: https://www.aboutamazon.com/news/workplace/an-insider-look-at-amazons-culture-and-processes
+---
+
+## Why it matters for a product engineer
+
+A list of features does not explain why a product should exist. A narrative does: who has the
+problem, what they do today, what changes for them, and how we will know it worked. Writing that
+story in full sentences exposes gaps that slides hide. It also helps a team keep the same picture of
+the product while many people build different parts of it. Product engineers who can write the story
+of a feature can also defend it, cut it, or change it for the right reasons.
+
+## How to do it
+
+1. Start from the customer: who they are and what problem they have today.
+2. Describe the experience after the change, in the customer's words, before any technical detail.
+3. Answer the hard questions in writing: cost, risks, what we will not do.
+4. Keep it short enough to read in the meeting, and let people read before they discuss.
+5. Revise it as you learn, and keep the latest version where everyone can find it.
+
+## Common mistakes
+
+- Starting with the technology instead of the customer.
+- Long documents that hide the main point on page six.
+- Stories about an imagined user instead of a real one.
+- Writing the narrative after the decision, to justify it.
+
+## Example
+
+Since 2004, most of Amazon's major products have started with a PR/FAQ: a press release and a list of
+frequently asked questions, written before anything is built. The press release must be less than one
+page, and the FAQ five pages or less. A common question from executives is "so what?" If the press
+release does not describe something better than what exists, it is not worth building. Most PR/FAQs
+never become products.
+
+<StatRow
+  title="The limits of an Amazon PR/FAQ"
+  stats={[
+    { value: '<1', unit: 'page', label: 'Press release' },
+    { value: '≤5', unit: 'pages', label: 'Frequently asked questions' },
+    { value: '10+', label: 'Drafts, which is not unusual', signal: true },
+    { value: '5+', label: 'Meetings with senior leaders' },
+  ]}
+  caption="The length limits force clear thinking, and the many drafts are where the product idea gets tested."
+  evidence="reported"
+  source="Colin Bryar and Bill Carr, Working Backwards (excerpt)"
+/>

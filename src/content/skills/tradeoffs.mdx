@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Goodbye microservices (Alexandra Noonan, Segment)
+    url: https://www.twilio.com/en-us/blog/developers/best-practices/goodbye-microservices
+  - title: Design docs at Google (Malte Ubl)
+    url: https://www.industrialempathy.com/posts/design-docs-at-google/
+  - title: Documenting architecture decisions (Michael Nygard)
+    url: https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions
+---
+
+## Why it matters for a product engineer
+
+Almost every real choice gives up something good to get something else: speed for safety,
+flexibility for simplicity, a feature for focus. When the cost is not written down, people argue
+about the benefits only, and the decision looks obvious until the cost arrives. Writing both sides
+makes the choice clearer, easier to review, and easier to change when the situation changes.
+Product engineers make many of these choices in code, where they are hard to see later.
+
+## How to do it
+
+1. List the real options, including "do nothing" and the option you do not like.
+2. For each option, write what it gains and what it gives up.
+3. Decide which goals matter most right now, and say why.
+4. Choose, and write down what you accept as the cost.
+5. Note what would make you change the decision later.
+
+## Common mistakes
+
+- Presenting one option as if it had no downside.
+- Comparing options on different criteria.
+- Forgetting the costs that arrive later: operations, maintenance, hiring.
+- Never writing the decision down, so the next team repeats the debate.
+
+## Example
+
+Segment had split its event pipeline into more than 140 services, one per destination. A change to a
+shared library meant deploying all of them, and the tests could take up to an hour. The team then
+moved back to one service. Their 2018 write-up lists what they gave up: one bad destination can now crash
+the service for all, in-memory caches are less effective, and a library update can break several
+destinations. "The simplicity of this approach is worth the trade-off."
+
+<Compare
+  title="What Segment gained and gave up by moving back to one service"
+  subjects={['140+ services', 'One service']}
+  highlight={1}
+  rows={[
+    { label: 'Deploys for a shared change', values: ['140+', 'One'] },
+    { label: 'Test suite', values: ['Up to an hour', 'Milliseconds, with recorded traffic'] },
+    { label: 'Fault isolation', values: ['One destination at a time', 'One bug can crash all'] },
+    { label: 'In-memory cache', values: ['Stays hot for small destinations', 'Spread over 3,000+ processes'] },
+  ]}
+  caption="The move was not free. Segment listed the costs, accepted them, and planned how to live with each one."
+  evidence="reported"
+  source="Alexandra Noonan, Segment engineering blog, 2018"
+/>

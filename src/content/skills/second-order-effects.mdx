@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "On YouTube's recommendation system (Cristos Goodrow, YouTube Blog)"
+    url: https://blog.youtube/inside-youtube/on-youtubes-recommendation-system/
+  - title: Second-order thinking (Farnam Street)
+    url: https://fs.blog/second-order-thinking/
+---
+
+## Why it matters for a product engineer
+
+The first effect of a change is usually the one you planned. The next effects come from how people
+react: users and creators adapt, support load moves, a metric becomes a target and stops meaning what
+it meant. These effects often take weeks to appear and land on other teams. Asking "and then what?"
+two or three times before a launch finds many of them. Guardrail metrics catch some of the rest.
+
+## How to do it
+
+1. Write the intended effect of the change in one sentence.
+2. Ask "and then what?" for each group affected: users, creators, support, sales, the system itself.
+3. Ask how people could reach the new target without reaching the goal behind it.
+4. Choose guardrail metrics that would show the bad effects, and watch them after launch.
+5. Review the change again after a few weeks, when people have adapted.
+
+## Common mistakes
+
+- Judging a change only by the metric it was designed to move.
+- Rewarding a number that is easy to inflate.
+- Stopping the review at launch day.
+- Assuming people will use the product exactly as designed.
+
+## Example
+
+YouTube's recommendations show a chain of second-order effects. In 2008, the system ranked videos by
+popularity. By 2011, YouTube learned that a click did not mean someone watched the video: titles and
+thumbnails could promise what the video did not show. In 2012 it added watch time. In 2015 it noticed
+sensational tabloid content on homepages and demoted it. In 2019 it began demoting borderline content,
+which cut watch time of that content from recommendations by 70% in the US.
+
+<Timeline
+  title="How YouTube's recommendation signals changed"
+  events={[
+    { when: '2008', title: 'Ranked by popularity', note: 'One big Trending page' },
+    { when: '2011', title: 'Clicks are not watching', note: 'Thumbnails that promise too much', kind: 'problem' },
+    { when: '2012', title: 'Watch time added', kind: 'decision' },
+    { when: '2015', title: 'Tabloid content on homepages', note: 'Demoted', kind: 'problem' },
+    { when: '2019', title: 'Borderline content demoted', note: '70% less watch time from recommendations, US', kind: 'result' },
+  ]}
+  caption="Each signal fixed the side effect of the one before it, and created room for a new one."
+  evidence="reported"
+  source="Cristos Goodrow, YouTube Blog, September 2021"
+/>

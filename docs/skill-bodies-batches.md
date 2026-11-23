@@ -693,15 +693,15 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 38 · Cross-cutting · 9 skills
 
-- [ ] `X.2.1` [Interdependencies](https://productengineer.pro/skills-map/cross-cutting/systems-thinking/system-dependencies/) · `system-dependencies` · map coverage
-- [ ] `X.2.2` [Feedback loops](https://productengineer.pro/skills-map/cross-cutting/systems-thinking/feedback-loops/) · `feedback-loops` · map coverage
-- [ ] `X.2.3` [Second-order and unintended effects](https://productengineer.pro/skills-map/cross-cutting/systems-thinking/second-order-effects/) · `second-order-effects` · 1 resource
-- [ ] `X.2.4` [Workflow automation](https://productengineer.pro/skills-map/cross-cutting/systems-thinking/workflow-automation/) · `workflow-automation` · map coverage
-- [ ] `X.3.1` [Weighing tradeoffs](https://productengineer.pro/skills-map/cross-cutting/decision-making/tradeoffs/) · `tradeoffs` · map coverage
-- [ ] `X.4.1` [Technical writing and documentation](https://productengineer.pro/skills-map/cross-cutting/communication/technical-writing/) · `technical-writing` · map coverage
-- [ ] `X.4.2` [Product narratives](https://productengineer.pro/skills-map/cross-cutting/communication/product-narratives/) · `product-narratives` · 1 resource
-- [ ] `X.4.3` [Clear explanations](https://productengineer.pro/skills-map/cross-cutting/communication/clear-explanations/) · `clear-explanations` · map coverage
-- [ ] `X.4.4` [Persuasive arguments](https://productengineer.pro/skills-map/cross-cutting/communication/persuasive-arguments/) · `persuasive-arguments` · map coverage
+- [x] `X.2.1` [Interdependencies](https://productengineer.pro/skills-map/cross-cutting/systems-thinking/system-dependencies/) · `system-dependencies` · map coverage
+- [x] `X.2.2` [Feedback loops](https://productengineer.pro/skills-map/cross-cutting/systems-thinking/feedback-loops/) · `feedback-loops` · map coverage
+- [x] `X.2.3` [Second-order and unintended effects](https://productengineer.pro/skills-map/cross-cutting/systems-thinking/second-order-effects/) · `second-order-effects` · 1 resource
+- [x] `X.2.4` [Workflow automation](https://productengineer.pro/skills-map/cross-cutting/systems-thinking/workflow-automation/) · `workflow-automation` · map coverage
+- [x] `X.3.1` [Weighing tradeoffs](https://productengineer.pro/skills-map/cross-cutting/decision-making/tradeoffs/) · `tradeoffs` · map coverage
+- [x] `X.4.1` [Technical writing and documentation](https://productengineer.pro/skills-map/cross-cutting/communication/technical-writing/) · `technical-writing` · map coverage
+- [x] `X.4.2` [Product narratives](https://productengineer.pro/skills-map/cross-cutting/communication/product-narratives/) · `product-narratives` · 1 resource
+- [x] `X.4.3` [Clear explanations](https://productengineer.pro/skills-map/cross-cutting/communication/clear-explanations/) · `clear-explanations` · map coverage
+- [x] `X.4.4` [Persuasive arguments](https://productengineer.pro/skills-map/cross-cutting/communication/persuasive-arguments/) · `persuasive-arguments` · map coverage
 
 ### Batch 39 · Cross-cutting · 11 skills
 
