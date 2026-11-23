@@ -94,13 +94,13 @@ Developers of apps and agents. As a first niche, marketing teams that check spon
 </Stop>
 
 <Stop skill="throughput">
-The platforms used to block him after about five requests in half a minute. Now Mamitsu takes 3,000 TikTok requests a minute, and they do not care.
+The platforms used to block him after about five requests in half a minute. In his own load tests, Mamitsu now takes 3,000 TikTok requests a minute without being blocked. That is load he simulates, not traffic he has.
 
 <Bars
   title="TikTok requests a minute"
   items={[
     { label: 'Before, until the block', value: 10, note: 'About five in half a minute' },
-    { label: 'Now, without blocks', value: 3000, highlight: true },
+    { label: 'Now, in his load tests', value: 3000, highlight: true, note: 'Without blocks' },
   ]}
   evidence="reported"
   source="Unai Esteibar, on the call"
@@ -110,7 +110,7 @@ The platforms used to block him after about five requests in half a minute. Now 
 <Stop skill="scalability">
 Holding load was his condition for selling it, so he load-tests every day. The person spending the most money on Mamitsu is him.
 
-<Hot>Load tests as a daily job, not a launch checklist, are what make a one-person API something other developers can rely on. How he got there did not come up: my first question for next time.</Hot>
+<Hot>Load tests as a daily job, not a launch checklist, are what make a one-person API something other developers can rely on.</Hot>
 </Stop>
 
 <Stop skill="structured-outputs">
@@ -162,7 +162,7 @@ Hermes runs on a Linux box at home, with nine or ten profiles split by project, 
 </Stop>
 
 <Stop skill="delegating-to-agents">
-For code, Hermes launches Pi agents with a leaner setup, because he wants code written more predictably.
+For code, Hermes launches Pi agents with a leaner setup, because he wants code written more predictably. The Pi agents only talk to Hermes, and the same Hermes session opens the PR.
 
 <Sequence
   actors={[
@@ -174,7 +174,7 @@ For code, Hermes launches Pi agents with a leaner setup, because he wants code w
     { from: 'u', to: 'h', label: 'The feature, roughly how' },
     { from: 'h', to: 'pi', label: 'Build it' },
     { from: 'pi', to: 'h', label: 'Code and proof it works', kind: 'reply' },
-    { from: 'h', to: 'u', label: 'A PR for the arbiter', kind: 'reply' },
+    { from: 'h', to: 'u', label: 'A PR for the referee', kind: 'reply' },
   ]}
 />
 </Stop>
@@ -183,21 +183,21 @@ For code, Hermes launches Pi agents with a leaner setup, because he wants code w
 He does not review every change. Which ones he reviews is decided per change, by risk: only the ones an agent scores as risky wait for him.
 
 <Tradeoffs
-  items={[{ left: 'Unai reads every change', right: 'Nobody reads any', at: 0.72, note: 'He reads what the arbiter scores as risky, plus every published page.' }]}
+  items={[{ left: 'Unai reads every change', right: 'Nobody reads any', at: 0.72, note: 'He reads what the referee scores as risky, plus every published page.' }]}
   evidence="assumed"
   source="My placement, from his account"
 />
 </Stop>
 
 <Stop skill="delivery-risk">
-Every PR goes to an arbiter agent. It checks that everything is green and easy to roll back, then gives one of three answers.
+Every PR goes to a referee agent, which Unai named Árbitro. It checks that everything is green and easy to roll back, then gives one of three answers.
 
 <Flow
   motion={false}
   nodes={[
     { id: 'pr', label: 'A PR', detail: 'Code and proof', col: 0, row: 1 },
-    { id: 'arb', label: 'Arbiter', detail: 'Scores the risk', col: 1, row: 1, kind: 'decision', tone: 'signal' },
-    { id: 'back', label: 'Not ready', detail: 'Back to agents', col: 2, row: 0 },
+    { id: 'arb', label: 'Referee', detail: 'Scores the risk', col: 1, row: 1, kind: 'decision', tone: 'signal' },
+    { id: 'back', label: 'Not ready', detail: 'Back to Hermes', col: 2, row: 0 },
     { id: 'merge', label: 'Merge', detail: 'Low risk', col: 2, row: 1, tone: 'lit' },
     { id: 'wait', label: 'Wait', detail: 'Unai approves', col: 2, row: 2 },
   ]}
@@ -287,7 +287,7 @@ A quiet launch, "a tiny bit" of traction, and a product that improved a lot in t
 </Stop>
 
 <Stop skill="discovery-platforms">
-Directories that AI answers cite count as much as your own site. For another site of his, a directory contradicted his own page, and the model could not tell which version to believe.
+Directories that AI answers cite count as much as your own site. His example: a jiu-jitsu dojo that a directory listed with different information from its own website. The model cannot tell which version to believe, and the dojo looks less credible.
 
 <Hot>Search engines forgive a stale listing; AI answers repeat it. Keeping third-party listings in sync is part of distribution now.</Hot>
 </Stop>
@@ -344,7 +344,7 @@ Web analytics on the site, with Rybbit, self-hosted. Inside the product, nothing
 </Stop>
 
 <Stop skill="feedback-analysis">
-Feedback arrives through the support email. What he took from the call: an agent that reads the week's extractions and reports every Monday.
+Feedback arrives through the support email. What he took from the call: an agent that reads the week's extractions and reports every Monday. The first report came in three days after the call.
 
 <Hypothesis
   if="an agent reads last week's extractions every Monday and checks a sample against a larger model"
@@ -372,7 +372,7 @@ Experiences augmented with AI have no settled patterns yet. The labs change the 
 </Stop>
 
 <Stop skill="functional-prototypes">
-He used to explain his ideas, badly. Now he often builds a two-hour demo and sends that instead.
+He used to struggle to explain his ideas. Now he often builds a two-hour demo and sends that instead.
 
 <Hot>A demo also answers the question an explanation cannot: whether you still like the idea once it exists.</Hot>
 </Stop>
@@ -390,11 +390,11 @@ Software made for agents to call, more than for people to open. Mamitsu is alrea
 </Stop>
 
 <Stop skill="competitive-advantage">
-A product built on the labs' models, or for their agents, gets copied when a lab ships it as a feature. Markets with some regulation, like tax advisers or estate agents, may be safer places to bring agents.
+A product built on the labs' models, or for their agents, gets copied when a lab ships it as a feature.
 </Stop>
 
 <Stop skill="reviewing-generated-work">
 We both admitted we have mostly stopped reading the code of our own projects. His point: in sensitive areas like security it still matters, because you have to be able to trust it.
 
-<Hot>Reading code is becoming a decision made by risk, the same way his arbiter decides which PRs he sees.</Hot>
+<Hot>Reading code is becoming a decision made by risk, the same way his referee decides which PRs he sees.</Hot>
 </Stop>

@@ -71,6 +71,8 @@ export function layoutFlow(nodes: FlowNode[], edges: FlowEdge[], variant: Varian
   const crosses = Math.max(...nodes.map((n) => n.row)) + 1;
   const byId = new Map(nodes.map((n) => [n.id, n]));
   const isBack = (e: FlowEdge) => byId.get(e.to)!.col < byId.get(e.from)!.col;
+  // Two arrows between the same two nodes, one each way: they run side by side, not on top of each other.
+  const isPaired = (e: FlowEdge) => edges.some((o) => o !== e && o.from === e.to && o.to === e.from);
   const backCount = edges.filter(isBack).length;
   const hasStages = stageLabels.some(Boolean);
 
@@ -157,8 +159,11 @@ export function layoutFlow(nodes: FlowNode[], edges: FlowEdge[], variant: Varian
         }
       } else if (b.col === a.col) {
         const down = b.row > a.row;
-        pts = down ? [[aCx, a.y + a.h], [bCx, b.y]] : [[aCx, a.y], [bCx, b.y + b.h]];
-        lab = { x: aCx + 6, y: (down ? a.y + a.h + b.y : a.y + b.y + b.h) / 2 + 3, anchor: 'start' };
+        const shift = isPaired(e) ? (down ? -9 : 9) : 0;
+        const x = aCx + shift;
+        pts = down ? [[x, a.y + a.h], [x, b.y]] : [[x, a.y], [x, b.y + b.h]];
+        const labY = (down ? a.y + a.h + b.y : a.y + b.y + b.h) / 2 + 3;
+        lab = shift < 0 ? { x: x - 6, y: labY, anchor: 'end' } : { x: x + 6, y: labY, anchor: 'start' };
       } else {
         // a loop back: under everything, and up into the earlier node
         const lane = bottom + 18 + backIndex++ * 12;
@@ -194,8 +199,11 @@ export function layoutFlow(nodes: FlowNode[], edges: FlowEdge[], variant: Varian
           lab = bCx > aCx ? { x: bCx - 6, y: mid - 5, anchor: 'end' } : { x: bCx + 6, y: mid - 5, anchor: 'start' };
         }
       } else if (b.col === a.col) {
-        pts = b.row > a.row ? [[a.x + a.w, aCy], [b.x, bCy]] : [[a.x, aCy], [b.x + b.w, bCy]];
-        lab = { x: (a.x + a.w + b.x) / 2, y: aCy - 5, anchor: 'middle' };
+        const toRight = b.row > a.row;
+        const shift = isPaired(e) ? (toRight ? -7 : 7) : 0;
+        pts = toRight ? [[a.x + a.w, aCy + shift], [b.x, bCy + shift]] : [[a.x, aCy + shift], [b.x + b.w, bCy + shift]];
+        const gapX = toRight ? (a.x + a.w + b.x) / 2 : (b.x + b.w + a.x) / 2;
+        lab = { x: gapX, y: aCy + shift + (shift > 0 ? 13 : -5), anchor: 'middle' };
       } else {
         // a loop back: up the right-hand side. The word goes to the left of it, where there is room.
         const lane = right + 12 + backIndex++ * 12;

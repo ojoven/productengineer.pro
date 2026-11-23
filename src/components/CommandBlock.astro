@@ -2,14 +2,15 @@
 interface Props {
   command: string;
   label: string;
+  installMethod?: 'skills_sh' | 'claude_code' | 'codex';
 }
-const { command, label } = Astro.props;
+const { command, label, installMethod } = Astro.props;
 ---
 
 <div class="command-block">
   <div class="command-head">
     <span class="label">{label}</span>
-    <button type="button" data-copy-command={command} aria-label={`Copy ${label}`} hidden>Copy</button>
+    <button type="button" data-copy-command={command} data-install-method={installMethod} aria-label={`Copy ${label}`} hidden>Copy</button>
   </div>
   <pre><code>{command}</code></pre>
   <span class="visually-hidden" role="status" aria-live="polite"></span>
@@ -51,6 +52,7 @@ const { command, label } = Astro.props;
 </style>
 
 <script>
+  import { track } from '../scripts/track.ts';
   if (navigator.clipboard?.writeText) {
     document.querySelectorAll<HTMLButtonElement>('[data-copy-command]').forEach((button) => {
       button.hidden = false;
@@ -58,6 +60,7 @@ const { command, label } = Astro.props;
         const status = button.closest('.command-block')?.querySelector<HTMLElement>('[role="status"]');
         try {
           await navigator.clipboard.writeText(button.dataset.copyCommand!);
+          if (button.dataset.installMethod) track('setup_command_copied', { command_id: 'agent_skills_install', surface: 'skills', method: button.dataset.installMethod });
           button.textContent = 'Copied';
           if (status) status.textContent = 'Command copied to clipboard.';
           window.setTimeout(() => { button.textContent = 'Copy'; }, 2000);

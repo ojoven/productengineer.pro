@@ -1,10 +1,16 @@
 ---
+import { breadcrumbs } from '../lib/seo.ts';
+
 interface Props {
   /** `short` replaces the label on phones, where a long title would wrap. */
   items: { href?: string; label: string; short?: string }[];
 }
 const { items } = Astro.props;
+// The same trail as structured data, so search results can show it instead of the URL.
+const jsonld = JSON.stringify(breadcrumbs(items, Astro.url.pathname)).replace(/</g, '\\u003c');
 ---
+
+<script type="application/ld+json" set:html={jsonld} />
 
 <nav class="crumbs" aria-label="Breadcrumb">
   {

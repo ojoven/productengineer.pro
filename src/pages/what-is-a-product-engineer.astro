@@ -1,0 +1,374 @@
+---
+// The definition page: what a product engineer is, how the role differs from its neighbours, and
+// the skills it needs. Written to be the page search engines and AI answers cite for the question.
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import TerritoryRows from '../components/TerritoryRows.astro';
+import EntryRows from '../components/EntryRows.astro';
+import { atlas, path, skill, territory } from '../lib/atlas.ts';
+import { author, fieldwork, formatDate } from '../lib/editorial.ts';
+import { abs, graph, ID, organization, person } from '../lib/seo.ts';
+
+const a = atlas();
+const me = author();
+const published = '2026-11-19';
+const url = abs('/what-is-a-product-engineer/');
+const entries = (await fieldwork()).filter((e) => !e.data.placeholder);
+const t = (id: string) => path(territory(id));
+const s = (id: string) => path(skill(id));
+
+const definition =
+  'A product engineer is a software engineer who also owns the product side of the work: talking to users, deciding what is worth building, shipping it in small steps and checking whether it helped.';
+
+const loop = [
+  { step: 'Discover', text: 'Find a real problem, for real people.', links: [['Discovery', 'discovery']] },
+  { step: 'Decide', text: 'Choose what is worth building now, and how much to spend on it.', links: [['Strategy', 'strategy']] },
+  { step: 'Design', text: 'Make the value easy to understand and use.', links: [['Experience', 'experience']] },
+  { step: 'Build and ship', text: 'Turn the idea into working software in users’ hands, in small, safe steps.', links: [['Engineering', 'engineering'], ['Shipping', 'shipping']] },
+  { step: 'Measure and learn', text: 'Find out what actually happened, and why.', links: [['Measurement', 'measurement']] },
+  { step: 'Own the outcome', text: 'Help new users reach value, keep them, reach more of them, and keep it running.', links: [['Activation', 'activation'], ['Retention', 'retention'], ['Distribution', 'distribution'], ['Operations', 'operations']] },
+];
+
+const vsEngineer = [
+  ['Starts from', 'A specification or a ticket', 'A user problem or a goal'],
+  ['Owns', 'The code and its quality', 'The code and the result for users'],
+  ['Measures', 'Correctness, speed, reliability', 'The same, plus usage, activation and retention'],
+  ['Talks to', 'Engineers and a product manager', 'Engineers, users, design, support and sales'],
+  ['Main question', 'How do we build this well?', 'Should we build this, and did it help?'],
+];
+
+const vsManager = [
+  ['Main output', 'Decisions, priorities and alignment', 'Working software and the evidence around it'],
+  ['Scope', 'A product or a large area, and the business around it', 'A feature or an area, from idea to result'],
+  ['Writes code', 'Rarely', 'Every day'],
+];
+
+/** Questions and answers, shown on the page and repeated as FAQPage data. Plain text only. */
+const faq = [
+  {
+    q: 'Is product engineer a real job title?',
+    a: 'Yes. Startups and small product teams use it most. PostHog, for example, hires product engineers and describes the role in public. Other teams say "product-minded engineer", a term Gergely Orosz described in 2019.',
+  },
+  {
+    q: 'Is a product engineer the same as a full-stack engineer?',
+    a: 'No. Full-stack describes technical range: frontend and backend. Product engineer describes responsibility: the result for users. Many product engineers are full-stack, because owning a feature from idea to result usually needs both.',
+  },
+  {
+    q: 'Does a product engineer replace the product manager?',
+    a: 'No. In a team with a product manager, the product engineer brings evidence and options to decisions and owns the details of their area. In a small team without one, the product engineer often makes those decisions too.',
+  },
+  {
+    q: 'Do product engineers need design skills?',
+    a: 'Enough to make good small decisions and to work well with a designer: clear flows, clear copy, accessible interfaces and attention to the first minutes of use.',
+  },
+  {
+    q: 'How is a product engineer different from a growth engineer?',
+    a: 'A growth engineer is a product engineer who focuses on a few numbers: acquisition, activation, conversion and retention. The skills are the same; the focus is narrower.',
+  },
+  {
+    q: 'How do I show product engineering in a job interview?',
+    a: 'Tell the story of one feature from problem to result: what you learned from users, what you chose not to build, how you shipped it, and what the data said after launch, including what did not work.',
+  },
+  {
+    q: 'Does "product engineer" mean something else in manufacturing?',
+    a: 'Yes. In manufacturing and hardware, a product engineer takes a physical product from design to production. This page is about software.',
+  },
+];
+
+const jsonld = graph(
+  {
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: 'What is a product engineer?',
+    description: definition,
+    url,
+    mainEntityOfPage: url,
+    datePublished: published,
+    dateModified: published,
+    inLanguage: 'en',
+    image: abs('/og/default.jpg'),
+    author: { '@id': ID.person },
+    publisher: { '@id': ID.organization },
+    isPartOf: { '@id': ID.website },
+    about: {
+      '@type': 'DefinedTerm',
+      '@id': `${url}#term`,
+      name: 'Product engineer',
+      alternateName: ['Product-minded software engineer', 'Product engineering'],
+      description: definition,
+      inDefinedTermSet: { '@id': `${abs('/skills-map/')}#set` },
+    },
+  },
+  {
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+  person(),
+  organization(),
+);
+---
+
+<Base
+  title="What is a product engineer?"
+  seoTitle="What is a product engineer? Role, skills and how to start"
+  description="A product engineer is a software engineer who also owns the product side: users, decisions, shipping and results. The role, how it differs, and its skills."
+  type="article"
+  jsonld={jsonld}
+>
+  <div class="wrap">
+    <Crumbs items={[{ label: 'What is a product engineer?', short: 'Product engineer' }]} />
+    <article>
+      <header class="page-head">
+        <div class="code-big">Definition</div>
+        <h1 class="title">What is a product engineer?</h1>
+        <p class="lede">{definition}</p>
+        <p class="byline">By <a href="/about/#who-writes-it">{me.name}</a> · {formatDate(published)}</p>
+      </header>
+
+      <section class="section" id="in-short">
+        <div class="section-head"><h2>In short</h2><span class="label">Key facts</span></div>
+        <div class="cols">
+          <ul class="prose facts">
+            <li>A product engineer writes production code <b>and</b> owns whether it matters to users.</li>
+            <li>The role sits between software engineering and product management. It does not replace either.</li>
+            <li>The core skills are technical depth plus discovery, prioritisation, measurement and clear communication.</li>
+            <li>Startups and small product teams use the title most, because one person often takes a feature from the idea to a measured result.</li>
+            <li>The <a href="/skills-map/">Skills Map</a> splits the work into {a.territories.filter((x) => !x.crossCutting).length} territories, a cross-cutting group, {a.capabilities.length} capabilities and {a.skills.length} skills.</li>
+          </ul>
+          <div class="prose">
+            <p>
+              The short version: a software engineer is usually measured by what they ship. A product engineer is measured by
+              what changes for users after it ships.
+            </p>
+            <p>
+              Here is an example. Users stop at the second step of onboarding. A ticket says "redesign step two". A product
+              engineer first looks at the <a href={s('funnel-analysis')}>funnel</a> and watches a few{' '}
+              <a href={s('session-replays')}>session replays</a>, then <a href={s('user-interviews')}>talks to</a> two or three
+              users. The step asks for information people do not have yet. So they move it later, ship the change behind a{' '}
+              <a href={s('feature-flags')}>feature flag</a>, and check whether more people reach the{' '}
+              <a href={s('activation-events')}>first value</a>. The redesign was never needed.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="what-they-do">
+        <div class="section-head"><h2>What a product engineer does</h2><span class="label">The loop</span></div>
+        <div class="cols">
+          <div class="prose">
+            <p>
+              The work is a loop. It starts before the code, with a problem, and it does not end at the release. Each step is a
+              territory on the Skills Map.
+            </p>
+            <p>
+              Product engineers do not do every step alone. They work with designers, product managers, data people and
+              support. What makes the role different is that they care about every step, and they can do the smaller version
+              of each one themselves.
+            </p>
+          </div>
+          <ol class="index compact">
+            {
+              loop.map((l, i) => (
+                <li>
+                  <div class="row" style="grid-template-columns:28px minmax(0,1fr)">
+                    <span class="code">{String(i + 1).padStart(2, '0')}</span>
+                    <span>
+                      <strong style="font-family:var(--cond);font-size:19px;font-weight:600">{l.step}</strong>
+                      <br />
+                      <span class="muted" style="font-size:14.5px">
+                        {l.text}{' '}
+                        {l.links.map(([name, id], j) => (
+                          <>
+                            {j > 0 && ', '}
+                            <a href={t(id)}>{name}</a>
+                          </>
+                        ))}
+                      </span>
+                    </span>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="vs-software-engineer">
+        <div class="section-head"><h2>Product engineer vs software engineer</h2><span class="label">Compare</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col"></th><th scope="col">Software engineer</th><th scope="col">Product engineer</th></tr></thead>
+            <tbody>{vsEngineer.map(([k, x, y]) => <tr><th scope="row">{k}</th><td>{x}</td><td>{y}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <div class="prose" style="margin-top:20px">
+          <p>
+            Good software engineers already do some of this. The difference is where the responsibility ends: at the merge, or
+            at the result. The engineering bar stays the same. A product engineer still needs to write code that is correct,
+            secure and easy to change.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="vs-product-manager">
+        <div class="section-head"><h2>Product engineer vs product manager</h2><span class="label">Compare</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col"></th><th scope="col">Product manager</th><th scope="col">Product engineer</th></tr></thead>
+            <tbody>{vsManager.map(([k, x, y]) => <tr><th scope="row">{k}</th><td>{x}</td><td>{y}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <div class="prose" style="margin-top:20px">
+          <p>
+            The two roles overlap in the middle: understanding users, choosing what to do next and reading the data. With a
+            product manager in the team, the product engineer brings evidence and options and owns the details. In a small team
+            without one, the product engineer often makes the call.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="section-head"><h2>The skills a product engineer needs</h2><span class="label">{a.skills.length} skills</span></div>
+        <div class="prose" style="margin-bottom:20px">
+          <p>
+            Nobody is an expert in all of them. A useful shape is deep in engineering, solid in the core product skills
+            (talking to users, shipping small, measuring the result), and informed enough in the rest to make good decisions
+            and work well with specialists.
+          </p>
+          <p>
+            For an experienced engineer, the biggest gains are rarely another framework. They are discovery, prioritisation,
+            experiments, user behaviour and business judgement. These are the areas the Skills Map covers, with a page,
+            resources and tools for every skill.
+          </p>
+        </div>
+        <TerritoryRows territories={a.territories} />
+      </section>
+
+      <section class="section" id="why-now">
+        <div class="section-head"><h2>Why the role matters more now</h2><span class="label">My view</span></div>
+        <div class="prose">
+          <p>
+            Coding agents make code cheaper and faster to write. I build with them, and I see the hard part move. It
+            moves to the questions around the code: what to build, for whom, and how to know it worked. An engineer who can
+            answer those questions gets much more from the same agents.
+          </p>
+          <p>
+            That is a big part of why I made this map. I had done many of these skills for years without a name for them, and
+            I wanted to see which ones I still never touch.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="how-to-become-one">
+        <div class="section-head"><h2>How to become a product engineer</h2><span class="label">Seven steps</span></div>
+        <ol class="prose become">
+          <li><b>Talk to users.</b> Join support or sales calls, or <a href={s('user-interviews')}>interview</a> five users about one problem. Write down what surprised you.</li>
+          <li><b>Own one number.</b> Pick a feature you built. Find out how many people use it and where they <a href={s('funnel-analysis')}>drop off</a>.</li>
+          <li><b>Write the bet before you build.</b> The problem, what you will change, and how you will know it worked. That is a <a href={s('hypotheses')}>hypothesis</a>.</li>
+          <li><b>Ship smaller.</b> Cut the next feature into a <a href={s('vertical-slicing')}>slice</a> users can try in days, behind a <a href={s('feature-flags')}>flag</a>.</li>
+          <li><b>Check the result.</b> After release, compare what happened with what you expected. Decide what to keep, change or stop, and say so in writing.</li>
+          <li><b>Build something of your own.</b> A small product of your own makes you do every part of the job, including the parts nobody gives you tickets for.</li>
+          <li><b>Find your gaps.</b> Open the <a href="/skills-map/">Skills Map</a>, mark what you know, and look for the territories you never touch.</li>
+        </ol>
+      </section>
+
+      {
+        entries.length > 0 && (
+          <section class="section" id="examples">
+            <div class="section-head"><h2>Product engineering in real products</h2><span class="label">In practice</span></div>
+            <div class="prose" style="margin-bottom:12px">
+              <p>How makers found the problem, built the product, shipped it and got it to users, with the skills each step used.</p>
+            </div>
+            <EntryRows items={entries} compact />
+          </section>
+        )
+      }
+
+      <section class="section" id="faq">
+        <div class="section-head"><h2>Questions</h2><span class="label">FAQ</span></div>
+        <div class="faq">
+          {
+            faq.map((f) => (
+              <div class="faq-item">
+                <h3>{f.q}</h3>
+                <p>{f.a}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section" id="further-reading">
+        <div class="section-head"><h2>Further reading</h2><span class="label">2 sources</span></div>
+        <ul class="refs">
+          <li class="ref">
+            <span class="kind"><b>Article</b>2019</span>
+            <div>
+              <a class="t" href="https://blog.pragmaticengineer.com/the-product-minded-engineer/" rel="noopener" target="_blank">The product-minded software engineer ↗</a>
+              <div class="by">Gergely Orosz</div>
+              <p class="why">Nine traits of engineers who care about the product, from product opinions to quick validation cycles.</p>
+            </div>
+          </li>
+          <li class="ref">
+            <span class="kind"><b>Article</b>PostHog</span>
+            <div>
+              <a class="t" href="https://posthog.com/product-engineer/what-is-a-product-engineer" rel="noopener" target="_blank">What is a product engineer? ↗</a>
+              <div class="by">PostHog</div>
+              <p class="why">How a company built around product engineers defines the role and splits work with product managers and designers.</p>
+            </div>
+          </li>
+        </ul>
+        <div class="btn-row" style="margin-top:32px">
+          <a class="btn primary" href="/skills-map/">Open the Skills Map</a>
+          <a class="btn" href="/in-practice/">See it in practice</a>
+        </div>
+      </section>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .facts {
+    margin: 0;
+    padding-left: 1.1em;
+  }
+  .facts li,
+  .become li {
+    color: var(--ink-2);
+    margin-bottom: 0.6em;
+  }
+  .become {
+    padding-left: 1.3em;
+  }
+  .faq {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 48px;
+  }
+  .faq-item {
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+  }
+  .faq-item h3 {
+    font-size: 21px;
+    line-height: 1.2;
+  }
+  .faq-item p {
+    color: var(--ink-2);
+    max-width: 62ch;
+  }
+  table th[scope='row'] {
+    font: 500 11px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    width: 22%;
+  }
+  @media (max-width: 900px) {
+    .faq {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

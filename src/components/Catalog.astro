@@ -7,7 +7,9 @@ interface Props { kind?: 'tool' | 'resource' }
 const { kind = '' } = Astro.props;
 const a = atlas();
 const entries = catalogEntries(a);
-const shown = entries.filter(e => !kind || e.kind === kind);
+// The first page in the order the script shows by default (by title), so the page does not jump
+// when the script runs, and "All entries" is not the Tools page again.
+const shown = entries.filter(e => !kind || e.kind === kind).sort((x, y) => x.title.localeCompare(y.title));
 ---
 <div class="wrap library" id="catalog-app" data-kind={kind}>
   <header class="library-head">
@@ -44,7 +46,7 @@ const shown = entries.filter(e => !kind || e.kind === kind);
       <p id="catalog-notice" class="catalog-notice" role="status" hidden></p>
       <div id="catalog-active" class="active-filters"></div>
       <ul class="catalog-list" id="catalog-results">
-        {shown.slice(0, 24).map(e => <li class="catalog-card"><div class="catalog-card-icon"><img src={e.icon} alt="" loading="lazy" width="32" height="32" referrerpolicy="no-referrer" /></div><div class="catalog-card-main"><div class="catalog-card-meta"><span>{e.type}</span><span>{hostOf(e.url)}</span></div><h2><a href={e.url} target="_blank" rel="noopener noreferrer">{e.title} ↗</a></h2><p>{e.description}</p></div><span class="catalog-price">{e.pricing.replace('-', ' ')}</span></li>)}
+        {shown.slice(0, 24).map(e => <li class="catalog-card"><div class="catalog-card-icon"><img src={e.icon} alt="" loading="lazy" width="32" height="32" referrerpolicy="no-referrer" /></div><div class="catalog-card-main"><div class="catalog-card-meta"><span>{e.type}</span><span>{hostOf(e.url)}</span></div><h2><a href={e.url} data-learning-id={e.id} data-learning-kind={e.kind} target="_blank" rel="noopener noreferrer">{e.title} ↗</a></h2><p>{e.description}</p></div><span class="catalog-price">{e.pricing.replace('-', ' ')}</span></li>)}
       </ul>
       <div class="catalog-empty" id="catalog-empty" hidden><span aria-hidden="true">⌕</span><h2>No matches this time.</h2><p>Try a broader topic or remove a filter.</p><button class="btn" id="catalog-empty-reset" type="button">Clear search & filters</button></div>
       <nav class="catalog-pagination" id="catalog-pagination" aria-label="Results pages"></nav>

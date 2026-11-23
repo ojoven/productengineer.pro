@@ -10,6 +10,8 @@ import Stop from './Stop.astro';
 import Hot from './Hot.astro';
 
 interface Props {
+  tourId: string;
+  tourVersion: string;
   coverage: EntryCoverage;
   /** The product's name, for the intro. Or the person's, when the profile has no product. */
   product: string;
@@ -18,7 +20,7 @@ interface Props {
   /** The rendered tour file (render(tour).Content). */
   Content: AstroComponentFactory;
 }
-const { coverage, product, person = false, Content } = Astro.props;
+const { coverage, product, person = false, Content, tourId, tourVersion } = Astro.props;
 const lit = coverage.skills;
 const total = coverage.sections.reduce((n, s) => n + s.skills.length, 0);
 const territories = new Set(coverage.sections.flatMap((s) => s.skills.map((k) => k.territory))).size;
@@ -31,7 +33,7 @@ const chapters = coverage.sections.map((s) => {
 const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { lit } });
 ---
 
-<div class="qt" data-qt data-lit={lit.join(' ')} data-total={total} tabindex="-1" aria-label={`Quick tour of ${product}`}>
+<div class="qt" data-qt data-tour-id={tourId} data-tour-version={tourVersion} data-lit={lit.join(' ')} data-total={total} tabindex="-1" aria-label={`Quick tour of ${product}`}>
   <script is:inline>
     document.documentElement.classList.add('qt-js');
   </script>
@@ -114,7 +116,7 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
 
 <script>
   import { TourMap } from './tour-map.ts';
-  import { track } from '../../scripts/track.ts';
+  import { TourAnalytics, type Navigation } from './tour-analytics.ts';
 
   const phone = matchMedia('(max-width: 900px)');
 
@@ -131,6 +133,10 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
     const segments = [...root.querySelectorAll<HTMLElement>('[data-qt-progress] [data-qt-go]')];
     const stepOf = new Map(cards.map((c, i) => [c.dataset.skill ?? '', i]));
     let at = 0;
+    let navigation: Navigation = 'next';
+    let entryPoint = 'page';
+    const analytics = new TourAnalytics(root.dataset.tourId!, root.dataset.tourVersion!, total,
+      () => root.classList.contains('is-full') ? 'fullscreen' : 'inline');
     let lastFocus: HTMLElement | null = null;
 
     // The last skill card seen, so a reader who leaves the tour can continue it (0: not started or
@@ -161,9 +167,10 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
       dockSub.textContent = step ? `At skill ${step} of ${total}` : `${total} skills, one card each`;
     }
 
-    function go(i: number, animate = true) {
+    function go(i: number, animate = true, method: Navigation = 'next', entry = 'page', restart = false) {
       i = Math.max(0, Math.min(last, i));
       if (i === at && animate) return;
+      if (i === 0 && animate) analytics.exit('back_to_overview');
       cards[at].classList.remove('is-on', 'from-next', 'from-prev');
       const card = cards[i];
       card.classList.add('is-on');
@@ -186,7 +193,9 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
       } else if (i === last && resume) setResume(0);
       const skill = card.dataset.skill;
       map.show(skill ? { focus: skill, selected: skill } : { focus: '', selected: null }, animate);
-      if (i === last) track('Quick tour finished');
+      navigation = method;
+      entryPoint = entry;
+      if (animate) analytics.view(i, skill ?? '', card.dataset.sec ?? '', method, entry, restart);
     }
 
     const isFull = () => root.classList.contains('is-full');
@@ -200,7 +209,9 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
       document.documentElement.classList.add('qt-lock');
       history.pushState({ qt: true }, '', `${location.pathname}${location.search}#tour`);
       root.focus();
-      track('Quick tour opened', { from, continued: resume > 0 });
+      if (at > 0 && at < last && !analytics.isActive) {
+        analytics.view(at, cards[at].dataset.skill ?? '', cards[at].dataset.sec ?? '', 'resume', from);
+      }
     }
     function shut() {
       if (!isFull()) return;
@@ -213,6 +224,7 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
       lastFocus?.focus({ preventScroll: true });
     }
     function close() {
+      analytics.exit('close');
       if (history.state?.qt) history.back(); // popstate closes it, so the back button and this agree
       else {
         shut();
@@ -220,25 +232,27 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
       }
     }
     addEventListener('popstate', () => {
-      if (isFull() && location.hash !== '#tour') shut();
+      if (isFull() && location.hash !== '#tour') { analytics.exit('browser_back'); shut(); }
     });
 
     next.addEventListener('click', () => {
       if (phone.matches) open();
-      go(at === last ? 1 : at + 1);
+      go(at === last ? 1 : at + 1, true, 'next', 'page', at === last);
     });
-    prev.addEventListener('click', () => go(at - 1));
+    prev.addEventListener('click', () => go(at - 1, true, 'back'));
     root.querySelector('[data-qt-expand]')!.addEventListener('click', () => open('expand'));
     root.querySelector('[data-qt-close]')!.addEventListener('click', close);
     root.addEventListener('click', (e) => {
       const target = e.target as Element;
       const jump = target.closest<HTMLElement>('[data-qt-go]');
       if (jump) {
+        const entry = jump.closest('[data-qt-dock]') ? 'dock' : jump.hasAttribute('data-qt-resume') ? 'page' : 'chapter';
         if (phone.matches && Number(jump.dataset.qtGo) > 0) open(jump.closest('[data-qt-dock]') ? 'dock' : 'page');
-        go(Number(jump.dataset.qtGo));
+        go(Number(jump.dataset.qtGo), true, jump.hasAttribute('data-qt-resume') && resume ? 'resume' : entry === 'chapter' ? 'chapter' : 'next', entry);
         return;
       }
       const read = target.closest<HTMLAnchorElement>('[data-qt-read]');
+      if (read) analytics.exit('read_profile', read.hash.slice(1));
       if (read && isFull()) {
         // leave the tour for the section it points at
         e.preventDefault();
@@ -254,14 +268,24 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
       const step = tile && stepOf.get(tile.dataset.skill ?? '');
       if (step) {
         if (phone.matches) open();
-        go(step);
+        go(step, true, 'map_tile', 'map_tile');
       }
+      const link = target.closest<HTMLAnchorElement>('a[href]');
+      if (link && !read) {
+        if (link.pathname.startsWith('/skills-map/')) analytics.exit(link.pathname === '/skills-map/' ? 'explore_map' : 'open_skill', link.pathname);
+      }
+    });
+    root.addEventListener('auxclick', (e) => {
+      if (e.button !== 1) return;
+      const link = (e.target as Element).closest<HTMLAnchorElement>('a[href]');
+      if (link?.pathname.startsWith('/skills-map/')) analytics.exit(link.pathname === '/skills-map/' ? 'explore_map' : 'open_skill', link.pathname);
+      else if (link?.hasAttribute('data-qt-read')) analytics.exit('read_profile', link.hash.slice(1));
     });
 
     root.addEventListener('keydown', (e) => {
       if (e.target instanceof HTMLInputElement) return;
-      if (e.key === 'ArrowRight') go(at + 1);
-      else if (e.key === 'ArrowLeft') go(at - 1);
+      if (e.key === 'ArrowRight') go(at + 1, true, 'keyboard', 'keyboard');
+      else if (e.key === 'ArrowLeft') go(at - 1, true, 'keyboard', 'keyboard');
       else if (e.key === 'Escape' && isFull()) close();
       else if (e.key === 'Tab' && isFull()) {
         // keep focus inside the full-screen tour
@@ -294,7 +318,7 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
       start = undefined;
       if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) {
         swiped = true;
-        go(at + (dx < 0 ? 1 : -1));
+        go(at + (dx < 0 ? 1 : -1), true, 'swipe', 'swipe');
       }
     });
     root.addEventListener('pointercancel', () => (start = undefined));
@@ -326,7 +350,18 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
       root.setAttribute('role', 'dialog');
       root.setAttribute('aria-modal', 'true');
       document.documentElement.classList.add('qt-lock');
+      if (at > 0) analytics.view(at, cards[at].dataset.skill ?? '', cards[at].dataset.sec ?? '', 'restore', 'hash');
     }
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && at > 0 && at < last && !analytics.isActive) {
+        analytics.view(at, cards[at].dataset.skill ?? '', cards[at].dataset.sec ?? '', navigation, entryPoint);
+      }
+    });
+    // A tab close is censored, not a fabricated exit; BFCache restoration starts a new episode.
+    addEventListener('pagehide', () => analytics.suspend());
+    addEventListener('pageshow', (e) => {
+      if (e.persisted && at > 0 && at < last) analytics.view(at, cards[at].dataset.skill ?? '', cards[at].dataset.sec ?? '', 'restore', 'hash');
+    });
   }
 
   document.querySelectorAll<HTMLElement>('[data-qt]').forEach(init);
@@ -447,6 +482,34 @@ const svg = mapSvg({ focus: '', width: 520, height: 320, links: false, state: { 
     padding: 6px 2px 16px 0;
     border-top: 1px solid var(--ink);
     margin-top: 8px;
+  }
+  /* desktop: a flat rail like the progress segments, not the system scroll bar.
+     The gutter stays reserved, so text does not reflow between short and long cards. */
+  @media (min-width: 901px) {
+    .qt-cards {
+      padding-right: 14px;
+      scrollbar-gutter: stable;
+    }
+    .qt-cards::-webkit-scrollbar {
+      width: 4px;
+    }
+    .qt-cards::-webkit-scrollbar-track {
+      background: var(--line);
+      margin: 6px 0 16px;
+    }
+    .qt-cards::-webkit-scrollbar-thumb {
+      background: var(--muted);
+    }
+    .qt-cards::-webkit-scrollbar-thumb:hover,
+    .qt-cards::-webkit-scrollbar-thumb:active {
+      background: var(--ink);
+    }
+    @supports not selector(::-webkit-scrollbar) {
+      .qt-cards {
+        scrollbar-width: thin;
+        scrollbar-color: var(--muted) var(--line);
+      }
+    }
   }
   .qt-js .qt-card:not(.is-on) {
     display: none;

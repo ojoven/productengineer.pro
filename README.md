@@ -43,7 +43,7 @@ off. The Skills Map is a proposed framework, not a certification.
 - **Scan the map** and look for the territories you rarely work in. That is usually where the next
   lesson is.
 - **Mark skills** as *learning*, *comfortable* or *not interested*. Without an account your progress stays in your
-  browser and nothing is sent anywhere.
+  browser. Analytics records only the number of saved changes, without individual skill statuses.
 - **Sign in, if you want,** with GitHub or Google to keep your map on every device. Your provider
   shares your profile and email address.
 - **Connect an AI agent** to `https://productengineer.pro/mcp`. It can look up the whole Skills Map and,
@@ -149,5 +149,8 @@ Run `./deploy/setup.sh` once to set up the Apache vhost and TLS, and `./deploy/s
 add the API (it needs `server/.env.production` with the OAuth credentials; see `server/.env.example`).
 Follow the [production setup checklist](server/README.md#production-setup-checklist) to configure
 both OAuth apps, credentials and the first API deployment.
-After that, `npm run deploy` tests, builds locally, updates the API and syncs `dist/` to the server. For page analytics, set `PUBLIC_ANALYTICS_SRC` (a
-Plausible-compatible script URL) at build time; without it, nothing loads.
+After that, `npm run deploy` tests, builds locally, updates the API and syncs `dist/` to the server.
+Rybbit analytics uses the public ingestion API only in a production build on `productengineer.pro`.
+Development, preview hosts, operations and consent pages do not send analytics. Set
+`PUBLIC_RYBBIT_ENABLED=false` at build time to disable collection. See [docs/analytics.md](docs/analytics.md)
+for the event plan, privacy behavior, isolated validation and dashboard/agent workflows.

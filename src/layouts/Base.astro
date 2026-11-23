@@ -7,9 +7,13 @@ import '@fontsource/ibm-plex-sans-condensed/600.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/site.css';
+// The two faces every page shows above the fold: body text and headings. Preloading them, with
+// metric-matched fallbacks in site.css, keeps text from moving when the web fonts arrive.
+import sansFont from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2?url';
+import condFont from '@fontsource/ibm-plex-sans-condensed/files/ibm-plex-sans-condensed-latin-600-normal.woff2?url';
 import { mapCss } from '../atlas/map-css.ts';
 import { SITE } from '../site.ts';
-import Analytics from '../components/Analytics.astro';
+import { clip } from '../lib/seo.ts';
 
 interface Props {
   title?: string;
@@ -25,9 +29,18 @@ interface Props {
   type?: 'website' | 'article';
   /** schema.org structured data for the page, printed as JSON-LD. */
   jsonld?: Record<string, unknown>;
+  /** A shorter title for search results, when `title` is long. Social cards keep `title`. */
+  seoTitle?: string;
+  /** The whole `<title>`, without the site name added. */
+  fullTitle?: string;
 }
-const { title, description = SITE.description, noindex = false, searchable = true, bodyClass = '', image, imageAlt, type = 'website', jsonld } = Astro.props;
-const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.tagline}`;
+const { title, seoTitle, description: rawDescription = SITE.description, noindex = false, searchable = true, bodyClass = '', image, imageAlt, type = 'website', jsonld } = Astro.props;
+// Search results show about 60 characters of a title. The site name is added only when it fits.
+const searchTitle = seoTitle ?? title;
+const fullTitle =
+  Astro.props.fullTitle ??
+  (searchTitle ? (`${searchTitle} · ${SITE.name}`.length <= 70 ? `${searchTitle} · ${SITE.name}` : searchTitle) : `${SITE.name} · ${SITE.tagline}`);
+const description = clip(rawDescription);
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const path = Astro.url.pathname;
 const current = (prefix: string) => (path.startsWith(prefix) ? 'page' : undefined);
@@ -44,6 +57,10 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href={sansFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={condFont} as="font" type="font/woff2" crossorigin />
+    <link rel="alternate" type="application/rss+xml" title="In practice · ProductEngineer.pro" href="/in-practice/rss.xml" />
+    <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={title ?? fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -63,8 +80,6 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
       if (/(?:^|;\s*)pe_auth=1(?:;|$)/.test(document.cookie)) document.documentElement.classList.add('signed-in');
     </script>
     <style is:inline set:html={mapCss()}></style>
-    <Analytics />
-    <script is:inline src="https://analytics.mtorr.es/api/script.js?siteId=0b9e1ee60f53" defer></script>
   </head>
   <body class={bodyClass}>
     <a class="skip" href="#main">Skip to content</a>
@@ -95,14 +110,15 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
     <footer class="site-footer">
       <div class="wrap">
         <span>ProductEngineer.pro · a map of product engineering · by <a href="/about/#who-writes-it">Mikel Torres Ugarte</a></span>
-        <span><a href="/about/">About</a> · <a href="/in-practice/">In practice</a> · <a href="/skills/">Agent skills</a> · <a href="/agent-product-engineer/">Agent Product Engineer</a> · <a href="/tools/">Tools</a> · <a href="/resources/">Resources</a> · <a href="/search/">Search</a></span>
+        <span><a href="/what-is-a-product-engineer/">What is a product engineer?</a> · <a href="/about/">About</a> · <a href="/in-practice/">In practice</a> · <a href="/skills/">Agent skills</a> · <a href="/agent-product-engineer/">Agent Product Engineer</a> · <a href="/tools/">Tools</a> · <a href="/resources/">Resources</a> · <a href="/search/">Search</a></span>
       </div>
     </footer>
     <script>
       import { applyProgress, onChange, cycleStatus } from '../scripts/progress.ts';
       import { startSync } from '../scripts/sync.ts';
       import { linkHover } from '../scripts/hover.ts';
-      import { track } from '../scripts/track.ts';
+      import { initAnalytics } from '../scripts/track.ts';
+      initAnalytics();
       applyProgress();
       onChange(() => applyProgress());
       startSync();
@@ -113,8 +129,7 @@ const ogImage = new URL(image ?? '/og/default.jpg', SITE.url).href;
         const btn = (e.target as Element).closest<HTMLButtonElement>('button[data-cycle]');
         if (!btn) return;
         e.preventDefault();
-        const next = cycleStatus(btn.dataset.cycle!);
-        track('Status set', { status: next, from: 'list' });
+        cycleStatus(btn.dataset.cycle!, btn.closest('#explorer') ? 'map' : 'list');
       });
 
       document.getElementById('theme-toggle')?.addEventListener('click', () => {

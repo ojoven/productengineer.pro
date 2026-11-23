@@ -14,7 +14,7 @@ const mcp = `${SITE.url}/mcp`;
       <h1 class="title">Account</h1>
       <p class="lede">
         <span class="anon-only">
-          Your map works without an account: it stays in this browser and nothing is sent anywhere. Sign in with GitHub or Google
+          Your map works without an account: individual skill statuses stay in this browser. We collect aggregate usage events as described in our <a href="/about/#privacy">privacy notes</a>. Sign in with GitHub or Google
           to keep it on every device and let an AI agent read it.
         </span>
         <span class="account-only">Your map is saved to your account, so it follows you to any device, and agents you approve can read it.</span>
@@ -207,7 +207,6 @@ const mcp = `${SITE.url}/mcp`;
     btn.disabled = true;
     if (await revokeConnection(btn.dataset.revoke!)) {
       msg.textContent = 'Agent disconnected. It can no longer read your map.';
-      track('Agent revoked');
     }
     void renderConnections();
   });
@@ -250,6 +249,7 @@ const mcp = `${SITE.url}/mcp`;
     b.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText($(b.dataset.copy!).textContent ?? '');
+        track('setup_command_copied', { command_id: b.dataset.copy === 'mcp-url' ? 'mcp_url' : 'mcp_cli', surface: 'account' });
         b.textContent = 'Copied';
         setTimeout(() => (b.textContent = 'Copy'), 1500);
       } catch {
@@ -261,7 +261,6 @@ const mcp = `${SITE.url}/mcp`;
   $('signout').addEventListener('click', async () => {
     await signOut();
     msg.textContent = 'Signed out. Your map is in your account; sign in again to bring it back.';
-    track('Signed out');
   });
   /** A destructive button asks for a second click. */
   function armed(btn: HTMLElement, label: string, warning: () => string, action: () => Promise<void> | void) {
@@ -283,7 +282,6 @@ const mcp = `${SITE.url}/mcp`;
     () => 'This deletes your account, its copy of your map and every agent connection. This browser keeps its own copy.',
     async () => {
       msg.textContent = (await deleteAccount()) ? 'Account deleted. The map in this browser is still here.' : 'Could not delete the account.';
-      track('Account deleted');
     },
   );
 </script>

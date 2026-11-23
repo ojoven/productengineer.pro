@@ -10,12 +10,14 @@ import EntryFacts from './EntryFacts.astro';
 import EntryRows from './EntryRows.astro';
 import EntryHeading from './EntryHeading.astro';
 import QuickTour from './tour/QuickTour.astro';
+import { createHash } from 'node:crypto';
 import { atlas, skill } from '../lib/atlas.ts';
 import { KIND, author, connected, entryImage, formatDate, itemDate, readingMinutes, type Item } from '../lib/editorial.ts';
 import { SITE } from '../site.ts';
 import { sectionsFor } from '../editorial/schema.ts';
 import { entryCoverage } from '../editorial/coverage.ts';
 import { figures } from './figures/index.ts';
+import { ID, person as personLd, organization } from '../lib/seo.ts';
 
 interface Props {
   entry: Item;
@@ -72,8 +74,9 @@ const jsonld = {
   dateModified: updated ?? itemDate(entry),
   inLanguage: 'en',
   ...(image && { image: abs(image) }),
-  author: { '@type': 'Person', name: me.name, url: new URL('/about/', SITE.url).href },
-  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  author: personLd(),
+  publisher: organization(),
+  isPartOf: { '@id': ID.website },
   // A profile about a person and their work, with no product, is about the person.
   about: !subjects.length && maker ? [maker] : subjects.map((s) => ({
     '@type': 'SoftwareApplication',
@@ -103,6 +106,7 @@ const jsonld = {
 
 <Base
   title={d.title}
+  seoTitle={'seoTitle' in d ? d.seoTitle : undefined}
   description={d.summary}
   noindex={d.placeholder || d.draft}
   searchable={!d.placeholder && !d.draft}
@@ -179,7 +183,7 @@ const jsonld = {
 
       <aside class:list={['entry-side', Tour && 'has-tour']} aria-label={Tour ? 'Quick tour' : grouped ? 'Skills discussed' : 'Skills used'}>
         {Tour ? (
-          <QuickTour coverage={coverage} product={subjects[0]?.name ?? person?.name ?? d.title} person={!subjects.length && !!person} Content={Tour} />
+          <QuickTour coverage={coverage} product={subjects[0]?.name ?? person?.name ?? d.title} person={!subjects.length && !!person} Content={Tour} tourId={entry.id} tourVersion={createHash('sha256').update(JSON.stringify(tour)).digest('hex').slice(0, 12)} />
         ) : (
           <div class="sticky-map">
             <div class="pane-head"><span class="label">{grouped ? 'Skills discussed' : 'Skills used'}</span><span class="label">{skills.length}{!grouped && ' · in order'}</span></div>

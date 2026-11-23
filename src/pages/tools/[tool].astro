@@ -26,7 +26,7 @@ const PRICING: Record<string, string> = { 'open-source': 'Open source', free: 'F
       <div class="code-big">Tool · {PRICING[t.pricing]}</div>
       <h1 class="title" style="display:flex;align-items:center;gap:18px"><ToolIcon url={t.url} size={48} />{t.name}</h1>
       <p class="lede">{t.what}</p>
-      <div class="btn-row"><a class="btn" href={t.url} rel="noopener" target="_blank">{new URL(t.url).hostname.replace(/^www\./, '')} ↗</a></div>
+      <div class="btn-row"><a class="btn" href={t.url} data-learning-id={t.id} data-learning-kind="tool" rel="noopener" target="_blank">{new URL(t.url).hostname.replace(/^www\./, '')} ↗</a></div>
     </header>
     <div class="cols">
       <div>

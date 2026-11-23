@@ -340,7 +340,7 @@ export const FIGURES: FigureDoc[] = [
         required: true,
         note: '`col` is the stage (from 0, the flow runs along it), `row` the lane. Up to four columns and three rows. `decision` is filled, `external` dashed (outside your system), `store` is where data rests. Keep `label` under 14 characters.',
       },
-      { name: 'edges', type: "{ from: string; to: string; label?: string; tone?: 'signal'; dashed?: boolean }[]", required: true, note: 'Arrows by node id. An edge to an earlier column is drawn as a loop back. `dashed` for something that happens later or only sometimes.' },
+      { name: 'edges', type: "{ from: string; to: string; label?: string; tone?: 'signal'; dashed?: boolean }[]", required: true, note: 'Arrows by node id. An edge to an earlier column is drawn as a loop back. Two edges between the same nodes in one column, one each way, run side by side. `dashed` for something that happens later or only sometimes.' },
       { name: 'stages', type: 'string[]', note: 'A label for each column.' },
       { name: 'motion', type: 'boolean', note: 'Set to `false` for a still diagram. Default: dots travel along the arrows, with a pause button.' },
     ],

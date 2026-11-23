@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 ---
 
-<Base title="Search" description="Search every territory, capability, skill, tool and resource." searchable={false}>
+<Base title="Search" description="Search every territory, capability, skill, tool and resource." searchable={false} noindex>
   <div class="wrap">
     <Crumbs items={[{ label: 'Search' }]} />
     <header class="page-head">
@@ -18,14 +18,35 @@ import Crumbs from '../components/Crumbs.astro';
 </Base>
 
 <script is:inline src="/pagefind/pagefind-ui.js"></script>
-<script is:inline>
-  window.addEventListener('DOMContentLoaded', () => {
-    if (!window.PagefindUI) {
-      document.getElementById('search').innerHTML = '<p class="empty">The search index is built with the production build (npm run build).</p>';
+<script>
+  import { track, queryLengthBucket } from '../scripts/track.ts';
+  const PagefindUI = (window as unknown as { PagefindUI?: new (options: Record<string, unknown>) => { triggerSearch: (q: string) => void } }).PagefindUI;
+  async function init() {
+    if (!PagefindUI) {
+      document.getElementById('search')!.innerHTML = '<p class="empty">The search index is built with the production build (npm run build).</p>';
       return;
     }
-    const ui = new PagefindUI({ element: '#search', showSubResults: true, showImages: false, resetStyles: false });
+    const path = '/pagefind/pagefind.js';
+    let sequence = 0;
+    let last = '';
+    // The supported search API supplies the total, including zero results. Counting rendered
+    // result cards would count only the first page and miss empty searches.
+    const ui = new PagefindUI({ element: '#search', showSubResults: true, showImages: false, resetStyles: false, debounceTimeoutMs: 500,
+      processTerm(term: string) {
+        const run = ++sequence;
+        if (!term.trim()) last = '';
+        if (term.trim()) void import(/* @vite-ignore */ path).then(api => api.search(term)).then(result => {
+          if (run !== sequence || last === term) return;
+          last = term;
+          track('search_results_viewed', { surface: 'site_search', trigger: 'search', result_count: result.results.length, query_length_bucket: queryLengthBucket(term), filter_count: 0, kind: 'all' });
+        }).catch(() => {});
+        return term;
+      },
+    });
+    document.getElementById('search')!.addEventListener('input', () => { sequence++; });
     const q = new URLSearchParams(location.search).get('q');
     if (q) ui.triggerSearch(q);
-  });
+  }
+  if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', init, { once: true });
+  else void init();
 </script>

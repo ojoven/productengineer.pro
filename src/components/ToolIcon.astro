@@ -2,9 +2,8 @@
 import { favicon } from '../../server/src/catalog-model.ts';
 interface Props { url: string; size?: number }
 const { url, size = 32 } = Astro.props;
+// An inline error handler, not a <script>: the icon sits inside headings, and a script there
+// would be read as part of the heading text.
 ---
-<img class="tool-favicon" src={favicon(url)} alt="" width={size} height={size} loading="lazy" referrerpolicy="no-referrer" />
+<img class="tool-favicon" src={favicon(url)} alt="" width={size} height={size} loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'" />
 <style>.tool-favicon { object-fit: contain; background: #fff; flex-shrink: 0; padding: 3px; border: 1px solid #ddd; }</style>
-<script>
-  for (const img of document.querySelectorAll<HTMLImageElement>('.tool-favicon')) img.addEventListener('error', () => { img.style.visibility = 'hidden'; });
-</script>

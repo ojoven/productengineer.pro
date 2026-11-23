@@ -3,7 +3,8 @@ import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import FeatureCard from '../../components/FeatureCard.astro';
 import Templates from '../../components/Templates.astro';
-import { KIND, fieldwork, products } from '../../lib/editorial.ts';
+import { KIND, fieldwork, itemPath, products } from '../../lib/editorial.ts';
+import { abs, ID } from '../../lib/seo.ts';
 import { FIELDWORK_KINDS } from '../../editorial/schema.ts';
 
 const items = await fieldwork();
@@ -12,10 +13,23 @@ const items = await fieldwork();
 const published = items.filter((e) => !e.data.placeholder);
 const planned = items.filter((e) => e.data.placeholder);
 const prods = Object.entries(products());
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': abs('/in-practice/'),
+  name: 'In practice',
+  url: abs('/in-practice/'),
+  isPartOf: { '@id': ID.website },
+  author: { '@id': ID.person },
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: published.map((e, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(itemPath(e)), name: e.data.title })),
+  },
+};
 const countFor = (id: string) => published.filter((e) => 'product' in e.data && e.data.product === id).length;
 ---
 
-<Base title="In practice" description="Product engineering in practice: product profiles, reviews, maker interviews, experiments and shipped changes, connected to the Skills Map.">
+<Base jsonld={jsonld} title="In practice" description="Product engineering in practice: product profiles, reviews, maker interviews, experiments and shipped changes, connected to the Skills Map.">
   <div class="wrap">
     <Crumbs items={[{ label: 'In practice' }]} />
     <header class="page-head">

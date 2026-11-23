@@ -15,7 +15,9 @@ rsync_server
 remote_server_install
 remote_pm2_reload
 api_healthcheck
+indexnow_snapshot
 rsync_dist
 remote_healthcheck
 public_api_healthcheck
+indexnow_submit
 echo "done. https://${SITE_DOMAIN}/"

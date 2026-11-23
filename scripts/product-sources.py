@@ -153,6 +153,11 @@ def rybbit_check(end):
         events = get("/events/names", params).get("data", [])
         output["windows"][name]["custom_event_name_count"] = len(events)
         output["windows"][name]["custom_event_occurrences"] = sum(row.get("count", 0) for row in events)
+        expected = {"tour_started", "tour_step_viewed", "tour_end_reached", "tour_exited", "progress_changed", "map_used", "search_results_viewed", "learning_link_opened", "setup_command_copied"}
+        counts = {row.get("eventName", row.get("event_name")): row.get("count", 0) for row in events}
+        output["windows"][name]["planned_event_counts"] = {event: counts.get(event, 0) for event in sorted(expected)}
+        output["windows"][name]["missing_planned_events"] = sorted(expected - counts.keys())
+        output["windows"][name]["unrecognized_event_name_count"] = len(counts.keys() - expected)
         attribution = get("/metric", params | {"parameter": "referrer", "limit": 100, "page": 1})
         page = attribution.get("data", {})
         rows = page.get("data", []) if isinstance(page, dict) else page

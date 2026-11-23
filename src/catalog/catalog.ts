@@ -1,5 +1,6 @@
 import { favicon, hostOf, searchCatalog, type CatalogEntry, type CatalogFilters } from '../../server/src/catalog-model.ts';
 import { button, el, formatLabel, icon, link, priceLabel } from './dom.ts';
+import { track, queryLengthBucket } from '../scripts/track.ts';
 const root = document.querySelector<HTMLElement>('#catalog-app')!;
 const data = JSON.parse(document.getElementById('catalog-data')!.textContent!) as { entries: CatalogEntry[]; territories: { id: string; name: string }[] };
 let entries = data.entries;
@@ -9,13 +10,19 @@ const q = document.querySelector<HTMLInputElement>('#catalog-q')!;
 const sort = document.querySelector<HTMLSelectElement>('#catalog-sort')!;
 const results = document.querySelector<HTMLElement>('#catalog-results')!;
 let page = 1;
+let analyticsTimer: ReturnType<typeof setTimeout>;
+let lastSearch = '';
 const size = 24;
 const filters: CatalogFilters = { kind: root.dataset.kind ?? '' };
 const url = new URL(location.href);
 for (const key of ['q', 'territory', 'pricing', 'type', 'level', 'sort'] as const) filters[key] = url.searchParams.get(key) ?? '';
 q.value = filters.q ?? ''; sort.value = filters.sort || 'relevance';
-for (const select of form.querySelectorAll('select')) select.value = filters[select.name as keyof CatalogFilters] ?? '';
-function render(updateUrl = true) {
+for (const select of form.querySelectorAll('select')) {
+  select.value = filters[select.name as keyof CatalogFilters] ?? '';
+  // Only options from the public taxonomy may become analytics properties.
+  filters[select.name as keyof CatalogFilters] = select.value;
+}
+function render(updateUrl = true, trigger = 'filter') {
   const matched = searchCatalog(entries, filters);
   const max = Math.max(1, Math.ceil(matched.length / size)); page = Math.min(page, max);
   document.getElementById('catalog-count')!.textContent = `${matched.length} ${matched.length === 1 ? 'entry' : 'entries'}`;
@@ -24,7 +31,9 @@ function render(updateUrl = true) {
     const card = el('li', 'catalog-card'); card.append(icon(e.icon, favicon(e.url)));
     const main = el('div', 'catalog-card-main'); const meta = el('div', 'catalog-card-meta');
     meta.append(el('span', 'catalog-kind', formatLabel(e.type)), el('span', '', hostOf(e.url)));
-    const h = el('h2'); h.append(link(e.title + ' ↗', e.url)); main.append(meta, h, el('p', '', e.description));
+    const h = el('h2'); const learningLink = link(e.title + ' ↗', e.url);
+    learningLink.dataset.learningId = e.id; learningLink.dataset.learningKind = e.kind;
+    h.append(learningLink); main.append(meta, h, el('p', '', e.description));
     const by = el('div', 'catalog-card-by'); if (e.author) by.append(el('span', '', e.author));
     if (e.checked) by.append(el('span', '', `Checked ${e.checked}`)); main.append(by);
     const tags = el('div', 'catalog-tags');
@@ -58,12 +67,26 @@ function render(updateUrl = true) {
     for (const [key, value] of Object.entries(filters)) if (value && key !== 'kind' && !(key === 'sort' && value === 'relevance')) target.searchParams.set(key, value);
     history.replaceState({}, '', target);
   }
+  clearTimeout(analyticsTimer);
+  if (updateUrl || filters.q || ['territory', 'type', 'pricing', 'level'].some(key => filters[key as keyof CatalogFilters])) {
+    analyticsTimer = setTimeout(() => {
+      const signature = JSON.stringify([filters, page, matched.length]);
+      if (signature === lastSearch) return;
+      lastSearch = signature;
+      track('search_results_viewed', {
+        surface: 'catalog', trigger, result_count: matched.length, query_length_bucket: queryLengthBucket(filters.q ?? ''),
+        filter_count: ['territory', 'type', 'pricing', 'level'].filter(key => filters[key as keyof CatalogFilters]).length,
+        kind: filters.kind || 'all', territory_id: filters.territory ?? '', format: filters.type ?? '',
+        pricing: filters.pricing ?? '', depth: filters.level ?? '',
+      });
+    }, 500);
+  }
 }
-function changePage(next: number) { page = next; render(); document.querySelector('.library-results-head')!.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+function changePage(next: number) { page = next; render(true, 'pagination'); document.querySelector('.library-results-head')!.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
 function reset() { for (const key of Object.keys(filters) as (keyof CatalogFilters)[]) if (key !== 'kind') filters[key] = ''; q.value = ''; form.reset(); sort.value = 'relevance'; page = 1; render(); }
 let timer: ReturnType<typeof setTimeout>;
-q.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => { filters.q = q.value.trim(); page = 1; render(); }, 150); });
-document.getElementById('catalog-search')!.addEventListener('submit', e => { e.preventDefault(); clearTimeout(timer); filters.q = q.value.trim(); page = 1; render(); });
+q.addEventListener('input', () => { clearTimeout(timer); clearTimeout(analyticsTimer); timer = setTimeout(() => { filters.q = q.value.trim(); page = 1; render(true, 'search'); }, 150); });
+document.getElementById('catalog-search')!.addEventListener('submit', e => { e.preventDefault(); clearTimeout(timer); filters.q = q.value.trim(); page = 1; render(true, 'submit'); });
 form.addEventListener('change', () => { for (const select of form.querySelectorAll('select')) filters[select.name as keyof CatalogFilters] = select.value; page = 1; render(); });
 sort.addEventListener('change', () => { filters.sort = sort.value; page = 1; render(); });
 document.getElementById('catalog-reset')!.addEventListener('click', reset);

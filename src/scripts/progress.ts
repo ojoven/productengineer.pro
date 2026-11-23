@@ -1,7 +1,8 @@
-// Casual progress, one status per skill, kept in this browser. Without an account nothing is
-// sent anywhere. With one, sync.ts copies each change to the account and pulls the account's
+// Skill-level progress stays in this browser without an account. Analytics records only the
+// number of saved changes. With an account, sync.ts copies each change and pulls its
 // state back in; the pages always read from here.
 import { isStatus, STATUS_OPTIONS, STATUSES, type Status } from '../atlas/status.ts';
+import { track } from './track.ts';
 export { STATUSES } from '../atlas/status.ts';
 
 const KEY = 'pe-atlas:v1';
@@ -47,13 +48,16 @@ export function load(aliases: Record<string, string> = {}): Saved {
 
 function save(data: Saved, changes: Change[] = []) {
   data.updated = new Date().toISOString();
+  let persisted = false;
   try {
     localStorage.setItem(KEY, JSON.stringify(data));
+    persisted = true;
   } catch {
     // storage blocked (private mode, disabled site data): progress lasts for this page only
   }
   window.dispatchEvent(new CustomEvent('pe:progress'));
   if (changes.length) window.dispatchEvent(new CustomEvent<Change[]>('pe:local-change', { detail: changes }));
+  return persisted;
 }
 
 function apply(data: Saved, id: string, status: Status | 'none', at: number) {
@@ -67,16 +71,20 @@ function apply(data: Saved, id: string, status: Status | 'none', at: number) {
   }
 }
 
-export function setStatus(ids: string | string[], status: Status | 'none') {
+export function setStatus(ids: string | string[], status: Status | 'none', surface = 'skill_page') {
   const data = load();
   const at = Date.now();
   const changes: Change[] = [];
-  for (const id of Array.isArray(ids) ? ids : [ids]) {
+  for (const id of new Set(Array.isArray(ids) ? ids : [ids])) {
     if ((data.progress[id] ?? 'none') === status) continue;
     apply(data, id, status, at);
     changes.push({ id, status, at });
   }
-  save(data, changes);
+  if (!changes.length) return 0;
+  if (save(data, changes)) track('progress_changed', {
+    surface, mode: Array.isArray(ids) ? 'bulk' : 'single', changed_count: changes.length, storage: 'local',
+  });
+  return changes.length;
 }
 
 /** The account's state, plus changes not yet sent, written over this browser's copy. */
@@ -107,10 +115,10 @@ export function onChange(fn: () => void) {
 }
 
 /** Cycles all four statuses. Each choice can also be set explicitly on a skill page. */
-export function cycleStatus(id: string): Status | 'none' {
+export function cycleStatus(id: string, surface = 'list'): Status | 'none' {
   const current = (load().progress[id] as Status | undefined) ?? 'none';
   const next = STATUSES[(STATUSES.indexOf(current) + 1) % STATUSES.length];
-  setStatus(id, next);
+  setStatus(id, next, surface);
   return next;
 }
 

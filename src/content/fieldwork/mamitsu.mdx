@@ -1,6 +1,7 @@
 ---
 kind: profile
 title: 'Mamitsu: one maker, a team of agents and an API that watches social videos'
+seoTitle: 'Mamitsu: a social video API built by one maker with agents'
 summary: Mamitsu turns Instagram, TikTok, YouTube and X videos into JSON for apps and AI agents. Unai Esteibar, its maker, showed me how he builds, ships, runs and distributes it with a team of agents.
 date: 2026-11-13
 subjects:
@@ -31,7 +32,7 @@ skills:
   ]
 coverage:
   - territory: discovery
-    section: 'Discovery: from a coffee grinder to video data'
+    section: 'Discovery: from a coffee recipe app to video data'
     skills: [unmet-needs, user-segments, competitive-analysis]
     note: A personal need, beta users who wanted it for other things, and who else does it.
     notes:
@@ -48,11 +49,11 @@ coverage:
       pricing: Prepaid credits that do not expire, several times cheaper per video than Supadata.
       target-audience: Developers of apps and agents, with marketing teams that check sponsored videos as the first niche.
   - territory: engineering
-    section: 'Engineering: from blocked to 3,000 requests a minute'
+    section: 'Engineering: load-tested at 3,000 requests a minute'
     skills: [throughput, scalability]
     note: Holding load was the condition for selling it.
     notes:
-      throughput: From a block after about five requests to 3,000 TikTok requests a minute.
+      throughput: From a block after about five requests to 3,000 TikTok requests a minute in his own load tests.
       scalability: Daily load tests, because holding load was his condition for selling it.
   - territory: ai
     section: 'AI: a model that watches, agents that build'
@@ -61,7 +62,7 @@ coverage:
     notes:
       structured-outputs: Frames, audio and caption in; JSON in the shape you asked for out, with an optional JSON Schema.
       mcp: Agents such as Claude Code or Codex call it through an MCP server and get back only the fields they need.
-      ai-evals: No evals yet; he reads extractions himself, and a weekly check against a larger model came out of the call.
+      ai-evals: No evals yet; he reads extractions himself. A weekly agent report came out of the call, and the first one arrived three days later.
       ai-agents: Hermes runs on a Linux box at home, with nine or ten profiles split by project.
       delegating-to-agents: Hermes hands the coding to Pi agents, which come back with code and proof that it works.
       human-oversight: He reviews only the changes an agent scores as risky.
@@ -70,7 +71,7 @@ coverage:
     skills: [delivery-risk, feature-flags, launch-telemetry, rollbacks]
     note: Every change gets a risk score, and only the risky ones wait for him.
     notes:
-      delivery-risk: An arbiter agent scores every PR and sends it back, merges it or waits for Unai.
+      delivery-risk: A referee agent scores every PR and sends it back to Hermes, merges it or waits for Unai.
       feature-flags: New code goes out behind a flag when it needs one.
       launch-telemetry: After a merge, an agent watches the logs until about ten requests have gone through the new code.
       rollbacks: Every PR carries its own rollback plan; it has been used once.
@@ -89,17 +90,17 @@ coverage:
     note: A quiet launch, then a daily loop to appear in AI answers.
     notes:
       launch-planning: A quiet launch first, and a wider relaunch next, Hacker News included.
-      discovery-platforms: Directories that AI answers cite count, and one of them contradicted his own site.
+      discovery-platforms: Directories that AI answers cite count, and one that disagrees with your own site makes you less credible.
       seo: He works on GEO, being cited by AI answers, with prompts that run every day.
       content-marketing: Guides, comparison pages and docs, drafted by an agent from the gaps and read by him before they go out.
       attribution: He can see Mamitsu cited more often, but not whether those citations bring users.
   - territory: measurement
     section: 'Measurement: what he does not track yet'
     skills: [usage-observation, feedback-analysis, retention-metrics]
-    note: Web analytics only, and the weekly review that came out of the call.
+    note: Web analytics only, and a weekly review he set up after the call.
     notes:
       usage-observation: He looks at what people ask Mamitsu now and then, by hand.
-      feedback-analysis: Feedback arrives through the support email; a weekly agent report would look for patterns.
+      feedback-analysis: Feedback arrives through the support email; since the call, a weekly agent report reads the extractions.
       retention-metrics: Not tracked yet; I suggested asking which extractions bring users back.
   - section: Beyond the product
     scope: general
@@ -111,7 +112,7 @@ coverage:
       functional-prototypes: A two-hour demo instead of explaining an idea.
       channel-selection: Take the product to where people already are, like WhatsApp or the assistant they use.
       market-trends: Software made for agents to call, more than for people to open.
-      competitive-advantage: A product built on the labs' models can be copied as a feature; regulated markets may be safer.
+      competitive-advantage: A product built on the labs' models, or for their agents, can be copied when a lab ships it as a feature.
       reviewing-generated-work: We have both mostly stopped reading our projects' code, but it still matters where trust does.
 ---
 
@@ -140,7 +141,7 @@ I saw Mamitsu on Twitter, loved it and sent Unai some feedback. On 13 November w
 
 ## On the map
 
-The conversation reached ten of the twelve territories of the Skills Map and 38 skills. Each icon takes you to its section. The quick tour goes through the 38 skills one at a time, with what each meant for Mamitsu.
+The Skills Map is how I break product engineering down: twelve territories, like Discovery or Operations, and inside each the skills a person uses there, like pricing, alerting or SEO. Skills as in what you know how to do, not agent skills. The conversation reached ten territories and 38 skills. Each icon takes you to its section. The quick tour goes through the 38 skills one at a time, with what each meant for Mamitsu.
 
 <Territories
   title="Where the conversation went"
@@ -158,9 +159,9 @@ The conversation reached ten of the twelve territories of the Skills Map and 38 
   caption="Experience and Cross-cutting only came up in the wider discussion. Activation and Retention did not come up, apart from one idea about what brings users back."
 />
 
-## Discovery: from a coffee grinder to video data
+## Discovery: from a coffee recipe app to video data
 
-Mamitsu is a side project that came out of another side project: a coffee app. Unai brews each new coffee bag from a base recipe and adjusts it day by day: a bit finer, a bit more water. He built a recipe player that guides you step by step and tells you what to change tomorrow. Then it got out of hand: he normalised grinders, so a recipe for one grinder translates to yours. One of his goes by numbers, another by clicks. "It looks easy. It is a mess." The app could also import recipes from YouTube and Instagram videos, held together with tape.
+Mamitsu is a side project that came out of another side project: a coffee recipe app. Unai brews each new coffee bag from a base recipe and adjusts it day by day: a bit finer, a bit more water. He built a recipe player that guides you step by step and tells you what to change tomorrow. Then it got out of hand: he normalised grinders, so a recipe for one grinder translates to yours. One of his goes by numbers, another by clicks. "It looks easy. It is a mess." The app could also import recipes from Instagram reels and YouTube Shorts. It was a simple version: short videos only, and not much traffic at once.
 
 That import is what the beta testers wanted. One friend wanted it for family recipes, another for his own coffee app, a third for a travel app. What they had in common was not coffee. **It was useful information locked inside videos.**
 
@@ -221,27 +222,27 @@ The other bet is price. Supadata has traction, so: "People use this. Can I do it
 
 Supadata's traction shows that people pay for this job. Whether they pay Mamitsu is what the relaunch will tell. Who pays? From what Unai read, marketing teams use Supadata to check that sponsored videos really mention their brand, and mention it well. That is the niche he is writing posts for. I suggested another: trend analysis. Finding what is trending on TikTok and Instagram is one problem; working out why it works is the one Mamitsu can solve.
 
-## Engineering: from blocked to 3,000 requests a minute
+## Engineering: load-tested at 3,000 requests a minute
 
-Selling with confidence meant holding load. The platforms he downloads from used to block him after about five requests in half a minute. Now Mamitsu takes 3,000 TikTok requests a minute and, in his words, they do not care. The first version only read YouTube and Instagram; TikTok came with the product, and the day before our call an email to users announced X support and a playground inside the app.
+Selling with confidence meant holding load. The platforms he downloads from used to block him after about five requests in half a minute. Now, in his own load tests, Mamitsu takes 3,000 TikTok requests a minute without being blocked; in his words, they do not care. That is load he simulates, not traffic he has. The first version only read YouTube and Instagram; TikTok came with the product, and the day before our call an email to users announced X support and a playground inside the app.
 
 <StatRow
   title="Scraping social platforms, before and now"
   stats={[
     { value: 5, label: 'Requests before a block', note: 'About five, in half a minute' },
-    { value: 3000, label: 'TikTok requests a minute', note: 'Now, without blocks', signal: true },
+    { value: 3000, label: 'TikTok requests a minute', note: 'In his load tests, without blocks', signal: true },
     { value: 'Daily', label: 'Load tests', note: 'His own biggest customer' },
   ]}
-  caption="He load-tests every day: the person spending the most money on Mamitsu is him."
+  caption="He load-tests every day: the person spending the most money on Mamitsu is him. The 3,000 is load he simulates, not real traffic."
   evidence="reported"
   source="Unai Esteibar, on the call"
 />
 
-How he got there did not come up, and I did not ask. That is the first question for next time.
+How he got there did not come up, and I did not ask.
 
 ## AI: a model that watches, agents that build
 
-The product is a model call with a lot of care around it: frames, audio and caption in, JSON in the shape you asked for out, in the same request. Through the MCP server, an agent gets back only the fields it asked for, "so a ten-minute video costs a few lines of context instead of a full transcript", as the site puts it. The [agent plugins](https://github.com/usemamitsu/agent-plugins) are on GitHub.
+Where is the value? For Unai, in two things: getting the content, the videos and images, reliably and fast, and analysing it without your agent spending a fortune in tokens. The model call sits on top: frames, audio and caption in, JSON in the shape you asked for out, in the same request. Through the MCP server, an agent gets back only the fields it asked for, "so a ten-minute video costs a few lines of context instead of a full transcript", as the site puts it. The [agent plugins](https://github.com/usemamitsu/agent-plugins) are on GitHub.
 
 How does he know the answers are good? He does not measure it yet. Evals cost money, and at this volume he can read extractions himself. When he does start, comparing with a larger model shows where two models disagree, not which one is right. I would also check a sample against the video itself.
 
@@ -249,33 +250,32 @@ The team behind the product is agents. Unai runs Hermes on a Linux box at home, 
 
 ## Shipping: a risk score decides who approves
 
-Moving tickets in Linear feels unnatural to Unai, so the pipeline lives in Slack. It starts with a conversation with Hermes about the feature and, roughly, the technical solution. He cares most about database migrations and how to roll back: that keeps the blast radius small. Then the agents take over. Hermes hands the work to Pi agents, gets back code and proof that it works, and opens the PR.
+Moving tickets in Linear feels unnatural to Unai, so the pipeline lives in Slack. It starts with a conversation with Hermes about the feature and, roughly, the technical solution. He cares most about database migrations and how to roll back: that keeps the blast radius small. Then the agents take over. Hermes hands the work to Pi agents, gets back code and proof that it works, and opens the PR. It is the same Hermes, in the same session, from the first conversation to the PR; the Pi agents only talk to Hermes. The PR then goes to a referee agent, which Unai named Árbitro, Spanish for referee.
 
 <Flow
   title="From a Slack conversation to production"
   stages={['Plan', 'Build', 'Decide', 'Release']}
   nodes={[
-    { id: 'talk', label: 'Feature talk', detail: 'Migrations, rollback', col: 0, row: 0 },
-    { id: 'hermes', label: 'Hermes', detail: 'Hands out the work', col: 0, row: 1 },
-    { id: 'pi', label: 'Pi agents', detail: 'Code and proof', col: 1, row: 1 },
-    { id: 'pr', label: 'Hermes', detail: 'Opens the PR', col: 1, row: 0 },
-    { id: 'arbiter', label: 'Arbiter', detail: 'Scores the risk', col: 2, row: 0, kind: 'decision', tone: 'signal' },
-    { id: 'approve', label: 'Unai approves', detail: 'If high risk', col: 3, row: 0 },
+    { id: 'talk', label: 'Feature talk', detail: 'Migrations, rollback', col: 0, row: 1 },
+    { id: 'pi', label: 'Pi agents', detail: 'Code and proof', col: 1, row: 0 },
+    { id: 'hermes', label: 'Hermes', detail: 'Delegates, opens the PR', col: 1, row: 1 },
+    { id: 'referee', label: 'Referee', detail: 'Scores the risk', col: 2, row: 1, kind: 'decision', tone: 'signal' },
+    { id: 'rollback', label: 'Rollback', detail: 'Once so far', col: 3, row: 0 },
     { id: 'merge', label: 'Merge, watch', detail: 'If low risk', col: 3, row: 1, tone: 'lit' },
-    { id: 'rollback', label: 'Rollback', detail: 'Once so far', col: 3, row: 2 },
+    { id: 'approve', label: 'Unai approves', detail: 'If high risk', col: 3, row: 2 },
   ]}
   edges={[
     { from: 'talk', to: 'hermes' },
     { from: 'hermes', to: 'pi' },
-    { from: 'pi', to: 'pr' },
-    { from: 'pr', to: 'arbiter' },
-    { from: 'arbiter', to: 'pi', label: 'Not ready', dashed: true },
-    { from: 'arbiter', to: 'approve' },
-    { from: 'arbiter', to: 'merge' },
+    { from: 'pi', to: 'hermes' },
+    { from: 'hermes', to: 'referee', label: 'PR' },
+    { from: 'referee', to: 'hermes', label: 'Not ready', dashed: true },
+    { from: 'referee', to: 'approve' },
+    { from: 'referee', to: 'merge' },
     { from: 'approve', to: 'merge' },
     { from: 'merge', to: 'rollback', dashed: true },
   ]}
-  caption="The arbiter checks that everything is green and easy to roll back, then gives one of three answers: back to the agents, merge, or wait for Unai. Each PR carries its own rollout and rollback plan."
+  caption="One Hermes session runs the whole way, and only Hermes talks to the Pi agents. The referee checks that everything is green and easy to roll back, then gives one of three answers: back to Hermes, merge, or wait for Unai. Each PR carries its own rollout and rollback plan."
 />
 
 After a merge, the agent turns on a feature flag if needed, watches the logs until about ten requests have gone through the new code, and rolls back if something breaks. That has happened once. Otherwise he gets a Slack message saying all is well. The risk scoring is his own skill. **Two years ago, a product with these processes would have needed a team.**
@@ -289,16 +289,16 @@ This is the part Unai finds most interesting: **products that were not viable be
   actors={[
     { id: 'sentry', label: 'Sentry', kind: 'external' },
     { id: 'hermes', label: 'Hermes' },
-    { id: 'arbiter', label: 'Arbiter' },
+    { id: 'referee', label: 'Referee' },
     { id: 'unai', label: 'Unai, in Slack', kind: 'external' },
   ]}
   messages={[
     { from: 'hermes', to: 'sentry', label: 'Any new alerts?', note: 'An agent polls Sentry all the time.' },
     { from: 'sentry', to: 'hermes', label: 'New error', kind: 'reply' },
     { from: 'hermes', to: 'unai', label: 'Looking into this', note: 'A Slack thread: is it a real error, does it need you?' },
-    { from: 'hermes', to: 'arbiter', label: 'PR with a fix' },
-    { from: 'arbiter', to: 'hermes', label: 'Green, low risk: merged', kind: 'reply' },
-    { from: 'arbiter', to: 'unai', label: 'Fixed in production', tone: 'signal', note: 'Once, this was the first Unai heard of the error.' },
+    { from: 'hermes', to: 'referee', label: 'PR with a fix' },
+    { from: 'referee', to: 'hermes', label: 'Green, low risk: merged', kind: 'reply' },
+    { from: 'referee', to: 'unai', label: 'Fixed in production', tone: 'signal', note: 'Once, this was the first Unai heard of the error.' },
   ]}
 />
 
@@ -331,9 +331,9 @@ When you ask ChatGPT something, it runs your search plus many variations, opens 
   caption="Answers change every day, so the loop runs every day. What it cannot tell him is whether anyone clicked."
 />
 
-There are two ways into an answer. One is to be on the pages that already get cited. For another site of his, a directory that AI answers cited contradicted his own site. Search engines do not care; AI answers do, because the model cannot tell which version to believe. The other way is to get cited yourself, with guides, comparison pages and docs. An agent drafts them from the gaps, and he reads everything before it goes out: "I don't like publishing things that have not been through me."
+There are two ways into an answer. One is to be on the pages that already get cited, and to make sure they agree with you. His example was a jiu-jitsu dojo: a directory that AI answers cite listed it with different information from the dojo's own website, and that makes it less credible. Search engines do not care; AI answers do, because the model cannot tell which version to believe. The other way is to get cited yourself, with guides, comparison pages and docs. An agent drafts them from the gaps, and he reads everything before it goes out: "I don't like publishing things that have not been through me."
 
-He tracks all this in Omnia, a tool that monitors AI answers, and showed me Mamitsu's numbers there. The method does not depend on the tool.
+He tracks all this in [Omnia](https://www.useomnia.com), a tool that monitors AI answers, and showed me Mamitsu's numbers there. The method does not depend on the tool.
 
 <Claims
   title="What Unai knows about Mamitsu in AI answers, and how"
@@ -353,10 +353,10 @@ Being cited, being visited and being used are three different results, and only 
 
 The website has web analytics: Rybbit, self-hosted. Inside the product he tracks nothing yet. Does he look at what people ask Mamitsu? Now and then, by hand. Feedback comes through the support email.
 
-At the end I asked what he would take from the call. An agent that reads the week's extractions and reports every Monday, cheap at the current traffic. It could run the first evals too: compare answers with a larger model, and spot uses he had not planned for. I added a question for that report: which extractions bring users back.
+At the end I asked what he would take from the call. An agent that reads the week's extractions and reports every Monday, cheap at the current traffic. It could run the first evals too: compare answers with a larger model, and spot uses he had not planned for. I added a question for that report: which extractions bring users back. He set it up straight away: the first report came in on Monday 16 November, three days after the call.
 
 <Hypothesis
-  title="The weekly review Unai took from the call"
+  title="The weekly review Unai set up after the call"
   if="an agent reads last week's extractions every Monday and checks a sample against a larger model"
   then="Unai learns which answers are wrong and which uses he did not plan for, without reading them all"
   because="today he reads them by hand, and that stops working as soon as usage grows."
@@ -374,7 +374,7 @@ Half the call was about product engineering in general. What stayed with me:
 
 ### Demos instead of explanations
 
-Unai used to explain his ideas, badly. Now he often builds a two-hour demo and sends that. Many ideas are built in a morning and binned by the afternoon.
+Unai used to struggle to explain his ideas. Now he often builds a two-hour demo and sends that. Many ideas are built in a morning and binned by the afternoon.
 
 ### Take the product to where people already are
 
@@ -382,7 +382,7 @@ It will be harder and harder to bring people to new places, he thinks, so produc
 
 ### Software for agents, and the risk of being sherlocked
 
-I am starting to think about building for agents rather than for people; I no longer open my calendar, I send a voice message. Mamitsu is in that market, a service other agents call. The risk Unai sees: a product built on the labs' models, or for their agents, gets copied when a lab ships it as a feature. Markets with some regulation, like tax advisers or estate agents, may be safer places to bring agents.
+I am starting to think about building for agents rather than for people; I no longer open my calendar, I send a voice message. Mamitsu is in that market, a service other agents call. The risk Unai sees: a product built on the labs' models, or for their agents, gets copied when a lab ships it as a feature.
 
 ### Code still matters where trust matters
 
@@ -390,7 +390,7 @@ Unai suggested agents could use Codiluce, my tool to see how code fits together,
 
 ## What I take from it
 
-- **GEO is work you can do in the background.** I treated appearing in AI answers as luck. Unai treats it like SEO: questions asked every day, citations read, gaps filled with content an agent drafts and he approves. I want to know what ChatGPT and Claude answer when someone asks how to become a product engineer, and whether this site is in the answer.
+- **GEO is work you can do in the background.** I treated appearing in AI answers as luck. Unai treats it like SEO: questions asked every day, citations read, gaps filled with content an agent drafts and he approves. I want to know what ChatGPT and Claude answer when someone asks how to become a product engineer, and whether this site is in the answer. Unai pointed me to Omnia's [write-up on PrintStash](https://www.useomnia.com/blog/printstash-ai-search), a 3D-printing file manager, which runs the same loop on a new product.
 - **Restraint, also in how many products I build.** Unai's point was about features: when building is cheap, nothing forces you to prioritise. It works one level up too. I have several side projects, and agents make it easy to start another one. The cut list should have products on it as well.
 - **Automate the loops around the product.** Errors, support emails and content drafts reach Unai's agents before they reach him. Those are the jobs that make a side project too expensive to keep running. I want the same for mine: alerts that arrive with a diagnosis, feedback that becomes a weekly report, content drafted from the gaps.
 

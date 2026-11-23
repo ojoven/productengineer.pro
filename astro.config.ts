@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { readdirSync } from 'node:fs';
 import mdx from '@astrojs/mdx';
 import type { AstroIntegration } from 'astro';
 import type { Plugin } from 'vite';
@@ -31,6 +32,13 @@ function atlasCheck(): AstroIntegration {
           throw new Error(`fieldwork check failed with ${editorial.errors.length} error(s)`);
         }
         logger.info('fieldwork check passed');
+        // A skill body is named after its skill: src/content/skills/<skill-id>.md
+        const skillIds = new Set(atlas.skills.map((s) => s.id));
+        const strays = readdirSync('src/content/skills').filter((f) => /^[^_].*\.md$/.test(f) && !skillIds.has(f.slice(0, -3)));
+        if (strays.length) {
+          strays.forEach((f) => logger.error(`src/content/skills/${f}: no skill has the id "${f.slice(0, -3)}"`));
+          throw new Error(`skill body check failed with ${strays.length} error(s)`);
+        }
       },
     },
   };

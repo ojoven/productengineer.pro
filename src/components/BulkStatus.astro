@@ -19,13 +19,11 @@ const { ids, name } = Astro.props;
 <script>
   import type { ProgressStatus } from '../atlas/status.ts';
   import { setStatus } from '../scripts/progress.ts';
-  import { track } from '../scripts/track.ts';
   document.querySelectorAll<HTMLElement>('[data-bulk]').forEach((box) => {
     const ids = box.dataset.bulk!.split(' ');
     box.querySelectorAll<HTMLButtonElement>('button[data-set]').forEach((b) =>
       b.addEventListener('click', () => {
-        setStatus(ids, b.dataset.set as ProgressStatus);
-        track('Status set in bulk', { status: b.dataset.set!, count: ids.length });
+        setStatus(ids, b.dataset.set as ProgressStatus, 'bulk');
       }),
     );
   });

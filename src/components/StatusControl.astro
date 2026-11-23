@@ -35,12 +35,10 @@ const options = STATUS_OPTIONS;
 <script>
   import type { ProgressStatus } from '../atlas/status.ts';
   import { setStatus } from '../scripts/progress.ts';
-  import { track } from '../scripts/track.ts';
   document.querySelectorAll<HTMLInputElement>('input[data-status-input]').forEach((input) => {
     input.addEventListener('change', () => {
       if (!input.checked) return;
-      setStatus(input.dataset.statusInput!, input.value as ProgressStatus);
-      track('Status set', { status: input.value, from: 'page' });
+      setStatus(input.dataset.statusInput!, input.value as ProgressStatus, 'skill_page');
     });
   });
 </script>

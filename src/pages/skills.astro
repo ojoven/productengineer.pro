@@ -150,21 +150,21 @@ const groups = [
           <span class="label">Editable files</span>
           <h3>Any compatible agent</h3>
           <p>Run in your product’s repo. The installer asks which agent and which skills to use.</p>
-          <CommandBlock label="Terminal · skills.sh" command="npx skills@latest add ojoven/product-engineering-skills" />
+          <CommandBlock label="Terminal · skills.sh" installMethod="skills_sh" command="npx skills@latest add ojoven/product-engineering-skills" />
           <p class="install-note">Update with <code>npx skills@latest update</code>. Run <code>add</code> again to pick up newly added skills.</p>
         </article>
         <article>
           <span class="label">Plugin</span>
           <h3>Claude Code</h3>
           <p>Add the marketplace, then install the plugin from your terminal.</p>
-          <CommandBlock label="Terminal · Claude Code" command={'claude plugin marketplace add ojoven/product-engineering-skills\nclaude plugin install product-engineering@ojoven'} />
+          <CommandBlock label="Terminal · Claude Code" installMethod="claude_code" command={'claude plugin marketplace add ojoven/product-engineering-skills\nclaude plugin install product-engineering@ojoven'} />
           <p class="install-note">Plugin commands use a prefix, for example <code>/product-engineering:what-next</code>.</p>
         </article>
         <article>
           <span class="label">Plugin</span>
           <h3>Codex</h3>
           <p>Add the same marketplace and install the product engineering plugin.</p>
-          <CommandBlock label="Terminal · Codex" command={'codex plugin marketplace add ojoven/product-engineering-skills\ncodex plugin add product-engineering@ojoven'} />
+          <CommandBlock label="Terminal · Codex" installMethod="codex" command={'codex plugin marketplace add ojoven/product-engineering-skills\ncodex plugin add product-engineering@ojoven'} />
           <p class="install-note">Refresh the marketplace with <code>codex plugin marketplace upgrade</code>.</p>
         </article>
       </div>

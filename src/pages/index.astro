@@ -6,6 +6,7 @@ import ProfileCard from '../components/ProfileCard.astro';
 import { atlas, path } from '../lib/atlas.ts';
 import { fieldwork } from '../lib/editorial.ts';
 import { isMapKind } from '../editorial/schema.ts';
+import { graph, organization, person, website } from '../lib/seo.ts';
 
 const a = atlas();
 // every skill page, for the random skill button; the script prefers skills not marked yet
@@ -27,7 +28,7 @@ const profiles = out.filter((e) => isMapKind(e.data.kind) && !e.data.placeholder
 const description = `A free map of the ${a.skills.length} skills of product engineering. Mark what you know, see what to learn next and how real products use those skills, told by their makers.`;
 ---
 
-<Base description={description}>
+<Base fullTitle="Product engineer skills map · ProductEngineer.pro" description={description} jsonld={graph(website(), organization(), person())}>
   <section class="wrap hero">
     <h1 class="display">You already do more<br /> than write code.</h1>
     <p class="lede">
@@ -144,6 +145,7 @@ const description = `A free map of the ${a.skills.length} skills of product engi
           For an experienced engineer the biggest gains are rarely another framework. They are discovery, prioritization,
           experimentation, user behavior and business judgment. The map makes those gaps visible.
         </p>
+        <p><a href="/what-is-a-product-engineer/">What is a product engineer? The role, how it differs and how to start →</a></p>
       </div>
       <ol class="index compact">
         {
@@ -167,7 +169,6 @@ const description = `A free map of the ${a.skills.length} skills of product engi
 
 <script>
   import { load } from '../scripts/progress.ts';
-  import { track } from '../scripts/track.ts';
 
   // A new random skill on every visit and every click. Without JavaScript the button opens the Skills Map.
   const btn = document.getElementById('random-skill') as HTMLAnchorElement | null;
@@ -182,7 +183,6 @@ const description = `A free map of the ${a.skills.length} skills of product engi
     pick();
     btn.addEventListener('click', () => {
       pick();
-      track('Random skill');
     });
   }
 </script>

@@ -130,6 +130,8 @@ const Coverage = z
 
 const Common = {
   title: Text,
+  /** A shorter title for search results (about 60 characters), when `title` is long. */
+  seoTitle: Text.optional(),
   /** One or two sentences: what this is and what came out of it. Used in lists and meta tags. */
   summary: Text,
   /** A structure example, not a real piece of work. Shown with a notice, kept out of search and the sitemap. */

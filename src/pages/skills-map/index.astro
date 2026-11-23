@@ -6,13 +6,28 @@
 import Base from '../../layouts/Base.astro';
 import { FOCUS_OPTIONS, PROGRESS_FILTERS } from '../../atlas/filters.ts';
 import TerritoryRows from '../../components/TerritoryRows.astro';
-import { atlas, mapSvg } from '../../lib/atlas.ts';
+import { atlas, mapSvg, path } from '../../lib/atlas.ts';
+import { abs, ID } from '../../lib/seo.ts';
 
 const a = atlas();
 const svg = mapSvg({ width: 760, height: 700 });
+// The whole map as one vocabulary: territories are its parts, each with capabilities and skills.
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  '@id': `${abs('/skills-map/')}#set`,
+  name: 'Skills Map: a map of product engineering',
+  description: `The skills of product engineering in ${a.territories.length} groups, ${a.capabilities.length} capabilities and ${a.skills.length} skills.`,
+  url: abs('/skills-map/'),
+  inLanguage: 'en',
+  creator: { '@id': ID.person },
+  publisher: { '@id': ID.organization },
+  isPartOf: { '@id': ID.website },
+  hasPart: a.territories.map((t) => ({ '@type': 'DefinedTermSet', '@id': `${abs(path(t))}#set`, name: t.name, url: abs(path(t)) })),
+};
 ---
 
-<Base title="Skills Map" description={`Explore product engineering in the Skills Map: ${a.territories.filter((t) => !t.crossCutting).length} territories, ${a.capabilities.length} capabilities and ${a.skills.length} skills. Mark what you know and see what to learn next.`} bodyClass="is-explorer" searchable={false}>
+<Base jsonld={jsonld} title="Skills Map" description={`Explore product engineering in the Skills Map: ${a.territories.filter((t) => !t.crossCutting).length} territories, ${a.capabilities.length} capabilities and ${a.skills.length} skills. Mark what you know and see what to learn next.`} bodyClass="is-explorer" searchable={false}>
   <div class="explorer" id="explorer">
     <div class="ex-map" id="ex-map" set:html={svg} />
     <aside class="ex-panel" id="ex-panel" aria-live="polite">
@@ -348,9 +363,19 @@ const svg = mapSvg({ width: 760, height: 700 });
   }
 
   function go(next: ExState, push = true) {
+    const previous = state;
+    const action = next.at !== previous.at ? 'select_node' : next.progress !== previous.progress ? 'filter_progress'
+      : next.focus !== previous.focus ? 'filter_focus' : '';
     if (push) history.pushState(next, '', urlFor(next));
     zoomTo(next).then(panel);
-    track('Map zoom', { level: S.has(next.at) ? 'skill' : C.has(next.at) ? 'capability' : T.has(next.at) ? 'territory' : 'world' });
+    if (action) {
+      const progress = load().progress;
+      track('map_used', {
+        action, mode: (next.progress && Object.keys(progress).length) || progress[next.at] ? 'personal' : 'explore',
+        view_level: S.has(next.at) ? 'skill' : C.has(next.at) ? 'capability' : T.has(next.at) ? 'territory' : 'world',
+        focus_area: next.focus, progress_filter: next.progress,
+      });
+    }
   }
 
   // ---- the index: the same rows as the static pages
@@ -477,14 +502,12 @@ const svg = mapSvg({ width: 760, height: 700 });
       button.addEventListener('click', () => {
         const value = button.dataset.progress as ProgressFilter;
         go({ ...state, progress: state.progress === value && button.hasAttribute('aria-pressed') ? '' : value });
-        track('Your map filter', { status: value });
       }),
     );
     document.querySelectorAll<HTMLInputElement>('input[name="ex-status"]').forEach((input) =>
       input.addEventListener('change', () => {
         if (!input.checked) return;
-        setStatus(input.dataset.statusInput!, input.value as ProgressStatus);
-        track('Status set', { status: input.value, from: 'map' });
+        setStatus(input.dataset.statusInput!, input.value as ProgressStatus, 'map');
       }),
     );
     applyProgress();
@@ -552,7 +575,6 @@ const svg = mapSvg({ width: 760, height: 700 });
       history.replaceState(state, '', urlFor(state));
       draw();
       panel();
-      if (state.lit.length) track('Lit map opened', { count: state.lit.length });
     })
     .catch(() => { $('ex-filter-note').textContent = 'Filters could not load. Reload the page to try again.'; });
 </script>

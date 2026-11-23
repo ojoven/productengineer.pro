@@ -4,6 +4,13 @@ Verified: 2026-11-11, approximately 20:53–21:04 UTC. Agent operations on sourc
 
 Goal supported: 10 engineers besides the owner use their personal learning map in two separate weeks by 2027-01-06. Source availability does not establish that this goal is measurable automatically.
 
+Implementation update, 2026-11-16: the website source now uses the shared Rybbit ingestion
+adapter and the nine-event contract in `docs/analytics.md`. It excludes local/staging traffic,
+raw query text, account identification and replay, and adds explicit browser opt-out. These are
+source changes, not a claim that they have been deployed or received in production. The
+historical proofs and gaps below describe the 2026-11-11 checks. The read-only helper now
+also returns current/previous counts and missing names for the nine planned events.
+
 ## Category coverage
 
 - **Product analytics: connected.** Rybbit GET queries work with the owner-provisioned credential, and the owner reconciled the current-period totals with the dashboard.

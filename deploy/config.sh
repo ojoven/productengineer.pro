@@ -113,3 +113,63 @@ public_api_healthcheck() {
   # without a token the MCP endpoint must answer 401 with a WWW-Authenticate challenge
   curl -sS -o /dev/null -w '%{http_code} /mcp (expect 401)\n' -X POST -H 'Content-Type: application/json' -d '{}' "https://${SITE_DOMAIN}/mcp"
 }
+
+# ---- IndexNow (https://www.indexnow.org): tells Bing, Yandex, Seznam and others which pages
+# changed, so they crawl them soon. The key file lives in public/ and is served from the root.
+INDEXNOW_KEY="${INDEXNOW_KEY:-07d1134de0470d8266ce5de16d5d1365}"
+INDEXNOW_TMP="${INDEXNOW_TMP:-$(mktemp -d)}"
+
+# One line per page: a hash of its HTML without asset file names (they change with every style or
+# script edit, which is not a content change), then its path. Run inside a dist/ folder.
+page_hashes() {
+  find . -name index.html -type f | sort | while IFS= read -r f; do
+    printf '%s %s\n' "$(sed -E 's#/_astro/[^"'"'"' )]+##g' "$f" | md5sum | cut -c1-32)" "${f#./}"
+  done
+}
+
+# Before rsync_dist: which pages are new or changed compared with production, and which are gone.
+indexnow_snapshot() {
+  echo "-> indexnow: compare pages with production"
+  { declare -f page_hashes; echo 'cd "$1" 2>/dev/null && page_hashes || true'; } \
+    | ssh_remote "bash -s -- '${REMOTE_DIR}/dist'" > "${INDEXNOW_TMP}/remote"
+  (cd "${DEPLOY_ROOT}/dist" && page_hashes) > "${INDEXNOW_TMP}/local"
+  LC_ALL=C sort -o "${INDEXNOW_TMP}/remote" "${INDEXNOW_TMP}/remote"
+  LC_ALL=C sort -o "${INDEXNOW_TMP}/local" "${INDEXNOW_TMP}/local"
+  : > "${INDEXNOW_TMP}/paths"
+  # new or changed pages, except noindex pages and redirects
+  LC_ALL=C comm -13 "${INDEXNOW_TMP}/remote" "${INDEXNOW_TMP}/local" | cut -d' ' -f2- | while IFS= read -r f; do
+    grep -qE 'name="robots" content="noindex"|http-equiv="refresh"' "${DEPLOY_ROOT}/dist/${f}" || echo "${f}"
+  done >> "${INDEXNOW_TMP}/paths"
+  # pages that no longer exist
+  LC_ALL=C comm -23 <(cut -d' ' -f2- "${INDEXNOW_TMP}/remote" | LC_ALL=C sort) <(cut -d' ' -f2- "${INDEXNOW_TMP}/local" | LC_ALL=C sort) >> "${INDEXNOW_TMP}/paths"
+  echo "   $(wc -l < "${INDEXNOW_TMP}/paths") page(s) to submit"
+}
+
+# After the new dist/ is live. A failure here never fails the deploy.
+indexnow_submit() {
+  local n
+  n=$(wc -l < "${INDEXNOW_TMP}/paths")
+  if [ "${n}" -eq 0 ]; then echo "-> indexnow: nothing changed"; return 0; fi
+  echo "-> indexnow: submit ${n} URL(s)"
+  SITE_DOMAIN="${SITE_DOMAIN}" INDEXNOW_KEY="${INDEXNOW_KEY}" node - "${INDEXNOW_TMP}/paths" <<'JS' || echo "   indexnow failed; the deploy itself is fine"
+const fs = require('node:fs');
+const host = process.env.SITE_DOMAIN;
+const key = process.env.INDEXNOW_KEY;
+const urlList = fs.readFileSync(process.argv[2], 'utf8').split('\n').filter(Boolean)
+  .map((f) => `https://${host}/${f.replace(/index\.html$/, '')}`);
+(async () => {
+  for (let i = 0; i < urlList.length; i += 10000) {
+    const send = () => fetch('https://api.indexnow.org/indexnow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({ host, key, keyLocation: `https://${host}/${key}.txt`, urlList: urlList.slice(i, i + 10000) }),
+    });
+    let res = await send();
+    // 403 means the key was not verified yet; on the first deploy with a new key it passed a few seconds later
+    if (res.status === 403) { await new Promise((ok) => setTimeout(ok, 15000)); res = await send(); }
+    console.log(`   ${res.status} ${res.statusText} (${urlList.slice(i, i + 10000).length} URLs)`);
+    if (res.status >= 400) process.exitCode = 1;
+  }
+})();
+JS
+}

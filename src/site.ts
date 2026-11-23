@@ -6,10 +6,10 @@ export const SITE = {
   /** The home page passes its own, with the live skill count. */
   description:
     'A free map of the skills of product engineering. Mark what you know, see what to learn next and how real products use those skills, told by their makers.',
-  /** Privacy-friendly analytics. Leave empty to load nothing. */
+  /** Public Rybbit ingestion settings. Private read credentials never enter the frontend. */
   analytics: {
-    /** Plausible-compatible script URL, e.g. https://plausible.io/js/script.js or a self-hosted one. */
-    src: import.meta.env.PUBLIC_ANALYTICS_SRC ?? '',
-    domain: import.meta.env.PUBLIC_ANALYTICS_DOMAIN ?? 'productengineer.pro',
+    enabled: import.meta.env.PUBLIC_RYBBIT_ENABLED !== 'false',
+    host: 'https://analytics.mtorr.es',
+    siteId: '0b9e1ee60f53',
   },
 };

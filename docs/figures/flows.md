@@ -26,7 +26,7 @@ In this file: [Flow](#flow) · [Loop](#loop) · [Sequence](#sequence) · [Journe
 **Props**
 
 - **`nodes`** *(required)* `{ id: string; label: string; detail?: string; col: number; row: number; kind?: 'step' | 'decision' | 'external' | 'store'; tone?: 'signal' | 'lit'; href?: string }[]`: `col` is the stage (from 0, the flow runs along it), `row` the lane. Up to four columns and three rows. `decision` is filled, `external` dashed (outside your system), `store` is where data rests. Keep `label` under 14 characters.
-- **`edges`** *(required)* `{ from: string; to: string; label?: string; tone?: 'signal'; dashed?: boolean }[]`: Arrows by node id. An edge to an earlier column is drawn as a loop back. `dashed` for something that happens later or only sometimes.
+- **`edges`** *(required)* `{ from: string; to: string; label?: string; tone?: 'signal'; dashed?: boolean }[]`: Arrows by node id. An edge to an earlier column is drawn as a loop back. Two edges between the same nodes in one column, one each way, run side by side. `dashed` for something that happens later or only sometimes.
 - **`stages`** `string[]`: A label for each column.
 - **`motion`** `boolean`: Set to `false` for a still diagram. Default: dots travel along the arrows, with a pause button.
 

@@ -3,8 +3,9 @@ import Base from '../../../layouts/Base.astro';
 import Crumbs from '../../../components/Crumbs.astro';
 import MapFigure from '../../../components/MapFigure.astro';
 import CapabilityRows from '../../../components/CapabilityRows.astro';
-import { atlas, capability, skillIds, code } from '../../../lib/atlas.ts';
+import { atlas, capability, skillIds, code, path } from '../../../lib/atlas.ts';
 import type { Territory } from '../../../atlas/model.ts';
+import { abs } from '../../../lib/seo.ts';
 
 export function getStaticPaths() {
   return atlas().territories.map((t) => ({ params: { territory: t.id }, props: { id: t.id } }));
@@ -13,9 +14,19 @@ const a = atlas();
 const t = a.nodes.get(Astro.props.id) as Territory;
 const caps = t.capabilities.map(capability);
 const ids = skillIds(t);
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  '@id': `${abs(path(t))}#set`,
+  name: t.name,
+  description: `${t.question} ${t.description}`,
+  url: abs(path(t)),
+  isPartOf: { '@type': 'DefinedTermSet', '@id': `${abs('/skills-map/')}#set`, name: 'Skills Map', url: abs('/skills-map/') },
+  hasPart: caps.map((c) => ({ '@type': 'DefinedTermSet', '@id': `${abs(path(c))}#set`, name: c.name, url: abs(path(c)) })),
+};
 ---
 
-<Base title={t.name} description={`${t.name}: ${t.question} ${t.description}`.slice(0, 300)} image={`/og/${t.id}.jpg`}>
+<Base title={t.name} description={`${t.name}: ${t.question} ${t.description}`} image={`/og/${t.id}.jpg`} jsonld={jsonld}>
   <div class="wrap">
     <Crumbs items={[{ href: '/skills-map/', label: 'Skills Map' }, { label: `${code(t.id)} ${t.name}` }]} />
     <header class="page-head">

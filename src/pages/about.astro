@@ -3,12 +3,19 @@ import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import { atlas } from '../lib/atlas.ts';
 import { author } from '../lib/editorial.ts';
+import { abs, graph, ID, organization, person } from '../lib/seo.ts';
 
 const a = atlas();
 const me = author();
 ---
 
-<Base title="About" description="Hi, I'm Mikel. I built ProductEngineer.pro to make sense of the work around writing software, and to share what I'm learning along the way.">
+<Base
+  jsonld={graph(
+    { '@type': 'ProfilePage', '@id': abs('/about/'), url: abs('/about/'), name: 'About ProductEngineer.pro', mainEntity: { '@id': ID.person }, isPartOf: { '@id': ID.website } },
+    person(),
+    organization(),
+  )}
+  title="About" description="Hi, I'm Mikel. I built ProductEngineer.pro to make sense of the work around writing software, and to share what I'm learning along the way.">
   <div class="wrap">
     <Crumbs items={[{ label: 'About' }]} />
     <header class="page-head">
@@ -153,8 +160,7 @@ const me = author();
       <div class="cols">
         <div class="prose">
           <p>
-            You can mark each skill as learning, comfortable or not interested. Without an account that status stays in your browser and nothing
-            is sent to a server.
+            You can mark each skill as learning, comfortable or not interested. Without an account, your individual skill statuses stay in your browser.
           </p>
           <p>
             If you sign in with GitHub or Google, your statuses are saved to an account so they follow you to any device. The
@@ -165,7 +171,10 @@ const me = author();
             AI agents can read the Skills Map through an <a href="/me/#agents">MCP server</a>. An agent can read your statuses only after
             you approve it, and it can never change them.
           </p>
-          <p>Page analytics, when enabled, are cookieless and collect no personal data. Videos load from YouTube only when you press play.</p>
+          <p>We use cookieless Rybbit analytics to understand page visits, Tour navigation, searches and learning links. For progress, we record how many changes were saved, not which skills you marked or their statuses. Search text, account details and personal maps are excluded, and this site does not record session replays or identify your account in analytics. Labelled campaign parameters help us understand how visitors find the site.</p>
+          <p>You can exclude this browser from analytics using the control below. Videos load from YouTube only when you press play.</p>
+          <button type="button" class="btn small" id="analytics-optout">Exclude this browser from analytics</button>
+          <p id="analytics-optout-status" class="note" role="status"></p>
         </div>
         <div class="prose">
           <p>
@@ -179,3 +188,19 @@ const me = author();
     </section>
   </div>
 </Base>
+
+<script>
+  import { optedOut } from '../scripts/track.ts';
+  const button = document.getElementById('analytics-optout')!;
+  const status = document.getElementById('analytics-optout-status')!;
+  function render() { button.textContent = optedOut() ? 'Allow analytics in this browser' : 'Exclude this browser from analytics'; }
+  render();
+  button.addEventListener('click', () => {
+    try {
+      if (optedOut()) { localStorage.removeItem('disable-rybbit'); window.__RYBBIT_OPTOUT__ = false; }
+      else { localStorage.setItem('disable-rybbit', 'true'); window.__RYBBIT_OPTOUT__ = true; }
+      status.textContent = optedOut() ? 'This browser is excluded. Reload to apply this on every open page.' : 'Analytics is allowed. Reload to apply.';
+      render();
+    } catch { status.textContent = 'Browser storage is blocked; this preference could not be saved.'; }
+  });
+</script>
