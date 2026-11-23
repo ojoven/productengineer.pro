@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Here's how I use LLMs to help me write code (Simon Willison)"
+    url: https://simonwillison.net/2025/Mar/11/using-llms-for-code/
+  - title: Google engineering practices, code review
+    url: https://google.github.io/eng-practices/review/
+---
+
+## Why it matters for a product engineer
+
+AI output can look right and be subtly wrong: a function that passes the tests it wrote itself, a
+summary that drops the one exception that mattered. Reviewing it takes the same care as a colleague's
+work, and more where you lack expertise. As agents write more of the code, review becomes a larger
+part of a product engineer's job.
+
+## How to do it
+
+1. Ask for small, focused changes. A large generated change is almost impossible to review well.
+2. Run it. As Simon Willison puts it, the one thing you cannot outsource to the machine is testing
+   that the code actually works.
+3. Read the parts that matter most closely: security, data changes, money, anything hard to undo.
+4. Check claims against sources: links, numbers, quotes, API behaviour.
+5. Use a second model or agent to review, but treat its findings as input, not a verdict.
+6. Accept only what you could explain and maintain yourself.
+
+## Common mistakes
+
+- Approving because the tests pass, when the same agent wrote the tests.
+- Skimming confident text.
+- Reviewing everything with the same care, so the risky parts get no more attention.
+- Letting review lapse in areas where trust matters, such as security.
+
+## Example
+
+RelievApp used agents to review agents. An audit in the morning scored the product 5 out of 10, and
+the fixes that day brought a second review to 7. Both are judgements, not data. Mamitsu's maker and
+the author of In practice both admit they have mostly stopped reading their projects' code, but agree
+it still matters where trust does, such as security. ([RelievApp](/in-practice/relievapp-part-1/),
+[Mamitsu](/in-practice/mamitsu/))
+
+<Compare
+  title="Two agent reviews of RelievApp, 16 November"
+  subjects={['Audit, morning', 'Second pass, afternoon']}
+  highlight={1}
+  rows={[
+    { label: 'Onboarding into the first session', values: [4, 8], unit: '/10' },
+    { label: 'Inside a session', values: [5, 7], unit: '/10' },
+    { label: 'Distribution readiness', values: [3, 4], unit: '/10', note: 'Nothing in it had changed' },
+    { label: 'Overall', values: [5, 7], unit: '/10' },
+  ]}
+  caption="An agent's review found the worst problems, and they were fixed the same day. The scores are still one agent's judgement, without usage data."
+  evidence="assumed"
+  source="An agent's judgement on staging at phone size, 16 Nov 2026"
+/>

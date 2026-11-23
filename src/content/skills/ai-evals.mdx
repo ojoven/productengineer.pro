@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Your AI product needs evals (Hamel Husain)
+    url: https://hamel.dev/blog/posts/evals/
+  - title: 'Using LLM-as-a-judge for evaluation: a complete guide (Hamel Husain)'
+    url: https://hamel.dev/blog/posts/llm-judge/
+---
+
+## Why it matters for a product engineer
+
+Without evals, every change to a prompt or model is judged by a few examples that "looked fine".
+Evals replace that with numbers: a set of real cases, a way to grade each answer, and runs you can
+repeat. They are the automated tests of AI features. Product engineers need them to change prompts
+and models without breaking what already works.
+
+## How to do it
+
+1. Read real outputs first. List the ways the feature fails before you measure anything.
+2. Build a dataset from real cases, including the hard ones, and keep it versioned.
+3. Write cheap checks in code for what code can check: format, length, forbidden content.
+4. For quality, ask a domain expert for pass or fail judgements with a short reason.
+5. If you use a model as a judge, check it against the expert's judgements before you trust it.
+6. Run the evals on every change, and add each production failure as a new case.
+
+## Common mistakes
+
+- A single average score that hides the important failure types.
+- A model judge nobody has compared with human judgement.
+- Datasets made only of easy, invented examples.
+- Evals run once and never again.
+
+## Example
+
+Rechat's assistant, Lucy, improved fast with prompt changes, then stopped improving: fixing one
+failure created another. Evals broke the plateau. Mamitsu has no evals yet; its maker reads
+extractions himself. His new weekly report checks a sample against a larger model, which shows where
+two models disagree, not which one is right. ([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Flow
+  title="Three levels of evals, by cost"
+  motion={false}
+  nodes={[
+    { id: 'l1', label: 'Unit tests', detail: 'Fast checks in code, on every change', col: 0, row: 0, tone: 'lit' },
+    { id: 'l2', label: 'Human and model review', detail: 'On a set schedule', col: 1, row: 0 },
+    { id: 'l3', label: 'A/B tests', detail: 'After big product changes', col: 2, row: 0 },
+  ]}
+  edges={[
+    { from: 'l1', to: 'l2' },
+    { from: 'l2', to: 'l3' },
+  ]}
+  caption="Each level costs more than the one before, so it runs less often. Most of the early work goes into the cheapest level."
+  evidence="reported"
+  source="Hamel Husain, 'Your AI product needs evals'"
+/>

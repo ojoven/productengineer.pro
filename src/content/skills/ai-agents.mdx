@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Building effective AI agents (Anthropic)
+    url: https://www.anthropic.com/research/building-effective-agents
+  - title: Papermark for agents
+    url: https://www.papermark.com/agents
+---
+
+## Why it matters for a product engineer
+
+An agent is a model that works in a loop: it decides a step, calls a tool, reads the result and
+decides again, until the task is done. Agents can handle open tasks that a fixed sequence cannot, but
+they are harder to predict and test. Product engineers now build agents into products and work with
+them every day, so they need to know when an agent is the right tool and how to keep it under control.
+
+## How to do it
+
+1. Start with the simplest thing that works: one model call, then a fixed workflow. Use an agent only
+   when the steps cannot be known in advance.
+2. Give it a few clear tools, each with a narrow job and useful error messages.
+3. Set limits: a maximum number of steps, a budget, and the actions it may not take alone.
+4. Add checkpoints where a person approves consequential actions.
+5. Record every step, so you can see what it did and why.
+6. Test it on real tasks with clear success criteria, and compare it with a simpler workflow.
+
+## Common mistakes
+
+- An agent where a fixed workflow would be cheaper and more reliable.
+- Broad tools such as "run any command" with no limits.
+- No stopping condition, so a confused agent loops until the budget is gone.
+- Judging an agent by one good demo.
+
+## Example
+
+Papermark offers agents 57 typed tools to create data rooms, upload files, set permissions and read
+analytics, with scoped tokens and an append-only audit log. Zernio generates its MCP server from its
+API, so agents get every endpoint. Mamitsu's maker runs his own agent, Hermes, with one profile per
+project so contexts do not mix. ([Papermark](/in-practice/papermark/), [Zernio](/in-practice/zernio/),
+[Mamitsu](/in-practice/mamitsu/))
+
+<Loop
+  title="What makes an agent an agent"
+  center="An agent"
+  sub="until done or stopped"
+  stages={[
+    { label: 'Decide the next step', note: 'From the goal and what it knows so far' },
+    { label: 'Call a tool', note: 'Search, read, write, run' },
+    { label: 'Read the result', note: 'Feedback from the real system' },
+    { label: 'Done, blocked or at a limit?', tone: 'lit', note: 'Stop, or ask a person' },
+  ]}
+  caption="The loop gives an agent its flexibility. The last step, a clear way to stop or ask, is what keeps it under control."
+  evidence="reported"
+  source="Anthropic, 'Building effective AI agents', Dec 2024"
+/>

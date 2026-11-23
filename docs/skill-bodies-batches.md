@@ -399,26 +399,26 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 16 · AI · 9 skills
 
-- [ ] `11.1.4` [Agents](https://productengineer.pro/skills-map/ai/ai-engineering/ai-agents/) · `ai-agents` · search term; 3 In practice notes; has evidence, technicalLeverage
+- [x] `11.1.4` [Agents](https://productengineer.pro/skills-map/ai/ai-engineering/ai-agents/) · `ai-agents` · search term; 3 In practice notes; has evidence, technicalLeverage
   - Mamitsu: Hermes runs on a Linux box at home, with nine or ten profiles split by project. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: End users run their posts and ads from Claude or Codex, and customers sell marketing on autopilot built on Zernio. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: Agents build a room's folders from a deal description and answer questions across documents with citations. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `11.2.1` [Delegating to agents](https://productengineer.pro/skills-map/ai/ai-assisted-work/delegating-to-agents/) · `delegating-to-agents` · 4 In practice notes; has evidence, technicalLeverage, aiLeverage
+- [x] `11.2.1` [Delegating to agents](https://productengineer.pro/skills-map/ai/ai-assisted-work/delegating-to-agents/) · `delegating-to-agents` · 4 In practice notes; has evidence, technicalLeverage, aiLeverage
   - Mamitsu: Hermes hands the coding to Pi agents, which come back with code and proof that it works. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: He answered support with Claude, Claude writes the migrations, and the team wants to stop being the person between Claude and the customer. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: Cursor and CodeRabbit show up in the repository's contribution graph. ([entry](https://productengineer.pro/in-practice/papermark/))
   - RelievApp: Three agents worked on the same code in parallel, told each other what they committed, and committed only their own changes. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `11.1.2` [Structured outputs](https://productengineer.pro/skills-map/ai/ai-engineering/structured-outputs/) · `structured-outputs` · search term; 1 In practice note; has evidence, technicalLeverage; 1 resource
+- [x] `11.1.2` [Structured outputs](https://productengineer.pro/skills-map/ai/ai-engineering/structured-outputs/) · `structured-outputs` · search term; 1 In practice note; has evidence, technicalLeverage; 1 resource
   - Mamitsu: Frames, audio and caption in; JSON in the shape you asked for out, with an optional JSON Schema. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `11.1.7` [Evals and datasets](https://productengineer.pro/skills-map/ai/ai-engineering/ai-evals/) · `ai-evals` · search term; 1 In practice note; has evidence, technicalLeverage
+- [x] `11.1.7` [Evals and datasets](https://productengineer.pro/skills-map/ai/ai-engineering/ai-evals/) · `ai-evals` · search term; 1 In practice note; has evidence, technicalLeverage
   - Mamitsu: No evals yet; he reads extractions himself. A weekly agent report came out of the call, and the first one arrived three days later. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `11.2.3` [Human oversight](https://productengineer.pro/skills-map/ai/ai-assisted-work/human-oversight/) · `human-oversight` · 2 In practice notes; has evidence, technicalLeverage
+- [x] `11.2.3` [Human oversight](https://productengineer.pro/skills-map/ai/ai-assisted-work/human-oversight/) · `human-oversight` · 2 In practice notes; has evidence, technicalLeverage
   - Mamitsu: He reviews only the changes an agent scores as risky. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - RelievApp: Agents built nine sessions, a mascot and a new front door in about 45 minutes; I chose the category, the catalog and what went to staging. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `11.1.3` [Retrieval (RAG)](https://productengineer.pro/skills-map/ai/ai-engineering/retrieval/) · `retrieval` · search term; has evidence, technicalLeverage
-- [ ] `11.1.5` [Tool calling](https://productengineer.pro/skills-map/ai/ai-engineering/tool-calling/) · `tool-calling` · search term; has evidence, technicalLeverage
-- [ ] `11.1.11` [Prompt and context engineering](https://productengineer.pro/skills-map/ai/ai-engineering/prompt-context-engineering/) · `prompt-context-engineering` · search term; has evidence, technicalLeverage
-- [ ] `11.2.2` [Reviewing generated work](https://productengineer.pro/skills-map/ai/ai-assisted-work/reviewing-generated-work/) · `reviewing-generated-work` · 2 In practice notes
+- [x] `11.1.3` [Retrieval (RAG)](https://productengineer.pro/skills-map/ai/ai-engineering/retrieval/) · `retrieval` · search term; has evidence, technicalLeverage
+- [x] `11.1.5` [Tool calling](https://productengineer.pro/skills-map/ai/ai-engineering/tool-calling/) · `tool-calling` · search term; has evidence, technicalLeverage
+- [x] `11.1.11` [Prompt and context engineering](https://productengineer.pro/skills-map/ai/ai-engineering/prompt-context-engineering/) · `prompt-context-engineering` · search term; has evidence, technicalLeverage
+- [x] `11.2.2` [Reviewing generated work](https://productengineer.pro/skills-map/ai/ai-assisted-work/reviewing-generated-work/) · `reviewing-generated-work` · 2 In practice notes
   - Mamitsu: We have both mostly stopped reading our projects' code, but it still matters where trust does. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - RelievApp: Agents also reviewed: an audit at 5 out of 10, a second pass at 7, and an outside view from ChatGPT. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
 

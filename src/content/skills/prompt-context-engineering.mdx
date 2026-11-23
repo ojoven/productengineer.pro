@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Effective context engineering for AI agents (Anthropic)
+    url: https://www.anthropic.com/research/effective-context-engineering-for-ai-agents
+  - title: Prompt engineering overview (Claude docs)
+    url: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview
+---
+
+## Why it matters for a product engineer
+
+A model can only use what is in its context: the instructions, the examples and the documents you
+give it. The context is limited, and models get worse when it fills with things that do not matter.
+Prompt and context engineering is the work of choosing what goes in. Product engineers do it every
+time they build an AI feature, and it decides quality and cost more than the choice of model.
+
+## How to do it
+
+1. Write the outcome, the constraints and the output format before anything else.
+2. Add a few examples of good results, including a difficult one.
+3. Give the smallest set of information that answers the task. Load the rest only when needed.
+4. Keep instructions apart from untrusted text such as documents, emails and tool results.
+5. Version prompts with the code.
+6. Compare changes on a fixed set of real cases, not on one convincing answer.
+
+## Common mistakes
+
+- Putting everything into the context "in case".
+- Instructions mixed with user content, so a document can give orders.
+- Judging a prompt change by one example.
+- Prompts edited in production with no record of what changed.
+
+## Example
+
+Mamitsu is built for agents with limited context. Through its MCP server, an agent gets back only the
+fields it asked for, "so a ten-minute video costs a few lines of context instead of a full
+transcript". The agent decides what it needs; the tool sends nothing else.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Compare
+  title="What reaches an agent's context from one video"
+  subjects={['A full transcript', 'Mamitsu, through MCP']}
+  highlight={1}
+  rows={[
+    { label: 'What the agent gets', values: ['Everything said in the video', 'Only the fields it asked for'] },
+    { label: 'Who chooses', values: ['The tool', 'The agent, with its question or schema'] },
+    { label: 'Context used, ten-minute video', values: ['A full transcript', 'A few lines'] },
+  ]}
+  caption="Less context, chosen for the task, leaves room for the work and costs less."
+  evidence="reported"
+  source="usemamitsu.com and the call with its maker, Nov 2026"
+/>

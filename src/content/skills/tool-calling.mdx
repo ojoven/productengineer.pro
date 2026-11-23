@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Writing effective tools for AI agents (Anthropic)
+    url: https://www.anthropic.com/research/writing-tools-for-agents
+  - title: Tool use with Claude (Claude docs)
+    url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
+---
+
+## Why it matters for a product engineer
+
+Tool calling lets a model ask your code to do things: search, create a record, call an API. The model
+only proposes the call; your code runs it. So every tool is both an interface to design and a
+permission to control. Product engineers design tools much as they design APIs, but for a reader who
+takes every name and description literally.
+
+## How to do it
+
+1. Build tools around tasks the user has, not around every endpoint.
+2. Give each tool a clear name, a description of when to use it, and typed parameters.
+3. Return only what the model needs, with errors that say how to recover.
+4. Check permissions in your code for every call, whatever the model says.
+5. Make write actions safe to repeat, and ask for approval where a mistake is costly.
+6. Test tools with real tasks, and read the transcripts to see where the model gets confused.
+
+## Common mistakes
+
+- Dozens of overlapping tools, so the model picks the wrong one.
+- Returning huge responses that fill the context.
+- Errors like "400 bad request" with no hint of what to change.
+- Trusting the model to respect permissions.
+
+## Example
+
+Papermark and Zernio both let agents use their products through MCP, in different ways. Papermark
+built 57 typed tools with scoped tokens and an audit log. Zernio generates its MCP server from its
+API, so agents get every endpoint with no extra work. ([Papermark](/in-practice/papermark/),
+[Zernio](/in-practice/zernio/))
+
+<Compare
+  title="Two ways to give agents tools"
+  subjects={['Papermark', 'Zernio']}
+  rows={[
+    { label: 'Tools', values: ['57 typed tools', '496, as listed on 15 Nov 2026'] },
+    { label: 'Where they come from', values: ['One per endpoint of its developer platform', 'Generated with the API'] },
+    { label: 'Permissions', values: ['Scoped tokens, answers only from readable documents', 'Not covered in the episode'] },
+    { label: 'Record', values: ['An append-only audit log', 'Not covered in the episode'] },
+  ]}
+  caption="A curated set is easier for a model to choose from and to audit. A generated set never falls behind the API."
+  evidence="reported"
+  source="papermark.com/agents, Nov 2026; Zernio's site and its founder on the Itnig podcast"
+/>

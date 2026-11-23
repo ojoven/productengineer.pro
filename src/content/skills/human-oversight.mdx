@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Guidelines for human-AI interaction (Microsoft HAX Toolkit)
+    url: https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/
+  - title: People + AI guidebook (Google PAIR)
+    url: https://pair.withgoogle.com/guidebook/
+---
+
+## Why it matters for a product engineer
+
+AI can now act: send messages, change data, ship code. Human oversight puts a person at the points
+where a mistake would be expensive or hard to undo. It only works if the system shows that person
+what the AI did and why, and if the system, not the model, enforces the decision. Product engineers
+build those review points, and decide where they belong.
+
+## How to do it
+
+1. List the actions the AI can take, and rate each by the cost of a mistake and how easy it is to
+   undo.
+2. Let low-risk, reversible actions run alone, with a log.
+3. Require approval for the rest: show the exact action, the evidence and the expected result.
+4. Make approval, rejection and interruption work in the system, so a timeout means "no".
+5. Keep the decisions that define the product with people: what to build, what to ship, for whom.
+6. Review the log regularly, and move actions between levels as trust grows or falls.
+
+## Common mistakes
+
+- Approving everything, so review becomes a click without reading.
+- Review screens that show the AI's summary, not the actual change.
+- Oversight that the model can skip, because it is only an instruction in the prompt.
+- The same level of control for every action, whatever the risk.
+
+## Example
+
+At RelievApp, agents built nine sessions, a mascot and a new front door in about 45 minutes. Its maker
+kept the decisions that shape the product: the category, the catalog and what went to staging. When
+an agent met a question only he could answer, it stopped and asked. Mamitsu's maker reviews only the
+changes an agent scores as risky. ([RelievApp](/in-practice/relievapp-part-1/),
+[Mamitsu](/in-practice/mamitsu/))
+
+<Compare
+  title="Who did what at RelievApp on 18 November"
+  subjects={['The agents', 'The maker']}
+  rows={[
+    { label: 'Sessions', values: ['Built nine, in the house style', 'Chose the prototypes to rebuild'] },
+    { label: 'Copy', values: ['Rewrote it in international English', 'Asked for it'] },
+    { label: 'Name', values: ['Renamed the app in the code', 'Chose the new name'] },
+    { label: 'Open questions', values: ['Asked who may give a members-only session', 'Answered it'] },
+  ]}
+  caption="The agents did the work. The decisions that define the product stayed with a person, and the agents asked when they reached one."
+  evidence="observed"
+  source="RelievApp's agent sessions and decision log, 18 Nov 2026"
+/>

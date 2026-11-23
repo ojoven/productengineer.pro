@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Contextual retrieval (Anthropic)
+    url: https://www.anthropic.com/research/contextual-retrieval
+  - title: Papermark for agents
+    url: https://www.papermark.com/agents
+---
+
+## Why it matters for a product engineer
+
+Retrieval-augmented generation (RAG) finds the documents that matter and puts them in the model's
+context, so it can answer from your data instead of its memory. The quality of the answer depends
+mostly on the quality of the search. That makes RAG a search problem, which engineers can measure and
+improve, and a permission problem, because a model can only keep secret what it never sees.
+
+## How to do it
+
+1. Apply access rules before search, so the model only sees documents the user may read.
+2. Split documents into chunks that make sense alone, and add a short context to each one.
+3. Combine search methods: embeddings for meaning, keyword search for exact terms and names.
+4. Rerank the top results before they go into the prompt.
+5. Evaluate retrieval on its own: for real questions, did the right passage come back?
+6. Ask for answers with citations, and let the model say when the documents do not answer.
+
+## Common mistakes
+
+- Judging only the final answers, so you cannot tell if search or generation failed.
+- Chunks cut in the middle of a table or a sentence.
+- Filtering by permission after search, when the model may already have seen the text.
+- Old documents that stay in the index after they change.
+
+## Example
+
+Papermark's data room assistant answers questions across a deal's documents, with citations back to
+pages, and "only from documents the token is allowed to read". In a data room, the permission check
+before retrieval matters as much as the answer. ([Papermark in In practice](/in-practice/papermark/))
+
+<Bars
+  title="Share of searches where the right chunk was missing from the top 20"
+  unit="%"
+  items={[
+    { label: 'Standard embeddings', value: 5.7 },
+    { label: 'With context added to each chunk', value: 3.7 },
+    { label: 'Plus keyword search (BM25)', value: 2.9 },
+    { label: 'Plus reranking', value: 1.9, highlight: true },
+  ]}
+  caption="Each step fixes a different weakness of search. Together they cut failed retrievals by two thirds."
+  evidence="reported"
+  source="Anthropic, 'Contextual retrieval', Sep 2024"
+/>

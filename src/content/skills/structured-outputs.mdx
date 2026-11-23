@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Structured outputs (Claude docs)
+    url: https://platform.claude.com/docs/en/build-with-claude/structured-outputs
+  - title: Mamitsu
+    url: https://usemamitsu.com/
+---
+
+## Why it matters for a product engineer
+
+Free text is hard for code to use. Structured outputs make a model answer in a fixed format, usually
+JSON that follows a schema, so the product can store, display or act on the result. That turns a
+model from a writer into a component. But a response can be well formed and still wrong, so the
+format is only the first check.
+
+## How to do it
+
+1. Define a schema with the fields your code needs, their types and which are required.
+2. Use the model provider's structured output mode, so responses always match the schema.
+3. Keep fields small and literal: numbers as numbers, lists as lists, dates in one format.
+4. Allow "unknown" or empty values, so the model is not forced to invent an answer.
+5. Validate the content too: ranges, allowed values, and facts you can check against the source.
+6. Decide what happens when validation fails: retry, fall back, or ask a person.
+
+## Common mistakes
+
+- Parsing free text with regular expressions.
+- Trusting a valid JSON object as a correct answer.
+- Required fields with no "unknown" option, which invites invented values.
+- Changing the schema without versioning it, so stored results stop matching.
+
+## Example
+
+Mamitsu watches a social media video and returns what you ask for as JSON. You send a link and a
+question in plain words, and you can add a JSON Schema "when your code needs the same fields every
+time". The home page shows a cooking reel turned into a recipe an app can use directly.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Anatomy
+  title="A cooking reel as JSON, from Mamitsu's home page"
+  as="prompt"
+  parts={[
+    { text: '{\n  "dish": "15-Minute One-Pot Creamy Miso Udon",', label: 'Named fields' },
+    { text: '\n  "time_minutes": 15,', label: 'A number, not text', kind: 'signal', note: 'An app can sort or filter by it.' },
+    { text: '\n  "ingredients": ["miso", "peanut butter", "udon noodles", "egg", "spinach"],', label: 'A list the app can show' },
+    { text: '\n  "steps": ["Whisk miso and peanut butter together in a pot.", "Add udon noodles to the broth.", …]\n}', label: 'Order kept', note: 'From the video, not only the caption.' },
+  ]}
+  caption="The question was plain words. The answer is data: types, lists and order that code can use without guessing."
+  evidence="observed"
+  source="usemamitsu.com, 23 Nov 2026"
+/>
