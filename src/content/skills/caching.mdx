@@ -48,8 +48,8 @@ again. In 2019 their Redis handled about 1.6 billion commands a day at about 2% 
     { id: 'all', label: 'All web servers' },
   ]}
   messages={[
-    { from: 'a', to: 'redis', label: '1. Delete the key' },
-    { from: 'a', to: 'redis', label: '2. Publish it on the purge channel' },
+    { from: 'a', to: 'redis', label: 'Delete the key' },
+    { from: 'a', to: 'redis', label: 'Publish it on the purge channel' },
     { from: 'redis', to: 'all', label: 'The key name', kind: 'reply' },
     { from: 'all', to: 'all', label: 'Drop it from memory', tone: 'signal', note: 'Next request misses and reads the new value from Redis.' },
   ]}
