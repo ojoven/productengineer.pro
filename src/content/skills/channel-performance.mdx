@@ -1,0 +1,45 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The complete guide to cohort analysis (Amplitude)
+    url: https://amplitude.com/explore/analytics/cohort-analysis
+---
+
+## Why it matters for a product engineer
+
+A channel that brings many cheap users who leave is expensive. Channel performance compares channels
+on what their users do afterwards: activation, retention and revenue, not only volume and cost.
+Engineers make this possible: the channel has to be recorded at sign-up and joined to product and
+billing data, or every channel looks the same.
+
+## How to do it
+
+1. Record the channel and campaign at sign-up, and keep it on the account.
+2. For each channel, measure volume, cost, activation, retention by cohort and revenue per account.
+3. Compare channels by cost per retained or paying customer, not per sign-up.
+4. Look at the kind of customer each channel brings. Two channels with the same cost can bring very
+   different customers.
+5. Move budget step by step, and check again. Results change as spend grows.
+
+## Common mistakes
+
+- Comparing channels by clicks or sign-ups.
+- Judging a channel before its users are old enough to churn.
+- One blended number for all channels.
+- Losing the channel when a user signs up on another device.
+
+## Example
+
+About 40% of Zernio's new business comes from organic Google, and paid ads bring about a quarter of
+new monthly revenue. Its founder cannot yet say the cost of a customer from one Google campaign, or the
+churn of one segment. The two kinds of customer churn at about 2% and 17%, so a blended cost per
+customer hides which clicks pay back. ([Zernio in In practice](/in-practice/zernio/))
+
+<Hypothesis
+  title="The test In practice suggested for Zernio's channels"
+  if="every new account is tagged integrator, agency or end user from its first week of API calls, and paid spend is judged by payback per segment"
+  then="budget moves to the keywords that bring integrators, and paid pays back in less than the blended ten months"
+  because="an integrator churns about 2% and an end user about 17%, and a blended cost per customer hides which clicks pay back."
+  metric="Months for paid acquisition to pay back, per segment"
+  stopIf="The first week of API calls cannot tell integrators from end users in a sample checked by hand"
+/>

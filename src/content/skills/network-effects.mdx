@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The network effects bible (NFX)
+    url: https://www.nfx.com/post/network-effects-bible
+  - title: The cold start problem, chapter preview (Andrew Chen)
+    url: https://andrewchen.com/chapter-one-cold-start/
+---
+
+## Why it matters for a product engineer
+
+A product has a network effect when each new user makes it more valuable for the others: a
+marketplace with more sellers, a chat app with more friends on it. NFX estimates that network effects
+explain 70% of the value created in technology since 1994. They are also why such products are hard to
+start: the first users get the least value. Engineers build the parts that make the network visible
+and useful from the first few users.
+
+## How to do it
+
+1. Name the type of network: users connected to users, buyers to sellers, or a platform with
+   developers. Each grows differently.
+2. Find the smallest network that works on its own: one team, one city, one class.
+3. Make that small network useful before you expand: seed it with content, supply or invitations.
+4. Measure each network, not the total. Value comes from density, not size.
+5. For marketplaces, watch both sides and keep them in balance.
+6. Watch for negative effects: spam, crowding and noise as the network grows.
+
+## Common mistakes
+
+- Calling any growth a network effect. Many products get no better with more users.
+- Launching everywhere at once, so no network gets dense enough.
+- Total user counts that hide empty networks.
+- Ignoring the side of a marketplace that is harder to attract.
+
+## Example
+
+At Uber, Andrew Chen saw the weekly review go through the business city by city, and even district by
+district. Each city was its own network, with riders on one side and drivers on the other. Totals such
+as all trips worldwide were treated as "mostly meaningless". What mattered was the balance in each
+city: too much surge and riders left, too little and drivers went home.
+
+<Loop
+  title="One city as one network, as Uber ran it"
+  center="One city"
+  sub="riders and drivers"
+  stages={[
+    { label: 'More riders', note: 'More trips to drive' },
+    { label: 'More drivers online', note: 'Recruited, often by referral', tone: 'lit' },
+    { label: 'Shorter waits', note: 'Less surge pricing' },
+    { label: 'Riders stay', note: 'And bring others' },
+  ]}
+  caption="Each side makes the product better for the other, but only within one city. That is why Uber read its numbers city by city."
+  evidence="reported"
+  source="Andrew Chen, The Cold Start Problem, chapter preview"
+/>

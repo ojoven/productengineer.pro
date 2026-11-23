@@ -353,19 +353,19 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 13 · Distribution · 8 skills
 
-- [ ] `09.3.2` [Sharing mechanics](https://productengineer.pro/skills-map/distribution/viral-growth/sharing-mechanics/) · `sharing-mechanics` · 2 In practice notes; 1 resource
+- [x] `09.3.2` [Sharing mechanics](https://productengineer.pro/skills-map/distribution/viral-growth/sharing-mechanics/) · `sharing-mechanics` · 2 In practice notes; 1 resource
   - Papermark: Every link without a custom domain is on papermark.com, so every visitor sees the product. ([entry](https://productengineer.pro/in-practice/papermark/))
   - RelievApp: A link that names the session, never the feeling, and opens free with the sender's name. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `09.2.5` [Developer relations](https://productengineer.pro/skills-map/distribution/organic-acquisition/developer-relations/) · `developer-relations` · search term
-- [ ] `09.3.4` [Network effects](https://productengineer.pro/skills-map/distribution/viral-growth/network-effects/) · `network-effects` · search term
-- [ ] `09.5.3` [Product demonstrations](https://productengineer.pro/skills-map/distribution/b2b-acquisition/product-demos/) · `product-demos` · search term; 0 resource
-- [ ] `09.2.3` [Communities](https://productengineer.pro/skills-map/distribution/organic-acquisition/communities/) · `communities` · 1 In practice note; 1 resource
+- [x] `09.2.5` [Developer relations](https://productengineer.pro/skills-map/distribution/organic-acquisition/developer-relations/) · `developer-relations` · search term
+- [x] `09.3.4` [Network effects](https://productengineer.pro/skills-map/distribution/viral-growth/network-effects/) · `network-effects` · search term
+- [x] `09.5.3` [Product demonstrations](https://productengineer.pro/skills-map/distribution/b2b-acquisition/product-demos/) · `product-demos` · search term; 0 resource
+- [x] `09.2.3` [Communities](https://productengineer.pro/skills-map/distribution/organic-acquisition/communities/) · `communities` · 1 In practice note; 1 resource
   - Papermark: A circle of commercial open-source founders, Hacktoberfest, and 1,000 GitHub stars in the first months. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `09.2.4` [Social platforms](https://productengineer.pro/skills-map/distribution/organic-acquisition/social-platforms/) · `social-platforms` · 1 In practice note
+- [x] `09.2.4` [Social platforms](https://productengineer.pro/skills-map/distribution/organic-acquisition/social-platforms/) · `social-platforms` · 1 In practice note
   - Papermark: Twitter launched it; LinkedIn is where the customers are now. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `09.6.4` [Channel performance](https://productengineer.pro/skills-map/distribution/growth-economics/channel-performance/) · `channel-performance` · 1 In practice note; 1 resource
+- [x] `09.6.4` [Channel performance](https://productengineer.pro/skills-map/distribution/growth-economics/channel-performance/) · `channel-performance` · 1 In practice note; 1 resource
   - Zernio: About 40% of new business from organic search; paid brings about a quarter of the new MRR. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `09.6.5` [Payback and sustainable growth](https://productengineer.pro/skills-map/distribution/growth-economics/sustainable-growth/) · `sustainable-growth` · 1 In practice note; 1 resource
+- [x] `09.6.5` [Payback and sustainable growth](https://productengineer.pro/skills-map/distribution/growth-economics/sustainable-growth/) · `sustainable-growth` · 1 In practice note; 1 resource
   - Zernio: Paid on its own pays back in about ten months, and he will not spend more until the campaigns are under control. ([entry](https://productengineer.pro/in-practice/zernio/))
 
 ### Batch 14 · Operations · 6 skills

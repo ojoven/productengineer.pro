@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: What is developer relations? A complete guide (Jono Bacon)
+    url: https://www.jonobacon.com/2023/04/02/what-is-developer-relations-devrel-a-complete-guide/
+  - title: A framework for developer relations (The Developer Relations Book)
+    url: https://devrelbook.substack.com/p/the-developer-relations-framework
+  - title: From tweet to launch, my open source journey (Marc Seitz)
+    url: https://mfts.io/blog/from-tweet-to-launch-open-source-journey
+---
+
+## Why it matters for a product engineer
+
+Developers trust working code more than marketing. For a product that developers use, the docs, the
+examples, the open-source code and the answers in a forum are the sales team. Product engineers are
+the most credible people to do this work, because they can show how something is built and why.
+
+## How to do it
+
+1. Start with the developer experience: a quick start that works in minutes, and docs that answer
+   real questions.
+2. Write about how you built things, with code people can copy. Each post should solve a problem for
+   the reader.
+3. Be where developers already are: GitHub, forums, the communities of the tools you build on.
+4. Answer every question in public, so the next person finds the answer.
+5. Bring what developers say back into the product: bugs, missing features, confusing docs.
+6. Measure what developers do: projects created, first API calls, contributors, not only followers.
+
+## Common mistakes
+
+- Marketing copy in developer docs.
+- Samples that do not run.
+- Talks and posts with no link to a first step in the product.
+- Treating developer relations as events, and ignoring the docs.
+
+## Example
+
+Papermark's co-founder built it in public. After the first weekend version, he spent the next
+weekends on features and wrote six posts on dev.to on how he built each part, with the code open.
+"Six dev.to posts moved the project further than any single launch tweet." Zernio, an API, offers
+Ayrshare's users an SDK with the same method signatures, so switching takes few changes.
+([Papermark](/in-practice/papermark/), [Zernio](/in-practice/zernio/))
+
+<Timeline
+  title="Papermark, from a tweet to a developer community"
+  events={[
+    { when: '23 May 2023', title: 'The idea, tweeted first', kind: 'decision', note: 'A bet of 50 likes. It got 265.' },
+    { when: 'That weekend', title: 'The first version', kind: 'ship', note: 'The launch tweet got 450 likes and over 95,000 views.' },
+    { when: 'Next weekends', title: 'Six posts on how it was built', kind: 'ship', note: '"Ship something small, write it up, get feedback, repeat."' },
+    { when: '4 Sep 2023', title: 'Product Hunt launch', kind: 'ship', note: '"The launch is the harvest, not the seed."' },
+    { when: 'First months', title: '1,000 GitHub stars', kind: 'result' },
+    { when: 'Nov 2026', title: '9,382 GitHub stars', kind: 'result' },
+  ]}
+  caption="Working code, written up in public, did the work of a developer relations team before there was one."
+  evidence="reported"
+  source="Marc Seitz's blog, 4 Sep 2023; Top Founders; GitHub, 17 Nov 2026"
+/>
