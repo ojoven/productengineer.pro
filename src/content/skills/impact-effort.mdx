@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'RICE: simple prioritization for product managers (Sean McBride, Intercom)'
+    url: https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers
+---
+
+## Why it matters for a product engineer
+
+Comparing value with cost is the simplest way to choose what to build next. Engineers bring the most
+honest part of it, the effort. The weak part is the impact, which is usually a guess. A good method
+says so openly, instead of hiding the guess inside a precise-looking score.
+
+## How to do it
+
+1. List the candidate projects, each with the goal it serves.
+2. Estimate reach from real data where you can: how many people or events per period.
+3. Estimate impact per person on a small scale, and write the reason next to it.
+4. Add your confidence in those estimates. Low confidence is a reason to test first, not to skip.
+5. Estimate effort roughly, for the whole team, in person-weeks or person-months.
+6. Rank by score, then read the list as a team. The score starts the discussion; it does not end it.
+
+## Common mistakes
+
+- Treating the score as a measurement. It is a structured guess.
+- Precise effort and invented impact.
+- Ignoring confidence, so exciting but vague ideas win.
+- Scoring alone and presenting a finished ranking.
+- Never checking afterwards whether the impact happened.
+
+## Example
+
+Intercom's product team created RICE because comparing ideas had become what Sean McBride called "a
+tangled mess of gut feeling". Reach counts customers per quarter. Impact uses a fixed scale, from 3
+for massive to 0.25 for minimal. Confidence is there "to curb enthusiasm for exciting but ill-defined
+ideas". Effort, in person-months, divides the rest.
+
+<Anatomy
+  title="Intercom's RICE score, part by part"
+  parts={[
+    { text: 'Reach', label: 'Reach', note: 'People or events per period, such as customers per quarter. From product data where possible.' },
+    { text: ' × ' },
+    { text: 'Impact', label: 'Impact', note: '3 massive, 2 high, 1 medium, 0.5 low, 0.25 minimal.' },
+    { text: ' × ' },
+    { text: 'Confidence', label: 'Confidence', kind: 'signal', note: '100% high, 80% medium, 50% low. Below that is a moonshot.' },
+    { text: ' ÷ ' },
+    { text: 'Effort', label: 'Effort', note: 'Person-months for the whole team, in whole numbers, at least half a month.' },
+  ]}
+  caption="Confidence is the honest part: it lowers the score of an idea when the impact is only a hope."
+  source="Sean McBride, Intercom blog"
+/>

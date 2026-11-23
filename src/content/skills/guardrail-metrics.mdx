@@ -1,0 +1,49 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Guardrail metrics for A/B tests, explained (PostHog)
+    url: https://posthog.com/product-engineers/guardrail-metrics
+---
+
+## Why it matters for a product engineer
+
+When a team pushes hard on one number, something else often gets worse quietly: speed, support load,
+refunds, trust. Guardrail metrics are the numbers that must not get worse while you improve the main
+one. For engineers they often include the health of the system itself, such as errors and load time.
+
+## How to do it
+
+1. For each goal, ask what a bad way to reach it would look like. Each answer suggests a guardrail.
+2. Pick a few metrics that matter to the whole product: revenue, a user-experience metric such as page
+   speed or ratings, and a current strategic priority.
+3. Decide the threshold before the work starts: how much worse is acceptable, and over what period.
+4. Add the guardrails to every experiment and every dashboard for the goal.
+5. When one is crossed, stop and decide with the people who own that metric. Do not just continue.
+6. Keep the list short. Each extra guardrail raises the chance of a false alarm.
+
+## Common mistakes
+
+- Guardrails chosen after the results, to explain them away.
+- So many guardrails that one always looks red.
+- No threshold, so every small dip starts a debate.
+- Guardrails nobody owns.
+- Forgetting the slow effects, such as churn, which show up weeks later.
+
+## Example
+
+A team at Airbnb that worked on bookings tested hiding the house rules at checkout. Bookings went up,
+but review ratings, one of the guardrails, went down. At Airbnb a crossed guardrail goes to a group of
+people who decide whether the test continues. Out of thousands of experiments a month, about 25
+trigger a review; most still roll out, and about 5 are paused.
+
+<StatRow
+  title="Airbnb's guardrails, in a typical month"
+  stats={[
+    { value: '~25', label: 'Experiments sent for review', note: 'Out of thousands' },
+    { value: 80, unit: '%', label: 'Roll out after the discussion' },
+    { value: '~5', label: 'Paused', note: 'Each one a possible major harm avoided', signal: true },
+  ]}
+  caption="Guardrails rarely stop a test. When they do, they stop the few that would have hurt the product."
+  evidence="reported"
+  source="PostHog, 'Guardrail metrics for A/B tests, explained', describing Airbnb's process"
+/>

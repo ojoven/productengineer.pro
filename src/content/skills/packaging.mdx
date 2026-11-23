@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Tiered pricing 101 (Stripe)
+    url: https://stripe.com/resources/more/tiered-pricing-101-a-guide-for-a-strategic-approach
+---
+
+## Why it matters for a product engineer
+
+Packaging decides what goes into each plan and where a customer has to upgrade. It moves conversion
+and expansion as much as the price does. It also creates engineering work: entitlements, feature
+gates, usage limits and the messages people see when they reach one.
+
+## How to do it
+
+1. Group your customers by the value they get and their budget. Each plan should match one group.
+2. Put the features every customer needs in every plan. Put the features only bigger customers need,
+   such as roles, audit logs or single sign-on, in higher plans.
+3. Place the upgrade points where value grows: more users, more usage, a feature a team needs once it
+   gets serious.
+4. Keep the number of plans small enough to compare at a glance.
+5. Build entitlements as data, so you can move a feature between plans without a release.
+6. Watch which plan people choose and where they hit limits, and adjust.
+
+## Common mistakes
+
+- Plans that differ only in numbers nobody understands.
+- A free plan that covers what most paying customers need.
+- Gating the feature that shows the product's value, so people never see it.
+- Limits that surprise the customer in the middle of their work.
+- Being afraid of an expensive plan. Some customers want it.
+
+## Example
+
+Papermark has seven plans, from free to €999 a month billed yearly. Four of them are data rooms,
+because most new customers now come for deals. Iuliia Shnai said they hesitated to add the highest
+tier, and it became the fastest-growing one. The amounts are also in the public code, in
+`ee/stripe/utils.ts`. ([Papermark in In practice](/in-practice/papermark/))
+
+<Bars
+  title="Papermark's plans, price per month billed yearly"
+  unit=" €"
+  items={[
+    { label: 'Free', value: 0, note: '50 documents, one user' },
+    { label: 'Pro', value: 24, note: '€29 billed monthly' },
+    { label: 'Business', value: 59, note: 'Three users included' },
+    { label: 'Data Rooms', value: 99, highlight: true, note: 'The plan the posts point to' },
+    { label: 'Data Rooms Plus', value: 249 },
+    { label: 'Data Rooms Premium', value: 549 },
+    { label: 'Data Rooms Unlimited', value: 999, note: '€1,499 billed monthly' },
+  ]}
+  caption="Four of the seven plans are data rooms. The top one costs about forty times the first paid plan."
+  evidence="observed"
+  source="papermark.com/pricing and ee/stripe/utils.ts in the repository, 17 Nov 2026"
+/>

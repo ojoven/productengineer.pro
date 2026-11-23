@@ -1,0 +1,46 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'SaaS pricing models: a guide (Stripe)'
+    url: https://stripe.com/resources/more/saas-pricing-models-101
+---
+
+## Why it matters for a product engineer
+
+The revenue model shapes the product and the code. A subscription needs value every month, usage
+pricing needs reliable metering, a marketplace needs both sides to show up, and open source needs a
+line between free and paid. Engineers who know the model build the right billing, limits and analytics
+from the start, instead of adding them in a hurry later.
+
+## How to do it
+
+1. Write how the product earns money today, in one sentence: who pays, for what, and how often.
+2. Check that revenue follows the value. When a customer gets more value, do they pay more?
+3. Choose the model that fits how value arrives: once (licence), every month (subscription), with use
+   (usage), with each deal (transaction fee).
+4. List what the model needs in the product: plans and entitlements, a meter, invoices, a free tier,
+   a commercial licence.
+5. Plan how you will change it. Most products change their model at least once, so keep prices and
+   rules out of the code where you can.
+6. Watch the numbers the model depends on, such as churn for a subscription or usage per account.
+
+## Common mistakes
+
+- Copying the model of a famous company without its type of customer.
+- A subscription for something people need once.
+- Usage pricing without a meter customers can see and trust.
+- An open-source project where the free version already covers what buyers would pay for.
+
+## Example
+
+Zernio changed its model twice in its first year. It launched with lifetime licences on AppSumo:
+about 2,000 licences, a bit over $200,000 in sales, which paid for the first ads and the first hire.
+Subscriptions came next, and usage-based billing in early 2026. Papermark is open core: a free AGPL
+core anyone can self-host, a hosted service, and a commercial licence for the features in its `ee/`
+folders. ([Zernio](/in-practice/zernio/), [Papermark](/in-practice/papermark/))
+
+<Quote
+  text="When you have no users, you prefer users who pay you once to no users who never pay you."
+  who="Miquel Palet, founder of Zernio"
+  context="On the Itnig podcast, about the lifetime deals at launch"
+/>

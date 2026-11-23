@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'SaaS Metrics 2.0 (David Skok)'
+    url: https://www.forentrepreneurs.com/saas-metrics-2/
+---
+
+## Why it matters for a product engineer
+
+Lifetime value is how much a customer brings in over the whole time they stay. It sets the limit on
+what you can spend to get a customer, and it shows which customers are worth building for. Because it
+depends on how long people stay, the product work that improves retention often raises it more than a
+price change does.
+
+## How to do it
+
+1. Measure average revenue per account per month.
+2. Multiply by the gross margin, so you count what you keep, not what you invoice.
+3. Measure churn: the share of customers who leave each month.
+4. Divide: margin per month divided by monthly churn gives a simple lifetime value. With 5% churn,
+   an average customer stays about 20 months.
+5. Calculate it for each segment, plan and channel. The average hides the differences.
+6. Compare it with what a customer costs to acquire, and with how long that cost takes to pay back.
+
+## Common mistakes
+
+- Using revenue instead of margin.
+- One number for all customers.
+- Assuming young customers will stay as long as old ones, before you have the data.
+- A lifetime value based on a few months of history, presented as fact.
+- Raising prices to grow lifetime value while churn quietly rises.
+
+## Example
+
+Zernio's average account pays about €50 a month, and Miquel Palet gave a lifetime value of about €700,
+or 14 months of revenue. The average hides a big gap. Integrators, who pay the most, churn about 2%,
+while end users churn 17%. At those rates an integrator stays about four years and an end user about
+six months. ([Zernio in In practice](/in-practice/zernio/))
+
+<Bars
+  title="Churn by kind of customer"
+  unit="%"
+  items={[
+    { label: 'Integrators', value: 2, highlight: true, note: 'The ones who pay most' },
+    { label: 'All customers', value: 9, note: 'Down from 15 to 16%' },
+    { label: 'End users', value: 17, note: 'Worked out the day before' },
+  ]}
+  caption="The customers who bring the most revenue are also the ones who stay. Their lifetime value is many times the average."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast. He did not give the period; with €50 a month and a €700 lifetime value, it reads as monthly."
+/>

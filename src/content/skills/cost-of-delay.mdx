@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Black Swan Farming using Cost of Delay (Joshua Arnold and Özlem Yüce)
+    url: https://blackswanfarming.com/black-swan-farming-using-cost-of-delay/
+---
+
+## Why it matters for a product engineer
+
+Every week a valuable feature waits in a queue, its value is lost and does not come back. Cost of
+delay puts a number on that loss. It changes the discussion from "what is the cheapest work?" to "what
+is the most expensive to leave waiting?". It is a strong argument for small, urgent work before big,
+comfortable work.
+
+## How to do it
+
+1. For each piece of work, estimate the value per week once it is live: revenue, savings, risk
+   avoided.
+2. Ask how that value changes with time. Some work loses value fast, such as a seasonal feature or a
+   deadline. Some can wait.
+3. Estimate how long the work takes.
+4. Divide cost of delay by duration. The result is often called CD3. Do the work with the highest
+   number first.
+5. Measure the time work spends waiting, not only the time it is in progress.
+6. Use rough numbers. The order matters more than the precision.
+
+## Common mistakes
+
+- Prioritising by effort alone, so big valuable work waits for ever.
+- Ignoring the time work waits before anyone starts.
+- Starting everything at once, so everything is delayed.
+- Treating every request as urgent, so the method means nothing.
+
+## Example
+
+At Maersk Line, Joshua Arnold and Özlem Yüce applied cost of delay to a $100 million portfolio of
+software work. Before, requirements took 150 days on average from idea to production. They traced one
+real feature: its cost of delay was about $210,000 a week, and it had waited 38 weeks in queues. That
+waiting alone cost nearly $8 million.
+
+<StatRow
+  title="One Maersk Line feature, and the price of its wait"
+  stats={[
+    { value: '$210k', label: 'Cost of delay per week' },
+    { value: 38, unit: 'weeks', label: 'Waiting in queues' },
+    { value: '~$8M', label: 'Value lost while it waited', signal: true },
+  ]}
+  caption="Most of the loss came from waiting, not from building. A number per week makes that visible."
+  evidence="reported"
+  source="Joshua Arnold and Özlem Yüce, Maersk Line experience report, presented at Agile2013"
+/>

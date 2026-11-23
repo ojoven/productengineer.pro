@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Assumption testing (Teresa Torres, Product Talk)'
+    url: https://www.producttalk.org/assumption-testing/
+---
+
+## Why it matters for a product engineer
+
+Product work fails in four ways: nobody wants it (value), people cannot use it (usability), it cannot
+be built well (feasibility), or it does not work for the business (viability). Engineers usually see
+feasibility risk first. Naming all four tells you what to test before you build, and what to watch
+after you ship.
+
+## How to do it
+
+1. For each important piece of work, write what must be true for it to succeed.
+2. Sort those assumptions into the four risks: value, usability, feasibility, business.
+3. Mark how much you know about each one: measured, observed, reported, or only assumed.
+4. Test the riskiest assumption first, with the cheapest test that could prove it wrong.
+5. For risks you cannot test, such as a platform's decision, plan what you would do if it happened.
+6. Review the list when something changes: a new competitor, a new rule, a big customer.
+
+## Common mistakes
+
+- Treating uncertainty as a reason to avoid the work, instead of a reason to test first.
+- Only looking at technical risk.
+- A risk list that never changes the plan.
+- Forgetting risks that come from outside: platforms, regulators, large customers.
+
+## Example
+
+Zernio's biggest risks sit outside the product. The platforms could close the door, and the largest
+customers could build the integrations themselves. Miquel Palet's answers mix what he knows with what
+he cannot know: no big customer has built it in-house, as far as he knows, and whether Meta lets
+Zernio charge on Instagram, as it lets Twilio charge on WhatsApp, "Meta will decide".
+([Zernio in In practice](/in-practice/zernio/))
+
+<Claims
+  title="Zernio's outside risks, and how much is known"
+  claims={[
+    { text: 'Mapping the platforms\' endpoints is easy to copy', evidence: 'reported', source: 'Miquel Palet' },
+    { text: 'No large customer has built it in-house', evidence: 'reported', source: 'As far as Miquel knows' },
+    { text: 'Meta lets Twilio charge on top of WhatsApp\'s fees', evidence: 'reported', source: 'Miquel Palet' },
+    { text: 'Meta will accept the same model on Instagram', evidence: 'assumed', source: '"Meta will decide"' },
+  ]}
+  caption="The riskiest line is the one nobody at Zernio can test. That risk is managed by staying compliant, not by an experiment."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast"
+/>

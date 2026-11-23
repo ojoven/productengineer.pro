@@ -204,20 +204,20 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 5 · Strategy · 9 skills
 
-- [ ] `02.7.1` [Revenue models](https://productengineer.pro/skills-map/strategy/business-models/revenue-models/) · `revenue-models` · 2 In practice notes; 1 resource
+- [x] `02.7.1` [Revenue models](https://productengineer.pro/skills-map/strategy/business-models/revenue-models/) · `revenue-models` · 2 In practice notes; 1 resource
   - Zernio: Lifetime licences on AppSumo at launch, subscription tiers next to them, usage-based billing since early 2026. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: Open core, with a free AGPL core, a hosted service and a commercial licence for the features in ee/. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `02.7.4` [Costs and margins](https://productengineer.pro/skills-map/strategy/business-models/costs-and-margins/) · `costs-and-margins` · 2 In practice notes; 1 resource
+- [x] `02.7.4` [Costs and margins](https://productengineer.pro/skills-map/strategy/business-models/costs-and-margins/) · `costs-and-margins` · 2 In practice notes; 1 resource
   - Zernio: About 87% gross margin, without having optimised anything yet. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: About 80% of spend on freelancers and the founders' salaries, 15% on growth experiments, the rest on tools; profitable. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `02.3.2` [Objectives and key results](https://productengineer.pro/skills-map/strategy/goal-setting/okrs/) · `okrs` · search term
-- [ ] `02.3.5` [Guardrail metrics](https://productengineer.pro/skills-map/strategy/goal-setting/guardrail-metrics/) · `guardrail-metrics` · search term; 1 resource
-- [ ] `02.4.2` [Impact versus effort](https://productengineer.pro/skills-map/strategy/prioritization/impact-effort/) · `impact-effort` · search term; 1 resource
-- [ ] `02.4.4` [Cost of delay](https://productengineer.pro/skills-map/strategy/prioritization/cost-of-delay/) · `cost-of-delay` · search term
-- [ ] `02.7.5` [Customer lifetime value](https://productengineer.pro/skills-map/strategy/business-models/lifetime-value/) · `lifetime-value` · search term
-- [ ] `02.4.3` [Risk and uncertainty](https://productengineer.pro/skills-map/strategy/prioritization/product-risk/) · `product-risk` · 1 In practice note
+- [x] `02.3.2` [Objectives and key results](https://productengineer.pro/skills-map/strategy/goal-setting/okrs/) · `okrs` · search term
+- [x] `02.3.5` [Guardrail metrics](https://productengineer.pro/skills-map/strategy/goal-setting/guardrail-metrics/) · `guardrail-metrics` · search term; 1 resource
+- [x] `02.4.2` [Impact versus effort](https://productengineer.pro/skills-map/strategy/prioritization/impact-effort/) · `impact-effort` · search term; 1 resource
+- [x] `02.4.4` [Cost of delay](https://productengineer.pro/skills-map/strategy/prioritization/cost-of-delay/) · `cost-of-delay` · search term
+- [x] `02.7.5` [Customer lifetime value](https://productengineer.pro/skills-map/strategy/business-models/lifetime-value/) · `lifetime-value` · search term
+- [x] `02.4.3` [Risk and uncertainty](https://productengineer.pro/skills-map/strategy/prioritization/product-risk/) · `product-risk` · 1 In practice note
   - Zernio: The platforms could close the door, and the largest customers could build it themselves. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `02.7.3` [Packaging](https://productengineer.pro/skills-map/strategy/business-models/packaging/) · `packaging` · 1 In practice note
+- [x] `02.7.3` [Packaging](https://productengineer.pro/skills-map/strategy/business-models/packaging/) · `packaging` · 1 In practice note
   - Papermark: Seven plans from free to €999 a month; the top tier they hesitated to add grew fastest. ([entry](https://productengineer.pro/in-practice/papermark/))
 
 ### Batch 6 · Experience · 6 skills

@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'SaaS Metrics 2.0 (David Skok)'
+    url: https://www.forentrepreneurs.com/saas-metrics-2/
+---
+
+## Why it matters for a product engineer
+
+Gross margin is what is left of each euro of revenue after the direct cost of serving customers:
+hosting, third-party APIs, AI inference, payment fees, support. Software usually keeps a lot, but an
+AI feature, a heavy pipeline or manual onboarding can take most of it. Engineers decide many of these
+costs with every design choice.
+
+## How to do it
+
+1. List the direct costs of serving one customer: infrastructure, APIs and models, payment fees,
+   support time.
+2. Divide each one by an active customer or a unit of use, so you know the cost of one more customer.
+3. Calculate the gross margin: revenue minus those costs, divided by revenue.
+4. Separate the other costs, such as salaries, marketing and tools, so you can see where the money
+   goes.
+5. Find the biggest cost that grows with use, and estimate it before you ship a new feature.
+6. Check the numbers every month. A new model, a price change or a heavy customer can move them fast.
+
+## Common mistakes
+
+- Ignoring the cost of a feature until the invoice arrives.
+- Pricing per seat when the cost grows per request.
+- Counting free users as if they cost nothing.
+- Optimising costs too early, before you know what customers pay for.
+- Looking only at the average, when a few heavy customers cost most.
+
+## Example
+
+Zernio runs at a gross margin of about 87%, "without having optimised anything", Miquel Palet said.
+Papermark is profitable with two founders and freelancers. It told Starter Story where its money goes:
+about 80% to freelancers and the founders' salaries, 15% to growth experiments, and the rest to
+tools. ([Zernio](/in-practice/zernio/), [Papermark](/in-practice/papermark/))
+
+<Bars
+  title="Where Papermark's money goes"
+  unit="%"
+  items={[
+    { label: 'Freelancers and the founders\' salaries', value: 80, highlight: true },
+    { label: 'Growth experiments', value: 15 },
+    { label: 'Tools', value: 5, note: 'The rest' },
+  ]}
+  caption="People are most of the cost. Infrastructure does not appear as its own line."
+  evidence="reported"
+  source="Papermark's founders on Starter Story; tools is the remainder, about 5%"
+/>
