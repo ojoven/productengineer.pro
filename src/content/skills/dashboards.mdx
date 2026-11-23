@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Building dashboards for operational visibility (Amazon Builders' Library)"
+    url: https://builder.aws.com/content/3Ev2iw3R3ahQOM8BT4OUR0WP51z/building-dashboards-for-operational-visibility
+  - title: Monitoring (The Site Reliability Workbook, chapter 4, Google)
+    url: https://sre.google/workbook/monitoring/
+---
+
+## Why it matters for a product engineer
+
+A dashboard is useful when it answers one question fast: is the service healthy, did the release work,
+are users completing the main task? Teams often build many dashboards, and then nobody knows which one
+to open during an incident. Product engineers can put product metrics next to system metrics, so a fall
+in signups and a rise in errors appear on the same screen.
+
+## How to do it
+
+1. Write the question the dashboard answers in its title or first line.
+2. Put the most important graphs at the top: what customers experience, such as availability and
+   latency.
+3. Show the time zone, use the same time range on every graph, and avoid horizontal scrolling.
+4. Link each high-level graph to the more detailed dashboard behind it.
+5. Use alarms to detect problems, and dashboards to investigate them. Review dashboards in a regular
+   meeting, and delete the ones nobody uses.
+
+## Common mistakes
+
+- Dashboards that only engineers can read, with no product metrics.
+- One huge dashboard with every metric the service emits.
+- Graphs with different time ranges or time zones on the same screen.
+- Expecting people to notice problems by watching dashboards.
+
+## Example
+
+Amazon explains how it builds dashboards in its Builders' Library. The most important dashboards show
+customer experience, with overall availability and end-to-end latency at the top. Graphs fit the
+smallest expected screen, because an on-call engineer on a laptop at 3 AM may not see a horizontal
+scroll bar. Shared dashboards default to UTC. Amazon also notes that most of the time nobody watches
+dashboards, so automated alarms detect problems, and dashboards help find the cause.
+
+<Flow
+  title="How Amazon moves from an alarm to the cause"
+  nodes={[
+    { id: 'alarm', label: 'Alarm', detail: 'Automated, always on', col: 0, row: 0, kind: 'decision' },
+    { id: 'cx', label: 'Customer view', detail: 'Availability, latency, on top', col: 1, row: 0, tone: 'lit' },
+    { id: 'svc', label: 'Service view', detail: 'Each API, each Region', col: 2, row: 0 },
+    { id: 'low', label: 'Components', detail: 'Each microservice', col: 3, row: 0 },
+  ]}
+  edges={[
+    { from: 'alarm', to: 'cx' },
+    { from: 'cx', to: 'svc' },
+    { from: 'svc', to: 'low' },
+  ]}
+  caption="Nobody watches dashboards all the time, so alarms start the search. The dashboards then lead from what customers see to the part at fault."
+  evidence="reported"
+  source="Amazon Builders' Library, Building dashboards for operational visibility"
+/>

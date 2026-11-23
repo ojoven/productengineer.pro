@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Dapper, a large-scale distributed systems tracing infrastructure (Google, 2010)
+    url: https://research.google/pubs/dapper-a-large-scale-distributed-systems-tracing-infrastructure/
+  - title: Observability primer (OpenTelemetry)
+    url: https://opentelemetry.io/docs/concepts/observability-primer/
+  - title: Signals (OpenTelemetry)
+    url: https://opentelemetry.io/docs/concepts/signals/
+---
+
+## Why it matters for a product engineer
+
+A single user action can pass through a web server, several services, a queue, a database and an
+outside API. When it is slow, the total time says that something is wrong, but not where. A trace
+records each step of one request, with its timing, so "the app is slow" becomes "this query takes two
+seconds". Product engineers who add tracing can find the cause of slow features without guessing.
+
+## How to do it
+
+1. Instrument with OpenTelemetry, starting with automatic instrumentation for your framework, HTTP
+   client and database.
+2. Pass the trace context across every boundary: HTTP calls, queues and background jobs.
+3. Add attributes that matter to the product, such as the feature, the plan or the tenant.
+4. Sample traces, and keep all traces that end in errors or are very slow.
+5. Link traces with logs through the trace id, so you can move from one to the other.
+
+## Common mistakes
+
+- Tracing only the web server, so background jobs and queues stay invisible.
+- Losing the trace context at a queue or an outside call.
+- Recording every request at full detail, which costs more than it tells you.
+- Personal data in span attributes.
+
+## Example
+
+Google described Dapper, its tracing system, in 2010. One web search could reach thousands of machines
+and many services, and an engineer looking only at overall latency could not tell which service was at
+fault. Tracing every request had a cost. In a web search cluster, tracing all requests added 16.3% to
+average latency, and tracing one in 16 added 2.12%. At one in 1,024, the change was within measurement
+error, and there was still enough data for high-volume services.
+
+<Bars
+  title="Added average latency in a Google web search cluster, by share of requests traced"
+  unit="%"
+  digits={1}
+  items={[
+    { label: 'Every request', value: 16.3, highlight: true },
+    { label: '1 in 2', value: 9.4 },
+    { label: '1 in 4', value: 6.38 },
+    { label: '1 in 8', value: 4.12 },
+    { label: '1 in 16', value: 2.12 },
+  ]}
+  caption="Sampling makes tracing cheap enough to leave on everywhere. At 1 in 1,024 the cost was within measurement error."
+  evidence="reported"
+  source="Sigelman et al., Dapper, Google, 2010, table 2"
+/>

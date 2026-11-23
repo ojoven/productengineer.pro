@@ -1,0 +1,63 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Details of Google Cloud GCVE incident (Google Cloud)
+    url: https://cloud.google.com/blog/products/infrastructure/details-of-google-cloud-gcve-incident
+  - title: Perform periodic recovery of the data to verify backup integrity (AWS Well-Architected)
+    url: https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_backing_up_data_periodic_recovery_testing_data.html
+  - title: What are business continuity, high availability and disaster recovery? (Microsoft Learn)
+    url: https://learn.microsoft.com/en-us/azure/reliability/concept-business-continuity-high-availability-disaster-recovery
+  - title: Disaster recovery options in the cloud (AWS)
+    url: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html
+---
+
+## Why it matters for a product engineer
+
+Replication protects against a failed machine. It does not protect against a deleted account, a bad
+migration or ransomware, because the mistake is copied too. Backups do, but only if they are separate,
+complete and restorable. A recovery plan sets two numbers: how much data you can lose (the recovery
+point objective, RPO) and how long you can be down (the recovery time objective, RTO). Product
+engineers own the data and the code that restores it.
+
+## How to do it
+
+1. Set the RPO and RTO for each kind of data, with the people who know what a loss costs.
+2. Keep backups outside the system they protect: another account, region or provider.
+3. Restore from backup on a schedule, into a clean environment, and time it.
+4. Write the restore steps as a runbook or a script that someone else can follow.
+5. Monitor backups: alert when one fails, is late, or is much smaller than usual.
+
+## Common mistakes
+
+- Treating replicas as backups.
+- Backups in the same account, so one mistake or attack deletes both.
+- Backups that nobody has restored, so nobody knows whether they work.
+- A recovery time that depends on one person who knows the steps.
+
+## Example
+
+In May 2024, Google Cloud deleted a private cloud of UniSuper, an Australian pension fund. When Google
+operators had set it up a year earlier with an internal tool, they left one parameter blank. The system
+gave it a default term of one year, and at the end of the year it deleted the private cloud, which ran
+across two zones, with no notice. Backups in Google Cloud Storage were not affected. Together with
+third-party backup software, they made the restore possible, after several days of work.
+
+<Flow
+  title="What the deletion reached, and what it did not"
+  nodes={[
+    { id: 'param', label: 'Blank field', detail: 'In an internal tool', col: 0, row: 0 },
+    { id: 'term', label: '1-year term', detail: 'A default nobody knew', col: 1, row: 0 },
+    { id: 'gone', label: 'Deleted', detail: 'Private cloud, both zones', col: 2, row: 0, tone: 'signal' },
+    { id: 'backup', label: 'Backups', detail: 'Cloud Storage, not hit', col: 1, row: 1, kind: 'store' },
+    { id: 'back', label: 'Restored', detail: 'After several days', col: 2, row: 1, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'param', to: 'term' },
+    { from: 'term', to: 'gone' },
+    { from: 'gone', to: 'back' },
+    { from: 'backup', to: 'back' },
+  ]}
+  caption="Two zones did not help, because the deletion reached both. Backups stored outside the private cloud did."
+  evidence="reported"
+  source="Google Cloud blog, 24 May 2024"
+/>

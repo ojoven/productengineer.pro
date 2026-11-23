@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Data protection: actions taken by Equifax and federal agencies in response to the 2017 breach (GAO-18-559)'
+    url: https://www.gao.gov/products/gao-18-559
+  - title: Technical debt quadrant (Martin Fowler)
+    url: https://martinfowler.com/bliki/TechnicalDebtQuadrant.html
+---
+
+## Why it matters for a product engineer
+
+Most of the code in a modern product comes from dependencies. Each one gets bug fixes and security
+patches, and each update you skip makes the next one bigger and riskier. When a serious vulnerability
+appears, the team that updates every week patches in hours. The team that is two major versions behind
+needs a project first. Product engineers choose the dependencies, so they also choose this cost.
+
+## How to do it
+
+1. Keep an inventory of what runs where, including the version, for every service and server.
+2. Automate update pull requests with a tool such as Renovate or Dependabot, and merge small updates
+   often.
+3. Let tests decide: good tests make it safe to merge minor updates automatically.
+4. Subscribe to security advisories for your stack, and set a deadline for critical patches.
+5. Remove dependencies you barely use. Each one is code you must keep up to date.
+
+## Common mistakes
+
+- Updating only when something breaks.
+- Pinned versions that nobody revisits for years.
+- Security notices sent to a list that the responsible people are not on.
+- Large libraries added for one small function.
+
+## Example
+
+In March 2017, the US Computer Emergency Readiness Team announced a vulnerability in the Apache Struts
+web framework. Equifax sent the notice to its system administrators, but the list was out of date, so
+the people responsible for one online dispute portal never received it. Two days after the
+announcement, outsiders scanning Equifax's systems found that portal. A scan by Equifax a week later did
+not. From 13 May, attackers used the portal for about 76 days and accessed personal data of at least
+145.5 million people in the US.
+
+<Timeline
+  title="From a public vulnerability notice to the Equifax breach, 2017"
+  events={[
+    { when: '8 Mar', title: 'Struts vulnerability announced', note: 'By US-CERT' },
+    { when: 'March', title: 'Notice sent to an old list', note: 'The portal’s owners never got it', kind: 'problem' },
+    { when: '10 Mar', title: 'Outsiders find the portal', note: 'By scanning for the vulnerability', kind: 'problem' },
+    { when: 'A week later', title: 'Equifax scan misses it', note: 'The vulnerable version stays', kind: 'problem' },
+    { when: '13 May', title: 'Attackers get in', note: 'Through the online dispute portal' },
+    { when: '29 Jul', title: 'Breach discovered', note: 'About 76 days later' },
+    { when: '7 Sep', title: 'Breach announced', note: 'At least 145.5 million people', kind: 'result' },
+  ]}
+  caption="Equifax was already installing patches in March. What failed was knowing where the old version ran."
+  evidence="reported"
+  source="US GAO, GAO-18-559, August 2018"
+/>

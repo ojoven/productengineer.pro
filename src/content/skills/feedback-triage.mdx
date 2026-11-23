@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Issues triaging (Visual Studio Code wiki)
+    url: https://github.com/microsoft/vscode/wiki/Issues-Triaging
+  - title: 'How to analyze qualitative data from UX research: thematic analysis (NN/g)'
+    url: https://www.nngroup.com/articles/thematic-analysis/
+---
+
+## Why it matters for a product engineer
+
+Feedback arrives as bug reports, feature requests, questions and complaints, often mixed in one
+message. Without triage it piles up, and the useful parts are lost. Triage decides what each item
+becomes: a bug, a request, a duplicate, a docs fix, or nothing. A clear, public process also tells
+users what will happen to their request. Product engineers can triage fast because they know what is a
+bug and what the product was designed to do.
+
+## How to do it
+
+1. Look at every new item within a fixed time, such as one working day.
+2. Label it by type and area, and send it to the owner of that area.
+3. Close what you will not do, with a short reason: duplicate, works as designed, out of scope.
+4. Group requests, and count the people and customers behind each one.
+5. When something ships, tell the people who asked for it.
+
+## Common mistakes
+
+- Leaving requests open for years, which is a silent "no".
+- Triage by one person, who becomes a bottleneck.
+- Counting votes only, without asking who votes and why.
+- Closing items with no explanation.
+
+## Example
+
+The Visual Studio Code team publishes its triage process. A new issue is usually triaged within about
+one business day. It can be closed as a duplicate, as designed, or for lack of information after 7
+days. A feature request that the team plans within 24 months goes to the backlog. Others go to a
+community review list. If one gets more than 20 up-votes, a bot moves it to the backlog. If it stays on
+the list for more than 60 days, the bot closes it.
+
+<Flow
+  title="What happens to a feature request in VS Code"
+  nodes={[
+    { id: 'new', label: 'New issue', detail: 'Triaged in about a day', col: 0, row: 1 },
+    { id: 'triage', label: 'Triage', detail: 'Owner of the area', col: 1, row: 1, kind: 'decision' },
+    { id: 'backlog', label: 'Backlog', detail: 'Planned within 24 months', col: 2, row: 0, tone: 'lit' },
+    { id: 'review', label: 'Candidate', detail: 'Community review', col: 2, row: 1 },
+    { id: 'closed', label: 'Closed', detail: 'With a reason', col: 2, row: 2 },
+  ]}
+  edges={[
+    { from: 'new', to: 'triage' },
+    { from: 'triage', to: 'backlog' },
+    { from: 'triage', to: 'review' },
+    { from: 'triage', to: 'closed' },
+    { from: 'review', to: 'backlog' },
+    { from: 'review', to: 'closed' },
+  ]}
+  caption="Over 20 up-votes moves a candidate to the backlog; 60 days without them closes it. Every request gets an answer."
+  evidence="reported"
+  source="Visual Studio Code wiki, Issues triaging"
+/>

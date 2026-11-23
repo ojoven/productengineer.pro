@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Embracing risk (Site Reliability Engineering, chapter 3, Google)
+    url: https://sre.google/sre-book/embracing-risk/
+---
+
+## Why it matters for a product engineer
+
+Availability is the share of time, or of requests, in which the product works for users. Each extra
+nine costs much more than the last: more redundancy, slower releases, more people on call. Past some
+point, users cannot notice the difference, because their own phone or network fails more often than
+your service does. Product engineers choose the target with the business, and they design the system to
+meet it.
+
+## How to do it
+
+1. Measure availability from the user's side, such as the share of successful requests, not only
+   whether servers are up.
+2. Choose the target from what users need and what an outage costs, not from what sounds impressive.
+3. Turn the target into an error budget: the downtime you can accept in a period.
+4. Spend the budget on releases and experiments, and slow down when it runs out.
+5. Set different targets for different parts of the product, such as checkout and reports.
+
+## Common mistakes
+
+- Aiming for 100%, which stops all change.
+- Counting a server as up while users get errors.
+- One target for the whole product, whatever each part does.
+- Promising customers a higher target than you meet internally.
+
+## Example
+
+Google's SRE book explains how the target depends on the users. For an enterprise service such as
+Google Apps for Work, it suggests an external quarterly target of 99.9%, with a stronger internal
+target. When Google bought YouTube in 2006, it set a lower target for YouTube than for its enterprise
+products, because YouTube was changing fast and new features mattered more. The book also notes that a
+user on a 99% reliable smartphone cannot tell 99.99% from 99.999%.
+
+<StatRow
+  title="Downtime allowed in a 30-day month, by availability target"
+  stats={[
+    { value: 43, unit: 'min', label: 'At 99.9%', note: 'The suggested external target for Google Apps for Work' },
+    { value: 4.3, unit: 'min', label: 'At 99.99%' },
+    { value: 26, unit: 's', label: 'At 99.999%', note: 'Not noticeable on a 99% reliable phone', signal: true },
+  ]}
+  caption="Each nine cuts the allowed downtime by ten. The last nine costs the most, and users may never notice it."
+  evidence="reported"
+  source="Google SRE book, chapter 3; downtime calculated for 30 days"
+/>

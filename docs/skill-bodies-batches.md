@@ -656,17 +656,17 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 35 · Operations · 11 skills
 
-- [ ] `10.1.1` [Logs](https://productengineer.pro/skills-map/operations/product-observability/logging/) · `logging` · 1 resource
-- [ ] `10.1.2` [Traces](https://productengineer.pro/skills-map/operations/product-observability/tracing/) · `tracing` · map coverage
-- [ ] `10.1.3` [Service metrics](https://productengineer.pro/skills-map/operations/product-observability/service-metrics/) · `service-metrics` · 1 resource
-- [ ] `10.1.4` [Dashboards](https://productengineer.pro/skills-map/operations/product-observability/dashboards/) · `dashboards` · 1 resource
-- [ ] `10.1.6` [Performance monitoring](https://productengineer.pro/skills-map/operations/product-observability/performance-monitoring/) · `performance-monitoring` · 1 resource
-- [ ] `10.2.1` [Availability](https://productengineer.pro/skills-map/operations/reliability-engineering/availability/) · `availability` · 1 resource
-- [ ] `10.2.4` [Resilience](https://productengineer.pro/skills-map/operations/reliability-engineering/resilience/) · `resilience` · 1 resource
-- [ ] `10.2.5` [Backups and disaster recovery](https://productengineer.pro/skills-map/operations/reliability-engineering/disaster-recovery/) · `disaster-recovery` · map coverage
-- [ ] `10.3.3` [Dependency updates](https://productengineer.pro/skills-map/operations/maintenance/dependency-updates/) · `dependency-updates` · 0 resource
-- [ ] `10.4.3` [Customer communication](https://productengineer.pro/skills-map/operations/user-support/customer-communication/) · `customer-communication` · 1 resource
-- [ ] `10.4.4` [Feedback triage](https://productengineer.pro/skills-map/operations/user-support/feedback-triage/) · `feedback-triage` · 1 resource
+- [x] `10.1.1` [Logs](https://productengineer.pro/skills-map/operations/product-observability/logging/) · `logging` · 1 resource
+- [x] `10.1.2` [Traces](https://productengineer.pro/skills-map/operations/product-observability/tracing/) · `tracing` · map coverage
+- [x] `10.1.3` [Service metrics](https://productengineer.pro/skills-map/operations/product-observability/service-metrics/) · `service-metrics` · 1 resource
+- [x] `10.1.4` [Dashboards](https://productengineer.pro/skills-map/operations/product-observability/dashboards/) · `dashboards` · 1 resource
+- [x] `10.1.6` [Performance monitoring](https://productengineer.pro/skills-map/operations/product-observability/performance-monitoring/) · `performance-monitoring` · 1 resource
+- [x] `10.2.1` [Availability](https://productengineer.pro/skills-map/operations/reliability-engineering/availability/) · `availability` · 1 resource
+- [x] `10.2.4` [Resilience](https://productengineer.pro/skills-map/operations/reliability-engineering/resilience/) · `resilience` · 1 resource
+- [x] `10.2.5` [Backups and disaster recovery](https://productengineer.pro/skills-map/operations/reliability-engineering/disaster-recovery/) · `disaster-recovery` · map coverage
+- [x] `10.3.3` [Dependency updates](https://productengineer.pro/skills-map/operations/maintenance/dependency-updates/) · `dependency-updates` · 0 resource
+- [x] `10.4.3` [Customer communication](https://productengineer.pro/skills-map/operations/user-support/customer-communication/) · `customer-communication` · 1 resource
+- [x] `10.4.4` [Feedback triage](https://productengineer.pro/skills-map/operations/user-support/feedback-triage/) · `feedback-triage` · 1 resource
 
 ### Batch 36 · Operations · 9 skills
 

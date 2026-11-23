@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Monitoring distributed systems (Site Reliability Engineering, chapter 6, Google)
+    url: https://sre.google/sre-book/monitoring-distributed-systems/
+  - title: 'The RED method: how to instrument your services (Grafana Labs)'
+    url: https://grafana.com/blog/the-red-method-how-to-instrument-your-services/
+  - title: The USE method (Brendan Gregg)
+    url: https://www.brendangregg.com/usemethod.html
+---
+
+## Why it matters for a product engineer
+
+Service metrics are numbers over time: how many requests, how many fail, how long they take, how busy
+each resource is. They are cheap to collect and store, so they are the basis for dashboards and
+alerts. A small, standard set of metrics for every service means that anyone on the team can read any
+service's health. Product engineers who instrument their own code know which numbers show what users
+feel.
+
+## How to do it
+
+1. For each service, record request rate, error rate and the distribution of latency, not only the
+   average.
+2. For each resource, such as CPU, memory, disks, connection pools and queues, record how busy it is
+   and how much work is waiting.
+3. Measure the latency of successful and failed requests separately.
+4. Use the same metric names and labels in every service.
+5. Keep labels with many possible values, such as user ids, out of metrics. Put them in logs or traces.
+
+## Common mistakes
+
+- Only averages, which hide the slow requests that users notice.
+- Many metrics nobody reads, and none for errors.
+- Fast errors that make average latency look better.
+- A user id as a metric label, which multiplies the storage cost.
+
+## Example
+
+Google's SRE book names four golden signals for a user-facing system: latency, traffic, errors and
+saturation. Two shorter checklists are common. Brendan Gregg published the USE method in 2012: for
+every resource, check utilization, saturation and errors. Tom Wilkie created the RED method in 2015,
+for microservices: for every service, measure rate, errors and duration. Many teams use RED for
+services and USE for the machines under them.
+
+<Compare
+  title="Two starting sets of service metrics"
+  subjects={['RED', 'USE']}
+  rows={[
+    { label: 'Created by', values: ['Tom Wilkie, 2015', 'Brendan Gregg, 2012'] },
+    { label: 'For each', values: ['Service', 'Resource: CPU, disk, network'] },
+    { label: 'Measures', values: ['Rate, errors, duration', 'Utilization, saturation, errors'] },
+    { label: 'Shows', values: ['What requests experience', 'Where the bottleneck is'] },
+  ]}
+  caption="Three numbers per service and three per resource are enough to start. Each set answers a different question."
+  evidence="reported"
+  source="Grafana Labs blog, 2018; Brendan Gregg, The USE method"
+/>

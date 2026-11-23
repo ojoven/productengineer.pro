@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Performance, Web Almanac 2024 (HTTP Archive)
+    url: https://almanac.httparchive.org/en/2024/performance
+  - title: Web vitals (web.dev)
+    url: https://web.dev/articles/vitals
+---
+
+## Why it matters for a product engineer
+
+A page that is fast on a developer's laptop can be slow on a cheap phone over a mobile network. Lab
+tests run on known machines, so they miss what many real users experience. Real user monitoring
+measures speed and errors on the devices people actually use, and error tracking groups crashes so the
+most common ones stand out. Product engineers can then fix the problems that affect the most users.
+
+## How to do it
+
+1. Collect Core Web Vitals from real users, with device type, browser, country and page.
+2. Look at the 75th percentile, not the average, and split it by device and connection.
+3. Track client errors with an error tracker that groups them and shows how many users each affects.
+4. Connect performance and errors to the release, so you can see which change made things worse.
+5. Use lab tests to debug a problem that field data found, not instead of field data.
+
+## Common mistakes
+
+- Judging speed by a lab score on a fast machine.
+- One average across desktop and mobile.
+- Hundreds of error types with no grouping and no owner.
+- Ignoring responsiveness after the page has loaded.
+
+## Example
+
+The Web Almanac uses real-user data from Chrome to measure the web each year. In 2024, 54% of websites
+had good Core Web Vitals on desktop, but only 43% on mobile. That year, Interaction to Next Paint
+replaced First Input Delay as the responsiveness metric. With the older metric, 48% of sites would have
+passed on mobile. The new one measures more of each visit, so it found problems that the old metric
+missed.
+
+<Bars
+  title="Websites with good Core Web Vitals in 2024, from real users"
+  unit="%"
+  items={[
+    { label: 'Desktop', value: 54 },
+    { label: 'Mobile', value: 43, highlight: true },
+    { label: 'Mobile, with the old FID metric', value: 48 },
+  ]}
+  caption="Real users on phones have a worse experience than desktop users, and a better metric made the gap more visible."
+  evidence="reported"
+  source="HTTP Archive, Web Almanac 2024, Performance chapter"
+/>

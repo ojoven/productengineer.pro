@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Summary of June 8 outage (Fastly)
+    url: https://www.fastly.com/blog/summary-of-june-8-outage
+  - title: Managing incidents (Site Reliability Engineering, chapter 14, Google)
+    url: https://sre.google/sre-book/managing-incidents/
+---
+
+## Why it matters for a product engineer
+
+When something breaks, users want to know three things: what happened, what you are doing, and what
+they should do. Silence makes them guess, and they usually guess the worst. A short, honest update
+keeps trust even during a bad outage. Product engineers often know the facts first, so they can give
+the people who write updates accurate words quickly.
+
+## How to do it
+
+1. Post a first status update within minutes, even if it only says that you are investigating.
+2. Update on a fixed rhythm, such as every 30 minutes, and say when the next update will come.
+3. Write in plain words: who is affected, what works, what does not, and any workaround.
+4. Name one person to write updates, so engineers can focus on the fix.
+5. After the incident, publish what happened, why, and what will change. Apologize without excuses.
+
+## Common mistakes
+
+- A status page that shows "all systems operational" during an outage.
+- Technical terms that users cannot act on.
+- No update for hours because there is "nothing new".
+- Blaming a vendor or a customer instead of saying what you will change.
+
+## Example
+
+On 8 June 2021, a valid configuration change by one Fastly customer triggered a hidden bug, and 85% of
+Fastly's network returned errors. Fastly's monitoring detected it within a minute, and the first status
+post came 11 minutes after the start. Within 49 minutes, 95% of the network was working normally. The
+same day, Fastly published a summary with the cause, a timeline, an apology and the changes it would
+make. It wrote: "we should have anticipated it".
+
+<Timeline
+  title="Fastly's outage and its updates, 8 June 2021 (UTC)"
+  events={[
+    { when: '09:47', title: 'Global disruption starts', note: '85% of the network returns errors', kind: 'problem' },
+    { when: '09:48', title: 'Monitoring detects it' },
+    { when: '09:58', title: 'First status post', kind: 'decision' },
+    { when: '11:00', title: 'Most services recovered' },
+    { when: '12:44', title: 'Status post resolved' },
+    { when: 'Same day', title: 'Public summary', note: 'Cause, timeline, apology, next steps', kind: 'result' },
+  ]}
+  caption="The first update came before the cause was known, and the full explanation came the same day."
+  evidence="reported"
+  source="Fastly blog, Summary of June 8 outage"
+/>

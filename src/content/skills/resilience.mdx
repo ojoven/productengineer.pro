@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Summary of the Amazon DynamoDB service disruption in the Northern Virginia (US-EAST-1) Region (AWS)
+    url: https://aws.amazon.com/message/101925/
+  - title: Addressing cascading failures (Site Reliability Engineering, chapter 22, Google)
+    url: https://sre.google/sre-book/addressing-cascading-failures/
+---
+
+## Why it matters for a product engineer
+
+Every system depends on parts that will fail: a database, a cloud service, a payment provider, an AI
+model. Without limits, one slow part makes callers wait, retries add more load, and the failure spreads
+to everything else. Timeouts, retries with backoff, circuit breakers and fallbacks keep one failure in
+one place. Product engineers also decide what users see when a part fails: a clear message and the
+features that still work, or a blank screen.
+
+## How to do it
+
+1. List each dependency, and decide what the product does when it is slow or down.
+2. Set a timeout on every outside call, shorter than the time the user will wait.
+3. Retry only safe operations, with backoff and jitter, and cap the total number of retries.
+4. Limit incoming work when queues grow, and reject extra requests early instead of failing slowly.
+5. Test failures on purpose: block a dependency in staging, and check what users see.
+
+## Common mistakes
+
+- No timeout, so one slow service holds every thread.
+- Retries at every layer, which multiply the load on a struggling service.
+- Recovery processes that were never tested at full scale.
+- An error page for the whole product when one optional feature fails.
+
+## Example
+
+On 19 October 2025, a race condition in AWS automation left the DNS record for DynamoDB's main endpoint
+in Northern Virginia empty. DynamoDB itself recovered within three hours, but the failure spread. The
+system that manages EC2's physical servers had to renew a huge number of leases. The work timed out,
+was queued again, and the system went into congestive collapse. Engineers recovered it by limiting
+incoming work and restarting hosts. AWS is adding rate limits based on queue size.
+
+<Timeline
+  title="How one empty DNS record spread through AWS, 19 and 20 October 2025 (PDT)"
+  events={[
+    { when: '11:48 PM', title: 'DynamoDB DNS record is empty', note: 'A race condition in automation', kind: 'problem' },
+    { when: '2:25 AM', title: 'New EC2 instances fail to launch', note: 'Lease renewals time out and are retried', kind: 'problem' },
+    { when: '2:40 AM', title: 'DynamoDB errors end' },
+    { when: '4:14 AM', title: 'Incoming work throttled', note: 'Selected hosts restarted', kind: 'decision' },
+    { when: '5:30 AM', title: 'Load balancer errors begin', note: 'Health check failures', kind: 'problem' },
+    { when: '2:20 PM', title: 'Event ends', kind: 'result' },
+  ]}
+  caption="The first failure lasted about three hours. The retries and the recovery work kept the region in trouble for over fourteen."
+  evidence="reported"
+  source="AWS post-event summary, October 2025"
+/>

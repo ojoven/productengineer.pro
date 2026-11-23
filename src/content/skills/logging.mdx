@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Fast and flexible observability with canonical log lines (Stripe)
+    url: https://stripe.com/blog/canonical-log-lines
+  - title: Observability primer (OpenTelemetry)
+    url: https://opentelemetry.io/docs/concepts/observability-primer/
+---
+
+## Why it matters for a product engineer
+
+When a user reports a problem, logs are often the only record of what the system did for that user. A
+log line in free text is easy to write and hard to search. A structured line, with fields such as the
+request id, the user, the route and the duration, can be filtered, counted and joined. Product engineers
+write most of the log statements, so they decide whether the logs can answer questions about real
+users.
+
+## How to do it
+
+1. Log in a structured format, such as key=value pairs or JSON, with the same field names everywhere.
+2. Add a request id to every line, and pass it to other services, so one request can be followed
+   across them.
+3. Write one summary line at the end of each request, with its key facts: route, status, user,
+   duration, number of queries.
+4. Keep secrets, tokens and unneeded personal data out of logs, and test that they stay out.
+5. Set retention and log levels on purpose, because storage costs grow with traffic.
+
+## Common mistakes
+
+- Messages such as "error occurred" with no context.
+- Passwords, tokens or full card numbers in logs.
+- Different field names for the same thing in different services.
+- Logging everything at debug level in production, until the bill arrives.
+
+## Example
+
+Stripe adds a "canonical log line" to its normal logs: one line per request per service, written at
+the end of the request. The line collects the request's key facts, from the HTTP method and status to
+the user, the rate limit and the number of database queries. Engineers can then ask questions such as
+"which users are rate limited the most?" in one query. Stripe also loads these lines into its data
+warehouse, and uses them to power its Developer Dashboard.
+
+<Anatomy
+  title="A Stripe canonical log line, part by part"
+  as="prompt"
+  parts={[
+    { text: 'canonical-log-line', label: 'Line type', note: 'One per request, written at the end' },
+    { text: ' http_method=POST http_path=/v1/charges http_status=200', label: 'The request', note: 'What was asked, and the result' },
+    { text: ' auth_type=api_key user_id=usr_123', label: 'Who asked', note: 'Lets you group by user' },
+    { text: ' rate_allowed=true rate_remaining=99', label: 'Rate limiting', note: 'Answers who is limited most' },
+    { text: ' database_queries=34 duration=0.009', label: 'Cost and speed', note: 'For slow-request analysis' },
+    { text: ' request_id=req_123', label: 'Request id', note: 'Joins this line to the full trace', kind: 'signal' },
+  ]}
+  caption="One line holds the facts that usually sit in many lines, so one query can answer a question about all requests."
+  evidence="reported"
+  source="Stripe blog, Canonical log lines, 2019"
+/>
