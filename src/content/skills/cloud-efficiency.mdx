@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How Canva saves millions annually in Amazon S3 costs (Canva Engineering Blog)
+    url: https://www.canva.dev/blog/engineering/optimising-s3-savings/
+  - title: Usage optimization (FinOps Foundation)
+    url: https://www.finops.org/framework/capabilities/usage-optimization/
+---
+
+## Why it matters for a product engineer
+
+Cloud bills grow quietly: a server sized for a launch that never shrinks, a test environment that
+runs all weekend, data that nobody reads but everybody pays to keep. The people who can fix most of
+it are the engineers who know how the product uses its resources. Finance sees the total. Engineers
+see which feature, table or bucket causes it, and whether a cheaper option would still work for users.
+
+## How to do it
+
+1. Tag resources by team and feature, so each cost has an owner.
+2. Measure use before you change anything: CPU, memory, requests, and how often data is read.
+3. Remove what is idle, then resize what is too big, then commit to the capacity you always use.
+4. Match storage to access: frequent data in fast storage, old data in cheaper classes.
+5. Calculate the cost of the change itself, and how long it takes to pay back.
+
+## Common mistakes
+
+- Buying reserved capacity before removing waste, so you commit to the waste.
+- Moving data to a cheaper class without checking how often it is read.
+- Saving money once and never looking at the bill again.
+- Complex setups that cost more in engineering time than they save.
+
+## Example
+
+Canva stores more than 230 petabytes in Amazon S3. Its analysis showed that people rarely open
+designs and uploads again after the first weeks, so this data could move to a cheaper storage class.
+Moving all 300 billion objects would have cost over $6 million, because each move has a price. Canva
+started with buckets whose average object was 400 KB or more, where the saving paid back the move
+within six months. It spent over $1.6 million to move about 80 billion objects. In 2023, the change saved
+about $300,000 a month.
+
+<StatRow
+  title="Canva's move of old user data to cheaper storage"
+  stats={[
+    { value: '$6M+', label: 'Cost to move all 300 billion objects', note: 'Not done' },
+    { value: '$1.6M+', label: 'Cost to move the 80 billion that paid back' },
+    { value: '$300k', label: 'Saving per month', signal: true },
+    { value: '6', unit: 'months', label: 'Payback target for the first buckets' },
+  ]}
+  caption="The saving came from moving only the data where it would pay back, not all of it."
+  evidence="reported"
+  source="Canva Engineering Blog, May 2023"
+/>

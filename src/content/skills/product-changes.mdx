@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Instagram walks back its changes (Platformer)
+    url: https://platformer.news/-instagram-walks-back-its-changes
+  - title: Instagram to walk back full-screen home feed and temporarily reduce recommended posts (TechCrunch)
+    url: https://techcrunch.com/2022/07/28/instagram-to-walk-back-full-screen-home-feed-and-temporarily-reduce-recommended-posts/
+  - title: How to deprecate software features without bothering users (TechTarget)
+    url: https://www.techtarget.com/news/How-to-deprecate-software-features-without-bothering-users/866607/
+---
+
+## Why it matters for a product engineer
+
+People build habits around a product, even around its flaws. A change that is better on paper still
+breaks those habits, and the first reaction is often negative. Some of that reaction fades in a few
+weeks. Some of it is a real signal that the change is wrong. Product engineers can tell the two apart
+only if the change is released in a way that can be measured, limited and undone.
+
+## How to do it
+
+1. Write down why you make the change and what result you expect, before you build it.
+2. Release it to a small group first, behind a flag that can switch it off.
+3. Watch two kinds of evidence: what people say, and what they do.
+4. Tell people before the change, say why, and give a way back or a transition period where you can.
+5. Decide in advance which result means continue, adjust, or roll back.
+
+## Common mistakes
+
+- Large redesigns released to everyone on the same day.
+- Reading all complaints as resistance to change, or all of them as proof of failure.
+- No way to switch the old version back on.
+- Explaining the change only after people complain.
+
+## Example
+
+In mid-2022, Instagram tested a full-screen home feed with a small percentage of users. Some of them
+really disliked it. Kim Kardashian and Kylie Jenner shared a petition that said "Stop trying to be TikTok".
+On 28 July, Instagram's head, Adam Mosseri, said: "people are frustrated and the usage data isn't
+great". Instagram phased out the test within one to two weeks, and also reduced recommended posts for
+a time.
+
+<Flow
+  title="How Instagram decided to stop its full-screen feed test"
+  nodes={[
+    { id: 'test', label: 'Feed test', detail: 'Small % of users', col: 0, row: 1 },
+    { id: 'say', label: 'Feedback', detail: 'Frustrated', col: 1, row: 0, tone: 'signal' },
+    { id: 'do', label: 'Usage data', detail: 'Not great', col: 1, row: 2 },
+    { id: 'stop', label: 'Step back', detail: 'Out in 1–2 weeks', col: 2, row: 1, kind: 'decision', tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'test', to: 'say' },
+    { from: 'test', to: 'do' },
+    { from: 'say', to: 'stop' },
+    { from: 'do', to: 'stop' },
+  ]}
+  caption="Complaints alone might have been habit. Complaints plus weak usage data made the decision clear, and the test limited the damage."
+  evidence="reported"
+  source="Adam Mosseri interview, Platformer, 28 July 2022"
+/>

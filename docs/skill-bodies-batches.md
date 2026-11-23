@@ -670,15 +670,15 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 36 · Operations · 9 skills
 
-- [ ] `10.5.1` [Privacy obligations](https://productengineer.pro/skills-map/operations/governance-compliance/privacy-obligations/) · `privacy-obligations` · map coverage
-- [ ] `10.5.2` [Consent management](https://productengineer.pro/skills-map/operations/governance-compliance/consent/) · `consent` · 1 resource
-- [ ] `10.5.4` [Security policies](https://productengineer.pro/skills-map/operations/governance-compliance/security-policies/) · `security-policies` · 1 resource
-- [ ] `10.6.2` [Cloud efficiency](https://productengineer.pro/skills-map/operations/operational-economics/cloud-efficiency/) · `cloud-efficiency` · 1 resource
-- [ ] `10.6.3` [AI inference costs](https://productengineer.pro/skills-map/operations/operational-economics/inference-costs/) · `inference-costs` · has evidence, technicalLeverage
-- [ ] `10.7.1` [Feature adoption](https://productengineer.pro/skills-map/operations/lifecycle-management/feature-adoption/) · `feature-adoption` · 1 resource
-- [ ] `10.7.2` [Managing product changes](https://productengineer.pro/skills-map/operations/lifecycle-management/product-changes/) · `product-changes` · 1 resource
-- [ ] `10.7.3` [Deprecation and removal](https://productengineer.pro/skills-map/operations/lifecycle-management/feature-deprecation/) · `feature-deprecation` · map coverage
-- [ ] `10.7.4` [Migrating users](https://productengineer.pro/skills-map/operations/lifecycle-management/user-migrations/) · `user-migrations` · 1 resource
+- [x] `10.5.1` [Privacy obligations](https://productengineer.pro/skills-map/operations/governance-compliance/privacy-obligations/) · `privacy-obligations` · map coverage
+- [x] `10.5.2` [Consent management](https://productengineer.pro/skills-map/operations/governance-compliance/consent/) · `consent` · 1 resource
+- [x] `10.5.4` [Security policies](https://productengineer.pro/skills-map/operations/governance-compliance/security-policies/) · `security-policies` · 1 resource
+- [x] `10.6.2` [Cloud efficiency](https://productengineer.pro/skills-map/operations/operational-economics/cloud-efficiency/) · `cloud-efficiency` · 1 resource
+- [x] `10.6.3` [AI inference costs](https://productengineer.pro/skills-map/operations/operational-economics/inference-costs/) · `inference-costs` · has evidence, technicalLeverage
+- [x] `10.7.1` [Feature adoption](https://productengineer.pro/skills-map/operations/lifecycle-management/feature-adoption/) · `feature-adoption` · 1 resource
+- [x] `10.7.2` [Managing product changes](https://productengineer.pro/skills-map/operations/lifecycle-management/product-changes/) · `product-changes` · 1 resource
+- [x] `10.7.3` [Deprecation and removal](https://productengineer.pro/skills-map/operations/lifecycle-management/feature-deprecation/) · `feature-deprecation` · map coverage
+- [x] `10.7.4` [Migrating users](https://productengineer.pro/skills-map/operations/lifecycle-management/user-migrations/) · `user-migrations` · 1 resource
 
 ### Batch 37 · AI + Cross-cutting · 8 skills
 

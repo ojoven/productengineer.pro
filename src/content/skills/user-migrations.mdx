@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "The next chapter: moving from Skype to Microsoft Teams (Microsoft)"
+    url: https://www.microsoft.com/en-us/microsoft-365/blog/2025/02/28/the-next-chapter-moving-from-skype-to-microsoft-teams/
+  - title: "Skype is retiring in May 2025: what you need to know (Microsoft Support)"
+    url: https://support.microsoft.com/en-us/skype/skype-is-retiring-in-may-2025-what-you-need-to-know-2a7d2501-427f-485e-8be0-2068a9f90472
+  - title: Parallel change (Danilo Sato, martinfowler.com)
+    url: https://martinfowler.com/bliki/ParallelChange.html
+---
+
+## Why it matters for a product engineer
+
+A migration asks users to do work for your reasons: learn a new screen, move their data, change a
+plan. Each step where they must act is a step where some of them stop. The engineering decides most
+of that cost. If accounts, data and settings move automatically, users only need to learn the new
+product. If they must export and import by hand, many will not, or will leave. Product engineers build
+the tooling that makes the move cheap.
+
+## How to do it
+
+1. Run old and new side by side for a period, so users can move at their own pace.
+2. Move data and settings automatically, and keep the same sign-in if you can.
+3. Let the two versions work together during the transition, so nobody is cut off.
+4. Offer an export for people who do not want to move.
+5. Track how many users moved, and contact the rest before each deadline.
+
+## Common mistakes
+
+- A forced move with no clear benefit for the user.
+- Data that is lost or changed on the way, found only after the old system is gone.
+- One final date with no transition period.
+- Ignoring the edge cases, such as shared accounts or paid features, until support tickets arrive.
+
+## Example
+
+On 28 February 2025, Microsoft announced that Skype would close on 5 May 2025, and offered Teams Free
+in its place. Skype users could sign in to Teams with their Skype account. Their chats and contacts
+appeared there automatically. Until May, Skype and Teams users could call and chat with each other.
+People who did not want Teams could export their chats, contacts and call history instead. Existing
+paid subscriptions continued until the end of their next renewal period.
+
+<Flow
+  title="The two paths Microsoft gave Skype users"
+  nodes={[
+    { id: 'skype', label: 'Skype user', detail: 'Until 5 May 2025', col: 0, row: 1 },
+    { id: 'teams', label: 'Teams Free', detail: 'Same sign-in', col: 1, row: 0, tone: 'lit' },
+    { id: 'moved', label: 'Chats moved', detail: 'Contacts too', col: 2, row: 0 },
+    { id: 'export', label: 'Export', detail: 'Chats, contacts', col: 1, row: 2 },
+    { id: 'copy', label: 'Own copy', detail: 'Calls included', col: 2, row: 2, kind: 'store' },
+  ]}
+  edges={[
+    { from: 'skype', to: 'teams' },
+    { from: 'teams', to: 'moved' },
+    { from: 'skype', to: 'export' },
+    { from: 'export', to: 'copy' },
+  ]}
+  caption="Moving needed no new account and no manual import. People who did not want to move could still keep their data."
+  evidence="reported"
+  source="Microsoft blog and Microsoft Support, 2025"
+/>

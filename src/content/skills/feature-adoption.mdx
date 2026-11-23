@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Hamburger menus and hidden navigation hurt UX metrics (Nielsen Norman Group)
+    url: https://www.nngroup.com/articles/hamburger-menus/
+  - title: Keep a changelog (Olivier Lacan)
+    url: https://keepachangelog.com/en/1.1.0/
+---
+
+## Why it matters for a product engineer
+
+A feature that nobody finds has the same value as a feature that was never built, but it still costs
+maintenance. Low use can mean two different things: people do not need the feature, or people do not
+know it exists. The fixes are very different. One is to change or remove the feature. The other is to
+change where and when people see it. Product engineers can measure the difference, because they
+control the events and the placement.
+
+## How to do it
+
+1. Before launch, define who should use the feature and what "adopted" means, for example used twice
+   in 30 days.
+2. Track three steps separately: saw the entry point, tried the feature, came back to it.
+3. Put the entry point where the need appears, not only in a menu or a release note.
+4. Announce the change in the product and in a changelog written for people, not as a list of commits.
+5. Review adoption after a few weeks, and decide: improve discovery, improve the feature, or stop.
+
+## Common mistakes
+
+- Judging a feature by total clicks, without knowing how many people saw it.
+- Launch emails as the only way people learn about a feature.
+- Hiding new features behind a menu icon to keep the screen clean.
+- Tooltips on every screen, which people learn to close without reading.
+
+## Example
+
+In 2016, the Nielsen Norman Group tested six websites with 179 participants. The tasks did not tell
+people to use the menu. On desktop, people used a hidden menu, such as a hamburger icon, in 27% of
+cases. When the same kind of menu was visible, they used it in 48% of cases. When part of it was
+visible, they used it in 50%. Some participants even said that sites with hidden navigation had no menu.
+
+<Bars
+  title="How often people used the navigation on desktop, by how visible it was"
+  unit="%"
+  items={[
+    { label: 'Hidden menu', value: 27, highlight: true },
+    { label: 'Visible menu', value: 48 },
+    { label: 'Partly visible', value: 50 },
+  ]}
+  caption="The same options were used almost half as often when they were hidden. Low use can be a visibility problem, not a sign that people do not need them."
+  evidence="measured"
+  source="Nielsen Norman Group, quantitative study, June 2016"
+/>

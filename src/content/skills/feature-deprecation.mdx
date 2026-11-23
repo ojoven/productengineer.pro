@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Token authentication requirements for Git operations (GitHub Blog)
+    url: https://github.blog/security/application-security/token-authentication-requirements-for-git-operations/
+  - title: Git password authentication is shutting down (GitHub Changelog)
+    url: https://github.blog/changelog/2021-08-12-git-password-authentication-is-shutting-down/
+  - title: How to effectively sunset a feature from your product (Pendo)
+    url: https://www.pendo.io/pendo-blog/how-to-effectively-remove-and-retire-a-feature-from-your-product/
+---
+
+## Why it matters for a product engineer
+
+Every feature keeps costing time after launch: tests, bug fixes, support questions, security work.
+Some features are no longer worth that cost, and some are a risk. Removing them makes the product and
+the code simpler. The hard part is the people who still use them. Product engineers can find exactly
+who those people are in the data, and build a path that moves them before anything breaks.
+
+## How to do it
+
+1. Use data to find who still uses the feature, how often, and through which clients.
+2. Announce a date, the reason, and the replacement, with a few months' notice.
+3. Contact the affected users directly, and warn them in the product when they use the feature.
+4. Before the final date, switch the feature off for short, announced periods, so people notice.
+5. Remove it on the date, and keep a clear error message that explains what to do next.
+
+## Common mistakes
+
+- Removing a feature because it looks unused, without checking who uses it.
+- An announcement in a blog post that the affected users never read.
+- Moving the date again and again, so nobody believes it.
+- An error after removal that does not say what changed or what to do.
+
+## Example
+
+GitHub stopped accepting account passwords for Git operations on 13 August 2021, because tokens are
+safer: they can be limited, revoked and generated per device. It announced the plan in July 2020 and
+the date in December 2020. It emailed users who still used passwords. On 30 June and 28 July 2021, it
+blocked passwords for two three-hour periods each day. People whose scripts failed in those windows
+had time to switch to a token or an SSH key.
+
+<Timeline
+  title="How GitHub removed password authentication for Git"
+  events={[
+    { when: 'Jul 2020', title: 'Intent announced', note: 'Tokens for all Git operations' },
+    { when: 'Dec 2020', title: 'Date announced', note: 'Emails to password users', kind: 'decision' },
+    { when: '30 Jun 2021', title: 'First brownout', note: 'Passwords fail for 2 × 3 hours', kind: 'problem' },
+    { when: '28 Jul 2021', title: 'Second brownout', note: 'Same windows', kind: 'problem' },
+    { when: '13 Aug 2021', title: 'Passwords removed', note: 'Tokens or SSH keys only', kind: 'ship' },
+  ]}
+  caption="Planned, short failures warned the people that emails and blog posts did not reach, while they still had time to change."
+  evidence="reported"
+  source="GitHub Blog, December 2020, and GitHub Changelog, August 2021"
+/>

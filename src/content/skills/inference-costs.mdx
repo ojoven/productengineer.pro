@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Prompt caching (Anthropic docs)
+    url: https://platform.claude.com/docs/en/build-with-claude/prompt-caching
+  - title: Batch processing (Anthropic docs)
+    url: https://platform.claude.com/docs/en/build-with-claude/batch-processing
+---
+
+## Why it matters for a product engineer
+
+Most software costs almost nothing per extra user. AI features are different: every request pays for
+input and output tokens, and an agent can make many requests for one task. A feature that is free to
+users, or part of a flat plan, can lose money as usage grows. The levers are technical: which model,
+how long the prompt is, what is cached, what can wait. So the product engineer who builds the feature
+is also the person who can keep its cost under control.
+
+## How to do it
+
+1. Put the stable part of the prompt first, such as instructions and documents, and cache it.
+2. Send work that does not need an answer now, such as nightly summaries, as a batch.
+3. Use the smallest model that passes your evaluations, and a larger one only where it fails.
+4. Limit output length and the number of tool calls and retries per task.
+5. Compare cost per feature with what that feature earns, and set an alert for each one.
+
+## Common mistakes
+
+- Sending the full conversation history and every document with every request.
+- Caching a prompt that changes at the start, so the cache is never used.
+- Using the largest model everywhere because it was the first one tested.
+- Free plans with no usage limit on the most expensive feature.
+
+## Example
+
+Anthropic's prices show how much the structure of a request matters. A prompt prefix written to the
+cache costs 1.25 times the normal input price for a five-minute cache. Every later read of that
+prefix costs 0.1 times the normal price. Take an assistant that sends the same 10,000 tokens of
+instructions with every request. The first request pays the price of 12,500 tokens. Each later request
+pays the price of 1,000, as long as requests come less than five minutes apart. Work sent as a batch costs half, and the two discounts can be combined.
+
+<Bars
+  title="Price of input tokens compared with the normal price"
+  unit="%"
+  items={[
+    { label: 'Normal input', value: 100 },
+    { label: 'Cache write, 5 minutes', value: 125 },
+    { label: 'Cache write, 1 hour', value: 200 },
+    { label: 'Batch', value: 50 },
+    { label: 'Cache read', value: 10, highlight: true },
+  ]}
+  caption="A cached prefix costs a little more once and much less every time after. Batches halve the price of work that can wait."
+  evidence="reported"
+  source="Anthropic docs, Prompt caching and Batch processing"
+/>

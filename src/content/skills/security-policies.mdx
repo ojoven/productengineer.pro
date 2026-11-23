@@ -1,0 +1,60 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Unauthorized access to Okta's support case management system: root cause and remediation (Okta)"
+    url: https://sec.okta.com/articles/2023/11/unauthorized-access-oktas-support-case-management-system-root-cause/
+  - title: OWASP Top 10 (OWASP)
+    url: https://top10.owasp.org/
+---
+
+## Why it matters for a product engineer
+
+A security policy is a set of rules: who gets access to what, how laptops are set up, how secrets are
+stored, what happens in an incident, and which vendors you trust. Larger customers ask for these rules
+in security reviews, and certifications such as SOC 2 and ISO 27001 check that you follow them. A rule
+only helps when a system enforces it. Product engineers write much of that enforcement: access roles,
+log events, session limits and the alerts that show when a rule is broken.
+
+## How to do it
+
+1. Start with a few rules that match real risks: access, devices, secrets, incidents, vendors.
+2. Enforce each rule in configuration where possible, not only in a document.
+3. Give each account the smallest set of permissions it needs, and review access every quarter.
+4. Log every access to sensitive data, and check that the logs cover every path to it.
+5. After each incident, change a rule or a control, and write down which one.
+
+## Common mistakes
+
+- A policy that exists for an audit, while daily work ignores it.
+- Shared service accounts with wide access and passwords stored by people.
+- Personal accounts and browser profiles on company devices.
+- Logs that record one way of reading data but miss another.
+
+## Example
+
+In late 2023, an attacker used a service account to read files in Okta's customer support system. The
+files belonged to 134 customers, and some contained session tokens. The account's password had been
+saved in an employee's personal Google profile, which was signed in to Chrome on an Okta-managed
+laptop. For 14 days, Okta's investigation also missed the downloads, because opening the Files tab
+directly created a different log event. Okta then used Chrome Enterprise to block personal profiles on
+its laptops.
+
+<Flow
+  title="How one saved password reached Okta's support files"
+  nodes={[
+    { id: 'profile', label: 'Own profile', detail: 'On a work laptop', col: 0, row: 0 },
+    { id: 'pw', label: 'Password', detail: 'Service account', col: 1, row: 0, tone: 'signal' },
+    { id: 'files', label: 'Support files', detail: '134 customers', col: 2, row: 0 },
+    { id: 'logs', label: 'Logs', detail: 'Gap: Files tab', col: 2, row: 1, kind: 'store' },
+    { id: 'rule', label: 'New control', detail: 'Profiles blocked', col: 1, row: 1, kind: 'decision', tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'profile', to: 'pw' },
+    { from: 'pw', to: 'files' },
+    { from: 'files', to: 'logs' },
+    { from: 'logs', to: 'rule' },
+  ]}
+  caption="Two rules were missing in practice: no personal profiles on work devices, and logs for every way into the data."
+  evidence="reported"
+  source="Okta Security, root cause and remediation, 3 November 2023"
+/>

@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: CNIL fines Big Tech companies 210 million euros for cookie violations (Hunton)
+    url: https://www.hunton.com/privacy-and-cybersecurity-law-blog/cnil-fines-big-tech-companies-210-million-euros-for-cookie-violations
+  - title: "France spanks Google $170M, Facebook $68M over cookie consent breaches (TechCrunch)"
+    url: https://techcrunch.com/2022/01/06/cnil-facebook-google-cookie-consent-eprivacy-breaches/
+  - title: Data protection basics (EDPB guide for small business)
+    url: https://www.edpb.europa.eu/sme/learn-the-basics/data-protection-basics_en
+---
+
+## Why it matters for a product engineer
+
+Consent is valid only when it is freely given, informed, specific and clear, and people must be able
+to withdraw it. A product engineer builds the banner, the settings page and the code that decides
+whether a tracking script runs. If the script runs before the choice, or the "no" is hidden, the
+consent does not count. Good design here is also a product choice: tools that do not need consent,
+such as privacy-friendly analytics, remove many banners.
+
+## How to do it
+
+1. List every cookie, script and data use, and mark which ones need consent.
+2. Load nothing that needs consent until the person says yes.
+3. Make "refuse" as easy as "accept": same level, same number of clicks.
+4. Store each choice with a date and version, and respect it on every page and device you can.
+5. Let people change their mind from a link that is always visible.
+
+## Common mistakes
+
+- An "Accept all" button next to a "Settings" link, with the refusal hidden inside.
+- Pre-ticked boxes or "by continuing you agree" text.
+- Analytics or ad tags that load before the banner answers.
+- Asking for consent when a contract or another legal basis is the right one.
+
+## Example
+
+On 31 December 2021, the French data protection authority, the CNIL, fined Google 150 million euros
+and Facebook 60 million euros. On google.fr, youtube.com and facebook.com, one click accepted all
+cookies, but refusing took several. On Facebook, the last step to refuse was a button labelled "Accept
+cookies". The CNIL said this pushed people toward consent. It gave both companies three months to make
+refusal as easy as acceptance, or pay 100,000 euros for each day of delay.
+
+<Compare
+  title="Accepting and refusing cookies on the sites the CNIL fined"
+  subjects={['Accept', 'Refuse']}
+  highlight={1}
+  rows={[
+    { label: 'Clicks needed', values: ['One', 'Several'] },
+    { label: 'Where', values: ['On the first screen', 'Behind more options'] },
+    { label: 'Last button (Facebook)', values: ['Accept cookies', 'Also "Accept cookies"'] },
+  ]}
+  caption="The choice existed, but one answer was much easier than the other. For the CNIL, that meant the consent was not free."
+  evidence="reported"
+  source="CNIL decisions of 31 December 2021, as reported by Hunton and TechCrunch"
+/>

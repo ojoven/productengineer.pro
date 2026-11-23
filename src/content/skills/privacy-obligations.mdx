@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Administrative fee against Spotify (IMY, Swedish Authority for Privacy Protection)
+    url: https://www.imy.se/en/news/administrative-fee-against-spotify/
+  - title: "Respect individuals' rights (EDPB guide for small business)"
+    url: https://www.edpb.europa.eu/sme/be-compliant/respect-individuals-rights_en
+  - title: Obligations for businesses under the GDPR (European Commission)
+    url: https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/obligations_en
+---
+
+## Why it matters for a product engineer
+
+Privacy law is not only a page of legal text. Many of its duties are product features: an export of
+someone's data, a way to correct it, a deletion that really deletes. Under the GDPR, a company must
+answer such a request within one month. It must report a serious data breach to the authority within
+72 hours. A product engineer knows where personal data lives, so they can tell whether these duties
+are possible at all. A data model without an owner for each field makes every request slow and risky.
+
+## How to do it
+
+1. Keep a list of the personal data you store: which fields, where, why, and for how long.
+2. Collect only the data a feature needs, and set a deletion rule for each kind.
+3. Build export and deletion as features, with tests, before the first request arrives.
+4. Explain each use of data in plain words, close to the data itself.
+5. Write down who decides and who acts when a breach happens, with the 72-hour limit in mind.
+
+## Common mistakes
+
+- Copies in logs, backups and analytics tools that a deletion does not reach.
+- Exports that are complete but impossible for a person to understand.
+- Keeping data "in case it is useful later".
+- Leaving privacy to the legal team until a request or a complaint arrives.
+
+## Example
+
+In 2023, the Swedish privacy authority audited how Spotify answered access requests. Spotify did
+release the data. It even split it into layers: one with the data most people want, such as payment
+details and listening history, and one with technical log files. The authority said the layers were
+fine. The problem was the explanation: Spotify did not say clearly enough how and why it used the data.
+The authority fined Spotify SEK 58 million.
+
+<Flow
+  title="Spotify's answer to an access request, as the authority saw it"
+  nodes={[
+    { id: 'req', label: 'Request', detail: 'Right of access', col: 0, row: 1 },
+    { id: 'l1', label: 'Layer 1', detail: 'Data most wanted', col: 1, row: 0, tone: 'lit' },
+    { id: 'l2', label: 'Layer 2', detail: 'Technical logs', col: 1, row: 1, tone: 'lit' },
+    { id: 'why', label: 'How it is used', detail: 'Not clear enough', col: 1, row: 2, tone: 'signal' },
+    { id: 'fine', label: 'Fine', detail: 'SEK 58 million', col: 2, row: 1, kind: 'decision' },
+  ]}
+  edges={[
+    { from: 'req', to: 'l1' },
+    { from: 'req', to: 'l2' },
+    { from: 'req', to: 'why' },
+    { from: 'why', to: 'fine' },
+  ]}
+  caption="The data itself was complete and well organized. The fine came from the missing explanation of how the data was used."
+  evidence="reported"
+  source="IMY, Administrative fee against Spotify, 13 June 2023"
+/>
