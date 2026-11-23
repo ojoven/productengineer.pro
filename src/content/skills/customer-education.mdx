@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Shape Up, chapter 13: show progress (Basecamp)'
+    url: https://basecamp.com/shapeup/3.4-chapter-13
+  - title: Help and documentation, usability heuristic 10 (NN/g)
+    url: https://www.nngroup.com/articles/help-and-documentation/
+---
+
+## Why it matters for a product engineer
+
+Many products can do more than their users know. People learn the first workflow, then stop
+exploring. Education, such as guides, courses and worked examples, shows them the next workflow and
+why it matters. For complex products, it can also teach a way of working that the product supports,
+which brings in new customers too. Product engineers know how the features really work, so they can
+write accurate examples and keep the material close to the task.
+
+## How to do it
+
+1. Find the features and workflows that retained customers use and other customers do not.
+2. Teach the job, not the interface: start from a goal, then show the steps in the product.
+3. Put short help where the task happens, and link to longer guides for people who want more.
+4. Update the material when the product changes, as part of the release.
+5. Measure whether people who use the material adopt the workflow and stay longer.
+
+## Common mistakes
+
+- Courses that cover every feature, with no clear goal.
+- Screenshots that no longer match the product.
+- Education on a separate site that nobody finds from inside the product.
+- Counting views of the material, not changes in what customers do.
+
+## Example
+
+Basecamp published "Shape Up", an online book about how its team builds products. One chapter explains
+hill charts. Each piece of work first goes uphill, while the team works out its approach, then
+downhill, while they do the work. Basecamp built hill charts into its product, where teams drag each
+piece of work into position with a few clicks. The book links to a guide on how to use the method in
+Basecamp.
+
+<Flow
+  title="How the Shape Up book leads to a Basecamp feature"
+  nodes={[
+    { id: 'book', label: 'Shape Up', detail: 'Online book on the method', col: 0, row: 0 },
+    { id: 'idea', label: 'Hill charts', detail: 'Chapter: show progress', col: 1, row: 0 },
+    { id: 'tool', label: 'In Basecamp', detail: 'Drag work into position', col: 2, row: 0, tone: 'lit' },
+    { id: 'guide', label: 'How-to guide', detail: 'The method in Basecamp', col: 1, row: 1 },
+  ]}
+  edges={[
+    { from: 'book', to: 'idea' },
+    { from: 'idea', to: 'tool' },
+    { from: 'book', to: 'guide' },
+    { from: 'guide', to: 'tool' },
+  ]}
+  caption="The book teaches a way of working, and the product has the tool for it. A reader who adopts the method has a reason to use Basecamp."
+  evidence="reported"
+  source="Basecamp, Shape Up, chapter 13"
+/>

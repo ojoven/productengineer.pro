@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Stating appointment costs in SMS reminders reduces missed hospital appointments: findings from two randomised controlled trials (PLOS ONE, 2015)'
+    url: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0137306
+  - title: Five mistakes in designing mobile push notifications (NN/g)
+    url: https://www.nngroup.com/articles/push-notification/
+  - title: 'Transactional notifications: their characteristics and when to use them (NN/g)'
+    url: https://www.nngroup.com/articles/transactional-notifications/
+---
+
+## Why it matters for a product engineer
+
+A reminder can bring someone back at the moment they need the product: a payment is due, a delivery
+arrives, an appointment is close. Each message also costs attention. With too many messages, or the
+wrong ones, people turn notifications off, and then the useful ones cannot reach them either. Product
+engineers build the triggers, the timing and the settings, so they decide much of whether reminders
+help or annoy.
+
+## How to do it
+
+1. Start from an event that matters to the user, such as a due date or a change they asked to follow.
+2. Send at a useful time: early enough to act, in the user's time zone, and once for each event.
+3. Put what happened and what to do in the first words, because many people read only the preview.
+4. Ask for push permission when the value is clear, and let people choose which types they get.
+5. Measure the outcome the reminder is for, along with opt-outs. Test the wording as well as the
+   timing.
+
+## Common mistakes
+
+- Asking for permission on the first screen, before the user knows why.
+- Promotions sent through the channel people allowed for important updates.
+- One setting for all notifications, so turning off one type turns off everything.
+- Counting clicks while opt-outs rise.
+
+## Example
+
+A London NHS hospital trust sent outpatients a text reminder five days before their appointment.
+Researchers tested new wordings against the existing message in a randomized trial with 10,111
+patients. A message that stated what a missed appointment costs the health service cut the rate of
+missed appointments from 11.1% to 8.4%. A second trial repeated the result. The team estimated about
+5,800 fewer missed appointments a year in that trust, at no extra cost.
+
+<Bars
+  title="Missed appointments after each text reminder, first trial"
+  unit="%"
+  digits={1}
+  items={[
+    { label: 'Existing reminder', value: 11.1 },
+    { label: 'States the cost of missing it', value: 8.4, highlight: true },
+  ]}
+  caption="Same timing, same channel, same kind of patients. Only the words changed, and fewer people missed their appointment."
+  evidence="reported"
+  source="Hallsworth et al., PLOS ONE, 2015"
+/>

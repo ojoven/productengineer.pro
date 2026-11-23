@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Feedback component (GOV.UK Design System)
+    url: https://design-system.service.gov.uk/components/feedback/
+  - title: 'User-feedback requests: 5 guidelines (NN/g)'
+    url: https://www.nngroup.com/articles/user-feedback/
+---
+
+## Why it matters for a product engineer
+
+Users notice problems that dashboards miss: a confusing word, a missing option, a step that does not
+fit their situation. Most of them will not say so unless it is easy and they believe someone will read
+it. A product engineer can put the request in the right place, attach the context that makes feedback
+useful, and send it to where the team works.
+
+## How to do it
+
+1. Offer a feedback link on every page, in the same place, so people know where to find it when they
+   need it.
+2. Say why you ask, what you will do with the answer, and how long it takes.
+3. Keep feedback separate from support, so people with an urgent problem reach help.
+4. Attach context automatically: page, app version, browser, recent errors. Do not ask users for data
+   you already have.
+5. Collect all feedback in one place, tag it, and tell users when their feedback led to a change.
+
+## Common mistakes
+
+- A pop-up survey in the middle of a task.
+- A feedback link in a place people have learned to ignore.
+- Forms with many required fields for a short comment.
+- Feedback that stays in one person's inbox and is never reviewed.
+
+## Example
+
+GOV.UK services used to put the feedback link inside the phase banner, at the top of the page. Desk
+research found that services struggled to get enough feedback that way. In August 2026, the GOV.UK
+Design System introduced a separate Feedback component, placed just before the footer. Its heading and
+message should say why the team wants feedback and what it will do with it. The component is in trial,
+to learn whether it really brings more feedback.
+
+<Compare
+  title="Two places for the GOV.UK feedback link"
+  subjects={['In the phase banner', 'Feedback component']}
+  highlight={1}
+  rows={[
+    { label: 'Place on the page', values: ['Top, inside a banner', 'Own block, before the footer'] },
+    { label: 'Possible problem', values: ['Banner blindness', 'Not known yet'] },
+    { label: 'Evidence so far', values: ['Too little feedback', 'In trial since Aug 2026'] },
+  ]}
+  caption="The request moved to its own place, where people look when they want to say something. The team keeps it in trial until data shows that it works."
+  evidence="reported"
+  source="GOV.UK Design System, Feedback component"
+/>

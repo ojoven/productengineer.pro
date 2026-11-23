@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'The power user curve: the best way to understand your most engaged users (Andreessen Horowitz)'
+    url: https://a16z.com/the-power-user-curve-the-best-way-to-understand-your-most-engaged-users/
+---
+
+## Why it matters for a product engineer
+
+Needs come back at different speeds. People message friends every day, plan work on weekdays and file
+taxes once a year. A metric built for daily use makes a weekly product look weak and a yearly product
+look dead. A product engineer who knows how often the need comes back can choose the right window for
+the metric, and find real problems instead of false alarms.
+
+## How to do it
+
+1. Write down how often the need behind the product comes back: every day, on workdays, every week,
+   every month or every year.
+2. Choose an active-user window that matches it: a day, a week, a month or a season.
+3. Count the active days of each user in that window, and plot the distribution, not only an average.
+4. Compare cohorts and segments over time. In a healthy product, more users move toward the frequent
+   end of the curve.
+5. Talk to users who come back less often than the need does. They may solve the problem somewhere
+   else.
+
+## Common mistakes
+
+- Using DAU/MAU for a product that is not meant for daily use.
+- Comparing your frequency with products that serve a different need.
+- Using notifications to push people to come back more often than the need.
+- Counting app opens instead of the action that delivers value.
+
+## Example
+
+Andreessen Horowitz describes the power user curve: a histogram of how many days each user was active
+in a month. Facebook's growth team called it L30. For a social product, the healthy shape is a smile,
+with a large group active nearly every day. For a work product, the authors suggest a 7-day version,
+L7. There, the curve can smile through 5 days and drop at 6 and 7, because people do not work at
+weekends. They note that DAU/MAU is not the right metric for such a product.
+
+<Compare
+  title="Two healthy power user curves, by how often the need comes back"
+  subjects={['Social product', 'Work product']}
+  highlight={1}
+  rows={[
+    { label: 'Window', values: ['30 days (L30)', '7 days (L7)'] },
+    { label: 'Healthy shape', values: ['A smile, many daily users', 'A smile through 5 days'] },
+    { label: 'Most engaged users', values: ['Active nearly every day', 'Active on workdays'] },
+    { label: 'DAU/MAU', values: ['Facebook: over 60%', 'Not the right metric'] },
+  ]}
+  caption="A drop at the weekend is a warning for one product and normal for the other. The window must match the need."
+  evidence="reported"
+  source="Andreessen Horowitz, The power user curve"
+/>

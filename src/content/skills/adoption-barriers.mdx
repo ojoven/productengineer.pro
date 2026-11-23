@@ -1,0 +1,62 @@
+---
+updated: 2026-11-23
+sources:
+  - title: GitHub Copilot for Business is now available (GitHub blog)
+    url: https://github.blog/news-insights/product-news/github-copilot-for-business-is-now-available/
+  - title: 'Churn analysis: steps to understanding why customers leave (Chargebee)'
+    url: https://www.chargebee.com/blog/churn-analysis/
+---
+
+## Why it matters for a product engineer
+
+A customer can like a product and still not use it fully. The team that bought it may need approval
+from security, a connection to their existing tools, or a way to move old data. Inside the company,
+some people may not want to change how they work. These barriers rarely show in product analytics.
+Many of them are technical, so a product engineer can often remove them once someone finds them.
+
+## How to do it
+
+1. Talk to accounts with low usage, and ask what stops wider use: who must approve, what the product
+   must connect to, what data must move.
+2. Talk to the people who promote the product inside the company and to the people who block it, such
+   as IT, security and finance.
+3. List barriers by type, such as buying, security, network, integration, migration and habit, and
+   count how many accounts each one blocks.
+4. Remove the barriers that block the most growth first, often with admin controls, importers or
+   integrations.
+5. Tell the blocked accounts when a barrier is gone, and track whether their usage grows.
+
+## Common mistakes
+
+- Reading low usage as low interest, without asking.
+- Hearing only from users, never from the people who approve.
+- Building features for users while an admin need blocks the whole company.
+- Removing a barrier and not telling the customers it blocked.
+
+## Example
+
+GitHub Copilot started as a tool for individual developers. By February 2023, more than 400
+organizations already used it, and GitHub released Copilot for Business. Companies could buy licenses
+online and assign seats, even if they did not keep their code on GitHub. Copilot gained support for
+VPNs, including self-signed certificates. It also began to block common insecure suggestions, such as
+hardcoded credentials and SQL injections.
+
+<Flow
+  title="What a company asks before it adopts Copilot, and the answer in Copilot for Business"
+  nodes={[
+    { id: 'buy', label: 'Who pays?', detail: 'One company, many developers', col: 0, row: 0, kind: 'decision' },
+    { id: 'net', label: 'Our network?', detail: 'Corporate VPN, own certificates', col: 0, row: 1, kind: 'decision' },
+    { id: 'safe', label: 'Safe code?', detail: 'Suggestions in our codebase', col: 0, row: 2, kind: 'decision' },
+    { id: 'seats', label: 'Seats', detail: 'Licenses bought online', col: 1, row: 0 },
+    { id: 'vpn', label: 'VPN support', detail: 'Self-signed certificates work', col: 1, row: 1 },
+    { id: 'filter', label: 'Code filter', detail: 'Blocks common insecure code', col: 1, row: 2, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'buy', to: 'seats' },
+    { from: 'net', to: 'vpn' },
+    { from: 'safe', to: 'filter' },
+  ]}
+  caption="None of these changes made suggestions better for one developer. Each one removed a reason for a company to say no. The questions are an interpretation; the answers are from GitHub."
+  evidence="reported"
+  source="GitHub blog, 14 Feb 2023"
+/>

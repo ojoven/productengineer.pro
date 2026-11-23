@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Welcome emails experiment, September 2022 (Wikimedia Growth team)
+    url: https://www.mediawiki.org/wiki/Growth/Personalized_first_day/Newcomer_experience_marketing_pilot/Welcome_emails_experiment,_September_2022
+  - title: 'Lifecycle marketing guide: engage across the entire journey (Customer.io)'
+    url: https://customer.io/learn/lifecycle-marketing/guide
+  - title: 'Retention marketing channel strategy: email, SMS and in-app (Customer.io)'
+    url: https://customer.io/learn/product-led-growth/retention-marketing-channel-strategy
+---
+
+## Why it matters for a product engineer
+
+A user's needs change from signup to habit, and sometimes to leaving. Lifecycle messages follow those
+stages: a welcome, a nudge when someone stops, a tip when they are ready for more, a message to win
+them back when they have gone quiet. Each message depends on an event from the product, such as
+"signed up", "created a first project" or "inactive for 14 days". Product engineers build those
+events, so the messages can only be as good as that data.
+
+## How to do it
+
+1. Map the stages of the journey, and the one action that moves a user to the next stage.
+2. Send product events with stable names and properties to the messaging tool, close to real time.
+3. Trigger each message from behaviour, and stop it when the user does the action it asks for.
+4. Choose the channel by urgency and permission: in-app for users in the product, email for users
+   away from it.
+5. Keep a random group that gets no messages, and compare retention, not opens.
+
+## Common mistakes
+
+- A fixed schedule that sends day-3 tips to users who already did everything.
+- Messages that keep asking for an action the user has already taken.
+- Measuring open rates instead of the behaviour the message is for.
+- Exporting lists by hand, so messages arrive late and are hard to repeat.
+
+## Example
+
+Spanish Wikipedia tested welcome emails for new accounts in 2022. The 22,633 new accounts were split at
+random: 20% got no email, and the rest got one if they had agreed to receive it. The email did not
+change how many people made a first edit. But more people edited again in the following weeks, mostly
+those who signed up on mobile. The product did not trigger the emails: the team exported lists by hand
+for the marketing team.
+
+<Compare
+  title="Spanish Wikipedia newcomers, with and without a welcome email"
+  subjects={['No email', 'Welcome email']}
+  highlight={1}
+  rows={[
+    { label: 'First edit in week 1', values: ['21.0%', '21.4%'] },
+    { label: 'Edited again in weeks 2 to 4', values: ['6.5%', '7.9%'] },
+    { label: 'No edit in week 1, edited later', values: ['0.47%', '1.07%'] },
+  ]}
+  caption="The email did not change the first step, but it brought more people back later. Only the group without email could show that."
+  evidence="reported"
+  source="Wikimedia Growth team, welcome emails experiment, 2022"
+/>

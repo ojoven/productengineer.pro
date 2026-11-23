@@ -629,17 +629,17 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 33 · Retention · 11 skills
 
-- [ ] `08.2.3` [Engagement frequency](https://productengineer.pro/skills-map/retention/retention-analysis/engagement-frequency/) · `engagement-frequency` · 1 resource
-- [ ] `08.2.4` [Meaningful usage](https://productengineer.pro/skills-map/retention/retention-analysis/meaningful-usage/) · `meaningful-usage` · 1 resource
-- [ ] `08.3.1` [Reminders and notifications](https://productengineer.pro/skills-map/retention/engagement-design/reminders/) · `reminders` · map coverage
-- [ ] `08.3.2` [Personalization](https://productengineer.pro/skills-map/retention/engagement-design/personalization/) · `personalization` · has evidence, technicalLeverage, aiLeverage; 1 resource
-- [ ] `08.3.3` [User progression](https://productengineer.pro/skills-map/retention/engagement-design/user-progression/) · `user-progression` · 1 resource
-- [ ] `08.4.2` [Lifecycle communication](https://productengineer.pro/skills-map/retention/customer-lifecycle/lifecycle-messaging/) · `lifecycle-messaging` · map coverage
-- [ ] `08.4.3` [Customer education](https://productengineer.pro/skills-map/retention/customer-lifecycle/customer-education/) · `customer-education` · 1 resource
-- [ ] `08.5.1` [Feedback collection](https://productengineer.pro/skills-map/retention/customer-success/feedback-collection/) · `feedback-collection` · 1 resource
-- [ ] `08.5.2` [Friction reduction](https://productengineer.pro/skills-map/retention/customer-success/friction-reduction/) · `friction-reduction` · map coverage
-- [ ] `08.5.3` [Support insights](https://productengineer.pro/skills-map/retention/customer-success/support-insights/) · `support-insights` · 1 resource
-- [ ] `08.5.4` [Resolving adoption barriers](https://productengineer.pro/skills-map/retention/customer-success/adoption-barriers/) · `adoption-barriers` · 1 resource
+- [x] `08.2.3` [Engagement frequency](https://productengineer.pro/skills-map/retention/retention-analysis/engagement-frequency/) · `engagement-frequency` · 1 resource
+- [x] `08.2.4` [Meaningful usage](https://productengineer.pro/skills-map/retention/retention-analysis/meaningful-usage/) · `meaningful-usage` · 1 resource
+- [x] `08.3.1` [Reminders and notifications](https://productengineer.pro/skills-map/retention/engagement-design/reminders/) · `reminders` · map coverage
+- [x] `08.3.2` [Personalization](https://productengineer.pro/skills-map/retention/engagement-design/personalization/) · `personalization` · has evidence, technicalLeverage, aiLeverage; 1 resource
+- [x] `08.3.3` [User progression](https://productengineer.pro/skills-map/retention/engagement-design/user-progression/) · `user-progression` · 1 resource
+- [x] `08.4.2` [Lifecycle communication](https://productengineer.pro/skills-map/retention/customer-lifecycle/lifecycle-messaging/) · `lifecycle-messaging` · map coverage
+- [x] `08.4.3` [Customer education](https://productengineer.pro/skills-map/retention/customer-lifecycle/customer-education/) · `customer-education` · 1 resource
+- [x] `08.5.1` [Feedback collection](https://productengineer.pro/skills-map/retention/customer-success/feedback-collection/) · `feedback-collection` · 1 resource
+- [x] `08.5.2` [Friction reduction](https://productengineer.pro/skills-map/retention/customer-success/friction-reduction/) · `friction-reduction` · map coverage
+- [x] `08.5.3` [Support insights](https://productengineer.pro/skills-map/retention/customer-success/support-insights/) · `support-insights` · 1 resource
+- [x] `08.5.4` [Resolving adoption barriers](https://productengineer.pro/skills-map/retention/customer-success/adoption-barriers/) · `adoption-barriers` · 1 resource
 
 ### Batch 34 · Distribution · 10 skills
 

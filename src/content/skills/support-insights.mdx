@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Support hero (PostHog handbook)
+    url: https://posthog.com/handbook/engineering/operations/support-hero
+  - title: 'How to analyze qualitative data from UX research: thematic analysis (NN/g)'
+    url: https://www.nngroup.com/articles/thematic-analysis/
+---
+
+## Why it matters for a product engineer
+
+Support tickets show, every day and in users' own words, where people get stuck. Analytics shows where
+people drop off, and tickets often say why. When engineers read tickets, they see bugs the way users
+experience them, and the fix is often quick. Patterns across many tickets show where a larger
+investment would pay back.
+
+## How to do it
+
+1. Send tickets to the team that owns the code, so the people who can fix a problem see it.
+2. Tag each ticket with area, type (bug, question, request, confusing design) and customer segment.
+3. End each ticket with a product action when you can: a fix, an issue the user can follow, or a
+   docs change.
+4. Review tag trends every week or month, and rank them by volume and by risk of losing customers.
+5. Check that each fix reduced the tickets it was meant to reduce.
+
+## Common mistakes
+
+- A separate support team whose learning never reaches engineering.
+- Closing a ticket with an answer, while the confusing screen stays the same.
+- Free-text reasons that nobody can count.
+- Judging trends by the loudest customer, not by volume.
+
+## Example
+
+At PostHog, one engineer in each engineering team is the Support Hero for a week. Support engineers
+first triage tickets for most teams, and escalate what they cannot solve. The Support Hero then works
+through the team's list. They fix bugs and confusing designs, build small features that suit the
+target users, or open an issue and send the user the link. When a feature already exists but the user
+could not find it, they link the docs or make the docs clearer.
+
+<Flow
+  title="Where a PostHog ticket ends"
+  nodes={[
+    { id: 'ticket', label: 'Ticket', detail: 'In-app, Slack, paper cuts', col: 0, row: 1 },
+    { id: 'triage', label: 'Support team', detail: 'Solves or escalates', col: 1, row: 1 },
+    { id: 'hero', label: 'Support Hero', detail: 'An engineer, this week', col: 2, row: 1, kind: 'decision' },
+    { id: 'fix', label: 'Fix shipped', detail: 'Bug or confusing design', col: 3, row: 0, tone: 'lit' },
+    { id: 'issue', label: 'Issue linked', detail: 'Feature request', col: 3, row: 1 },
+    { id: 'docs', label: 'Docs updated', detail: 'Feature already exists', col: 3, row: 2 },
+  ]}
+  edges={[
+    { from: 'ticket', to: 'triage' },
+    { from: 'triage', to: 'hero' },
+    { from: 'hero', to: 'fix' },
+    { from: 'hero', to: 'issue' },
+    { from: 'hero', to: 'docs' },
+  ]}
+  caption="The people who own the code read the tickets, so a ticket ends in a change to the product, its docs or its plan."
+  evidence="reported"
+  source="PostHog handbook, Support hero"
+/>

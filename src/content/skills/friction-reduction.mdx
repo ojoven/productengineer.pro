@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'One Hundred Paper Cuts: Karmic summary and Lucid plans (Canonical)'
+    url: https://canonical.com/blog/one-hundred-paper-cuts-karmic-summary-and-lucid-plans
+  - title: Boo-yah!!! 105 papercut bugs fixed in Maverick (Ubuntu blog)
+    url: https://ubuntu.com/blog/boo-yah
+  - title: One Hundred Papercuts (Launchpad)
+    url: https://launchpad.net/hundredpapercuts
+---
+
+## Why it matters for a product engineer
+
+Users rarely leave because of one big problem. They leave after many small ones: a slow page, a
+setting with a confusing name, a step they repeat every day. Each one seems too small to plan, so it
+never reaches the roadmap. A product engineer can often fix one in an hour, and a steady habit of
+fixing them changes how the whole product feels.
+
+## How to do it
+
+1. Collect small annoyances in one list, from support, feedback, session replays and your own use.
+2. Define what counts: easy to fix, but noticed by many users. Larger problems go to the normal
+   roadmap.
+3. Reserve fixed time for them, such as a weekly slot or a rotation, so they do not wait behind
+   features.
+4. Group them by area, so one person can fix several in the same code.
+5. Tell users what was fixed, and track the count over time.
+
+## Common mistakes
+
+- Waiting until there are enough to justify a project.
+- Letting large features enter the list as small fixes.
+- Fixing only what engineers notice, not what users report.
+- Fixes that wait weeks for review, so the habit stops.
+
+## Example
+
+In 2009, Ubuntu started One Hundred Paper Cuts: a project to fix 100 small usability bugs, easy to fix
+but annoying, before the October release. The team fixed 76 tracked paper cuts in Ubuntu 9.10. They
+believed the real number was closer to 100, because many fixes were never recorded. Fifteen fixes had
+patches that were never merged, so the next cycle started with them. That cycle was split into ten
+rounds of about a week, several of them on one application, and fixed 102.
+
+<Bars
+  title="Paper cuts fixed in each Ubuntu release"
+  items={[
+    { label: 'Ubuntu 9.10, Oct 2009', value: 76 },
+    { label: 'Ubuntu 10.04 LTS, Apr 2010', value: 102, highlight: true },
+    { label: 'Ubuntu 10.10, by Aug 2010', value: 105 },
+  ]}
+  caption="A clear definition, fixed rounds and a public count kept the work going for three releases. The 10.10 count is from August, before that release."
+  evidence="reported"
+  source="Canonical blog, Nov 2009; Ubuntu blog, Aug 2010"
+/>

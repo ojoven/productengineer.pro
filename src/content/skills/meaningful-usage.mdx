@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Uber announces results for third quarter 2026 (Uber Investor Relations)
+    url: https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Third-Quarter-2026/default.aspx
+  - title: The retention lifecycle framework (Amplitude)
+    url: https://amplitude.com/books/mastering-retention/the-retention-lifecycle-framework
+---
+
+## Why it matters for a product engineer
+
+An active user can mean anyone who opened the app, or someone who got what they came for. The first
+definition makes numbers look good and hides problems. The second shows whether the product delivers
+value. Product engineers write the events and queries behind these numbers, so they decide which
+definition the team really sees.
+
+## How to do it
+
+1. Name the action that delivers the product's value, such as a finished lesson, a sent invoice or a
+   completed order.
+2. Count a user as active only when they did that action in the period.
+3. Choose the period from how often the need comes back: a day, a week or a month.
+4. Write the definition down, and use the same event in dashboards, experiments and reports.
+5. Keep the login count as a second metric. A large gap between the two shows people who come and
+   leave without value.
+
+## Common mistakes
+
+- Counting logins, page views or app opens as use.
+- Counting actions that happen automatically, such as background syncs.
+- A definition that changes between teams or between reports.
+- Choosing the action that is easiest to track, not the one that means value.
+
+## Example
+
+Uber's main user metric does not count people who only open the app. It counts Monthly Active
+Platform Consumers: unique people who completed a ride or received a delivery at least once in a
+month. A person who uses both rides and delivery counts once. In the third quarter of 2026, Uber
+reported 215 million of them and 4.06 billion trips. That is about 6.3 trips per person each month.
+
+<StatRow
+  title="Uber's active users, counted by completed trips, Q3 2026"
+  stats={[
+    { value: 215, unit: 'M', label: 'Monthly active platform consumers', note: 'Completed a ride or delivery that month', signal: true },
+    { value: 4.06, unit: 'B', label: 'Trips in the quarter' },
+    { value: 6.3, label: 'Trips per consumer each month', note: 'Calculated: trips ÷ 3 months ÷ consumers' },
+  ]}
+  caption="Uber counts the moment of value, a completed trip, so the number of active users cannot grow from app opens alone."
+  evidence="reported"
+  source="Uber, third quarter 2026 results; trips per consumer calculated"
+/>

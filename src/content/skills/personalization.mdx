@@ -1,0 +1,64 @@
+---
+updated: 2026-11-23
+sources:
+  - title: '150 successful machine learning models: 6 lessons learned at Booking.com (KDD 2019)'
+    url: https://www.kdd.org/kdd2019/accepted-papers/view/150-successful-machine-learning-models-6-lessons-learned-at-booking.com
+  - title: 150 successful machine learning models, a summary (The Morning Paper)
+    url: https://blog.acolyer.org/2019/10/07/150-successful-machine-learning-models/
+  - title: 'Designing marketing email and newsletters: UX research findings (NN/g)'
+    url: https://www.nngroup.com/articles/newsletters/
+---
+
+## Why it matters for a product engineer
+
+Personalization shows each user what fits them: their language, their past choices, the items they
+are likely to want. Done well, it saves people time. Done badly, it shows confident guesses, and it is
+hard to tell whether it helps at all. A product engineer builds the data, the ranking and the test, so
+they can keep each step measurable and simple enough to explain.
+
+## How to do it
+
+1. Start with what users tell you or do in plain sight: language, location, recent items, saved
+   choices.
+2. Write simple rules first, such as "show recently viewed items". They set the bar that a model must
+   beat.
+3. Choose the business outcome before you build, such as bookings or finished tasks. Clicks are only a
+   proxy, and they can mislead.
+4. Run a randomized test against what users see today, and focus the analysis on users for whom the
+   new version changes what they see.
+5. Measure the time the model adds to each page. A slower page can cost more than better ranking
+   gains.
+
+## Common mistakes
+
+- Judging a model by its offline score alone.
+- Optimizing clicks that do not turn into the outcome you want.
+- Hiding why something was recommended, so users cannot correct it.
+- Building a model where a sorted list would do.
+
+## Example
+
+In 2019, Booking.com had about 150 machine-learned models in production, many of them to adapt what
+travellers see. Its data scientists reported that a model with better offline performance often did
+not bring more business value. One reason was optimizing a proxy, such as clicks, that did not turn
+into bookings. So every model is judged in randomized trials on business metrics. In a separate test,
+about 30% more latency cost about 0.5% in conversion.
+
+<Flow
+  title="How Booking.com tests a new model against the current one"
+  nodes={[
+    { id: 'users', label: 'Travellers', detail: 'Split at random', col: 0, row: 0 },
+    { id: 'cur', label: 'Current model', detail: 'What they see today', col: 1, row: 0 },
+    { id: 'new', label: 'New model', detail: 'The candidate', col: 1, row: 1, tone: 'signal' },
+    { id: 'read', label: 'Compare', detail: 'Business metrics, where models disagree', col: 2, row: 0, kind: 'decision' },
+  ]}
+  edges={[
+    { from: 'users', to: 'cur' },
+    { from: 'users', to: 'new' },
+    { from: 'cur', to: 'read' },
+    { from: 'new', to: 'read' },
+  ]}
+  caption="A better offline score was not proof of value, so the decision comes from a trial on bookings and other business metrics."
+  evidence="reported"
+  source="Bernardi et al., KDD 2019, as summarized in The Morning Paper"
+/>
