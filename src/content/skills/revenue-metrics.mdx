@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'SaaS Metrics 2.0 (David Skok)'
+    url: https://www.forentrepreneurs.com/saas-metrics-2/
+---
+
+## Why it matters for a product engineer
+
+Revenue metrics connect product work to the money that pays the team. Monthly recurring revenue
+(MRR), average revenue per account and net revenue retention show whether customers pay more as they
+get more value. An engineer who can read them understands which work matters most, and can build the
+billing data that makes them correct.
+
+## How to do it
+
+1. Track MRR and split its change into parts: new, expansion, contraction and churn.
+2. Calculate average revenue per account, and look at its spread. A few large accounts can carry the
+   average.
+3. Measure net revenue retention: this month's revenue from last year's customers, divided by what
+   they paid then. Above 100% means existing customers grow faster than they leave.
+4. Split every metric by plan, segment and channel.
+5. Get the numbers from the billing system, not from a spreadsheet updated by hand.
+6. Look at them every month next to product metrics, so you can connect a release to a change.
+
+## Common mistakes
+
+- Counting one-time payments or annual prepayments as monthly recurring revenue.
+- Looking only at new revenue and ignoring churn.
+- Averages that hide a few large customers.
+- Revenue numbers that differ between dashboards.
+- Celebrating growth that comes from price rises while usage falls.
+
+## Example
+
+Papermark publishes its annual recurring revenue (ARR), and each million came faster than the last:
+18 months to the first, six to the second, four to the third. Zernio's main metric is net MRR
+expansion, what existing customers add each month, because its price grows with each customer's
+connected accounts. ([Papermark](/in-practice/papermark/), [Zernio](/in-practice/zernio/))
+
+<Bars
+  title="Months to each extra million of ARR at Papermark"
+  unit=" months"
+  items={[
+    { label: 'First $1M', value: 18, note: 'To September 2025' },
+    { label: 'Second $1M', value: 6, note: 'To March 2026' },
+    { label: 'Third $1M', value: 4, highlight: true, note: 'To August 2026' },
+  ]}
+  caption="The first million took longest: that was the wait for feature parity. After that, growth sped up."
+  evidence="reported"
+  source="Papermark's $3M ARR post, 13 Aug 2026"
+/>

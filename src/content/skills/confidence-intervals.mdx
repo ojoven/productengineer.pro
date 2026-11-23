@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Seeing Theory (Brown University)'
+    url: https://seeing-theory.brown.edu/
+  - title: How Superhuman built an engine to find product-market fit (First Round Review)
+    url: https://review.firstround.com/how-superhuman-built-an-engine-to-find-product-market-fit/
+---
+
+## Why it matters for a product engineer
+
+Every number from a sample is an estimate. A confidence interval shows how precise it is: the range
+of values that fit the data. "22%, between 9% and 35%" says much more than "22%". It tells you when
+to act, and when to wait for more data.
+
+## How to do it
+
+1. Report every rate or difference with its interval, not alone.
+2. For a share, a quick 95% interval is the share plus or minus 1.96 × √(p × (1 − p) ÷ n).
+3. For a difference between two groups, look at the interval of the difference. If it includes zero,
+   the data cannot tell the groups apart yet.
+4. Ask whether every value inside the interval would lead to the same decision. If yes, decide. If
+   no, collect more data.
+5. Remember that the interval only covers random noise, not a biased sample or a broken event.
+
+## Common mistakes
+
+- Reporting a percentage from a small sample with no interval.
+- Reading "95% confidence" as "95% chance the true value is in this range" and then treating the
+  middle as certain.
+- Ignoring an interval that crosses zero because the middle looks good.
+- Narrow intervals from biased data, trusted because they are narrow.
+
+## Example
+
+Superhuman's founder wrote that a product-market fit survey starts to give "directionally correct
+results" at about 40 answers. Directional is the right word. If 22% of 40 people say they would be
+very disappointed without the product, the 95% interval runs from about 9% to 35%. It takes about
+1,000 answers to narrow it to a few points either way.
+
+<Bars
+  title="22% measured, and the 95% interval, by number of answers"
+  unit=" points"
+  items={[
+    { label: '40 answers: 9% to 35%', value: 12.8, highlight: true },
+    { label: '100 answers: 14% to 30%', value: 8.1 },
+    { label: '400 answers: 18% to 26%', value: 4.1 },
+    { label: '1,000 answers: 19% to 25%', value: 2.6 },
+  ]}
+  caption="Each bar is the margin either side of 22%. Four times the answers halves the margin."
+  source="Calculated with the normal approximation, 95% confidence"
+/>

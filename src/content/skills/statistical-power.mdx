@@ -1,0 +1,46 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How not to run an A/B test (Evan Miller)
+    url: https://www.evanmiller.org/how-not-to-run-an-ab-test.html
+---
+
+## Why it matters for a product engineer
+
+Power is the chance that a test finds an effect that is really there. A test with low power usually
+says "no difference", even for a good change. When it does find something, the effect it reports is
+often too large. Teams then drop good ideas and believe lucky ones. Planning for power is part of
+deciding whether a test is worth running.
+
+## How to do it
+
+1. Aim for at least 80% power for the smallest effect that would change your decision.
+2. Raise power with more users, a bigger change, or a metric with less noise.
+3. Use a metric close to the change. A button test moves clicks more clearly than revenue.
+4. Reduce the number of variants when traffic is low.
+5. Read a "no difference" result from a low-power test as "we do not know", not as "it does not
+   work".
+6. Be suspicious of large effects from small tests. They are often too good to be true.
+
+## Common mistakes
+
+- Running a test with whatever traffic arrives, and never checking the power.
+- Treating "not significant" as proof that there is no effect.
+- Believing the size of an effect from an underpowered test.
+- Splitting a small audience into many groups.
+
+## Example
+
+RelievApp chose a broad catalog of 21 sessions on purpose, as research. Its maker wrote down the price
+of that choice: with little traffic, 21 sessions split the sample 21 ways. Each session gets a small
+share of the people, so it takes longer to tell a good session from a lucky one.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<LineChart
+  title="Power to detect a 10% lift on a 5% baseline, by visitors per variant"
+  x={['5k', '10k', '20k', '31k', '50k', '100k']}
+  unit="%"
+  series={[{ name: 'Power', values: [20, 35, 61, 80, 94, 100] }]}
+  caption="With 5,000 visitors per variant, a real 10% lift is missed four times out of five. 80% power needs about 31,000."
+  source="Calculated for a two-sided test at 5% significance"
+/>

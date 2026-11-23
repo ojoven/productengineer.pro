@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Naming conventions: why you need them for clean data (Twilio Segment)'
+    url: https://www.twilio.com/en-us/resource-center/naming-conventions-for-clean-data
+---
+
+## Why it matters for a product engineer
+
+Engineers write the tracking code, so they decide whether the data can be trusted. An event schema
+fixes what each event is called and which properties it carries. Consistent events make every later
+question quick to answer. Inconsistent ones, such as `signup`, `SignedUp` and `user_registered` for
+the same action, make every analysis slow and doubtful.
+
+## How to do it
+
+1. Choose one naming pattern and keep it, such as object and action in the past tense:
+   `document_viewed`, `plan_upgraded`.
+2. Track meaningful actions, not clicks on elements. Name the event after what the user did, not the
+   button.
+3. Give each event a short list of allowed properties, with types and allowed values.
+4. Reuse the same property names across events: `surface` means the same thing everywhere.
+5. Keep personal data out of event properties unless you truly need it.
+6. Write the schema down, review changes to it like code, and reject events that do not match.
+
+## Common mistakes
+
+- Several names for the same action.
+- Free-text properties that end up with hundreds of spellings.
+- Events named after the interface, which break when the design changes.
+- Search terms or email addresses sent as properties.
+- Changing an event's meaning without changing its name.
+
+## Example
+
+This site sends nine events, all named as an object and a past-tense action, each with a fixed list
+of allowed properties; anything else is dropped before sending. RelievApp uses one schema for all 21
+sessions: the same check-in, start, completion, exit and rating events, so sessions can be compared.
+A rating counts only if the person touched it. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<EventTable
+  title="Five of this site's events and their allowed properties"
+  events={[
+    { name: 'progress_changed', when: 'Skill statuses are saved', props: ['surface', 'mode', 'changed_count', 'storage'], key: true },
+    { name: 'map_used', when: 'A deliberate change of view or filter', props: ['mode', 'action', 'view_level', 'focus_area', 'progress_filter'] },
+    { name: 'search_results_viewed', when: 'Search results settle', props: ['surface', 'trigger', 'result_count', 'query_length_bucket'] },
+    { name: 'learning_link_opened', when: 'A resource or tool link is opened', props: ['entry_id', 'kind', 'surface', 'context_id'] },
+    { name: 'setup_command_copied', when: 'A setup command is copied', props: ['command_id', 'surface', 'method'] },
+  ]}
+  caption="One naming pattern, a short allowlist per event, and shared names such as surface. Search terms never leave the browser; only their length does."
+  evidence="observed"
+  source="src/scripts/track.ts in this site's repository, 23 Nov 2026"
+/>

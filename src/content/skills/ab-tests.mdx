@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The surprising power of online experiments (Ron Kohavi and Stefan Thomke, Harvard Business Review)
+    url: https://hbr.org/2017/09/the-surprising-power-of-online-experiments
+  - title: How not to run an A/B test (Evan Miller)
+    url: https://www.evanmiller.org/how-not-to-run-an-ab-test.html
+---
+
+## Why it matters for a product engineer
+
+Most product ideas do less than their authors expect, and a few do much more. An A/B test measures
+the real effect of a change by showing each version to a random group of users. Engineers build the
+assignment, the flags and the events, so the quality of the test depends on them as much as on the
+analysis.
+
+## How to do it
+
+1. Write the hypothesis, the main metric, the guardrails and the decision rule before you start.
+2. Work out how many users you need, and so how long the test must run.
+3. Assign users at random and keep each one in the same group for the whole test.
+4. Check that the groups have the expected sizes before reading any result. A mismatch usually means
+   a bug.
+5. Do not stop the test early because the result looks good. Wait for the planned sample.
+6. Record the result and the decision, including tests that showed nothing.
+
+## Common mistakes
+
+- Looking at the results every day and stopping at the first good one.
+- Testing with too little traffic to see any realistic effect.
+- Changing the test while it runs.
+- Many metrics with no main one, so something always looks like a win.
+- Only testing big ideas, and never the small ones that might matter more.
+
+## Example
+
+In 2012 a Microsoft employee suggested changing how Bing displayed ad headlines. It would take a few
+days of work, but it was one of hundreds of ideas and stayed on the list for more than six months.
+When an engineer finally ran an A/B test, the new version made so much money that an alert fired,
+which usually means a bug. It was not a bug: revenue rose 12%, without hurting user experience.
+
+<StatRow
+  title="The Bing headline test"
+  stats={[
+    { value: '6+', unit: 'months', label: 'On the list as a low priority' },
+    { value: 12, unit: '%', label: 'More revenue', signal: true },
+    { value: '$100M+', label: 'A year, in the US alone' },
+  ]}
+  caption="The best revenue idea in Bing's history looked minor to everyone until it was tested."
+  evidence="reported"
+  source="Ron Kohavi and Stefan Thomke, Harvard Business Review, Sep–Oct 2017"
+/>

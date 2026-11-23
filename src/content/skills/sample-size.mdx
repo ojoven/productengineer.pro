@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How not to run an A/B test (Evan Miller)
+    url: https://www.evanmiller.org/how-not-to-run-an-ab-test.html
+---
+
+## Why it matters for a product engineer
+
+The number of users a test needs depends on the starting rate and on the smallest effect worth
+finding. Working it out before the test tells you how long to run it, or whether to run it at all. A
+test that is too small produces noise that looks like a result, and teams act on it.
+
+## How to do it
+
+1. Write the baseline: the current rate of the metric, such as 5% of visitors who sign up.
+2. Decide the smallest effect worth detecting. Smaller effects need many more users.
+3. Calculate the sample. Evan Miller's rule of thumb is n = 16 × p × (1 − p) ÷ δ² per group, where δ
+   is the absolute difference you want to detect.
+4. Divide by your traffic to get the duration. If it takes many months, test a bigger change or use
+   another method.
+5. Fix the sample size in advance, and do not stop early because the result looks good.
+6. With little traffic, prefer fewer variants, bigger changes, or qualitative methods.
+
+## Common mistakes
+
+- Starting a test without knowing how long it must run.
+- Stopping at the first significant result. Testing after every visitor can make a "5%" false
+  positive rate about 26%.
+- Splitting small traffic between many variants.
+- Hoping to detect a 2% lift with a few hundred visitors.
+
+## Example
+
+An audit of RelievApp found that its ad budget, about €50 a month, buys a few hundred visits at best.
+Split between four front doors, that is too few visitors per door to compare anything beyond the first
+tap. The audit's conclusion: the choice between the four had to be made by judgement or by cheap
+organic tests, not by the budget. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Bars
+  title="Visitors needed per variant, from a 5% baseline"
+  unit=" visitors"
+  items={[
+    { label: 'To detect a 50% lift (5% to 7.5%)', value: 1216 },
+    { label: 'A 20% lift (5% to 6%)', value: 7600 },
+    { label: 'A 10% lift (5% to 5.5%)', value: 30400, highlight: true },
+    { label: 'A 5% lift (5% to 5.25%)', value: 121600 },
+  ]}
+  caption="Halve the effect and you need four times the visitors. A few hundred visits can only show very large differences."
+  source="Calculated with Evan Miller's rule of thumb, n = 16 × p(1 − p) ÷ δ²"
+/>

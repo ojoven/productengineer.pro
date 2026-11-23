@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Retention is all you need (Andreessen Horowitz)
+    url: https://a16z.com/ai-retention-benchmarks/
+  - title: The complete guide to cohort analysis (Amplitude)
+    url: https://amplitude.com/explore/analytics/cohort-analysis
+---
+
+## Why it matters for a product engineer
+
+Total numbers hide what happens to people. A product can grow every month while most new users leave,
+because more keep arriving. Cohort analysis follows groups that started at the same time, such as
+everyone who signed up in March, so you can see whether newer users stay better than older ones. That
+is how you see whether the changes you ship help.
+
+## How to do it
+
+1. Choose the cohort: usually the week or month of sign-up, or of the first payment.
+2. Choose what counts as still there: an action that shows value, or revenue, not a login.
+3. Build the grid: one row per cohort, one column per period since the start.
+4. Read down the columns: are newer cohorts higher than older ones at the same age?
+5. Mark releases, price changes and new channels on the grid, so you can connect them to changes.
+6. Split cohorts by channel, plan or first action when the grid raises a question.
+
+## Common mistakes
+
+- Cohorts so broad, such as a whole year, that changes disappear.
+- Reading the latest cohorts before they are old enough.
+- Mixing users from very different channels in one cohort.
+- One average retention number instead of the grid.
+
+## Example
+
+Andreessen Horowitz collected revenue retention from dozens of AI companies, by cohort, and found
+three phases. In the first three months, many "AI tourists" try the product and leave. From about
+month 3 the curve becomes flat, with the users who found a real use. After six to twelve months, the
+customers who stayed often expand. So a16z reads a cohort from month 3, not from month 0.
+
+<Flow
+  title="The three phases of a cohort's revenue in AI products"
+  stages={['Months 0–3', 'Months 3–9', 'Month 9 on']}
+  nodes={[
+    { id: 'acq', label: 'Acquisition', detail: 'Tourists try and leave', col: 0, row: 0 },
+    { id: 'ret', label: 'Retention', detail: 'The curve becomes flat', col: 1, row: 0, tone: 'lit' },
+    { id: 'exp', label: 'Expansion', detail: 'New workflows, more use', col: 2, row: 0 },
+  ]}
+  edges={[
+    { from: 'acq', to: 'ret' },
+    { from: 'ret', to: 'exp' },
+  ]}
+  caption="Judged from month 0, every cohort looks bad. Judged from month 3, it shows who stays and who grows."
+  evidence="reported"
+  source="Andreessen Horowitz, 'Retention is all you need'"
+/>

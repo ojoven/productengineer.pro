@@ -284,17 +284,17 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 10 · Measurement · 7 skills
 
-- [ ] `06.1.1` [Event schemas](https://productengineer.pro/skills-map/measurement/product-instrumentation/event-schemas/) · `event-schemas` · 2 In practice notes
+- [x] `06.1.1` [Event schemas](https://productengineer.pro/skills-map/measurement/product-instrumentation/event-schemas/) · `event-schemas` · 2 In practice notes
   - Papermark: One page_views event per page viewed, with its duration, page number and document version. ([entry](https://productengineer.pro/in-practice/papermark/))
   - RelievApp: Check-in, start, complete, exit with progress, and a before and after rating that only counts if you touched it. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `06.2.7` [Revenue metrics](https://productengineer.pro/skills-map/measurement/product-metrics/revenue-metrics/) · `revenue-metrics` · 2 In practice notes
+- [x] `06.2.7` [Revenue metrics](https://productengineer.pro/skills-map/measurement/product-metrics/revenue-metrics/) · `revenue-metrics` · 2 In practice notes
   - Zernio: Net MRR expansion is the main metric, with ARR growing about €1M a month. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: $1M ARR in 18 months, $2M six months later, $3M four months after that. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `06.4.4` [A/B tests](https://productengineer.pro/skills-map/measurement/experiment-design/ab-tests/) · `ab-tests` · search term; has evidence, technicalLeverage, aiLeverage
-- [ ] `06.3.2` [Cohort analysis](https://productengineer.pro/skills-map/measurement/behavioral-analysis/cohort-analysis/) · `cohort-analysis` · search term
-- [ ] `06.4.5` [Sample size](https://productengineer.pro/skills-map/measurement/experiment-design/sample-size/) · `sample-size` · search term
-- [ ] `06.5.2` [Confidence intervals](https://productengineer.pro/skills-map/measurement/statistical-reasoning/confidence-intervals/) · `confidence-intervals` · search term; 1 resource
-- [ ] `06.5.4` [Statistical power](https://productengineer.pro/skills-map/measurement/statistical-reasoning/statistical-power/) · `statistical-power` · search term
+- [x] `06.4.4` [A/B tests](https://productengineer.pro/skills-map/measurement/experiment-design/ab-tests/) · `ab-tests` · search term; has evidence, technicalLeverage, aiLeverage
+- [x] `06.3.2` [Cohort analysis](https://productengineer.pro/skills-map/measurement/behavioral-analysis/cohort-analysis/) · `cohort-analysis` · search term
+- [x] `06.4.5` [Sample size](https://productengineer.pro/skills-map/measurement/experiment-design/sample-size/) · `sample-size` · search term
+- [x] `06.5.2` [Confidence intervals](https://productengineer.pro/skills-map/measurement/statistical-reasoning/confidence-intervals/) · `confidence-intervals` · search term; 1 resource
+- [x] `06.5.4` [Statistical power](https://productengineer.pro/skills-map/measurement/statistical-reasoning/statistical-power/) · `statistical-power` · search term
 
 ### Batch 11 · Measurement + Activation + Retention · 13 skills
 
