@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Changelog (Papermark)
+    url: https://www.papermark.com/changelog
+  - title: Keep a changelog (Olivier Lacan)
+    url: https://keepachangelog.com/en/1.1.0/
+---
+
+## Why it matters for a product engineer
+
+A feature nobody knows about has not really shipped. Release notes help users notice what changed
+and why it matters to them, and they prepare support and sales for the questions. For a product
+engineer they are also a test: if you cannot explain a change in two sentences of user language, the
+change may not be clear yet.
+
+## How to do it
+
+1. Write for the user, not the commit log: what they can do now, and why it helps.
+2. Lead with the benefit in one sentence, then the details.
+3. Group small changes, and give the big ones their own entry.
+4. Publish in more than one place: a public changelog, an email or in-product message for big changes,
+   a note for the team before the release.
+5. Link to the documentation, and show the feature where people will use it.
+6. Date every entry, and keep old ones. The history is useful to customers and to you.
+
+## Common mistakes
+
+- Commit messages copied into the changelog.
+- Notes full of internal names.
+- Announcing only big launches, so steady improvement goes unseen.
+- Release notes that appear after support has already had the questions.
+
+## Example
+
+Papermark ships almost every day, and its public changelog turns that into something customers can
+follow. Each entry names the feature in user words, says what problem it solves, and lists what you
+can do now. Small entries link to a monthly roundup, and the milestone posts list every release month
+by month. ([Papermark in In practice](/in-practice/papermark/))
+
+<Anatomy
+  title="One entry in Papermark's changelog, 31 October 2026"
+  parts={[
+    { text: 'Access requests', label: 'Name', note: 'The feature, in the words users will see.' },
+    { text: '\nVisitors who are not on the allow list can request access, and you approve or deny each request.', label: 'The change in one sentence', kind: 'signal', note: 'Benefit first, before any detail.' },
+    { text: '\nAn allow list is not always enough.', label: 'The problem', note: 'Why it exists, in one line.' },
+    { text: '\nApprove or deny each request\nApproved visitors get in without you editing the allow list by hand', label: 'What you can do', note: 'Short lines a reader can scan.' },
+    { text: '\nPart of Shipped in October.', label: 'Link to the roundup', note: 'Small entries add up to a monthly story.' },
+  ]}
+  caption="The entry speaks to the person who manages a data room, not to the person who wrote the code."
+  evidence="observed"
+  source="papermark.com/changelog, read 23 Nov 2026"
+/>

@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Working in small batches (DORA)
+    url: https://dora.dev/capabilities/working-in-small-batches/
+  - title: Changelog (Papermark)
+    url: https://www.papermark.com/changelog
+---
+
+## Why it matters for a product engineer
+
+A small change is easy to review, test, release and undo. It also brings feedback sooner, while you
+still remember why you made it. Research on software delivery links small batches to both speed and
+stability. For a product engineer, small batches turn a roadmap into a steady flow of things users can
+try.
+
+## How to do it
+
+1. Split work so each piece is useful or testable on its own and can ship in a day or two.
+2. Ship the parts users do not see first: the data model, the API, the job. Turn the feature on later
+   with a flag.
+3. Keep each pull request to one purpose.
+4. Release each piece when it is ready, instead of waiting for the whole feature.
+5. Ask for feedback on each piece, and let it change the next one.
+6. Watch the size of your changes and the time from start to production. If they grow, split more.
+
+## Common mistakes
+
+- Splitting by layer (all the database work, then all the interface), so nothing is usable until the
+  end.
+- Small pull requests that wait days for review.
+- Releasing small pieces but announcing nothing until the big launch.
+- A feature branch that lives for weeks.
+
+## Example
+
+Papermark started on weekends and nights. Today it ships to production almost every day. The
+milestone post for $2M ARR listed more than 20 releases, and the changelog post for October 2026
+counts a hundred small improvements next to the bigger features. The big steps toward data rooms for
+deals came as a series of releases. ([Papermark in In practice](/in-practice/papermark/))
+
+<Timeline
+  title="Releases that moved Papermark from documents to deals"
+  events={[
+    { when: 'Apr 2024', title: 'Data rooms', kind: 'ship', note: 'One link for many documents, analytics across the room.' },
+    { when: 'Sep 2024', title: 'Groups, file permissions, watermarks', kind: 'ship', note: 'Each bidder sees only its slice: usable for M&A.' },
+    { when: 'Apr–May 2025', title: 'Q&A, file requests, NDAs', kind: 'ship', note: 'The deal conversation moves into the room.' },
+    { when: 'Sep 2025', title: '$1M ARR', kind: 'result', note: '18 months in.' },
+    { when: 'Feb 2026', title: 'SAML SSO and SCIM', kind: 'ship', note: 'Banks, law firms and funds roll it out through IT.' },
+    { when: 'Jun 2026', title: 'Papermark Agents', kind: 'ship', note: 'API, CLI and MCP server.' },
+    { when: 'Aug 2026', title: '$3M ARR', kind: 'result' },
+  ]}
+  caption="No single release made Papermark a data room for deals. A steady series of them did."
+  evidence="reported"
+  source="Papermark's $2M and $3M ARR posts, 31 Mar and 13 Aug 2026"
+/>

@@ -1,0 +1,49 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Risks and rabbit holes (Shape Up, chapter 5, Basecamp)
+    url: https://basecamp.com/shapeup/1.4-chapter-05
+---
+
+## Why it matters for a product engineer
+
+Most late projects are late because of one thing nobody looked at early: an unknown in the code, a
+dependency on another team, a design question left open. Finding that part before the work starts,
+and doing it first, is often the difference between shipping on time and not. Engineers usually see
+these risks first, so raising them early is part of being reliable.
+
+## How to do it
+
+1. Before work starts, walk through the solution step by step and ask where it could take much longer
+   than planned.
+2. Look for the usual sources: new technology, data migrations, other teams, external APIs, design
+   questions nobody has answered.
+3. For each one, decide: settle it now, cut it, or test it first with a short spike.
+4. Write down what is out of bounds, so the team does not drift into it.
+5. Do the riskiest part first, while there is still time to change the plan.
+6. Say it early when a risk becomes real. Bad news is cheaper on day two than on the last day.
+
+## Common mistakes
+
+- Starting with the easy, visible parts and leaving the unknown for last.
+- Passing an unsolved design problem to the team under a deadline.
+- Optimistic plans with no margin.
+- Hiding a risk because it feels like admitting a mistake.
+
+## Example
+
+Basecamp found a hole in its plan for to-do groups before the team started: nobody had decided how
+completed items would show. Changing that touched design, navigation and performance, so the people
+shaping the project chose an answer in advance. Completed items stayed as they were, with the group
+name added. Colour-coded groups were cut. At Mamitsu, a referee agent scores the risk of every pull
+request, and the score decides who approves it.
+
+<ScopeCut
+  title="How Basecamp removed risk from to-do groups before the work started"
+  labels={{ kept: 'Settled in advance', cut: 'Cut back' }}
+  kept={[{ text: 'Completed items stay where they were, with the group name added', note: 'A little messy, but it removed a deep design problem' }]}
+  cut={['Colour-coded groups']}
+  caption="The team got a project with no open hole in it. The trade-off was made before the deadline, not under it."
+  evidence="reported"
+  source="Shape Up, chapter 5, Basecamp"
+/>

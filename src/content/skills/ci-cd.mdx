@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Continuous integration (DORA)
+    url: https://dora.dev/capabilities/continuous-integration/
+  - title: Canarying releases (The Site Reliability Workbook, chapter 16, Google)
+    url: https://sre.google/workbook/canarying-releases/
+---
+
+## Why it matters for a product engineer
+
+A pipeline that builds, tests and deploys every change makes releasing routine. Routine releases
+are small, and small releases are easy to check and easy to undo. For a product engineer this is the
+difference between shipping an idea today and waiting for "release day", with a pile of changes that
+nobody can untangle when something breaks.
+
+## How to do it
+
+1. Merge work into the main branch at least once a day. Hide unfinished features behind a flag
+   instead of keeping long branches.
+2. Run the build and the tests on every push, and make the result visible to the team.
+3. Keep the tests fast and reliable. A test that fails at random teaches people to ignore red builds.
+4. Fix a broken main branch before anything else.
+5. Automate the deployment, with the same steps every time, and checks after it.
+6. Measure how long a change takes from commit to production, and shorten the slowest step.
+
+## Common mistakes
+
+- Long-lived branches merged once a week, with big conflicts.
+- A pipeline that takes an hour, so people stop waiting for it.
+- Manual steps in the deployment that only one person knows.
+- Flaky tests that everyone reruns until they pass.
+- Calling it continuous delivery while releases still happen once a month.
+
+## Example
+
+DORA's research found that teams perform better when developers merge into the main branch at least
+daily. Google's SRE team describes the result as a cycle that feeds itself: automated releases let a
+team release more often; each release then carries fewer changes; smaller releases are cheaper to roll
+back; and fixes reach users sooner.
+
+<Loop
+  title="The cycle of continuous delivery, as Google's SRE workbook describes it"
+  center="Automated releases"
+  sub="Each turn makes the next one safer"
+  stages={[
+    { label: 'Release more often', note: 'No manual steps to wait for.' },
+    { label: 'Fewer changes per release', note: 'Each one is easy to check.', tone: 'signal' },
+    { label: 'Cheaper rollbacks', note: 'Undo one small change, not a month.' },
+    { label: 'Fixes reach users sooner', note: 'And trust in releasing grows.', tone: 'lit' },
+  ]}
+  caption="The speed and the safety come from the same habit: many small releases."
+  source="The Site Reliability Workbook, chapter 16, Google"
+/>

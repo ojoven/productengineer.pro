@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Details of the Cloudflare outage on July 2, 2019 (Cloudflare)
+    url: https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/
+  - title: Canarying releases (The Site Reliability Workbook, chapter 16, Google)
+    url: https://sre.google/workbook/canarying-releases/
+---
+
+## Why it matters for a product engineer
+
+A canary release sends a new version to a small part of the traffic first and compares it with the
+rest. If it is unhealthy, it is removed before most users meet it. It turns a bad release from an
+outage into a small dip that only shows on a graph. For a small team, it is one of the cheapest ways
+to make releases safe.
+
+## How to do it
+
+1. Deploy the new version to a small share of servers or users, such as 1% to 5%.
+2. Compare the canary with the rest on the same metrics: errors, latency, CPU, key user actions.
+   Split the graphs by version. Mixed together, a bad canary disappears into the average.
+3. Wait long enough to see real traffic, including the slow paths.
+4. Decide with a rule written in advance: continue, wait or roll back. Automate it where you can.
+5. Widen in steps, and keep the way back open at each step.
+6. Keep a separate path for real emergencies, and use it only for them.
+
+## Common mistakes
+
+- A canary too small or too short to see anything.
+- Watching only the global average.
+- A canary with no automatic way back.
+- Skipping the canary for "small" changes, such as configuration or rules.
+
+## Example
+
+On 2 July 2019, a Cloudflare engineer deployed a minor change to a firewall rule. Rules went out
+worldwide in seconds, with no staged rollout, because they exist to stop new attacks. The rule
+exhausted the CPU on Cloudflare's edge and took the service down for 27 minutes. Before turning the
+firewall back on, the team tested the fix in one city, on part of the traffic. Afterwards, rule
+changes moved to staged rollouts, with a global push kept for active attacks.
+
+<Timeline
+  title="Cloudflare's outage of 2 July 2019, in UTC"
+  events={[
+    { when: '13:42', title: 'A rule change goes out worldwide', kind: 'ship', note: 'Tests passed. The change reached every server in seconds.' },
+    { when: '13:45', title: 'First alert', kind: 'problem', note: 'Then failing end-to-end tests, a global traffic drop and 502 errors.' },
+    { when: '14:07', title: 'Firewall turned off worldwide', kind: 'decision', note: 'A "global terminate" for one component.' },
+    { when: '14:09', title: 'Traffic and CPU back to normal', kind: 'result' },
+    { when: '14:52', title: 'Firewall back on', kind: 'ship', note: 'After testing the fix in one city, on part of the traffic.' },
+  ]}
+  caption="The fix was tested the way the change should have shipped: small first. Rule changes now use staged rollouts."
+  evidence="reported"
+  source="Cloudflare, 'Details of the Cloudflare outage on July 2, 2019'"
+/>

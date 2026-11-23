@@ -267,19 +267,19 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 9 · Shipping · 8 skills
 
-- [ ] `05.2.1` [CI/CD pipelines](https://productengineer.pro/skills-map/shipping/release-engineering/ci-cd/) · `ci-cd` · search term
-- [ ] `05.3.4` [Canary releases](https://productengineer.pro/skills-map/shipping/controlled-releases/canary-releases/) · `canary-releases` · search term
-- [ ] `05.1.1` [Small batches](https://productengineer.pro/skills-map/shipping/iterative-delivery/small-batches/) · `small-batches` · 1 In practice note; 1 resource
+- [x] `05.2.1` [CI/CD pipelines](https://productengineer.pro/skills-map/shipping/release-engineering/ci-cd/) · `ci-cd` · search term
+- [x] `05.3.4` [Canary releases](https://productengineer.pro/skills-map/shipping/controlled-releases/canary-releases/) · `canary-releases` · search term
+- [x] `05.1.1` [Small batches](https://productengineer.pro/skills-map/shipping/iterative-delivery/small-batches/) · `small-batches` · 1 In practice note; 1 resource
   - Papermark: Weekends and nights at first; now they ship to production almost every day. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `05.1.3` [Early feedback](https://productengineer.pro/skills-map/shipping/iterative-delivery/early-feedback/) · `early-feedback` · 1 In practice note
+- [x] `05.1.3` [Early feedback](https://productengineer.pro/skills-map/shipping/iterative-delivery/early-feedback/) · `early-feedback` · 1 In practice note
   - Papermark: Unfinished features shared anyway, and six dev.to posts on how each part was built. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `05.2.4` [Rollback strategies](https://productengineer.pro/skills-map/shipping/release-engineering/rollbacks/) · `rollbacks` · 1 In practice note
+- [x] `05.2.4` [Rollback strategies](https://productengineer.pro/skills-map/shipping/release-engineering/rollbacks/) · `rollbacks` · 1 In practice note
   - Mamitsu: Every PR carries its own rollback plan; it has been used once. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `05.4.2` [Release notes and communication](https://productengineer.pro/skills-map/shipping/release-readiness/release-communication/) · `release-communication` · 1 In practice note; 1 resource
+- [x] `05.4.2` [Release notes and communication](https://productengineer.pro/skills-map/shipping/release-readiness/release-communication/) · `release-communication` · 1 In practice note; 1 resource
   - Papermark: A public changelog, and milestone posts that list every release month by month. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `05.4.3` [Launch telemetry](https://productengineer.pro/skills-map/shipping/release-readiness/launch-telemetry/) · `launch-telemetry` · 1 In practice note; 1 resource
+- [x] `05.4.3` [Launch telemetry](https://productengineer.pro/skills-map/shipping/release-readiness/launch-telemetry/) · `launch-telemetry` · 1 In practice note; 1 resource
   - Mamitsu: After a merge, an agent watches the logs until about ten requests have gone through the new code. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `05.5.2` [Delivery risk](https://productengineer.pro/skills-map/shipping/delivery-management/delivery-risk/) · `delivery-risk` · 1 In practice note; 1 resource
+- [x] `05.5.2` [Delivery risk](https://productengineer.pro/skills-map/shipping/delivery-management/delivery-risk/) · `delivery-risk` · 1 In practice note; 1 resource
   - Mamitsu: A referee agent scores every PR and sends it back to Hermes, merges it or waits for Unai. ([entry](https://productengineer.pro/in-practice/mamitsu/))
 
 ### Batch 10 · Measurement · 7 skills

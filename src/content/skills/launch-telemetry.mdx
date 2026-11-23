@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Planning a full installation (Twilio Segment docs)
+    url: https://www.twilio.com/docs/segment/getting-started/03-planning-full-install
+---
+
+## Why it matters for a product engineer
+
+The first days after a release are the most informative, and you cannot go back and measure them
+later. Before shipping, the team should be able to answer two questions: how will we know it broke,
+and how will we know it worked? The events, dashboards and alerts that answer them are part of the
+feature.
+
+## How to do it
+
+1. Write the result the release should change, and the event that shows it.
+2. Define the events and their properties before you build, in a tracking plan.
+3. Add the technical signals too: errors, latency and logs for the new code path.
+4. Test the tracking before release, in an environment that cannot send to production.
+5. Build the dashboard and set the alerts before launch day.
+6. After release, first check that the events arrive with the right properties. Only then read the
+   results.
+
+## Common mistakes
+
+- Adding events a week after launch, and losing the first week.
+- Events with no properties, so you cannot split the results.
+- Test traffic mixed with real data.
+- A dashboard nobody opens until something has already gone wrong.
+
+## Example
+
+When this site added analytics to its quick tours in November 2026, the nine events, their properties
+and a dashboard plan were written before deployment. A browser check serves the build as if it were
+production and catches every request locally, so no test event reaches the real collector. Mamitsu
+does the same on a smaller scale: after a merge, an agent watches the logs until about ten requests
+have gone through the new code. ([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<EventTable
+  title="Three of the tour events, defined before release"
+  events={[
+    { name: 'tour_started', when: 'A visible skill card opens', props: ['start_type', 'tour_id', 'tour_version', 'layout', 'attempt_id'] },
+    { name: 'tour_step_viewed', when: 'The active card changes', props: ['step_index', 'skill_id', 'section_id', 'navigation'] },
+    { name: 'tour_end_reached', when: 'Once per attempt, at the last card', props: ['unique_steps_viewed', 'total_steps', 'final_step_index'], key: true },
+  ]}
+  caption="The version and attempt properties were there from the first day, so results can be split by tour version and counted per attempt."
+  evidence="observed"
+  source="docs/analytics.md in this site's repository, 16 Nov 2026"
+/>

@@ -1,0 +1,67 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Blue green deployment (Martin Fowler)
+    url: https://martinfowler.com/bliki/BlueGreenDeployment.html
+---
+
+## Why it matters for a product engineer
+
+Every release can go wrong. A rollback plan decides whether a bad release costs minutes or a long
+night. Code is usually easy to undo. Data is not: a migration that drops a column or rewrites records
+can make the old version useless. So the plan has to be ready before the release, not invented during
+the incident.
+
+## How to do it
+
+1. Before each release, write how you would undo it: redeploy the previous version, turn off a flag,
+   or switch traffic back.
+2. Make the database change backwards-compatible: add first, migrate, and remove the old parts only in
+   a later release.
+3. Keep the previous version ready to run, and know the command or button that brings it back.
+4. Decide in advance which signal triggers a rollback, so nobody debates it during the incident.
+5. Practise it. A rollback nobody has run will not work the first time.
+6. Afterwards, find out why the problem passed your checks.
+
+## Common mistakes
+
+- No plan until something breaks.
+- Migrations that cannot be reversed, shipped together with the code that needs them.
+- Rolling forward with a quick fix under pressure, when rolling back would be safer.
+- Rollbacks that depend on the system that is failing.
+
+## Example
+
+At Mamitsu, every pull request carries its own rollout and rollback plan. Unai Esteibar's first
+question about any feature is about database migrations and how to roll back, because that keeps the
+blast radius small. A referee agent checks the plan before merging. After a merge, an agent watches
+the logs and rolls back if something breaks. That has happened once.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Flow
+  title="From a Slack conversation to production"
+  stages={['Plan', 'Build', 'Decide', 'Release']}
+  nodes={[
+    { id: 'talk', label: 'Feature talk', detail: 'Migrations, rollback', col: 0, row: 1, tone: 'signal' },
+    { id: 'pi', label: 'Pi agents', detail: 'Code and proof', col: 1, row: 0 },
+    { id: 'hermes', label: 'Hermes', detail: 'Delegates, opens the PR', col: 1, row: 1 },
+    { id: 'referee', label: 'Referee', detail: 'Scores the risk', col: 2, row: 1, kind: 'decision' },
+    { id: 'rollback', label: 'Rollback', detail: 'Once so far', col: 3, row: 0, tone: 'lit' },
+    { id: 'merge', label: 'Merge, watch', detail: 'If low risk', col: 3, row: 1 },
+    { id: 'approve', label: 'Unai approves', detail: 'If high risk', col: 3, row: 2 },
+  ]}
+  edges={[
+    { from: 'talk', to: 'hermes' },
+    { from: 'hermes', to: 'pi' },
+    { from: 'pi', to: 'hermes' },
+    { from: 'hermes', to: 'referee', label: 'PR' },
+    { from: 'referee', to: 'hermes', label: 'Not ready', dashed: true },
+    { from: 'referee', to: 'approve' },
+    { from: 'referee', to: 'merge' },
+    { from: 'approve', to: 'merge' },
+    { from: 'merge', to: 'rollback', dashed: true },
+  ]}
+  caption="The way back is planned in the first conversation, checked before the merge and used after it when needed."
+  evidence="reported"
+  source="Unai Esteibar, on the call"
+/>
