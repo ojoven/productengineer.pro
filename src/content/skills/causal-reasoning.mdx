@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Are large language models a threat to digital public goods? Evidence from activity on Stack Overflow (del Rio-Chanona, Laurentsyeva and Wachs)'
+    url: https://arxiv.org/abs/2307.07367
+  - title: Difference-in-differences (Matheus Facure, Causal inference for the brave and true)
+    url: https://matheusfacure.github.io/python-causality-handbook/13-Difference-in-Differences.html
+---
+
+## Why it matters for a product engineer
+
+Product data is full of patterns that look like causes. Usage went up after a launch; churn fell
+after a price change. Causal reasoning asks what else could explain the pattern, and what would have
+happened without the change. A product engineer who asks this avoids giving credit, or blame, to the
+wrong work.
+
+## How to do it
+
+1. Write the claim as cause and effect, then list the other explanations: seasons, campaigns,
+   changes in the user mix, bugs, and cause and effect the other way round.
+2. If you can, run a randomized experiment.
+3. If you cannot, find a comparison group that did not get the change but followed a similar trend
+   before it.
+4. Use difference-in-differences: compare the change in the group that got the change with the change
+   in the comparison group, over the same period.
+5. Check the trends before the change. If they already differed, the method does not hold.
+6. Look for natural experiments, such as rollouts by country, outages and policy changes.
+
+## Common mistakes
+
+- Before-and-after comparisons with no comparison group.
+- A comparison group that was already on a different trend.
+- Reading a correlation in a dashboard as a cause.
+- Ignoring that the effect may cause the supposed cause.
+
+## Example
+
+Researchers wanted to know whether ChatGPT reduced activity on Stack Overflow. They could not run an
+experiment. So they compared Stack Overflow with its Russian and Chinese counterparts, where access
+to ChatGPT is limited, and with mathematics forums, where ChatGPT was less capable. A
+difference-in-differences model estimated 16% fewer weekly posts on Stack Overflow. The effect grew
+over time, and it was larger for the most widely used programming languages.
+
+<StatRow
+  title="The effect of ChatGPT on Stack Overflow, from a comparison"
+  stats={[
+    { value: 16, unit: '%', label: 'Fewer weekly posts', note: 'Difference-in-differences estimate', signal: true },
+    { value: 'Similar', label: 'Votes on new posts', note: 'So not only weak posts were lost' },
+  ]}
+  caption="The comparison sites show roughly what Stack Overflow would have looked like without ChatGPT. The gap between the two is the estimate."
+  evidence="reported"
+  source="del Rio-Chanona, Laurentsyeva and Wachs, arXiv, 2023"
+/>

@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Socioeconomic position and hormone replacement therapy use: explaining the discrepancy in evidence from observational and randomized controlled trials (Lawlor, Davey Smith and Ebrahim)'
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC1448605/
+  - title: "Women's Health Initiative (NHLBI)"
+    url: https://www.nhlbi.nih.gov/science/womens-health-initiative-whi
+  - title: How and when to control for confounders during product usage analyses (Heap)
+    url: https://www.heap.io/blog/control-for-confounders-during-product-usage-analyses
+---
+
+## Why it matters for a product engineer
+
+In product data, the users who do something are rarely like the users who do not. They are more
+engaged, more experienced, or on a bigger plan, and those differences also drive the outcome. If you
+mistake this for an effect, you build features that do nothing, and then promote them as successes.
+
+## How to do it
+
+1. For any claim like "users who do X do better", ask what makes people do X in the first place.
+2. Draw the causes: the possible confounder, the feature and the outcome, with arrows between them.
+3. Compare like with like, such as users with similar activity before they used X.
+4. Adjust for confounders in the analysis. You can only adjust for what you measured.
+5. When the decision is important, run a randomized experiment instead.
+
+## Common mistakes
+
+- Adjusting for a few variables and calling the result causal.
+- Adjusting for something that the feature itself changed.
+- Ignoring the direction: engagement can cause feature use, not only the other way.
+- Trusting a strong association because the sample is large.
+
+## Example
+
+Many observational studies found less heart disease in women who used hormone replacement therapy.
+A meta-analysis gave a relative risk of 0.56. Then the large, randomized Women's Health Initiative
+trial found a higher risk for women assigned to the therapy. One likely explanation is confounding.
+A 2004 study found that women in worse social and economic circumstances, from childhood on, were
+less likely to use the therapy, and those circumstances also affect heart disease.
+
+<Bars
+  title="Heart disease with hormone therapy, relative to no therapy"
+  digits={2}
+  items={[
+    { label: 'Observational studies', value: 0.56 },
+    { label: 'Randomized trial', value: 1.29, highlight: true },
+  ]}
+  caption="Below 1 means less heart disease. When women chose the therapy, it looked protective. When chance chose, the risk was higher."
+  evidence="reported"
+  source="Lawlor, Davey Smith and Ebrahim, American Journal of Public Health, 2004"
+/>

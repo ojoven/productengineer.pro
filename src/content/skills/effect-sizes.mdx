@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Seven rules of thumb for web site experimenters (Kohavi, Deng, Longbotham and Xu, KDD 2014)
+    url: https://exp-platform.com/Documents/2014%20experimentersRulesOfThumb.pdf
+  - title: 'A/B testing intuition busters: common misunderstandings in online controlled experiments (Kohavi, Deng and Vermeer)'
+    url: https://exp-platform.com/abtestingintuitionbusters/
+---
+
+## Why it matters for a product engineer
+
+Statistical significance says that an effect is probably real. The effect size says how big it is,
+and whether it is worth the cost. Every change adds code that someone must maintain, so a tiny but
+significant lift can cost more than it brings. At large scale, a tiny effect can also be worth a lot.
+The size decides, not the p-value.
+
+## How to do it
+
+1. Report the effect in a unit people understand: percentage points, seconds, money.
+2. Show the interval with the effect, so people see how large and how small it could be.
+3. Translate the effect into value: the change per user, times the number of users, minus the cost
+   to build and maintain it.
+4. Before the test, decide the smallest effect worth acting on, and size the test to detect it.
+5. Be suspicious of large effects from small tests. Low power exaggerates the effects it finds.
+
+## Common mistakes
+
+- Reading "statistically significant" as "large".
+- Relative changes on tiny rates, such as "+50%" when 2% becomes 3%.
+- Ignoring the cost of the extra code.
+- Trusting the first estimate. A repeated test usually finds a smaller effect.
+
+## Example
+
+Bing runs thousands of experiments every year. Most fail, and the ones that succeed improve key
+metrics by 0.1% to 1.0%. At Bing's scale, effects this small still matter. A slowdown experiment
+delayed some users by 100 or 250 milliseconds for two weeks. It showed that every 100 milliseconds of
+speed is worth 0.6% of revenue. Microsoft translated the effect into a simple rule: an engineer who
+makes the server 10 milliseconds faster more than pays for their own annual cost.
+
+<StatRow
+  title="The size of effects in Bing's experiments"
+  stats={[
+    { value: '0.1–1', unit: '%', label: 'Typical gain from a winning test' },
+    { value: 0.6, unit: '%', label: 'Revenue per 100 ms faster', signal: true },
+    { value: 10, unit: 'ms', label: "Faster pays for an engineer's year" },
+  ]}
+  caption="Small effects are normal. Whether one matters depends on how many users and how much revenue it multiplies."
+  evidence="reported"
+  source="Kohavi, Deng, Longbotham and Xu, KDD 2014"
+/>

@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Design for continuous experimentation (Dan McKinley, Etsy)
+    url: https://speakerdeck.com/mcfunley/design-for-continuous-experimentation
+  - title: How to implement hypothesis-driven development (Barry O'Reilly)
+    url: https://barryoreilly.com/explore/blog/how-to-implement-hypothesis-driven-development/
+---
+
+## Why it matters for a product engineer
+
+Every change carries a belief about why it will help. When you write that belief down before the
+test, a feature becomes an experiment, and it can teach you something even when it fails. It also
+stops the team from inventing a story after the results arrive. A product engineer who writes the
+hypothesis can also see which parts of it are cheap to test first.
+
+## How to do it
+
+1. Write it in one sentence: the change, the metric you expect to move, and why. Barry O'Reilly's
+   template works: "We believe [this change] will result in [this outcome]. We will know when [we
+   see this signal]."
+2. List the premises under the reason. Each premise is a smaller hypothesis.
+3. Test the riskiest premise with the cheapest experiment, before you build the full feature.
+4. Set the threshold in advance: which result means keep, and which means stop.
+5. After the test, write down which belief was wrong, not only which version won.
+
+## Common mistakes
+
+- A hypothesis with no number, such as "users will like it".
+- Writing the hypothesis after looking at the data.
+- Testing many changes at once, so a failure explains nothing.
+- Treating a failed test as wasted work instead of a corrected belief.
+
+## Example
+
+Etsy built infinite scroll for its search results, because "more items, faster" seemed clearly
+better. In the A/B test, people with infinite scroll saw fewer items, clicked fewer, and bought fewer
+items from search. Only then did the team test the two premises on their own. More results per page
+barely helped and did not change purchases. Search results that were slowed down on purpose changed
+nothing. Etsy removed infinite scroll.
+
+<Bars
+  title="Items seen in Etsy search results, median per visitor"
+  unit=" items"
+  items={[
+    { label: 'Control', value: 80 },
+    { label: 'Infinite scroll', value: 40, highlight: true },
+  ]}
+  caption="The premise was that people would see more items. They saw half as many, and the team had changed too much at once to know why."
+  evidence="reported"
+  source="Dan McKinley, Etsy, 'Design for continuous experimentation', 2012"
+/>

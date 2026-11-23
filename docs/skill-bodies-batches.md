@@ -590,18 +590,18 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 30 · Measurement · 12 skills
 
-- [ ] `06.4.1` [Hypotheses](https://productengineer.pro/skills-map/measurement/experiment-design/hypotheses/) · `hypotheses` · 1 resource
-- [ ] `06.4.2` [Control groups](https://productengineer.pro/skills-map/measurement/experiment-design/control-groups/) · `control-groups` · 1 resource
-- [ ] `06.4.3` [Randomization](https://productengineer.pro/skills-map/measurement/experiment-design/randomization/) · `randomization` · map coverage
-- [ ] `06.4.6` [Experiment guardrails](https://productengineer.pro/skills-map/measurement/experiment-design/experiment-guardrails/) · `experiment-guardrails` · map coverage
-- [ ] `06.5.1` [Uncertainty and variance](https://productengineer.pro/skills-map/measurement/statistical-reasoning/statistical-uncertainty/) · `statistical-uncertainty` · 1 resource
-- [ ] `06.5.3` [Effect sizes](https://productengineer.pro/skills-map/measurement/statistical-reasoning/effect-sizes/) · `effect-sizes` · 1 resource
-- [ ] `06.5.5` [Sampling and selection bias](https://productengineer.pro/skills-map/measurement/statistical-reasoning/sampling-bias/) · `sampling-bias` · 1 resource
-- [ ] `06.5.6` [Confounding](https://productengineer.pro/skills-map/measurement/statistical-reasoning/confounding/) · `confounding` · map coverage
-- [ ] `06.5.7` [Simpson's paradox](https://productengineer.pro/skills-map/measurement/statistical-reasoning/simpsons-paradox-check/) · `simpsons-paradox-check` · 1 resource
-- [ ] `06.6.2` [Session replays](https://productengineer.pro/skills-map/measurement/qualitative-evaluation/session-replays/) · `session-replays` · 1 resource
-- [ ] `06.7.1` [Interpreting results](https://productengineer.pro/skills-map/measurement/evidence-based-decisions/interpreting-results/) · `interpreting-results` · map coverage
-- [ ] `06.7.2` [Causal reasoning](https://productengineer.pro/skills-map/measurement/evidence-based-decisions/causal-reasoning/) · `causal-reasoning` · map coverage
+- [x] `06.4.1` [Hypotheses](https://productengineer.pro/skills-map/measurement/experiment-design/hypotheses/) · `hypotheses` · 1 resource
+- [x] `06.4.2` [Control groups](https://productengineer.pro/skills-map/measurement/experiment-design/control-groups/) · `control-groups` · 1 resource
+- [x] `06.4.3` [Randomization](https://productengineer.pro/skills-map/measurement/experiment-design/randomization/) · `randomization` · map coverage
+- [x] `06.4.6` [Experiment guardrails](https://productengineer.pro/skills-map/measurement/experiment-design/experiment-guardrails/) · `experiment-guardrails` · map coverage
+- [x] `06.5.1` [Uncertainty and variance](https://productengineer.pro/skills-map/measurement/statistical-reasoning/statistical-uncertainty/) · `statistical-uncertainty` · 1 resource
+- [x] `06.5.3` [Effect sizes](https://productengineer.pro/skills-map/measurement/statistical-reasoning/effect-sizes/) · `effect-sizes` · 1 resource
+- [x] `06.5.5` [Sampling and selection bias](https://productengineer.pro/skills-map/measurement/statistical-reasoning/sampling-bias/) · `sampling-bias` · 1 resource
+- [x] `06.5.6` [Confounding](https://productengineer.pro/skills-map/measurement/statistical-reasoning/confounding/) · `confounding` · map coverage
+- [x] `06.5.7` [Simpson's paradox](https://productengineer.pro/skills-map/measurement/statistical-reasoning/simpsons-paradox-check/) · `simpsons-paradox-check` · 1 resource
+- [x] `06.6.2` [Session replays](https://productengineer.pro/skills-map/measurement/qualitative-evaluation/session-replays/) · `session-replays` · 1 resource
+- [x] `06.7.1` [Interpreting results](https://productengineer.pro/skills-map/measurement/evidence-based-decisions/interpreting-results/) · `interpreting-results` · map coverage
+- [x] `06.7.2` [Causal reasoning](https://productengineer.pro/skills-map/measurement/evidence-based-decisions/causal-reasoning/) · `causal-reasoning` · map coverage
 
 ### Batch 31 · Activation · 12 skills
 

@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Measuring the impact of early-2025 AI on experienced open-source developer productivity (METR)
+    url: https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
+  - title: Holdout experiments (GrowthBook docs)
+    url: https://docs.growthbook.io/kb/experiments/holdouts
+---
+
+## Why it matters for a product engineer
+
+A control group shows what would have happened without the change. Without one, a season, a
+marketing campaign, a bug fix or simply what people believe can look like a result. For a product
+engineer, the control group is what turns "the number went up after we shipped" into "the change
+moved the number".
+
+## How to do it
+
+1. Decide which unit gets the change, such as a user or an account, and keep a group of the same
+   units without it.
+2. Assign units to the groups by chance, not by who volunteers.
+3. Measure both groups in the same way, over the same period.
+4. For long-term effects, keep a small holdout group without new features for months. GrowthBook
+   lists the costs: those users miss improvements, and the feature flags must stay in the code for
+   the whole period.
+5. Measure behaviour in both groups. What people report about themselves is not a control.
+
+## Common mistakes
+
+- Comparing before and after a launch, as if nothing else changed.
+- Using the people who chose not to use a feature as the control.
+- A holdout group that receives the new features through another path.
+- Ending the holdout before the long-term effect has time to show.
+
+## Example
+
+In 2025, METR ran a randomized trial with 16 experienced open-source developers, on 246 real issues
+in their own repositories. Each issue was randomly assigned to allow AI tools or not, so the issues
+without AI were the control. With AI, the developers took 19% longer. Before the study, they expected
+AI to make them 24% faster. Afterwards, they still believed it had made them 20% faster. METR says
+these results describe early-2025 tools, and it has since published newer data.
+
+<StatRow
+  title="AI and developer speed: what people believed, and what the control showed"
+  stats={[
+    { value: 24, unit: '%', label: 'Faster, expected before' },
+    { value: 20, unit: '%', label: 'Faster, believed after' },
+    { value: 19, unit: '%', label: 'Slower, measured', signal: true },
+  ]}
+  caption="Without a control group, the study would have reported what the developers believed: a speedup. The randomized control showed the opposite."
+  evidence="reported"
+  source="METR, 10 Jul 2025, early-2025 AI tools"
+/>

@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How evaluation works (Statsig docs)
+    url: https://docs.statsig.com/sdks/how-evaluation-works
+  - title: How randomization works in Amplitude Experiment (Amplitude docs)
+    url: https://amplitude.com/docs/feature-experiment/under-the-hood/experiment-randomization
+---
+
+## Why it matters for a product engineer
+
+Random assignment makes the groups comparable in everything, including the differences nobody
+thought to measure. But it must be stable: the same user must stay in the same group on every visit
+and every device. It must also happen at the right unit. Assignment is code, usually the product
+engineer's code, and if it breaks, no analysis can save the experiment.
+
+## How to do it
+
+1. Choose the unit: user, account or team. If people in one account affect each other, assign the
+   whole account.
+2. Assign with a hash of the unit's ID and a salt, not with a new random number on each visit.
+3. Use a different salt for each experiment, so the group a user is in for one test does not predict
+   their group in another test.
+4. Assign in the same way on the client and the server, from the same ID.
+5. Log exposure when the user actually sees the change, and compare the group sizes with the planned
+   split.
+
+## Common mistakes
+
+- A new random draw on every page load, so users switch groups.
+- Assigning by user when the effect spreads through a shared account.
+- Anonymous IDs that reset, so one person counts in both groups.
+- One salt for every experiment, so the same users are always in the treatment.
+
+## Example
+
+Statsig's SDKs assign users without storing anything. Each experiment rule has its own salt. The SDK
+hashes the user ID together with the salt using SHA-256, and the result, modulo 10,000, gives the
+user's bucket. The same user gets the same bucket on any platform. If a rollout goes from 50% to 0%
+and back to 50% under the same rule, the same users come back. Amplitude uses the same idea with a
+different hash, in two steps: first who enters the experiment, then which variant.
+
+<Flow
+  title="How Statsig puts a user in a group"
+  nodes={[
+    { id: 'id', label: 'User ID', detail: 'Or account ID', col: 0, row: 0 },
+    { id: 'salt', label: 'Rule salt', detail: 'One per rule', col: 0, row: 1 },
+    { id: 'hash', label: 'SHA-256', detail: 'One large number', col: 1, row: 0, tone: 'signal' },
+    { id: 'bucket', label: 'Bucket', detail: 'Modulo 10,000', col: 2, row: 0 },
+    { id: 'group', label: 'Group', detail: 'A range of buckets', col: 3, row: 0, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'id', to: 'hash' },
+    { from: 'salt', to: 'hash' },
+    { from: 'hash', to: 'bucket' },
+    { from: 'bucket', to: 'group' },
+  ]}
+  caption="Nothing is stored. The same ID and the same salt always give the same group, on any platform."
+  evidence="reported"
+  source="Statsig docs, How evaluation works"
+/>

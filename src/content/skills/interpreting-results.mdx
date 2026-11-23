@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'A/B testing intuition busters: common misunderstandings in online controlled experiments (Kohavi, Deng and Vermeer)'
+    url: https://exp-platform.com/abtestingintuitionbusters/
+  - title: Diagnosing sample ratio mismatch in A/B testing (Microsoft Experimentation Platform)
+    url: https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/
+---
+
+## Why it matters for a product engineer
+
+The analysis is where an experiment becomes a decision, and where most mistakes become decisions
+too. A product engineer who checks the data, the size of the effect and the guardrails before
+deciding avoids shipping noise. Writing the reasoning down lets others check it.
+
+## How to do it
+
+1. Check that the test is valid first: the sample ratio, the logging, and the planned duration.
+2. Read the effect with its interval, not only the p-value.
+3. Check the guardrail metrics and the key segments.
+4. Be suspicious of surprising results. Twyman's law says that any figure that looks interesting or
+   different is usually wrong. Look for a bug, then repeat the test.
+5. Write down the decision, the reasons, and what result would have changed it.
+
+## Common mistakes
+
+- Reading a p-value of 0.05 as a 95% chance that the change works.
+- Trusting "observed power" calculated after the test.
+- Sharing a big win from a test with a few hundred users.
+- Stopping the test when the result looks good.
+
+## Example
+
+In 2021, a newsletter shared an A/B test of two landing pages with the title "Which design radically
+increased conversions 337%?". The p-value was 0.009. Ron Kohavi, Alex Deng and Lukas Vermeer used it
+as their first example of a result not to trust. There were about 80 users per variant. To detect
+even a 10% change, this test needed about 41,642 users per variant, so its power was about 3%. After
+feedback, the site added that the experiment was underpowered.
+
+<ABResult
+  title="The 337% landing page test, with its uncertainty"
+  metric="Visitors who converted"
+  arms={[
+    { name: 'Control', users: 82, conversions: 3 },
+    { name: 'Treatment', users: 75, conversions: 12 },
+  ]}
+  caption="Fifteen conversions in total. With power this low, a significant result is likely to be a false positive, or a large overestimate."
+  evidence="reported"
+  source="Kohavi, Deng and Vermeer, KDD 2022"
+/>

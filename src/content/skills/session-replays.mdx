@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'No boundaries: exfiltration of personal data by session-replay scripts (Englehardt, Acar and Narayanan, Princeton CITP)'
+    url: https://blog.citp.princeton.edu/2017/11/15/no-boundaries-exfiltration-of-personal-data-by-session-replay-scripts/
+  - title: Session replay privacy controls (PostHog docs)
+    url: https://posthog.com/docs/session-replay/privacy
+---
+
+## Why it matters for a product engineer
+
+A funnel shows where people leave. A session replay shows what they did just before: the
+hesitation, the wrong click, the error message. For a product engineer, a few replays can turn a
+drop-off into a bug you can reproduce. But a replay records whatever the page shows, so the privacy
+settings are part of the setup, not an extra.
+
+## How to do it
+
+1. Start from a question, such as one drop-off step, and filter replays to the sessions that reached
+   it.
+2. Watch several sessions before you conclude anything. One session is a story, not a pattern.
+3. Mask all input by default. Also mask or block page text that shows personal data, such as account
+   and payment pages.
+4. Test the masking on your own pages: record a session with fake data, and watch it.
+5. Write what you saw as a bug or a finding, with links to the sessions. Delete recordings you do
+   not need.
+
+## Common mistakes
+
+- Watching random sessions without a question.
+- Trusting the tool's defaults to hide everything personal.
+- Recording payment or health pages at all.
+- Sharing replays widely inside the company.
+
+## Example
+
+In 2017, Princeton researchers studied session replay scripts that they found on 482 of the top
+50,000 websites. Redaction of typed input was partial: one service hid card numbers only in fields
+marked with a specific attribute. No service redacted text shown on the page by default, and the
+account page of the clothing store Bonobos sent full card details to a replay service. Today PostHog
+masks input fields by default, but it still does not mask page text by default.
+
+<Compare
+  title="What session replay services hid by default in 2017"
+  subjects={['Typed input', 'Text on the page']}
+  rows={[
+    { label: 'Automatic redaction', values: ['Yes, coverage varies', 'None'] },
+    { label: "In the researchers' tests", values: ['Partial leaks', 'All of it leaked'] },
+    { label: 'What the site had to do', values: ['Tag extra fields', 'Tag all personal data'] },
+  ]}
+  caption="Masking typed input is not enough. Anything the page displays goes into the recording unless the site marks it."
+  evidence="reported"
+  source="Englehardt, Acar and Narayanan, Princeton CITP, 15 Nov 2017"
+/>

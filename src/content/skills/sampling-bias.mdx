@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Methodology, 2024 Developer Survey (Stack Overflow)
+    url: https://survey.stackoverflow.co/2024/methodology
+  - title: How survivorship bias affects your analysis (Data School)
+    url: https://dataschool.com/misrepresenting-data/survivorship-bias/
+---
+
+## Why it matters for a product engineer
+
+Data comes from the people who were there to be measured. Survey respondents, power users and
+customers who stayed are easy to study, and they are not typical. A product engineer who asks who is
+missing from the data avoids building only for the most visible group.
+
+## How to do it
+
+1. Before the analysis, write down who could appear in the data, and who could not.
+2. Compare the sample with your whole user base on a few known facts, such as plan, country and
+   activity.
+3. Look for survivorship. People who left, failed at signup or never installed are not in your user
+   data.
+4. When the sample is skewed, weight the results or report them per segment.
+5. Recruit from more than one channel when you can.
+
+## Common mistakes
+
+- Believing that a big sample is a representative one.
+- Studying only retained users to explain retention.
+- Treating requests from power users as everyone's needs.
+- Survey results reported without the response rate or the recruiting channel.
+
+## Example
+
+Stack Overflow's 2024 Developer Survey used 65,437 responses from 185 countries. Its methodology note
+says that respondents were recruited mainly through Stack Overflow's own channels: messages on the
+site, blog posts, the newsletter, banner ads and social media posts. So highly engaged users of the
+site were more likely to see the invitation. The note states this bias openly, which lets readers
+judge how far the results apply to developers who rarely visit the site.
+
+<Flow
+  title="Who was likely to answer Stack Overflow's survey"
+  nodes={[
+    { id: 'site', label: 'Site messages', detail: 'On Stack Overflow', col: 0, row: 0 },
+    { id: 'own', label: 'Own channels', detail: 'Blog, email, ads, social', col: 0, row: 1 },
+    { id: 'engaged', label: 'Engaged users', detail: 'More likely to see it', col: 1, row: 0, tone: 'signal' },
+    { id: 'resp', label: 'Responses', detail: '65,437 used', col: 2, row: 0, kind: 'store' },
+  ]}
+  edges={[
+    { from: 'site', to: 'engaged' },
+    { from: 'own', to: 'engaged' },
+    { from: 'engaged', to: 'resp' },
+  ]}
+  caption="The invitations went out mainly through Stack Overflow's own channels, so the most active users of the site were the most likely to answer."
+  evidence="reported"
+  source="Stack Overflow, 2024 Developer Survey methodology"
+/>

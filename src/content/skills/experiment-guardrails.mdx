@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Diagnosing sample ratio mismatch in A/B testing (Microsoft Experimentation Platform)
+    url: https://www.microsoft.com/en-us/research/articles/diagnosing-sample-ratio-mismatch-in-a-b-testing/
+  - title: Better product decisions with guardrail metrics (Spotify, Confidence)
+    url: https://confidence.spotify.com/blog/better-decisions-with-guardrails
+  - title: Guardrail metrics for A/B tests, explained (PostHog)
+    url: https://posthog.com/product-engineers/guardrail-metrics
+---
+
+## Why it matters for a product engineer
+
+A running experiment can go wrong in two ways. It can hurt users while the target metric improves.
+Or it can be broken, so its numbers mean nothing. Guardrails catch both. The second kind is usually
+a bug in assignment, logging or data processing, which is the product engineer's own area.
+
+## How to do it
+
+1. Choose guardrail metrics that must not get worse, such as revenue, errors, page speed and
+   unsubscribes.
+2. Decide how much harm is acceptable before the test. Spotify calls this the non-inferiority
+   margin. For example, ship only if there is evidence that sales do not fall by more than 1%.
+3. Check the sample ratio before anyone reads results. Compare the number of users in each group
+   with the planned split, using a statistical test such as chi-square.
+4. If the check fails, find the cause first. Look at segments, and at the condition that decides who
+   is counted in the analysis.
+5. Set the stopping rule in advance. Do not stop because one day's result looks good.
+
+## Common mistakes
+
+- Reading results before the sample ratio check.
+- Judging the ratio by eye instead of testing it.
+- Guardrails with no threshold, so every decision becomes a debate.
+- Stopping early on a good day.
+
+## Example
+
+A team at MSN tested an image carousel with 16 cards instead of 12. The results showed lower
+engagement, with a warning that the groups did not match the planned split. An investigation found
+the cause. People who saw 16 cards engaged so much that a bot detection algorithm removed them from
+the analysis. When the problem was fixed, the result reversed: the extra cards increased engagement.
+
+<StatRow
+  title="How often experiments fail the sample ratio check"
+  stats={[
+    { value: 6, unit: '%', label: 'Microsoft experiments', note: 'In a recent analysis', signal: true },
+    { value: 10, unit: '%', label: 'LinkedIn experiments', note: 'About, in the past, for tests that count only some users' },
+  ]}
+  caption="A broken experiment is common, not rare. At Microsoft, every test must pass this check before anyone sees its results."
+  evidence="reported"
+  source="Microsoft Experimentation Platform, 14 Sep 2020"
+/>

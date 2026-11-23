@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Simpson's paradox in Covid-19 case fatality rates: a mediation analysis of age-related causal effects (von Kügelgen, Gresele and Schölkopf)"
+    url: https://arxiv.org/abs/2005.07180
+  - title: "Simpson's paradox: discover possibilities with your segments, not shipping decisions (Optimizely docs)"
+    url: https://docs.optimizely.com/experimentation-strategy/docs/simpson-s-paradox-discover-possibilities-with-your-segments-not-shipping-decisions
+---
+
+## Why it matters for a product engineer
+
+A total can move one way while every group inside it moves the other way, because the mix of groups
+changed. After a launch, a campaign or a pricing change, the mix of users almost always changes. A
+product engineer who checks key segments before reading the total avoids celebrating a change that
+made things worse for everyone, or blaming one that helped.
+
+## How to do it
+
+1. Split every important result by the main segments: new and returning users, platform, country,
+   plan.
+2. Compare the mix of segments between the two groups or periods.
+3. If the mix changed, compare within each segment, and weight the segments in the same way.
+4. In an experiment, do not change the traffic split while it runs. Optimizely advises pausing and
+   starting a new experiment instead.
+5. Treat a win in one segment as a new hypothesis to test, not as a decision to ship.
+
+## Common mistakes
+
+- Changing a test's split from 99/1 to 50/50 halfway through.
+- Comparing this month with last month after the user mix changed.
+- Searching many segments until one shows a win.
+- Reporting only the total.
+
+## Example
+
+Early in the Covid-19 pandemic, Italy's case fatality rate was 4.4%, almost twice China's 2.3%.
+Researchers compared a large Chinese study from 17 February 2020 with Italian data from 9 March. In
+every age group, Italy's rate was lower or the same. The difference came from the mix of cases: in
+Italy, 18.4% of cases were people aged 80 or over, compared with 3.2% in China.
+
+<Compare
+  title="Covid-19 case fatality rates, Italy and China, early 2020"
+  subjects={['Italy, 9 Mar', 'China, 17 Feb']}
+  rows={[
+    { label: 'Ages 60 to 69', values: ['2.5%', '3.6%'] },
+    { label: 'Ages 70 to 79', values: ['6.4%', '8.0%'] },
+    { label: 'Ages 80 and over', values: ['13.2%', '14.8%'] },
+    { label: 'All ages', values: ['4.4%', '2.3%'] },
+    { label: 'Cases aged 80 and over', values: ['18.4%', '3.2%'] },
+  ]}
+  caption="Lower in every age group, higher in total. Italy's cases were much older, and the total hides that."
+  evidence="reported"
+  source="von Kügelgen, Gresele and Schölkopf, 2020, from Chinese CDC and Italian ISS data"
+/>

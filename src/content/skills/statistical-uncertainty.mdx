@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Understanding the margin of error in election polls (Pew Research Center)
+    url: https://www.pewresearch.org/short-reads/2016/09/08/understanding-the-margin-of-error-in-election-polls/
+  - title: 'Seeing Theory: a visual introduction to probability and statistics (Brown University)'
+    url: https://seeing-theory.brown.edu/
+---
+
+## Why it matters for a product engineer
+
+Every metric moves a little every day, with no cause at all. If you do not know how much it usually
+moves, you cannot tell a real change from noise, and every dip starts an investigation. A range is
+more honest than a single number, and it protects a product engineer from building on noise.
+
+## How to do it
+
+1. Measure the normal variation first. Look at the metric over several weeks with no changes, or run
+   an A/A test, where both groups get the same experience.
+2. Report a range with every estimate, such as a confidence interval.
+3. Remember that the difference between two numbers is noisier than each number on its own.
+4. Expect segments to be noisier than the total, because they contain fewer people.
+5. Look for several moves in the same direction before you call something a trend.
+
+## Common mistakes
+
+- Reacting to one day's dip.
+- Reporting "up 3%" without a range.
+- Finding big differences between small segments.
+- Using the margin of one estimate as the margin of a difference.
+
+## Example
+
+Pew Research Center explains this with election polls. A random sample of 1,067 people has a margin
+of error of about 3 points for one candidate's support. In Pew's example, the margin for the lead
+between two candidates is about 6 points. For a change in the lead between two polls, it is 8
+points, so a 3-point shift could be noise. In a subgroup of about 160 people, the margin for the lead
+is 16 points.
+
+<Bars
+  title="Margin of error in Pew's poll example, by what is compared"
+  unit=" points"
+  items={[
+    { label: "One candidate's support", value: 3 },
+    { label: 'The lead between two', value: 6 },
+    { label: 'Change in lead, two polls', value: 8, highlight: true },
+    { label: 'The lead, in a subgroup', value: 16 },
+  ]}
+  caption="The same poll is precise for one number and cannot see small changes. Each comparison, and each smaller group, adds noise."
+  evidence="reported"
+  source="Pew Research Center, 8 Sep 2016"
+/>
