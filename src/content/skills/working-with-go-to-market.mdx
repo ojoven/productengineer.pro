@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Zoom Video Communications, Inc.; analysis to aid public comment (Federal Register)"
+    url: https://www.federalregister.gov/documents/2020/11/13/2020-25130/zoom-video-communications-inc-analysis-to-aid-public-comment
+  - title: Zoom settles with FTC after making 'deceptive' security claims (TechCrunch)
+    url: https://techcrunch.com/2020/11/09/zoom-ftc-deceptive-security-claims/
+  - title: The product-minded software engineer (Gergely Orosz)
+    url: https://blog.pragmaticengineer.com/the-product-minded-engineer/
+---
+
+## Why it matters for a product engineer
+
+Marketing and sales talk to more potential customers than anyone else. They hear what buyers need,
+what competitors promise and why deals fail. Engineers who help them get that knowledge in return.
+Engineers can help with demos, hard technical questions and fast fixes for problems that block a deal.
+They also protect the company by checking that public claims about the product are true. A claim that
+the product cannot keep is a technical problem, a trust problem and sometimes a legal one.
+
+## How to do it
+
+1. Join some sales calls or demos, and listen to how buyers describe their problem.
+2. Review the technical claims in marketing and sales material before it is published.
+3. Give go-to-market teams simple, accurate wording for security, performance and limits.
+4. Agree a fast path for problems that block a deal, and a rule for requests too specific to build.
+5. Tell them early about launches, changes and known problems.
+
+## Common mistakes
+
+- Building every feature that a single prospect asks for.
+- Leaving technical claims to people who cannot check them.
+- Treating sales questions as interruptions instead of market data.
+- Launching features before sales and support know how they work.
+
+## Example
+
+In November 2020, Zoom settled with the US Federal Trade Commission over its security claims. The FTC
+alleged that since at least June 2016, Zoom had said that meetings used end-to-end, 256-bit
+encryption. In fact, Zoom's servers held the keys, and meetings used 128-bit keys. Zoom also said
+cloud recordings went to its secure storage once a meeting ended; some waited on its servers,
+unencrypted, for up to 60 days. An engineer who knew the product could have checked each claim.
+
+<Compare
+  title="What Zoom said, and what the FTC alleged"
+  subjects={['What Zoom said', 'What the FTC alleged']}
+  highlight={1}
+  rows={[
+    { label: 'Encryption', values: ['End-to-end', "Zoom's servers held the keys"] },
+    { label: 'Key length', values: ['256-bit', '128-bit'] },
+    { label: 'Cloud recordings', values: ['Stored securely once the meeting ended', 'Unencrypted for up to 60 days'] },
+  ]}
+  caption="None of these claims needed a security expert to check. They needed someone who knew how the product worked to read them before they were published."
+  evidence="reported"
+  source="FTC proposed complaint, Federal Register, 13 Nov 2020"
+/>

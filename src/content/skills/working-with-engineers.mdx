@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Code review (Google engineering practices)
+    url: https://google.github.io/eng-practices/review/
+  - title: Speed of code reviews (Google engineering practices)
+    url: https://google.github.io/eng-practices/review/reviewer/speed.html
+  - title: Small CLs (Google engineering practices)
+    url: https://google.github.io/eng-practices/review/developer/small-cls.html
+---
+
+## Why it matters for a product engineer
+
+A product engineer rarely owns the whole system. Platform, infrastructure, data and security
+engineers own parts that every feature depends on. Their priorities are different: stability, cost,
+risk. Working well with them means clear requests, changes that are easy to review, and respect for
+their time and constraints. Reviewing their code with the same care builds the trust that makes the
+next request easier.
+
+## How to do it
+
+1. Before asking another team for something, read their docs, and explain your goal, not only the change you want.
+2. Keep changes small and self-contained, so they are easy to review.
+3. Answer review requests quickly, without breaking your own focused work to do it.
+4. In review, comment on design, behaviour and clarity, and explain why.
+5. Pair on unfamiliar systems; it spreads knowledge faster than documents.
+
+## Common mistakes
+
+- Large changes that mix a refactor, a feature and a fix.
+- Treating another team's review as a gate to get past.
+- Review comments about personal taste, written as if they were rules.
+- Changing another team's system without telling them.
+
+## Example
+
+Google publishes its code review guidelines. Reviewers should respond within one business day at
+most, because slow reviews slow the whole team and put pressure on reviewers to accept weaker code.
+But a developer in the middle of focused work should not stop to do a review. Authors should send
+small changes: about 100 lines is usually reasonable, and 1,000 lines is usually too large. Small
+changes are reviewed faster, are less likely to add bugs, and waste less work if they are rejected.
+
+<Claims
+  title="Google's rules for review speed and change size"
+  claims={[
+    { text: 'Respond to a review request within one business day at most', evidence: 'reported', source: 'Speed of code reviews' },
+    { text: 'Do not interrupt focused work to do a review', evidence: 'reported', source: 'Speed of code reviews' },
+    { text: 'About 100 lines is usually a reasonable change; 1,000 is usually too large', evidence: 'reported', source: 'Small CLs' },
+    { text: 'Small changes are reviewed faster and are less likely to add bugs', evidence: 'reported', source: 'Small CLs' },
+  ]}
+  caption="Fast replies and small changes are two sides of one rule: make the other engineer's work easy."
+  evidence="reported"
+  source="Google engineering practices documentation"
+/>

@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Atomic design, chapter 4: the atomic workflow (Brad Frost)"
+    url: https://atomicdesign.bradfrost.com/chapter-4/
+  - title: "UX prototypes: low fidelity vs. high fidelity (NN/g)"
+    url: https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/
+---
+
+## Why it matters for a product engineer
+
+Designers and engineers make the same product from two sides. When the design is finished before an
+engineer sees it, problems appear late: a layout that breaks on a small screen, a state nobody drew,
+an animation that is slow on a cheap phone. Exploring early together avoids most of this. Engineers
+who know design basics, such as hierarchy, spacing and type, build what the design intends, not only
+the pixels. A shared design system gives both sides the same names for the same parts.
+
+## How to do it
+
+1. Join the first sketches, and say early what is easy, hard or expensive.
+2. Build a rough working prototype in the browser while the visual design is still changing.
+3. Ask about the states the mockup does not show: empty, loading, error, long text, small screens.
+4. Use the same component names in the design files and in the code.
+5. Review the built result with the designer before release, on real devices.
+
+## Common mistakes
+
+- Receiving a finished design and building it without questions.
+- Rejecting a design detail without explaining the cost or offering an alternative.
+- Matching every pixel while missing the purpose of the design.
+- Separate component libraries in design and in code that slowly drift apart.
+
+## Example
+
+In Atomic Design, Brad Frost describes a process many teams will recognise. A UX designer produces a
+large wireframe document. A visual designer turns it into mockups, which go through round after round
+of review. The approved file, `homepage_v9_final_for-review_FINAL_bradEdits_for-handoff.psd`, finally
+reaches the front-end developer with a request to build it in three weeks, because the project is late
+and over budget. Frost's alternative is one team of all disciplines working together through the whole
+process, with developers writing basic markup early to test design decisions in working prototypes.
+
+<Flow
+  title="The waterfall handoff that Brad Frost describes"
+  nodes={[
+    { id: 'ux', label: 'Wireframes', detail: 'One large PDF', col: 0, row: 0 },
+    { id: 'visual', label: 'Mockups', detail: 'Static images', col: 1, row: 0 },
+    { id: 'review', label: 'Reviews', detail: 'Many rounds', col: 2, row: 0 },
+    { id: 'dev', label: 'Front end', detail: 'Three weeks left', col: 3, row: 0, tone: 'signal' },
+  ]}
+  edges={[
+    { from: 'ux', to: 'visual' },
+    { from: 'visual', to: 'review' },
+    { from: 'review', to: 'dev' },
+  ]}
+  caption="In this process the developer sees the design last, when time and budget are gone and every change is expensive."
+  evidence="reported"
+  source="Brad Frost, Atomic Design, chapter 4"
+/>

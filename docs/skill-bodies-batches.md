@@ -705,17 +705,17 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 39 · Cross-cutting · 11 skills
 
-- [ ] `X.5.1` [Working with product managers](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-pms/) · `working-with-pms` · map coverage
-- [ ] `X.5.2` [Working with designers](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-designers/) · `working-with-designers` · map coverage
-- [ ] `X.5.3` [Working with researchers](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-researchers/) · `working-with-researchers` · map coverage
-- [ ] `X.5.4` [Working with marketing and sales](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-go-to-market/) · `working-with-go-to-market` · map coverage
-- [ ] `X.5.5` [Working with support](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-support/) · `working-with-support` · map coverage
-- [ ] `X.5.6` [Working with other engineers](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-engineers/) · `working-with-engineers` · map coverage
-- [ ] `X.6.1` [Initiative](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/initiative/) · `initiative` · map coverage
-- [ ] `X.6.2` [Accountability](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/accountability/) · `accountability` · map coverage
-- [ ] `X.6.3` [Autonomy](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/autonomy/) · `autonomy` · 1 resource
-- [ ] `X.6.4` [Conflict resolution](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/conflict-resolution/) · `conflict-resolution` · map coverage
-- [ ] `X.6.5` [Stakeholder management](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/stakeholder-management/) · `stakeholder-management` · map coverage
+- [x] `X.5.1` [Working with product managers](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-pms/) · `working-with-pms` · map coverage
+- [x] `X.5.2` [Working with designers](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-designers/) · `working-with-designers` · map coverage
+- [x] `X.5.3` [Working with researchers](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-researchers/) · `working-with-researchers` · map coverage
+- [x] `X.5.4` [Working with marketing and sales](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-go-to-market/) · `working-with-go-to-market` · map coverage
+- [x] `X.5.5` [Working with support](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-support/) · `working-with-support` · map coverage
+- [x] `X.5.6` [Working with other engineers](https://productengineer.pro/skills-map/cross-cutting/collaboration/working-with-engineers/) · `working-with-engineers` · map coverage
+- [x] `X.6.1` [Initiative](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/initiative/) · `initiative` · map coverage
+- [x] `X.6.2` [Accountability](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/accountability/) · `accountability` · map coverage
+- [x] `X.6.3` [Autonomy](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/autonomy/) · `autonomy` · 1 resource
+- [x] `X.6.4` [Conflict resolution](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/conflict-resolution/) · `conflict-resolution` · map coverage
+- [x] `X.6.5` [Stakeholder management](https://productengineer.pro/skills-map/cross-cutting/leadership-ownership/stakeholder-management/) · `stakeholder-management` · map coverage
 
 ### Batch 40 · Cross-cutting · 6 skills
 

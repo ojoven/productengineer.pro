@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: What product managers do at PostHog (PostHog handbook)
+    url: https://posthog.com/handbook/product/product-manager-role
+  - title: What is a product engineer? (PostHog)
+    url: https://posthog.com/product-engineer/what-is-a-product-engineer
+  - title: The product-minded software engineer (Gergely Orosz)
+    url: https://blog.pragmaticengineer.com/the-product-minded-engineer/
+---
+
+## Why it matters for a product engineer
+
+A product engineer and a product manager often care about the same questions: who the user is,
+what to build next, and whether it worked. That overlap is useful, but only when both people know
+who decides what. Without clear roles, work gets done twice or not at all, and decisions wait for a
+meeting. The engineer brings what is possible, what it costs, and what the code can do that nobody
+asked for. The PM brings market, customer and business context. The best pairs think about the
+problem together, instead of passing a specification from one person to the other.
+
+## How to do it
+
+1. Agree on who owns which decisions: scope, priorities, pricing, launch dates, technical design.
+2. Join the problem early: user calls, data reviews and the first discussion of an idea.
+3. Bring options with their costs, not only estimates: a simple version in two days, or the full version in three weeks.
+4. Share what you see in the code and the data that the PM cannot see.
+5. When you still disagree, agree who makes the final call, and then support it.
+
+## Common mistakes
+
+- Waiting for a finished specification before thinking about the problem.
+- Treating the PM as the person who writes tickets for engineers.
+- Two people deciding the same thing, so nobody owns the result.
+- Saying "that is impossible" when the real answer is "that costs more than it is worth".
+
+## Example
+
+PostHog writes down how its product managers work with engineers. PMs do not own roadmaps or decide
+what to build next. They own the systems for user discovery, the team's metrics and pricing.
+Engineers choose what to work on next from shared context, and the team lead is the closest thing to
+a product owner. For major calls, such as pricing or launch scope, the PM and the team lead choose one
+"informed captain" who decides and sees the decision through. Many early products have no PM at all.
+
+<Compare
+  title="Who owns what in a PostHog product team"
+  subjects={['Product manager', 'Team lead and engineers']}
+  rows={[
+    { label: 'Roadmap', values: ['Does not own it', 'Team lead is the closest to an owner'] },
+    { label: 'What to build next', values: ['Shares the decision', 'Engineers choose, from shared context'] },
+    { label: 'User discovery', values: ['Owns the system', 'Engineers hold calls with users too'] },
+    { label: 'Before a PM joins', values: ['—', 'Engineers own all product decisions'] },
+  ]}
+  caption="The PM brings clarity and context, and the engineers decide. Writing this down means nobody has to guess who owns a decision."
+  evidence="reported"
+  source="PostHog handbook, product manager role"
+/>

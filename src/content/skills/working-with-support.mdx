@@ -1,0 +1,62 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Should engineers do customer support? How we built our support rotation system (Inngest)"
+    url: https://www.inngest.com/blog/should-engineers-do-customer-support
+  - title: Doing support makes you a better engineer (PostHog)
+    url: https://posthog.com/newsletter/engineers-do-support
+  - title: Put your engineers on support (Aha!)
+    url: https://www.aha.io/engineering/articles/engineers-support
+---
+
+## Why it matters for a product engineer
+
+Support sees every rough edge of the product, every day. Each ticket is a signal about a bug, a
+confusing screen or a missing feature. When engineers work closely with support, problems reach the
+right person faster and customers get real answers. Engineers also learn how the product is used,
+which is hard to learn any other way. But support work interrupts deep work, so the way engineers take
+part needs a clear structure.
+
+## How to do it
+
+1. Agree how support escalates to engineering: what to include, where it goes, how fast to expect an answer.
+2. Put engineers on a support rotation, with less feature work during their week.
+3. Build tools that help support answer alone: admin views, clear error messages, logs they can read.
+4. Close the loop: tell support when a fix ships, so they can tell the customer.
+5. Review patterns in tickets regularly, and turn the biggest ones into product work.
+
+## Common mistakes
+
+- Bug reports that go into a backlog and never come back.
+- Every engineer watching every channel, so nobody can focus.
+- Engineers on rotation who answer tickets but never report the patterns.
+- Support tools built last, or never.
+
+## Example
+
+In February 2026, Inngest, a company that makes developer tools, described its support rotation. As it
+grew, every engineer watched Slack and Discord for support questions, and nobody fully owned support.
+Daily rotations did not help: no one ever fully left support mode, and tickets went to people outside
+their area. The team moved to two tiers. A support engineer answers simple questions and prepares
+context for the hard ones. Two engineers, one from each technical team, rotate weekly with fewer
+feature commitments, and end the week with a recap of patterns.
+
+<Flow
+  title="Inngest's two-tier support"
+  nodes={[
+    { id: 'ticket', label: 'Ticket', detail: 'From a customer', col: 0, row: 0 },
+    { id: 't1', label: 'Tier 1', detail: 'Support engineer', col: 1, row: 0, tone: 'lit' },
+    { id: 'answer', label: 'Answered', detail: 'Simple questions', col: 1, row: 1 },
+    { id: 't2', label: 'Tier 2', detail: 'Two engineers', col: 2, row: 0 },
+    { id: 'recap', label: 'Weekly recap', detail: 'Patterns, gaps', col: 2, row: 1 },
+  ]}
+  edges={[
+    { from: 'ticket', to: 't1' },
+    { from: 't1', to: 'answer' },
+    { from: 't1', to: 't2' },
+    { from: 't2', to: 'recap' },
+  ]}
+  caption="Tier 1 protects focus and prepares context. Tier 2 fixes root causes and reports patterns. Engineers who are not on rotation are not on support at all."
+  evidence="reported"
+  source="Ana Almeida, Inngest blog, 18 Feb 2026"
+/>

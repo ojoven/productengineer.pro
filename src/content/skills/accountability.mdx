@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Details of the Cloudflare outage on July 2, 2019 (John Graham-Cumming, Cloudflare)
+    url: https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/
+  - title: "Postmortem culture: learning from failure (Google SRE book)"
+    url: https://sre.google/sre-book/postmortem-culture/
+---
+
+## Why it matters for a product engineer
+
+Shipping is not the goal; the result is. Accountability means caring whether the work did what it was
+meant to do, and owning what happens when it does not. That includes mistakes. An engineer who says
+early "I broke this, here is the fix" limits the damage and earns trust. An engineer who hides a
+mistake makes the next one more likely, because the team cannot learn from it. Accountability works
+best in a team that studies how the system failed, not who to blame.
+
+## How to do it
+
+1. Define what success means before you ship, so you can check it after.
+2. Check the result yourself after release: metrics, errors, user feedback.
+3. When something goes wrong, say so early, with what you know and what you are doing.
+4. Write a blameless postmortem: what happened, why the system allowed it, what will change.
+5. Follow the actions to the end, each with an owner and a date.
+
+## Common mistakes
+
+- Treating "shipped" as "done".
+- Blaming a person when a process allowed the error.
+- Postmortems with actions that nobody owns.
+- Apologising without saying what will change.
+
+## Example
+
+On 2 July 2019, a new firewall rule caused errors across Cloudflare's network for 27 minutes. A regular
+expression in the rule used all the CPU on the servers that handle web traffic, worldwide. Ten days
+later, John Graham-Cumming, who had written the original firewall code years before, published a
+detailed postmortem: "We are ashamed of the outage, and sorry for the impact on our customers." It
+named the process gap: the standard procedure let a non-emergency rule go to every server at once. It
+listed the fixes with dates, including staged rollouts and a check of all 3,868 rules.
+
+<Timeline
+  title="Cloudflare's outage on 2 July 2019, and what came after"
+  events={[
+    { when: '13:42', title: 'Rule deployed worldwide', kind: 'problem', note: 'A minor change to one firewall rule' },
+    { when: '14:07', title: 'Firewall turned off globally', kind: 'decision', note: 'First proposed at 14:02' },
+    { when: '14:09', title: 'Traffic back to normal', kind: 'result' },
+    { when: '14:52', title: 'Firewall back on, with a fix', kind: 'ship' },
+    { when: '12 July', title: 'Postmortem published', kind: 'event', note: 'With dated follow-up actions' },
+  ]}
+  caption="Recovery took 27 minutes. The write-up came ten days later, and it blamed the process, not the engineer."
+  evidence="reported"
+  source="John Graham-Cumming, Cloudflare blog, 12 July 2019"
+/>

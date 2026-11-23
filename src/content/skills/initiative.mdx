@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Early Amazon: shopping cart recommendations (Greg Linden)"
+    url: https://glinden.blogspot.com/2006/04/early-amazon-shopping-cart.html
+  - title: Work on what matters (Will Larson)
+    url: https://staffeng.com/guides/work-on-what-matters/
+---
+
+## Why it matters for a product engineer
+
+Many problems in a product are in nobody's tickets: a slow page nobody owns, a confusing flow, an idea
+nobody has tried. Initiative means noticing them and acting, either by doing the work or by getting
+the right person to do it. It is the difference between owning a product and executing tickets. It
+works best inside an agreed direction, and with evidence. An engineer who acts without telling anyone,
+or against the team's goals, creates new problems instead of solving them.
+
+## How to do it
+
+1. Look for problems that matter to the goals and that nobody else is working on.
+2. Make a small, cheap version first: a prototype, a script, a test.
+3. Tell the people affected what you are doing, and why.
+4. Let evidence decide, not opinion: measure the result with real users.
+5. Finish what you start, or hand it over clearly.
+
+## Common mistakes
+
+- Starting many things and finishing few.
+- Choosing work because it is visible, not because it matters.
+- Surprising your team or manager with work they did not expect.
+- Waiting for permission for small changes that are easy to undo.
+
+## Example
+
+In 2006, Greg Linden wrote about his early years at Amazon. He built a prototype that showed
+recommendations in the shopping cart. A marketing senior vice-president was against it, worried that
+it would distract people from checking out, and Linden was told not to work on it any more. He
+prepared an online test instead. The feature won by such a wide margin that not having it live was
+costing Amazon money, and it launched. Linden adds a warning: in some organizations, challenging a
+senior executive like this would be a fatal mistake.
+
+<Flow
+  title="How shopping cart recommendations reached Amazon customers"
+  nodes={[
+    { id: 'proto', label: 'Prototype', detail: 'On a test site', col: 0, row: 0 },
+    { id: 'stop', label: 'Told to stop', detail: 'SVP objects', col: 1, row: 0, tone: 'signal' },
+    { id: 'test', label: 'Online test', detail: 'Real customers', col: 2, row: 0 },
+    { id: 'launch', label: 'Launched', detail: 'Clear win', col: 3, row: 0, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'proto', to: 'stop' },
+    { from: 'stop', to: 'test' },
+    { from: 'test', to: 'launch' },
+  ]}
+  caption="The disagreement was settled by a test with real customers, not by rank. The personal risk was still Linden's to take."
+  evidence="reported"
+  source="Greg Linden, Geeking with Greg, 25 April 2006"
+/>
