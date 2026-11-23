@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Opportunity solution trees: visualize your discovery (Teresa Torres)'
+    url: https://www.producttalk.org/opportunity-solution-trees/
+---
+
+## Why it matters for a product engineer
+
+Most ideas are not worth building, and building is the most expensive way to find out. A short
+assessment asks five questions: what problem, for whom, how big, why now, and how will we know it
+worked. Engineers who ask them get better work, and can say no with reasons.
+
+## How to do it
+
+1. Name the problem and who has it, in one or two sentences, without the solution.
+2. Estimate how many people have it and how often, and how
+   [severe](/skills-map/discovery/problem-identification/problem-severity/) it is.
+3. Ask why now. What changed in the market, in the technology or in your product?
+4. Ask why you. Does it fit what the business already does, and how it sells?
+5. List what people use today instead, including doing nothing.
+6. Decide how you will know it worked, before you start.
+
+## Common mistakes
+
+- Assessing only the opportunities you already like.
+- Sizing from a market report, not from your own users.
+- Ignoring fit, so you find a good opportunity for someone else.
+- No "how will we know", so every result looks like success.
+
+## Example
+
+Zernio could build its own Metricool, a finished social media tool for marketers. It would compete with
+its own customers, with different churn and different sales. Instead it added ads, WhatsApp and
+commerce APIs, often after integrators asked. Ads are used by about 15% of accounts, get the most
+requests, and few APIs cover them. ([Zernio in In practice](/in-practice/zernio/))
+
+<Compare
+  title="Two opportunities Zernio could take"
+  subjects={['An ads API', 'Its own Metricool']}
+  highlight={0}
+  rows={[
+    { label: 'Buyer', values: ['Integrators, as today', 'Marketers, its customers’ own users'] },
+    { label: 'Demand', values: ['The most requests; about 15% of accounts', null] },
+    { label: 'Competition', values: ['Few APIs cover ads', 'Its own customers'] },
+    { label: 'Fits how it sells', values: [true, false], note: 'A tool for marketers has different churn and different sales' },
+  ]}
+  caption="Ads fit the business Zernio already runs. A tool of its own would compete with its customers. Zernio built ads, and leaves Metricool to others."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast, Nov 2026"
+/>

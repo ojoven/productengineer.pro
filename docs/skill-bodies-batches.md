@@ -465,18 +465,18 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 20 · Strategy · 12 skills
 
-- [ ] `02.1.1` [Mission](https://productengineer.pro/skills-map/strategy/product-vision/mission/) · `mission` · 1 resource
-- [ ] `02.3.1` [Product goals](https://productengineer.pro/skills-map/strategy/goal-setting/product-goals/) · `product-goals` · map coverage
-- [ ] `02.3.4` [Leading indicators](https://productengineer.pro/skills-map/strategy/goal-setting/leading-indicators/) · `leading-indicators` · 1 resource
-- [ ] `02.4.1` [Opportunity assessment](https://productengineer.pro/skills-map/strategy/prioritization/opportunity-assessment/) · `opportunity-assessment` · has evidence, technicalLeverage, aiLeverage; 1 resource
-- [ ] `02.4.5` [Sequencing](https://productengineer.pro/skills-map/strategy/prioritization/sequencing/) · `sequencing` · 1 resource
-- [ ] `02.5.2` [Smallest valuable increment](https://productengineer.pro/skills-map/strategy/product-scoping/smallest-valuable-increment/) · `smallest-valuable-increment` · map coverage
-- [ ] `02.5.3` [Vertical slicing](https://productengineer.pro/skills-map/strategy/product-scoping/vertical-slicing/) · `vertical-slicing` · map coverage
-- [ ] `02.5.5` [Acceptance criteria](https://productengineer.pro/skills-map/strategy/product-scoping/acceptance-criteria/) · `acceptance-criteria` · 1 resource
-- [ ] `02.6.2` [Dependencies](https://productengineer.pro/skills-map/strategy/product-planning/dependency-management/) · `dependency-management` · map coverage
-- [ ] `02.6.3` [Product lifecycle stages](https://productengineer.pro/skills-map/strategy/product-planning/lifecycle-stages/) · `lifecycle-stages` · map coverage
-- [ ] `02.6.4` [Adapting strategy](https://productengineer.pro/skills-map/strategy/product-planning/strategy-adaptation/) · `strategy-adaptation` · 1 resource
-- [ ] `02.7.6` [Return on investment](https://productengineer.pro/skills-map/strategy/business-models/return-on-investment/) · `return-on-investment` · map coverage
+- [x] `02.1.1` [Mission](https://productengineer.pro/skills-map/strategy/product-vision/mission/) · `mission` · 1 resource
+- [x] `02.3.1` [Product goals](https://productengineer.pro/skills-map/strategy/goal-setting/product-goals/) · `product-goals` · map coverage
+- [x] `02.3.4` [Leading indicators](https://productengineer.pro/skills-map/strategy/goal-setting/leading-indicators/) · `leading-indicators` · 1 resource
+- [x] `02.4.1` [Opportunity assessment](https://productengineer.pro/skills-map/strategy/prioritization/opportunity-assessment/) · `opportunity-assessment` · has evidence, technicalLeverage, aiLeverage; 1 resource
+- [x] `02.4.5` [Sequencing](https://productengineer.pro/skills-map/strategy/prioritization/sequencing/) · `sequencing` · 1 resource
+- [x] `02.5.2` [Smallest valuable increment](https://productengineer.pro/skills-map/strategy/product-scoping/smallest-valuable-increment/) · `smallest-valuable-increment` · map coverage
+- [x] `02.5.3` [Vertical slicing](https://productengineer.pro/skills-map/strategy/product-scoping/vertical-slicing/) · `vertical-slicing` · map coverage
+- [x] `02.5.5` [Acceptance criteria](https://productengineer.pro/skills-map/strategy/product-scoping/acceptance-criteria/) · `acceptance-criteria` · 1 resource
+- [x] `02.6.2` [Dependencies](https://productengineer.pro/skills-map/strategy/product-planning/dependency-management/) · `dependency-management` · map coverage
+- [x] `02.6.3` [Product lifecycle stages](https://productengineer.pro/skills-map/strategy/product-planning/lifecycle-stages/) · `lifecycle-stages` · map coverage
+- [x] `02.6.4` [Adapting strategy](https://productengineer.pro/skills-map/strategy/product-planning/strategy-adaptation/) · `strategy-adaptation` · 1 resource
+- [x] `02.7.6` [Return on investment](https://productengineer.pro/skills-map/strategy/business-models/return-on-investment/) · `return-on-investment` · map coverage
 
 ### Batch 21 · Experience · 12 skills
 

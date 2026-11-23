@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: What is an OKR? Definition and examples (What Matters)
+    url: https://www.whatmatters.com/faqs/okr-meaning-definition-example
+  - title: 'Coaching: strategic context (Marty Cagan, SVPG)'
+    url: https://www.svpg.com/coaching-strategic-context/
+---
+
+## Why it matters for a product engineer
+
+A product goal says what should change, not what to ship. A goal like "more new users finish setup"
+leaves engineers room to find the best solution, and it shows when a finished feature did not work.
+A goal like "ship a setup wizard" is met on the day it ships, whether or not anything changed.
+
+## How to do it
+
+1. Start from the outcome: what users will do differently, or what the business will gain.
+2. Write the objective in words, then add two to four measurable results. At the end, each result is
+   either met or not.
+3. Set a period, usually a quarter, and a date to check.
+4. Add a guardrail: a number that must not get worse while you work on the goal.
+5. Let the team choose the solution. A goal that names a feature is a plan, not a goal.
+6. At the end, grade the results honestly and write down what you learned.
+
+## Common mistakes
+
+- Goals that are lists of features.
+- So many goals that none of them guides a decision.
+- Results nobody can measure, or that the team cannot influence.
+- Changing the goal at the end of the period so that it looks met.
+
+## Example
+
+When Mamitsu's maker packaged it, the goal for the two weeks was not a list of features. It was a
+product the maker would feel confident selling: one that works, holds load and is easy to use from an
+app or an agent. Holding load became a daily load test, because it was the condition for selling.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Anatomy
+  title="A goal written as an objective and its results"
+  parts={[
+    { text: 'I will ' },
+    { text: 'fix the website for the vast majority of people', label: 'Objective', note: 'An outcome for people, in words.' },
+    { text: ' as measured by ' },
+    { text: '7 out of 10 people being able to get through', label: 'Result for users', note: 'What people can now do.', kind: 'signal' },
+    { text: ', ' },
+    { text: 'a 1-second response time', label: 'Speed', note: 'How it feels to use.' },
+    { text: ', and ' },
+    { text: 'a 1% error rate', label: 'Reliability', note: 'How often it fails.' },
+    { text: '.' },
+  ]}
+  caption="One objective, three results, and no feature named. Each result is met or not at the end of the period."
+  evidence="reported"
+  source="What Matters, What is an OKR?"
+/>

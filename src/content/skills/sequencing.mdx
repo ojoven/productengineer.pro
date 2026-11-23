@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Cost of delay and CD3 prioritisation at scale (Black Swan Farming)
+    url: https://blackswanfarming.com/cost-of-delay-and-cd3-prioritisation-at-scale
+---
+
+## Why it matters for a product engineer
+
+A rank says what matters most. An order says what to do first. Some work makes everything after it
+cheaper or safer: a measurement, a migration, a test of the riskiest assumption. Engineers often see
+these orders first, because they know which change unlocks the others.
+
+## How to do it
+
+1. For each piece of work, write what it depends on and what it unlocks.
+2. Put first the work that every later result depends on, such as measurement and data quality.
+3. Then the work that teaches the most for its cost: the riskiest assumption, the smallest test.
+4. Order independent work by cost of delay divided by duration (CD3), so short, urgent work goes first.
+   When one item must wait for another, count the whole chain as its duration.
+5. Group the plan as now, next and later, and commit only to "now".
+6. Change the order when you learn something. The order is a tool, not a promise.
+
+## Common mistakes
+
+- Ordering by rank alone, and ignoring what unlocks what.
+- Building on a measurement you do not trust yet.
+- Starting many items at once, so nothing finishes.
+- Treating "later" as a commitment.
+
+## Example
+
+An agent's audit of RelievApp ended with "What to do, in order". The first item, before any more
+traffic, was an honest rating. A faster first session came next. Depth on anxiety and pain, and a test
+of the free plan and the trial, came after that; a door for pain came later.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Flow
+  title="The start of the audit's order for RelievApp"
+  stages={['Now', 'Now', 'Next', 'Later']}
+  nodes={[
+    { id: 'rating', label: 'Honest rating', detail: 'Before more traffic', col: 0, row: 0, tone: 'signal' },
+    { id: 'fast', label: 'Fast path', detail: 'The first session', col: 1, row: 0 },
+    { id: 'depth', label: 'Depth', detail: 'Anxiety and pain', col: 2, row: 0 },
+    { id: 'pain', label: 'Pain door', detail: 'Its own audience', col: 3, row: 0 },
+  ]}
+  edges={[
+    { from: 'rating', to: 'fast' },
+    { from: 'fast', to: 'depth' },
+    { from: 'depth', to: 'pain' },
+  ]}
+  motion={false}
+  caption="Measurement goes first: the audit found that every average and every claim built on the old rating inherited its error."
+  evidence="observed"
+  source="An agent's audit of RelievApp, 16 Nov 2026"
+/>

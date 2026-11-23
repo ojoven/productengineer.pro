@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Product life-cycle (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Product_life-cycle_management_(marketing)
+  - title: Technology adoption life cycle (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Technology_adoption_life_cycle
+---
+
+## Why it matters for a product engineer
+
+An early product needs learning and speed. A growing one needs reliability and scale. A mature one
+needs efficiency. The right practices differ by stage. Knowing the stage stops a team from using
+big-company process on a product with ten users, or startup shortcuts on a product that thousands of
+people depend on.
+
+## How to do it
+
+1. Name the stage honestly, from evidence: users, revenue and growth. The classic stages are
+   introduction, growth, maturity and decline.
+2. Match the work to the stage. Introduction: talk to users, ship fast, measure the few things that
+   decide whether the product lives. Growth: reliability, scale, onboarding and support. Maturity:
+   efficiency, costs and keeping customers. Decline: earn what is left, migrate or retire.
+3. Let process grow with the stage: reviews, documentation, on-call.
+4. Watch for the move between stages, such as the gap between early adopters and the mainstream
+   market.
+5. Look at the stage again every few months. Stages change faster than habits.
+
+## Common mistakes
+
+- Heavy process before the product has found its market.
+- No process when thousands of customers depend on you.
+- Assuming every product will reach maturity.
+- Keeping the strategy of the last stage.
+
+## Example
+
+The products in In practice sit at different stages. RelievApp has no real users yet and can change
+direction twice in a week. Zernio grows by about €1M of ARR a month, and is moving its whole API to
+cheaper hosting with zero downtime. ([RelievApp](/in-practice/relievapp-part-1/), [Zernio](/in-practice/zernio/))
+
+<Compare
+  title="Four products from In practice, at four points in their life"
+  subjects={['Where it is', 'What the work looks like']}
+  rows={[
+    { label: 'RelievApp', values: ['No real users yet', 'Five promises in five weeks; a version in an hour'] },
+    { label: 'Mamitsu', values: ['A relaunch', 'Load tests and a weekly review; no analytics inside the product yet'] },
+    { label: 'Papermark', values: ['$3M ARR, two founders', 'ISO 27001 and SOC 2; enterprise licences'] },
+    { label: 'Zernio', values: ['Almost €5M ARR, growing about €1M a month', 'Moving off Vercel for cost; a hire only for its own ads'] },
+  ]}
+  caption="Each stage asks for different work. What fits one of these products would be too heavy or too light for another. The stages are our reading."
+  evidence="reported"
+  source="In practice profiles, Nov 2026"
+/>

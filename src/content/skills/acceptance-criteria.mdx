@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Given when then (Martin Fowler)
+    url: https://martinfowler.com/bliki/GivenWhenThen.html
+---
+
+## Why it matters for a product engineer
+
+Acceptance criteria say what must be true when the work is done, and they are written before it
+starts. They turn "I thought you meant…" into a list that everyone has read. Written as examples, they
+become tests, so the definition of done is also the proof of done.
+
+## How to do it
+
+1. Write them before the work starts, with the people who will use, build and test it.
+2. Describe behaviour a user can see, not the implementation.
+3. Use concrete examples: given the state before, when the action happens, then the result you expect.
+4. Cover the main case, the edge cases, and what must not change.
+5. Make each one pass or fail, with no room for opinion.
+6. Turn them into automated tests where you can.
+
+## Common mistakes
+
+- Criteria that describe the code, not the behaviour.
+- Vague words: "fast", "easy", "intuitive".
+- Criteria written after the work, to match what was built.
+- Only the main case.
+
+## Example
+
+An agent's audit of RelievApp wrote a check for every new or edited scene: one gesture, no way to
+fail, the control on the subject, at most two texts and none over the subject, every input answered,
+a true time label, and readable at 390 px in both looks. A reviewer, or a test, can check each item.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Anatomy
+  title="An acceptance criterion written as given, when, then"
+  as="prompt"
+  parts={[
+    { text: 'Scenario: User requests a sell before close of trading\n' },
+    { text: 'Given I have 100 shares of MSFT stock\nAnd I have 150 shares of APPL stock\nAnd the time is before close of trading', label: 'Given', note: 'The state before.' },
+    { text: '\n' },
+    { text: 'When I ask to sell 20 shares of MSFT stock', label: 'When', note: 'The one action.' },
+    { text: '\n' },
+    { text: 'Then I should have 80 shares of MSFT stock', label: 'Then', note: 'The change you expect.' },
+    { text: '\n' },
+    { text: 'And I should have 150 shares of APPL stock', label: 'Unchanged', note: 'What must stay the same.', kind: 'signal' },
+    { text: '\n' },
+    { text: 'And a sell order for 20 shares of MSFT stock should have been executed', label: 'Side effect', note: 'What else must happen.' },
+  ]}
+  caption="Each line can become a step in a test. The line about what stays the same is the one people forget."
+  evidence="reported"
+  source="Martin Fowler, Given when then"
+/>

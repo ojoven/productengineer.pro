@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The Humanizing Work guide to splitting user stories (Richard Lawrence)
+    url: https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/
+  - title: 'Vertical slicing: from initiative to user stories (Humanizing Work)'
+    url: https://www.humanizingwork.com/vertical-slicing-from-initiative-to-user-stories/
+---
+
+## Why it matters for a product engineer
+
+When work is split by layer, first the database, then the API, then the interface, nothing works until
+the end, and the hard problems appear late. A vertical slice goes through every layer to deliver one
+narrow behaviour that works. Each slice can be tested, shipped and judged on its own, so the team
+learns early, while learning is cheap.
+
+## How to do it
+
+1. Start from what a user can do, not from the components.
+2. Look for what there are many of: workflow steps, operations, business rules, kinds of data,
+   interfaces.
+3. For a workflow, build the simple case from start to end first, then add the steps in the middle.
+4. Split a story that says "manage" into its operations: create, edit, cancel.
+5. Keep each slice small enough to finish in a few days, and useful enough that someone would notice.
+6. Use a time-boxed spike only as a last resort, when you cannot split the work without learning
+   something first.
+
+## Common mistakes
+
+- Slices by layer, named after components.
+- Splitting a workflow one step at a time from the beginning, so nothing works from end to end for
+  weeks.
+- Slices so thin that none of them is worth showing to a user.
+- A spike that quietly becomes the feature.
+
+## Example
+
+A client of Humanizing Work had a short story: a content manager publishes a news story to the
+corporate website. The real workflow needed editorial and legal approval, and a review on a staging
+site. The story became five, starting with direct publishing from end to end, then one story for each
+step of the approval.
+
+<ScopeCut
+  title="One story about publishing news, split along its workflow"
+  labels={{ kept: 'First slice', cut: 'Not this way', later: 'Next slices' }}
+  kept={[{ text: 'Publish a news story directly', note: 'Works from end to end' }]}
+  cut={[{ text: 'One workflow step at a time, from the start', note: 'Nothing works from end to end for weeks' }]}
+  later={['With editor review', 'With legal review', 'View it on a staging site', 'Publish from staging to production']}
+  caption="The first slice already does the job. Each later slice adds one step of the real workflow."
+  evidence="reported"
+  source="Richard Lawrence, Humanizing Work"
+/>

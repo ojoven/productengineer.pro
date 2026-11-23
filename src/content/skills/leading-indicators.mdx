@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Leading vs. lagging indicators: how to identify and map your metrics (Amplitude)'
+    url: https://www.amplitude.com/blog/map-your-metrics
+---
+
+## Why it matters for a product engineer
+
+Revenue and retention move slowly, so you learn about a change months after you made it. A leading
+indicator moves within days and predicts them. It lets a team learn from a change in the same week,
+while the work is fresh. Many leading indicators are things engineers control directly: load speed,
+error rate, the time it takes to finish a step.
+
+## How to do it
+
+1. Start from the slow outcome you care about, such as revenue, reorders or retention.
+2. List what your team can move within days: error rate, load speed, time to finish a task.
+3. Trace the path from those to the outcome, step by step, and add the indicators in between.
+4. Check each link with data. Do users who reach the leading indicator really stay or buy more? Look
+   at the correlation first, then run an experiment when you can.
+5. Watch both ends. A leading indicator that rises while the outcome does not is a broken link.
+6. Check the links again when the product or its users change.
+
+## Common mistakes
+
+- An indicator chosen because it is easy to move, not because it predicts anything.
+- Assuming the link without checking it.
+- Indicators too abstract for the team to act on, such as average revenue per user.
+- Celebrating the leading number and forgetting the outcome.
+
+## Example
+
+All 21 RelievApp sessions send the same events: a rating before, a rating after, then keep it, go
+again or try another. Those choices arrive within minutes of a session, so they can rank sessions long
+before retention or payments can. But a rating is what someone says they feel, not proof that a
+session works. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Flow
+  title="From what a shop's team can change this week to revenue"
+  stages={['Leading', 'Driver', 'Driver', 'Lagging']}
+  nodes={[
+    { id: 'err', label: 'Error rate', detail: 'Failed steps', col: 0, row: 0 },
+    { id: 'speed', label: 'Load speed', detail: 'Pages and app', col: 0, row: 1 },
+    { id: 'time', label: 'Checkout time', detail: 'Average time to order', col: 1, row: 0 },
+    { id: 'conv', label: 'Conversion', detail: 'And orders per customer', col: 2, row: 0 },
+    { id: 'rev', label: 'Revenue', detail: 'And reorders', col: 3, row: 0, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'err', to: 'time' },
+    { from: 'speed', to: 'time' },
+    { from: 'time', to: 'conv' },
+    { from: 'conv', to: 'rev' },
+  ]}
+  motion={false}
+  caption="The team can move the left side in days. The right side moves in quarters, and only if every link holds."
+  evidence="reported"
+  source="Amplitude, Leading vs. lagging indicators"
+/>

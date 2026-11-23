@@ -1,0 +1,45 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Conway's law (Martin Fowler)"
+    url: https://martinfowler.com/bliki/ConwaysLaw.html
+  - title: Work in process limits (DORA)
+    url: https://dora.dev/capabilities/wip-limits/
+---
+
+## Why it matters for a product engineer
+
+Plans usually break at dependencies: another team's API, a vendor's approval, a decision nobody has
+made yet. Seen early, a dependency can be reordered, removed or started sooner. Engineers see the
+technical ones first, because they know which change touches which system.
+
+## How to do it
+
+1. For each piece of work, list what it needs from other teams, systems, vendors or decisions, and who
+   owns each one.
+2. Start the long waits first: approvals, contracts, access, reviews by outside parties.
+3. Remove dependencies where you can, with a stub, a contract test, a feature flag or a smaller scope.
+4. Limit work in process. With fewer items open, a blocked item is visible at once.
+5. Remember Conway's law. If two teams must always coordinate, consider changing the team boundaries,
+   not only the plan.
+6. Review dependencies at every planning meeting, not only when something is blocked.
+
+## Common mistakes
+
+- Discovering a dependency when the work is already blocked.
+- A dependency without an owner or a date.
+- Starting everything at once, so blocked work stays hidden.
+- Shared code that every team changes, so every release needs everyone.
+
+## Example
+
+On 18 November three agents changed RelievApp's code at the same time: one rewrote the copy, one
+renamed the product, one built a way to give a session. The rename touched everyone's files, so the
+naming agent committed it and told the others. Each agent committed only its own changes, and one
+decision came back to the maker. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Quote
+  text="Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure."
+  who="Melvin Conway"
+  context="Conway's law, as quoted by Martin Fowler"
+/>

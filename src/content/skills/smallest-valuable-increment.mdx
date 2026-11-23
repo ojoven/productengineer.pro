@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Making sense of MVP, and why I prefer earliest testable, usable, lovable (Henrik Kniberg)
+    url: https://blog.crisp.se/2016/01/25/henrikkniberg/making-sense-of-mvp
+  - title: 'Vertical slicing: from initiative to user stories (Humanizing Work)'
+    url: https://www.humanizingwork.com/vertical-slicing-from-initiative-to-user-stories/
+---
+
+## Why it matters for a product engineer
+
+A layer of the stack is not something a user can use. The smallest valuable increment is: something a
+real user notices and uses, however small. It starts feedback while changes are still cheap, and it
+keeps the plan easy to change. Engineers find it by asking, at each step, what a user can do now that
+they could not do before.
+
+## How to do it
+
+1. Describe the problem and whom it affects. Then ask, as Henrik Kniberg does, "What is your
+   skateboard?": the smallest thing you can put in the hands of real users.
+2. Cut along the problem, not along the code: one region, one type of customer, one kind of case.
+3. Make each increment usable on its own, even if users still do the rest the old way.
+4. Give it to real users who know it is early, and collect what they say and do.
+5. Add the next case or region only when the current one works for its users.
+
+## Common mistakes
+
+- Increments that are technical layers: the database first, the interface last.
+- An increment so small that all the feedback is about what is missing.
+- One big release to everyone after years of work.
+- Waiting for perfect. Lego Universe had about 250 people for four to five years; it closed two years
+  after its release.
+
+## Example
+
+The Swedish police wanted laptops in their cars, with the systems officers need on the road. An
+earlier attempt had taken seven years to reach a first release. This time version 1.0 supported a
+couple of crime types and was tested by a handful of police in one region. Other cases were still done
+the old way, at the station.
+
+<Compare
+  title="Two releases of the same police system"
+  subjects={['PUST Java', 'PUST Siebel, the follow-up']}
+  highlight={0}
+  rows={[
+    { label: 'First users', values: ['A handful of police in one region', 'All 12,000 police at once'] },
+    { label: 'First scope', values: ['A couple of crime types', 'The whole next generation'] },
+    { label: 'Result', values: ['A calm national release', 'Shut down after half a year'], note: 'Siebel cost about €20M to build; internal studies put the cost to society near €1B' },
+  ]}
+  caption="The same police and the same kind of system. Small releases to real users worked; one big release did not."
+  evidence="reported"
+  source="Henrik Kniberg, who coached the project, 2016"
+/>
