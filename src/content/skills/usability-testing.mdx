@@ -1,0 +1,43 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Why you only need to test with 5 users (Jakob Nielsen, NN/g)
+    url: https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users/
+  - title: Usability (user) testing 101 (NN/g)
+    url: https://www.nngroup.com/articles/usability-testing-101/
+---
+
+## Why it matters for a product engineer
+
+What the team finds obvious is often not obvious to a new user. A usability test shows you where
+people get stuck, in their own hands, in an hour. For an engineer, a few sessions often explain a
+drop in a funnel better than another week of analytics, and show which fix is worth building.
+
+## How to do it
+
+1. Choose two or three tasks that matter, such as "share this document with an investor". Write them
+   as goals, not as instructions that name the buttons.
+2. Recruit people who match your users. Colleagues and friends know too much.
+3. Ask them to think aloud while they work. Stay quiet. Do not help, even when it hurts.
+4. Note where they hesitate, go back, misread a label or give up, and what they say at that moment.
+5. After each session, write the problems you saw, separate from your ideas for fixes.
+6. Fix the biggest problems and test again with new people. Several small rounds teach more than one
+   big study.
+
+<LineChart
+  title="Share of usability problems found, by number of test users"
+  x={['1', '2', '3', '4', '5', '6', '8', '10', '15']}
+  unit="%"
+  series={[{ name: 'Problems found', values: [31, 52, 67, 77, 84, 89, 95, 98, 100] }]}
+  caption="Each new user shows less that is new. Five find about 85%, so three rounds of five teach more than one round of fifteen."
+  evidence="reported"
+  source="Jakob Nielsen's model, with the average of 31% of problems found per user, NN/g"
+/>
+
+## Common mistakes
+
+- Leading the participant: "Now click the blue button".
+- Asking for opinions ("Do you like it?") instead of watching behaviour.
+- Testing with people who already know the product.
+- Waiting for a finished product before the first test.
+- Writing a long report nobody reads, instead of fixing the top problems.

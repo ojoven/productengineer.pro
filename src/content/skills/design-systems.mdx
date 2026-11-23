@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Atomic design (Brad Frost)
+    url: https://atomicdesign.bradfrost.com/
+---
+
+## Why it matters for a product engineer
+
+A design system turns design decisions into code that everyone reuses: colours, spacing, type,
+components and the rules for using them. It makes building faster and keeps the product consistent as
+it grows. Engineers usually own the code side, so the quality of the system depends on them. Today it
+also guides AI agents that write interface code, if the rules are written where they can read them.
+
+## How to do it
+
+1. Start from what the product already repeats. Collect the colours, sizes and components in use, and
+   remove the near-duplicates.
+2. Define tokens first: colour, space, type, radius, motion. Components use tokens, never raw values.
+3. Build the components the product needs now. Each one has its states: empty, loading, error,
+   disabled.
+4. Write the rules next to the components: when to use each one, and the words to use and avoid.
+5. Make the rules checkable. A linter or a script that fails on a raw colour does more than a page of
+   guidelines.
+6. Put the rules where agents read them too, such as the repository's instructions, so generated code
+   follows the system.
+
+## Common mistakes
+
+- Building a big library before the product needs it.
+- Components without their states, so each screen invents its own error.
+- A design file and a code library that slowly drift apart.
+- Rules nobody can find, or that nothing checks.
+- Treating the system as finished. It changes with the product.
+
+## Example
+
+RelievApp moved from a dark, serious look to flat colour and round shapes, so people would be happy to
+share it. Its rules are written for people and for agents: ten colours and no others, each with a
+meaning; one gesture per phase; nothing can be failed. Even the words have rules, such as no engine
+words like "particles", and a script checks them. Lev, the mascot, is the one character.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Shot
+  title="The front door at launch and on 18 November"
+  src="/img/fieldwork/relievapp-part-1/launch-vs-now.webp"
+  alt="Two phone screens side by side. Left, 14 October: a glowing sphere in a dark nebula and the headline Transition from distracted to focused. Right, 18 November: an iris blue page, Whatever you feel, feel better, and a deck of session cards"
+  frame="none"
+  width={1248}
+  height={1298}
+  pins={[
+    { x: 6, y: 4, note: '14 Oct: dark, a glass sphere, a category of its own.' },
+    { x: 56, y: 4, note: '18 Nov: flat colour, round shapes, a deck of sessions.' },
+  ]}
+  caption="The right screen follows written rules: ten colours with a meaning each, one gesture per phase, and words a script checks."
+/>

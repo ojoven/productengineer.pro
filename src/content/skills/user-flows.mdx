@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: User journeys vs. user flows (NN/g)
+    url: https://www.nngroup.com/articles/user-journeys-vs-user-flows/
+---
+
+## Why it matters for a product engineer
+
+A user flow is the steps, branches and end states of one task. It is close to how engineers already
+think about state machines. Drawing it before you build shows the missing states, the dead ends and the
+steps that do not need to exist, when changing them still costs nothing.
+
+## How to do it
+
+1. Pick one task with a clear start and a clear end, such as "cancel a subscription".
+2. Write the entry points: where people start the task from.
+3. Draw each step and each decision. For every decision, draw every branch, not only the happy one.
+4. Add the states engineers usually discover late: loading, empty, error, no permission, offline.
+5. Mark the end states, and check that each one leaves the user knowing what happened.
+6. Remove the steps that add nothing, then build from the diagram and keep it next to the code.
+
+## Common mistakes
+
+- Drawing only the happy path.
+- Forgetting the emails, notifications and other channels that are part of the flow.
+- Steps that exist because the data model needs them, not the user.
+- A flow drawn once and never updated after the code changes.
+
+## Example
+
+In Papermark, clicking "cancel" does not end in a cancellation. The flow offers a pause: three months
+at $0, with every link still working. Three days before billing resumes, an email says so. If a
+visitor opens a paused team's data room, the team gets an email that someone visited, with the details
+waiting until they unpause. ([Papermark in In practice](/in-practice/papermark/))
+
+<Flow
+  title="What the code does when a team pauses instead of cancelling"
+  motion={false}
+  nodes={[
+    { id: 'cancel', label: 'Clicks cancel', detail: 'Billing settings', col: 0, row: 0 },
+    { id: 'pause', label: 'Pauses', detail: '3 months at $0', col: 1, row: 0, tone: 'lit' },
+    { id: 'view', label: 'A visitor opens a room', detail: 'Links still work', col: 2, row: 0, kind: 'external' },
+    { id: 'mail', label: 'Email: someone visited', detail: 'Details after unpausing', col: 2, row: 1, tone: 'signal' },
+    { id: 'remind', label: 'Reminder', detail: '3 days before resuming', col: 1, row: 1 },
+    { id: 'resume', label: 'Billing resumes', detail: 'Automatically', col: 0, row: 1 },
+  ]}
+  edges={[
+    { from: 'cancel', to: 'pause' },
+    { from: 'pause', to: 'view', dashed: true },
+    { from: 'view', to: 'mail' },
+    { from: 'pause', to: 'remind' },
+    { from: 'remind', to: 'resume' },
+  ]}
+  caption="The flow has more than one end state, and an email is one of its steps. Drawing it shows both."
+  evidence="observed"
+  source="ee/features/billing/cancellation and components/emails in the repository, 17 Nov 2026"
+/>

@@ -222,13 +222,13 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 6 · Experience · 6 skills
 
-- [ ] `03.3.6` [Design systems](https://productengineer.pro/skills-map/experience/ui-design/design-systems/) · `design-systems` · search term; 1 In practice note; 1 resource
+- [x] `03.3.6` [Design systems](https://productengineer.pro/skills-map/experience/ui-design/design-systems/) · `design-systems` · search term; 1 In practice note; 1 resource
   - RelievApp: Written rules every session follows, for people and agents, with Lev as the one character. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `03.4.5` [Usability testing](https://productengineer.pro/skills-map/experience/prototyping/usability-testing/) · `usability-testing` · search term; has evidence, technicalLeverage, aiLeverage
-- [ ] `03.1.1` [Journey mapping](https://productengineer.pro/skills-map/experience/user-journeys/journey-mapping/) · `journey-mapping` · search term
-- [ ] `03.1.2` [User flows](https://productengineer.pro/skills-map/experience/user-journeys/user-flows/) · `user-flows` · search term; 1 resource
-- [ ] `03.1.5` [Information architecture](https://productengineer.pro/skills-map/experience/user-journeys/information-architecture/) · `information-architecture` · search term
-- [ ] `03.2.8` [AI interaction design](https://productengineer.pro/skills-map/experience/interaction-design/ai-interaction-design/) · `ai-interaction-design` · 1 In practice note; has evidence, technicalLeverage; 1 resource
+- [x] `03.4.5` [Usability testing](https://productengineer.pro/skills-map/experience/prototyping/usability-testing/) · `usability-testing` · search term; has evidence, technicalLeverage, aiLeverage
+- [x] `03.1.1` [Journey mapping](https://productengineer.pro/skills-map/experience/user-journeys/journey-mapping/) · `journey-mapping` · search term
+- [x] `03.1.2` [User flows](https://productengineer.pro/skills-map/experience/user-journeys/user-flows/) · `user-flows` · search term; 1 resource
+- [x] `03.1.5` [Information architecture](https://productengineer.pro/skills-map/experience/user-journeys/information-architecture/) · `information-architecture` · search term
+- [x] `03.2.8` [AI interaction design](https://productengineer.pro/skills-map/experience/interaction-design/ai-interaction-design/) · `ai-interaction-design` · 1 In practice note; has evidence, technicalLeverage; 1 resource
   - Mamitsu: Experiences augmented with AI have no settled patterns yet. ([entry](https://productengineer.pro/in-practice/mamitsu/))
 
 ### Batch 7 · Experience · 6 skills

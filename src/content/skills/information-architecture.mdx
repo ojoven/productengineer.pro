@@ -1,0 +1,45 @@
+---
+updated: 2026-11-23
+sources:
+  - title: When to use which user-experience research methods (NN/g)
+    url: https://www.nngroup.com/articles/which-ux-research-methods/
+---
+
+## Why it matters for a product engineer
+
+Information architecture decides how features and content are grouped, named and connected. If people
+cannot find a feature, for them it does not exist. Engineers turn the structure into routes, menus,
+URLs and data models, so a weak structure costs twice: confused users and code that is hard to change.
+
+## How to do it
+
+1. List everything the product contains: pages, features, settings, types of content.
+2. Ask users to group and name them (card sorting). Their groups often differ from the team's.
+3. Choose one main way to organise: by task, by object, by audience or by question. Mixing several at
+   the same level confuses people.
+4. Name each group with the words users use, and use one word for one concept everywhere.
+5. Test the structure without visual design (tree testing): give people a task and see where they
+   look for it.
+6. Turn it into stable URLs and navigation, and add links across groups for things that belong to
+   more than one.
+
+## Common mistakes
+
+- Copying the company's org chart into the menu.
+- Internal names that users do not know.
+- Putting the same item in several places instead of linking to one.
+- Deep menus with many levels.
+- Changing URLs every time the structure changes.
+
+## Example
+
+This site's Skills Map has 350 skills in three levels: 12 territories, 72 capabilities, and the
+skills. Each territory is grouped by the question it answers, such as "Can users understand, use and
+benefit from the solution?", not by job title or tool. Each skill has one home and one URL that
+follows the levels, and related skills link across territories.
+
+<Territories
+  all
+  title="The twelve territories of the Skills Map"
+  caption="One level of groups, each named by the question it answers. Everything else hangs from it."
+/>

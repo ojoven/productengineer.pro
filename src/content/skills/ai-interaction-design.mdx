@@ -1,0 +1,63 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Getting code suggestions in your IDE with GitHub Copilot (GitHub Docs)
+    url: https://docs.github.com/en/copilot/how-tos/get-code-suggestions/get-ide-code-suggestions
+  - title: Mental models for AI products (Google People + AI Research)
+    url: https://pair.withgoogle.com/chapter/mental-models/
+---
+
+## Why it matters for a product engineer
+
+AI output is sometimes wrong, and it looks just as confident when it is. The interface has to make
+that safe: people must see what the system will do, judge it, and stay in control. For a product
+engineer the design is in the interaction, not in the model: what is a suggestion and what is done,
+and how easily a person can say no.
+
+## How to do it
+
+1. Tell people what the feature can do and where it fails, before they rely on it.
+2. Make the status of AI output visible. A suggestion should look different from accepted work.
+3. Make accepting a deliberate act, and rejecting cost nothing.
+4. Let people take part of an answer, ask for another one, or edit it.
+5. For actions with effects, such as sending, paying or deleting, show what will happen and ask before
+   doing it. Make it possible to stop and undo.
+6. Show where an answer came from when people need to check it.
+
+## Common mistakes
+
+- Presenting a guess in the same style as a fact.
+- AI actions with effects that happen without a confirmation.
+- Only one answer, with no way to ask again or edit.
+- Hiding the AI, so people do not know what to check.
+- Copying a pattern from a lab's product that changes every few weeks. Mamitsu's maker notes these
+  patterns are not settled yet.
+
+## Example
+
+GitHub Copilot's code suggestions are a clear pattern for uncertain output. A suggestion appears as
+grey text that is not yet code. Pressing Tab accepts it. Typing on ignores it. People can see other
+suggestions, accept part of one, and always edit the result. The suggestion never becomes code without
+a deliberate key press.
+
+<Flow
+  title="A code suggestion in GitHub Copilot, from grey text to code"
+  stages={['Suggest', 'Decide', 'Result']}
+  nodes={[
+    { id: 'type', label: 'You type', detail: 'Code or a comment', col: 0, row: 0 },
+    { id: 'grey', label: 'Grey text', detail: 'A suggestion, not code', col: 1, row: 0, tone: 'lit' },
+    { id: 'tab', label: 'Tab', detail: 'Accepted, still editable', col: 2, row: 0 },
+    { id: 'other', label: 'Another one', detail: 'Next suggestion', col: 1, row: 1 },
+    { id: 'ignore', label: 'Keep typing', detail: 'Suggestion gone', col: 2, row: 1 },
+  ]}
+  edges={[
+    { from: 'type', to: 'grey' },
+    { from: 'grey', to: 'tab', label: 'Accept' },
+    { from: 'grey', to: 'ignore', label: 'Reject' },
+    { from: 'grey', to: 'other', dashed: true },
+    { from: 'other', to: 'grey', dashed: true },
+  ]}
+  caption="Accepting takes one deliberate key. Rejecting takes nothing at all."
+  evidence="reported"
+  source="GitHub Docs, 'Getting code suggestions in your IDE with GitHub Copilot'"
+/>
