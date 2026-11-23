@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Use the index, Luke (Markus Winand)
+    url: https://use-the-index-luke.com/
+  - title: Designing data-intensive applications (Martin Kleppmann)
+    url: https://dataintensive.net/
+  - title: How Figma's databases team lived to tell the scale (Sammy Steele, Figma)
+    url: https://www.figma.com/blog/how-figmas-databases-team-lived-to-tell-the-scale/
+---
+
+## Why it matters for a product engineer
+
+Most products are well served by one relational database, with a document, key-value or search store
+for specific needs. Knowing indexes, transactions and query plans prevents most performance problems.
+Simple, well-known storage choices are usually right, because the team already knows how they fail and
+how to fix them.
+
+## How to do it
+
+1. Start with one relational database, such as Postgres, unless you have a clear reason not to.
+2. Add an index for each frequent query, and check the plan to see that it is used.
+3. Use transactions for changes that must happen together, such as an order and its payment.
+4. Add caching, read replicas or a specialised store only when a measurement shows the need.
+5. Back up automatically, and test a restore. A backup you have never restored is a hope.
+6. Watch the limits that come with growth: table size, writes per second and maintenance jobs.
+
+## Common mistakes
+
+- A new database technology for each feature.
+- No indexes until the product is slow in production.
+- Backups that nobody has restored.
+- Splitting the database across many servers years before the load needs it.
+
+## Example
+
+In 2020 Figma ran on one Postgres database, on the largest instance AWS offered. As the database
+stack grew almost 100 times, the team added caching and read replicas, then split related tables into
+about a dozen databases. Only when single tables reached several terabytes did it start horizontal
+sharding, and it kept the option to roll back.
+
+<Timeline
+  title="How Figma scaled Postgres, one step at a time"
+  events={[
+    { when: '2020', title: 'One Postgres database', note: "On AWS's largest physical instance", kind: 'decision' },
+    { when: 'By end of 2022', title: 'Caching, read replicas, a dozen databases', note: 'Related tables, such as files or organisations, moved together', kind: 'ship' },
+    { when: 'Late 2022', title: 'Single tables too large', note: 'Several terabytes and billions of rows', kind: 'problem' },
+    { when: 'Nine months later', title: 'Horizontal sharding on the same Postgres', note: 'With a way back to the unsharded setup', kind: 'result' },
+  ]}
+  caption="Each step came when a measured limit was near, not before. The team stayed on technology it already knew how to run."
+  evidence="reported"
+  source="Figma engineering blog, 14 Mar 2024"
+/>

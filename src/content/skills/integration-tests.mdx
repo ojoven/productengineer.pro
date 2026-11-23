@@ -1,0 +1,62 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The testing trophy and testing classifications (Kent C. Dodds)
+    url: https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications
+  - title: The practical test pyramid (Ham Vocke)
+    url: https://martinfowler.com/articles/practical-test-pyramid.html
+  - title: Goodbye microservices (Alexandra Noonan, Twilio Segment)
+    url: https://www.twilio.com/en-us/blog/developers/best-practices/goodbye-microservices
+---
+
+## Why it matters for a product engineer
+
+Integration tests check that parts work together: the code with the database, the API with its
+handler, the app with a partner's service. Many bugs live at these boundaries, where unit tests cannot
+see them. Integration tests are slower than unit tests, but they often give more confidence per test.
+Kent C. Dodds sums it up: "Write tests. Not too many. Mostly integration."
+
+## How to do it
+
+1. Test a feature through its real entry point, such as an HTTP route or a command, with a real
+   database.
+2. Replace only what you do not control, such as third-party APIs, and keep the rest real.
+3. Record real responses from external services once, and replay them in tests.
+4. Give each test its own data, so tests can run in any order and in parallel.
+5. Assert on what a user or caller would see: the response, the saved record, the email sent.
+6. Keep the slowest tests out of the main loop if they block people, but keep them in CI.
+
+## Common mistakes
+
+- Mocking so much that the test only checks the mocks.
+- Tests that call a live third-party API, and fail when it is slow.
+- Shared test data, so one test breaks another.
+- Only unit tests, and every bug found at the boundaries in production.
+
+## Example
+
+Segment sends events to over 140 destinations, each a partner API. Its tests used to call those APIs
+over the internet. These calls were the main cause of failing tests, some destinations took up to five
+minutes, and the whole suite up to an hour.
+The team built Traffic Recorder: the first run records each request and response to a file in the
+repository, and later runs replay the file.
+
+<Sequence
+  title="How Segment's Traffic Recorder runs a test"
+  actors={[
+    { id: 'test', label: 'Test' },
+    { id: 'rec', label: 'Traffic Recorder' },
+    { id: 'api', label: 'Partner API', kind: 'external' },
+  ]}
+  messages={[
+    { from: 'test', to: 'rec', label: 'Request, first run' },
+    { from: 'rec', to: 'api', label: 'Real request' },
+    { from: 'api', to: 'rec', label: 'Response, saved to a file', kind: 'reply' },
+    { from: 'rec', to: 'test', label: 'Response', kind: 'reply' },
+    { from: 'test', to: 'rec', label: 'Request, later runs' },
+    { from: 'rec', to: 'test', label: 'Replayed from the file', kind: 'reply', tone: 'signal' },
+  ]}
+  caption="After the change, the tests for all 140+ destinations ran in milliseconds, and expired credentials or a slow partner no longer failed them."
+  evidence="reported"
+  source="Twilio Segment, 'Goodbye microservices'"
+/>

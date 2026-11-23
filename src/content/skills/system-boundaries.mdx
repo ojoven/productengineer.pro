@@ -44,7 +44,7 @@ reaches the API as one exported file, so the two sides can change separately.
   nodes={[
     { id: 'reader', label: 'Any reader', detail: 'No account', col: 0, row: 0 },
     { id: 'pages', label: 'Static pages', detail: 'Built in advance', col: 1, row: 0 },
-    { id: 'content', label: 'Skills data', detail: 'In the repository', col: 2, row: 0, kind: 'store' },
+    { id: 'content', label: 'Skills data', detail: 'Builds the pages', col: 2, row: 0, kind: 'store' },
     { id: 'signed', label: 'Signed in', detail: 'Syncs progress', col: 0, row: 1 },
     { id: 'api', label: 'Small API', detail: 'Accounts, progress', col: 1, row: 1, tone: 'lit' },
     { id: 'db', label: 'Database', detail: 'Accounts, progress', col: 2, row: 1, kind: 'store' },
@@ -52,14 +52,13 @@ reaches the API as one exported file, so the two sides can change separately.
   ]}
   edges={[
     { from: 'reader', to: 'pages' },
-    { from: 'content', to: 'pages', label: 'Build' },
-    { from: 'content', to: 'api', label: 'Export', dashed: true },
+    { from: 'content', to: 'api', dashed: true },
     { from: 'signed', to: 'api' },
     { from: 'agent', to: 'api', label: 'MCP' },
     { from: 'api', to: 'db' },
   ]}
   motion={false}
-  caption="The line follows what needs a server. Content crosses it as one exported file, so the API never reads the site's source."
+  caption="The line follows what needs a server. Content reaches the API as one exported file (the dashed line), so the API never reads the site's source."
   evidence="observed"
   source="productengineer.pro, the API notes and deploy setup, Nov 2026"
 />

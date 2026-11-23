@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The practical test pyramid (Ham Vocke)
+    url: https://martinfowler.com/articles/practical-test-pyramid.html
+  - title: 'Handling flaky tests at scale: auto detection and suppression (Slack Engineering)'
+    url: https://slack.engineering/handling-flaky-tests-at-scale-auto-detection-suppression/
+---
+
+## Why it matters for a product engineer
+
+End-to-end tests use the product the way a person does: through the interface, with the whole stack
+behind it. They are the closest to real use, and the most fragile. A few tests on the paths that must
+never break, such as sign-up, sign-in and payment, give most of the value. Many more of them slow the
+team down and teach people to ignore red builds.
+
+## How to do it
+
+1. Choose the critical paths: where a failure costs money, data or trust.
+2. Write one test per path, from the user's first step to the result they came for.
+3. Find elements the way users do, by role and visible text, not by CSS classes.
+4. Wait for conditions, such as a message on screen, never for a fixed time.
+5. Give each run its own account and data, and clean them up.
+6. Track flaky tests. Fix or remove a test that fails without a real bug.
+
+## Common mistakes
+
+- Testing every edge case end to end, when a unit or integration test would do.
+- Fixed sleeps that pass on a fast machine and fail in CI.
+- Rerunning failures until they pass, so real bugs hide among flaky ones.
+- Tests that depend on each other's data.
+
+## Example
+
+At Slack, mobile developers had 16,000+ automated tests on Android and 11,000+ on iOS. In July 2020,
+only 19.8% of builds on the main branch passed, and 56.8% of test jobs failed, often because of flaky
+tests. End-to-end tests were the flakiest. The team built a system that finds flaky and failing tests,
+suppresses them and opens a ticket for the owner. By February 2021, main branch builds passed 96% of
+the time.
+
+<StatRow
+  title="Slack's mobile builds before and after automatic handling of flaky tests"
+  stats={[
+    { value: 56.8, unit: '%', label: 'Test jobs failing, Jul 2020' },
+    { value: 3.9, unit: '%', label: 'Test jobs failing, Feb 2021' },
+    { value: '19.8 → 96', unit: '%', label: 'Main branch builds passing', signal: true },
+  ]}
+  caption="Flaky tests had made red builds normal. Removing them from the signal, with an owner to fix each one, made a red build mean something again."
+  evidence="measured"
+  source="Slack Engineering, 5 Apr 2022"
+/>

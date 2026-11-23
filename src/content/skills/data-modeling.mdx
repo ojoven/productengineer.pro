@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Designing data-intensive applications (Martin Kleppmann)
+    url: https://dataintensive.net/
+  - title: Online migrations at scale (Jacqueline Xu, Stripe)
+    url: https://stripe.com/blog/online-migrations
+---
+
+## Why it matters for a product engineer
+
+The data model decides what the product can do easily and what it can barely do at all. A good model
+reflects the domain, enforces the important rules and supports the main queries. It is one of the
+hardest things to change later, because data outlives the code that wrote it. So it deserves thought
+before the first table, and again each time the product's main question changes.
+
+## How to do it
+
+1. Name the entities in the product's own words, and the relationships between them: one to one, one
+   to many, many to many.
+2. List the main questions the product must answer, and check that the model answers them without
+   scanning everything.
+3. Give each thing that changes on its own its own table or record. If one change rewrites a large
+   record, the model is too coarse.
+4. Put the important rules in the database: required fields, unique values, foreign keys.
+5. Record where data came from and who may see it, especially if it feeds an AI system.
+6. Expect change. Leave room to add fields and relationships without moving all the data.
+
+## Common mistakes
+
+- Modelling the first screen instead of the domain.
+- A list stored inside another record, so changing one item rewrites the whole record.
+- Free text where the product needs a fixed set of values.
+- No owner for a field, so nobody knows what it means.
+
+## Example
+
+At first, each Stripe customer had at most one subscription, stored inside the customer record. When
+users wanted several subscriptions, it became a list inside the customer. As subscriptions gained
+trials, coupons and invoices, every change to one subscription rewrote the whole customer. Stripe
+moved subscriptions into their own table, which meant migrating hundreds of millions of objects
+without downtime.
+
+<Compare
+  title="Three ways Stripe stored subscriptions"
+  subjects={['One field', 'A list in the customer', 'Own table']}
+  rows={[
+    { label: 'Several per customer', values: [false, true, true] },
+    { label: 'Change one subscription', values: ['Rewrite the customer', 'Rewrite the customer', 'Update one record'] },
+    { label: 'Query subscriptions', values: ['Scan customers', 'Scan customers', 'Query one table'] },
+  ]}
+  highlight={2}
+  caption="Each model was right for the product of its time. The cost came from keeping the old shape after the product changed."
+  evidence="reported"
+  source="Jacqueline Xu, 'Online migrations at scale', Stripe, 2 Feb 2017"
+/>

@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The practical test pyramid (Ham Vocke)
+    url: https://martinfowler.com/articles/practical-test-pyramid.html
+  - title: The testing trophy and testing classifications (Kent C. Dodds)
+    url: https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications
+  - title: Goto fail, Heartbleed, and unit testing culture (Mike Bland)
+    url: https://martinfowler.com/articles/testing-culture.html
+---
+
+## Why it matters for a product engineer
+
+Automated tests let a team change code with confidence, and ship small changes often. The useful ones
+test behaviour, not implementation details, and run fast enough that people run them all the time. For
+a product engineer, tests are also a record of what the product promises: what must keep working after
+every change.
+
+## How to do it
+
+1. Start each test from a behaviour someone relies on, in the words of the product.
+2. Test through the public interface of a unit, not its private details, so refactoring does not
+   break the test.
+3. Cover the edges: empty input, the limit, the wrong type, the failure of a dependency.
+4. Keep the suite fast. Run it on every change, locally and in CI.
+5. When you fix a bug, first write the test that fails because of it.
+6. Delete tests that break on every refactor but have never caught a bug.
+
+## Common mistakes
+
+- Tests that repeat the implementation line by line.
+- Only the happy path tested, while the bugs live in error handling.
+- A slow suite that people skip.
+- Tests written after the code, only to reach a coverage number.
+
+## Example
+
+Apple's "goto fail" bug shipped in September 2012 and was fixed in February 2014, 17 months later. One
+duplicated line skipped the last step of checking a secure connection, so a forged certificate could
+pass. Mike Bland argues that the block was a clear unit: extracted into a function and tested with one
+bad input, it would have failed at once.
+
+<Anatomy
+  title="The lines behind Apple's goto fail bug"
+  as="prompt"
+  parts={[
+    { text: 'if ((err = SSLHashSHA1.update(&hashCtx, &signedParams)) != 0)\n', label: 'A check', note: 'Jump to the end only if there is an error' },
+    { text: '    goto fail;\n', label: 'Bound to the if', note: 'Runs only on an error' },
+    { text: '    goto fail;\n', label: 'The bug', note: 'Always runs, with no error set, so the result is success', kind: 'signal' },
+    { text: 'if ((err = SSLHashSHA1.final(&hashCtx, &hashOut)) != 0)', label: 'Never reached', note: 'Nor the verification after it' },
+  ]}
+  caption="The indentation suggests both lines belong to the if. Only a test of the behaviour, with a bad signature, would show the code passing anyway."
+  evidence="reported"
+  source="Mike Bland, 'Goto fail, Heartbleed, and unit testing culture', martinfowler.com"
+/>

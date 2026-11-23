@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Designing data-intensive applications (Martin Kleppmann)
+    url: https://dataintensive.net/
+  - title: Designing robust and predictable APIs with idempotency (Brandur Leach, Stripe)
+    url: https://stripe.com/blog/idempotency
+  - title: Idempotent requests (Stripe API reference)
+    url: https://docs.stripe.com/api/idempotent_requests
+---
+
+## Why it matters for a product engineer
+
+Consistency problems appear when two writes happen at once, when a cache is out of date, or when a
+request fails halfway and someone tries again. Users see them as lost work, a double charge or numbers
+that do not add up. Transactions, constraints and idempotency are the main tools, and engineers decide
+where each one is needed.
+
+## How to do it
+
+1. List the operations that must never happen twice, such as a payment, an email or an order.
+2. Make each one idempotent: the client sends a unique key, and the server returns the saved result
+   when the same key comes again.
+3. Use a transaction when several changes must succeed or fail together.
+4. Use constraints, such as unique keys, so the database rejects a duplicate even if the code misses
+   it.
+5. Decide how stale each cached value may be, and show the user when data may be old.
+6. For two writers, choose a rule: lock, reject the second one, or merge, and write the rule down.
+
+## Common mistakes
+
+- Retrying a payment request without an idempotency key.
+- A check followed by a write, with no transaction between them, so two requests both pass the check.
+- Caches with no plan for when the data changes.
+- Assuming that a timeout means the operation did not happen.
+
+## Example
+
+Networks fail in ambiguous ways: a request can succeed on the server while the response never
+arrives. Stripe's API lets clients send an `Idempotency-Key` header with each request that changes
+something. Stripe saves the first result for that key, so a retry gets the same answer instead of a
+second charge.
+
+<Sequence
+  title="A payment retried safely with an idempotency key"
+  actors={[
+    { id: 'client', label: 'Your server' },
+    { id: 'stripe', label: 'Stripe API', kind: 'external' },
+  ]}
+  messages={[
+    { from: 'client', to: 'stripe', label: 'Charge, key A1' },
+    { from: 'stripe', to: 'client', label: 'Charged, but the reply is lost', kind: 'reply' },
+    { from: 'client', to: 'stripe', label: 'Retry: charge, key A1' },
+    { from: 'stripe', to: 'client', label: 'The saved result, no new charge', kind: 'reply', tone: 'signal' },
+  ]}
+  caption="The client cannot know whether the first request worked. With the key, retrying is always safe."
+  evidence="reported"
+  source="Stripe engineering blog, 22 Feb 2017, and the Stripe API reference"
+/>

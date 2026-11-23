@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Evolutionary database design (Pramod Sadalage and Martin Fowler)
+    url: https://martinfowler.com/articles/evodb.html
+  - title: Parallel change (Danilo Sato)
+    url: https://martinfowler.com/bliki/ParallelChange.html
+  - title: Avoiding downtime in migrations (GitLab)
+    url: https://docs.gitlab.com/development/database/avoiding_downtime_in_migrations/
+---
+
+## Why it matters for a product engineer
+
+Migrations change the database schema in versioned steps, next to the code that uses it. During a
+deploy, old code and new code run at the same time against the same database. A safe migration works
+with both, does not lock a busy table, and can stop halfway. Product engineers write most migrations,
+so this decides whether shipping a feature can take the product down.
+
+## How to do it
+
+1. Keep every schema change in a versioned migration file, reviewed like code.
+2. Expand first: add the new column or table without removing anything.
+3. Migrate: write to both, backfill old rows in small batches, then move reads to the new place.
+4. Contract last: remove the old column only when no running code uses it.
+5. Split destructive steps across separate deploys, so each one can be rolled back.
+6. Test the migration on a copy of production data, and time it.
+
+## Common mistakes
+
+- Renaming or dropping a column in the same deploy as the code change.
+- A backfill of millions of rows in one transaction.
+- Adding an index in a way that locks the table on a large database.
+- Migrations that work on an empty development database only.
+
+## Example
+
+GitLab's rule for dropping a column takes three releases. First, the code ignores the column, so
+nothing reads or writes it. In the next release, a migration that runs after the deploy drops it. In
+the release after that, the ignore rule is removed. Dropping a column cannot easily be rolled back, so
+no release combines these steps.
+
+<Timeline
+  title="Dropping a column at GitLab, using its own example"
+  events={[
+    { when: 'Release 12.5', title: 'Ignore the column', note: 'Remove every reference in the code', kind: 'decision' },
+    { when: 'Release 12.6', title: 'Drop the column', note: 'In a migration that runs after the deploy', kind: 'ship' },
+    { when: 'Release 12.7', title: 'Remove the ignore rule', note: 'The column is gone everywhere', kind: 'result' },
+  ]}
+  caption="Old and new code never disagree about the column, because each release changes only one side."
+  evidence="reported"
+  source="GitLab development docs, Avoiding downtime in migrations"
+/>

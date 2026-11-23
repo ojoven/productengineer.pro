@@ -529,16 +529,16 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 25 · Engineering · 10 skills
 
-- [ ] `04.3.1` [Data modeling](https://productengineer.pro/skills-map/engineering/data-engineering/data-modeling/) · `data-modeling` · has evidence, technicalLeverage; 1 resource
-- [ ] `04.3.2` [SQL](https://productengineer.pro/skills-map/engineering/data-engineering/sql/) · `sql` · 1 resource
-- [ ] `04.3.3` [Databases and persistence](https://productengineer.pro/skills-map/engineering/data-engineering/databases/) · `databases` · map coverage
-- [ ] `04.3.4` [Consistency](https://productengineer.pro/skills-map/engineering/data-engineering/data-consistency/) · `data-consistency` · 1 resource
-- [ ] `04.3.5` [Schema migrations](https://productengineer.pro/skills-map/engineering/data-engineering/schema-migrations/) · `schema-migrations` · map coverage
-- [ ] `04.3.6` [Data integrity](https://productengineer.pro/skills-map/engineering/data-engineering/data-integrity/) · `data-integrity` · 1 resource
-- [ ] `04.4.1` [Automated testing](https://productengineer.pro/skills-map/engineering/engineering-quality/automated-testing/) · `automated-testing` · has evidence, technicalLeverage, aiLeverage
-- [ ] `04.4.2` [Integration tests](https://productengineer.pro/skills-map/engineering/engineering-quality/integration-tests/) · `integration-tests` · map coverage
-- [ ] `04.4.3` [End-to-end tests](https://productengineer.pro/skills-map/engineering/engineering-quality/end-to-end-tests/) · `end-to-end-tests` · 1 resource
-- [ ] `04.4.5` [Debugging](https://productengineer.pro/skills-map/engineering/engineering-quality/debugging/) · `debugging` · has evidence, technicalLeverage, aiLeverage; 1 resource
+- [x] `04.3.1` [Data modeling](https://productengineer.pro/skills-map/engineering/data-engineering/data-modeling/) · `data-modeling` · has evidence, technicalLeverage; 1 resource
+- [x] `04.3.2` [SQL](https://productengineer.pro/skills-map/engineering/data-engineering/sql/) · `sql` · 1 resource
+- [x] `04.3.3` [Databases and persistence](https://productengineer.pro/skills-map/engineering/data-engineering/databases/) · `databases` · map coverage
+- [x] `04.3.4` [Consistency](https://productengineer.pro/skills-map/engineering/data-engineering/data-consistency/) · `data-consistency` · 1 resource
+- [x] `04.3.5` [Schema migrations](https://productengineer.pro/skills-map/engineering/data-engineering/schema-migrations/) · `schema-migrations` · map coverage
+- [x] `04.3.6` [Data integrity](https://productengineer.pro/skills-map/engineering/data-engineering/data-integrity/) · `data-integrity` · 1 resource
+- [x] `04.4.1` [Automated testing](https://productengineer.pro/skills-map/engineering/engineering-quality/automated-testing/) · `automated-testing` · has evidence, technicalLeverage, aiLeverage
+- [x] `04.4.2` [Integration tests](https://productengineer.pro/skills-map/engineering/engineering-quality/integration-tests/) · `integration-tests` · map coverage
+- [x] `04.4.3` [End-to-end tests](https://productengineer.pro/skills-map/engineering/engineering-quality/end-to-end-tests/) · `end-to-end-tests` · 1 resource
+- [x] `04.4.5` [Debugging](https://productengineer.pro/skills-map/engineering/engineering-quality/debugging/) · `debugging` · has evidence, technicalLeverage, aiLeverage; 1 resource
 
 ### Batch 26 · Engineering · 9 skills
 

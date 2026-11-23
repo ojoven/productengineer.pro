@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: A debugging manifesto (Julia Evans)
+    url: https://jvns.ca/blog/2022/12/08/a-debugging-manifesto/
+  - title: The case of the 500-mile email (Trey Harris)
+    url: https://www.ibiblio.org/harris/500milemail.html
+---
+
+## Why it matters for a product engineer
+
+Good debugging is a method: reproduce the problem, form a hypothesis, test it, and narrow down. It is
+faster than guessing, and it finds the real cause instead of hiding it. A product engineer debugs
+across the interface, the services and the data, and the same habit, evidence before fixes, works for
+product problems too.
+
+## How to do it
+
+1. Reproduce the problem, and write down the exact steps. A bug you cannot reproduce is still a
+   question.
+2. Read the actual error message and the logs before you form a theory.
+3. Ask what changed: a deploy, a dependency, a configuration, the data.
+4. Form one hypothesis at a time, and design a test that could prove it wrong.
+5. Narrow down: bisect the commits, the input or the configuration until one change explains it.
+6. Understand the cause before you fix it. Then add a test, so it cannot return quietly.
+
+## Common mistakes
+
+- Changing several things at once, so you never learn which one mattered.
+- Fixing the symptom, such as catching an exception, without knowing the cause.
+- Trusting a report's explanation instead of its facts.
+- Blaming the platform before checking your own code. Julia Evans finds the bug is her own "95% of the
+  time".
+
+## Example
+
+In Trey Harris's well-known story, a university department could not send email further than about 500
+miles. He reproduced it: Princeton, 400 miles, worked; Memphis, 600 miles, failed. A server update had
+installed an older mail program that ignored his configuration and set the connection timeout to zero.
+That aborts a connection in about three milliseconds, the time light needs to travel about 558 miles.
+
+<Loop
+  title="The 500-mile email, as a debugging method"
+  center="The 500-mile email"
+  sub="2002"
+  stages={[
+    { label: 'Reproduce', note: '400 miles worked, 600 miles failed' },
+    { label: 'What changed?', note: 'A consultant had updated the server' },
+    { label: 'Test a hypothesis', note: 'The configuration file was not altered' },
+    { label: 'Look closer', note: 'The server answered with an older mail program' },
+    { label: 'Explain all the facts', note: 'Timeout zero: about 3 ms, about 558 miles', tone: 'signal' },
+  ]}
+  caption="The report sounded impossible, but it was a measurement. Taking it seriously, and reproducing it, led straight to the cause."
+  evidence="reported"
+  source="Trey Harris, post to the SAGE mailing list, 24 Nov 2002"
+/>

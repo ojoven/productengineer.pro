@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Evolutionary database design (Pramod Sadalage and Martin Fowler)
+    url: https://martinfowler.com/articles/evodb.html
+  - title: Gene name errors are widespread in the scientific literature (Ziemann, Eren and El-Osta, Genome Biology, 2016)
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC4994289/
+---
+
+## Why it matters for a product engineer
+
+Integrity comes from constraints, validation, foreign keys and careful backfills. Bad data spreads: into
+analytics, emails, invoices and decisions. Once it is copied into other systems, nobody can find all of
+it. It is much cheaper to prevent than to clean up, and most prevention is a few lines in the schema.
+
+## How to do it
+
+1. Define the rules in the database: `NOT NULL`, unique keys, foreign keys and check constraints.
+2. Validate at the edge too, so users get a clear message, but do not rely on the edge alone.
+3. Store values in their real types: dates as dates, money as integers in the smallest unit, codes as
+   text.
+4. Never let a tool guess types for you on import. Declare them.
+5. Run backfills in batches, check the counts before and after, and keep the old values until you are
+   sure.
+6. Add checks that alert you when data breaks a rule that the schema cannot express.
+
+## Common mistakes
+
+- Rules only in the application, so a script or a second service skips them.
+- Free text for values that should come from a fixed list.
+- Imports through spreadsheets that convert values silently.
+- Deleting rows that other tables still point to.
+
+## Example
+
+Spreadsheet software can change gene names on import: SEPT2 becomes "2-Sep" and MARCH1 becomes
+"1-Mar". In 2016, researchers scanned the Excel files published with papers in 18 journals from 2005 to
+2015. Of 3,597 papers with gene lists, 704 had such errors. The wrong names went out with the published papers.
+
+<StatRow
+  title="Papers with gene lists in Excel files, 18 journals, 2005 to 2015"
+  stats={[
+    { value: '3,597', label: 'Papers with gene lists' },
+    { value: 704, label: 'With gene names turned into dates or numbers' },
+    { value: 19.6, unit: '%', label: 'Of those papers affected', signal: true },
+  ]}
+  caption="The tool guessed a type, and nothing in the process checked the guess. A declared type at import would have stopped it."
+  evidence="measured"
+  source="Ziemann, Eren and El-Osta, Genome Biology, 2016"
+/>

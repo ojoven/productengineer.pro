@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Use the index, Luke (Markus Winand)
+    url: https://use-the-index-luke.com/
+  - title: 'Results of the SQL performance quiz: 60% fail (Markus Winand)'
+    url: https://use-the-index-luke.com/blog/2014-02/results-three-minutes-sql-performance-quiz
+---
+
+## Why it matters for a product engineer
+
+SQL is the common language of data, from the product database to the analytics warehouse. A product
+engineer uses it to build features and to answer product questions without waiting for an analyst:
+how many teams used the new export, where a funnel drops, which accounts are about to churn. Joins,
+aggregations and window functions cover most needs.
+
+## How to do it
+
+1. Start from the question in plain words, then write the query that answers it.
+2. Check the numbers on a small case you can count by hand before you trust the total.
+3. Learn joins well. Most wrong answers come from a join that silently duplicates or drops rows.
+4. Use window functions for running totals, rankings and "the first event per user".
+5. Read the query plan for anything that runs often, and check that it uses an index.
+6. Keep useful queries in the repository, with a sentence on what they answer.
+
+## Common mistakes
+
+- Functions on an indexed column in the `WHERE` clause, which stop the index from being used.
+- `LIKE '%term%'` for search. A leading wildcard cannot use a normal index.
+- Counting rows after a join that multiplied them.
+- Analysis queries on the production database at peak time.
+
+## Example
+
+Markus Winand's three-minute SQL quiz had been taken more than 28,000 times by 2014, and 60% of people
+failed it. The first question shows an index on a date column and a query that filters on the year,
+using a function on that column. Only about two thirds saw that the function stops the index from
+being used. MySQL users scored 55%, close to guessing. PostgreSQL users scored 83%.
+
+<Compare
+  title="Finding the rows of 2012 with an index on date_column"
+  subjects={['A function on the column', 'A range on the column']}
+  rows={[
+    { label: 'The condition', values: ["TO_CHAR(date_column, 'YYYY') = '2012'", "date_column >= '2012-01-01' AND date_column < '2013-01-01'"] },
+    { label: 'Uses the index', values: [false, true] },
+    { label: 'Also works for', values: ['Whole years only', 'Any range: a week, a month'] },
+  ]}
+  highlight={1}
+  caption="Both queries return the same rows. Only the second lets the database use the index, and it needs no new index."
+  evidence="reported"
+  source="Markus Winand, Use the index, Luke, 20 Feb 2014"
+/>
