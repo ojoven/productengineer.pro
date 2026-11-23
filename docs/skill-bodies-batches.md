@@ -170,35 +170,35 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 4 · Strategy · 10 skills
 
-- [ ] `02.7.2` [Pricing](https://productengineer.pro/skills-map/strategy/business-models/pricing/) · `pricing` · search term; 3 In practice notes
+- [x] `02.7.2` [Pricing](https://productengineer.pro/skills-map/strategy/business-models/pricing/) · `pricing` · search term; 3 In practice notes
   - Mamitsu: Prepaid credits that do not expire, several times cheaper per video than Supadata. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: Two accounts free with no card, then $6, $3 and $1 a month per account as the volume grows. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: Flat monthly plans with three users included, against DocSend's price per user. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `02.1.4` [Differentiation](https://productengineer.pro/skills-map/strategy/product-vision/differentiation/) · `differentiation` · 3 In practice notes
+- [x] `02.1.4` [Differentiation](https://productengineer.pro/skills-map/strategy/product-vision/differentiation/) · `differentiation` · 3 In practice notes
   - Mamitsu: The model gets the raw video, not a transcript, and the answer comes back in the same request. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Papermark: The customer's domain and brand on every link and room, where incumbents show their own. ([entry](https://productengineer.pro/in-practice/papermark/))
   - RelievApp: Eyes open, hands on, two minutes, against products you listen to. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `02.2.2` [Competitive advantage](https://productengineer.pro/skills-map/strategy/product-positioning/competitive-advantage/) · `competitive-advantage` · 3 In practice notes; 1 resource
+- [x] `02.2.2` [Competitive advantage](https://productengineer.pro/skills-map/strategy/product-positioning/competitive-advantage/) · `competitive-advantage` · 3 In practice notes; 1 resource
   - Mamitsu: A product built on the labs' models, or for their agents, can be copied when a lab ships it as a feature. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: Endpoints are easy to copy, by his own account; approved apps, quotas and platform relationships are not. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: Nobody can undercut a free core, and anyone can audit it. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `02.5.4` [Cutting scope](https://productengineer.pro/skills-map/strategy/product-scoping/scope-cutting/) · `scope-cutting` · 3 In practice notes
+- [x] `02.5.4` [Cutting scope](https://productengineer.pro/skills-map/strategy/product-scoping/scope-cutting/) · `scope-cutting` · 3 In practice notes
   - Mamitsu: Four platforms and one call, a link and a question in and JSON out; transcript features and a generic scraper stay out. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: No product of its own for marketers, because it would compete with its customers. ([entry](https://productengineer.pro/in-practice/zernio/))
   - RelievApp: On 16 Nov the catalog was cut from 18 sessions to 12 and the brain left; on 18 Nov it grew to 21. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `02.1.3` [Value proposition](https://productengineer.pro/skills-map/strategy/product-vision/value-proposition/) · `value-proposition` · search term; 1 In practice note; 1 resource
+- [x] `02.1.3` [Value proposition](https://productengineer.pro/skills-map/strategy/product-vision/value-proposition/) · `value-proposition` · search term; 1 In practice note; 1 resource
   - RelievApp: The promise moved from one picture to a place to go: "Whatever you feel, feel better." ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `02.3.3` [North Star metric](https://productengineer.pro/skills-map/strategy/goal-setting/north-star-metric/) · `north-star-metric` · search term; 1 In practice note; 1 resource
+- [x] `02.3.3` [North Star metric](https://productengineer.pro/skills-map/strategy/goal-setting/north-star-metric/) · `north-star-metric` · search term; 1 In practice note; 1 resource
   - Papermark: Views of shared documents, 800,000 by mid-2025. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `02.6.1` [Roadmaps](https://productengineer.pro/skills-map/strategy/product-planning/roadmaps/) · `roadmaps` · search term; 1 In practice note
+- [x] `02.6.1` [Roadmaps](https://productengineer.pro/skills-map/strategy/product-planning/roadmaps/) · `roadmaps` · search term; 1 In practice note
   - Zernio: Integrators ask for the next channel, and Zernio builds it when the rest of its users would use it too. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `02.1.2` [Vision and direction](https://productengineer.pro/skills-map/strategy/product-vision/long-term-direction/) · `long-term-direction` · 2 In practice notes; 1 resource
+- [x] `02.1.2` [Vision and direction](https://productengineer.pro/skills-map/strategy/product-vision/long-term-direction/) · `long-term-direction` · 2 In practice notes; 1 resource
   - Zernio: No plan to sell; in five years he sees himself in the same seat. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: The next goal is $10M ARR, still bootstrapped. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `02.2.1` [Target audience](https://productengineer.pro/skills-map/strategy/product-positioning/target-audience/) · `target-audience` · 2 In practice notes
+- [x] `02.2.1` [Target audience](https://productengineer.pro/skills-map/strategy/product-positioning/target-audience/) · `target-audience` · 2 In practice notes
   - Mamitsu: Developers of apps and agents, with marketing teams that check sponsored videos as the first niche. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - RelievApp: People who want what meditation gives but can't sit still with it, most of all when they are anxious. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `02.2.3` [Market category](https://productengineer.pro/skills-map/strategy/product-positioning/category-positioning/) · `category-positioning` · 2 In practice notes
+- [x] `02.2.3` [Market category](https://productengineer.pro/skills-map/strategy/product-positioning/category-positioning/) · `category-positioning` · 2 In practice notes
   - Papermark: From "the open-source DocSend alternative" to "secure data rooms for dealmakers". ([entry](https://productengineer.pro/in-practice/papermark/))
   - RelievApp: From its own category ("transitions") to a meditation app with superpowers, then to "your personal emotional regulator". ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
 

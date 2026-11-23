@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Pricing low-touch SaaS (Stripe Atlas)
+    url: https://stripe.com/guides/atlas/saas-pricing
+---
+
+## Why it matters for a product engineer
+
+Price is part of the product. It decides who signs up, which features people expect and how revenue
+grows with use. Engineers build the billing, the limits and the meters, so the pricing model shapes
+the code as much as the code shapes the price. And pricing can be tested and changed like any other
+feature.
+
+## How to do it
+
+1. Start from value, not cost: what the product saves or earns for the customer, and what the
+   [substitutes](/skills-map/discovery/market-research/substitutes/) cost.
+2. Choose the value metric: the unit that grows when the customer gets more value, such as seats,
+   accounts, documents or API calls.
+3. Keep the plans few and easy to compare. Each plan should match a clear type of customer.
+4. Make sure revenue grows when a customer grows. A flat price for a customer that becomes ten times
+   bigger is money left on the table.
+5. Build billing so prices and limits are configuration, not code, and you can change them.
+6. Change prices for new customers first, and watch conversion and churn.
+
+## Common mistakes
+
+- Pricing from your costs, or from a competitor's page, without asking what it is worth.
+- A value metric customers cannot predict or control.
+- Too many plans and add-ons, so buyers cannot choose.
+- Never raising prices, even after the product is much better.
+- Pricing that punishes the behaviour you want, such as inviting colleagues.
+
+## Example
+
+Zernio launched with lifetime licences on AppSumo, then sold plans by the number of connected
+accounts. Around February 2026 it moved to a price per account: two free with no card, then $6 a month
+each up to ten, $3 up to a hundred and $1 beyond. With a single plan, Miquel Palet said, a customer
+that reached 50,000 users paid no more. Papermark chose flat plans with three users included, against
+DocSend's price per user. ([Zernio](/in-practice/zernio/), [Papermark](/in-practice/papermark/))
+
+<Timeline
+  title="How Zernio has charged, from launch to now"
+  events={[
+    { when: 'Aug 2025', title: 'Launch on AppSumo', kind: 'ship', note: 'About 2,000 lifetime licences.' },
+    { when: 'Aug 2025', title: 'Subscriptions on the site', kind: 'decision', note: 'Plans by connected accounts: 50, 500 or unlimited.' },
+    { when: 'Feb 2026', title: 'Pay per use', kind: 'decision', note: 'Around then. Two accounts free with no card, then a fee per account, message and number.' },
+    { when: 'Aug 2026', title: '€3M ARR announced', kind: 'result', note: '"With a bit of delay", he said.' },
+    { when: 'Nov 2026', title: 'Almost €5M ARR', kind: 'result', note: 'Growing about €1M of ARR a month.' },
+  ]}
+  caption="Lifetime deals paid for the start. A price per account made revenue grow with each customer's users."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast; current prices on zernio.com/pricing, read 15 Nov 2026"
+/>

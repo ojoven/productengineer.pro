@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The North Star Playbook (Amplitude)
+    url: https://amplitude.com/books/north-star
+---
+
+## Why it matters for a product engineer
+
+A North Star metric tells the whole team what "better" means. When engineers know which number shows
+that users get value, they can judge their own work by it, and choose between two tasks without a
+meeting. It also needs events that the engineers must define and keep correct.
+
+## How to do it
+
+1. Write the core value in one sentence: what users get when the product works.
+2. Find the action that shows that value happened, such as a document viewed, a lesson finished or a
+   message delivered. Count it over a period.
+3. Check that it predicts what the business needs: people who do more of it stay longer and pay more.
+4. Break it into three to five input metrics a team can move, such as new users who reach the action,
+   or the action's frequency.
+5. Add counter-metrics, because any single number can be gamed.
+6. Make sure the events behind it are reliable, and that their definition is written down.
+
+## Common mistakes
+
+- Revenue as the North Star. It shows value late and says little about why.
+- A number that grows without users getting value, such as page views or sign-ups.
+- A metric no team can influence week to week.
+- Changing it every quarter.
+- An unclear definition, so two dashboards show two different numbers.
+
+## Example
+
+Papermark's North Star is the number of views of shared documents: 800,000 by mid-2025. A view means
+that someone sent a document and someone else read it, which is the value for both sides. In the code,
+every page a visitor views becomes one `page_views` row, with the time spent on it.
+([Papermark in In practice](/in-practice/papermark/))
+
+<EventTable
+  title="The page_views event behind Papermark's analytics"
+  events={[
+    { name: 'page_views', when: 'A visitor views one page of a document', props: ['linkId', 'documentId', 'viewId', 'dataroomId', 'versionNumber', 'pageNumber', 'duration', 'country', 'device', 'referer'], key: true },
+    { name: 'video_views', when: 'A visitor views a video', props: ['link_id', 'document_id', 'view_id', 'dataroom_id'] },
+    { name: 'click_events', when: 'A visitor clicks a link inside a document', props: ['link_id', 'document_id', 'session_id', 'dataroom_id'] },
+  ]}
+  caption="The event that counts the North Star is also the one customers use: time per page shows which slide lost a reader."
+  evidence="observed"
+  source="lib/tinybird/datasources in the repository, 17 Nov 2026"
+/>

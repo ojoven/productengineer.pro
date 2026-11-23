@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: What is a now-next-later roadmap? (ProdPad)
+    url: https://www.prodpad.com/glossary/now-next-later-roadmap/
+---
+
+## Why it matters for a product engineer
+
+A roadmap tells the team, and often customers, what comes next and why. Engineers use it to plan
+architecture: what to make flexible now because it will change soon. A roadmap made of fixed features
+and dates breaks the first time you learn something, so the format matters as much as the content.
+
+## How to do it
+
+1. Start from goals and problems, not features. Each item says what it should change for users.
+2. Group items by confidence: now (being built), next (understood), later (ideas). Dates only where a
+   real deadline exists.
+3. Say why each item is there: the goal it serves, the evidence behind it.
+4. Write the rule for what gets in. For example: build what many customers would use, not what one
+   asks for.
+5. Share it, and review it often, such as every two weeks for "now" and every quarter for "later".
+6. Keep a list of what you said no to, with the reason.
+
+## Common mistakes
+
+- A list of features with dates, treated as a promise.
+- So many items in "now" that nothing is finished.
+- Adding every customer request.
+- A roadmap nobody outside the team can read.
+- Never removing items from "later".
+
+## Example
+
+Zernio's integrators often ask for the next channel. The rule is to build it when the rest of the
+users would use it too. In 2026 that added ads, WhatsApp, phone numbers and commerce APIs, often after
+integrators asked. Ads are about 15% of accounts and get the most requests. Each new product bills
+itself through the same price per account, with no new checkout.
+([Zernio in In practice](/in-practice/zernio/))
+
+<Flow
+  title="How a request from an integrator reaches Zernio's roadmap"
+  stages={['Ask', 'Decide', 'Ship']}
+  nodes={[
+    { id: 'ask', label: 'An integrator asks', detail: 'For a new channel', col: 0, row: 0 },
+    { id: 'all', label: 'Would others use it?', detail: 'The rest of the users', col: 1, row: 0, kind: 'decision' },
+    { id: 'build', label: 'Build it', detail: 'Ads, WhatsApp, numbers', col: 2, row: 0, tone: 'lit' },
+    { id: 'wait', label: 'Not now', detail: 'Wait for more requests', col: 1, row: 1 },
+  ]}
+  edges={[
+    { from: 'ask', to: 'all' },
+    { from: 'all', to: 'build', label: 'Yes' },
+    { from: 'all', to: 'wait', label: 'No' },
+    { from: 'wait', to: 'all', label: 'More ask', dashed: true },
+  ]}
+  caption="One rule decides what goes on the roadmap: a request counts when it serves many users, not one."
+  evidence="reported"
+  source="Miquel Palet, Zernio's founder, on the Itnig podcast"
+/>

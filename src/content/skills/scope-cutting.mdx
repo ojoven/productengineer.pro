@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Set boundaries (Shape Up, chapter 3, Basecamp)
+    url: https://basecamp.com/shapeup/1.2-chapter-03
+---
+
+## Why it matters for a product engineer
+
+Every feature you add has to be built, tested, documented and maintained. Cutting scope is how a small
+team ships something good on time. Engineers see the real cost of each requirement first, so they are
+often in the best position to propose what to leave out.
+
+## How to do it
+
+1. Write the goal of the work in one sentence, and the time it is worth.
+2. List every requirement, and for each one ask: what happens if we drop it? If the honest answer is
+   "not much", drop it.
+3. Split the rest into what the goal needs now, what can wait, and what you will not build.
+4. Look for the parts that could blow up the timeline, and simplify or remove them before work starts.
+5. Write down what you cut and why, so the decision is not reopened every week.
+6. When time runs short, cut scope again rather than moving the date or the quality.
+
+## Common mistakes
+
+- Cutting quality, such as tests or error handling, instead of features.
+- Keeping a feature because one customer asked for it once.
+- Cutting silently, so people still expect the feature.
+- Cutting the part that makes the product different.
+- Never adding anything back, even after users ask for it.
+
+## Example
+
+Mamitsu does one thing: a link to a post from four platforms and a question go in, JSON comes out.
+Unai Esteibar left out features built on YouTube transcripts and a generic scraper for any URL. In
+RelievApp, an audit on 16 November led to cutting the catalog from 18 sessions to 12. Two days later
+it grew to 21 again, on purpose, as a research tool.
+([Mamitsu](/in-practice/mamitsu/), [RelievApp](/in-practice/relievapp-part-1/))
+
+<ScopeCut
+  title="What Mamitsu does, and what Unai chose not to build"
+  kept={[
+    "Posts from Instagram, TikTok, YouTube and X",
+    "A link and a question in, JSON out",
+    { text: "REST API and MCP server", note: "For apps and for agents" },
+  ]}
+  cut={[
+    { text: "Features built on YouTube transcripts", note: "Raw video gives the model more" },
+    { text: "Recipes sent to an app's Instagram account", note: "Possible, but nobody had shown they would pay" },
+  ]}
+  later={[{ text: "A scraper for any URL, not only social posts", note: "Some day, maybe" }]}
+/>
