@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Idea to paying customers in 7 weeks: how we did it (Joel Gascoigne, Buffer)'
+    url: https://buffer.com/resources/idea-to-paying-customers-in-7-weeks-how-we-did-it/
+---
+
+## Why it matters for a product engineer
+
+A landing page is the cheapest product an engineer can ship. In an afternoon it tests two things
+together: whether the message is clear, and whether anyone wants what it promises. It does not prove
+that people will use the product, but it stops you from building for months with no signal at all.
+
+## How to do it
+
+1. Write one hypothesis: who it is for, the problem, and the promise.
+2. Build one page: a headline in the user's words, three benefits, and one action that costs the
+   visitor something, such as an email address, a chosen plan or a pre-order.
+3. Decide before you start what result means "continue", for example a share of visitors who leave
+   an email.
+4. Bring visitors from where your target users already are. Friends and colleagues do not count.
+5. Measure actions, not visits. Then write to the people who signed up and ask them what they hoped
+   for.
+6. Change one thing at a time, such as the headline or the price, and compare.
+
+## Common mistakes
+
+- Counting visits or time on the page instead of sign-ups.
+- Traffic from the wrong audience, such as other founders on a launch site.
+- Calling three sign-ups a validation.
+- Promising something you will not build. Tell people clearly that the product is not ready yet.
+- Testing several messages at once with too few visitors to tell them apart.
+
+## Example
+
+Before Buffer existed, Joel Gascoigne published two pages: one that described the product, and one
+that asked for an email address. He tweeted the link. People left their email, so he added a page
+with plans and prices between the two. Visitors still clicked through, and a few chose paid plans. He
+then built the first version in seven weeks and had his first paying customer four days after the
+launch.
+
+<Flow
+  title="Buffer's landing-page test, before the product existed"
+  stages={['Read', 'Choose', 'Sign up']}
+  nodes={[
+    { id: 'page', label: 'Landing page', detail: 'What Buffer does', col: 0, row: 0 },
+    { id: 'plans', label: 'Plans and prices', detail: 'Added in the second test', col: 1, row: 0, tone: 'lit' },
+    { id: 'email', label: 'Email form', detail: 'Tell me at launch', col: 2, row: 0 },
+  ]}
+  edges={[
+    { from: 'page', to: 'plans' },
+    { from: 'plans', to: 'email', label: 'A plan chosen' },
+    { from: 'page', to: 'email', label: 'First test', dashed: true },
+  ]}
+  caption="One extra page with prices tested demand and price together: the plan a visitor clicked was a first answer about money."
+  evidence="reported"
+  source="Joel Gascoigne on the Buffer blog"
+/>

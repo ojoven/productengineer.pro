@@ -1,0 +1,62 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Aggregation theory (Ben Thompson, Stratechery)
+    url: https://stratechery.com/2015/aggregation-theory/
+---
+
+## Why it matters for a product engineer
+
+The structure of a market decides what is realistic: which business model works, which channel
+reaches people, and who can take your margin. For a product engineer it also decides the rules you
+build under, such as an app store's fees or a regulator's evidence requirements.
+
+## How to do it
+
+1. List the players: who uses the product, who pays, who sells, and who sits in between, such as app
+   stores, marketplaces and resellers.
+2. Follow the money. Who pays whom, and which share does each one keep?
+3. Find who holds the power: who owns the relationship with the customer, where switching is
+   expensive, where network effects protect a leader.
+4. Check how concentrated it is. A few big platforms and a long tail of small tools need different
+   strategies.
+5. Note where the category changes the rules, such as a health claim that turns an app into a
+   medical device.
+6. Decide where you sit on the map, and write what that means for your model and your channel.
+
+## Common mistakes
+
+- Mapping only direct competitors and forgetting the intermediaries.
+- Ignoring the fees and policies of the platform you depend on.
+- Thinking a fragmented market is easy. It can mean nobody has found a way to reach the customers.
+- Stepping into a regulated category by accident, through one sentence of marketing copy.
+
+## Example
+
+An outside review of RelievApp mapped four categories of products that help people feel better:
+meditation and mindfulness, stress relief and breathwork, interactive digital wellness, and digital
+therapeutics. RelievApp fits the first two and would be most different in the third. It is not the
+fourth, which needs clinical evidence and medical-device rules. Placing the products on two axes
+showed an empty corner, which is both a chance and a warning.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Matrix
+  title="Where RelievApp sits among the products people use to feel better"
+  x={{ label: 'How you take part', low: 'Listen or watch', high: 'Use your hands' }}
+  y={{ label: 'What it covers', low: 'One need', high: 'Many' }}
+  quadrants={['Libraries you listen to', 'Hands-on, for many feelings', 'One technique, followed', 'One tool, hands-on']}
+  focus="tr"
+  items={[
+    { label: 'Calm', x: 0.12, y: 0.76, note: 'Audio meditation, sleep stories, a huge library' },
+    { label: 'Headspace', x: 0.24, y: 0.68, note: 'Guided meditation with drawn characters' },
+    { label: 'TRIPP', x: 0.34, y: 0.54, note: 'Immersive scenes in VR and on the phone' },
+    { label: 'Finch', x: 0.58, y: 0.64, note: 'A pet that grows with your self-care' },
+    { label: 'Breathwrk', x: 0.42, y: 0.3, note: 'Breathing exercises; Peloton bought it in 2025' },
+    { label: 'Rootd', x: 0.48, y: 0.18, note: 'Help in a panic attack' },
+    { label: 'Lumenate', x: 0.08, y: 0.32, note: 'Light patterns, with your eyes closed' },
+    { label: 'RelievApp', x: 0.88, y: 0.74, pick: true, note: 'Two-minute sessions you do with your hands' },
+  ]}
+  caption="The top right was empty. That is a reason to be there, and also a warning: maybe nobody looks for it."
+  evidence="assumed"
+  source="Placed by judgment from each product's site and store page, Nov 2026"
+/>

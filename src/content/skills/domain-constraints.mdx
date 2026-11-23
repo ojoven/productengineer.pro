@@ -1,0 +1,49 @@
+---
+updated: 2026-11-23
+---
+
+## Why it matters for a product engineer
+
+Constraints decide what can be adopted, not only what can be built. A solution that ignores an
+approval process, a platform rule or a legacy system looks great in a demo and fails in real use.
+Engineers who learn the constraints early avoid redesigns, and sometimes find the product itself
+inside them.
+
+## How to do it
+
+1. List the constraints of the domain: laws, platform rules, budgets, approval chains, legacy
+   systems, seasons, safety.
+2. Ask people who work in the domain what slows every change down. Read the platform documentation
+   and terms yourself.
+3. Mark each one as hard (a law, a platform policy) or soft (a habit, a preference).
+4. Design around the hard ones from the start. Test the slowest one early, for example by sending an
+   app for review in the first week.
+5. Write them down where the team sees them, with the date and the source.
+6. Check them again when a platform or a law changes.
+
+## Common mistakes
+
+- Finding out about an approval process in launch week.
+- Treating a habit as a rule, and so missing a simpler design.
+- Building on a rule a platform tolerates today and could change tomorrow.
+- Forgetting the buyer's side: procurement, security reviews, budget cycles.
+
+## Example
+
+Zernio's product sits inside the platforms' rules. Meta asks for a screencast and about 14 days of
+review for each permission. YouTube limits uploads until it raises your quota. WhatsApp charges for
+template messages outside a 24-hour window. Each developer who connects their users' accounts meets
+these limits. Zernio meets them once, for every customer, and sells that work as an API.
+([Zernio in In practice](/in-practice/zernio/))
+
+<StatRow
+  title="Three platform rules a product meets when its users connect their accounts"
+  stats={[
+    { value: 14, unit: 'days', label: "Meta's review, per permission", note: 'After a screencast' },
+    { value: 6, unit: 'months', label: "Zernio's wait for a higher YouTube upload quota", signal: true },
+    { value: 24, unit: 'h', label: "WhatsApp's message window", note: 'Templates outside it are charged' },
+  ]}
+  caption="Hard constraints set the calendar. For Zernio they are also the reason customers pay."
+  evidence="reported"
+  source="Miquel Palet, Zernio's founder, on the Itnig podcast"
+/>

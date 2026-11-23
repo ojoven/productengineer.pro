@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "How to miss by a mile: an alternative look at Uber's potential market size (Bill Gurley)"
+    url: https://abovethecrowd.com/2014/07/11/how-to-miss-by-a-mile-an-alternative-look-at-ubers-potential-market-size/
+---
+
+## Why it matters for a product engineer
+
+Market sizing tells you whether an idea can pay for a team or only for a hobby. A product engineer
+does not need a perfect number. You need a rough one, built from assumptions you can see, so you can
+decide how much time the idea deserves and which customers to build for first.
+
+## How to do it
+
+1. Describe the customer precisely, using your
+   [ideal customer profile](/skills-map/discovery/user-understanding/ideal-customer-profile/).
+2. Count them from real sources: public registers, app store data, job posts, member lists of
+   associations, the customer counts of competitors.
+3. Multiply by a realistic price per year, taken from your pricing or from what people pay today.
+   That gives a bottom-up estimate.
+4. Narrow it to the customers you can reach in the next two or three years, with your channels and
+   languages.
+5. Check it against a top-down number and against competitors' revenue. If the numbers are far apart,
+   find out why.
+6. Write the assumptions next to the result, and update it when you learn more.
+
+## Common mistakes
+
+- "If we get 1% of this huge market…". A share of a big number proves nothing.
+- A market defined far too broadly, such as "everyone with a phone".
+- Sizing only today's category, when the product can change how people behave.
+- False precision: three significant digits on a rough guess.
+- Counting users who will never pay.
+
+## Example
+
+In June 2014, the finance professor Aswath Damodaran valued Uber at $5.9 billion. He assumed a global
+taxi and limousine market of $100 billion and a maximum share of 10% for Uber. Bill Gurley, an Uber
+investor and board member, answered that the market was wrong, not the math: cars that arrive in
+minutes, cover the suburbs and need no cash create new trips. In San Francisco, he wrote, the new
+market already looked about three times the old taxi market.
+
+<StatRow
+  title="The two assumptions behind a $5.9 billion valuation of Uber, and the answer"
+  stats={[
+    { value: '$100', unit: 'bn', label: 'Global taxi and limousine market', note: "Damodaran's total market" },
+    { value: 10, unit: '%', label: 'Highest share he gave Uber' },
+    { value: 3, unit: '×', label: 'The new market in San Francisco', note: 'Against the old taxi market, as Gurley saw it', signal: true },
+  ]}
+  caption="A top-down number from today's category missed what the product added to it. Look at real behaviour before you multiply."
+  evidence="reported"
+  source="Bill Gurley, Above the Crowd, 11 Jul 2014, answering Aswath Damodaran"
+/>

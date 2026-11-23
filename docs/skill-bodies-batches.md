@@ -155,17 +155,17 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 3 · Discovery · 7 skills
 
-- [ ] `01.4.6` [Market sizing](https://productengineer.pro/skills-map/discovery/market-research/market-sizing/) · `market-sizing` · search term
-- [ ] `01.5.5` [Landing-page tests](https://productengineer.pro/skills-map/discovery/opportunity-validation/landing-page-tests/) · `landing-page-tests` · search term
-- [ ] `01.1.1` [User segments](https://productengineer.pro/skills-map/discovery/user-understanding/user-segments/) · `user-segments` · 1 In practice note
+- [x] `01.4.6` [Market sizing](https://productengineer.pro/skills-map/discovery/market-research/market-sizing/) · `market-sizing` · search term
+- [x] `01.5.5` [Landing-page tests](https://productengineer.pro/skills-map/discovery/opportunity-validation/landing-page-tests/) · `landing-page-tests` · search term
+- [x] `01.1.1` [User segments](https://productengineer.pro/skills-map/discovery/user-understanding/user-segments/) · `user-segments` · 1 In practice note
   - Mamitsu: Beta users wanted it for recipes, coffee and travel, so the users were developers with video data, not coffee drinkers. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `01.4.3` [Market structure](https://productengineer.pro/skills-map/discovery/market-research/market-structure/) · `market-structure` · 1 In practice note
+- [x] `01.4.3` [Market structure](https://productengineer.pro/skills-map/discovery/market-research/market-structure/) · `market-structure` · 1 In practice note
   - RelievApp: An outside review mapped four categories, from meditation to digital therapeutics, and placed Reliev in interactive wellness. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `01.5.3` [Desirability tests](https://productengineer.pro/skills-map/discovery/opportunity-validation/desirability-tests/) · `desirability-tests` · 1 In practice note; 1 resource
+- [x] `01.5.3` [Desirability tests](https://productengineer.pro/skills-map/discovery/opportunity-validation/desirability-tests/) · `desirability-tests` · 1 In practice note; 1 resource
   - Papermark: Marc bet his wife a tweet about the idea would get 50 likes before he built anything; it got 265. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `01.5.4` [Willingness to pay](https://productengineer.pro/skills-map/discovery/opportunity-validation/willingness-to-pay/) · `willingness-to-pay` · 1 In practice note
+- [x] `01.5.4` [Willingness to pay](https://productengineer.pro/skills-map/discovery/opportunity-validation/willingness-to-pay/) · `willingness-to-pay` · 1 In practice note
   - Papermark: The first customers asked to pay before payments were finished. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `01.6.3` [Domain constraints](https://productengineer.pro/skills-map/discovery/domain-understanding/domain-constraints/) · `domain-constraints` · 1 In practice note
+- [x] `01.6.3` [Domain constraints](https://productengineer.pro/skills-map/discovery/domain-understanding/domain-constraints/) · `domain-constraints` · 1 In practice note
   - Zernio: Meta asks for a screencast and about 14 days per permission, YouTube caps uploads, WhatsApp charges for templates outside a 24-hour window. ([entry](https://productengineer.pro/in-practice/zernio/))
 
 ### Batch 4 · Strategy · 10 skills

@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'From tweet to launch: an open source journey (Marc Seitz)'
+    url: https://mfts.io/blog/from-tweet-to-launch-open-source-journey
+---
+
+## Why it matters for a product engineer
+
+Most products fail because nobody wants them, not because the code is bad. A desirability test checks
+demand before you spend weeks building. An engineer can often run one in a day, with a page, a post or
+a button for a feature that does not exist yet.
+
+## How to do it
+
+1. Write the riskiest assumption, such as "founders want to see who read their deck", and the action
+   that would show it is true.
+2. Choose a test where people give something up: time, an email address, a pre-order, a click on a
+   feature that is not built yet.
+3. Set the bar before you start: the number that means "build it".
+4. Show the test to the people it is for, where they already are.
+5. Stop at a fixed date and decide: build, change the offer, or stop.
+6. Talk to the people who said yes. Their words become your copy.
+
+## Common mistakes
+
+- Asking "Would you use this?". People are kind, and the answer costs them nothing.
+- No bar set in advance, so any result looks like a success.
+- Treating likes as purchases. A like is the weakest signal; money is the strongest.
+- A fake button with no explanation afterwards. Tell people the feature is not there yet.
+- Testing demand and usability at the same time.
+
+## Example
+
+Iuliia Shnai gave Marc Seitz a rule: test the idea on Twitter first, and build only if people react.
+Marc bet her that a tweet about an open-source alternative to DocSend would get 50 likes. It got 265.
+He built the first version that weekend, and soon the first customers asked if they could pay.
+([Papermark in In practice](/in-practice/papermark/))
+
+<StatRow
+  title="Papermark's first test, before any code"
+  stats={[
+    { value: 50, label: 'Likes Marc bet on', note: 'The bar, set before the tweet' },
+    { value: 265, label: 'Likes the idea got', signal: true },
+    { value: 450, label: 'Likes on the launch tweet', note: 'With over 95,000 views' },
+  ]}
+  caption="The bar was set before the test, so the result meant something. The stronger signal came next: people asked to pay."
+  evidence="reported"
+  source="Marc Seitz, 'From tweet to launch', mfts.io, 2023"
+/>
