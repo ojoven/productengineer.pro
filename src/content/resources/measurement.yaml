@@ -415,3 +415,14 @@ nngroup-contextual-inquiry:
   level: intro
   why: How to watch people use the real product in their own setting and ask about it as they go.
   checked: 2026-11-10
+
+posthog-onboarding-drop-off:
+  url: https://posthog.com/blog/how-to-find-and-fix-app-onboarding-drop-off
+  title: How to fix your app onboarding drop-off points
+  author: PostHog
+  type: article
+  length: 15 min
+  year: 2025
+  level: intro
+  why: A step-by-step method for product engineers, from defining the activation event to building the funnel, finding the leak and testing a fix.
+  checked: 2026-11-23

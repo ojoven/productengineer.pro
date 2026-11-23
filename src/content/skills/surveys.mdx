@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Writing good survey questions: 10 best practices (NN/g)'
+    url: https://www.nngroup.com/articles/survey-best-practices/
+  - title: How Superhuman built an engine to find product-market fit (First Round Review)
+    url: https://review.firstround.com/how-superhuman-built-an-engine-to-find-product-market-fit/
+---
+
+## Why it matters for a product engineer
+
+A survey tells you how common something is, once interviews have told you what to ask. An engineer can
+add a short survey to the product in an afternoon, and it is often the cheapest way to put a number on
+a question. Written badly, it gives confident answers that are wrong.
+
+## How to do it
+
+1. Write the decision the survey should inform. Then keep only the questions that inform it.
+2. Ask about the past and the present, not the future. People cannot predict their own behaviour.
+3. Prefer closed questions. Make the options cover every case without overlapping, and add "Not sure"
+   or "Does not apply".
+4. One idea per question: if a question has "and" in it, split it.
+5. Use neutral words and balanced scales, with as many positive options as negative ones.
+6. Ask the right people at the right moment, for example in the product, just after the action you
+   ask about. Try the survey on two or three people before you send it.
+
+## Common mistakes
+
+- Asking what people would do or would pay.
+- Leading questions, such as a scale that follows "We are committed to five stars".
+- Counting only the people who chose to answer, and calling it everyone. See
+  [sampling bias](/skills-map/measurement/statistical-reasoning/sampling-bias/).
+- So many questions that people stop or answer at random.
+- Percentages from a dozen answers.
+
+## Example
+
+Superhuman emailed its users a survey with four questions. The key one was "How would you feel if you
+could no longer use Superhuman?", answered very, somewhat or not disappointed. In summer 2017 only
+22% said very disappointed, below the 40% that Sean Ellis saw in startups with strong traction. The
+team focused on the users who would miss it most, and three quarters of product work later the score
+was 58%.
+
+<StatRow
+  title="Superhuman's share of users who would be very disappointed without it"
+  stats={[
+    { value: 22, unit: '%', label: 'Summer 2017', note: 'Recent users who answered' },
+    { value: 33, unit: '%', label: 'Same answers, only the target users' },
+    { value: 58, unit: '%', label: 'Three quarters later', signal: true },
+  ]}
+  caption="One closed question, asked the same way each time, gave the team a number to move. The benchmark for product-market fit is 40%."
+  evidence="reported"
+  source="Rahul Vohra, Superhuman's founder, in First Round Review"
+/>

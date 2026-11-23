@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Minimum viable product: a guide (Eric Ries)'
+    url: https://www.startuplessonslearned.com/2009/08/minimum-viable-product-guide.html
+  - title: Making sense of MVP (Henrik Kniberg)
+    url: https://blog.crisp.se/2016/01/25/henrikkniberg/making-sense-of-mvp
+---
+
+## Why it matters for a product engineer
+
+An MVP is where engineering and product meet. The engineer often decides how small the first version
+can be while it still does its one job well. Build too much and you learn late. Build something
+broken and you learn nothing, because people leave for the wrong reason.
+
+## How to do it
+
+1. Write down the one assumption that would end the idea if it were wrong. "Founders want to share a
+   deck as a link they control" is an assumption. "We need folders" is not.
+2. Choose the cheapest test that gives a real answer. Sometimes that is a post, a landing page or a
+   manual service, not software (see
+   [Concierge and Wizard of Oz tests](/skills-map/discovery/opportunity-validation/concierge-experiments/)).
+3. Set a time limit before you start, such as a weekend or two weeks. Then cut scope until the work
+   fits the limit.
+4. Write down the result that would prove the assumption wrong, before anyone sees the product.
+5. Put it in front of people who have the problem today, and watch what they do, not what they say.
+
+## Common mistakes
+
+- Calling the first release of the full roadmap an MVP.
+- Building one part of the final product, like one wheel of a car, that nobody can use on its own.
+- Testing with friends who are not the target users.
+- Skipping tracking, then arguing about what happened.
+- Keeping the MVP code as the foundation without deciding to.
+
+## Example
+
+Before Marc Seitz wrote any code for Papermark, he bet that a tweet about the idea would get 50
+likes. It got 265. The first version was a weekend build on Next.js and Vercel: upload a PDF, share a
+link, see who read which page. The first customers asked to pay before the payment flow was finished.
+([Papermark in In practice](/in-practice/papermark/))
+
+<Hypothesis
+  title="Papermark's test, before any code"
+  if="Marc tweets the idea of an open-source DocSend before he builds it"
+  then="the tweet gets at least 50 likes"
+  because="everyone knew DocSend, and few people liked it."
+  metric="Likes on the tweet"
+  keepIf="50 likes or more: build the first version that weekend"
+  caption="The tweet got 265 likes, and he built it that weekend. The bar was set before the tweet went out."
+  evidence="reported"
+  source="Marc Seitz on Top Founders and on his blog, about May 2023"
+/>

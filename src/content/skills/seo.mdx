@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'SEO starter guide: the basics (Google Search Central)'
+    url: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+  - title: SEO guide for web developers (Google Search Central)
+    url: https://developers.google.com/search/docs/fundamentals/get-started-developers
+  - title: Late is now Zernio (Zernio)
+    url: https://zernio.com/rebrand
+---
+
+## Why it matters for a product engineer
+
+Much of SEO is product and engineering work: pages built from what the product knows, rendered so
+that search engines can read them. It is also a channel that keeps working after the work stops. And
+the pages that rank are often the pages that AI answers read and cite.
+
+## How to do it
+
+1. Start from the questions your users already type. Read the queries in Search Console and listen to
+   the words customers use in sales and support calls.
+2. Give each question one page that answers it better than the current results, with your product's
+   own data or experience.
+3. Link every page with normal `<a>` links, list it in a sitemap, and use URL Inspection to see how
+   Google renders it.
+4. Give each page a unique title and description and a readable URL. Point duplicates to one
+   canonical URL.
+5. Write honest comparison pages for the tools people leave to come to you.
+6. Ask AI assistants the questions your users ask, regularly, and read which pages they cite.
+
+<Loop
+  title="How Mamitsu's maker works on AI answers"
+  center="AI answers"
+  sub="One turn a day"
+  stages={[
+    { label: 'Ask like a user', note: 'Prompts from keywords, competitors and funnel stages' },
+    { label: 'Read the citations', note: 'Which sources, and what they say about you', tone: 'lit' },
+    { label: 'Find the gaps', note: 'Questions where you do not appear' },
+    { label: 'Fix the content', note: 'An agent drafts, Unai approves' },
+  ]}
+  caption="Answers change every day, so the loop runs every day. What it cannot show is whether anyone clicked."
+/>
+
+## Common mistakes
+
+- Pages produced in bulk with nothing new in them. Zernio's founder learned this on an earlier
+  product: 50,000 AI-written posts, then Google removed the site from its index.
+- A product name made of common words, which nobody can search for.
+- Important content that appears only after scripts run in the browser, never checked in URL
+  Inspection.
+- Different facts about your product on different sites. AI answers trust a product less when the
+  sources disagree.
+
+## Example
+
+About 40% of Zernio's new business comes from organic Google, on long-tail searches such as "social
+media API" and "Meta app review". Ayrshare, the direct rival, owned those results; Zernio now ranks
+above it on many. The product was renamed from Late partly for search: "Try searching 'Late API' and
+you'll understand." ([Zernio in In practice](/in-practice/zernio/))

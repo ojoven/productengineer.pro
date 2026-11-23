@@ -1,0 +1,70 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Feature toggles (Pete Hodgson, martinfowler.com)
+    url: https://martinfowler.com/articles/feature-toggles.html
+  - title: Best practices for production-ready flags (PostHog docs)
+    url: https://posthog.com/docs/feature-flags/best-practices
+  - title: 11 feature flag best practices for scale (Unleash docs)
+    url: https://docs.getunleash.io/guides/feature-flag-best-practices
+---
+
+## Why it matters for a product engineer
+
+Flags let a small team merge and deploy every day, and decide separately when users see the change. The engineer decides where the check lives in the code. That choice decides whether
+turning the flag off is safe, and whether the flag is easy to remove later.
+
+## How to do it
+
+1. Decide what kind of flag it is before you add it. A release flag should live days or weeks. A kill
+   switch for operations can stay longer. An experiment flag lives as long as the test. A permission
+   flag can be permanent. Put the type in the name.
+2. Check the flag in one place, inside one function, as high in the code as you can: the route or
+   the component that changes, not ten scattered `if` statements.
+3. Identify the user before you evaluate the flag, so the same person gets the same answer on every
+   request and every device.
+4. Decide what the code does when the flag service does not answer. "Not evaluated yet" is not the
+   same as "off".
+5. Start with your own team, then a small share of users, and widen it while you watch errors and
+   the one metric that matters.
+6. When the flag reaches 100%, delete the flag and the old code path in the same week.
+
+## Common mistakes
+
+- One flag checked in many files, so nobody is sure what turning it off does.
+- Flags evaluated in the browser before the user is known, so a user sees the new version, then the
+  old one.
+- Release flags that stay for months. Ten on-off flags give 1,024 possible combinations, and nobody
+  tests most of them.
+- Using a flag for settings that need a restart. That is configuration, not a feature flag.
+
+## Example
+
+Mamitsu is built by one person with a team of coding agents. After a merge, the agent turns on a
+feature flag if the change needs one, watches the logs until about ten requests have gone through the
+new code, and rolls back if something breaks. That has happened once. Otherwise Unai Esteibar, its
+maker, gets a Slack message that all is well.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Sequence
+  title="What Mamitsu's agent does after a merge"
+  actors={[
+    { id: 'agent', label: 'Agent' },
+    { id: 'prod', label: 'Production' },
+    { id: 'unai', label: 'Unai, on Slack', kind: 'external' },
+  ]}
+  messages={[
+    { from: 'agent', to: 'prod', label: 'Deploy the merge' },
+    { from: 'agent', to: 'prod', label: 'Turn on the flag, if needed' },
+    { from: 'prod', to: 'agent', label: 'Logs of about 10 requests', kind: 'reply' },
+    {
+      from: 'agent',
+      to: 'prod',
+      label: 'Roll back if it breaks',
+      tone: 'signal',
+      note: 'This has happened once.',
+    },
+    { from: 'agent', to: 'unai', label: 'All is well', kind: 'reply' },
+  ]}
+  caption="The flag and the logs give the agent a small, fast check. A person hears about it only when something needs them."
+/>

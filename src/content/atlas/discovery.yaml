@@ -52,7 +52,7 @@ capabilities:
           frustrations. Useful personas are built from real interviews, not invented
           demographics. They help a team argue about a concrete user instead of an abstract one.
         related: [user-interviews, research-synthesis]
-        resources: [nngroup-research-cheat-sheet]
+        resources: [nngroup-research-cheat-sheet, spotify-data-personas]
       - id: jobs-to-be-done
         focus: [people, evidence]
         name: Jobs to be done
@@ -62,7 +62,7 @@ capabilities:
           they are. It explains why people switch products and what they compare you against.
           For an engineer it is a fast way to judge whether a feature serves a real job.
         related: [substitutes, user-motivations]
-        resources: [dscout-jtbd-switch]
+        resources: [dscout-jtbd-switch, christensen-jtbd]
       - id: user-motivations
         focus: [people, evidence]
         name: Goals and motivations
@@ -278,7 +278,7 @@ capabilities:
           problem. Knowing these alternatives explains what users compare you against. It also
           shows how much better a product has to be before anyone bothers to switch.
         related: [jobs-to-be-done, category-positioning]
-        resources: [dscout-jtbd-switch]
+        resources: [dscout-jtbd-switch, christensen-jtbd]
       - id: market-structure
         focus: [product-business, evidence]
         name: Market structure
@@ -298,7 +298,7 @@ capabilities:
           platform capability or a change in how people work. They explain why now. Engineers are
           often the first to see technical trends that create product opportunities.
         related: [long-term-direction, strategy-adaptation]
-        resources: [wiki-adoption-lifecycle]
+        resources: [wiki-adoption-lifecycle, sequoia-why-now]
       - id: category-conventions
         focus: [product-business, evidence]
         name: Category conventions

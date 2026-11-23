@@ -1,0 +1,63 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'What is good retention: an exhaustive benchmark study (Casey Winters)'
+    url: https://www.caseyaccidental.com/p/what-is-good-retention-an-exhaustive-benchmark-study-with-lenny-rachitsky
+  - title: The complete guide to cohort analysis (Amplitude)
+    url: https://amplitude.com/explore/analytics/cohort-analysis
+  - title: What is good retention (Lenny Rachitsky)
+    url: https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29
+  - title: Retention is all you need (a16z)
+    url: https://a16z.com/ai-retention-benchmarks/
+---
+
+## Why it matters for a product engineer
+
+A retention curve is the most honest test of whether a product works. Product engineers ship changes
+every week, and the curve of each new cohort shows whether those changes help people stay. Where the
+curve becomes flat, and at what level, says more than any single retention number.
+
+## How to do it
+
+1. Define "active" as a real value action, such as sending a message or publishing a post, not a
+   login.
+2. Group users by the week or month they started. For each group, plot the share that is still
+   active in each later period.
+3. Choose the period from how often people naturally need the product: daily for a chat app, monthly
+   for an accounting tool, yearly for a home search.
+4. Read the shape first. Does it become flat? When, and at what level? Then compare new cohorts with
+   old ones. Newer curves above older ones mean the product is getting better.
+5. Compare your level only with products like yours: the same kind of customer, price and natural
+   frequency.
+6. Split a cohort by channel, plan or first action to see which users stay.
+
+<Bars
+  title="Good user retention at six months, by type of product"
+  unit="%"
+  items={[
+    { label: 'Consumer social', value: 25 },
+    { label: 'Consumer transactional', value: 30 },
+    { label: 'Consumer SaaS', value: 40 },
+    { label: 'SMB and mid-market SaaS', value: 60 },
+    { label: 'Enterprise SaaS', value: 70 },
+  ]}
+  caption="Good for enterprise software is about 70%. For a consumer social app, even great is about 45%. Compare your curve only with products like yours."
+  evidence="reported"
+  source="Lenny Rachitsky and Casey Winters, from 20 growth practitioners and public data, June 2020"
+/>
+
+## Common mistakes
+
+- Counting a login or an app open as "active".
+- Comparing your curve with another kind of product. Products for small businesses, consumer apps
+  and marketplaces retain at very different levels.
+- Judging too early. Some curves take more than six months to become flat.
+- Cohorts that are too broad, or one average line for all users, which hides the effect of a change
+  shipped in the middle of the month.
+
+## Example
+
+When a16z studied revenue retention from dozens of AI companies, most curves fell fast at first, as
+"AI tourists" tried the product and left, then became flat around month 3. ChatGPT's curve went up
+again later, a "smile": people who had left or used it less came back as the product improved. So
+a16z suggests reading month 12 divided by month 3, not only retention from the first month.

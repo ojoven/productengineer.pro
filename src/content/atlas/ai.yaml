@@ -137,7 +137,7 @@ capabilities:
           one integration work across many AI applications. Building an MCP server is a growing way
           to make a product usable by agents.
         related: [tool-calling, developer-experience]
-        resources: [mcp-intro]
+        resources: [mcp-intro, mcp-build-server]
         technicalLeverage: Implement an interoperable tool interface while keeping authentication,
           authorization and auditability in the host application.
         evidence:

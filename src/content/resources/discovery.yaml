@@ -387,3 +387,34 @@ eventstorming:
   level: intro
   why: A workshop that gathers domain experts and engineers to map how the business actually works.
   checked: 2026-11-10
+
+christensen-jtbd:
+  url: https://www.christenseninstitute.org/theory/jobs-to-be-done/
+  title: Jobs to Be Done theory
+  author: Christensen Institute
+  type: article
+  length: 10 min
+  level: intro
+  why: The theory from the people who named it, with case studies such as the morning milkshake that competed with bananas and bagels.
+  checked: 2026-11-23
+
+sequoia-why-now:
+  url: https://sequoiacap.com/article/writing-a-business-plan
+  title: Writing a business plan
+  author: Sequoia Capital
+  type: article
+  length: 3 min
+  level: intro
+  why: A one-page outline whose "Why now?" section asks the question every trend should answer.
+  checked: 2026-11-23
+
+spotify-data-personas:
+  url: https://engineering.atspotify.com/2024/9/are-you-a-dalia-how-we-created-data-science-personas-for-spotifys-analytics-platform
+  title: How we created data science personas for Spotify's analytics platform
+  author: Spotify Engineering
+  type: article
+  length: 7 min
+  year: 2024
+  level: deep
+  why: Personas built from interviews and usage data, with rules that assign every user daily, so key results can be split by persona.
+  checked: 2026-11-23

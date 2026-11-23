@@ -1,6 +1,7 @@
 ---
 // Resources: what it is, who made it, and one line on why it is worth the time.
 import type { Resource } from '../atlas/model.ts';
+import { favicon } from '../../server/src/catalog-model.ts';
 
 interface Props {
   resources: Resource[];
@@ -30,7 +31,7 @@ const sorted = [...resources].sort((a, b) => order[a.level] - order[b.level]);
               {r.paid && <span class="paid"> · Paid</span>}
             </span>
             <div>
-              <a class="t" href={r.url} rel="noopener" target="_blank">{r.title} ↗</a>
+              <a class="t" href={r.url} data-learning-id={r.id} data-learning-kind="resource" rel="noopener" target="_blank"><img class="ref-icon" src={favicon(r.url)} alt="" width="16" height="16" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" />{r.title} ↗</a>
               <div class="by">
                 {r.author}
                 {r.year && <> · {r.year}</>}

@@ -189,7 +189,7 @@ capabilities:
           where to look, not why people leave. Funnels need consistent events and a sensible time
           window to be trusted.
         related: [drop-off-analysis, conversion-metrics]
-        resources: [amplitude-funnel-interpretation]
+        resources: [amplitude-funnel-interpretation, posthog-onboarding-drop-off]
         tools: [posthog, mixpanel]
         aiLeverage:
           workflow: Draft queries from an explicit event schema and use the results to propose

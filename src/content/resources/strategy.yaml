@@ -283,3 +283,14 @@ wiki-product-lifecycle:
   level: intro
   why: Introduction, growth, maturity and decline, and how goals and investment change at each stage.
   checked: 2026-11-10
+
+ries-mvp-guide:
+  url: https://www.startuplessonslearned.com/2009/08/minimum-viable-product-guide.html
+  title: 'Minimum viable product: a guide'
+  author: Eric Ries
+  type: article
+  length: 5 min
+  year: 2009
+  level: intro
+  why: The original definition, most learning for the least effort, and why an MVP is not about building a minimal product.
+  checked: 2026-11-23

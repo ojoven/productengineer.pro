@@ -1,9 +1,11 @@
+import { withUtm } from '../lib/utm.ts';
+
 /** Provider text is rendered as text, never injected as HTML. */
 export function el<K extends keyof HTMLElementTagNameMap>(tag: K, className = '', text = ''): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag); if (className) node.className = className; if (text) node.textContent = text; return node;
 }
 export function link(text: string, url: string, className = '') {
-  const a = el('a', className, text); a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; return a;
+  const a = el('a', className, text); a.href = withUtm(url); a.target = '_blank'; a.rel = 'noopener noreferrer'; return a;
 }
 export function button(text: string, className: string, action: () => void) {
   const b = el('button', className, text); b.type = 'button'; b.addEventListener('click', action); return b;

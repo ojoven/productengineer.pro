@@ -250,7 +250,7 @@ capabilities:
           with real users. It is often much smaller than teams think, sometimes not software at
           all. It still has to work well for the narrow job it does.
         related: [concierge-experiments, smallest-valuable-increment]
-        resources: [kniberg-mvp]
+        resources: [kniberg-mvp, ries-mvp-guide]
         aiLeverage:
           workflow: Ask an assistant to turn a validated problem and explicit constraints into
             alternative small slices and prototype code.

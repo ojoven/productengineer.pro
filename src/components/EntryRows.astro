@@ -1,6 +1,7 @@
 ---
 // A list of In practice entries: date, title, summary and what kind of work it is.
-import { KIND, STATUS, VERDICT, itemDate, itemPath, formatDate, products, type Item } from '../lib/editorial.ts';
+import Faces from './Faces.astro';
+import { KIND, STATUS, VERDICT, entryFaces, itemDate, itemPath, formatDate, products, type Item } from '../lib/editorial.ts';
 
 interface Props {
   items: Item[];
@@ -20,7 +21,7 @@ const subject = (e: Item) =>
       <li>
         <div class="row entry-row">
           <span class="code">{formatDate(itemDate(e))}</span>
-          <a class="name" href={itemPath(e)}>{e.data.title}</a>
+          <a class="name" href={itemPath(e)}><Faces faces={entryFaces(e)} />{e.data.title}</a>
           <span class="go" aria-hidden="true">→</span>
           {!compact && <span class="sub">{e.data.summary}</span>}
           <span class="meta">

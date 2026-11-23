@@ -1,0 +1,13 @@
+---
+// Links inside a skill body (src/content/skills/*.mdx). A link to an In practice entry gets the
+// entry's logos and avatar in front of it; every other link renders as a plain <a>.
+import Faces from './Faces.astro';
+import { allItems, entryFaces } from '../lib/editorial.ts';
+
+const { href = '', ...rest } = Astro.props as { href?: string; [key: string]: unknown };
+const slug = /^\/in-practice\/([^/#?]+)\/?/.exec(href)?.[1];
+const entry = slug ? (await allItems()).find((e) => e.id === slug) : undefined;
+const faces = entry ? entryFaces(entry) : [];
+---
+
+<a href={href} {...rest}>{faces.length > 0 && <Faces faces={faces} size={20} />}<slot /></a>

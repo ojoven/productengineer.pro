@@ -1,0 +1,60 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Review: The Mom Test by Rob Fitzpatrick (Yevgeniy Brikman)'
+    url: https://www.ybrikman.com/blog/2023/03/29/the-mom-test/
+  - title: 'Product in Practice: making customer interviewing a habit in an early-stage startup (Product Talk)'
+    url: https://www.producttalk.org/customer-interviews-startups/
+---
+
+## Why it matters for a product engineer
+
+Engineers make many small product decisions every day: which edge case matters, which step to cut,
+what to call a button. Interviews give those decisions a real person behind them. They also show the
+need behind a feature request, which is often different from the feature that was asked for.
+
+## How to do it
+
+1. Choose one decision the interviews should inform. Then find five people who did the thing
+   recently.
+2. Ask about the last time it happened: "Tell me about the last time you sent a deck to investors.
+   What did you do first?"
+3. Follow the story with "why?" and "what happened next?". Do not pitch your idea, and do not ask if
+   they would use it.
+4. Listen more than you talk. Write down what they did, which tools they used and what it cost them,
+   in their words.
+5. Ask users who contact support or request a feature for a short call. They already have a story to
+   tell.
+6. Put a fixed slot in your calendar, such as one call a week, so interviews do not stop when a
+   deadline comes.
+
+<ScopeCut
+  title="Questions that get facts, and questions that get compliments"
+  labels={{ kept: 'Ask', cut: 'Avoid' }}
+  kept={[
+    'Talk me through the last time this happened.',
+    'How do you deal with it now?',
+    'What else have you tried?',
+    { text: 'How much time or money does it cost you?', note: 'Instead of "How much would you pay?"' },
+    { text: 'Why do you want that?', note: 'After any feature request' },
+  ]}
+  cut={['Do you think my idea is good?', 'Would you buy a product that did this?', 'How much would you pay for it?']}
+  caption="The questions on the left ask about the past and cost the person nothing to answer truthfully. The ones on the right invite a polite yes. From Rob Fitzpatrick's The Mom Test."
+/>
+
+## Common mistakes
+
+- Asking "Would you use this?". People say yes to be nice, and a hypothetical yes costs them nothing.
+- Treating a feature request as the answer. Ask what they were trying to do when they wanted it.
+- Talking only to friends and happy customers.
+- Interrupting with your solution before the story is finished.
+- Asking people to predict what they will do, instead of what they did.
+
+## Example
+
+ThoughtFlow, a mind-mapping add-on for monday.com, built the most requested features, such as
+keyboard navigation, but few trial users upgraded. Its founder and technical lead, Kranthi Kiran,
+started to invite users who contacted support to an interview about their team, projects and
+workflows. A pattern appeared: most users did not want to create mind maps, they wanted to see what
+was already on their boards. The team built Bird's Eye View, an app that draws the mind map from
+existing boards.

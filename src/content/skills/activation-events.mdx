@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Per-product activation (PostHog handbook)
+    url: https://posthog.com/handbook/growth/growth-engineering/per-product-activation
+  - title: What is activation rate? (Amplitude)
+    url: https://amplitude.com/explore/digital-analytics/what-is-activation-rate
+  - title: How to fix your app onboarding drop-off points (PostHog)
+    url: https://posthog.com/blog/how-to-find-and-fix-app-onboarding-drop-off
+---
+
+## Why it matters for a product engineer
+
+An activation metric turns "improve onboarding" into a number a team can move. It tells you which
+events to track first and which step of the first session deserves engineering time. Without one,
+teams improve signups, which are easy to move and say little about whether people stay.
+
+## How to do it
+
+1. Start from retention. Take users who are still active after one to three months and list what
+   they did in their first days that users who left did not.
+2. Write five to ten candidate definitions: one key action, the same action several times, or a
+   combination of actions.
+3. Give each one a time window, such as 7 or 30 days after signup, so the rate means the same thing
+   every month.
+4. For each candidate, compare how many users reach it with how many of those users stay. Choose the
+   one with the best balance, not the one with the highest retention.
+5. Record activation as an event in the product, not only in a query. Then the product can react,
+   for example with a message to people who started but did not activate.
+6. Check the definition again after a big product change. What predicted retention two years ago
+   may not predict it today.
+
+## Common mistakes
+
+- Choosing signup or "opened the dashboard". It is too easy and predicts little.
+- A definition so strict that only 1% of users reach it, even if all of them stay.
+- No time window, so the rate drifts as old users activate late.
+- Assuming the action causes retention. It may only show who was already engaged. Test changes with
+  an experiment before you push everyone toward it.
+- One definition for a product with very different uses.
+
+## Example
+
+PostHog tracks activation separately for each of its products. For session replay, an organisation
+counts as activated when it analyses five recordings and sets a filter within 30 days of showing
+interest. It counts as retained if it still analyses recordings three months later. The team writes
+5 to 10 candidate definitions and compares activation and retention for each before choosing one.
+
+<EventTable
+  title="How PostHog defines activation for session replay"
+  events={[
+    { name: 'Product intent', when: 'An organisation shows interest in replay, for example by choosing it in onboarding' },
+    { name: 'Recordings analysed', when: 'Someone in the organisation analyses a recording' },
+    { name: 'Recording filter set', when: 'Someone sets a filter on the list of recordings' },
+    { name: 'Activated', when: 'Five recordings analysed and a filter set, within 30 days of the intent', key: true },
+    { name: 'Retained', when: 'One or more recordings analysed, three months after the intent' },
+  ]}
+  caption="Activation needs a combination of actions within a time window. Retention uses a simpler signal, so the two can be compared."
+  evidence="reported"
+  source="PostHog handbook, Per-product activation, read on 23 Nov 2026. The names are descriptions, not PostHog's event names."
+/>

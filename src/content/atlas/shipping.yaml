@@ -128,7 +128,7 @@ capabilities:
           experiments, beta access and kill switches. Old flags need removing, or they become
           technical debt.
         related: [staged-rollouts, ab-tests]
-        resources: [fowler-feature-toggles]
+        resources: [fowler-feature-toggles, posthog-flag-best-practices]
         tools: [unleash, flagsmith, launchdarkly]
         aiLeverage:
           workflow: Draft rollout rules and a test matrix for flag combinations, including both

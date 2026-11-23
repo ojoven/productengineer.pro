@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT } from '../atlas/load.ts';
+import { favicon } from '../../server/src/catalog-model.ts';
 import { loadAuthor, loadProducts } from '../editorial/load.ts';
 import type { EntryKind } from '../editorial/schema.ts';
 
@@ -68,6 +69,25 @@ export async function itemsForSkill(skillId: string): Promise<Item[]> {
 export const skillsOf = (items: { data: { skills: string[] } }[]) => [...new Set(items.flatMap((e) => e.data.skills))];
 
 export const products = () => loadProducts();
+
+/** A small picture for a link to an entry: a product logo, a site icon or a person's avatar. */
+export type Face = { src: string; round: boolean };
+
+/**
+ * The pictures shown next to a link to an entry: the subjects' logos (or their site icons when an
+ * entry has no logo), then the person's avatar. Work on my own products shows the product's icon.
+ */
+export function entryFaces(e: Item): Face[] {
+  const d = e.data;
+  if ('product' in d) {
+    if (d.product === 'productengineer-pro') return [{ src: '/favicon.svg', round: false }];
+    const url = loadProducts()[d.product]?.url;
+    return url ? [{ src: favicon(url), round: false }] : [];
+  }
+  const faces: Face[] = d.subjects.flatMap((s) => (s.logo ? [{ src: s.logo, round: false }] : s.url ? [{ src: favicon(s.url), round: false }] : []));
+  if (d.person?.avatar) faces.push({ src: d.person.avatar, round: true });
+  return faces.slice(0, 3);
+}
 export const author = () => loadAuthor();
 
 /** "2026-11-11" -> "11 Nov 2026"; "2015" stays "2015". */

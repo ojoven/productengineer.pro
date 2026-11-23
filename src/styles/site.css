@@ -2,6 +2,65 @@
    Warm paper, near-black ink, one signal colour (pink). IBM Plex Sans, Condensed and Mono.
    Hairline rules instead of cards, square corners, catalogue codes everywhere. */
 
+/* Fallbacks sized to IBM Plex, so text keeps its width and lines keep their breaks while the web
+   fonts load (no layout shift). Arial covers desktop and iOS; the "R" faces use Roboto for Android.
+   Values come from the fonts' average glyph width over skill names and summaries, and their
+   ascent and descent (Plex: 1.025 and 0.275 em). */
+@font-face {
+  font-family: 'Plex Sans Fallback';
+  font-weight: 400;
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans');
+  size-adjust: 100.9%;
+  ascent-override: 101.6%;
+  descent-override: 27.3%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Plex Sans Fallback';
+  font-weight: 500 700;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold');
+  size-adjust: 96.2%;
+  ascent-override: 106.5%;
+  descent-override: 28.6%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Plex Sans Fallback R';
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular');
+  size-adjust: 100.9%;
+  ascent-override: 101.6%;
+  descent-override: 27.3%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Plex Sans Fallback R';
+  font-weight: 500 700;
+  src: local('Roboto Medium'), local('Roboto-Medium');
+  size-adjust: 102.8%;
+  ascent-override: 99.7%;
+  descent-override: 26.8%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Plex Cond Fallback';
+  font-weight: 400 700;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold');
+  size-adjust: 87%;
+  ascent-override: 117.8%;
+  descent-override: 31.6%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Plex Cond Fallback R';
+  font-weight: 400 700;
+  src: local('Roboto Medium'), local('Roboto-Medium');
+  size-adjust: 93%;
+  ascent-override: 110.2%;
+  descent-override: 29.6%;
+  line-gap-override: 0%;
+}
+
 :root {
   --bg: #f2f0ea;
   --bg-2: #e9e6de;
@@ -17,8 +76,8 @@
   --on-ink: #f2f0ea;
   /* the select arrow, in the ink colour of each theme */
   --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23141412' stroke-width='1.4'/%3E%3C/svg%3E");
-  --sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  --cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', ui-sans-serif, sans-serif;
+  --sans: 'IBM Plex Sans', 'Plex Sans Fallback', 'Plex Sans Fallback R', ui-sans-serif, system-ui, sans-serif;
+  --cond: 'IBM Plex Sans Condensed', 'Plex Cond Fallback', 'Plex Cond Fallback R', 'IBM Plex Sans', ui-sans-serif, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
   --max: 1360px;
   --gutter: clamp(16px, 3vw, 40px);
@@ -805,6 +864,16 @@ select.btn:hover {
 }
 .ref .t:hover {
   text-decoration: underline;
+}
+/* The resource's site icon, in front of its title: which site the link opens. */
+.ref .ref-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 7px;
+  vertical-align: -2px;
+  border-radius: 3px;
+  background: #fff;
+  object-fit: contain;
 }
 .ref .by {
   font: 12px/1.5 var(--mono);

@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Interpret your funnel analysis (Amplitude docs)
+    url: https://amplitude.com/docs/analytics/charts/funnel-analysis/funnel-analysis-interpret
+  - title: How to fix your app onboarding drop-off points (PostHog)
+    url: https://posthog.com/blog/how-to-find-and-fix-app-onboarding-drop-off
+  - title: Buffer got a 17% conversion lift by fixing their signup flow (DoWhatWorks)
+    url: https://dowhatworks.substack.com/p/buffer-got-a-17-conversion-lift-by
+---
+
+## Why it matters for a product engineer
+
+A funnel shows where a flow loses people, so engineering time goes to the step that matters. It is
+often the first chart to build after shipping a flow. It turns "onboarding feels slow" into a number
+for each step.
+
+## How to do it
+
+1. Define the last step first: the action that means success, such as the
+   [activation event](/skills-map/activation/time-to-value/activation-events/).
+2. Choose three to five steps that every user must pass. With more steps, the real problem is harder
+   to see.
+3. Set a conversion window that fits the flow: one session for a checkout, 7 to 14 days for
+   onboarding.
+4. Wait until a few hundred users have entered the flow before you read it.
+5. Look for the largest loss in number of users, not only the lowest percentage.
+6. Split that step by device, channel or plan. Then watch
+   [session replays](/skills-map/measurement/qualitative-evaluation/session-replays/) or talk to
+   people who left there.
+
+## Common mistakes
+
+- Measuring steps as a strict sequence when users can do them in any order.
+- Renaming an event in the middle of the period, so a step seems to collapse.
+- Fixing the step with the lowest rate when another step loses more people.
+- Adding more persuasion at the step where people leave, instead of removing what stops them.
+
+## Example
+
+Buffer sent visitors from its home page to the pricing page before signup, and 57% of them left
+between those two pages. In a test, Buffer sent people straight to signup, and signup conversion went
+up 17%. Simon Heaton, its Director of Marketing, said removing friction did better than adding
+persuasion in their tests: "subtract before you add".
+
+<StatRow
+  title="Buffer's signup flow, before and after one page was removed"
+  stats={[
+    { value: 57, unit: '%', label: 'Visitors lost between the home page and the pricing page', signal: true },
+    { value: 17, unit: '%', label: 'Lift in signup conversion after sending people straight to signup' },
+  ]}
+  caption="The 57% showed where people left. Removing that step, not adding persuasion to it, brought the lift."
+  evidence="reported"
+  source="Simon Heaton, Director of Marketing at Buffer, interviewed by DoWhatWorks, 26 Mar 2026"
+/>

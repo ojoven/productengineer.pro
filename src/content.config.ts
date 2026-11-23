@@ -19,4 +19,17 @@ const tours = defineCollection({
   schema: z.object({}),
 });
 
-export const collections = { fieldwork, tours };
+// A skill's body: optional MDX at src/content/skills/<skill-id>.mdx, shown on the skill page under
+// the short description. It can use every figure by name, as entries do. Format and plan:
+// docs/skill-bodies.md and docs/skill-bodies-batches.md.
+const skills = defineCollection({
+  loader: glob({ base: './src/content/skills', pattern: '[^_]*.{md,mdx}' }),
+  schema: z.object({
+    // YAML reads an unquoted 2026-11-20 as a date; keep it as the string.
+    updated: z.preprocess((v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v), z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'dates are YYYY-MM-DD')),
+    /** Every source used for a fact or the example, opened and checked. */
+    sources: z.array(z.object({ title: z.string().trim().min(1), url: z.string().url() })).default([]),
+  }),
+});
+
+export const collections = { fieldwork, tours, skills };

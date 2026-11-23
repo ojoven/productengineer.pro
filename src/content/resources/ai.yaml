@@ -16,3 +16,13 @@ google-pair-mental-models:
   level: intro
   why: Helps you set expectations about AI capabilities and make the system's limits understandable to users.
   checked: 2026-11-11
+
+mcp-build-server:
+  url: https://modelcontextprotocol.io/docs/develop/build-server
+  title: Build an MCP server
+  author: Model Context Protocol docs
+  type: docs
+  length: 30 min
+  level: deep
+  why: The official tutorial, in several languages, that builds a small server with tools and connects it to a client.
+  checked: 2026-11-23

@@ -194,3 +194,13 @@ prokanban-forecasting:
   level: intro
   why: Answering "when will it be done" with a range and a confidence level, not a single date.
   checked: 2026-11-10
+
+posthog-flag-best-practices:
+  url: https://posthog.com/docs/feature-flags/best-practices
+  title: Best practices for production-ready flags
+  author: PostHog docs
+  type: docs
+  length: 12 min
+  level: deep
+  why: A checklist from a flag vendor on where to evaluate flags, how to keep results stable for each user, and when to remove a flag.
+  checked: 2026-11-23

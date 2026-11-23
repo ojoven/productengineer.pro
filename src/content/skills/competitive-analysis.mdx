@@ -1,0 +1,62 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Competitive usability evaluations (NN/g)
+    url: https://www.nngroup.com/articles/competitive-usability-evaluations/
+  - title: Mamitsu vs Supadata (Mamitsu)
+    url: https://usemamitsu.com/compare/mamitsu-vs-supadata
+---
+
+## Why it matters for a product engineer
+
+A product engineer reads competitors to decide scope and quality, not to copy a feature list.
+Knowing how others solve the same job shows what users will expect as normal, and where a small team
+can be clearly better. It also stops you from spending a month on something a free tool already does
+well.
+
+## How to do it
+
+1. Start from the job, not the category. List what people already use for it, including tools from
+   other categories and [substitutes](/skills-map/discovery/market-research/substitutes/).
+2. Sign up for the top two or three as a new user. Do the main task from start to finish, and note
+   each step, the time it takes and where you get stuck.
+3. Read what their users complain about: store reviews, review sites, forums, GitHub issues. Group
+   the complaints and count how often each one appears.
+4. Write down the price of each plan and what it unlocks. Price is part of the product.
+5. Sort what you found into three groups: what you must match, where you can be clearly better, and
+   what you will leave out on purpose.
+6. Do it again every few months. Products change, and so do their prices.
+
+## Common mistakes
+
+- Copying the feature list of the market leader.
+- Comparing only with products that look like yours.
+- Reading the marketing pages instead of using the product.
+- A comparison table where you win every row. Nobody believes it, and it hides what you should
+  learn.
+- Doing it once, before the first version, and never again.
+
+## Example
+
+Asked who else does what Mamitsu does, Unai Esteibar named Supadata and PostReef, with Apify as the
+general version. Supadata's traction showed that people pay for the job, so his question was "Can I do
+it as well or better, and much cheaper?". Mamitsu now publishes comparison pages against five rivals,
+and the page against Supadata also shows where Supadata does more.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Compare
+  title="One extraction on Mamitsu and on Supadata"
+  subjects={['Mamitsu', 'Supadata']}
+  highlight={0}
+  rows={[
+    { label: '45-second Instagram reel', values: ['US$0.005', 'US$0.028'], best: 0 },
+    { label: '10-minute YouTube video', values: ['US$0.030', 'US$0.283'], best: 0 },
+    { label: 'Credits', values: ['Prepaid, kept until used', 'Monthly, do not roll over'], best: 0 },
+    { label: 'Answer in the same request', values: [true, false], best: 0, note: 'Supadata returns a job to poll' },
+    { label: 'Facebook videos and media files', values: [false, true], best: 1 },
+    { label: 'Web scraping and crawling', values: [false, true], best: 1 },
+  ]}
+  caption="Mamitsu is several times cheaper and simpler to call for social posts, and narrower. An honest comparison shows both."
+  evidence="observed"
+  source="usemamitsu.com/compare/mamitsu-vs-supadata, read 14 Nov 2026. Supadata figures as Mamitsu read them on 11 Nov 2026, not checked on Supadata's site."
+/>

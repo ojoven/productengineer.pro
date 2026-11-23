@@ -1,0 +1,55 @@
+---
+// The logos and avatar of an In practice entry, small and overlapping, in front of a link to it.
+// Decorative: the link text already names the entry.
+import type { Face } from '../lib/editorial.ts';
+
+interface Props {
+  faces: Face[];
+  size?: number;
+}
+const { faces, size = 22 } = Astro.props;
+---
+
+{
+  faces.length > 0 && (
+    <span class="faces" aria-hidden="true" style={`--face:${size}px`}>
+      {faces.map((f) => (
+        <img
+          class:list={['face', { round: f.round }]}
+          src={f.src}
+          alt=""
+          width={size}
+          height={size}
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          onerror="this.remove()"
+        />
+      ))}
+    </span>
+  )
+}
+
+<style>
+  .faces {
+    display: inline-flex;
+    vertical-align: -0.28em;
+    margin-right: 0.4em;
+  }
+  .face {
+    width: var(--face);
+    height: var(--face);
+    border-radius: 5px;
+    object-fit: contain;
+    background: #fff;
+    box-shadow: 0 0 0 1px var(--line);
+    display: block;
+  }
+  .face + .face {
+    margin-left: calc(var(--face) * -0.28);
+  }
+  .face.round {
+    border-radius: 50%;
+    image-rendering: pixelated;
+    box-shadow: 0 0 0 2px var(--bg);
+  }
+</style>

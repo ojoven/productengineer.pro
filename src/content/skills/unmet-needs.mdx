@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Understand users and their needs (GOV.UK Service Manual)
+    url: https://www.gov.uk/service-manual/service-standard/point-1-understand-user-needs
+---
+
+## Why it matters for a product engineer
+
+Many products start from an unmet need, and engineers often see one first: a workaround in the code,
+a manual step nobody automated, a platform rule that blocks a feature. Naming the need precisely tells
+you whether it is big enough to build a product for.
+
+## How to do it
+
+1. Watch what people try to do, not only what they complain about. Workarounds, copy and paste, and
+   spreadsheets point to needs.
+2. Ask what they do today and what it costs them in time or money.
+3. Write the need without a solution in it: "apps cannot get structured data out of videos", not "an
+   API for videos".
+4. Check how many people have the need and how often. A need felt once a year is a weak base for a
+   product.
+5. Find the reason it is still unmet: a technical limit that just went away, a rule that is hard to
+   pass, or a market too small for big companies.
+6. Test it with something cheap before you build the full product.
+
+<Compare
+  title="Letting your users post and run ads from your product"
+  subjects={['Your own integration', 'Through Zernio']}
+  highlight={1}
+  rows={[
+    { label: 'Developer app', values: ['One per platform', "Zernio's, already approved"] },
+    { label: "Meta's app review", values: ['A screencast, then about 14 days', 'Done'] },
+    { label: 'A new permission, like ads', values: ['Another review', 'Already covered'] },
+    { label: 'YouTube upload quota', values: ['Ask for an increase', 'Already raised'], note: 'Zernio waited six months for its own' },
+    { label: 'Expiring tokens', values: ['Yours to refresh', 'Refreshed for you'] },
+  ]}
+  caption="Zernio's need sits in the platforms' rules. Each line is a wait or a chore Zernio takes on once, for every customer."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast; token refresh also on zernio.com, read 15 Nov 2026"
+/>
+
+## Common mistakes
+
+- Treating a complaint as a need. Complaints are often about today's solution, not about the job.
+- Writing the need as a feature.
+- Ignoring users who want your product for a different reason than you expected.
+- Assuming nobody solves it because you found no product. Look for workarounds too.
+
+## Example
+
+Mamitsu started as one feature of a coffee recipe app: it imported recipes from Instagram reels and
+YouTube Shorts. The beta testers wanted that import for other things: family recipes, another coffee
+app, a travel app. What they had in common was not coffee, but useful information locked inside
+videos. That became the product: an API that watches a video and returns what you ask for as JSON.
+([Mamitsu in In practice](/in-practice/mamitsu/))

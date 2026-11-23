@@ -1,0 +1,62 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How we created data science personas for Spotify's analytics platform (Spotify Engineering)
+    url: https://engineering.atspotify.com/2024/9/are-you-a-dalia-how-we-created-data-science-personas-for-spotifys-analytics-platform
+---
+
+## Why it matters for a product engineer
+
+Personas give a team a shared picture of who it builds for, so a discussion about a feature can name
+a real kind of user. For engineers they are most useful when they connect to data. When the analytics
+can assign every user to a persona, the team can see how each group behaves.
+
+## How to do it
+
+1. Start from research, not demographics: several
+   [interviews](/skills-map/discovery/user-research/user-interviews/) for each type of user you
+   expect to find.
+2. Group people by goals, context and behaviour. Age and job title rarely explain what someone needs.
+3. Turn each group into a short profile: the goal, the context, the main frustration, the tools they
+   use, and one quote from the research.
+4. Write simple rules that assign a real user to a persona from product data. Check the rules with more
+   interviews.
+5. Share the personas where decisions happen: planning, design reviews and the dashboards.
+6. Keep between three and six. With more, nobody remembers them.
+
+## Common mistakes
+
+- Personas invented in a workshop, with no research behind them.
+- Details that change no decision, such as hobbies or a stock photo.
+- So many personas that each one stands for nobody.
+- Never updating them after the product or its users change.
+
+## Example
+
+On Spotify's internal analytics platform, "data practitioner" was too broad to guide the product. The
+team combined interviews with data on how employees used the tools, and found six personas, from
+Paola the Product Strategist to Dalia the Data Dabbler. Simple rules assign each person, such as
+"Employee has used dashboarding tools more than 90% of data scientists". A daily dataset classifies
+every internal user, so the team can split its key results by persona.
+
+<Flow
+  title="How Spotify's analytics team built its personas"
+  stages={['Learn', 'Classify', 'Check', 'Use']}
+  nodes={[
+    { id: 'talk', label: 'Interviews', detail: 'Goals and work', col: 0, row: 0 },
+    { id: 'rules', label: 'Rules', detail: 'From usage data', col: 1, row: 0 },
+    { id: 'check', label: 'Rules fit?', detail: 'More interviews', col: 2, row: 0, kind: 'decision' },
+    { id: 'daily', label: 'Daily dataset', detail: 'A persona each', col: 3, row: 0, kind: 'store', tone: 'lit' },
+    { id: 'kr', label: 'Key results', detail: 'Split by persona', col: 3, row: 1 },
+  ]}
+  edges={[
+    { from: 'talk', to: 'rules' },
+    { from: 'rules', to: 'check' },
+    { from: 'check', to: 'rules', label: 'Adjust', dashed: true },
+    { from: 'check', to: 'daily', label: 'Yes' },
+    { from: 'daily', to: 'kr' },
+  ]}
+  caption="Interviews and data correct each other until the rules hold. Then the personas live in the data, not only in a slide."
+  evidence="reported"
+  source="Spotify Engineering, 5 Sep 2024"
+/>

@@ -153,6 +153,16 @@ describe('entries', () => {
     }
   });
 
+  it('skill bodies use figures that exist, with no example data', () => {
+    const skillDir = join(ROOT, 'src', 'content', 'skills');
+    const bodies = existsSync(skillDir) ? readdirSync(skillDir).filter((f) => f.endsWith('.mdx') && !f.startsWith('_')) : [];
+    for (const f of bodies) {
+      const { body } = splitFrontmatter(readFileSync(join(skillDir, f), 'utf8'));
+      expect(components(body).filter((n) => !registered.includes(n)), `skills/${f}`).toEqual([]);
+      expect(/illustrative/.test(body), `skills/${f} has a figure marked illustrative`).toBe(false);
+    }
+  });
+
   it('has a template that shows a figure in every section of an experiment', () => {
     const { body } = splitFrontmatter(readFileSync(join(dir, '_example-figures.mdx'), 'utf8'));
     for (const section of SECTIONS.experiment) {
@@ -229,5 +239,26 @@ describe('flow layout', () => {
 
   it('refuses an arrow to a node that does not exist', () => {
     expect(() => layoutFlow([{ id: 'a', label: 'A', col: 0, row: 0 }], [{ from: 'a', to: 'b' }], 'wide')).toThrow(/does not exist/);
+  });
+
+  it('draws two arrows between the same nodes side by side, not on top of each other', () => {
+    const nodes = [
+      { id: 'lead', label: 'Lead', col: 0, row: 0 },
+      { id: 'helper', label: 'Helper', col: 0, row: 1 },
+    ];
+    const edges = [
+      { from: 'lead', to: 'helper' },
+      { from: 'helper', to: 'lead' },
+    ];
+    for (const v of VARIANTS) {
+      const [there, back] = layoutFlow(nodes, edges, v).edges;
+      expect(there.d, v).not.toBe(back.d);
+      const start = (d: string) => d.match(/-?\d+(\.\d+)?/g)!.map(Number);
+      const [tx, ty] = start(there.d);
+      const [, , bx, by] = start(back.d);
+      // the return arrow ends where the outgoing one starts, moved across
+      if (v === 'wide') expect(tx).not.toBe(bx);
+      else expect(ty).not.toBe(by);
+    }
   });
 });

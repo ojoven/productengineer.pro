@@ -1,0 +1,69 @@
+---
+updated: 2026-11-23
+sources:
+  - title: What is the Model Context Protocol? (MCP docs)
+    url: https://modelcontextprotocol.io/docs/getting-started/intro
+  - title: Build an MCP server (MCP docs)
+    url: https://modelcontextprotocol.io/docs/develop/build-server
+---
+
+## Why it matters for a product engineer
+
+More people now use products through agents such as Claude Code or Codex, not only through the
+screen. An MCP server is how a product appears there: one integration that many AI clients can use.
+It is a new interface to design, with the same care as an API or a page.
+
+## How to do it
+
+1. Start from the jobs people will give an agent, not from your list of endpoints. Write three to
+   five real requests, such as "create a data room for this deal and invite the lawyers".
+2. Turn each job into tools with clear names, short descriptions and typed inputs. The model only
+   knows what those descriptions tell it.
+3. Return only the fields the agent needs. Every extra field uses context and tokens.
+4. Use each server feature for its purpose: tools for actions, resources for data the client reads,
+   prompts for ready-made workflows.
+5. If you already have an API, generate the server from the same definition, so the two cannot
+   drift apart.
+6. Test it with the MCP Inspector, then with two or more real clients, before you announce it.
+
+## Common mistakes
+
+- Tool descriptions written for people who already know the product. The model has only the text.
+- Returning full records or long transcripts when a few fields would answer the question.
+- In a server that runs over stdio, writing logs to standard output. That breaks the messages
+  between client and server.
+- A hand-written server that falls behind the API, so agents miss new features.
+
+## Example
+
+Papermark's MCP server has 57 typed tools, each mapped to a REST endpoint, with scoped tokens and an
+append-only audit log, and Papermark is a verified connector in Claude
+([Papermark](/in-practice/papermark/)). Zernio generates its MCP server and CLI from the API, so each
+new endpoint reaches agents at no extra cost; its end users mostly come through MCP
+([Zernio](/in-practice/zernio/)). Mamitsu returns only the fields an agent asks for, so a ten-minute
+video costs a few lines of context ([Mamitsu](/in-practice/mamitsu/)).
+
+<Flow
+  title="Zernio: one API, three ways in"
+  stages={['Source', 'Generated', 'Used by']}
+  nodes={[
+    { id: 'api', label: 'The API', detail: 'Written once', col: 0, row: 1 },
+    { id: 'rest', label: 'REST API', detail: 'Endpoints', col: 1, row: 0 },
+    { id: 'mcp', label: 'MCP server', detail: '496 tools', col: 1, row: 1, tone: 'lit' },
+    { id: 'cli', label: 'CLI', detail: '371 commands', col: 1, row: 2 },
+    { id: 'apps', label: 'Apps', detail: "Customers' code", col: 2, row: 0, kind: 'external' },
+    { id: 'agents', label: 'Agents', detail: 'Claude, Codex', col: 2, row: 1, kind: 'external' },
+    { id: 'term', label: 'Terminal', detail: 'Developers', col: 2, row: 2, kind: 'external' },
+  ]}
+  edges={[
+    { from: 'api', to: 'rest' },
+    { from: 'api', to: 'mcp', label: 'generated' },
+    { from: 'api', to: 'cli', label: 'generated' },
+    { from: 'rest', to: 'apps' },
+    { from: 'mcp', to: 'agents' },
+    { from: 'cli', to: 'term' },
+  ]}
+  caption="A new endpoint reaches agents and the terminal with no extra work, so the three interfaces cannot drift apart."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast; tool and command counts from zernio.com, 15 Nov 2026"
+/>
