@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Review: The Mom Test by Rob Fitzpatrick (Yevgeniy Brikman)'
+    url: https://www.ybrikman.com/blog/2023/03/29/the-mom-test/
+---
+
+## Why it matters for a product engineer
+
+Not all evidence is equal. Someone who pays is stronger evidence than someone who says they would pay.
+What people do is stronger than what they answer in a survey. Engineers build the instruments that
+create much of this evidence, so they decide whether it can be trusted: what is logged, what is a
+default, and what is really the user's choice.
+
+## How to do it
+
+1. Label every claim with where it comes from: measured in the product, observed, reported by
+   someone, or assumed.
+2. Rank commitments above words. In The Mom Test, a commitment means giving up something of value:
+   time, reputation or money.
+3. Treat compliments, general claims ("I always"), future promises ("I would") and ideas as weak.
+4. Ask about specific past events, not opinions about the future.
+5. Check how a number was produced before you trust it: who chose the value, and was there a default?
+6. Match the evidence to the size of the bet. A month of work needs more than a few warm
+   conversations.
+
+## Common mistakes
+
+- Counting "I would definitely buy that" as demand.
+- Many weak signals added together and treated as one strong one.
+- A metric that measures the product's own default, not the user's choice.
+- Throwing away a strong result because it disagrees with the plan.
+
+## Example
+
+An agent's audit of RelievApp found that the rating after a session started 30% better than the rating
+before it. The agent saved "3 points lighter" without touching the slider. Any average built on those
+ratings measured the default, not the session. The fix is now built: no head start, and a rating
+the person did not touch does not count.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<StatRow
+  title="What one RelievApp session recorded, before the fix"
+  stats={[
+    { value: 9, label: 'Rating before the session' },
+    { value: 6, label: 'Rating after, already set', note: '30% better by default' },
+    { value: '3 points lighter', label: 'Saved without touching it', signal: true },
+  ]}
+  caption="A default can look like a result. The strongest evidence is a choice the person made, not one the product made for them."
+  evidence="observed"
+  source="An agent's audit of RelievApp, 16 Nov 2026"
+/>

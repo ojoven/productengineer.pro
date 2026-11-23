@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Two MVPs every product manager should know, and how to tell them apart (Mind the Product)
+    url: https://www.mindtheproduct.com/wizard-of-oz-vs-concierge-testing-behind-the-curtain-or-behind-the-desk/
+  - title: 'Concierge testing versus Wizard of Oz prototyping: what to choose? (Netguru)'
+    url: https://www.netguru.com/blog/concierge-testing-versus-wizard-of-oz-prototyping
+---
+
+## Why it matters for a product engineer
+
+The most expensive way to learn what a product must do is to build it first. Doing the work by hand
+for a few customers shows the steps, the exceptions and the value before anyone writes the automation.
+Engineers then build what was proven, and they already know which parts are hard.
+
+## How to do it
+
+1. Choose which half you are testing. In a Wizard of Oz test the front end is built and a person does
+   the back end. In a concierge test a person is the front end and uses whatever back end exists.
+2. Start with a few real customers who have the problem now.
+3. Do the work by hand, the same way each time, and write down every step and every exception.
+4. Measure what you would measure in the product: did they come back, did they pay, did the result
+   help?
+5. Automate the steps that repeat. The exceptions you wrote down become your edge cases.
+6. Decide what users are told. In a Wizard of Oz test they do not know a person is involved, so treat
+   their data as carefully as the finished product would.
+
+## Common mistakes
+
+- Doing the work by hand for so long that it never becomes a product.
+- Serving friends who would say yes to anything.
+- Not writing the steps down, so the manual work teaches nothing.
+- A manual service much better than the automation can ever be, so the results do not hold.
+
+## Example
+
+Aardvark answered questions by sending them to people who knew the answer. At first there was no
+algorithm. The team posted each question to online users by hand to see who would answer, then pasted
+the answer back to the person who asked. To users, it looked like a working system.
+
+<Compare
+  title="Two ways to put a person where software will be"
+  subjects={['Concierge', 'Wizard of Oz']}
+  rows={[
+    { label: 'The front end', values: ['A person', 'Software'] },
+    { label: 'The back end', values: ['Whatever exists', 'A person'] },
+    { label: 'The customer knows', values: [true, false] },
+    { label: 'It tests', values: ['Is the result useful?', 'Do people use the interface?'] },
+  ]}
+  caption="Both tests put off the expensive half of the build. The difference is which half is real, and whether the customer knows."
+  evidence="reported"
+  source="Mind the Product and Netguru"
+/>

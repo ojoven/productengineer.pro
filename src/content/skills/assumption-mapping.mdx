@@ -1,0 +1,60 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Assumption testing: everything you need to know to get started (Teresa Torres)'
+    url: https://www.producttalk.org/assumption-testing/
+  - title: 'Opportunity solution trees: visualize your discovery (Teresa Torres)'
+    url: https://www.producttalk.org/opportunity-solution-trees/
+---
+
+## Why it matters for a product engineer
+
+Every idea rests on beliefs that may be false: people want it, can use it, will pay for it, and the
+team can build it. Mapping those beliefs shows the risk before the build. For an engineer, the map
+decides what to build first: the cheapest test of the riskiest belief, not the most interesting part
+of the code.
+
+## How to do it
+
+1. Walk through the idea step by step, as in a story map, and write what must be true at each step.
+2. Check that the list covers Teresa Torres's five types: desirability, usability, feasibility,
+   viability and ethics. Do not argue about which type an assumption is; the list is what matters.
+3. Place each assumption on two scales from David Bland: how important it is to success, and how much
+   evidence you already have.
+4. Test the important assumptions with little evidence first, with the smallest test that can give
+   evidence.
+5. Write down what success looks like before the test, so nobody can read the result to fit.
+6. Move each assumption on the map as evidence arrives.
+
+## Common mistakes
+
+- Listing only desirability, and forgetting feasibility, viability and ethics.
+- Placing assumptions by feeling and calling it evidence.
+- Testing the easy assumptions because they are easy.
+- A map made once at the start and never updated.
+
+## Example
+
+Mamitsu's maker has evidence for one belief: Supadata's traction shows that people pay to get data
+out of videos. The belief that matters most has no evidence yet: that they will pay Mamitsu, which is
+several times cheaper. The relaunch is the test.
+([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<Matrix
+  title="What Mamitsu's relaunch depends on"
+  x={{ label: 'Evidence so far', low: 'None', high: 'Strong' }}
+  y={{ label: 'Importance', low: 'Low', high: 'High' }}
+  quadrants={['Test first', 'Keep checking', 'Later', 'Safe for now']}
+  focus="tl"
+  items={[
+    { label: 'People will pay Mamitsu', x: 0.1, y: 0.93, pick: true, note: 'The relaunch will tell' },
+    { label: 'A much lower price wins customers', x: 0.22, y: 0.72 },
+    { label: 'Marketing teams are the buyers', x: 0.3, y: 0.56, note: 'From what the maker read' },
+    { label: 'People pay for video extraction', x: 0.78, y: 0.86, note: "Supadata's traction" },
+    { label: 'The API holds load', x: 0.88, y: 0.62, note: 'Daily load tests' },
+    { label: 'Raw video beats transcripts', x: 0.55, y: 0.35, note: 'The main product bet' },
+  ]}
+  caption="The top-left belief is the one the business depends on, and the only test for it is a real price in front of real buyers."
+  evidence="assumed"
+  source="The call with Mamitsu's maker, 13 Nov 2026; the placements are ours"
+/>

@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: EventStorming (Alberto Brandolini)
+    url: https://www.eventstorming.com/
+  - title: Ubiquitous language (Martin Fowler)
+    url: https://martinfowler.com/bliki/UbiquitousLanguage.html
+---
+
+## Why it matters for a product engineer
+
+In many products, the person who uses it, the person who pays and the person who approves are
+different people with different goals. A product that users love can still fail when a buyer or an
+approver says no. Engineers build the features that serve one group and cost another: an admin
+control, an audit log, a permission.
+
+## How to do it
+
+1. List everyone who uses, buys, approves or is affected by the product, including people outside the
+   company.
+2. For each group, write what they want, what they fear and what they can block.
+3. Find where the goals conflict, for example a user who wants speed and an approver who wants
+   control.
+4. Map how the business works with people who know it. EventStorming brings domain experts and
+   engineers together to map the events of a business on one wall.
+5. Decide whose need a feature serves first, and check that it does not block the others.
+
+## Common mistakes
+
+- Researching only users, and losing the sale to someone who never saw the product.
+- Treating "the customer" as one person.
+- Forgetting people who never touch the product but are affected by it.
+- Ignoring third parties that can change the rules, such as platforms and regulators.
+
+## Example
+
+Zernio sells an API for posting to social networks. Its users are developers, its buyers are the
+products and agencies they build for, and the people who post through it never see it. The platforms
+decide what it may do. They are the group that could end the business, which sits in a grey zone they
+tolerate today. ([Zernio in In practice](/in-practice/zernio/))
+
+<Compare
+  title="Who has a part in Zernio"
+  subjects={['Who', 'Their part']}
+  rows={[
+    { label: 'Use it', values: ['Developers', 'Build posting and ads into their own product'] },
+    { label: 'Pay', values: ['SaaS products, then agencies, then people with their own accounts', 'A price per connected account'] },
+    { label: 'Affected', values: ["The SaaS product's own users", 'Post through Zernio, and never see it'] },
+    { label: 'Approve', values: ['Meta, YouTube and the other platforms', 'App reviews and quotas; they could cut Zernio out'] },
+  ]}
+  caption="Four groups with four different goals. The one that could end the business is not a customer."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast, Nov 2026; zernio.com"
+/>

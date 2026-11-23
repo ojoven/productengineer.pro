@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Contextual research and observation (GOV.UK Service Manual)
+    url: https://www.gov.uk/service-manual/user-research/contextual-research-and-observation
+  - title: Field studies (NN/g)
+    url: https://www.nngroup.com/articles/field-studies/
+---
+
+## Why it matters for a product engineer
+
+Every industry has its own way of getting work done: steps, roles, documents and deadlines that
+outsiders do not see. A feature that ignores the workflow adds work. A feature that fits one painful
+step can be the whole product. Engineers who know the workflow choose better defaults, permissions and
+data models.
+
+## How to do it
+
+1. Map the workflow from start to end with the people who do it: the steps, who does each one, which
+   documents move, and the deadlines.
+2. Watch at least one real run of it, or as much of it as you can.
+3. Mark the steps that are slow, risky or repeated by hand.
+4. Note the events that start and end the work: a fundraise, a month-end close, a school term. They
+   decide when people need your product, and when they leave.
+5. Fit the product to the order of the workflow. Ask for what a step needs, when it needs it.
+6. Use the industry's own [words](/skills-map/discovery/domain-understanding/domain-language/) for
+   each step.
+
+## Common mistakes
+
+- Designing one step and ignoring what happens before and after it.
+- Assuming the workflow is the same in every company and country.
+- Treating the end of a cycle as churn, when the work itself has ended.
+- Learning the workflow from managers instead of the people who do it.
+
+## Example
+
+Papermark follows the shape of a deal. Templates for fundraising, M&A and LP reporting set up the
+room. Visitors verify an email or accept an NDA before they read, and the team sees who read which
+page. Because deals end, cancelling offers a three-month pause, and the links keep working.
+([Papermark in In practice](/in-practice/papermark/))
+
+<Flow
+  title="A deal, and the part of Papermark that serves each step"
+  stages={['Set up', 'Share', 'Diligence', 'The deal ends']}
+  nodes={[
+    { id: 'room', label: 'Data room', detail: 'From a deal template', col: 0, row: 0 },
+    { id: 'gate', label: 'Visitor gate', detail: 'Email check or NDA', col: 1, row: 0 },
+    { id: 'read', label: 'Analytics', detail: 'Who read which page', col: 2, row: 0, kind: 'store' },
+    { id: 'pause', label: 'Pause', detail: '3 months at $0, links work', col: 3, row: 0, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'room', to: 'gate' },
+    { from: 'gate', to: 'read' },
+    { from: 'read', to: 'pause' },
+  ]}
+  motion={false}
+  caption="Each part of the product matches a step of the deal, including the end, when a pause replaces a cancellation."
+  evidence="observed"
+  source="papermark.com and its repository, Nov 2026"
+/>

@@ -456,12 +456,12 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 19 · Discovery · 6 skills
 
-- [ ] `01.5.1` [Assumption mapping](https://productengineer.pro/skills-map/discovery/opportunity-validation/assumption-mapping/) · `assumption-mapping` · map coverage
-- [ ] `01.5.2` [Evidence strength](https://productengineer.pro/skills-map/discovery/opportunity-validation/evidence-strength/) · `evidence-strength` · 1 resource
-- [ ] `01.5.6` [Concierge and Wizard of Oz tests](https://productengineer.pro/skills-map/discovery/opportunity-validation/concierge-experiments/) · `concierge-experiments` · map coverage
-- [ ] `01.6.1` [Industry workflows](https://productengineer.pro/skills-map/discovery/domain-understanding/industry-workflows/) · `industry-workflows` · map coverage
-- [ ] `01.6.2` [Domain language](https://productengineer.pro/skills-map/discovery/domain-understanding/domain-language/) · `domain-language` · map coverage
-- [ ] `01.6.4` [Stakeholders and buyers](https://productengineer.pro/skills-map/discovery/domain-understanding/domain-stakeholders/) · `domain-stakeholders` · map coverage
+- [x] `01.5.1` [Assumption mapping](https://productengineer.pro/skills-map/discovery/opportunity-validation/assumption-mapping/) · `assumption-mapping` · map coverage
+- [x] `01.5.2` [Evidence strength](https://productengineer.pro/skills-map/discovery/opportunity-validation/evidence-strength/) · `evidence-strength` · 1 resource
+- [x] `01.5.6` [Concierge and Wizard of Oz tests](https://productengineer.pro/skills-map/discovery/opportunity-validation/concierge-experiments/) · `concierge-experiments` · map coverage
+- [x] `01.6.1` [Industry workflows](https://productengineer.pro/skills-map/discovery/domain-understanding/industry-workflows/) · `industry-workflows` · map coverage
+- [x] `01.6.2` [Domain language](https://productengineer.pro/skills-map/discovery/domain-understanding/domain-language/) · `domain-language` · map coverage
+- [x] `01.6.4` [Stakeholders and buyers](https://productengineer.pro/skills-map/discovery/domain-understanding/domain-stakeholders/) · `domain-stakeholders` · map coverage
 
 ### Batch 20 · Strategy · 12 skills
 

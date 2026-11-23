@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Ubiquitous language (Martin Fowler)
+    url: https://martinfowler.com/bliki/UbiquitousLanguage.html
+  - title: Bounded context (Martin Fowler)
+    url: https://martinfowler.com/bliki/BoundedContext.html
+---
+
+## Why it matters for a product engineer
+
+People notice quickly when a product uses the wrong words for their work, and they trust it less.
+Inside the team, one shared vocabulary means the code, the interface and conversations with experts
+use the same names. Eric Evans calls this a ubiquitous language. Engineers own the half of it that
+lives in the code.
+
+## How to do it
+
+1. Collect the words experts use, from interviews, documents and support tickets, with a short
+   definition for each.
+2. Use those words in the interface, in the code and in conversation. If a class has a different name
+   from the thing on screen, one of the two is wrong.
+3. Listen for words that mean different things to different groups.
+4. Draw a boundary where the meaning changes. In domain-driven design this is a bounded context:
+   inside it, each word has one meaning, and you map between contexts at the edges.
+5. Let experts object to awkward terms, and change the model as your understanding grows.
+
+## Common mistakes
+
+- New names for things users already have names for.
+- Engine words in the interface, such as the name of a table or a service.
+- One model for the whole company, so a word must mean everything to everyone.
+- Renaming in the interface but not in the code, so the two drift apart.
+
+## Example
+
+Martin Fowler worked with an electricity utility where "meter" meant different things to different
+parts of the organisation. People could smooth this over in conversation, but software could not. The
+answer is not one perfect definition. Each part of the system keeps one meaning, and the parts map
+between them.
+
+<Compare
+  title={'One word, three meanings: "meter" at an electricity utility'}
+  subjects={['What it meant']}
+  rows={[
+    { label: 'A link', values: ['The connection between the grid and a location'] },
+    { label: 'Another link', values: ['The connection between the grid and a customer'] },
+    { label: 'A device', values: ['The physical meter, which can be replaced if it fails'] },
+  ]}
+  caption="A person tells these apart from context. A database cannot, so each meaning needs its own model and its own name."
+  evidence="reported"
+  source="Martin Fowler, Bounded context"
+/>
