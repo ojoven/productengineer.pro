@@ -563,17 +563,17 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 28 · Shipping · 11 skills
 
-- [ ] `05.1.2` [Incremental architecture](https://productengineer.pro/skills-map/shipping/iterative-delivery/incremental-architecture/) · `incremental-architecture` · map coverage
-- [ ] `05.1.4` [Limiting work in progress](https://productengineer.pro/skills-map/shipping/iterative-delivery/wip-limits/) · `wip-limits` · 1 resource
-- [ ] `05.2.2` [Automated deployments](https://productengineer.pro/skills-map/shipping/release-engineering/deployment-automation/) · `deployment-automation` · 1 resource
-- [ ] `05.2.3` [Environments](https://productengineer.pro/skills-map/shipping/release-engineering/environment-management/) · `environment-management` · 1 resource
-- [ ] `05.3.2` [Staged rollouts](https://productengineer.pro/skills-map/shipping/controlled-releases/staged-rollouts/) · `staged-rollouts` · map coverage
-- [ ] `05.3.3` [Beta programs](https://productengineer.pro/skills-map/shipping/controlled-releases/beta-programs/) · `beta-programs` · map coverage
-- [ ] `05.4.1` [Pre-release QA](https://productengineer.pro/skills-map/shipping/release-readiness/release-qa/) · `release-qa` · has evidence, technicalLeverage, aiLeverage; 1 resource
-- [ ] `05.4.4` [Support readiness](https://productengineer.pro/skills-map/shipping/release-readiness/support-readiness/) · `support-readiness` · map coverage
-- [ ] `05.4.5` [Operational readiness](https://productengineer.pro/skills-map/shipping/release-readiness/operational-readiness/) · `operational-readiness` · map coverage
-- [ ] `05.5.1` [Estimation](https://productengineer.pro/skills-map/shipping/delivery-management/estimation/) · `estimation` · map coverage
-- [ ] `05.5.3` [Removing blockers](https://productengineer.pro/skills-map/shipping/delivery-management/unblocking/) · `unblocking` · 1 resource
+- [x] `05.1.2` [Incremental architecture](https://productengineer.pro/skills-map/shipping/iterative-delivery/incremental-architecture/) · `incremental-architecture` · map coverage
+- [x] `05.1.4` [Limiting work in progress](https://productengineer.pro/skills-map/shipping/iterative-delivery/wip-limits/) · `wip-limits` · 1 resource
+- [x] `05.2.2` [Automated deployments](https://productengineer.pro/skills-map/shipping/release-engineering/deployment-automation/) · `deployment-automation` · 1 resource
+- [x] `05.2.3` [Environments](https://productengineer.pro/skills-map/shipping/release-engineering/environment-management/) · `environment-management` · 1 resource
+- [x] `05.3.2` [Staged rollouts](https://productengineer.pro/skills-map/shipping/controlled-releases/staged-rollouts/) · `staged-rollouts` · map coverage
+- [x] `05.3.3` [Beta programs](https://productengineer.pro/skills-map/shipping/controlled-releases/beta-programs/) · `beta-programs` · map coverage
+- [x] `05.4.1` [Pre-release QA](https://productengineer.pro/skills-map/shipping/release-readiness/release-qa/) · `release-qa` · has evidence, technicalLeverage, aiLeverage; 1 resource
+- [x] `05.4.4` [Support readiness](https://productengineer.pro/skills-map/shipping/release-readiness/support-readiness/) · `support-readiness` · map coverage
+- [x] `05.4.5` [Operational readiness](https://productengineer.pro/skills-map/shipping/release-readiness/operational-readiness/) · `operational-readiness` · map coverage
+- [x] `05.5.1` [Estimation](https://productengineer.pro/skills-map/shipping/delivery-management/estimation/) · `estimation` · map coverage
+- [x] `05.5.3` [Removing blockers](https://productengineer.pro/skills-map/shipping/delivery-management/unblocking/) · `unblocking` · 1 resource
 
 ### Batch 29 · Measurement · 10 skills
 

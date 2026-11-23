@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How to run a successful beta in 7 steps (Intercom)
+    url: https://www.intercom.com/blog/how-to-run-a-successful-beta
+  - title: How to establish a successful beta program (Product Marketing Alliance)
+    url: https://www.productmarketingalliance.com/how-to-establish-a-successful-beta-program/
+---
+
+## Why it matters for a product engineer
+
+A beta puts a new feature in front of engaged users before everyone sees it. They find the bugs, the
+confusing parts and the missing pieces while change is still cheap. For a product engineer it is
+also the first real usage data, and a direct line to the people who use the feature.
+
+## How to do it
+
+1. Plan the beta early, not when the feature is almost ready.
+2. Write what success means first: the metrics and the questions the beta must answer.
+3. Invite early adopters who will use it right away and accept rough edges. Give them some real
+   value, or they will not come back.
+4. Tell them what to expect: what works, what does not, and how long the beta lasts.
+5. Make feedback easy, inside the product. Log each comment with its type and the reason behind it.
+6. Set a date for the release decision, and decide from the metrics and the patterns in the
+   feedback.
+
+## Common mistakes
+
+- A beta with no goal, so it never ends.
+- Inviting only friendly users, who will not find the problems.
+- Trying to build every request before the release.
+- No reply to the people who gave feedback.
+
+## Example
+
+When Intercom took its new Respond Reports out of beta, there was "a mountain of feedback". Building
+it all first would have delayed a better report for the 95% of customers who were not in the beta.
+So the team released what it had, and kept the other requests for the next iterations. A date for
+the decision worked as a forcing function.
+
+<Anatomy
+  title="How Intercom logs each piece of beta feedback"
+  as="copy"
+  parts={[
+    { text: 'The original comment · ', label: 'Original', note: 'In the customer’s own words' },
+    { text: 'Its type · ', label: 'Type', note: 'Bug, usability or improvement' },
+    { text: 'A short summary · ', label: 'Summary', note: 'The product manager’s version' },
+    { text: 'The reason behind it', label: 'Reason', note: 'The issue or cause the comment really expresses', kind: 'signal' },
+  ]}
+  caption="The reason column turns a pile of requests into patterns. A repeated question points to confusing interface or logic, or to missing help."
+  evidence="reported"
+  source="Intercom, How to run a successful beta in 7 steps"
+/>

@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Update on the Sonos app from Patrick (Sonos)
+    url: https://www.sonos.com/en-us/blog/update-on-the-sonos-app
+  - title: The practical test pyramid (Ham Vocke)
+    url: https://martinfowler.com/articles/practical-test-pyramid.html
+---
+
+## Why it matters for a product engineer
+
+Automated tests check what someone thought to write down. Before a release, a product engineer also
+checks the product the way people use it: the most important tasks, on real devices, with real data.
+The goal is confidence in the release, not a perfect product.
+
+## How to do it
+
+1. List the critical paths: the few tasks people cannot live without, such as signing in, paying,
+   or the product's core action.
+2. Run the automated suite, then try each critical path by hand on the release build.
+3. Spend a short, focused session on exploratory testing of what changed: unusual inputs, slow
+   networks, old devices, other languages.
+4. Check what a rewrite removes, not only what it adds. Compare its features with the old version,
+   one by one.
+5. Test with the setups real customers have, including large accounts and old data.
+6. Decide to ship, ship to fewer people, or wait. Write down the known issues either way.
+
+## Common mistakes
+
+- Testing only the new screens, and not the old journeys around them.
+- Testing with a clean demo account instead of real, messy data.
+- A rewrite that ships with features missing, on a fixed date.
+- Treating QA as a phase at the end, instead of a check on each change.
+
+## Example
+
+Sonos released a rebuilt app on 7 May 2024. On 25 July, its CEO wrote that "too many of you have
+experienced significant problems" and apologized. Since the launch, the team had released updates
+about every two weeks, and fixing the problems had delayed adding the missing features. The plan he
+published for the next months was mostly the basics.
+
+<Timeline
+  title="Sonos's plan to fix its new app, from the CEO's letter"
+  events={[
+    { when: '7 May 2024', title: 'New app released', kind: 'ship' },
+    { when: 'Since May', title: 'Updates every two weeks', kind: 'problem', note: 'Fixes delayed the missing features' },
+    { when: 'Jul–Aug', title: 'Adding products, music library', kind: 'decision', note: 'Stability when adding speakers; browse, search and play' },
+    { when: 'Aug–Sep', title: 'Volume and stability', kind: 'decision', note: 'Volume response, error handling' },
+    { when: 'Sep–Oct', title: 'Alarms, playlists, queue', kind: 'decision', note: 'Alarm reliability; edit mode restored' },
+  ]}
+  caption="Each item is a core task: set up a speaker, play your music, change the volume, wake up to an alarm. Those are the critical paths a release must prove."
+  evidence="reported"
+  source="Patrick Spence, Sonos CEO, 25 Jul 2024"
+/>

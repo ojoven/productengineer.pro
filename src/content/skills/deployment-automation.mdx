@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Deployment automation (DORA)
+    url: https://dora.dev/capabilities/deployment-automation/
+  - title: SEC charges Knight Capital with violations of market access rule (SEC)
+    url: https://www.sec.gov/news/press-release/2013-222
+---
+
+## Why it matters for a product engineer
+
+A manual deploy depends on a person doing every step right, every time. Automation removes those
+steps and the mistakes that come with them. It also makes small, frequent releases cheap, and small
+releases are easier to check and to undo. A product engineer who can deploy safely at any time can
+fix a problem in minutes.
+
+## How to do it
+
+1. Write down every step of today's deploy, including the ones people do from memory.
+2. Script the steps one by one, until a single command deploys. Then run it from CI.
+3. Deploy the same build artifact to every environment. Do not rebuild for production.
+4. Make the deploy check itself: every server runs the new version, health checks pass, and errors
+   stay normal.
+5. Make it safe to run again, and make rollback a single command too.
+6. Let anyone on the team deploy. A deploy that only one person can run is a risk.
+
+## Common mistakes
+
+- A script that still needs manual steps before or after it.
+- Copying files to servers one by one.
+- No check that every server received the change.
+- Configuration changes outside the pipeline.
+
+## Example
+
+In 2012 Knight Capital deployed new code for its order router to eight servers. A technician did not
+copy the new code to one of them, so old code that nobody used any more stayed live there. No second
+person reviewed the deploy, and no written procedure required it. On 1 August, when the market
+opened, that old code began to send orders, and it no longer counted the shares already filled.
+
+<StatRow
+  title="One server out of eight, on 1 August 2012"
+  stats={[
+    { value: 45, unit: 'min', label: 'Of wrong orders after the market opened' },
+    { value: '4M+', label: 'Orders sent, to fill 212 customer orders' },
+    { value: '$460M', label: 'Loss for Knight Capital', signal: true },
+  ]}
+  caption="One missed copy, and no check that every server ran the same code. A deploy that verifies each server could have found it before the market opened."
+  evidence="reported"
+  source="US SEC, order and press release, 16 Oct 2013"
+/>

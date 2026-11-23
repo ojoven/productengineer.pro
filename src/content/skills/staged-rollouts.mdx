@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Falcon content update, preliminary post incident report (CrowdStrike)
+    url: https://www.crowdstrike.com/en-us/blog/falcon-content-update-preliminary-post-incident-report/
+  - title: Helping our customers through the CrowdStrike outage (Microsoft)
+    url: https://blogs.microsoft.com/blog/2024/07/20/helping-our-customers-through-the-crowdstrike-outage/
+  - title: Canarying releases (Google SRE workbook)
+    url: https://sre.google/workbook/canarying-releases/
+---
+
+## Why it matters for a product engineer
+
+Tests never cover every device, configuration and kind of user. A staged rollout lets real use find
+what tests missed, while only a few people are exposed. It turns a release from one bet into a
+series of small ones, each with a chance to stop.
+
+## How to do it
+
+1. Start with a small share: the team, a canary group, then 1%, 5%, 25% and everyone.
+2. Decide the gate for each stage before you start: the metrics, their limits, and how long to wait.
+3. Compare the new group with the rest, not with yesterday. Google's SRE workbook shows why size
+   matters: a version that fails 20% of requests, on a 5% canary, adds only 1% to the overall errors.
+4. Stop automatically when a gate fails, and roll back.
+5. Wait long enough for slow signals, such as support tickets or memory growth.
+6. Apply the same rules to configuration and content, not only to code.
+
+## Common mistakes
+
+- Treating configuration or content updates as too small to need stages.
+- Stages without gates, so the rollout continues on schedule whatever happens.
+- A canary group that is not representative of real users.
+- Moving faster than the metrics can show a problem.
+
+## Example
+
+On 19 July 2024 at 04:09 UTC, CrowdStrike sent a content update to every online Windows computer
+running its sensor. A bug in its Content Validator had let bad data through. The sensor read memory out
+of bounds, and Windows crashed. The update was reverted at 05:27 UTC, 78 minutes later. Microsoft estimated that 8.5 million
+Windows devices were affected.
+
+<Compare
+  title="How CrowdStrike sent content updates, before and after July 2024"
+  subjects={['19 July 2024', 'Promised after']}
+  rows={[
+    { label: 'First group', values: ['Every online sensor', 'A canary group'] },
+    { label: 'Next stages', values: ['None', 'Gradually larger shares'] },
+    { label: 'Signal before going wider', values: [false, 'Sensor and system monitoring'] },
+    { label: 'Customers choose when and where', values: [false, true] },
+  ]}
+  highlight={1}
+  caption="The update went to every sensor at once, so nothing could stop it early. The fixes add stages, signals between them and a choice for customers."
+  evidence="reported"
+  source="CrowdStrike preliminary post incident review, 24 Jul 2024"
+/>

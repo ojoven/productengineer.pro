@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Work in process limits (DORA)
+    url: https://dora.dev/capabilities/wip-limits/
+  - title: 'Kanban at scale: a Siemens success story (InfoQ)'
+    url: https://www.infoq.com/articles/kanban-siemens-health-services/
+---
+
+## Why it matters for a product engineer
+
+Every item a team starts and does not finish waits somewhere: in review, in testing, in someone's
+head. Too much work in progress makes each item take longer and hides where it is stuck. A limit
+makes the team finish before it starts, so value reaches users sooner and blockers become visible.
+
+## How to do it
+
+1. Make all the work visible on one board, including the invisible kind: support, fixes, reviews
+   and meetings that take real time.
+2. Set a limit for each column. For example, with four pairs of developers, no more than four cards
+   in "In development".
+3. When a column is full, help move a card forward before you pull a new one.
+4. Measure cycle time, from start to done, and throughput, the items finished per week.
+5. Watch where cards pile up. That column is the bottleneck, and the place to improve.
+6. Lower the limits slowly, until problems appear, then fix the problems.
+
+## Common mistakes
+
+- Limits on paper that nobody respects when a request is urgent.
+- Not counting invisible work, so the board looks fine while people are overloaded.
+- Limits so high that they never stop anything.
+- Measuring how busy people are instead of how fast work finishes.
+
+## Example
+
+Siemens Health Services had about 50 teams running 30-day sprints. The last week of each sprint was
+"a mad rush" to claim points, with hurried testing. Teams started too many features, and most were
+not finished until the end of the release. The program moved every team to Kanban at once, with
+WIP limits. The cumulative flow diagram then showed higher throughput in development than in
+testing across all teams, so management invested heavily in test automation.
+
+<Compare
+  title="How Siemens Health Services changed the way teams took on work"
+  subjects={['Sprints', 'With WIP limits']}
+  rows={[
+    { label: 'New work starts', values: ['At sprint planning', 'When there is capacity'] },
+    { label: 'Capacity set by', values: ['Story points', 'WIP limits'] },
+    { label: 'Measured by', values: ['Velocity', 'Cycle time and throughput'] },
+    { label: 'The bottleneck', values: ['Seen at the release', 'Seen on the board'] },
+  ]}
+  highlight={1}
+  caption="The teams kept their practices. What changed was when work could start, and that made the bottleneck visible."
+  evidence="reported"
+  source="Bennet Vallet, Siemens Health Services, in InfoQ"
+/>

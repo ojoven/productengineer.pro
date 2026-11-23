@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Nudge: accelerating overdue pull requests towards completion (Microsoft, arXiv)'
+    url: https://arxiv.org/abs/2011.12468
+  - title: Work in process limits (DORA)
+    url: https://dora.dev/capabilities/wip-limits/
+---
+
+## Why it matters for a product engineer
+
+Most work does not stop because it is hard. It stops because it waits: for a decision, a review,
+access or another team. A product engineer who notices waiting work and moves it keeps the whole
+team fast. Blockers that come back again and again point to a process worth fixing.
+
+## How to do it
+
+1. Make waiting visible. Mark blocked items on the board, with the reason and the date.
+2. Name the person who can unblock each item, not the team.
+3. Ask early and specifically: what you need, by when, and why it matters.
+4. Offer to do the work that makes it easy to say yes: a short summary, a draft decision, a smaller
+   change to review.
+5. Escalate politely when a blocker passes its deadline.
+6. Count blockers by type every few weeks, and fix the most common cause.
+
+## Common mistakes
+
+- Waiting quietly and starting something else.
+- Asking a whole channel instead of one person.
+- Large pull requests that nobody wants to start reviewing.
+- Fixing the same blocker by hand every time.
+
+## Example
+
+Microsoft built Nudge for overdue pull requests. It predicts when each pull request should be
+complete, ignores the ones with enough activity, and works out who the blocker is, the author or a
+reviewer. Then it reminds only that person. In a randomized trial, it was tested on 147 repositories
+at Microsoft.
+
+<StatRow
+  title="What Nudge's reminders did at Microsoft"
+  stats={[
+    { value: 60, unit: '%', label: 'Faster resolution of overdue pull requests', note: '8,500 pull requests in the trial', signal: true },
+    { value: 73, unit: '%', label: 'Reminders that developers rated as positive' },
+    { value: '210k', label: 'Reminders in a year', note: 'Across 8,000 repositories' },
+  ]}
+  caption="A reminder to the one person who is blocking, at the right time, moved work that had stopped. Most developers found it useful, not annoying."
+  evidence="measured"
+  source="Maddila and others, Microsoft, Nudge, arXiv 2011.12468"
+/>

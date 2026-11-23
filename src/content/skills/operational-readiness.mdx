@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Bringing Pokémon GO to life on Google Cloud (Google Cloud)
+    url: https://cloud.google.com/blog/products/containers-kubernetes/bringing-pokemon-go-to-life-on-google-cloud
+  - title: Reliable product launches at scale (Google SRE book)
+    url: https://sre.google/sre-book/reliable-product-launches/
+---
+
+## Why it matters for a product engineer
+
+A launch is the moment when the most people arrive at once, and the moment the team knows least
+about real load. Operational readiness checks, before that moment, that the system can hold the
+traffic, show what is wrong, and recover. A short review prevents most launch-day surprises.
+
+## How to do it
+
+1. Estimate the load: the expected traffic and a worst case. Then ask what happens at ten times the
+   worst case.
+2. Load test the critical paths, and know which part breaks first.
+3. Check the dependencies: quotas, rate limits and the capacity of every outside service.
+4. Make sure alerts and dashboards cover the new feature, and that someone is on call.
+5. Write the runbook: how to scale, how to degrade gracefully, how to roll back.
+6. Launch in stages when you can, by region or by share of users.
+
+## Common mistakes
+
+- Planning capacity for the expected case only.
+- A load test of the app, but not of the database or an outside API.
+- Alerts that go to nobody during the launch.
+- No plan to turn features off to save the core.
+
+## Example
+
+Pokémon GO launched first in Australia and New Zealand. Within 15 minutes, traffic was well past
+Niantic's expectations, and Google's reliability engineers joined before the US launch the next day.
+Before the launch in Japan, the teams upgraded the container cluster to add more than a thousand
+nodes and changed the load balancer. Japan launched without incident, with three times the sign-ups
+of the US launch.
+
+<Bars
+  title="Pokémon GO's player traffic against the plan"
+  unit="×"
+  items={[
+    { label: 'Target', value: 1 },
+    { label: 'Worst-case estimate', value: 5 },
+    { label: 'Actual traffic', value: 50, highlight: true },
+  ]}
+  caption="Traffic reached 50 times the target, ten times the worst case. Readiness is not one number: it is knowing what to do when the number is wrong."
+  evidence="reported"
+  source="Luke Stone, Google Cloud, 30 Sep 2016"
+/>

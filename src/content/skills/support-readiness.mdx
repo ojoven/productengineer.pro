@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Post-incident review on the Atlassian April 2022 outage (Atlassian)
+    url: https://www.atlassian.com/blog/how-we-build/post-incident-review-april-2022-outage
+  - title: Launch coordination checklist (Google SRE)
+    url: https://sre.google/sre-book/launch-checklist/
+---
+
+## Why it matters for a product engineer
+
+Support hears about problems first. A customer writes a ticket minutes after something breaks, often
+before any alert. If support knows what changed and whom to call, that ticket becomes an early
+warning. If not, it waits in a queue. A product engineer who briefs support before a release gets
+faster signals and calmer customers.
+
+## How to do it
+
+1. Before a release, tell support what changes, for whom, and when.
+2. Give them the help articles, the known issues and the answers to the questions you expect.
+3. Agree on an escalation path: which tickets go to the team, how, and who is on call.
+4. Tag tickets about the release, so you can count them and see patterns.
+5. Make sure customers can still reach support when the product itself is down, and keep customer
+   contacts somewhere the product cannot delete.
+6. Read the first tickets after the release yourself.
+
+## Common mistakes
+
+- Support learns about a change from the customers.
+- A help center that describes the old interface.
+- No way to link a ticket to the release that caused it.
+- A support form that only works for signed-in users of a working product.
+
+## Example
+
+On 5 April 2022, a maintenance script at Atlassian deleted 883 sites, the products of 775
+customers. The first support ticket came 8 minutes later. Some customer contact details had been
+deleted too, so affected customers could not file tickets as usual, and Atlassian could not easily reach
+them. For some customers, the outage lasted up to 14 days.
+
+<Timeline
+  title="The first hours of Atlassian's outage, 5 April 2022 (UTC)"
+  events={[
+    { when: '07:38', title: 'Script deletes 883 sites', kind: 'problem', note: '775 customers lose access' },
+    { when: '07:46', title: 'First support ticket', kind: 'result', note: 'From an affected customer' },
+    { when: '08:31', title: 'Support acknowledges', kind: 'decision' },
+    { when: '08:53', title: 'Ticket linked to the script', kind: 'decision' },
+    { when: '09:03', title: 'First status page update', kind: 'ship' },
+  ]}
+  caption="A customer reported the problem 8 minutes after it started. It took over an hour to connect that ticket to the script that caused it."
+  evidence="reported"
+  source="Atlassian post-incident review, 29 Apr 2022"
+/>

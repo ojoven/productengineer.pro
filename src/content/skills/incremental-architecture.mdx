@@ -1,0 +1,64 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Bye bye Mongo, hello Postgres (The Guardian)
+    url: https://theguardian.engineering/blog/info-2018-nov-30-bye-bye-mongo-hello-postgres
+  - title: Parallel change (Danilo Sato)
+    url: https://martinfowler.com/bliki/ParallelChange.html
+  - title: Monolith first (Martin Fowler)
+    url: https://martinfowler.com/bliki/MonolithFirst.html
+---
+
+## Why it matters for a product engineer
+
+Most architecture decisions are made before anyone knows how the product will be used. Incremental
+architecture builds what the product needs now and keeps the next change possible. When a real need
+appears, the system changes in small, safe steps, while users keep working.
+
+## How to do it
+
+1. Start simple: one well-structured application, with clear modules inside it. Split it only when
+   a boundary is clear and the split solves a real problem.
+2. Name the part that must change, and the reason: cost, outages, scale or a new kind of feature.
+3. Change it in parallel. Expand: add the new path next to the old one. Migrate: move callers and
+   data across. Contract: remove the old path.
+4. Run the old and the new path side by side, and compare their answers before you trust the new
+   one.
+5. Keep each step deployable and reversible, with a feature flag or a router in front.
+6. Delete the old path when nothing uses it. Two paths kept forever are a cost, not a safety net.
+
+## Common mistakes
+
+- A big rewrite that stops all other work and ships months later.
+- Splitting into services before the boundaries are known.
+- Building the new path inside the old code, when the old code is the problem.
+- Skipping the comparison, so the differences appear in production.
+
+## Example
+
+The Guardian's content system stored articles in MongoDB, and two outages had stopped publication
+on the site. In 2017 the team chose PostgreSQL. The old API had MongoDB details even in its
+controllers, so adding a second database there was too risky. Instead the team duplicated the API,
+put a proxy in front of both, and kept the old one as the primary. Records moved across, the new
+database became the primary, and the MongoDB cluster was switched off in April 2018.
+
+<Flow
+  title="How the Guardian moved its content off MongoDB"
+  stages={['Write', 'Route', 'Store', 'Compare']}
+  nodes={[
+    { id: 'apps', label: 'CMS apps', detail: 'Journalists at work', col: 0, row: 1 },
+    { id: 'proxy', label: 'Proxy', detail: 'Sends to both', col: 1, row: 1, tone: 'signal' },
+    { id: 'old', label: 'Old API', detail: 'MongoDB, primary', col: 2, row: 0, kind: 'store' },
+    { id: 'new', label: 'New API', detail: 'PostgreSQL', col: 2, row: 2, kind: 'store' },
+    { id: 'diff', label: 'Differences', detail: 'Logged per request', col: 3, row: 1, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'apps', to: 'proxy' },
+    { from: 'proxy', to: 'old' },
+    { from: 'proxy', to: 'new' },
+    { from: 'proxy', to: 'diff', dashed: true },
+  ]}
+  caption="Both APIs answered every request, and the old one stayed in charge. Each logged difference was a bug found before the switch, not after."
+  evidence="reported"
+  source="The Guardian engineering blog, 30 Nov 2018"
+/>

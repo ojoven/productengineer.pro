@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Set boundaries (Shape Up, chapter 3)
+    url: https://basecamp.com/shapeup/1.2-chapter-03
+  - title: When can I start telling customers when work will be done? (ProKanban)
+    url: https://prokanban.org/kanban-playbook/forecasting-delivery
+---
+
+## Why it matters for a product engineer
+
+People need to know roughly when work will be done, to plan launches, sales and other work. An
+estimate is a forecast, not a promise. A product engineer who gives honest ranges, and who can
+change the scope to fit the time, is more useful than one who gives a precise date that turns out
+wrong.
+
+## How to do it
+
+1. Give a range and a confidence level, such as "two to four weeks, 85% likely", not one date.
+2. Break the work down until each piece is understood. The pieces nobody understands are where the
+   time goes.
+3. Compare with similar past work, not with how the work feels today.
+4. Forecast from the team's real throughput. A Monte Carlo simulation on past delivery gives a range
+   with probabilities.
+5. For a new idea, decide first how much time the problem is worth, then shape a solution that
+   fits.
+6. Update the forecast when you learn something, and say so early.
+
+## Common mistakes
+
+- One number, heard as a promise.
+- Estimating only the coding, not the review, testing and release.
+- Adding pressure to the estimate instead of removing scope.
+- Never checking the old estimates against what happened.
+
+## Example
+
+A Basecamp customer asked for a calendar. A full calendar could take six months, so the team asked
+what six weeks could do. They called the customer and asked when she wanted a calendar. Her office
+kept bookings for its meeting rooms on a calendar drawn on a wall, and she drove there to check it.
+The real need was to see free spaces from home, not everything a calendar does.
+
+<Compare
+  title="An estimate and an appetite in Shape Up"
+  subjects={['Estimate', 'Appetite']}
+  rows={[
+    { label: 'Starts with', values: ['A design', 'A number'] },
+    { label: 'Ends with', values: ['A number', 'A design'] },
+    { label: 'What stays fixed', values: ['The scope', 'The time'] },
+  ]}
+  highlight={1}
+  caption="With an appetite, the question is not how long the design takes, but which design fits the time the problem is worth."
+  evidence="reported"
+  source="Ryan Singer, Shape Up, Basecamp"
+/>

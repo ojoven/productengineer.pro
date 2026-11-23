@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Dev/prod parity (The twelve-factor app)'
+    url: https://12factor.net/dev-prod-parity
+---
+
+## Why it matters for a product engineer
+
+Environments let a change be tested before it reaches users. Each difference between them is a place
+where something works in testing and fails in production. A product engineer who keeps environments
+alike, and keeps them apart, finds problems earlier and protects real users and real data.
+
+## How to do it
+
+1. Keep development, staging and production as similar as possible: the same database engine, the
+   same queue, the same versions.
+2. Put configuration in the environment, not in the code, and define the environments themselves
+   as code.
+3. Build once, and deploy the same artifact everywhere. Only the configuration changes.
+4. Give each change its own preview environment when you can, so reviewers can try it.
+5. Keep production data and production services out of test environments: separate keys, separate
+   analytics, separate email.
+6. Make the current environment obvious, in the interface and in the terminal.
+
+## Common mistakes
+
+- SQLite in development and PostgreSQL in production.
+- A staging environment that nobody keeps up to date.
+- Test traffic in production analytics, or test emails sent to real users.
+- Copying production data, with personal details, into development.
+
+## Example
+
+This site runs in three places: a developer's machine, a local preview of the built site, and
+production. The same build runs in all three. Analytics send only from a production build on
+productengineer.pro, so local, preview and agent runs never reach the real collector. Locally, the
+API offers a development sign-in, turned on with `DEV_LOGIN=1`, so nobody needs a real GitHub or
+Google account to test it.
+
+<Compare
+  title="Three gaps between development and production"
+  subjects={['Traditional app', 'Twelve-factor app']}
+  rows={[
+    { label: 'Time between deploys', values: ['Weeks', 'Hours'] },
+    { label: 'Who writes and who deploys', values: ['Different people', 'The same people'] },
+    { label: 'Dev and production environments', values: ['Divergent', 'As similar as possible'] },
+  ]}
+  highlight={1}
+  caption="Environments drift apart through time, people and tools. Frequent deploys by the people who wrote the code keep all three gaps small."
+  evidence="reported"
+  source="Adam Wiggins, The twelve-factor app"
+/>
