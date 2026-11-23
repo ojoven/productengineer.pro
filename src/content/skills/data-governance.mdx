@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Principles of the GDPR (European Commission)
+    url: https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en
+  - title: Papermark security
+    url: https://www.papermark.com/security
+---
+
+## Why it matters for a product engineer
+
+As a product grows, so does its data: in more tables, more tools and more hands. Data governance
+answers the basic questions: who owns each dataset, who may see it, where it is stored, and when it is
+deleted. Engineers build the answers into the system, with permissions, regions and retention jobs.
+Good answers reduce risk, storage costs and the time spent on every audit or customer questionnaire.
+
+## How to do it
+
+1. List the data you hold, where it lives, and who owns each set.
+2. Collect only what you need for a stated purpose, as the GDPR requires for personal data.
+3. Give access by role, and log who reads sensitive data.
+4. Set a retention period for each kind of data, and delete it automatically when the period ends.
+5. Decide where data is stored, and let customers choose when their rules require it.
+6. Review the list when you add a tool, a table or an integration.
+
+## Common mistakes
+
+- Keeping everything forever, "in case".
+- Personal data copied into logs, analytics and test databases.
+- Access given once and never removed.
+- Nobody owning a dataset, so nobody notices when it goes wrong.
+
+## Example
+
+Papermark stores documents for deals, often with strict rules about where data may go. It hosts data
+in Europe by default, offers other regions on enterprise plans, and remains open source, so a
+regulated customer can run it on its own servers. ([Papermark in In practice](/in-practice/papermark/))
+
+<Compare
+  title="Where a Papermark team's documents can live"
+  subjects={['Where', 'For whom']}
+  rows={[
+    { label: 'By default', values: ['Europe: Frankfurt', 'Every team'] },
+    { label: 'Region choice', values: ['The US or another region', 'Enterprise plans'] },
+    { label: 'Self-hosted', values: ["The customer's own servers", 'Customers who need full control'] },
+  ]}
+  caption="The storage region is part of the product. For a deal team, where the data sits can decide whether they may use the tool at all."
+  evidence="observed"
+  source="papermark.com/security, Nov 2026"
+/>

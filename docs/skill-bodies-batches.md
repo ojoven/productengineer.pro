@@ -384,17 +384,17 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 15 · Operations · 6 skills
 
-- [ ] `10.3.4` [Migrations and upgrades](https://productengineer.pro/skills-map/operations/maintenance/platform-upgrades/) · `platform-upgrades` · 1 In practice note; 1 resource
+- [x] `10.3.4` [Migrations and upgrades](https://productengineer.pro/skills-map/operations/maintenance/platform-upgrades/) · `platform-upgrades` · 1 In practice note; 1 resource
   - Zernio: The move has to happen with zero downtime and without a single user noticing. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `10.4.2` [Investigating user issues](https://productengineer.pro/skills-map/operations/user-support/issue-investigation/) · `issue-investigation` · 1 In practice note
+- [x] `10.4.2` [Investigating user issues](https://productengineer.pro/skills-map/operations/user-support/issue-investigation/) · `issue-investigation` · 1 In practice note
   - Mamitsu: The agent works out whether the error is real and whether Unai needs to look. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `10.5.3` [Data governance](https://productengineer.pro/skills-map/operations/governance-compliance/data-governance/) · `data-governance` · 1 In practice note; 1 resource
+- [x] `10.5.3` [Data governance](https://productengineer.pro/skills-map/operations/governance-compliance/data-governance/) · `data-governance` · 1 In practice note; 1 resource
   - Papermark: Data in the EU by default, US residency for enterprise, multi-region storage since June 2025. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `10.5.5` [Regulatory constraints](https://productengineer.pro/skills-map/operations/governance-compliance/regulatory-compliance/) · `regulatory-compliance` · 1 In practice note; 1 resource
+- [x] `10.5.5` [Regulatory constraints](https://productengineer.pro/skills-map/operations/governance-compliance/regulatory-compliance/) · `regulatory-compliance` · 1 In practice note; 1 resource
   - Papermark: SOC 2 Type II and ISO 27001, with GDPR, HIPAA and CCPA workflows. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `10.6.1` [Infrastructure costs](https://productengineer.pro/skills-map/operations/operational-economics/infrastructure-costs/) · `infrastructure-costs` · 1 In practice note
+- [x] `10.6.1` [Infrastructure costs](https://productengineer.pro/skills-map/operations/operational-economics/infrastructure-costs/) · `infrastructure-costs` · 1 In practice note
   - Zernio: Vercel became expensive at Zernio's volume, so parts moved to Cloudflare and the whole API is next. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `10.6.4` [Cost to serve](https://productengineer.pro/skills-map/operations/operational-economics/cost-to-serve/) · `cost-to-serve` · 1 In practice note; 1 resource
+- [x] `10.6.4` [Cost to serve](https://productengineer.pro/skills-map/operations/operational-economics/cost-to-serve/) · `cost-to-serve` · 1 In practice note; 1 resource
   - Zernio: Free accounts cost little; X is the exception because its API is paid, so connecting X asks for a card. ([entry](https://productengineer.pro/in-practice/zernio/))
 
 ### Batch 16 · AI · 9 skills

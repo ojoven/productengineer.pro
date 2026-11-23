@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: FinOps principles (FinOps Foundation)
+    url: https://www.finops.org/framework/principles/
+  - title: We stand to save $7m over five years from our cloud exit (David Heinemeier Hansson)
+    url: https://world.hey.com/dhh/we-stand-to-save-7m-over-five-years-from-our-cloud-exit-53996caa
+---
+
+## Why it matters for a product engineer
+
+Infrastructure cost grows with usage, and with resources nobody remembers. The choices that drive it,
+such as which provider, which database, how often a job runs, are made by engineers, usually without
+seeing the bill. A product can grow fast and still lose money on every customer. Cost is a metric like
+speed or errors, and the people who make the design choices should see it.
+
+## How to do it
+
+1. Put the monthly cost on a dashboard the team sees, split by service.
+2. Find the main drivers: usually compute, storage, data transfer and paid third-party APIs.
+3. Tag resources by team and feature, so every cost has an owner.
+4. Remove what nobody uses: old environments, unused volumes, forgotten test servers.
+5. Review the provider choice when the bill changes. A platform that was cheap at launch can be the
+   most expensive part at scale.
+6. Estimate the cost of a new feature before you build it.
+
+## Common mistakes
+
+- Nobody looking at the bill until it doubles.
+- Paying for convenience long after the product has outgrown it.
+- Optimising small costs while one large service grows unwatched.
+- Moving providers for cost without counting the people and time the move takes.
+
+## Example
+
+37signals spent $3.2 million on cloud services in 2022, about $2.3 million of it on servers outside
+file storage. It planned to buy about $600,000 of its own hardware and run it in rented racks, for a
+yearly cost of about $840,000. Zernio is moving from Vercel to Cloudflare for the same reason: at its
+scale, Vercel became very expensive. ([Zernio in In practice](/in-practice/zernio/))
+
+<Bars
+  title="37signals' yearly cost for servers, in the cloud and on its own hardware"
+  unit=" million dollars"
+  items={[
+    { label: 'Cloud, 2022, without file storage', value: 2.3 },
+    { label: 'Own hardware, planned', value: 0.84, highlight: true, note: 'Servers over five years, plus racks, power and bandwidth' },
+  ]}
+  caption="About $1.5 million a year saved, by its own estimate, without a larger operations team. At 37signals' size, the cloud had stopped being the cheaper choice."
+  evidence="reported"
+  source="David Heinemeier Hansson, 21 Feb 2023"
+/>

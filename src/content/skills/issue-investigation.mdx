@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: A debugging manifesto (Julia Evans)
+    url: https://jvns.ca/blog/2022/12/08/a-debugging-manifesto/
+  - title: Observability primer (OpenTelemetry)
+    url: https://opentelemetry.io/docs/concepts/observability-primer/
+---
+
+## Why it matters for a product engineer
+
+A user report says what someone saw, not what happened. Investigation connects the report to logs,
+traces and data until the problem can be reproduced. Product engineers are well placed for this,
+because they know both the code and the product. Often the answer is not a bug at all, but a screen
+that let the user believe something untrue.
+
+## How to do it
+
+1. Get the facts from the user: what they did, what they expected, what happened, and when.
+2. Find the same moment in your systems: the account, the request, the trace, the error.
+3. Reproduce it with the same data and steps. Until you can, it is a theory.
+4. Ask whether it is a real error, whether it affects other users, and who needs to know.
+5. Decide where the fix belongs: the code, the data, the docs or the design.
+6. Tell the user what you found, and add what was missing to your logs or admin tools.
+
+## Common mistakes
+
+- Assuming the user did something wrong.
+- Investigating without the user's exact time and account, and searching all logs by guesswork.
+- Fixing the data by hand without finding why it went wrong.
+- Closing the ticket without telling the user.
+
+## Example
+
+At Mamitsu, an agent does the first part of every investigation. For each new error, it opens a
+Slack thread and works out whether the error is real and whether its maker needs to look. Papermark
+keeps most of its issues public on GitHub, so customers can watch their bug being fixed.
+([Mamitsu](/in-practice/mamitsu/), [Papermark](/in-practice/papermark/))
+
+<Sequence
+  title="A production error at Mamitsu, from alert to fix"
+  actors={[
+    { id: 'sentry', label: 'Sentry', kind: 'external' },
+    { id: 'hermes', label: 'Hermes' },
+    { id: 'referee', label: 'Referee' },
+    { id: 'unai', label: 'Unai, in Slack', kind: 'external' },
+  ]}
+  messages={[
+    { from: 'hermes', to: 'sentry', label: 'Any new alerts?', note: 'An agent checks Sentry all the time.' },
+    { from: 'sentry', to: 'hermes', label: 'New error', kind: 'reply' },
+    { from: 'hermes', to: 'unai', label: 'Looking into this', tone: 'signal', note: 'A Slack thread: is it a real error, does it need you?' },
+    { from: 'hermes', to: 'referee', label: 'PR with a fix' },
+    { from: 'referee', to: 'hermes', label: 'Green, low risk: merged', kind: 'reply' },
+    { from: 'referee', to: 'unai', label: 'Fixed in production' },
+  ]}
+  caption="The investigation starts before anyone reads the error. The person is asked only the question the agent cannot answer."
+  evidence="reported"
+  source="The call with Mamitsu's maker, 13 Nov 2026"
+/>

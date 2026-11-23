@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Introduction to cloud unit economics (FinOps Foundation)
+    url: https://www.finops.org/wg/introduction-cloud-unit-economics/
+  - title: Zernio pricing
+    url: https://zernio.com/pricing
+---
+
+## Why it matters for a product engineer
+
+Cost to serve is what one customer, or one unit of use, really costs: servers, third-party APIs, AI
+calls and support time. It shows which plans make money and which lose it. Engineers can measure it,
+because they know which feature calls which service. And AI features have made it urgent: one heavy
+user can cost more than they pay.
+
+## How to do it
+
+1. Choose the unit: a customer, an account, a request, a document.
+2. Add up the costs per unit: compute, storage, paid APIs, AI tokens, payment fees and support time.
+3. Compare cost and revenue per unit, by plan and by kind of customer.
+4. Find the expensive exceptions: one feature, one provider, a few heavy users.
+5. Price them on purpose: pass the cost through, limit it, or put it in a higher plan.
+6. Recalculate when a provider changes its prices.
+
+## Common mistakes
+
+- Average cost per customer, which hides the few that cost the most.
+- Forgetting support time and payment fees.
+- Free plans that include an expensive third-party call.
+- AI features priced as if each call were free.
+
+## Example
+
+Zernio's first two connected accounts are free and cost it little. X is the exception: X charges for
+its API. So connecting an X account asks for a card, and Zernio passes the cost of X's API through at
+X's own rates, with no markup. ([Zernio in In practice](/in-practice/zernio/))
+
+<Flow
+  title="How Zernio handles the one expensive platform"
+  motion={false}
+  nodes={[
+    { id: 'acc', label: 'A user connects an account', col: 0, row: 0 },
+    { id: 'x', label: 'Is it X?', col: 1, row: 0, kind: 'decision' },
+    { id: 'free', label: 'Covered by the plan', detail: 'First two accounts free', col: 2, row: 0 },
+    { id: 'card', label: 'A card is required', detail: "X's API cost at X's rates", col: 2, row: 1, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'acc', to: 'x' },
+    { from: 'x', to: 'free', label: 'No' },
+    { from: 'x', to: 'card', label: 'Yes' },
+  ]}
+  caption="One provider charges per call, so its cost is passed through. The free plan stays free because it never includes that call."
+  evidence="observed"
+  source="zernio.com/pricing, 23 Nov 2026; Zernio's founder on the Itnig podcast"
+/>

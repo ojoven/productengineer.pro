@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Upgrading GitHub from Rails 3.2 to 5.2 (GitHub blog)
+    url: https://github.blog/engineering/upgrading-github-from-rails-3-2-to-5-2/
+  - title: Parallel change (Danilo Sato, martinfowler.com)
+    url: https://martinfowler.com/bliki/ParallelChange.html
+---
+
+## Why it matters for a product engineer
+
+Frameworks, databases and providers all need to change sooner or later: a version reaches end of
+life, a bill grows, a feature is missing. Each upgrade you skip makes the next one bigger. Product
+engineers carry the risk, because the product has to keep working, and users should not notice, while
+everything underneath it moves.
+
+## How to do it
+
+1. Upgrade small and often. One version at a time is a task; five at once is a project.
+2. Run old and new side by side: two versions of a dependency, two providers, two databases.
+3. Move in steps: expand to support both, migrate users or traffic, then remove the old path.
+4. Send a small share of production to the new version first, and compare errors and speed.
+5. Keep a way back at every step until the old path is removed.
+6. Remove the old code when the move is done. A half-finished migration is two systems to maintain.
+
+## Common mistakes
+
+- A long-running branch that never catches up with the main code.
+- Stopping all feature work for an upgrade, which makes the next delay more likely.
+- A switch over in one night, with no way back.
+- Leaving the old path in place "just in case", for years.
+
+## Example
+
+GitHub upgraded its main application from Rails 3.2 to 5.2 between 2017 and 2018. Instead of a
+long-lived branch, the code could start on several Rails versions, so changes for the next version
+shipped regularly. Each version went to a share of servers first, and was merged after 30 minutes at
+peak traffic with no visible impact. Zernio is moving from Vercel to Cloudflare the same way, piece by
+piece. ([Zernio in In practice](/in-practice/zernio/))
+
+<Bars
+  title="How long each step of GitHub's Rails upgrade took"
+  unit=" months"
+  items={[
+    { label: 'Rails 3.2 to 4.2', value: 12, note: 'A ten-year-old codebase, breaking changes' },
+    { label: 'Rails 4.2 to 5.2', value: 5, highlight: true, note: 'Smoother upgrades, a team that had learned' },
+  ]}
+  caption={'The first jump took a year. The second took five months. The lesson GitHub drew: "Upgrade early and upgrade often."'}
+  evidence="reported"
+  source="GitHub blog, 28 Sep 2018"
+/>
