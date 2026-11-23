@@ -443,16 +443,16 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 18 · Discovery · 10 skills
 
-- [ ] `01.1.5` [Goals and motivations](https://productengineer.pro/skills-map/discovery/user-understanding/user-motivations/) · `user-motivations` · map coverage
-- [ ] `01.1.6` [Behavior and context of use](https://productengineer.pro/skills-map/discovery/user-understanding/context-of-use/) · `context-of-use` · map coverage
-- [ ] `01.2.2` [Observation and field studies](https://productengineer.pro/skills-map/discovery/user-research/field-studies/) · `field-studies` · map coverage
-- [ ] `01.2.4` [Diary studies](https://productengineer.pro/skills-map/discovery/user-research/diary-studies/) · `diary-studies` · 1 resource
-- [ ] `01.2.5` [Research synthesis](https://productengineer.pro/skills-map/discovery/user-research/research-synthesis/) · `research-synthesis` · has evidence, technicalLeverage, aiLeverage
-- [ ] `01.3.1` [Pain points](https://productengineer.pro/skills-map/discovery/problem-identification/pain-points/) · `pain-points` · 1 resource
-- [ ] `01.3.3` [Root-cause analysis](https://productengineer.pro/skills-map/discovery/problem-identification/root-cause-analysis/) · `root-cause-analysis` · 1 resource
-- [ ] `01.3.4` [Problem statements](https://productengineer.pro/skills-map/discovery/problem-identification/problem-statements/) · `problem-statements` · 1 resource
-- [ ] `01.3.5` [Problem severity and frequency](https://productengineer.pro/skills-map/discovery/problem-identification/problem-severity/) · `problem-severity` · map coverage
-- [ ] `01.4.5` [Category conventions](https://productengineer.pro/skills-map/discovery/market-research/category-conventions/) · `category-conventions` · 1 resource
+- [x] `01.1.5` [Goals and motivations](https://productengineer.pro/skills-map/discovery/user-understanding/user-motivations/) · `user-motivations` · map coverage
+- [x] `01.1.6` [Behavior and context of use](https://productengineer.pro/skills-map/discovery/user-understanding/context-of-use/) · `context-of-use` · map coverage
+- [x] `01.2.2` [Observation and field studies](https://productengineer.pro/skills-map/discovery/user-research/field-studies/) · `field-studies` · map coverage
+- [x] `01.2.4` [Diary studies](https://productengineer.pro/skills-map/discovery/user-research/diary-studies/) · `diary-studies` · 1 resource
+- [x] `01.2.5` [Research synthesis](https://productengineer.pro/skills-map/discovery/user-research/research-synthesis/) · `research-synthesis` · has evidence, technicalLeverage, aiLeverage
+- [x] `01.3.1` [Pain points](https://productengineer.pro/skills-map/discovery/problem-identification/pain-points/) · `pain-points` · 1 resource
+- [x] `01.3.3` [Root-cause analysis](https://productengineer.pro/skills-map/discovery/problem-identification/root-cause-analysis/) · `root-cause-analysis` · 1 resource
+- [x] `01.3.4` [Problem statements](https://productengineer.pro/skills-map/discovery/problem-identification/problem-statements/) · `problem-statements` · 1 resource
+- [x] `01.3.5` [Problem severity and frequency](https://productengineer.pro/skills-map/discovery/problem-identification/problem-severity/) · `problem-severity` · map coverage
+- [x] `01.4.5` [Category conventions](https://productengineer.pro/skills-map/discovery/market-research/category-conventions/) · `category-conventions` · 1 resource
 
 ### Batch 19 · Discovery · 6 skills
 

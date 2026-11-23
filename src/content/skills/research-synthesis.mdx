@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Analyse a research session (GOV.UK Service Manual)
+    url: https://www.gov.uk/service-manual/user-research/analyse-a-research-session
+  - title: 'How to analyze qualitative data from UX research: thematic analysis (NN/g)'
+    url: https://www.nngroup.com/articles/thematic-analysis/
+  - title: 'Opportunity solution trees: visualize your discovery (Teresa Torres)'
+    url: https://www.producttalk.org/opportunity-solution-trees/
+---
+
+## Why it matters for a product engineer
+
+Research helps only when the team can act on it. Synthesis turns many notes into a few findings, each
+with its evidence. Engineers who take part know the reasons behind what they build, and can question a
+weak finding before it becomes a feature.
+
+## How to do it
+
+1. Analyse soon after each round of research, with everyone who watched it. GOV.UK suggests one hour
+   of analysis for every two hours of research.
+2. Write one observation per note: exactly what someone did or said, not what you think it means.
+3. Sort the notes into groups, and let anyone move anyone's note until clear groups appear.
+4. Write each finding as a short statement, such as "people think they can click the progress bar",
+   not as a topic like "navigation".
+5. Check each finding against earlier decisions, and say which ones it changes.
+6. End with actions: what to change, what to test, what to research next. An opportunity solution
+   tree connects each finding to the outcome you want.
+
+## Common mistakes
+
+- Topic labels instead of findings.
+- Mixing what people did with what the researcher thinks it means.
+- Synthesis by one person, alone, weeks later.
+- A report that ends with themes and no decision.
+
+## Example
+
+On 18 November RelievApp's maker gave spoken feedback on ten prototypes. An agent kept the raw text and
+structured it into a verdict per prototype, four ideas that cut across them, and a check against the
+decisions of 16 November. The check showed one direct conflict. The maker chose the broad catalog, with
+one condition: a strong design system for every session.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="Four of the checks: RelievApp's earlier decisions against the new feedback"
+  subjects={['16 November', '18 November', 'Conflict?']}
+  rows={[
+    { label: 'Catalog', values: ['Cut to 12 meditations', 'A broad catalog', 'Yes'] },
+    { label: 'New sessions', values: ['None until the first session is measured', 'Build variety to measure it', 'Partly'] },
+    { label: 'Gestures', values: ['Impossible to fail', 'Attention games, which can fail', 'Watch it'] },
+    { label: 'Look', values: ['One minimal look', 'One strong design system', 'No'] },
+  ]}
+  caption="Themes alone would have listed what the maker liked. The check against earlier decisions found the one question the maker had to decide."
+  evidence="observed"
+  source="RelievApp's feedback notes, 18 Nov 2026"
+/>

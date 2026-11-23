@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Contextual research and observation (GOV.UK Service Manual)
+    url: https://www.gov.uk/service-manual/user-research/contextual-research-and-observation
+  - title: Field studies (NN/g)
+    url: https://www.nngroup.com/articles/field-studies/
+---
+
+## Why it matters for a product engineer
+
+The same screen can work at a desk and fail on a phone in a hurry. The setting decides many choices
+that engineers make in code: how big a target is, whether sound is on, how much text people will
+read, whether they can type at all. Most of these choices are made without seeing where the product
+is used.
+
+## How to do it
+
+1. List the real settings of use: the device, the place, the time people have, and what else needs
+   their hands and attention.
+2. Go and see, or ask people to show you on their own device. GOV.UK suggests watching people with
+   their own equipment and their usual distractions.
+3. For each step of the flow, ask what the setting allows. Can they look at the screen? Hear sound?
+   Use two hands? Type?
+4. Test on the real device in a similar place: a phone held in one hand, outside, on a slow network.
+5. Write the limits as rules the whole team can apply, such as "no step needs two hands".
+
+## Common mistakes
+
+- Designing on a large monitor for people who use a phone.
+- Testing only in a quiet office with fast Wi-Fi.
+- Asking people about their setting instead of watching it. People do not notice their own
+  workarounds.
+- Assuming one setting. The same product may be used at a desk, on a train and in bed.
+
+## Example
+
+An agent's audit of RelievApp found three techniques that fight the device they run on. Each technique
+was sound on paper. The setting was a phone held in one hand, often in public or in bed. The audit
+kept each technique and changed only the gesture.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="RelievApp techniques that fight a phone held in one hand"
+  subjects={['What the session asked', "The audit's fix"]}
+  rows={[
+    { label: 'Muscle relaxation', values: ['"Make two tight fists", while a thumb holds the screen', '"Press hard with your thumb" as the tension'] },
+    { label: '5-4-3-2-1 grounding', values: ['Look around the room, while the reward is on the screen', 'A large "Got one" under the thumb, and a haptic tick'] },
+    { label: 'Sleep', values: ['A bright interactive screen in bed', 'Dim and warm the screen, then "put the phone down"'] },
+  ]}
+  caption="The technique stays the same. The gesture changes to fit the device and the place where people use it."
+  evidence="observed"
+  source="An agent's audit of RelievApp, 16 Nov 2026"
+/>

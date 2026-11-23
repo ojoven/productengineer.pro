@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Opportunity solution trees: visualize your discovery (Teresa Torres)'
+    url: https://www.producttalk.org/opportunity-solution-trees/
+  - title: 'Review: The Mom Test by Rob Fitzpatrick (Yevgeniy Brikman)'
+    url: https://www.ybrikman.com/blog/2023/03/29/the-mom-test/
+---
+
+## Why it matters for a product engineer
+
+A pain point is a moment where work costs too much: time, money, risk or effort. A feature that starts
+from a real pain point has people waiting for it. A feature that starts from a team idea still has to
+find them. Engineers often see pain points first, in support tickets, error logs and the workarounds
+people build.
+
+## How to do it
+
+1. Collect moments, not opinions. Ask "the last time this happened, what did you do?"
+2. Look for effort people already spend: a spreadsheet, copy and paste, a second tool, a call to
+   support. A workaround is evidence that the pain is real.
+3. Name what people use today, even when it is not a product, and where each option fails.
+4. Write each pain point as one moment: who has it, when, and what it costs them.
+5. Place the pain points under your outcome as opportunities, as in Teresa Torres's opportunity
+   solution tree, and compare them before you choose solutions.
+6. Rank them by [severity and frequency](/skills-map/discovery/problem-identification/problem-severity/).
+
+## Common mistakes
+
+- Feature requests written as pain points, such as "there is no export button".
+- Counting complaints instead of the people who have the problem.
+- Pain points that appear only after you suggested them.
+- Fixing the loudest customer's pain first.
+
+## Example
+
+An agent's audit of RelievApp judged the problem before the product. It listed where today's
+alternatives fail, and scored the problem 8 out of 10 as worth solving. The product's answer scored 5,
+because the route to a session was slow. A strong pain point does not make a product good. It makes it
+worth improving.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="Where today's options fail a person who needs to calm down"
+  subjects={['What it offers', 'Where it fails']}
+  rows={[
+    { label: 'Meditation apps', values: ['Audio, ten minutes, eyes closed', 'A wandering mind feels like failing; hard in public'] },
+    { label: 'Breathing apps', values: ['An abstract circle', 'No sense that anything is changing'] },
+    { label: 'Fidget toys', values: ['Something soothing to do', 'No technique, and nothing lasts'] },
+    { label: 'For pain', values: ['Lessons and audio', 'Very few self-guided tools that are not drugs'] },
+  ]}
+  caption="Each option fails at a different moment. The pain point is that moment, not the category of product."
+  evidence="assumed"
+  source="An agent's audit of RelievApp, 16 Nov 2026"
+/>

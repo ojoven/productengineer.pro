@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Problem statements in UX discovery (NN/g)
+    url: https://www.nngroup.com/articles/problem-statements/
+---
+
+## Why it matters for a product engineer
+
+A problem statement makes the team agree on what it is solving before it argues about how. For an
+engineer it is the test of done that a ticket does not give: after we ship, is this problem smaller?
+It also limits scope, because every new idea must make the same problem smaller.
+
+## How to do it
+
+1. Answer the five Ws: who is affected, what the problem is, where and when it happens, and why it
+   happens and matters.
+2. Write the background: who has the problem and why it started. If you do not know the cause yet,
+   say so. Finding it is the work of discovery.
+3. Name every group it affects, including internal staff such as support.
+4. State the impact on the organisation: cost, revenue or reputation. Put a number on it when you can.
+5. Leave the solution out.
+6. Keep one problem per statement. Write it early, and add to it as research brings facts.
+
+## Common mistakes
+
+- A solution written as a problem: "users need a dashboard".
+- A list of unrelated problems in one statement.
+- No impact, so nobody can judge whether the problem is worth solving.
+- Writing it once and never checking the shipped work against it.
+
+## Example
+
+One of NN/g's examples is about a contact centre. Applicants call for an update on their application,
+wait a long time, and the staff cannot answer them. Nothing in the statement says "build a tracking
+page", so the team is still free to find the best fix.
+
+<Anatomy
+  title="The parts of a problem statement"
+  parts={[
+    { text: 'Each year, many applicants call the contact center seeking an update on their application.', label: 'Who, and when', note: 'The people affected and the situation.' },
+    { text: ' ' },
+    { text: 'Applicants often spend a long time waiting to speak to an agent.', label: 'The problem', note: 'What goes wrong, in plain words.' },
+    { text: ' ' },
+    { text: 'Because contact-center staff members lack access to case information, they are unable to answer queries from applicants.', label: 'The cause', note: 'What the research found. A fix should start here.', kind: 'signal' },
+    { text: ' ' },
+    { text: 'This situation causes frustration for both applicants and customer-contact staff', label: 'Everyone affected', note: 'The staff have the problem too.' },
+    { text: ' and ' },
+    { text: 'represents an avoidable cost to the department.', label: 'The impact', note: 'Why the organisation should care.' },
+  ]}
+  caption="Five parts and no solution. The cause is about access to case information, so one fix can help both the applicants and the staff."
+  evidence="reported"
+  source="NN/g, Problem statements in UX discovery"
+/>

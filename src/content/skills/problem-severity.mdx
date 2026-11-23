@@ -1,0 +1,62 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Review: The Mom Test by Rob Fitzpatrick (Yevgeniy Brikman)'
+    url: https://www.ybrikman.com/blog/2023/03/29/the-mom-test/
+  - title: How Superhuman built an engine to find product-market fit (First Round Review)
+    url: https://review.firstround.com/how-superhuman-built-an-engine-to-find-product-market-fit/
+---
+
+## Why it matters for a product engineer
+
+Teams often rank problems by who complained loudest, or last. Severity and frequency put every problem
+on the same two scales. A severe, frequent problem deserves a real fix; a rare, mild one may deserve a
+workaround, or nothing. For an engineer, the two scales also set how much effort and risk a fix is
+worth.
+
+## How to do it
+
+1. Define the scales before you score. What does "severe" mean for your users: lost money, lost data,
+   a missed deadline, distress?
+2. Measure frequency from behaviour where you can: logs, support tickets, how often the situation
+   happens.
+3. Judge severity by what people already do about it. Ask what it costs them, and what else they have
+   tried. If they have not looked for a solution, they probably will not buy yours.
+4. Score each problem on both scales, and write down whether each score is measured or estimated.
+5. Look at willingness to pay separately. A frequent problem can still be one nobody pays to solve.
+6. Score again after research, so estimates become measurements.
+
+## Common mistakes
+
+- One combined score that hides which scale is high.
+- Severity judged by the team, not by the people who have the problem.
+- Frequency taken from the number of complaints, which counts the loudest people.
+- Estimates presented as measurements.
+
+## Example
+
+An agent's audit of RelievApp rated each state in the catalog by severity and frequency, and said that
+the ratings were estimates. Two things followed. Chronic pain was the most severe and happened daily,
+but had one session. And the free plan gave away a session for anxiety, the main job, so a person who
+came for anxiety had little reason to pay.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Matrix
+  title="RelievApp's states, by how often and how badly they hurt"
+  x={{ label: 'How often', low: 'Weekly', high: 'Daily' }}
+  y={{ label: 'How severe', low: 'Medium', high: 'Very high' }}
+  quadrants={['Severe, less often', 'Severe and frequent', 'Milder, less often', 'Frequent, milder']}
+  focus="tr"
+  items={[
+    { label: 'Anxiety spike', x: 0.62, y: 0.9, note: 'Weekly to daily' },
+    { label: 'Recurrent or chronic pain', x: 0.88, y: 0.95, pick: true, note: 'Only one session' },
+    { label: 'Worry, overthinking', x: 0.8, y: 0.68 },
+    { label: "Can't sleep", x: 0.95, y: 0.62, note: 'Nightly' },
+    { label: 'Overwhelm, upset', x: 0.15, y: 0.5 },
+    { label: 'Stress, tension', x: 0.92, y: 0.3 },
+    { label: "Can't focus", x: 0.75, y: 0.22 },
+  ]}
+  caption="Pain sits highest on both scales and had one session. Every position is an estimate, which is what the next research should measure."
+  evidence="assumed"
+  source="An agent's audit of RelievApp, 16 Nov 2026 (estimates, not measured)"
+/>

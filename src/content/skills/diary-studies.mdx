@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Diary studies: understanding long-term user behavior and experiences (NN/g)'
+    url: https://www.nngroup.com/articles/diary-studies/
+  - title: A diary study of mobile information needs (Sohn, Li, Griswold and Hollan, CHI 2008)
+    url: https://escholarship.org/uc/item/23v0c369
+---
+
+## Why it matters for a product engineer
+
+Many products are used in short moments spread over weeks: a learning app, a tool in a weekly routine.
+A single session sees one of those moments, and memory changes the rest. A diary study records each
+moment close to when it happens. It shows habits, repeats, and the days the product was not used at
+all.
+
+## How to do it
+
+1. Choose one question about behaviour over time, and a period that covers several cycles of it: days
+   for a daily habit, weeks for a weekly one.
+2. Make each entry very cheap, in a tool people already carry: a text message, a photo, a short form
+   on the phone.
+3. Capture a short note in the moment. Ask the full questions later the same day.
+4. Send reminders, and talk to each person at the start, in the middle and at the end.
+5. Pay people for taking part, not for each entry, so nobody invents entries.
+6. Read the entries while the study runs, and ask about unclear ones before people forget.
+
+## Common mistakes
+
+- Entries that take minutes to write, so people stop after three days.
+- A period too short to show a pattern.
+- Reading the diaries only at the end, when it is too late to ask.
+- Forgetting that people skip moments they think are not important enough to report.
+
+## Example
+
+In a 2008 study, 20 people logged every information need they had while away from home or work, for
+two weeks. Each person sent a short text message in the moment, answered six questions on a website
+each evening, and had three interviews seven days apart. They were paid for the evening visits and the
+interviews, not per entry. The diaries showed what people did when they could not look something up:
+they called someone, waited, or let it go.
+
+<StatRow
+  title="Two weeks of mobile information needs, logged as they happened"
+  stats={[
+    { value: 421, label: 'Needs logged', note: '20 people, 21 each on average' },
+    { value: 45, unit: '%', label: 'Dealt with at the moment' },
+    { value: 55, unit: '%', label: 'Later, or never', signal: true },
+  ]}
+  caption="More than half of the needs waited or were dropped, often because the person was driving or busy. A single session in a lab would not show that."
+  evidence="reported"
+  source="Sohn, Li, Griswold and Hollan, CHI 2008"
+/>

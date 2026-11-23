@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Five whys (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Five_whys
+  - title: Postmortem of database outage of January 31 (GitLab)
+    url: https://about.gitlab.com/blog/postmortem-of-database-outage-of-january-31/
+---
+
+## Why it matters for a product engineer
+
+A fix at the symptom lets the problem come back in another form. Engineers already trace bugs to their
+cause. The same habit, applied to user problems, stops a team from building patches on top of patches.
+It also points the fix at something the team can change, such as a process, a default or a missing
+owner, and not at a person.
+
+## How to do it
+
+1. State the problem as an observed fact, with its size: "the site was down for 18 hours".
+2. Ask why, and answer only with facts you can show. Mark a guess as a guess.
+3. Keep asking until you reach something the team can change, usually a process. Five is a habit, not
+   a rule.
+4. When a problem has two parts, split it and follow each part.
+5. Write a fix for each cause, with an owner, and check later that the symptom has stopped.
+
+## Common mistakes
+
+- Stopping at a symptom, or at "human error".
+- Looking for one root cause when there are several.
+- Finding only the causes the people in the room already know. Bring the people who were there, and
+  the data.
+- Results that depend on who asks. Different people often find different causes for the same problem.
+
+## Example
+
+After its database outage in January 2017, GitLab published a five-whys analysis. It split the
+incident into two problems: why the site was down, and why restoring it took so long. The first chain
+did not end at the engineer who deleted the data. It ended at the tool for abuse reports. The second
+ended at "there was no ownership": nobody was responsible for testing the backups.
+
+<Flow
+  title="GitLab's first chain of whys"
+  stages={['The problem', 'Why?', 'Why?', 'Why?']}
+  nodes={[
+    { id: 'down', label: 'Site down', detail: 'About 18 hours', col: 0, row: 0 },
+    { id: 'rm', label: 'Data deleted', detail: 'On the primary, by mistake', col: 1, row: 0 },
+    { id: 'rep', label: 'Replication', detail: 'Stopped by a load spike', col: 2, row: 0 },
+    { id: 'load', label: 'Load spike', detail: 'Spam, and a user removal', col: 3, row: 0 },
+    { id: 'abuse', label: 'Abuse reports', detail: 'A troll flagged an employee', col: 3, row: 1, tone: 'signal' },
+  ]}
+  edges={[
+    { from: 'down', to: 'rm' },
+    { from: 'rm', to: 'rep' },
+    { from: 'rep', to: 'load' },
+    { from: 'load', to: 'abuse' },
+  ]}
+  motion={false}
+  caption="The chain ends at a product process: the abuse tool made it too easy to overlook the details of a report. A fix there stops the next removal by mistake."
+  evidence="reported"
+  source="GitLab's postmortem, 10 Feb 2017"
+/>

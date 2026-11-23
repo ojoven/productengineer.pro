@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Fogg behavior model (BJ Fogg)
+    url: https://www.behaviormodel.org/
+  - title: Studying users who switch products? Try jobs to be done (Dscout)
+    url: https://dscout.com/people-nerds/switch-products-jobs-to-be-done
+---
+
+## Why it matters for a product engineer
+
+Two people can do the same thing for different reasons, and the reason decides which change they will
+welcome. A goal tells you what to make faster. A fear tells you what never to add, such as a score for
+someone who already feels they are failing. An engineer who knows both makes better small decisions
+every day: the defaults, the copy, what to show first.
+
+## How to do it
+
+1. Separate three kinds of goal: functional (the task), emotional (how the person wants to feel) and
+   social (how they want to look to other people).
+2. Ask about a recent real moment, not about wishes. What happened just before? What were they afraid
+   would go wrong?
+3. Listen for the forces behind a switch: the push of the current problem, the pull of the new
+   solution, and the anxiety and habits that hold people back.
+4. Write each motivation with what it asks of the product: a limit, a default, or a thing to avoid.
+5. Remember that motivation alone is not enough. In BJ Fogg's model, a behaviour happens when
+   motivation, ability and a prompt meet at the same moment. When motivation is low, make the action
+   easier.
+6. When people say one thing and do another, trust what they do, and look for the motivation that
+   explains it.
+
+## Common mistakes
+
+- Listing only functional goals, because they are the easiest to measure.
+- Taking stated wishes as motivation: "I would use it every day."
+- Treating motivation as fixed. The same person can want something badly at 3 a.m. and not at all at
+  noon.
+- Trying to raise motivation with copy when the real problem is that the action is hard.
+
+## Example
+
+An agent's audit of RelievApp named three goals for someone in an anxious moment. The emotional goal
+became a rule for every session: one gesture, rhythmic, forgiving, impossible to fail. The social
+goal pointed to a claim the product hardly used: it is silent and works with one hand.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Compare
+  title="Three goals of a person in an anxious moment, and what each asks of RelievApp"
+  subjects={['The goal', 'What the product must do']}
+  rows={[
+    { label: 'Functional', values: ['Lower the number, fast', 'Start the session with no choices first'] },
+    { label: 'Emotional', values: ['Agency, and not being lectured or graded', 'One gesture that is impossible to fail'] },
+    { label: 'Social', values: ['Do it without anyone noticing', 'Silent, one hand, two minutes'] },
+  ]}
+  caption="Each goal turns into a design rule. The emotional goal rules out scores and precise gestures, which a list of features would never show."
+  evidence="assumed"
+  source="An agent's audit of RelievApp, 16 Nov 2026, adopted by its maker"
+/>

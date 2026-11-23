@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Jakob's law (Laws of UX)"
+    url: https://lawsofux.com/jakobs-law/
+---
+
+## Why it matters for a product engineer
+
+People spend most of their time in other products, so they arrive with expectations. This is Jakob's
+law. When a product follows the conventions of its category, people can start without learning
+anything new. For an engineer, a convention is also the cheapest specification: the pattern exists,
+millions of people have tested it, and users already know it. Break one only when the break is the
+point.
+
+## How to do it
+
+1. List the products your users already use for this job, including the ones they dislike.
+2. Note what they all do the same way: where settings live, how prices are shown, what the first
+   screen asks, what things are called.
+3. Mark each convention as follow or break, and write the reason for each break.
+4. Follow the conventions where people only want to finish a task: sign-up, checkout, settings.
+5. Break them where your difference is, and make the break visible and explained.
+6. When you change a familiar pattern, let people keep the old version for a while. YouTube did this
+   with its 2017 redesign: people could preview it, give feedback and go back.
+
+## Common mistakes
+
+- Breaking a convention by accident, because nobody looked at the category.
+- Copying the market leader in everything, so nobody has a reason to switch.
+- New names for familiar things.
+- Forcing a redesign on everyone on the same day.
+
+## Example
+
+Papermark started as "the open-source DocSend alternative". Revenue waited until it matched the
+features buyers expected, because "no one wants a half-baked product". It broke the convention on
+price, with flat plans that include three users, and later named itself after its own buyer.
+([Papermark in In practice](/in-practice/papermark/))
+
+<Tradeoffs
+  title="Where Papermark followed its category, and where it broke it"
+  names={{ at: 'Later', was: 'At launch' }}
+  items={[
+    { left: 'The features buyers expect', right: 'Features of its own', at: 0.2, note: 'Revenue waited for parity with the incumbents.' },
+    { left: 'A price per user, like DocSend', right: 'Flat monthly plans', at: 0.85, note: 'Three users included.' },
+    { left: 'Named after the incumbent', right: 'Named after its buyer', at: 0.8, was: 0.1, note: 'From "the open-source DocSend alternative" to "secure data rooms for dealmakers".' },
+  ]}
+  caption="Papermark matched the category where buyers compare features, and broke it on price and name. The positions are our reading of the profile."
+  evidence="reported"
+  source="Marc Seitz on Top Founders and Starter Story; Papermark's home page"
+/>
