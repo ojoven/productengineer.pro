@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Few guesses, more success: 4 principles to reduce cognitive load in forms (NN/g)'
+    url: https://www.nngroup.com/articles/4-principles-reduce-cognitive-load/
+  - title: Hick's law (Laws of UX, Jon Yablonski)
+    url: https://lawsofux.com/hicks-law/
+---
+
+## Why it matters for a product engineer
+
+Every choice, unfamiliar word and thing to remember costs attention. When the cost is too high, people
+make mistakes or leave. Engineers decide much of it: how many fields a form has, what is pre-filled,
+when validation runs and what the system remembers for the user. Lower cognitive load is often the
+real reason a redesign feels better.
+
+## How to do it
+
+1. For each screen, count what it asks people to decide, read and remember. Remove what the task
+   does not need.
+2. Let the system remember: pre-fill what you already know, keep entered data after an error and
+   show earlier choices.
+3. Prefer recognition to recall. Show options, recent items and examples instead of asking people to
+   type from memory.
+4. Use the words your users use, and ask one thing per question.
+5. Group related fields, use standard controls, and show the expected format before people type.
+6. Validate a field when people have finished it, not while they are still typing.
+
+## Common mistakes
+
+- Hints inside the field as placeholder text, which disappears as soon as people type.
+- Internal or technical words in labels.
+- Negative questions that people must reverse in their head.
+- A new kind of control where a standard one exists.
+
+## Example
+
+NN/g found that Udemy asked people to check a box in order not to receive promotional emails, and
+checking it cleared the boxes above it. People must reverse the sentence in their head, and the
+checkbox behaves like a radio button. NN/g suggests asking first whether people want promotional
+emails, then which kinds.
+
+<Compare
+  title="Questions that ask less of people's memory"
+  subjects={['More load', 'Less load']}
+  rows={[
+    { label: 'Medical form', values: ['Chief complaint', 'Reason for visit'] },
+    { label: 'Medical history', values: ['Indicate prior surgical procedures', 'Have you had any surgeries?'] },
+    { label: 'Survey', values: ['Was our website helpful and easy to navigate?', 'Two questions, one idea each'] },
+    { label: 'Help text', values: ['An example inside the field that disappears', 'A hint outside the field that stays'] },
+  ]}
+  highlight={1}
+  caption="Each change removes a small job from the person: translating a term, splitting two questions, or remembering a hint."
+  evidence="reported"
+  source="NN/g, 'Few guesses, more success'"
+/>

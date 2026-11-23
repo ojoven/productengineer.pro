@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Deceptive patterns in UX: how to recognize and avoid them (NN/g)'
+    url: https://www.nngroup.com/articles/deceptive-patterns/
+  - title: Deceptive patterns (Harry Brignull)
+    url: https://deceptive.design/
+  - title: FTC takes action against Amazon for enrolling consumers in Amazon Prime without consent (FTC, 2023)
+    url: https://www.ftc.gov/news-events/news/press-releases/2023/06/ftc-takes-action-against-amazon-enrolling-consumers-amazon-prime-without-consent-sabotaging-their
+  - title: FTC secures historic $2.5 billion settlement against Amazon (FTC, 2025)
+    url: https://www.ftc.gov/news-events/news/press-releases/2025/09/ftc-secures-historic-25-billion-settlement-against-amazon
+---
+
+## Why it matters for a product engineer
+
+Deceptive patterns, also called dark patterns, trick people into actions they did not intend: a
+hidden way to cancel, an extra item added to the basket, a decline link that shames the user. They
+raise short-term numbers, damage trust, and many are now illegal. Engineers build them, often from a
+ticket that only asks for more conversions. That also puts engineers in a good position to say no.
+
+## How to do it
+
+1. Apply one test to every flow: would users approve if they saw how it works?
+2. Make leaving as easy as joining: cancel with the same method people used to sign up.
+3. Show the full terms at the moment of the choice: the price, when you charge, renewal and how to
+   cancel.
+4. Give the "no" option the same visual weight as the "yes".
+5. Put guardrail metrics next to conversion: refunds, complaints and cancellations soon after sign-up.
+6. Walk through each flow as your most vulnerable user, such as someone in a hurry or with low
+   digital skills.
+
+## Common mistakes
+
+- Confirmshaming, such as "No thanks, I don't like saving money".
+- Asking again and again after people have said no.
+- A/B tests that choose the variant that confuses people most, because it converts best.
+- Copying a pattern because a large company uses it.
+
+## Example
+
+In 2023 the US Federal Trade Commission sued Amazon over Prime. The FTC said that buying without Prime
+was harder to find, and that people who tried to cancel went through several pages of offers first.
+In its words, the cancellation process was built "not to enable subscribers to cancel, but to stop
+them." In September 2025, Amazon agreed to pay $2.5 billion.
+
+<Compare
+  title="Amazon Prime: what the FTC alleged, and what the settlement requires"
+  subjects={['2023 complaint', '2025 settlement']}
+  rows={[
+    { label: 'Saying no', values: ['Buying without Prime was harder to find', 'A clear button to decline Prime'] },
+    { label: 'The terms', values: ['The checkout button did not always say it also joined Prime', 'Cost, charge dates, renewal and how to cancel, shown at sign-up'] },
+    { label: 'Cancelling', values: ['Several pages of offers before the last step', 'Easy, with the same method used to sign up'] },
+    { label: 'Money', values: [null, '$1 billion penalty and $1.5 billion in refunds'] },
+  ]}
+  highlight={1}
+  caption="Each requirement is an ordinary design decision: a clear no, the terms at the moment of choice, and a way out that matches the way in."
+  evidence="reported"
+  source="US Federal Trade Commission, press releases of 21 Jun 2023 and 25 Sep 2025"
+/>

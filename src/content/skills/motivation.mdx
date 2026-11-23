@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Fogg behavior model (BJ Fogg)
+    url: https://www.behaviormodel.org/
+  - title: A fine is a price (Uri Gneezy and Aldo Rustichini, Journal of Legal Studies, 2000)
+    url: https://rady.ucsd.edu/_files/faculty-research/uri-gneezy/fine.pdf
+---
+
+## Why it matters for a product engineer
+
+In BJ Fogg's model, a behaviour happens when motivation, ability and a prompt meet at the same moment.
+A product rarely creates motivation. It can make the action easy when motivation is there, prompt at
+the right moment, and avoid replacing the reason people already have with a weaker one. Points,
+payments and penalties are often built by engineers, and each one changes why people act.
+
+## How to do it
+
+1. Find the moments when motivation is already high, such as the moment the problem appears or just
+   after a success. Put the prompt there.
+2. When an action does not happen, check the three parts in order: is there a prompt, is the action
+   easy enough, and only then, is motivation enough?
+3. Raise ability before you try to raise motivation: fewer steps, less time, less thinking.
+4. Connect the product to what people already want, such as progress, belonging or relief, not to
+   your own metrics.
+5. Be careful with rewards and penalties. They can change the reason people act, and the old reason
+   may not come back when you remove them.
+6. Measure what people do after an incentive ends, not only while it runs.
+
+## Common mistakes
+
+- Treating low use as a motivation problem and adding persuasive copy, when the action is hard.
+- Points or badges for something people already did for their own reasons.
+- Prompts at moments when motivation is low, such as a notification at a random time.
+- Paying people for referrals or reviews without checking what happens to quality.
+
+## Example
+
+Uri Gneezy and Aldo Rustichini studied ten private day-care centres in Haifa. In six of them, they
+added a small fine for parents who came more than ten minutes late. Late pick-ups almost doubled. When
+the fine was removed twelve weeks later, they stayed high. The title of their paper gives their
+reading: a fine is a price.
+
+<StatRow
+  title="Late pick-ups per centre per week, at the six centres with a fine"
+  stats={[
+    { value: '8.0', label: 'Before the fine', note: 'Weeks 1 to 4' },
+    { value: '16.4', label: 'With the fine', note: 'Weeks 5 to 16' },
+    { value: '18.7', label: 'After the fine was removed', note: 'Weeks 17 to 20', signal: true },
+  ]}
+  caption="The fine did not add a reason to be on time. It replaced one, and removing it did not bring that reason back. The four centres without a fine showed no clear change."
+  evidence="measured"
+  source="Gneezy and Rustichini, 2000; averages calculated from the paper's Table 2"
+/>

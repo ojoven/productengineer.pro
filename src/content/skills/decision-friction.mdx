@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Laws of UX (Jon Yablonski)
+    url: https://lawsofux.com/
+  - title: Workplace pension participation and savings trends of eligible employees, 2009 to 2022 (DWP)
+    url: https://www.gov.uk/government/statistics/workplace-pension-participation-and-savings-trends-2009-to-2022/workplace-pension-participation-and-savings-trends-of-eligible-employees-2009-to-2022
+---
+
+## Why it matters for a product engineer
+
+People hesitate at decision points, such as choosing a plan, confirming a purchase or setting up an
+account, and some of them leave. Engineers shape these moments directly: the default value, the
+number of options, what is pre-selected and whether a confirmation step exists. The same tools can
+remove friction from good choices and add it where a mistake is costly.
+
+## How to do it
+
+1. Find the decision points in a flow, and measure where people stop or go back.
+2. Set a default that most people would choose, and make it easy to change.
+3. Show fewer options, and recommend one when people cannot judge the difference.
+4. Make options comparable: the same attributes, in the same order and the same units.
+5. Add friction on purpose before actions that are hard to undo, such as deleting data or sending
+   money.
+6. Check that each default serves the user. If you could not explain it in public, it is a trick, not
+   a default.
+
+## Common mistakes
+
+- Asking for a choice people cannot judge yet, such as a plan before they have used the product.
+- Pre-selected extras that people must notice and remove.
+- Removing every confirmation, including the one before a destructive action.
+- Plan tables where each column lists different features.
+
+## Example
+
+From October 2012, UK employers had to enrol eligible employees in a workplace pension by default,
+the largest employers first and all of them by 2018. People can still opt out, but they no longer have
+to decide to join. In the private sector, participation went from 42% in 2012 to 86% in 2022. In
+2022–23, fewer than 1% of savers made an active decision to stop.
+
+<StatRow
+  title="Eligible employees saving into a workplace pension, UK private sector"
+  stats={[
+    { value: 42, unit: '%', label: '2012', note: 'Automatic enrolment starts' },
+    { value: 86, unit: '%', label: '2022' },
+    { value: '24 → 84', unit: '%', label: 'Ages 22 to 29, 2012 to 2022', signal: true },
+  ]}
+  caption="Joining was always possible, and leaving still is. Only the default changed, and the effort moved from joining to leaving."
+  evidence="measured"
+  source="Department for Work and Pensions, participation trends 2009 to 2022"
+/>

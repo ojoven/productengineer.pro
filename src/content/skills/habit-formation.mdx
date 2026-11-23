@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Designing habit-forming products (Nir Eyal)
+    url: https://www.nirandfar.com/designing-habit-forming-products/
+  - title: 'Product usage that sticks: habits begin with a trigger (Nir Eyal)'
+    url: https://www.nirandfar.com/how-to-trigger-product-usage-that-sticks/
+---
+
+## Why it matters for a product engineer
+
+Products that people use often depend on habits: a trigger, an action, a reward and an investment
+that repeat in a stable context. Engineers build most of these parts: the reminders, the speed of the
+action and the saved state that makes the next visit better. The honest version helps people build a
+habit they want, such as practising a language. The other version builds one they would not choose.
+
+## How to do it
+
+1. Start from a need that already recurs in people's lives. A product cannot make a rare need
+   frequent.
+2. Find the internal trigger: the feeling or situation that comes just before people would use the
+   product.
+3. Make the action the smallest step that gives value from that moment.
+4. Make the reward the outcome people came for, and show it to them.
+5. Ask for a small investment that improves the next visit, such as a saved preference, a reminder
+   time or their own data.
+6. Offer external triggers that people choose, such as a reminder at a time they set, and let them
+   change or stop it easily.
+
+## Common mistakes
+
+- Notifications as the habit, with nothing behind them that people want.
+- Rewards that keep people using a product that does not help them.
+- No investment, so every visit starts from zero.
+- Aiming for daily use when the need comes once a week.
+
+## Example
+
+An agent's audit of RelievApp found a need that recurs: anxious people have many spikes a week. But a
+free visitor who had a good session had no way to come back: no install prompt, no "send me this
+link", no reminder and no share. Each visit was single use. A second review put a reminder, with its
+own consent line, on the list of changes. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Loop
+  title="RelievApp's habit loop, as the audit found it"
+  center="A free visitor"
+  sub="Nov 2026"
+  stages={[
+    { label: 'Trigger', note: 'An anxiety spike, many times a week' },
+    { label: 'Action', note: 'A short session with one gesture' },
+    { label: 'Reward', note: 'A lower number on the before and after rating' },
+    { label: 'Investment', note: 'None: no reminder, link or install', tone: 'signal' },
+  ]}
+  caption="The loop breaks at the last step. Nothing a free visitor does makes the next visit easier, so the next spike does not lead back to the product."
+  evidence="assumed"
+  source="An agent's audit of RelievApp, Nov 2026; the four steps are Nir Eyal's Hooked model"
+/>

@@ -1,0 +1,64 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Fogg behavior model (BJ Fogg)
+    url: https://www.behaviormodel.org/
+  - title: 'Deceptive patterns in UX: how to recognize and avoid them (NN/g)'
+    url: https://www.nngroup.com/articles/deceptive-patterns/
+  - title: Applying behavioural insights to organ donation (Behavioural Insights Team, 2013)
+    url: https://assets.publishing.service.gov.uk/media/5a75ae4fe5274a436829925f/Applying_Behavioural_Insights_to_Organ_Donation.pdf
+  - title: One link on GOV.UK, 350,000 more organ donors (Government Digital Service)
+    url: https://gds.blog.gov.uk/2014/03/18/organ-donor-register/
+---
+
+## Why it matters for a product engineer
+
+Persuasion techniques, such as social proof, defaults, framing and reciprocity, change what people do.
+That is why they need care. They can help people make a choice they already want, or push them into
+one they do not. Engineers build the parts: counters, badges, pre-selected options and the variants of
+a test. Knowing the techniques also helps you see when a design crosses the line.
+
+## How to do it
+
+1. Write down the choice that is good for the user. Persuasion should help people do what they would
+   choose with full information.
+2. Use only true facts: real counts, real reviews and real limits on stock or time.
+3. Test the exact words and images against a control. Intuition about persuasion is often wrong.
+4. Measure the completed action, not the click.
+5. Ask the questions for deceptive patterns: could people spend or share more than they intended?
+   Could they miss another choice?
+6. Keep only what people would still accept if they saw how it works.
+
+## Common mistakes
+
+- Placeholder ratings, user counts or press logos left on a page that gets traffic.
+- Countdowns and "only 2 left" messages that are not true.
+- Copying a competitor's technique without checking whether it is honest.
+- Judging a variant by clicks when the goal is a completed action.
+
+## Example
+
+In 2013, the GOV.UK page shown after people bought a vehicle tax disc asked them to join the NHS Organ
+Donor Register. The Behavioural Insights Team tested eight versions with 1,085,322 visitors and counted
+completed registrations. A question about reciprocity worked best: about 96,000 more registrations a
+year than the plain request. A stock photo of people made a social-proof message worse than the plain
+request.
+
+<Bars
+  title="Share of visitors who registered as organ donors, by message"
+  unit="%"
+  digits={1}
+  items={[
+    { label: 'Reciprocity', value: 3.2, note: '"If you needed a transplant, would you have one?"', highlight: true },
+    { label: 'Loss: "3 people die every day"', value: 3.1 },
+    { label: 'Gain: "save up to 9 lives"', value: 2.9 },
+    { label: 'Social proof: "thousands register"', value: 2.9 },
+    { label: 'Social proof and the NHS logo', value: 2.9 },
+    { label: 'Act on your intention', value: 2.8 },
+    { label: 'Plain request', value: 2.3, note: 'The control' },
+    { label: 'Social proof and a stock photo', value: 2.2 },
+  ]}
+  caption="One sentence moved registrations by up to 0.9 points among a million people. The photo meant to make social proof stronger made it worse than no technique at all."
+  evidence="measured"
+  source="Behavioural Insights Team, Dec 2013; rates from the report's regression table"
+/>

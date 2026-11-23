@@ -509,12 +509,12 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 23 · Experience · 6 skills
 
-- [ ] `03.7.1` [Motivation](https://productengineer.pro/skills-map/experience/behavioral-design/motivation/) · `motivation` · 1 resource
-- [ ] `03.7.2` [Cognitive load](https://productengineer.pro/skills-map/experience/behavioral-design/cognitive-load/) · `cognitive-load` · map coverage
-- [ ] `03.7.3` [Decision friction](https://productengineer.pro/skills-map/experience/behavioral-design/decision-friction/) · `decision-friction` · 1 resource
-- [ ] `03.7.4` [Habit formation](https://productengineer.pro/skills-map/experience/behavioral-design/habit-formation/) · `habit-formation` · map coverage
-- [ ] `03.7.5` [Persuasive design](https://productengineer.pro/skills-map/experience/behavioral-design/persuasive-design/) · `persuasive-design` · map coverage
-- [ ] `03.7.6` [Ethical engagement](https://productengineer.pro/skills-map/experience/behavioral-design/ethical-engagement/) · `ethical-engagement` · map coverage
+- [x] `03.7.1` [Motivation](https://productengineer.pro/skills-map/experience/behavioral-design/motivation/) · `motivation` · 1 resource
+- [x] `03.7.2` [Cognitive load](https://productengineer.pro/skills-map/experience/behavioral-design/cognitive-load/) · `cognitive-load` · map coverage
+- [x] `03.7.3` [Decision friction](https://productengineer.pro/skills-map/experience/behavioral-design/decision-friction/) · `decision-friction` · 1 resource
+- [x] `03.7.4` [Habit formation](https://productengineer.pro/skills-map/experience/behavioral-design/habit-formation/) · `habit-formation` · map coverage
+- [x] `03.7.5` [Persuasive design](https://productengineer.pro/skills-map/experience/behavioral-design/persuasive-design/) · `persuasive-design` · map coverage
+- [x] `03.7.6` [Ethical engagement](https://productengineer.pro/skills-map/experience/behavioral-design/ethical-engagement/) · `ethical-engagement` · map coverage
 
 ### Batch 24 · Engineering · 8 skills
 
