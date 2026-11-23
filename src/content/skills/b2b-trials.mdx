@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Proof of Value (POV) and trial (The GitLab Handbook)
+    url: https://handbook.gitlab.com/handbook/solutions-architects/playbooks/pov/
+  - title: 'Product-led growth: how to build a product that sells itself (Wes Bush)'
+    url: https://productled.com/book/product-led-growth/introduction
+  - title: What is activation rate? (Amplitude)
+    url: https://amplitude.com/explore/digital-analytics/what-is-activation-rate
+---
+
+## Why it matters for a product engineer
+
+A business customer wants proof that the product works with its data, its systems and its people
+before it signs. A trial without agreed goals often ends with no decision: people try a few features,
+then get busy. A proof of concept with success criteria turns the evaluation into a decision. Product
+engineers often set up the environment and the integrations, so they see first whether the product
+can meet the criteria.
+
+## How to do it
+
+1. Agree in writing on the problem, the use cases to prove and measurable success criteria.
+2. Name the people on both sides, the environment, the end date and who decides.
+3. Prepare the environment before the start, and run a smoke test, so day one is not spent on access.
+4. Check progress against the criteria halfway, and change the plan only with the customer's
+   agreement.
+5. Close with a readout and a recorded result: win, loss or no decision, with the reasons.
+
+## Common mistakes
+
+- An open sandbox with no success criteria and no end date.
+- Criteria written by the vendor and never agreed by the customer.
+- One champion who uses the product while the rest of the team never logs in.
+- No record of the outcome, so the team cannot learn from lost evaluations.
+
+## Example
+
+A working draft in GitLab's handbook separates trials from proofs of value. A trial gives access to the
+product. A proof of value is a time-limited evaluation, agreed with the customer, that leads to a
+decision. Every formal one should have a reason, named participants, a scope, measurable success
+criteria, an owner, a decision date and a recorded result. The standard plan runs for 30 days.
+
+<Timeline
+  title="GitLab's 30-day proof of value"
+  events={[
+    { when: 'Week 0', title: 'Plan and success criteria', note: 'Scope, participants, smoke test' },
+    { when: 'Day 0', title: 'Kickoff', note: 'Environment ready, first use case' },
+    { when: 'Weeks 1–2', title: 'Use cases run', note: 'Weekly report to the buyer' },
+    { when: 'Day 15', title: 'Midpoint check', note: 'Evidence compared with the targets', kind: 'decision' },
+    { when: 'Weeks 3–4', title: 'Final evidence', note: 'Issues resolved or recorded' },
+    { when: 'Day 30', title: 'Readout', note: 'Technical win, loss or inconclusive', kind: 'result' },
+  ]}
+  caption="The criteria are agreed before day 0, so day 30 ends in a decision, not in a longer trial."
+  evidence="reported"
+  source="GitLab handbook, Proof of Value (working draft)"
+/>

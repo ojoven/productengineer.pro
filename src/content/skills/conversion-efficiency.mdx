@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Dropbox, Startup Lessons Learned (Drew Houston, April 2010)
+    url: https://www.slideshare.net/slideshow/dropbox-startup-lessons-learned-3836587/3836587
+  - title: 'AARRR: the pirate metrics framework (Amplitude)'
+    url: https://amplitude.com/blog/pirate-metrics-framework
+---
+
+## Why it matters for a product engineer
+
+Each channel brings people with a different intent, at a different cost. A channel that brings many
+visitors who never activate can cost more per customer than a small channel with strong conversion.
+The full path from first visit to paying customer, for each channel, shows where money and effort
+bring the most customers. Often the cheapest improvement is a weak step in the product, not more
+traffic.
+
+## How to do it
+
+1. Tag every signup with its channel, and keep the tag through activation and payment.
+2. Calculate the conversion between each pair of stages, for each channel.
+3. Calculate the cost per paying customer for each channel, and compare it with what a customer pays.
+4. Find the stage with the largest loss in your best channels, and improve it first.
+5. Recalculate after each change, because a gain in one stage can lower quality in the next.
+
+## Common mistakes
+
+- Comparing channels by cost per signup, not cost per paying customer.
+- Losing the channel tag between signup and payment.
+- Changing the product for one channel without checking the others.
+- Averages across channels that hide a channel that loses money.
+
+## Example
+
+In early 2009, Dropbox tried paid search. People who arrived from ads got a time-limited trial instead
+of the free account. The cost per acquisition was $233 to $388, for a product that cost $99. Dropbox
+then built a referral program with a reward for both sides, which permanently increased signups by
+60%. By early 2010, 35% of daily signups came from referrals, and 20% from shared folders and other
+viral features.
+
+<StatRow
+  title="Dropbox's channels, 2009 to 2010"
+  stats={[
+    { value: '$233–388', label: 'Cost per customer from paid search', note: 'Early 2009' },
+    { value: '$99', label: 'Price of the product' },
+    { value: 35, unit: '%', label: 'Daily signups from referrals', signal: true },
+    { value: 20, unit: '%', label: 'From shared folders and other viral features' },
+  ]}
+  caption="Paid search cost more per customer than a customer paid. Referrals used the product itself as the channel."
+  evidence="reported"
+  source="Drew Houston, Startup Lessons Learned, Apr 2010"
+/>

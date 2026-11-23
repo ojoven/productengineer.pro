@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Go to market, opportunity stages (The GitLab Handbook)
+    url: https://handbook.gitlab.com/handbook/sales/field-operations/gtm-resources/
+  - title: Inside the MEDDIC sales qualification process (HubSpot)
+    url: https://blog.hubspot.com/sales/a-step-by-step-guide-to-the-meddic-sales-qualification-process
+---
+
+## Why it matters for a product engineer
+
+Business customers buy through a process with several people and many weeks. A funnel with defined
+stages shows where deals stop and what each stage needs. Many of those needs are technical: a demo on
+the customer's data, an evaluation, an integration, answers to a security review. Product engineers
+who know the stages can build what removes the delays, instead of answering one request at a time.
+
+## How to do it
+
+1. Define each stage by what must be true to leave it, not by the activities in it.
+2. Record the technical requests at each stage: demos, evaluations, integrations, security questions.
+3. Measure conversion and time in each stage, for each customer segment.
+4. Turn repeated requests into product: a sandbox, docs, a security page, an importer.
+5. Close stalled deals by a rule, so the funnel shows the real pipeline.
+
+## Common mistakes
+
+- Stages named after sales activities, with no criteria to leave them.
+- One funnel for small and large customers, which hides different cycle lengths.
+- Treating security reviews as paperwork, not as a stage that needs engineering time.
+- Keeping dead deals open, so forecasts look better than they are.
+
+## Example
+
+GitLab's handbook defines its sales stages: discovery, scoping, technical evaluation, proposal,
+negotiation and signature. In scoping, the team may give a demo and schedules a technical evaluation
+call. In technical evaluation, it confirms the technical requirements, and a proof of concept with
+success criteria may take place. A new business deal that shows no activity in the first two stages is
+closed automatically. The limit depends on the customer segment.
+
+<Bars
+  title="Days without activity before GitLab closes an early-stage deal"
+  items={[
+    { label: 'Small businesses', value: 15 },
+    { label: 'Mid-market', value: 45 },
+    { label: 'Large and public sector', value: 90, highlight: true },
+  ]}
+  caption="Larger customers buy more slowly, so the rule gives them more time. A stalled deal still closes, so the funnel shows only real deals."
+  evidence="reported"
+  source="GitLab handbook, Go to market, early-stage deals"
+/>

@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Share documents with visitors (Google Drive Help)
+    url: https://support.google.com/drive/answer/9195194
+  - title: 5 crucial stages in designing your viral loop (Andrew Chen)
+    url: https://andrewchen.com/5-crucial-stages-in-designing-your-viral-loop/
+  - title: The best way to drive viral growth is to increase retention and engagement (Andrew Chen)
+    url: https://andrewchen.com/more-retention-more-viral-growth/
+---
+
+## Why it matters for a product engineer
+
+In a collaboration product, an invitation is often a new person's first contact with it. The person
+who invites wants to get work done, not to grow your user base. The person invited did not choose the
+product, and may not want an account. If the path from the invitation to the shared work is long, many
+invitations end at a signup form. Product engineers build both sides of that path.
+
+## How to do it
+
+1. Put invitations where the work needs another person: sharing a file, assigning a task, asking for
+   a review.
+2. Make the invitation say who sent it, what it is about and what the person can do.
+3. Take the invitee straight to the shared item. Ask for an account only when it is needed.
+4. Give the invitee a short first experience of their own, not the full onboarding of a new owner.
+5. Measure each step: invitations sent, opened and accepted, and invitees who become active.
+
+## Common mistakes
+
+- Inviting people in the user's name without their clear consent.
+- A generic email with no context, which looks like spam.
+- A signup wall before the invitee can see what they were invited to.
+- Counting invitations sent instead of invitees who become active.
+
+## Example
+
+Google Drive lets people share files with someone who has no Google account, when their
+organization's admin turns on visitor sharing. The visitor gets an email and verifies with a code sent
+to that address. They can then view, comment on or edit the file for 7 days. To continue, they verify
+again from the same link. An account is not required to work on the shared file.
+
+<Flow
+  title="How a Google Drive visitor reaches a shared file"
+  nodes={[
+    { id: 'share', label: 'Shared', detail: 'To any email', col: 0, row: 0 },
+    { id: 'code', label: 'Verify', detail: 'Code by email', col: 1, row: 0 },
+    { id: 'work', label: 'Collaborate', detail: 'View, comment, edit', col: 2, row: 0, tone: 'lit' },
+    { id: 'again', label: 'After 7 days', detail: 'Verify again', col: 2, row: 1 },
+  ]}
+  edges={[
+    { from: 'share', to: 'code' },
+    { from: 'code', to: 'work' },
+    { from: 'work', to: 'again' },
+  ]}
+  caption="The invited person reaches the work first. An account is not part of the path."
+  evidence="reported"
+  source="Google Drive Help, Share documents with visitors"
+/>

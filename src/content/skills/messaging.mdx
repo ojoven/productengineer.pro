@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Getting titles wrong: what you can learn from our mistake (Inside GOV.UK)'
+    url: https://insidegovuk.blog.gov.uk/2016/04/13/getting-titles-wrong-what-you-can-learn-from-our-mistake/
+  - title: An introduction to positioning (April Dunford)
+    url: https://www.aprildunford.com/post/an-introduction-to-positioning
+---
+
+## Why it matters for a product engineer
+
+Messaging is the words people read before they decide to try the product: a headline, a page title, a
+line in an app store. If the words are not the ones people use, they do not find the product, or they
+arrive expecting something else. Product engineers ship these words in pages, emails and screens, and
+they can see in analytics and search data whether the words work.
+
+## How to do it
+
+1. Collect the words customers use, from interviews, reviews, support tickets and search queries.
+2. Start from positioning: who the product is for, what they use today and what is better. Then write
+   the words.
+3. Use the customer's term for the problem, even when the internal name is different.
+4. Test titles and headlines with people who do not know the product: ask what they expect to find.
+5. After a change, watch page views, search terms and feedback for signs that people arrive at the
+   wrong place.
+
+## Common mistakes
+
+- Internal names and jargon in headlines.
+- Clever words that nobody would search for.
+- A message that promises more than the product does today.
+- Changing the words without checking the analytics afterwards.
+
+## Example
+
+GOV.UK had a guide called "Exchange your tax disc", for drivers whose vehicle changes, such as a new
+fuel type, affect their tax. In October 2014 the tax disc was scrapped, and the guide was renamed
+"Change your vehicle tax". The vague title brought up to 10 times as many views as before: up to 3,000
+people a day reached content they did not need. The team renamed it "Change your vehicle's tax class",
+rewrote it, and decided to test titles with people in future.
+
+<Timeline
+  title="How one GOV.UK title attracted the wrong readers"
+  events={[
+    { when: '2014', title: 'Exchange your tax disc', note: 'The words matched the process' },
+    { when: 'Oct 2014', title: 'Renamed: Change your vehicle tax', note: 'The tax disc was scrapped', kind: 'decision' },
+    { when: '2014 to 2016', title: 'Up to 10 times the views', note: 'Up to 3,000 people a day on the wrong page', kind: 'problem' },
+    { when: '2016', title: 'Renamed: Change your vehicle’s tax class', note: 'Rewritten, with links to the right pages', kind: 'ship' },
+  ]}
+  caption="A few words changed what people expected to find. Traffic went up, but it was the wrong traffic."
+  evidence="reported"
+  source="Inside GOV.UK blog, 13 Apr 2016"
+/>

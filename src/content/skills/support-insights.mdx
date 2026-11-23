@@ -41,12 +41,12 @@ could not find it, they link the docs or make the docs clearer.
 <Flow
   title="Where a PostHog ticket ends"
   nodes={[
-    { id: 'ticket', label: 'Ticket', detail: 'In-app, Slack, paper cuts', col: 0, row: 1 },
+    { id: 'ticket', label: 'Ticket', detail: 'In-app or Slack', col: 0, row: 1 },
     { id: 'triage', label: 'Support team', detail: 'Solves or escalates', col: 1, row: 1 },
     { id: 'hero', label: 'Support Hero', detail: 'An engineer, this week', col: 2, row: 1, kind: 'decision' },
-    { id: 'fix', label: 'Fix shipped', detail: 'Bug or confusing design', col: 3, row: 0, tone: 'lit' },
-    { id: 'issue', label: 'Issue linked', detail: 'Feature request', col: 3, row: 1 },
-    { id: 'docs', label: 'Docs updated', detail: 'Feature already exists', col: 3, row: 2 },
+    { id: 'fix', label: 'Fix shipped', detail: 'Bugs, design', col: 3, row: 0, tone: 'lit' },
+    { id: 'issue', label: 'Issue linked', detail: 'Requests', col: 3, row: 1 },
+    { id: 'docs', label: 'Docs updated', detail: 'Feature exists', col: 3, row: 2 },
   ]}
   edges={[
     { from: 'ticket', to: 'triage' },

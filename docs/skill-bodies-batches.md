@@ -643,16 +643,16 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 34 · Distribution · 10 skills
 
-- [ ] `09.1.3` [Messaging](https://productengineer.pro/skills-map/distribution/go-to-market/messaging/) · `messaging` · has evidence, technicalLeverage, aiLeverage
-- [ ] `09.3.3` [Invitations](https://productengineer.pro/skills-map/distribution/viral-growth/invitations/) · `invitations` · map coverage
-- [ ] `09.3.5` [Viral coefficient](https://productengineer.pro/skills-map/distribution/viral-growth/viral-coefficient/) · `viral-coefficient` · map coverage
-- [ ] `09.4.2` [Collaboration features](https://productengineer.pro/skills-map/distribution/product-led-growth/collaboration-features/) · `collaboration-features` · 1 resource
-- [ ] `09.4.3` [Product-driven expansion](https://productengineer.pro/skills-map/distribution/product-led-growth/product-driven-expansion/) · `product-driven-expansion` · map coverage
-- [ ] `09.5.1` [Sales funnels](https://productengineer.pro/skills-map/distribution/b2b-acquisition/sales-funnels/) · `sales-funnels` · 1 resource
-- [ ] `09.5.2` [Lead qualification](https://productengineer.pro/skills-map/distribution/b2b-acquisition/lead-qualification/) · `lead-qualification` · map coverage
-- [ ] `09.5.4` [Trials and proofs of concept](https://productengineer.pro/skills-map/distribution/b2b-acquisition/b2b-trials/) · `b2b-trials` · map coverage
-- [ ] `09.5.5` [Partnerships](https://productengineer.pro/skills-map/distribution/b2b-acquisition/partnerships/) · `partnerships` · 0 resource
-- [ ] `09.6.2` [Conversion efficiency](https://productengineer.pro/skills-map/distribution/growth-economics/conversion-efficiency/) · `conversion-efficiency` · 1 resource
+- [x] `09.1.3` [Messaging](https://productengineer.pro/skills-map/distribution/go-to-market/messaging/) · `messaging` · has evidence, technicalLeverage, aiLeverage
+- [x] `09.3.3` [Invitations](https://productengineer.pro/skills-map/distribution/viral-growth/invitations/) · `invitations` · map coverage
+- [x] `09.3.5` [Viral coefficient](https://productengineer.pro/skills-map/distribution/viral-growth/viral-coefficient/) · `viral-coefficient` · map coverage
+- [x] `09.4.2` [Collaboration features](https://productengineer.pro/skills-map/distribution/product-led-growth/collaboration-features/) · `collaboration-features` · 1 resource
+- [x] `09.4.3` [Product-driven expansion](https://productengineer.pro/skills-map/distribution/product-led-growth/product-driven-expansion/) · `product-driven-expansion` · map coverage
+- [x] `09.5.1` [Sales funnels](https://productengineer.pro/skills-map/distribution/b2b-acquisition/sales-funnels/) · `sales-funnels` · 1 resource
+- [x] `09.5.2` [Lead qualification](https://productengineer.pro/skills-map/distribution/b2b-acquisition/lead-qualification/) · `lead-qualification` · map coverage
+- [x] `09.5.4` [Trials and proofs of concept](https://productengineer.pro/skills-map/distribution/b2b-acquisition/b2b-trials/) · `b2b-trials` · map coverage
+- [x] `09.5.5` [Partnerships](https://productengineer.pro/skills-map/distribution/b2b-acquisition/partnerships/) · `partnerships` · 0 resource
+- [x] `09.6.2` [Conversion efficiency](https://productengineer.pro/skills-map/distribution/growth-economics/conversion-efficiency/) · `conversion-efficiency` · 1 resource
 
 ### Batch 35 · Operations · 11 skills
 

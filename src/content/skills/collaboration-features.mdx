@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Zanzibar: Google’s consistent, global authorization system (USENIX ATC 2019)'
+    url: https://www.usenix.org/conference/atc19/presentation/pang
+  - title: The cold start problem, chapter preview (Andrew Chen)
+    url: https://andrewchen.com/chapter-one-cold-start/
+---
+
+## Why it matters for a product engineer
+
+Sharing, comments and workspaces turn one user into a team, and bring in new people with every share.
+They also change the data model. Every object now has owners, members and permissions, and every read
+must check them. A mistake in that logic exposes private data, which is worse than a missing feature.
+Product engineers design those permission models, so they decide how safely the product can grow from
+one user to a team.
+
+## How to do it
+
+1. Model who can do what as data from the start: owners, members, groups, roles.
+2. Check permissions in one service or library, not in each screen.
+3. Make sharing visible: who has access, through which group, since when.
+4. Test the hard cases: removing access, moving items between folders, groups inside groups.
+5. Watch the cost of permission checks as data grows, and cache results with care.
+
+## Common mistakes
+
+- Permissions checked only in the user interface, not on the server.
+- Removing a user while old caches still give them access.
+- Collaboration added late to a data model built for one user.
+- Sharing that is easy to start and hard to see or undo.
+
+## Example
+
+Google built Zanzibar to store and check permissions for Calendar, Cloud, Drive, Maps, Photos and
+YouTube. It holds more than two trillion access control lists and handles millions of checks per
+second, more than 95% of them within 10 milliseconds. Its paper describes the "new enemy" problem.
+Alice removes Bob from a document, then asks Charlie to add new content. If a check uses the old
+permissions, Bob can see the new content. Zanzibar respects the order of these changes to prevent it.
+
+<Timeline
+  title="The new enemy problem, in three steps"
+  events={[
+    { when: 'Step 1', title: 'Alice removes Bob', note: 'From the document’s access list' },
+    { when: 'Step 2', title: 'Charlie adds new content', note: 'At Alice’s request' },
+    { when: 'Step 3', title: 'Bob opens the document', note: 'A check with the old list shows Bob the new content', kind: 'problem' },
+  ]}
+  caption="People expect permissions and content to change in order. A check that ignores the order shares what was meant to be private."
+  evidence="reported"
+  source="Pang et al., Zanzibar, USENIX ATC 2019"
+/>

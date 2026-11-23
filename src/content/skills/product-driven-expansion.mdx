@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Slack's Fair Billing Policy (Slack Help Center)"
+    url: https://slack.com/help/articles/218915077-Slacks-Fair-Billing-Policy
+  - title: Pricing low-touch SaaS (Stripe Atlas)
+    url: https://stripe.com/guides/atlas/saas-pricing
+  - title: 'Product-led growth: how to build a product that sells itself (Wes Bush)'
+    url: https://productled.com/book/product-led-growth/introduction
+---
+
+## Why it matters for a product engineer
+
+Expansion revenue comes from customers who get more value: more seats, a higher plan, add-ons. When the
+product drives it, the upgrade follows real use, at the moment the customer needs more. Net revenue
+retention above 100% means revenue from existing customers grows even with no new customers. Product
+engineers build the usage limits, the billing rules and the upgrade prompts, so they shape whether
+expansion feels fair.
+
+## How to do it
+
+1. Choose an expansion unit that grows with value, such as active seats, projects or usage.
+2. Find who is near a limit, and show the upgrade at that moment, with what they get.
+3. Make billing follow real use, so customers are not afraid to invite more people.
+4. Let admins see usage and cost before the bill arrives.
+5. Track net revenue retention by cohort, and the share of revenue that comes from expansion.
+
+## Common mistakes
+
+- Limits that block work in the middle of a task.
+- Charging for seats nobody uses, so admins stop inviting people.
+- Upgrade prompts shown to users who cannot buy.
+- Surprise bills after automatic upgrades.
+
+## Example
+
+Slack's Fair Billing Policy, for plans bought on its website, charges paid workspaces only for active
+members. A member who accepts an invitation is billed from that day. If they do not use Slack for more
+than 28 days, Slack marks them inactive and adds a prorated credit for the unused time. When they start
+again, billing restarts for the rest of the period. So a company can invite whole teams without paying
+for people who never use the product.
+
+<Loop
+  title="One Slack member, under the Fair Billing Policy"
+  center="One member"
+  sub="Billed only while active"
+  stages={[
+    { label: 'Joins', note: 'Billed from that day' },
+    { label: 'Uses Slack', note: 'Billed as active', tone: 'lit' },
+    { label: 'Inactive', note: 'No use for 28 days: credit' },
+    { label: 'Returns', note: 'Billed for the rest of the period' },
+  ]}
+  caption="The bill grows with real use. That removes a reason for admins to limit who they invite."
+  evidence="reported"
+  source="Slack Help Center, Fair Billing Policy"
+/>

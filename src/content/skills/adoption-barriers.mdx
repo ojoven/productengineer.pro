@@ -44,11 +44,11 @@ hardcoded credentials and SQL injections.
 <Flow
   title="What a company asks before it adopts Copilot, and the answer in Copilot for Business"
   nodes={[
-    { id: 'buy', label: 'Who pays?', detail: 'One company, many developers', col: 0, row: 0, kind: 'decision' },
-    { id: 'net', label: 'Our network?', detail: 'Corporate VPN, own certificates', col: 0, row: 1, kind: 'decision' },
-    { id: 'safe', label: 'Safe code?', detail: 'Suggestions in our codebase', col: 0, row: 2, kind: 'decision' },
-    { id: 'seats', label: 'Seats', detail: 'Licenses bought online', col: 1, row: 0 },
-    { id: 'vpn', label: 'VPN support', detail: 'Self-signed certificates work', col: 1, row: 1 },
+    { id: 'buy', label: 'Who pays?', detail: 'Many seats', col: 0, row: 0, kind: 'decision' },
+    { id: 'net', label: 'Our network?', detail: 'Corporate VPN', col: 0, row: 1, kind: 'decision' },
+    { id: 'safe', label: 'Safe code?', detail: 'Insecure code', col: 0, row: 2, kind: 'decision' },
+    { id: 'seats', label: 'Seats', detail: 'Bought online', col: 1, row: 0 },
+    { id: 'vpn', label: 'VPN support', detail: 'Self-signed certs', col: 1, row: 1 },
     { id: 'filter', label: 'Code filter', detail: 'Blocks common insecure code', col: 1, row: 2, tone: 'lit' },
   ]}
   edges={[

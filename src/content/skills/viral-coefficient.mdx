@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Creating social contagion through viral product design: a randomized trial of peer influence in networks (Aral and Walker, Management Science, 2011)'
+    url: https://digitalcommons.chapman.edu/business_articles/143/
+  - title: Personal approach not always best in viral marketing (MIT Sloan Management Review)
+    url: https://sloanreview.mit.edu/article/personal-approach-not-always-best-in-viral-marketing/
+  - title: 5 crucial stages in designing your viral loop (Andrew Chen)
+    url: https://andrewchen.com/5-crucial-stages-in-designing-your-viral-loop/
+---
+
+## Why it matters for a product engineer
+
+The viral coefficient is the number of new users each user brings: invitations sent per user, times
+the share of invitations that turn into new users. Both parts are product decisions: when the product
+suggests sharing, what a share contains, and what the new person sees. A coefficient above 1 is rare.
+But even at 0.3, each user you acquire is worth about 1.4 users in total. Cycle time matters too: a
+faster loop brings the next users sooner.
+
+## How to do it
+
+1. Measure the two parts separately: invitations or shares per user, and the conversion of each.
+2. Measure the cycle time: days from a user's signup to the signups of the people they bring.
+3. Track by cohort and by channel, because the average hides strong and weak loops.
+4. Improve the part with more room to grow, and test each change against a holdout group.
+5. Count only invitees who become active, not every signup.
+
+## Common mistakes
+
+- Reporting one number, without its two parts and its cycle time.
+- Pushing more invitations at the cost of their quality, until people ignore them.
+- Expecting growth that feeds itself from a coefficient below 1.
+- Measuring the loop on early adopters, then expecting the same from everyone.
+
+## Example
+
+Sinan Aral and Dylan Walker ran a randomized trial with a Facebook app, with 9,687 users and their 1.4
+million friends. Some users got no viral features, some got automatic notifications to friends, and
+some also got personal invitations. Personal invitations brought more adoption per message. But
+automatic notifications were sent far more often, so they brought more adoption in total.
+Notifications raised peer adoption by 246%, and personal invitations added only another 98%.
+
+<Compare
+  title="Two viral features in a Facebook app, in a randomized trial"
+  subjects={['Personal invitation', 'Automatic notification']}
+  highlight={1}
+  rows={[
+    { label: 'Who sends it', values: ['The user picks friends', 'The app, to all friends'] },
+    { label: 'Adoption per message', values: ['Higher', 'Lower'] },
+    { label: 'How often it is sent', values: ['Less often', 'More often'] },
+    { label: 'Increase in peer adoption', values: ['Another 98%', '246%'] },
+  ]}
+  caption="The coefficient is messages times conversion. A weaker message that goes out far more often can bring more users."
+  evidence="reported"
+  source="Aral and Walker, Management Science, 2011"
+/>
