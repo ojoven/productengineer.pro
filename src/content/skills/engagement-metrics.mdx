@@ -40,23 +40,22 @@ each visitor stayed, how much of the document they saw, and the time spent on ea
 version. All of it comes from one event, sent for every page viewed. ([Papermark in In practice](/in-practice/papermark/))
 
 <Flow
-  title="One event, four engagement metrics Papermark customers see"
-  stages={['The event', 'What the customer sees']}
+  title="From one page view to a better deck, in Papermark"
   motion={false}
   nodes={[
-    { id: 'ev', label: 'page_views', detail: 'One per page viewed', col: 0, row: 1, kind: 'store' },
-    { id: 'visits', label: 'Visits', detail: 'Per document and room', col: 1, row: 0 },
-    { id: 'dur', label: 'View duration', detail: 'Per visitor', col: 1, row: 1 },
-    { id: 'comp', label: 'Completion', detail: 'Share of the document seen', col: 1, row: 2 },
-    { id: 'page', label: 'Time per page', detail: 'By document version', col: 1, row: 3, tone: 'lit' },
+    { id: 'open', label: 'An investor opens the deck', col: 0, row: 0, kind: 'external' },
+    { id: 'ev', label: 'page_views', detail: 'One event per page', col: 1, row: 0, kind: 'store' },
+    { id: 'm', label: 'Duration and completion', detail: 'Per visitor and document', col: 2, row: 0 },
+    { id: 'page', label: 'Time per page', detail: 'Split by version', col: 3, row: 0, tone: 'lit' },
+    { id: 'fix', label: 'The founder changes slide 7', detail: 'And compares the two versions', col: 4, row: 0 },
   ]}
   edges={[
-    { from: 'ev', to: 'visits' },
-    { from: 'ev', to: 'dur' },
-    { from: 'ev', to: 'comp' },
-    { from: 'ev', to: 'page' },
+    { from: 'open', to: 'ev' },
+    { from: 'ev', to: 'm' },
+    { from: 'm', to: 'page' },
+    { from: 'page', to: 'fix' },
   ]}
-  caption="Each metric answers a question the customer has: did they read it, how far, and which page lost them."
+  caption="Time per page by version turns engagement into a decision: which slide to change, and whether the change worked."
   evidence="observed"
   source="Papermark's home page and lib/tinybird in its repository, Nov 2026"
 />
