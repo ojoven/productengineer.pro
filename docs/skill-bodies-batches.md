@@ -233,15 +233,15 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 7 · Experience · 6 skills
 
-- [ ] `03.4.2` [Wireframes](https://productengineer.pro/skills-map/experience/prototyping/wireframes/) · `wireframes` · search term; 1 resource
-- [ ] `03.4.4` [Functional prototypes](https://productengineer.pro/skills-map/experience/prototyping/functional-prototypes/) · `functional-prototypes` · 1 In practice note; has evidence, technicalLeverage, aiLeverage; 1 resource
+- [x] `03.4.2` [Wireframes](https://productengineer.pro/skills-map/experience/prototyping/wireframes/) · `wireframes` · search term; 1 resource
+- [x] `03.4.4` [Functional prototypes](https://productengineer.pro/skills-map/experience/prototyping/functional-prototypes/) · `functional-prototypes` · 1 In practice note; has evidence, technicalLeverage, aiLeverage; 1 resource
   - Mamitsu: A two-hour demo instead of explaining an idea. ([entry](https://productengineer.pro/in-practice/mamitsu/))
-- [ ] `03.5.5` [WCAG principles](https://productengineer.pro/skills-map/experience/accessibility/wcag/) · `wcag` · search term
-- [ ] `03.2.3` [System feedback](https://productengineer.pro/skills-map/experience/interaction-design/interface-feedback/) · `interface-feedback` · 1 In practice note; 1 resource
+- [x] `03.5.5` [WCAG principles](https://productengineer.pro/skills-map/experience/accessibility/wcag/) · `wcag` · search term
+- [x] `03.2.3` [System feedback](https://productengineer.pro/skills-map/experience/interaction-design/interface-feedback/) · `interface-feedback` · 1 In practice note; 1 resource
   - RelievApp: Every touch is answered with shape, sound or a haptic, one gesture per phase, and nothing can be failed. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `03.3.4` [Color](https://productengineer.pro/skills-map/experience/ui-design/color/) · `color` · 1 In practice note
+- [x] `03.3.4` [Color](https://productengineer.pro/skills-map/experience/ui-design/color/) · `color` · 1 In practice note
   - RelievApp: Ten colours and no others, each with a meaning; a session moves from its hard colour to its settled one. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
-- [ ] `03.6.4` [Plain language](https://productengineer.pro/skills-map/experience/content-design/plain-language/) · `plain-language` · 1 In practice note
+- [x] `03.6.4` [Plain language](https://productengineer.pro/skills-map/experience/content-design/plain-language/) · `plain-language` · 1 In practice note
   - RelievApp: No engine words in the copy, checked by a script, and English written for people who learned it second. ([entry](https://productengineer.pro/in-practice/relievapp-part-1/))
 
 ### Batch 8 · Engineering · 10 skills

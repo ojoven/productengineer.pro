@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Color and contrast (web.dev)
+    url: https://web.dev/learn/accessibility/color-contrast
+  - title: The WebAIM Million, 2026 report (WebAIM)
+    url: https://webaim.org/projects/million/
+---
+
+## Why it matters for a product engineer
+
+Colour in an interface should mean something: a state, an action, a category, a warning. A small
+palette with defined roles keeps the product consistent and easy to read. Contrast has to work for
+everyone, in light and dark mode. Engineers turn the palette into tokens, so they decide whether the
+rules hold everywhere.
+
+## How to do it
+
+1. Define a small palette, and give each colour a role: text, background, action, success, warning,
+   error.
+2. Store the colours as tokens with names that describe the role, such as `danger`, not `red-500`.
+3. Check contrast for every pair of text and background, including on images and in dark mode. Normal
+   text needs a ratio of at least 4.5 to 1.
+4. Never use colour as the only signal. Add an icon, a label or a pattern.
+5. Build dark mode from the same roles, with colours checked again, not inverted.
+6. Add a check to the build that fails on a raw colour value outside the tokens.
+
+## Common mistakes
+
+- Grey text that looks elegant and is hard to read.
+- Red and green as the only difference between two states.
+- Many near-identical colours that nobody chose on purpose.
+- Light text on a light, animated background.
+- Dark mode made by inverting colours.
+
+## Example
+
+RelievApp uses ten colours and no others, each with a meaning: coral is the hard end, sun is energy
+that works for you, mint is settled. A session moves from its hard colour to its settled one, so the
+colour itself shows the change. An earlier audit had found the opposite problem: white text over a
+pale mint sphere that almost disappeared. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<StatRow
+  title="Low contrast text on the top million home pages, 2026"
+  stats={[
+    { value: 83.9, unit: '%', label: 'Home pages with low contrast text', signal: true },
+    { value: 34, label: 'Distinct cases per page, on average', note: 'Up 15% from 2025' },
+  ]}
+  caption="Low contrast is the most common accessibility failure on the web, and it is a colour decision."
+  evidence="measured"
+  source="WebAIM, The WebAIM Million, 2026 report"
+/>

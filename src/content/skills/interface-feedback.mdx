@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Usability 101: introduction to usability (Jakob Nielsen, NN/g)'
+    url: https://www.nngroup.com/articles/usability-101-introduction-to-usability/
+---
+
+## Why it matters for a product engineer
+
+Every action needs a visible answer. Without one, people click again, leave, or assume something
+broke. Feedback is also a large part of how fast a product feels: a clear loading state or an
+optimistic update can make a slow request feel quick. Most of it is engineering work, in states,
+timing and error handling.
+
+## How to do it
+
+1. List every action in a flow and the answer it gets: what changes on screen, and when.
+2. Answer within about a tenth of a second, even if only to show that the action was received.
+3. For longer work, show progress, or show the result before the server confirms it and undo it if the
+   request fails.
+4. Confirm results in place, near the action, instead of with a distant message.
+5. Make errors say what happened and what to do next.
+6. Test on a slow network and a slow phone, where missing feedback becomes obvious.
+
+## Common mistakes
+
+- Buttons that do nothing visible until the request ends.
+- A spinner for everything, with no idea of how long.
+- Success messages that disappear before anyone reads them.
+- Feedback only by colour.
+- Optimistic updates that fail without telling anyone.
+
+## Example
+
+In RelievApp, every touch is answered with shape, sound or a haptic, and nothing can be failed. Each
+session has one gesture per phase: first show where you are, then change it. In "Turn it into fuel",
+you scribble over a red core, then spin the scribbles into an orbit. The last screen shows the change
+as two numbers: 8 before, 4 after. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<ScreenSteps
+  title="Turn it into fuel, one of the nine new sessions, from check-in to the gift"
+  frame="phone"
+  ratio="9 / 19.5"
+  steps={[
+    { title: 'How angry are you?', src: '/img/fieldwork/relievapp-part-1/fuel-checkin.webp', alt: 'Check-in: How angry are you right now, 8 out of 10, with an angry Lev', note: 'One slider, the same in every session.' },
+    { title: 'Hit it, draw all over it', src: '/img/fieldwork/relievapp-part-1/fuel-hit.webp', alt: 'Coral scribbles over a red core', note: 'First, show where you are.' },
+    { title: 'Now spin it', src: '/img/fieldwork/relievapp-part-1/fuel-spin.webp', alt: 'The scribbles become particles orbiting a yellow core', note: 'The same energy becomes an engine, not calm.' },
+    { title: '8 before, 4 after', src: '/img/fieldwork/relievapp-part-1/fuel-after.webp', alt: 'The rating sheet: 8 before, 4 after, and the card Is someone you love struggling right now', kind: 'value', note: 'The rating, then the gift card.' },
+  ]}
+  caption="Each gesture changes the screen at once, and the end shows the result in the user's own numbers."
+/>

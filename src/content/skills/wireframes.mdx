@@ -1,0 +1,47 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Find the elements (Shape Up, chapter 4, Basecamp)
+    url: https://basecamp.com/shapeup/1.3-chapter-04
+---
+
+## Why it matters for a product engineer
+
+A wireframe shows what goes on a screen and roughly where, without colours or final copy. It keeps
+the discussion on structure and flow, when changing them still costs minutes. For an engineer, it is
+also the earliest view of the states, data and components a feature needs.
+
+## How to do it
+
+1. Start from one task and the content it needs, not from a layout you like.
+2. Draw at the lowest detail that answers the question: boxes and labels on paper, or a thick pen on a
+   tablet.
+3. Show every state that matters: empty, loading, full, error.
+4. Use real words for labels and actions where you can. Placeholder text hides problems.
+5. Walk through the task with someone else, screen by screen. Change the wireframe, not the code.
+6. Turn it into a short list of elements the solution must have, and leave the visual design open.
+
+## Common mistakes
+
+- Adding colour, images and polish too early, so feedback goes to the looks.
+- Wireframing only the main screen, not the steps around it.
+- Treating the wireframe as the final design, so designers have no room left.
+- Lorem ipsum where the real words would change the layout.
+
+## Example
+
+Basecamp's users made fake to-dos such as "––– Needs testing –––" to divide their lists. The team
+sketched an official divider with a thick marker, broad enough that adding detail was impossible. The
+sketch fixed the elements: loose to-dos above the first group, groups below. Where the add button
+would go stayed open, and the visual design was left to the designers.
+
+<ScopeCut
+  title="What Basecamp's sketch of to-do groups decided"
+  labels={{ kept: 'Decided', cut: 'Left to the designer', later: 'To try' }}
+  kept={['Loose to-dos above the first group belong to the list', 'Grouped to-dos appear below the loose ones']}
+  cut={['Layout details and visual style']}
+  later={[{ text: 'An add button inside each group', note: 'If it breaks up the list, use the action menu instead' }]}
+  caption="The sketch settled structure and nothing else. That left room for design later."
+  evidence="reported"
+  source="Shape Up, chapter 4, Basecamp"
+/>

@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The WebAIM Million, 2026 report (WebAIM)
+    url: https://webaim.org/projects/million/
+  - title: Quick reference to web accessibility principles (WebAIM)
+    url: https://webaim.org/resources/quickref/
+---
+
+## Why it matters for a product engineer
+
+The Web Content Accessibility Guidelines (WCAG) are the reference for making a product usable by people
+with disabilities, and many laws point to them. Most of the fixes live in code: markup, labels,
+focus, contrast, keyboard support. An engineer who knows the main criteria prevents most problems
+while building, when they are cheap.
+
+## How to do it
+
+1. Learn the four principles. Content must be perceivable, operable, understandable and robust.
+2. Use the right HTML element for each job: buttons for actions, links for navigation, labels for
+   inputs, headings in order.
+3. Check contrast for text and for controls, in light and dark mode.
+4. Use the product with only a keyboard: every action reachable, focus always visible, no traps.
+5. Run an automated checker in development and in CI. It finds part of the problems, not all.
+6. Test the main tasks with a screen reader, and fix what blocks them first.
+
+## Common mistakes
+
+- Treating accessibility as a final audit instead of part of each feature.
+- Trusting an automated score of 100 as proof of conformance.
+- Divs and spans with click handlers instead of buttons.
+- Images without alternative text, or with text that repeats the file name.
+- Hiding the focus outline because it looks untidy.
+
+## Example
+
+Each year WebAIM tests the home pages of the top million websites. In 2026, 95.9% had WCAG failures
+that a tool could detect, with 56.1 errors per page on average. 96% of all the errors fell into six
+types, and these have been the same for seven years. Fixing those six would remove most of the
+barriers.
+
+<Bars
+  title="The six most common WCAG failures, share of the top million home pages"
+  unit="%"
+  items={[
+    { label: 'Low contrast text', value: 83.9, highlight: true },
+    { label: 'Missing alternative text for images', value: 53.1 },
+    { label: 'Missing form input labels', value: 51 },
+    { label: 'Empty links', value: 46.3 },
+    { label: 'Empty buttons', value: 30.6 },
+    { label: 'Missing document language', value: 13.5 },
+  ]}
+  caption="All six are basic, and all six are in the code. Most of them a linter can catch before release."
+  evidence="measured"
+  source="WebAIM, The WebAIM Million, 2026 report"
+/>

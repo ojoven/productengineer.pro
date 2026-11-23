@@ -1,0 +1,48 @@
+---
+updated: 2026-11-23
+sources:
+  - title: UX strategies for complex-application design (NN/g)
+    url: https://www.nngroup.com/articles/strategies-complex-application-design/
+---
+
+## Why it matters for a product engineer
+
+Some ideas only make sense with real behaviour: real data, real delays, real AI output, real touch.
+A functional prototype tests them with code that is meant to be thrown away. Product engineers can
+build one in hours, and with coding agents often in minutes. The skill is less in building it and more
+in learning from it and then letting it go.
+
+## How to do it
+
+1. Write the one question the prototype must answer, such as "does this gesture calm people?".
+2. Build only what the question needs. Skip accounts, settings and edge cases.
+3. Build several different versions when you do not know the answer, instead of one polished one.
+4. Put it in front of people quickly, or send it instead of a long explanation.
+5. Write down what you learned and what you decided, next to the prototype.
+6. Keep the prototype separate from the product code. Take the idea forward, not the code.
+
+## Common mistakes
+
+- A prototype that grows into the product, with its shortcuts.
+- Polishing it before anyone has seen it.
+- One prototype, so there is nothing to compare.
+- Showing it without a question, and collecting only compliments.
+
+## Example
+
+Unai Esteibar, who makes Mamitsu, often builds a two-hour demo and sends that instead of explaining
+an idea; many ideas are built in the morning and thrown away by the afternoon. On 18 November an agent
+built ten prototypes of interactive emotional regulation for RelievApp, from zero, in about 75
+minutes. ([Mamitsu](/in-practice/mamitsu/), [RelievApp](/in-practice/relievapp-part-1/))
+
+<Timeline
+  title="RelievApp's ten prototypes, on the morning of 18 November"
+  events={[
+    { when: '07:15', title: 'Ten prototypes asked for', kind: 'decision', note: '"Without considering what we\'ve already done", from narrow protocols to broad systems.' },
+    { when: '08:31', title: 'Ten prototypes ready', kind: 'ship', note: 'Each one built with different technology, kept outside the product code.', src: '/img/fieldwork/relievapp-part-1/t-shifts.webp', alt: 'Scribble and Settle, one of the ten prototypes: orange scribbles on a dark screen' },
+    { when: 'Same day', title: 'Spoken feedback', kind: 'result', note: 'Which ones could become sessions, and in what form: a shooting-star game, a pendulum with sound.' },
+  ]}
+  caption="Ten different answers to one question, in a morning. The decision that matters is which ideas to keep, not which code."
+  evidence="observed"
+  source="RelievApp's git log and decision log, 18 Nov 2026"
+/>

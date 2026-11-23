@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Writing and editing: plain language (Office for National Statistics)'
+    url: https://service-manual.ons.gov.uk/content/writing-for-users/plain-language
+---
+
+## Why it matters for a product engineer
+
+Interface text is part of the product. Plain language, with common words and short sentences, helps
+everyone, including people reading in a second language and people under stress. Engineers often
+write the first version of labels and error messages, and the words from the code are the ones that
+leak into the interface.
+
+## How to do it
+
+1. Write for the reader's task, with the most important point first.
+2. Use common words with one meaning. Prefer "start" to "initialise".
+3. Keep sentences short, with one idea each, and use the active voice.
+4. Use one word for one concept everywhere: in buttons, emails, help and errors.
+5. Keep internal names out: the names of services, models and fields belong in the code.
+6. Make rules checkable, for example a script that fails the build when a banned word appears.
+
+## Common mistakes
+
+- Technical words from the code in the interface.
+- Several words for the same thing in different places.
+- Idioms and wordplay that people reading in a second language cannot follow.
+- Long sentences that hide the action.
+- Thinking plain means childish. Plain writing can still be precise.
+
+## Example
+
+An audit of RelievApp on 16 November found that the sessions spoke like the code. The user saw "The
+particles are following your rhythm now". The fix was a rule: no "field", "particles", "nucleus",
+"membrane", "system" or "transition" in user copy, in English and Spanish, with a check that keeps them
+out. The English is also written for people who learned it as a second language.
+([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Anatomy
+  title="Session copy before the rule, from the audit"
+  parts={[
+    { text: 'Breathe the ' },
+    { text: 'field', label: 'Engine word', kind: 'signal', note: 'The name of a layer in the code.' },
+    { text: ' open.\n\nThe ' },
+    { text: 'particles', label: 'Engine word', kind: 'signal', note: 'What the renderer draws, not what the user feels.' },
+    { text: ' are following your rhythm now.\n\n…lets something heavy leave the ' },
+    { text: 'system', label: 'Engine word', kind: 'signal' },
+    { text: '.' },
+  ]}
+  caption="Three words that made sense to the people who wrote the engine, and to nobody else. A script now fails the check if they return."
+  evidence="observed"
+  source="RelievApp product audit, 16 Nov 2026, and its decision log"
+/>
