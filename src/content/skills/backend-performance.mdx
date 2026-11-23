@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How we built Pingora, the proxy that connects Cloudflare to the Internet (Cloudflare)
+    url: https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/
+  - title: Use the index, Luke (Markus Winand)
+    url: https://use-the-index-luke.com/
+---
+
+## Why it matters for a product engineer
+
+Most backend slowness comes from a few places: a query without the right index, a loop that calls
+the database once per item, a new connection for every request, or work that could happen later.
+Fixing them makes the product faster and the servers cheaper at the same time. A product engineer who
+knows the code and the data can find these places quickly.
+
+## How to do it
+
+1. Find the requests with the most total time, from logs or traces. Total time is how often a
+   request runs multiplied by how long it takes.
+2. For each one, count the round trips: database queries, calls to other services, new connections.
+   Remove what you can by batching, joining or caching.
+3. Read the query plan of every slow query, and add or fix the index.
+4. Reuse connections from a pool. A new TCP and TLS connection costs several round trips before any
+   work starts.
+5. Move work the person does not wait for, such as emails and reports, to a background job.
+6. Measure p95 latency and CPU before and after, under real traffic.
+
+## Common mistakes
+
+- N+1 queries: one query for a list, then one more query for each item in it.
+- A cache that hides a slow query instead of a fix for it.
+- Bigger servers before a profile.
+- Measuring with an empty development database.
+
+## Example
+
+Cloudflare's old proxy was NGINX. Each NGINX worker process kept its own pool of connections to
+customers' servers, so adding workers made connection reuse worse, and more requests paid for a new
+TCP and TLS handshake. Cloudflare built Pingora in Rust, and its threads share one set of
+connections. For one large customer, connection reuse went from 87.1% to 99.92%: 160 times fewer
+new connections to its servers.
+
+<StatRow
+  title="Cloudflare's proxy after the move from NGINX to Pingora"
+  stats={[
+    { value: 80, unit: 'ms', label: 'Less time to first byte at p95', note: '5 ms less at the median' },
+    { value: '1/3', label: 'As many new connections per second' },
+    { value: 70, unit: '%', label: 'Less CPU for the same traffic', note: '67% less memory', signal: true },
+  ]}
+  caption="Fewer new connections meant fewer handshakes. The slow tail improved most, and the servers did less work for the same traffic."
+  evidence="reported"
+  source="Yuchen Wu and Andrew Hauck, Cloudflare, 14 Sep 2022"
+/>

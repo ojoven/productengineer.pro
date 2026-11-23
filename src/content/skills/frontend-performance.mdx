@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Vodafone: a 31% improvement in LCP increased sales by 8% (web.dev)'
+    url: https://web.dev/case-studies/vodafone
+  - title: Optimize largest contentful paint (web.dev)
+    url: https://web.dev/articles/optimize-lcp
+---
+
+## Why it matters for a product engineer
+
+Most people use a product on a phone that is slower than the team's, over a worse network. A slow
+interface shows no error. People just leave. Frontend performance is product work: it changes
+conversion, and a product engineer can measure that change, as Vodafone did.
+
+## How to do it
+
+1. Measure field data from real users, separately for mobile and desktop: LCP, INP and CLS at the
+   75th percentile.
+2. Split a slow LCP into its four parts: time to first byte, the delay before the main image or text
+   starts to load, its load time, and the delay before it appears. web.dev's guideline is about 40%
+   each for the first byte and the load time, and under 10% for each delay.
+3. Put the main image or text in the HTML, where the browser finds it early, not only in JavaScript.
+4. Send less JavaScript at the start, and render critical HTML on the server.
+5. Resize and compress images. Do not load images below the screen until they are needed.
+6. Reserve space for images, ads and embeds, so the layout does not move.
+
+## Common mistakes
+
+- Testing only on a fast laptop on office Wi-Fi.
+- Lazy loading the main image, which delays the LCP.
+- Improving a lab score while the field data stays the same.
+- A large framework bundle for a page that is mostly text.
+
+## Example
+
+Vodafone tested two versions of a landing page, with half of the traffic each, about 34,000 visits a
+day per version. The faster version moved a widget's rendering from the browser to the server, so
+less JavaScript blocked the page. It also rendered critical HTML on the server and optimized the
+images. Its LCP was 31% better. An older metric, DOMContentLoaded, became 15% worse on the same
+version, but the sales followed LCP.
+
+<StatRow
+  title="What a 31% better LCP did for Vodafone"
+  stats={[
+    { value: 8, unit: '%', label: 'More sales', signal: true },
+    { value: 15, unit: '%', label: 'Better lead-to-visit rate' },
+    { value: 11, unit: '%', label: 'Better cart-to-visit rate' },
+  ]}
+  caption="Same page, same design, same split of traffic. Only the loading work changed, and more people bought."
+  evidence="reported"
+  source="web.dev case study, 17 Mar 2021"
+/>

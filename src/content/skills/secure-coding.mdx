@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: OWASP Top 10:2025
+    url: https://top10.owasp.org/2025/
+  - title: SQL injection prevention cheat sheet (OWASP)
+    url: https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
+  - title: 'CL0P ransomware gang exploits CVE-2023-34362 MOVEit vulnerability (CISA and FBI)'
+    url: https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a
+---
+
+## Why it matters for a product engineer
+
+Most vulnerabilities are ordinary code: a query built from a string, a page that prints input as
+HTML, a file path taken from a request. A product engineer writes this code every day, often with an
+agent that writes it faster. Safe defaults, used every time, stop most of the OWASP list before a
+review has to find it.
+
+## How to do it
+
+1. Treat everything from outside as data: requests, files, webhooks and model output. Validate it
+   against what you expect.
+2. Keep code and data apart: parameterized queries, templates that escape by default, no shell
+   commands built from strings.
+3. Encode output for where it goes: HTML, an attribute, a URL or JavaScript.
+4. Use the framework's safe defaults. Look carefully at every place that turns one off, such as raw
+   HTML or raw SQL.
+5. Run a static analysis tool such as Semgrep in CI, and keep dependencies up to date.
+6. Apply the same rules to code that an agent writes.
+
+## Common mistakes
+
+- Escaping by hand instead of using parameters.
+- Validation only in the browser.
+- Stack traces and detailed errors in production responses.
+- Trusting an internal service or a model's output because it is "ours".
+
+## Example
+
+In May 2023 the CL0P ransomware group exploited an unknown SQL injection flaw, CVE-2023-34362, in
+MOVEit Transfer, a file transfer product used by many organizations. According to CISA and the FBI,
+the injection let the group install a web shell called LEMURLOOT, run commands on the servers and
+steal data from the databases behind them. The way in was the flaw that parameterized queries
+prevent.
+
+<Anatomy
+  title="A parameterized query, from OWASP's cheat sheet"
+  as="prompt"
+  parts={[
+    { text: 'String query = "SELECT account_balance FROM user_data WHERE user_name = ?";\n', label: 'The SQL', note: 'Complete, with a placeholder for the value' },
+    { text: 'PreparedStatement statement = connection.prepareStatement(query);\n', label: 'Defined first', note: 'The database knows the SQL before any input' },
+    { text: 'statement.setString(1, customerName);\n', label: 'The input', note: "Bound as a value, so tom' or '1'='1 is only a strange name", kind: 'signal' },
+    { text: 'ResultSet results = statement.executeQuery();', label: 'Run', note: 'Input cannot change the query' },
+  ]}
+  caption="The input can only be a value, never SQL. Binding does not decide access, so the code must still check who may read that account."
+  evidence="reported"
+  source="OWASP SQL injection prevention cheat sheet"
+/>

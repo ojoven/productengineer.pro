@@ -542,15 +542,15 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 26 · Engineering · 9 skills
 
-- [ ] `04.5.1` [Latency](https://productengineer.pro/skills-map/engineering/performance-engineering/latency/) · `latency` · map coverage
-- [ ] `04.5.3` [Profiling](https://productengineer.pro/skills-map/engineering/performance-engineering/profiling/) · `profiling` · 1 resource
-- [ ] `04.5.5` [Performance budgets](https://productengineer.pro/skills-map/engineering/performance-engineering/performance-budgets/) · `performance-budgets` · 1 resource
-- [ ] `04.5.6` [Frontend performance](https://productengineer.pro/skills-map/engineering/performance-engineering/frontend-performance/) · `frontend-performance` · map coverage
-- [ ] `04.5.7` [Backend performance](https://productengineer.pro/skills-map/engineering/performance-engineering/backend-performance/) · `backend-performance` · map coverage
-- [ ] `04.6.1` [Authentication](https://productengineer.pro/skills-map/engineering/security-engineering/authentication/) · `authentication` · 1 resource
-- [ ] `04.6.2` [Authorization](https://productengineer.pro/skills-map/engineering/security-engineering/authorization/) · `authorization` · 1 resource
-- [ ] `04.6.4` [Secure coding](https://productengineer.pro/skills-map/engineering/security-engineering/secure-coding/) · `secure-coding` · 1 resource
-- [ ] `04.6.6` [Secrets management](https://productengineer.pro/skills-map/engineering/security-engineering/secrets-management/) · `secrets-management` · 1 resource
+- [x] `04.5.1` [Latency](https://productengineer.pro/skills-map/engineering/performance-engineering/latency/) · `latency` · map coverage
+- [x] `04.5.3` [Profiling](https://productengineer.pro/skills-map/engineering/performance-engineering/profiling/) · `profiling` · 1 resource
+- [x] `04.5.5` [Performance budgets](https://productengineer.pro/skills-map/engineering/performance-engineering/performance-budgets/) · `performance-budgets` · 1 resource
+- [x] `04.5.6` [Frontend performance](https://productengineer.pro/skills-map/engineering/performance-engineering/frontend-performance/) · `frontend-performance` · map coverage
+- [x] `04.5.7` [Backend performance](https://productengineer.pro/skills-map/engineering/performance-engineering/backend-performance/) · `backend-performance` · map coverage
+- [x] `04.6.1` [Authentication](https://productengineer.pro/skills-map/engineering/security-engineering/authentication/) · `authentication` · 1 resource
+- [x] `04.6.2` [Authorization](https://productengineer.pro/skills-map/engineering/security-engineering/authorization/) · `authorization` · 1 resource
+- [x] `04.6.4` [Secure coding](https://productengineer.pro/skills-map/engineering/security-engineering/secure-coding/) · `secure-coding` · 1 resource
+- [x] `04.6.6` [Secrets management](https://productengineer.pro/skills-map/engineering/security-engineering/secrets-management/) · `secrets-management` · 1 resource
 
 ### Batch 27 · Engineering · 6 skills
 

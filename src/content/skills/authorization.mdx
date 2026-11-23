@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'A01:2025 Broken access control (OWASP Top 10)'
+    url: https://top10.owasp.org/2025/A01_2025-Broken_Access_Control/
+  - title: Authorization cheat sheet (OWASP)
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+---
+
+## Why it matters for a product engineer
+
+Authorization decides what each person may see and do. When it fails, nothing looks broken: the
+page works, but for the wrong person. Every new feature, endpoint and shared link adds a place where
+a check can be missing. The product engineer who builds the feature is the one who must build its
+check.
+
+## How to do it
+
+1. Deny by default. Every endpoint needs a rule, except the public ones.
+2. Check on the server, on every request, close to the data. A hidden button is not a check.
+3. Check ownership of the record, not only the role: "can this person edit invoice 1234?", not
+   only "is this person an editor?".
+4. Write the rules once, and use them in every route, background job and API, so they cannot
+   drift apart.
+5. Give agents and integrations scoped tokens, with only the access they need, and log what they
+   do.
+6. Write tests that try to read and change another person's data, once for each role.
+
+## Common mistakes
+
+- Trusting an id from the URL or the request body. OWASP calls this an insecure direct object
+  reference.
+- Checks only in the interface.
+- A new export, API or job that skips the rules the web app uses.
+- Permissions that grow and are never removed.
+
+## Example
+
+Papermark started with shared documents and grew into data rooms for deals. In September 2024 it
+shipped groups and file permissions, so each bidder sees only its part of a room. Its AI answers
+come "only from documents the token is allowed to read". The agent tools it shipped in June 2026
+follow the same rule, with scoped tokens and an append-only audit log.
+([Papermark in In practice](/in-practice/papermark/))
+
+<StatRow
+  title="Broken access control in the OWASP Top 10:2025"
+  stats={[
+    { value: 100, unit: '%', label: 'Tested applications with some form of it', signal: true },
+    { value: '1.84M', label: 'Occurrences, the most of any category' },
+    { value: 40, label: 'Weakness types (CWEs) mapped to it' },
+  ]}
+  caption="It stays at number one, and every tested application had at least one case. A missing check is the normal state, not the exception."
+  evidence="reported"
+  source="OWASP Top 10:2025, A01"
+/>

@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Flame graphs (Brendan Gregg)
+    url: https://www.brendangregg.com/flamegraphs.html
+---
+
+## Why it matters for a product engineer
+
+Profiling replaces guesses with measurements. The slow part of a system is rarely where the team
+expects it to be. A profile shows a product engineer where time and memory really go, so a fix
+targets the cause, and its effect can be checked afterwards.
+
+## How to do it
+
+1. Start from a symptom people feel and a number: a slow page, a slow endpoint, a p95 that grew.
+2. Reproduce it with realistic data, or profile production with a sampling profiler. Sampling costs
+   little, so it changes the program's behaviour less than tracing every call.
+3. Choose the profile that fits the symptom: CPU for busy code, a query plan for a slow query, the
+   browser's Performance panel for the interface, a memory profile for growth over time.
+4. Look for the widest part of the profile, not the most surprising one. Fix one thing at a time.
+5. Measure again under the same conditions. Keep the numbers from before and after with the change.
+
+## Common mistakes
+
+- Optimizing before profiling.
+- Profiling on a laptop with a tiny database, and trusting the result.
+- Tracing every function call, which slows the program and changes what you measure.
+- Reading the x-axis of a flame graph as time.
+- Stopping after one fix without measuring again.
+
+## Example
+
+Brendan Gregg invented flame graphs while working on a MySQL performance problem. The usual profilers
+gave him "walls of text". Tracing every function call cost too much and disturbed the program, so he
+switched to timed sampling. Samples lose the order of calls, so he gave up time on the x-axis and
+sorted the stacks to merge identical frames. The picture became readable, and he released flame
+graphs in December 2011.
+
+<Compare
+  title="A flame graph and a flame chart look alike"
+  subjects={['Flame graph', 'Flame chart']}
+  rows={[
+    { label: 'The x-axis', values: ['Stacks sorted by name', 'Time'] },
+    { label: 'A wide frame', values: ['In more samples', 'Ran for longer'] },
+    { label: 'Shows patterns over time', values: [false, true] },
+    { label: 'Many threads in one view', values: [true, false] },
+  ]}
+  caption="In a flame graph, left to right is only alphabetical order. Look for the widest frames along the top edge: that is where the CPU spends its time."
+  evidence="reported"
+  source="Brendan Gregg, Flame graphs"
+/>

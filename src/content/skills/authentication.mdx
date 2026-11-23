@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'NIST SP 800-63B-4: authentication and authenticator management'
+    url: https://pages.nist.gov/800-63-4/sp800-63b.html
+  - title: Validating leaked passwords with k-anonymity (Cloudflare)
+    url: https://blog.cloudflare.com/validating-leaked-passwords-with-k-anonymity/
+  - title: Authentication cheat sheet (OWASP)
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+---
+
+## Why it matters for a product engineer
+
+Authentication is the door to every account. It is easy to get subtly wrong, and one mistake exposes
+everything behind it. It is also the first friction in the product: every rule on a signup form
+loses some people. A product engineer decides both sides, the security and the experience.
+
+## How to do it
+
+1. Use a proven service or library. Prefer sign-in without a password: passkeys, or a provider
+   people already use.
+2. If you keep passwords, follow NIST: ask for length, not a mix of characters. Accept long
+   passwords, spaces and Unicode, and allow paste, so password managers work.
+3. Compare each new password with a list of breached and common passwords, and say why you reject
+   one.
+4. Store passwords with a slow, salted password hash, such as Argon2id or bcrypt.
+5. Limit failed attempts, and offer a second factor.
+6. Use the same generic message for a wrong user name and a wrong password, at sign-in and at
+   password reset.
+
+## Common mistakes
+
+- Rules for symbols and digits. NIST notes that people respond to them in very predictable ways.
+- Forced password changes every few months.
+- Security questions, such as the name of a first pet.
+- Writing your own session or token logic.
+- A signup form that asks for a password before the person has seen any value.
+
+## Example
+
+NIST asks for a check against breached passwords, but sending a password to an outside service is a
+new risk. Cloudflare and Troy Hunt's Pwned Passwords solved this with k-anonymity. The site hashes
+the password with SHA-1 and sends only the first 5 of the 40 hexadecimal characters. The service
+returns every breached hash that starts with them, about 478 on average, and the site compares them
+itself. The password, and even its full hash, never leave the site.
+
+<Compare
+  title="Password rules, old habits and NIST in 2025"
+  subjects={['Old habit', 'NIST SP 800-63B-4']}
+  rows={[
+    { label: 'Minimum length', values: ['8 characters', '15, or 8 with a second factor'] },
+    { label: 'A mix of character types', values: ['Required', 'Not allowed'] },
+    { label: 'Change on a schedule', values: ['Every few months', 'Only after a compromise'] },
+    { label: 'Security questions', values: ['Common', 'Not allowed'] },
+    { label: 'Check against breached passwords', values: [false, true] },
+  ]}
+  highlight={1}
+  caption="The new rules move the work from the person to the system: long passwords, nothing to remember about symbols, and a check against breached ones."
+  evidence="reported"
+  source="NIST SP 800-63B-4, Aug 2025"
+/>

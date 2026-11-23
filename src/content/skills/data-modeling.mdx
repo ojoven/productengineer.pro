@@ -43,13 +43,12 @@ without downtime.
 
 <Compare
   title="Three ways Stripe stored subscriptions"
-  subjects={['One field', 'A list in the customer', 'Own table']}
+  subjects={['Several per customer', 'To change one']}
   rows={[
-    { label: 'Several per customer', values: [false, true, true] },
-    { label: 'Change one subscription', values: ['Rewrite the customer', 'Rewrite the customer', 'Update one record'] },
-    { label: 'Query subscriptions', values: ['Scan customers', 'Scan customers', 'Query one table'] },
+    { label: 'One field in the customer', values: [false, 'Rewrite the customer'] },
+    { label: 'A list in the customer', values: [true, 'Rewrite the customer'] },
+    { label: 'Their own table', values: [true, 'Update one record'] },
   ]}
-  highlight={2}
   caption="Each model was right for the product of its time. The cost came from keeping the old shape after the product changed."
   evidence="reported"
   source="Jacqueline Xu, 'Online migrations at scale', Stripe, 2 Feb 2017"

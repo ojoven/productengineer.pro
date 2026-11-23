@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The performance inequality gap, 2024 (Alex Russell)
+    url: https://infrequently.org/2024/01/performance-inequality-gap-2024/
+  - title: Web vitals (web.dev)
+    url: https://web.dev/articles/vitals
+---
+
+## Why it matters for a product engineer
+
+Pages rarely become slow in one change. They become slow one library, image and script at a time,
+and each change looks small in its pull request. A budget turns speed into a limit that the build
+checks, so a product engineer sees the cost of a change before users feel it.
+
+## How to do it
+
+1. Choose metrics people feel: the Core Web Vitals from real users (LCP within 2.5 s, INP of 200 ms
+   or less, CLS of 0.1 or less, at the 75th percentile). Add the sizes that cause them, such as
+   compressed JavaScript.
+2. Set the limits from a real device and network, not from your own laptop. Alex Russell's 2024
+   baseline for a 3-second load on a slower phone is about 730 KiB compressed, with no more than 365
+   KiB of JavaScript.
+3. Check the sizes in CI on every pull request, with Lighthouse or a bundle size tool. Fail the build
+   when a page goes over.
+4. Check the field metrics every week. Lab results miss slow phones and slow networks.
+5. When a feature needs more, remove something else, or change the budget on purpose, with a
+   written reason.
+
+## Common mistakes
+
+- A budget that nobody checks automatically.
+- Limits copied from the current size, which only keeps a slow page from getting slower.
+- A budget for JavaScript only, while HTML, images or fonts grow.
+- Third-party scripts outside the budget.
+- Raising the limit every time a check fails.
+
+## Example
+
+This site's home page was measured on 23 November 2026, as a phone-width browser loads it, with
+each file compressed as the server sends it. JavaScript is only 5.7 KiB, because the pages are
+static. The HTML is 152 KiB, because the page draws the whole Skills Map as SVG, with 1,830 paths.
+The site has no budget check in CI yet. The HTML is the number such a check should watch first.
+
+<Meter
+  title="This site's home page against a 3-second budget"
+  items={[
+    { label: 'HTML, CSS and fonts', value: 234, limit: 365, unit: 'KiB', note: 'The HTML alone is 152 KiB' },
+    { label: 'JavaScript', value: 5.7, limit: 365, unit: 'KiB', digits: 1 },
+    { label: 'Everything', value: 240, limit: 730, unit: 'KiB' },
+  ]}
+  caption="The page is well under the JavaScript share. The HTML, not the script, would reach a limit first."
+  evidence="measured"
+  source="Compressed sizes of the home page, 23 Nov 2026; budget from Alex Russell, Jan 2024"
+/>

@@ -41,7 +41,7 @@ being used. MySQL users scored 55%, close to guessing. PostgreSQL users scored 8
   title="Finding the rows of 2012 with an index on date_column"
   subjects={['A function on the column', 'A range on the column']}
   rows={[
-    { label: 'The condition', values: ["TO_CHAR(date_column, 'YYYY') = '2012'", "date_column >= '2012-01-01' AND date_column < '2013-01-01'"] },
+    { label: 'The condition', values: ["TO_CHAR( date_column, 'YYYY' ) = '2012'", "date_column >= '2012-01-01' AND date_column < '2013-01-01'"] },
     { label: 'Uses the index', values: [false, true] },
     { label: 'Also works for', values: ['Whole years only', 'Any range: a week, a month'] },
   ]}

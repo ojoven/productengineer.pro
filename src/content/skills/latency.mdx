@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: How Discord stores trillions of messages (Discord)
+    url: https://discord.com/blog/how-discord-stores-trillions-of-messages
+  - title: Napkin math (Simon Eskildsen)
+    url: https://github.com/sirupsen/napkin-math
+---
+
+## Why it matters for a product engineer
+
+Latency is what people feel as speed. An average hides the slow requests, and the slow requests are
+the ones people remember. A product engineer owns the whole path of a request, from the tap to the
+database and back, so they can see where the time goes and decide which part is worth making faster.
+
+## How to do it
+
+1. Measure percentiles, not averages: p50 for the usual case, p95 and p99 for the slow tail.
+2. Measure where the person waits. A fast server behind a slow network or a slow render is still
+   slow.
+3. Estimate before you build. Sending 32 KiB to a server in the same cloud zone takes about 250 μs.
+   Sending 1 MiB across the Atlantic takes about 100 ms. A design with many sequential calls to a
+   distant service cannot be fast.
+4. Split a slow request into its parts: network, server work, database and rendering. Fix the
+   largest part first.
+5. Look at the slowest requests one by one. A tail often has a cause the average never shows, such
+   as one busy key or a garbage collection pause.
+6. Set a target for each important action, and alert when its percentile goes above the target.
+
+## Common mistakes
+
+- Reporting the average, or only the median.
+- Measuring the server and calling it the person's wait.
+- Many calls in a row, where one call or parallel calls would do.
+- Averaging the p99 of several servers. Compute a percentile from all the requests.
+- Making a part faster when it is a small share of the total.
+
+## Example
+
+Discord stored its messages in Cassandra, on 177 nodes by early 2022. When many people read one busy
+channel, its partition became "hot". Reads and writes needed a quorum of nodes, so every query to
+those nodes became slower, not only the busy channel's. Garbage collection pauses added more spikes.
+In May 2022 Discord moved the messages to ScyllaDB, behind new services that combine identical
+requests.
+
+<Compare
+  title="The slowest 1% of Discord's message requests"
+  subjects={['Cassandra', 'ScyllaDB']}
+  rows={[
+    { label: 'Read old messages, p99', values: ['40–125 ms', '15 ms'] },
+    { label: 'Insert a message, p99', values: ['5–70 ms', '5 ms'] },
+    { label: 'Nodes', values: [177, 72] },
+  ]}
+  highlight={1}
+  caption="The p99 was not only slow but unpredictable, because one hot partition slowed everything near it. After the move, the tail became short and steady."
+  evidence="reported"
+  source="Bo Ingram, Discord, 6 Mar 2023"
+/>
