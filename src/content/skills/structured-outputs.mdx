@@ -41,10 +41,15 @@ time". The home page shows a cooking reel turned into a recipe an app can use di
   title="A cooking reel as JSON, from Mamitsu's home page"
   as="prompt"
   parts={[
-    { text: '{\n  "dish": "15-Minute One-Pot Creamy Miso Udon",', label: 'Named fields' },
-    { text: '\n  "time_minutes": 15,', label: 'A number, not text', kind: 'signal', note: 'An app can sort or filter by it.' },
-    { text: '\n  "ingredients": ["miso", "peanut butter", "udon noodles", "egg", "spinach"],', label: 'A list the app can show' },
-    { text: '\n  "steps": ["Whisk miso and peanut butter together in a pot.", "Add udon noodles to the broth.", …]\n}', label: 'Order kept', note: 'From the video, not only the caption.' },
+    { text: '{\n  ' },
+    { text: '"dish": "15-Minute One-Pot Creamy Miso Udon",', label: 'Named fields' },
+    { text: '\n  ' },
+    { text: '"time_minutes": 15,', label: 'A number, not text', kind: 'signal', note: 'An app can sort or filter by it.' },
+    { text: '\n  ' },
+    { text: '"ingredients": ["miso", "peanut butter", "udon noodles", "egg", "spinach"],', label: 'A list the app can show' },
+    { text: '\n  ' },
+    { text: '"steps": ["Whisk miso and peanut butter together in a pot.", "Add udon noodles to the broth.", …]', label: 'Order kept', note: 'From the video, not only the caption.' },
+    { text: '\n}' },
   ]}
   caption="The question was plain words. The answer is data: types, lists and order that code can use without guessing."
   evidence="observed"
