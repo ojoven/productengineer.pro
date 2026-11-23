@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: New user trends on Wikipedia (Wikimedia Foundation)
+    url: https://diff.wikimedia.org/2025/10/17/new-user-trends-on-wikipedia/
+  - title: KAPOW, bot detection system (Wikitech)
+    url: https://wikitech.wikimedia.org/wiki/Data_Platform/Data_Lake/Traffic/BotDetection
+  - title: Naming conventions for clean data (Twilio Segment)
+    url: https://www.twilio.com/en-us/resource-center/naming-conventions-for-clean-data
+---
+
+## Why it matters for a product engineer
+
+Missing events, duplicates, bots and tracking that breaks in a release all change the numbers
+without any error. People stop using data they do not trust, and then decisions go back to opinion.
+A product engineer who tests tracking like code, and says openly when data was wrong, keeps the
+data worth using.
+
+## How to do it
+
+1. Test tracking in CI: fire each important event in a test, and check its name and properties.
+2. Validate events against their schema when they arrive, and count the ones rejected.
+3. Monitor volumes per event. A sudden drop to zero or a jump after a release is a bug until proven
+   otherwise.
+4. Exclude internal users, test accounts and bots, and keep the rules for that in one place.
+5. When data was wrong, publish a note: what was affected, the dates, the estimated impact. Mark it
+   on the charts.
+6. When you change a definition, say from which date it applies.
+
+## Common mistakes
+
+- Counting bot traffic as people.
+- Duplicate events with different names for the same action.
+- Fixing a tracking bug without marking the bad period.
+- Comparing periods measured with different rules.
+
+## Example
+
+Around May 2025, Wikipedia saw unusually high traffic that looked human, mostly from Brazil. The team
+investigated and updated its bot detection. With the new rules, it reclassified March to August, and
+found that much of the May and June traffic came from bots built to avoid detection. After the
+revision, human pageviews were about 8% lower than in the same months of 2024. The team also warned
+that the old and new rules make comparisons over time harder.
+
+<Timeline
+  title="How Wikipedia found bots in its human traffic, 2025"
+  events={[
+    { when: 'May 2025', title: 'Unusual “human” traffic', kind: 'problem', note: 'Mostly from Brazil' },
+    { when: 'Mid 2025', title: 'Bot detection updated', kind: 'decision', note: 'New signals for bots built to avoid detection' },
+    { when: 'Mar–Aug', title: 'Traffic reclassified', kind: 'decision', note: 'Much of May and June was bots' },
+    { when: 'Oct 2025', title: 'Human pageviews down about 8%', kind: 'result', note: 'Compared with the same months of 2024' },
+  ]}
+  caption="The spike looked like growth. Better bot detection turned it into a decline, and the team published the change with its caveats."
+  evidence="reported"
+  source="Marshall Miller, Wikimedia Foundation, 17 Oct 2025"
+/>

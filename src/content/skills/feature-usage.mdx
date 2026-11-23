@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The 2019 feature adoption report (Pendo)
+    url: https://www.pendo.io/resources/the-2019-feature-adoption-report/
+  - title: How and when to control for confounders during product usage analyses (Heap)
+    url: https://www.heap.io/blog/control-for-confounders-during-product-usage-analyses
+  - title: The power user curve (Andreessen Horowitz)
+    url: https://a16z.com/the-power-user-curve-the-best-way-to-understand-your-most-engaged-users/
+---
+
+## Why it matters for a product engineer
+
+Usage data shows what people really rely on, and it rarely matches the roadmap. A few features carry
+most of the value, and many are hardly used. For a product engineer, that decides where to invest,
+what to simplify and what to remove, because every unused feature still costs maintenance.
+
+## How to do it
+
+1. Track one clear event for the core use of each feature, not every click inside it.
+2. For each feature, measure reach (the share of active users who use it), frequency, and who those
+   users are.
+3. Plot how many days per month people use the product, not only one average. The shape shows your
+   power users.
+4. Compare usage across segments, such as plan, role and team size.
+5. Before you say a feature causes retention, look for confounders: heavy users use everything
+   more.
+6. Review the least-used features every few months: improve, hide or remove them.
+
+## Common mistakes
+
+- "Users of this feature retain better", read as cause.
+- Counting a page view as using the feature.
+- Removing a rarely used feature that a key customer depends on.
+- Only measuring new features, never the old ones.
+
+## Example
+
+Heap saw that accounts which ran a certain kind of query in its users view retained better. But
+accounts that ran more queries of every kind also retained better, so the number of queries was a
+confounder. Instead of an A/B test, the team used a causal model and the backdoor criterion to
+estimate the effect of the users view on its own.
+
+<StatRow
+  title="How much of a typical software product gets used"
+  stats={[
+    { value: 80, unit: '%', label: 'Features rarely or never used', signal: true },
+    { value: '$29.5B', label: 'Spent building them', note: 'Up to, by public cloud software companies' },
+  ]}
+  caption="Most features see little use. Measure usage before building more of the same, and before keeping what nobody uses."
+  evidence="reported"
+  source="Pendo, 2019 feature adoption report, from anonymized usage data"
+/>

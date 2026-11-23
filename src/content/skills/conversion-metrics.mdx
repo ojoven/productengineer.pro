@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Measuring completion rate (GOV.UK Service Manual)
+    url: https://www.gov.uk/service-manual/measuring-success/measuring-completion-rate
+  - title: Interpret your funnel analysis (Amplitude docs)
+    url: https://amplitude.com/docs/analytics/charts/funnel-analysis/funnel-analysis-interpret
+---
+
+## Why it matters for a product engineer
+
+A conversion rate looks simple: the people who reached the next step, divided by the people who
+started. But who counts as "started", and how long they have to convert, can change the number more
+than any feature. A product engineer who writes the definition down, and implements it exactly, makes
+the rate mean the same thing every week.
+
+## How to do it
+
+1. Define the starting group precisely: which event, on which page, and who is excluded.
+2. Define the end, including every valid end. A person who learns they are not eligible has also
+   finished.
+3. Set a conversion window: how long someone has to convert after they start.
+4. Exclude internal users, test accounts and bots.
+5. To find the step to fix, compare how many people each step loses, not only the percentages.
+6. When the definition changes, mark the date, and do not compare across it.
+
+## Common mistakes
+
+- Different definitions in different dashboards for the same name.
+- A window so short that slow but real conversions count as failures.
+- Celebrating a rate that rose because fewer people entered the first step.
+- Counting people who left after a test told them the service was not for them.
+
+## Example
+
+GOV.UK services must publish their completion rate, and the Service Manual defines it carefully. A
+transaction starts when someone continues from the service's start page. "Check if you can get legal
+aid" has two ends, one for people who are eligible and one for people who are not, and both count
+as finished. People who leave after failing an eligibility test have not started. But someone who
+applies for Carer's Allowance after the test says no has started, because they still can apply.
+
+<Compare
+  title="Who counts as starting a GOV.UK service"
+  subjects={['Counted as a start', 'Why']}
+  rows={[
+    { label: 'Continues from the start page', values: [true, 'The transaction begins here'] },
+    { label: 'Fails eligibility, then leaves', values: [false, 'Never started the service'] },
+    { label: 'Fails eligibility, still applies', values: [true, 'They can still apply'] },
+    { label: 'Internal users, tests, robots', values: [false, 'Not genuine users'] },
+  ]}
+  caption="Each rule moves the rate. Two teams with the same users can report very different completion rates if they define the start differently."
+  evidence="reported"
+  source="GOV.UK Service Manual, Measuring completion rate"
+/>

@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Mapping the “Start a Business” journey on GOV.UK (GOV.UK)
+    url: https://insidegovuk.blog.gov.uk/2020/10/14/mapping-the-start-a-business-journey-on-gov-uk/
+---
+
+## Why it matters for a product engineer
+
+Designers draw one journey. People take many: they arrive from search, go back, loop and take
+detours. Path analysis shows the routes they really follow, so a product engineer can add a shortcut
+where people already go, and fix the place where they go in circles.
+
+## How to do it
+
+1. Choose a point to study: a goal, such as a signup, or an entry, such as a landing page.
+2. Look at the most common paths into it and out of it, with a Sankey diagram or a process map.
+3. Then define the journey you expect, and count how many people follow it.
+4. Look for loops, back-and-forth between two pages, and repeated use of the same navigation.
+5. Split by device and by entry point. A path that works on desktop can fail on a phone.
+6. Change one thing, such as a direct link, and compare the paths afterwards.
+
+## Common mistakes
+
+- Reading the designed journey as the real one.
+- Paths so detailed that no two are the same, so nothing is common.
+- Assuming a long path is bad. Sometimes people are comparing options on purpose.
+- Changing navigation for one path and breaking others.
+
+## Example
+
+GOV.UK's analysts studied journeys into the step-by-step guide for setting up a limited company.
+They used two methods: a process map of the most common journeys, and a defined journey counted
+with an open-source tool. Both showed that 20% of users went through the same three pages before
+reaching the guide. They also found people bouncing between the limited company and sole trader
+content, a sign of confusion about which one they needed.
+
+<Flow
+  title="A common route into GOV.UK's limited company guide"
+  nodes={[
+    { id: 'ch', label: 'Agency page', detail: 'Companies House', col: 0, row: 0 },
+    { id: 'topic', label: 'Topic page', detail: 'Start a company', col: 1, row: 0 },
+    { id: 'step1', label: 'First step', detail: 'Limited companies', col: 2, row: 0 },
+    { id: 'guide', label: 'Step by step', detail: 'Set up a company', col: 3, row: 0, tone: 'lit' },
+  ]}
+  edges={[
+    { from: 'ch', to: 'topic' },
+    { from: 'topic', to: 'step1' },
+    { from: 'step1', to: 'guide' },
+  ]}
+  caption="20% of users took these same three pages to reach the guide. The simple fix the team named was a direct link to the step by step."
+  evidence="reported"
+  source="GOV.UK, Inside GOV.UK blog, 14 Oct 2020"
+/>

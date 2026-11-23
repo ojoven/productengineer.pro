@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Quick start for internal event tracking (GitLab docs)
+    url: https://docs.gitlab.com/development/internal_analytics/internal_event_instrumentation/quick_start/
+  - title: Planning a full installation (Twilio Segment docs)
+    url: https://www.twilio.com/docs/segment/getting-started/03-planning-full-install
+---
+
+## Why it matters for a product engineer
+
+Without a plan, teams track everything and still cannot answer the question that matters. A tracking
+plan starts from the questions, then lists the events and properties that answer them. It is also
+the spec a product engineer implements, tests and reviews against, so the data means the same thing
+to everyone who reads it.
+
+## How to do it
+
+1. Write the questions first: what will you decide, and what would you need to see to decide it?
+2. For each question, list the events: one name per user action, in one naming pattern, such as
+   object and action.
+3. Define each property: its type, its allowed values, and an example.
+4. Say exactly when each event fires: on the click, or when the server confirms the action.
+5. Give every event an owner, and keep the plan in the repository, next to the code that fires it.
+6. Review changes to the plan like code. Remove events that answer no question.
+
+## Common mistakes
+
+- Tracking every click "just in case".
+- Names that change from one team to the next: "Sign up", "signup", "User Signed Up".
+- A plan in a spreadsheet that the code no longer matches.
+- Properties that carry personal data by accident.
+
+## Example
+
+At GitLab, each event is defined in a file in the repository, created with a command-line tool.
+Names follow one pattern, an action, its target and where it happens, such as `create_ci_build`.
+GitLab's analytics team now also runs agents for this work. One turns a tracking idea into an
+issue, one writes the definitions, code and tests, and one reviews instrumentation changes when a
+merge request is ready for review.
+
+<Anatomy
+  title="Part of a GitLab event and its definition"
+  as="prompt"
+  parts={[
+    { text: 'track_internal_event("create_ci_build",\n', label: 'The event', note: 'An action and its target, in one naming pattern' },
+    { text: '  user: user, project: project)\n', label: 'Identifiers', note: 'Fill in as many as you can, for better data' },
+    { text: 'additional_properties:\n  label:\n    description: The source of the pipeline, e.g. a push, a schedule or similar.\n', label: 'Built-in property', note: 'A flat column in the warehouse, ready to query', kind: 'signal' },
+    { text: '  agent:\n    description: Type of the execution agent.', label: 'Custom property', note: 'Nested, so querying it may need the data team' },
+  ]}
+  caption="Every property has a description, and the plan says where it lands in the warehouse. The definition is code, reviewed with the change that fires it."
+  evidence="reported"
+  source="GitLab docs, internal event tracking"
+/>

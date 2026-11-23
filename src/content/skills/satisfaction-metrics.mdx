@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: System Usability Scale (GitLab handbook)
+    url: https://handbook.gitlab.com/handbook/upstream-studios/performance-indicators/system-usability-scale/
+  - title: 'Should the Net Promoter Score go? 5 common criticisms examined (MeasuringU)'
+    url: https://measuringu.com/nps-go/
+---
+
+## Why it matters for a product engineer
+
+Behaviour shows what people do, not how they feel about it. Satisfaction metrics ask directly, and
+catch frustration before it becomes churn. Scores are noisy and depend on who answers, so a product
+engineer reads the trend and, above all, the written comments, which point at what to fix.
+
+## How to do it
+
+1. Choose a standard instrument and keep it: CSAT for one interaction, SUS for perceived usability,
+   NPS for willingness to recommend.
+2. Add one open question, such as "What problems or frustrations have you had?".
+3. Sample on purpose: define the user segments you care about, and get enough answers in each one.
+4. Do not ask the same person too often.
+5. Code the comments into themes every cycle, and link the themes to work.
+6. Read the score next to behaviour, such as retention. One does not replace the other.
+
+## Common mistakes
+
+- Asking only right after a success, when people feel best.
+- Treating a small change in the score as real.
+- Collecting comments and never reading them.
+- Rewarding teams for the score, so they start managing who answers.
+
+## Example
+
+GitLab has measured usability with the System Usability Scale since 2019, as a key indicator for its
+product teams. Ten standard statements are followed by one open question about problems and
+frustrations. Each user is invited at most once a year, and each segment needs enough answers to
+give a confident score. Every quarter, the team codes the answers into themes.
+
+<Flow
+  title="How GitLab collects its usability score"
+  stages={['Sample', 'Ask', 'Ask why', 'Act']}
+  nodes={[
+    { id: 'invite', label: 'Invite', detail: 'At most once a year', col: 0, row: 0 },
+    { id: 'sus', label: '10 statements', detail: 'Agree, 1 to 5', col: 1, row: 0 },
+    { id: 'open', label: 'Open question', detail: 'Problems, frustrations', col: 2, row: 0, tone: 'signal' },
+    { id: 'themes', label: 'Themes', detail: 'Coded every quarter', col: 3, row: 0, kind: 'store' },
+  ]}
+  edges={[
+    { from: 'invite', to: 'sus' },
+    { from: 'sus', to: 'open' },
+    { from: 'open', to: 'themes' },
+  ]}
+  caption="The score says how usable GitLab feels. The open question says why, and the themes turn it into work."
+  evidence="reported"
+  source="GitLab handbook, System Usability Scale"
+/>

@@ -1,0 +1,50 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Measuring the user experience on a large scale: user-centered metrics for web applications (Rodden, Hutchinson and Fu, Google)'
+    url: https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/
+---
+
+## Why it matters for a product engineer
+
+Adoption answers the first question about anything new: did people find it and try it? A product
+engineer who ships a feature should know, in its first weeks, how many of the people who could use
+it did. High adoption with low retention means the promise worked and the value did not.
+
+## How to do it
+
+1. Define the eligible group: the users who could use the feature, not all users.
+2. Define "adopted" as a real use, such as creating a first item, not opening a page.
+3. Count new adopters per week, and the share of the eligible group that has adopted so far.
+4. Look at adoption together with retention: of the people who tried it, how many came back?
+5. Split new users from existing users. A rise can come from either, and the two mean different
+   things.
+6. If adoption is low, check discovery first: did people see it at all?
+
+## Common mistakes
+
+- Dividing by all users instead of the users who could use the feature.
+- Counting a visit as adoption.
+- Celebrating a launch spike before the curve becomes flat.
+- Reading page views or active users as adoption.
+
+## Example
+
+During the stock market crash of September 2008, Google Finance saw a surge in page views and in
+seven-day active users. Those totals could not say whether new users had come for the crisis or
+existing users were checking their investments. The team used adoption and retention to separate
+the two groups, and to see how many new users chose to stay.
+
+<Compare
+  title="What Google Finance could see in September 2008"
+  subjects={['Totals', 'Adoption and retention']}
+  rows={[
+    { label: 'Shows the surge', values: [true, true] },
+    { label: 'Separates new and existing users', values: [false, true] },
+    { label: 'Shows whether new users stay', values: [false, true] },
+  ]}
+  highlight={1}
+  caption="Page views and active users rose, but only adoption and retention said who came and whether they stayed."
+  evidence="reported"
+  source="Rodden, Hutchinson and Fu, Google, CHI 2010"
+/>

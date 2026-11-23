@@ -1,0 +1,60 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Identifying users (PostHog docs)
+    url: https://posthog.com/docs/product-analytics/identify
+  - title: Identity resolution (PostHog docs)
+    url: https://posthog.com/docs/product-analytics/identity-resolution
+---
+
+## Why it matters for a product engineer
+
+People browse anonymously, sign up, then come back on another device. If analytics sees three
+people instead of one, user counts grow and funnels break, often at the signup step. Identity is
+also a privacy decision: linking activity across devices is something people should know about. A
+product engineer owns both sides.
+
+## How to do it
+
+1. Give each visitor an anonymous ID on the first visit.
+2. At signup or sign-in, call identify with a stable user ID from your database, never an email or
+   a name. The anonymous events then join that person.
+3. Send server events with the same user ID, so browser and server agree.
+4. Reset the identity at sign-out, so the next person on a shared device does not join the
+   previous one.
+5. Decide what you will not link: devices, households, accounts that share a login. Write it down.
+6. Test it: sign up in a fresh browser, sign in on a second one, and check that one person appears.
+
+## Common mistakes
+
+- Calling identify with a value that is not unique, such as "guest" or "undefined".
+- Different user IDs on the client and the server.
+- Never resetting, so everyone on a shared computer becomes one person.
+- Linking identities in ways the privacy notice does not mention.
+
+## Example
+
+This site's analytics stay anonymous on purpose. A campaign label, such as a newsletter link, stays
+attached for 30 minutes in one browser tab, so an internal click does not erase it. Nothing links
+visits across days or devices. So the analytics cannot show whether the same person came back in a
+second week, which is the product's real goal. That evidence comes from observed sessions and
+follow-ups instead.
+
+<Sequence
+  title="How one person stays one person through signup"
+  actors={[
+    { id: 'browser', label: 'Browser', kind: 'system' },
+    { id: 'server', label: 'Your server', kind: 'system' },
+    { id: 'analytics', label: 'Analytics', kind: 'external' },
+  ]}
+  messages={[
+    { from: 'browser', to: 'analytics', label: 'Events, anonymous ID', kind: 'call' },
+    { from: 'browser', to: 'server', label: 'Sign up', kind: 'call' },
+    { from: 'server', to: 'browser', label: 'Stable user ID', kind: 'reply' },
+    { from: 'browser', to: 'analytics', label: 'identify(user ID)', kind: 'call', tone: 'signal', note: 'The anonymous events join this person' },
+    { from: 'server', to: 'analytics', label: 'Events, same user ID', kind: 'call', note: 'Servers have no anonymous session' },
+  ]}
+  caption="One identify call at signup links the anonymous visits to the person. If the server sends a different ID, one person becomes two."
+  evidence="reported"
+  source="PostHog docs, Identifying users"
+/>

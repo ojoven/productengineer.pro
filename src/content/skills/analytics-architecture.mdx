@@ -1,0 +1,61 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Event Platform (Wikitech)
+    url: https://wikitech.wikimedia.org/wiki/Event_Platform
+---
+
+## Why it matters for a product engineer
+
+Where events start, how they travel and where they land decide what the data costs, how private it
+is and which questions are easy to answer. A product engineer who designs this path can make
+important events reliable, keep personal data out, and change analytics tools later without
+rewriting the product.
+
+## How to do it
+
+1. Send important actions from the server, such as a payment or a completed signup. Browser events
+   get blocked, lost or duplicated.
+2. Keep browser tracking for what only the browser sees: views, clicks, scrolls and performance.
+3. Send all events through one module of your own, so you can validate, remove personal data and
+   switch tools in one place.
+4. Give every event a schema, and validate it on arrival.
+5. Store raw events in a warehouse you control, and send copies to the analysis tools you need.
+6. Decide retention and access early: who can query what, and for how long.
+
+## Common mistakes
+
+- Each team adds its own SDK, so events and identities split.
+- Important conversions tracked only in the browser.
+- Personal data in event properties, copied to every downstream tool.
+- No way to replay or fix events after a bug.
+
+## Example
+
+Wikimedia runs its events, analytics included, on a shared Event Platform. Every event has a schema,
+kept in a schema repository. An intake service called EventGate accepts events over HTTP,
+validates each one against its schema, and sends it to its stream in Kafka. From there, events reach
+the data lake for analysis, and stream processing jobs can react to them.
+
+<Flow
+  title="Wikimedia's Event Platform, simplified"
+  stages={['Produce', 'Validate', 'Stream', 'Use']}
+  nodes={[
+    { id: 'client', label: 'Apps and sites', detail: 'Browser and server', col: 0, row: 1 },
+    { id: 'schemas', label: 'Schemas', detail: 'In a repository', col: 1, row: 0, kind: 'store' },
+    { id: 'gate', label: 'EventGate', detail: 'Validates each event', col: 1, row: 1, tone: 'signal' },
+    { id: 'kafka', label: 'Kafka', detail: 'One stream per event', col: 2, row: 1, kind: 'store' },
+    { id: 'lake', label: 'Data lake', detail: 'Analysis', col: 3, row: 0, kind: 'store' },
+    { id: 'jobs', label: 'Stream jobs', detail: 'React to events', col: 3, row: 2 },
+  ]}
+  edges={[
+    { from: 'client', to: 'gate' },
+    { from: 'schemas', to: 'gate', dashed: true },
+    { from: 'gate', to: 'kafka' },
+    { from: 'kafka', to: 'lake' },
+    { from: 'kafka', to: 'jobs' },
+  ]}
+  caption="Validation happens once, at the entrance. Every tool after it can trust the shape of the data."
+  evidence="reported"
+  source="Wikitech, Event Platform"
+/>

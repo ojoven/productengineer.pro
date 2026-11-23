@@ -577,16 +577,16 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 29 · Measurement · 10 skills
 
-- [ ] `06.1.2` [Tracking plans](https://productengineer.pro/skills-map/measurement/product-instrumentation/tracking-plans/) · `tracking-plans` · has evidence, technicalLeverage, aiLeverage
-- [ ] `06.1.3` [Identity resolution](https://productengineer.pro/skills-map/measurement/product-instrumentation/identity-resolution/) · `identity-resolution` · map coverage
-- [ ] `06.1.4` [Data quality](https://productengineer.pro/skills-map/measurement/product-instrumentation/analytics-data-quality/) · `analytics-data-quality` · map coverage
-- [ ] `06.1.5` [Analytics architecture](https://productengineer.pro/skills-map/measurement/product-instrumentation/analytics-architecture/) · `analytics-architecture` · 0 resource
-- [ ] `06.2.1` [Adoption](https://productengineer.pro/skills-map/measurement/product-metrics/adoption-metrics/) · `adoption-metrics` · 1 resource
-- [ ] `06.2.3` [Task success](https://productengineer.pro/skills-map/measurement/product-metrics/task-success/) · `task-success` · map coverage
-- [ ] `06.2.4` [Conversion](https://productengineer.pro/skills-map/measurement/product-metrics/conversion-metrics/) · `conversion-metrics` · 1 resource
-- [ ] `06.2.6` [Satisfaction](https://productengineer.pro/skills-map/measurement/product-metrics/satisfaction-metrics/) · `satisfaction-metrics` · map coverage
-- [ ] `06.3.4` [Path analysis](https://productengineer.pro/skills-map/measurement/behavioral-analysis/path-analysis/) · `path-analysis` · 0 resource
-- [ ] `06.3.5` [Feature usage](https://productengineer.pro/skills-map/measurement/behavioral-analysis/feature-usage/) · `feature-usage` · map coverage
+- [x] `06.1.2` [Tracking plans](https://productengineer.pro/skills-map/measurement/product-instrumentation/tracking-plans/) · `tracking-plans` · has evidence, technicalLeverage, aiLeverage
+- [x] `06.1.3` [Identity resolution](https://productengineer.pro/skills-map/measurement/product-instrumentation/identity-resolution/) · `identity-resolution` · map coverage
+- [x] `06.1.4` [Data quality](https://productengineer.pro/skills-map/measurement/product-instrumentation/analytics-data-quality/) · `analytics-data-quality` · map coverage
+- [x] `06.1.5` [Analytics architecture](https://productengineer.pro/skills-map/measurement/product-instrumentation/analytics-architecture/) · `analytics-architecture` · 0 resource
+- [x] `06.2.1` [Adoption](https://productengineer.pro/skills-map/measurement/product-metrics/adoption-metrics/) · `adoption-metrics` · 1 resource
+- [x] `06.2.3` [Task success](https://productengineer.pro/skills-map/measurement/product-metrics/task-success/) · `task-success` · map coverage
+- [x] `06.2.4` [Conversion](https://productengineer.pro/skills-map/measurement/product-metrics/conversion-metrics/) · `conversion-metrics` · 1 resource
+- [x] `06.2.6` [Satisfaction](https://productengineer.pro/skills-map/measurement/product-metrics/satisfaction-metrics/) · `satisfaction-metrics` · map coverage
+- [x] `06.3.4` [Path analysis](https://productengineer.pro/skills-map/measurement/behavioral-analysis/path-analysis/) · `path-analysis` · 0 resource
+- [x] `06.3.5` [Feature usage](https://productengineer.pro/skills-map/measurement/behavioral-analysis/feature-usage/) · `feature-usage` · map coverage
 
 ### Batch 30 · Measurement · 12 skills
 

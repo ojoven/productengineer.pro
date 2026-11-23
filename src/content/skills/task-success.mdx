@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Measuring the user experience on a large scale: user-centered metrics for web applications (Rodden, Hutchinson and Fu, Google)'
+    url: https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/
+  - title: 'Success rate: the simplest usability metric (NN/g)'
+    url: https://www.nngroup.com/articles/success-rate-the-simplest-usability-metric/
+---
+
+## Why it matters for a product engineer
+
+Task success asks the most direct question about usability: did people do what they came to do? It
+measures completion, time and errors on the tasks that matter. A product engineer can measure it in
+analytics at scale, and in usability tests in depth, and use both before and after a change.
+
+## How to do it
+
+1. Choose a few key tasks, each with a clear start and a clear end.
+2. Measure three things: the share of attempts that complete, the time they take, and the errors on
+   the way.
+3. Decide how to score partial success, such as an order placed with a wrong detail, and keep that
+   rule.
+4. In analytics, define completion from events: the start event and the end event within a time
+   window.
+5. In usability tests, watch where people fail, because analytics shows that they failed but not
+   why.
+6. Compare versions with an A/B test, using the same tasks and the same definitions.
+
+## Common mistakes
+
+- Measuring time on page as if longer meant better.
+- Only counting complete success, so a task that nearly works looks like a failure.
+- Percentages from five test participants, without a range.
+- Tasks chosen by the team, not by what people come to do.
+
+## Example
+
+Google Maps once had two search boxes: a dual box for local search, "what" and "where" apart, and a
+single box for everything. The team believed the single box was simpler. In an A/B test, one group
+saw only the single box, and the team compared error rates between the groups. People with the
+single box adapted their searches successfully, so the dual box was removed for everyone.
+
+<Compare
+  title="Google Maps' test of a single search box"
+  subjects={['Dual box', 'Single box only']}
+  rows={[
+    { label: 'A local search', values: ['[pizza] [nyc]', '[pizza nyc]'] },
+    { label: 'Fields to fill', values: [2, 1] },
+    { label: 'Error rate compared', values: [true, true] },
+    { label: 'Kept for everyone', values: [false, true] },
+  ]}
+  highlight={1}
+  caption="Simpler was a belief. Comparing error rates showed that people adapted, and only then was the dual box removed."
+  evidence="reported"
+  source="Rodden, Hutchinson and Fu, Google, CHI 2010"
+/>
