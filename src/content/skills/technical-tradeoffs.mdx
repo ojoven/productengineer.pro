@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Documenting architecture decisions (Michael Nygard)
+    url: https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions
+  - title: Goodbye microservices (Alexandra Noonan, Twilio Segment)
+    url: https://www.twilio.com/en-us/blog/developers/best-practices/goodbye-microservices
+---
+
+## Why it matters for a product engineer
+
+Every technical decision trades something for something else: speed for safety, simplicity for
+flexibility, cost now for cost later. A product engineer weighs these against the product's stage and
+goals, not only against technical taste. Writing the trade-off down makes it possible to review it
+later, when the situation changes.
+
+## How to do it
+
+1. Name what you gain and what you give up, in concrete terms. "Faster" is not enough: faster for whom,
+   and at what cost?
+2. Tie each trade-off to the product's stage. An early product needs speed of learning more than scale.
+3. Ask how reversible the decision is. Easy-to-reverse decisions need less analysis.
+4. Write a short decision record: the context, the decision, the status and the consequences, good and
+   bad.
+5. Say what would make you change your mind, such as a load level or a team size.
+6. Review old records when that condition happens.
+
+## Common mistakes
+
+- Presenting a decision as free, with no cost.
+- Choosing the architecture of a large company for a small product.
+- Decisions that live only in a chat thread or one person's memory.
+- Never revisiting a trade-off after the context changed.
+
+## Example
+
+Segment sends customer events to over 100 kinds of destinations. It had grown to more than 140
+services, one per destination, and three full-time engineers spent most of their time keeping them
+alive. The team merged them into one service. In their post they listed what they gave up and why
+they accepted each loss. The team made 32 improvements to its shared libraries under the old design,
+and 46 in the year after the merge.
+
+<Tradeoffs
+  title="What Segment gave up when it merged 140 services into one"
+  names={{ at: 'One service', was: '140+ services' }}
+  items={[
+    { left: 'Fault isolation', right: 'Simple operations', at: 0.85, was: 0.15, note: 'A bug in one destination can now crash the service for all.' },
+    { left: 'Hot in-memory caches', right: 'One shared pool of workers', at: 0.8, was: 0.2, note: 'The cache is spread across 3,000+ processes. They chose not to add Redis.' },
+    { left: 'Each destination picks its versions', right: 'One version of each library', at: 0.9, was: 0.1, note: 'An update may break several destinations. Tests show which.' },
+  ]}
+  caption="Each loss was written down with the reason to accept it. The positions are our reading of the post."
+  evidence="reported"
+  source="Twilio Segment, 'Goodbye microservices'"
+/>

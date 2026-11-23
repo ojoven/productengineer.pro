@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Presentation domain data layering (Martin Fowler)
+    url: https://martinfowler.com/bliki/PresentationDomainDataLayering.html
+  - title: Monolith first (Martin Fowler)
+    url: https://martinfowler.com/bliki/MonolithFirst.html
+  - title: 'Deconstructing the monolith (Kirsten Westeinde, Shopify Engineering)'
+    url: https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity
+---
+
+## Why it matters for a product engineer
+
+A modular system has parts that people can understand, test and change separately. Modularity is
+what lets a product grow without every change touching everything. For a product engineer it decides
+how fast the next feature ships, and how much of the system you must hold in your head to ship it.
+
+## How to do it
+
+1. Organise the code by product concepts, such as orders, billing or search, at the top level. Inside
+   each module, separate presentation, logic and data.
+2. Give each module a small public interface, and keep the rest private.
+3. Aim for deep modules: a lot of useful work behind a few simple functions.
+4. Make the allowed dependencies explicit, and check them automatically in CI.
+5. Start with one well-structured application. Split it into services only when the boundaries are
+   clear and stable.
+6. When a change touches many modules, ask whether the boundaries are in the wrong place.
+
+## Common mistakes
+
+- Top-level folders by technical type, such as models, views and controllers, so one feature is
+  spread across the whole codebase.
+- Modules that call each other's internals.
+- Services split too early, before anyone knows where the boundaries are.
+- Shallow modules: many small pieces that each do almost nothing.
+
+## Example
+
+In early 2017, Shopify began to divide its large Rails application into components without leaving
+the monolith. The team listed about 6,000 Ruby classes in a spreadsheet, labelled each with a
+component, and moved the files in one large pull request. Then a tool called Wedge, built from the call
+graph in CI, showed every call that crossed a boundary without going through a public interface.
+
+<Compare
+  title="Shopify's code before and after componentization"
+  subjects={['Before', 'Componentization']}
+  rows={[
+    { label: 'Top level', values: ['Models, views and controllers', 'Orders, shipping, inventory, billing'] },
+    { label: 'Each part', values: ['Spread across the application', 'Its own small Rails application'] },
+    { label: 'Calls between domains', values: ['Anything could call anything', 'Only through a public interface'] },
+    { label: 'Checked by', values: [null, 'Wedge, from the call graph in CI'] },
+  ]}
+  highlight={1}
+  caption="Shopify kept one codebase and one deploy, and drew the boundaries inside it. The checks make a broken boundary visible, not only a design rule."
+  evidence="reported"
+  source="Shopify Engineering, 21 Feb 2019"
+/>

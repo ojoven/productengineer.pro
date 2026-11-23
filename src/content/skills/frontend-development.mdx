@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Learn web development (MDN Web Docs)
+    url: https://developer.mozilla.org/en-US/docs/Learn_web_development
+  - title: How many people are missing out on JavaScript enhancement? (Government Digital Service)
+    url: https://gds.blog.gov.uk/2013/10/21/how-many-people-are-missing-out-on-javascript-enhancement/
+---
+
+## Why it matters for a product engineer
+
+The frontend is where most product decisions become visible: the layout, the words, the states and the
+speed. A product engineer who can build it well can test an idea with real users the same week, and
+can see problems that a design file hides, such as a slow network, a long name or a keyboard user.
+
+## How to do it
+
+1. Start from HTML that works on its own: real links, real forms, real buttons. Then add CSS, then
+   JavaScript to improve it.
+2. Build every state, not only the happy one: loading, empty, error, partial data and no permission.
+3. Use the platform before a library. A native `dialog`, `details` or form validation often does the
+   job.
+4. Test on a real phone, on a slow network and with the keyboard, before you call it done.
+5. Keep components small and named after what they mean in the product, not how they look.
+6. Measure what users get: load time, layout shifts and errors in the browser, from real visits.
+
+## Common mistakes
+
+- A page that shows nothing until all the JavaScript has run.
+- Only the happy path built, with errors left as a blank screen.
+- Testing only on a fast laptop with a fast connection.
+- A new dependency for something the browser already does.
+
+## Example
+
+In 2013, GOV.UK's team wanted to know how many people use the site without JavaScript. They added
+three tiny images to the home page and counted the requests in over half a million visits. About 1.1%
+of visits did not run JavaScript. Most of them had it switched on, but the script did not run, for
+reasons such as network errors or browser add-ons.
+
+<StatRow
+  title="Visits to the GOV.UK home page that did not run JavaScript, 2013"
+  stats={[
+    { value: '509,314', label: 'Visits measured' },
+    { value: 0.2, unit: '%', label: 'JavaScript switched off', note: '1,113 visits' },
+    { value: 0.9, unit: '%', label: 'JavaScript on, but it did not run', note: '4,329 visits', signal: true },
+  ]}
+  caption="Almost four times as many visits lost the script without choosing to. HTML that works first serves both groups."
+  evidence="measured"
+  source="Government Digital Service blog, 21 Oct 2013; percentages calculated from its counts"
+/>

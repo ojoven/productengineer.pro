@@ -1,0 +1,65 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Server-side website programming (MDN Web Docs)
+    url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side
+  - title: The twelve-factor app (Adam Wiggins)
+    url: https://12factor.net/
+---
+
+## Why it matters for a product engineer
+
+The backend holds the rules of the business, the data, sign-in and the connections to other systems.
+It must be correct, secure and easy to observe. A product engineer moves between frontend and backend
+to deliver a feature end to end, so they do not wait for another team to add a field or an endpoint.
+
+## How to do it
+
+1. Put the business rules in one place on the server. Never trust a check that only runs in the
+   browser.
+2. Keep configuration, such as keys and URLs, in the environment, never in the code.
+3. Treat the database, email, payments and queues as services you connect to, so you can replace one
+   without rewriting the rest.
+4. Move slow work out of the request: a job queue can resize images or send emails while the user
+   continues.
+5. Validate every input at the edge and return clear errors with the right status codes.
+6. Log what you need to answer "what happened to this user's request?", without personal data.
+
+## Common mistakes
+
+- Business rules copied into the frontend and the backend, until they disagree.
+- Secrets in the repository.
+- Slow work inside the request, so the page waits for an email to send.
+- Building your own sign-in, payments or email delivery when a proven service exists.
+
+## Example
+
+Papermark, an open-source data room product, runs as a Next.js app on Vercel. On Starter Story its
+founders named the rest: Postgres on PlanetScale, Trigger.dev for background jobs, Resend for email and
+Stripe for payments. The code adds Tinybird for page-view events. The app holds the product logic, and
+each of the other parts is a service it calls. ([Papermark in In practice](/in-practice/papermark/))
+
+<Flow
+  title="Papermark's backend: one app and the services it calls"
+  nodes={[
+    { id: 'app', label: 'Next.js app', detail: 'On Vercel', col: 1, row: 1, tone: 'lit' },
+    { id: 'db', label: 'Postgres', detail: 'PlanetScale', col: 2, row: 0, kind: 'store' },
+    { id: 'events', label: 'Page events', detail: 'Tinybird', col: 2, row: 1, kind: 'store' },
+    { id: 'jobs', label: 'Jobs', detail: 'Trigger.dev', col: 2, row: 2, kind: 'external' },
+    { id: 'email', label: 'Email', detail: 'Resend', col: 0, row: 0, kind: 'external' },
+    { id: 'pay', label: 'Payments', detail: 'Stripe', col: 0, row: 2, kind: 'external' },
+    { id: 'web', label: 'Visitor', detail: 'Reads a deck', col: 0, row: 1 },
+  ]}
+  edges={[
+    { from: 'web', to: 'app' },
+    { from: 'app', to: 'db' },
+    { from: 'app', to: 'events' },
+    { from: 'app', to: 'jobs' },
+    { from: 'app', to: 'email' },
+    { from: 'app', to: 'pay' },
+  ]}
+  motion={false}
+  caption="Twelve-factor calls these attached resources. The team builds the data room logic and rents the rest."
+  evidence="reported"
+  source="Papermark on Starter Story and its repository, 17 Nov 2026"
+/>

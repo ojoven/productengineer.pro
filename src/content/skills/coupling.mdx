@@ -1,0 +1,53 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Monolith first (Martin Fowler)
+    url: https://martinfowler.com/bliki/MonolithFirst.html
+---
+
+## Why it matters for a product engineer
+
+Coupling is how much one part depends on another. With low coupling, a change in one place rarely
+forces changes elsewhere. Cohesion is how well each part holds together: related things live together.
+Together they predict how expensive the next change will be, and how many people must agree before it
+ships.
+
+## How to do it
+
+1. Before a change, list what else must change with it. A long list is a measure of coupling.
+2. Keep things that change together in the same module, and things that change for different reasons
+   apart.
+3. Depend on small, stable interfaces, not on another part's internals or data.
+4. When you must change shared code, prefer an additive change: a new option, a new attribute, a new
+   function. Keep the old behaviour the same.
+5. Make each change to shared code visible, so its owners can review it.
+6. Watch for shared libraries and shared database tables. They are where hidden coupling grows.
+
+## Common mistakes
+
+- A "utils" module that everything imports and nobody owns.
+- Two features that read and write the same data in different ways.
+- Copying code to avoid coupling, then fixing the same bug in five places.
+- Changing a shared component's default behaviour for one new use.
+
+## Example
+
+In November 2026, RelievApp asked agents to build new versions of its home page on the same code as
+the classic site. Each version had its own folder for pages, copy and styles. Its styles were scoped
+to the version, so shared screens such as check-in and the paywall took the new look without copies.
+For shared files, the brief set a strict rule. ([RelievApp in In practice](/in-practice/relievapp-part-1/))
+
+<Anatomy
+  title="RelievApp's rule for changing shared code"
+  as="prompt"
+  parts={[
+    { text: 'Shared files (src/components/**, src/lib/**, src/app/**, src/styles/globals.css) are shared with the classic site and the other version.', label: 'The coupling', note: 'Named, with paths' },
+    { text: 'Prefer not to touch them.', label: 'The default' },
+    { text: 'If you truly need a hook in a shared file, make the smallest additive change (an optional prop, a data- attribute, a class name),', label: 'How to change', note: 'Add, never alter' },
+    { text: 'keep classic behaviour identical,', label: 'The test' },
+    { text: 'and list it in your report.', label: 'Visibility', note: 'Someone can review it' },
+  ]}
+  caption="The rule does not forbid coupling. It keeps each change to shared code small, additive and visible."
+  evidence="observed"
+  source="RelievApp's brief for a new home page version, 15 Nov 2026"
+/>

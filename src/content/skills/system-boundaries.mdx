@@ -1,0 +1,65 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Bounded context (Martin Fowler)
+    url: https://martinfowler.com/bliki/BoundedContext.html
+  - title: Monolith first (Martin Fowler)
+    url: https://martinfowler.com/bliki/MonolithFirst.html
+---
+
+## Why it matters for a product engineer
+
+A boundary decides what each part of a system owns and how the parts talk to each other. Good
+boundaries follow the product and its domain, so they rarely change. Bad ones, often drawn too early,
+make every feature a negotiation between services. Engineers draw most boundaries while building,
+often without noticing.
+
+## How to do it
+
+1. Draw a boundary where the responsibility changes, not where the code is large.
+2. Ask what really needs a server, a database or a separate team, and keep the rest simple.
+3. Define what crosses the boundary: an API, an event or an exported file, with an owner and a
+   version.
+4. Keep data private to the side that owns it. The other side asks for it through the interface.
+5. Start inside one application. Move a part out only when its boundary has stayed stable.
+6. Check how often a change crosses a boundary. If it is most changes, the line is in the wrong place.
+
+## Common mistakes
+
+- One service per database table.
+- Two services that read and write the same tables.
+- Boundaries copied from the organisation chart instead of from the product.
+- No written contract, so each side guesses what the other sends.
+
+## Example
+
+This site is mostly static: every page is HTML built in advance, and readers without an account never
+call a server. Only three things need one: accounts, synced progress and an MCP server for agents.
+They live in a small separate API, and the web server sends it only those paths. The skills content
+reaches the API as one exported file, so the two sides can change separately.
+
+<Flow
+  title="Where this site needs a server, and where it does not"
+  stages={['Who', 'What answers', 'Data']}
+  nodes={[
+    { id: 'reader', label: 'Any reader', detail: 'No account', col: 0, row: 0 },
+    { id: 'pages', label: 'Static pages', detail: 'Built in advance', col: 1, row: 0 },
+    { id: 'content', label: 'Skills data', detail: 'In the repository', col: 2, row: 0, kind: 'store' },
+    { id: 'signed', label: 'Signed in', detail: 'Syncs progress', col: 0, row: 1 },
+    { id: 'api', label: 'Small API', detail: 'Accounts, progress', col: 1, row: 1, tone: 'lit' },
+    { id: 'db', label: 'Database', detail: 'Accounts, progress', col: 2, row: 1, kind: 'store' },
+    { id: 'agent', label: 'Agent', detail: 'Reads a map', col: 0, row: 2, kind: 'external' },
+  ]}
+  edges={[
+    { from: 'reader', to: 'pages' },
+    { from: 'content', to: 'pages', label: 'Build' },
+    { from: 'content', to: 'api', label: 'Export', dashed: true },
+    { from: 'signed', to: 'api' },
+    { from: 'agent', to: 'api', label: 'MCP' },
+    { from: 'api', to: 'db' },
+  ]}
+  motion={false}
+  caption="The line follows what needs a server. Content crosses it as one exported file, so the API never reads the site's source."
+  evidence="observed"
+  source="productengineer.pro, the API notes and deploy setup, Nov 2026"
+/>

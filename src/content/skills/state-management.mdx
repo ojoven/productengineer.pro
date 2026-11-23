@@ -1,0 +1,51 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Application state management with React (Kent C. Dodds)
+    url: https://kentcdodds.com/blog/application-state-management-with-react
+---
+
+## Why it matters for a product engineer
+
+State management decides where data lives, how it changes and how the interface stays in step with
+the server. Many bugs come from the same data stored in two places that disagree. Simple, explicit
+state makes features easier to change, and it decides what users see when the network is slow or gone.
+
+## How to do it
+
+1. List each piece of state and choose one owner for it: the URL, the component, the browser's
+   storage or the server.
+2. Keep state as close as possible to where it is used. Most state does not need to be global.
+3. Treat server data as a cache with rules: when to fetch it again, and what to show while it loads.
+4. Put state people share or bookmark, such as filters and tabs, in the URL.
+5. When the same data lives in two places, write the merge rule down before you write code.
+6. Test the hard cases: two tabs, offline, a slow request and a second device.
+
+## Common mistakes
+
+- Copying server data into global state and forgetting to update it.
+- One global store for everything, so any change can break anything.
+- No rule for conflicts, so the last request to arrive wins by accident.
+- Loading spinners for data the page already had.
+
+## Example
+
+On this site, progress on the skills map works without an account. The page reads the browser's copy.
+When someone signs in, each change also goes into a queue in the browser, which keeps it until the
+server confirms it, so changes made offline go out later. The server keeps the newest change for each
+skill, so an old laptop cannot overwrite newer work.
+
+<Compare
+  title="Where progress lives on this site, and the rule for each place"
+  subjects={['Where it lives', 'The rule']}
+  rows={[
+    { label: 'What the page shows', values: ["The browser's copy", 'Works offline and without an account'] },
+    { label: 'Changes not yet saved', values: ['A queue in the browser', 'Kept until the server confirms them'] },
+    { label: 'Progress across devices', values: ['The account on the server', 'The newest change for each skill wins'] },
+    { label: 'Visitors without an account', values: ['Only the browser', 'The page never calls the server'] },
+  ]}
+  highlight={1}
+  caption="Each place has one job and one written rule. The merge rule is per skill, so two devices rarely conflict at all."
+  evidence="observed"
+  source="productengineer.pro, the progress sync code and the API notes, Nov 2026"
+/>

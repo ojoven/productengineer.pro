@@ -518,14 +518,14 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 24 · Engineering · 8 skills
 
-- [ ] `04.1.1` [Frontend development](https://productengineer.pro/skills-map/engineering/software-development/frontend-development/) · `frontend-development` · has evidence, technicalLeverage, aiLeverage; 1 resource
-- [ ] `04.1.2` [Backend development](https://productengineer.pro/skills-map/engineering/software-development/backend-development/) · `backend-development` · map coverage
-- [ ] `04.1.4` [State management](https://productengineer.pro/skills-map/engineering/software-development/state-management/) · `state-management` · 1 resource
-- [ ] `04.2.1` [Modularity](https://productengineer.pro/skills-map/engineering/software-architecture/modularity/) · `modularity` · map coverage
-- [ ] `04.2.2` [Separation of concerns](https://productengineer.pro/skills-map/engineering/software-architecture/separation-of-concerns/) · `separation-of-concerns` · 1 resource
-- [ ] `04.2.3` [System boundaries](https://productengineer.pro/skills-map/engineering/software-architecture/system-boundaries/) · `system-boundaries` · map coverage
-- [ ] `04.2.4` [Coupling and cohesion](https://productengineer.pro/skills-map/engineering/software-architecture/coupling/) · `coupling` · 1 resource
-- [ ] `04.2.6` [Technical tradeoffs](https://productengineer.pro/skills-map/engineering/software-architecture/technical-tradeoffs/) · `technical-tradeoffs` · 1 resource
+- [x] `04.1.1` [Frontend development](https://productengineer.pro/skills-map/engineering/software-development/frontend-development/) · `frontend-development` · has evidence, technicalLeverage, aiLeverage; 1 resource
+- [x] `04.1.2` [Backend development](https://productengineer.pro/skills-map/engineering/software-development/backend-development/) · `backend-development` · map coverage
+- [x] `04.1.4` [State management](https://productengineer.pro/skills-map/engineering/software-development/state-management/) · `state-management` · 1 resource
+- [x] `04.2.1` [Modularity](https://productengineer.pro/skills-map/engineering/software-architecture/modularity/) · `modularity` · map coverage
+- [x] `04.2.2` [Separation of concerns](https://productengineer.pro/skills-map/engineering/software-architecture/separation-of-concerns/) · `separation-of-concerns` · 1 resource
+- [x] `04.2.3` [System boundaries](https://productengineer.pro/skills-map/engineering/software-architecture/system-boundaries/) · `system-boundaries` · map coverage
+- [x] `04.2.4` [Coupling and cohesion](https://productengineer.pro/skills-map/engineering/software-architecture/coupling/) · `coupling` · 1 resource
+- [x] `04.2.6` [Technical tradeoffs](https://productengineer.pro/skills-map/engineering/software-architecture/technical-tradeoffs/) · `technical-tradeoffs` · 1 resource
 
 ### Batch 25 · Engineering · 10 skills
 

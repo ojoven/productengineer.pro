@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Presentation domain data layering (Martin Fowler)
+    url: https://martinfowler.com/bliki/PresentationDomainDataLayering.html
+---
+
+## Why it matters for a product engineer
+
+Separating concerns means each responsibility lives in one place: how things look, the rules, data
+access, logging or privacy. Each part is then easier to change and to test. When concerns are mixed, a
+small change in one becomes risky for all the others. The principle applies at every scale, from one
+function to a whole system.
+
+## How to do it
+
+1. Name the concerns in a feature: what it shows, the rules it follows, where its data comes from,
+   and cross-cutting rules such as privacy or permissions.
+2. Give each concern one owner in the code, a module or a layer, and let the others call it.
+3. Keep business rules out of the interface, so you can test them without a browser.
+4. Put cross-cutting rules in one module that every feature must use, instead of a checklist that
+   every feature must remember.
+5. Let dependencies point one way: presentation depends on the rules, and the rules depend on data
+   access.
+6. When a change forces edits in several places, find the concern that is spread out and give it a
+   home.
+
+## Common mistakes
+
+- Business rules inside UI components, copied in each screen.
+- Database queries in templates.
+- A privacy or security rule that each feature must apply by hand.
+- Layers so thin that they only pass calls along.
+
+## Example
+
+On this site, one file collects all analytics. Page code calls it with an event name and properties,
+and knows nothing more. The file decides what may leave the browser and where it may go. The project's
+rules for agents say to use this file and no other, so a new feature cannot add tracking that skips
+the privacy rules.
+
+<Compare
+  title="Who does what when this site records an event"
+  subjects={['Page code', 'The analytics module']}
+  rows={[
+    { label: 'The event', values: ['Names it and passes properties', 'Keeps only allowed properties'] },
+    { label: 'The page address', values: ['Nothing', 'Keeps four campaign fields, drops the rest'] },
+    { label: 'Where the visitor came from', values: ['Nothing', 'Keeps only the site, not the full address'] },
+    { label: 'Whether to send', values: ['Nothing', 'Only from the live site, never from tests, previews or opted-out browsers'] },
+  ]}
+  highlight={1}
+  caption="Features describe what happened. One module owns the privacy rules, so they hold for every feature, including the next one."
+  evidence="observed"
+  source="productengineer.pro, the analytics notes and agent rules, Nov 2026"
+/>
