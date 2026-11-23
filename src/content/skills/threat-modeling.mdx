@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Threat modeling cheat sheet (OWASP)
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html
+---
+
+## Why it matters for a product engineer
+
+Security problems found in design cost minutes; found in production they cost incidents, trust and
+weekends. Threat modeling is a short, structured conversation about how a feature could be attacked or
+misused. A product engineer is often the one who knows the data flows well enough to lead it.
+
+## How to do it
+
+1. Draw what you are building: the parts, the data, who talks to whom, and where trust changes, such
+   as between the browser and the server.
+2. Ask what can go wrong at each crossing. STRIDE is a useful checklist: spoofing, tampering,
+   repudiation, information disclosure, denial of service, elevation of privilege.
+3. Think about misuse by real users too, not only attackers.
+4. Decide what you will do about each threat: fix, reduce, accept or transfer it.
+5. Turn the decisions into tasks and tests, with an owner.
+6. Ask whether you did a good enough job, and repeat when the design changes.
+
+## Common mistakes
+
+- Doing it once, at the end, as a document for an audit.
+- A long list of threats with no decisions.
+- Only thinking about outside attackers, not about users, partners or insiders.
+- Missing the data flows to third parties, such as analytics or AI providers.
+
+## Example
+
+Papermark's buyers share documents they cannot afford to leak. Its protections read like the answers
+to a threat model. A forwarded link: email verification. A copied page: screenshot protection. A leak
+with no trace: dynamic watermarks with the viewer's details. Someone reading without a legal duty: an
+NDA before access. A stolen session that takes everything: one-time codes for bulk downloads.
+([Papermark in In practice](/in-practice/papermark/))
+
+<Loop
+  title="The four questions of a threat model"
+  center="Threat model"
+  sub="Each time the design changes"
+  stages={[
+    { label: 'What are we working on?', note: 'A diagram of the parts and data flows.' },
+    { label: 'What can go wrong?', note: 'STRIDE at each trust boundary.', tone: 'signal' },
+    { label: 'What will we do about it?', note: 'Fix, reduce, accept or transfer.' },
+    { label: 'Did we do a good enough job?', note: 'Check, then go round again.', tone: 'lit' },
+  ]}
+  caption="The questions are simple on purpose, so a team can ask them in a design review, not only in an audit."
+  source="The Threat Modeling Manifesto, as summarised by OWASP"
+/>

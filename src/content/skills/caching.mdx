@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'Stack Overflow: how we do app caching, 2019 edition (Nick Craver)'
+    url: https://nickcraver.com/blog/2019/08/06/stack-overflow-how-we-do-app-caching/
+  - title: HTTP caching (MDN Web Docs)
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching
+---
+
+## Why it matters for a product engineer
+
+A cache stores a result so the next request does not pay for it again. It can make a product much
+faster and cheaper to run. It also brings the hardest bugs in web development: stale data, and
+caches that disagree with each other. Knowing the layers, from the browser to the CDN to memory, lets
+you pick the simplest one that works.
+
+## How to do it
+
+1. Measure first: which requests are slow or expensive, and how often the same answer is asked for.
+2. Start with the cheapest layer. Correct HTTP cache headers on static files and public pages often
+   give the biggest win.
+3. For application data, decide where it lives: in the memory of each server, in a shared cache such
+   as Redis, or both.
+4. Decide how each entry stops being valid: after a time, or when the data changes.
+5. Build the invalidation with the same care as the cache, and test what happens in the wrong order.
+6. Watch the hit rate and the memory, and remove caches that do not pay for themselves.
+
+## Common mistakes
+
+- Caching before measuring.
+- Caching personal data in a shared layer, so one user sees another's.
+- No plan for invalidation, so users see old data for hours.
+- A cache that hides a slow query nobody fixes.
+- Every team adding its own cache to the same data.
+
+## Example
+
+Stack Overflow keeps hot data in the memory of each web server, backed by Redis on a miss. To remove a
+value early, a server deletes it from Redis and then publishes the key on a purge channel; every web
+server drops its copy. The order matters: the other way round, a server could fetch the old value
+again. In 2019 their Redis handled about 1.6 billion commands a day at about 2% CPU.
+
+<Sequence
+  title="How Stack Overflow removes a value from every cache"
+  actors={[
+    { id: 'a', label: 'Web server A' },
+    { id: 'redis', label: 'Redis' },
+    { id: 'all', label: 'All web servers' },
+  ]}
+  messages={[
+    { from: 'a', to: 'redis', label: '1. Delete the key' },
+    { from: 'a', to: 'redis', label: '2. Publish it on the purge channel' },
+    { from: 'redis', to: 'all', label: 'The key name', kind: 'reply' },
+    { from: 'all', to: 'all', label: 'Drop it from memory', tone: 'signal', note: 'Next request misses and reads the new value from Redis.' },
+  ]}
+  caption="Two layers, one rule for removing data from both, and a fixed order so no server can bring the old value back."
+  evidence="reported"
+  source="Nick Craver, 'Stack Overflow: how we do app caching', Aug 2019"
+/>

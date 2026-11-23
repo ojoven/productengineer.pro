@@ -1,0 +1,46 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The standard of code review (Google engineering practices)
+    url: https://google.github.io/eng-practices/review/reviewer/standard.html
+  - title: Small CLs (Google engineering practices)
+    url: https://google.github.io/eng-practices/review/developer/small-cls.html
+---
+
+## Why it matters for a product engineer
+
+Code review is where a team keeps its standards, finds bugs and spreads knowledge of the system. It
+also decides how fast work moves: slow or harsh reviews make people batch changes, and big changes
+get worse reviews. With more code written by agents, reading code well matters more than writing it
+fast.
+
+## How to do it
+
+1. Keep changes small. Google's guidance: about 100 lines is usually reasonable, 1,000 is usually too
+   large.
+2. As the author, explain why the change exists and how you tested it.
+3. As the reviewer, start with the design and the behaviour, then the details.
+4. Approve when the change clearly makes the code better, even if it is not perfect.
+5. Mark small suggestions as optional, so they do not block.
+6. Answer quickly. A review that waits a day costs more than one that is a little less thorough.
+
+## Common mistakes
+
+- Large changes that nobody can review properly.
+- Arguing about style that a formatter or linter should handle.
+- Blocking on personal preference.
+- Approving without running or reading the code.
+- Comments about the person instead of the code.
+
+## Example
+
+Google's code review guide sets one rule above all the others. The reviewer's job is not to get
+perfect code, which does not exist, but continuous improvement. A change that improves the
+maintainability, readability and understandability of the system should not wait days or weeks for
+polish.
+
+<Quote
+  text="In general, reviewers should favor approving a CL once it is in a state where it definitely improves the overall code health of the system being worked on, even if the CL isn't perfect."
+  who="Google engineering practices"
+  context="'The standard of code review'. A CL is a change list, Google's word for a pull request."
+/>

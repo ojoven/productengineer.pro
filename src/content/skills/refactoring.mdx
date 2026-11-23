@@ -1,0 +1,63 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Move fast and fix things (Vicent Martí, GitHub)
+    url: https://github.blog/engineering/engineering-principles/move-fast/
+  - title: Refactoring (Martin Fowler)
+    url: https://refactoring.com/
+---
+
+## Why it matters for a product engineer
+
+Refactoring changes the structure of code without changing what it does. It keeps a codebase easy to
+change, which is what lets a product keep moving. Done in small steps with tests, it is safe and
+cheap. Done as a big rewrite, it is one of the riskiest things a team can do.
+
+## How to do it
+
+1. Refactor when you need to change the code anyway: make the change easy, then make the easy change.
+2. Make sure tests cover the behaviour first. If they do not, add them.
+3. Take small steps, and run the tests after each one.
+4. Keep refactoring and new behaviour in separate commits, so reviews stay clear.
+5. For critical paths, run the old and the new code side by side in production and compare their
+   results before you switch.
+6. Remove the old code when you are done. A half-finished migration is worse than either version.
+
+## Common mistakes
+
+- A big-bang rewrite with no way back.
+- Refactoring without tests.
+- Mixing refactoring and features in one change.
+- Refactoring code nobody needs to change.
+- Leaving two versions of the same logic running for ever.
+
+## Example
+
+In 2015, GitHub replaced the code behind the Merge button, one of its most critical paths, with a new
+merge engine. It used Scientist, its own library: users always got the old result, while the new code
+ran next to it and every difference was logged. After four days at growing shares of traffic, the new
+code ran on all requests for 24 hours with no mismatches. Tens of millions of merges were checked, in
+about five days of part-time work.
+
+<Sequence
+  title="One merge during GitHub's Scientist experiment"
+  actors={[
+    { id: 'user', label: 'User', kind: 'external' },
+    { id: 'web', label: 'Merge button' },
+    { id: 'old', label: 'Old merge' },
+    { id: 'new', label: 'New merge' },
+    { id: 'log', label: 'Mismatch log' },
+  ]}
+  messages={[
+    { from: 'user', to: 'web', label: 'Merge' },
+    { from: 'web', to: 'old', label: 'Run control' },
+    { from: 'web', to: 'new', label: 'Run candidate' },
+    { from: 'old', to: 'web', label: 'Result', kind: 'reply' },
+    { from: 'new', to: 'web', label: 'Result', kind: 'reply' },
+    { from: 'web', to: 'log', label: 'Different? Slower?' },
+    { from: 'web', to: 'user', label: 'The old result, always', kind: 'reply', tone: 'signal', note: 'A bug in the new code cannot reach the user.' },
+  ]}
+  caption="The new code was tested on real traffic without any risk to users. The comparison even found a bug in Git itself."
+  evidence="reported"
+  source="Vicent Martí, 'Move fast and fix things', GitHub blog, Dec 2015"
+/>

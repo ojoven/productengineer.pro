@@ -1,0 +1,48 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Napkin math (Simon Eskildsen)
+    url: https://github.com/sirupsen/napkin-math
+---
+
+## Why it matters for a product engineer
+
+Throughput is how much work a system can do per second or per minute. It sets how many users you can
+serve, what each one costs, and what happens on your busiest day. You learn it from load tests, or
+from an outage. The first way is cheaper.
+
+## How to do it
+
+1. Estimate the load you need to carry: normal and peak requests per minute, jobs per hour.
+2. Do the rough math before you build, with reference numbers for disks, networks and databases.
+3. Write a load test that looks like real use: the same mix of endpoints, sizes and pauses.
+4. Increase the load until something breaks. Note what broke first and at what rate.
+5. Fix that limit, or decide it is far enough away, and write the number down.
+6. Run the test regularly, so a change that lowers throughput shows up early.
+
+## Common mistakes
+
+- Measuring only latency for one user.
+- Load tests that hit a cache and nothing else.
+- Forgetting third-party limits, which often break first.
+- Treating a simulated rate as real demand.
+- Running the test once before launch and never again.
+
+## Example
+
+The platforms Mamitsu downloads from used to block it after about five requests in half a minute. In
+Unai Esteibar's own load tests, it now takes 3,000 TikTok requests a minute without a block. He tests
+every day: the person spending the most money on Mamitsu is him. The 3,000 is load he simulates, not
+traffic he has. ([Mamitsu in In practice](/in-practice/mamitsu/))
+
+<StatRow
+  title="Scraping social platforms, before and now"
+  stats={[
+    { value: 5, label: 'Requests before a block', note: 'About five, in half a minute' },
+    { value: 3000, label: 'TikTok requests a minute', note: 'In his load tests, without blocks', signal: true },
+    { value: 'Daily', label: 'Load tests', note: 'His own biggest customer' },
+  ]}
+  caption="He load-tests every day, so a change that lowers throughput shows up the next morning."
+  evidence="reported"
+  source="Unai Esteibar, on the call"
+/>

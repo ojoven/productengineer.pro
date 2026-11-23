@@ -246,23 +246,23 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 8 · Engineering · 10 skills
 
-- [ ] `04.1.3` [API design](https://productengineer.pro/skills-map/engineering/software-development/api-design/) · `api-design` · search term; 1 In practice note; 1 resource
+- [x] `04.1.3` [API design](https://productengineer.pro/skills-map/engineering/software-development/api-design/) · `api-design` · search term; 1 In practice note; 1 resource
   - Zernio: One posts endpoint for every network, analytics stored and refreshed on Zernio's side, and features that ship in the API before the dashboard. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `04.1.5` [Asynchronous systems](https://productengineer.pro/skills-map/engineering/software-development/async-systems/) · `async-systems` · 2 In practice notes
+- [x] `04.1.5` [Asynchronous systems](https://productengineer.pro/skills-map/engineering/software-development/async-systems/) · `async-systems` · 2 In practice notes
   - Zernio: Platform events moved from cron jobs to Cloudflare queues. ([entry](https://productengineer.pro/in-practice/zernio/))
   - Papermark: PDF-to-image conversion, video optimisation, bulk downloads and notifications run as Trigger.dev jobs. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `04.2.5` [Scalability](https://productengineer.pro/skills-map/engineering/software-architecture/scalability/) · `scalability` · 2 In practice notes
+- [x] `04.2.5` [Scalability](https://productengineer.pro/skills-map/engineering/software-architecture/scalability/) · `scalability` · 2 In practice notes
   - Mamitsu: Daily load tests, because holding load was his condition for selling it. ([entry](https://productengineer.pro/in-practice/mamitsu/))
   - Zernio: About 100,000 posts a day, plus a constant flow of webhooks from the platforms. ([entry](https://productengineer.pro/in-practice/zernio/))
-- [ ] `04.4.4` [Code review](https://productengineer.pro/skills-map/engineering/engineering-quality/code-review/) · `code-review` · search term; has evidence, technicalLeverage, aiLeverage; 1 resource
-- [ ] `04.4.6` [Refactoring](https://productengineer.pro/skills-map/engineering/engineering-quality/refactoring/) · `refactoring` · search term
-- [ ] `04.5.4` [Caching](https://productengineer.pro/skills-map/engineering/performance-engineering/caching/) · `caching` · search term
-- [ ] `04.6.3` [Threat modeling](https://productengineer.pro/skills-map/engineering/security-engineering/threat-modeling/) · `threat-modeling` · search term; 1 resource
-- [ ] `04.6.5` [Data protection](https://productengineer.pro/skills-map/engineering/security-engineering/data-protection/) · `data-protection` · 1 In practice note; has evidence, technicalLeverage; 1 resource
+- [x] `04.4.4` [Code review](https://productengineer.pro/skills-map/engineering/engineering-quality/code-review/) · `code-review` · search term; has evidence, technicalLeverage, aiLeverage; 1 resource
+- [x] `04.4.6` [Refactoring](https://productengineer.pro/skills-map/engineering/engineering-quality/refactoring/) · `refactoring` · search term
+- [x] `04.5.4` [Caching](https://productengineer.pro/skills-map/engineering/performance-engineering/caching/) · `caching` · search term
+- [x] `04.6.3` [Threat modeling](https://productengineer.pro/skills-map/engineering/security-engineering/threat-modeling/) · `threat-modeling` · search term; 1 resource
+- [x] `04.6.5` [Data protection](https://productengineer.pro/skills-map/engineering/security-engineering/data-protection/) · `data-protection` · 1 In practice note; has evidence, technicalLeverage; 1 resource
   - Papermark: Dynamic watermarks, screenshot protection, NDA gates, email verification and one-time codes for bulk downloads. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `04.1.6` [Code organization](https://productengineer.pro/skills-map/engineering/software-development/code-organization/) · `code-organization` · 1 In practice note; 1 resource
+- [x] `04.1.6` [Code organization](https://productengineer.pro/skills-map/engineering/software-development/code-organization/) · `code-organization` · 1 In practice note; 1 resource
   - Papermark: Paid features live in ee/ folders under a commercial licence; the rest of the repository is AGPLv3. ([entry](https://productengineer.pro/in-practice/papermark/))
-- [ ] `04.5.2` [Throughput](https://productengineer.pro/skills-map/engineering/performance-engineering/throughput/) · `throughput` · 1 In practice note; 1 resource
+- [x] `04.5.2` [Throughput](https://productengineer.pro/skills-map/engineering/performance-engineering/throughput/) · `throughput` · 1 In practice note; 1 resource
   - Mamitsu: From a block after about five requests to 3,000 TikTok requests a minute in his own load tests. ([entry](https://productengineer.pro/in-practice/mamitsu/))
 
 ### Batch 9 · Shipping · 8 skills

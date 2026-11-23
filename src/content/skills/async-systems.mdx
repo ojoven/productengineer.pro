@@ -1,0 +1,58 @@
+---
+updated: 2026-11-23
+sources:
+  - title: What do you mean by "event-driven"? (Martin Fowler)
+    url: https://martinfowler.com/articles/201701-event-driven.html
+---
+
+## Why it matters for a product engineer
+
+Emails, imports, file conversions, AI calls and webhooks take time or fail now and then. Running them
+outside the request keeps the product fast and lets work survive a failure. The price is new questions:
+retries, order, duplicates, and how to tell the user that work is still in progress.
+
+## How to do it
+
+1. Move work out of the request when it is slow, depends on another service, or can wait a few
+   seconds.
+2. Put it on a queue or a job system, not a loop that checks a table every minute.
+3. Make each job safe to run twice. Retries will happen.
+4. Decide what happens when a job keeps failing: how many retries, how long to wait, where the failed
+   job goes.
+5. Store the job's state so the interface can show "processing", "ready" or "failed".
+6. Watch the queue: its length, its age and the failure rate.
+
+## Common mistakes
+
+- Doing slow work inside the request because it is simpler today.
+- Cron jobs for a stream of events.
+- Jobs that send an email twice when they are retried.
+- No dead-letter place, so failed work disappears.
+- Users who see nothing while work runs in the background.
+
+## Example
+
+In Papermark, the heavy work runs outside the request. Jobs turn PDFs into page images, optimise
+videos, build bulk downloads and send notifications, so none of it happens while a visitor waits.
+Zernio handled platform events with cron jobs, "not a good way to handle many events", Miquel Palet
+said, and they were the first thing moved to Cloudflare queues.
+([Papermark](/in-practice/papermark/), [Zernio](/in-practice/zernio/))
+
+<Flow
+  title="A PDF in Papermark, from upload to pages a visitor can read"
+  stages={['Request', 'Background job', 'Visitor']}
+  nodes={[
+    { id: 'up', label: 'Upload', detail: 'Answers at once', col: 0, row: 0 },
+    { id: 'job', label: 'Trigger.dev job', detail: 'Outside the request', col: 1, row: 0, kind: 'store', tone: 'lit' },
+    { id: 'pages', label: 'Page images', detail: 'One per page', col: 1, row: 1 },
+    { id: 'read', label: 'A visitor reads', detail: 'No waiting', col: 2, row: 1, kind: 'external' },
+  ]}
+  edges={[
+    { from: 'up', to: 'job' },
+    { from: 'job', to: 'pages' },
+    { from: 'pages', to: 'read' },
+  ]}
+  caption="The slow step happens once, in a job, before anyone reads. Video, bulk downloads and notifications follow the same pattern."
+  evidence="observed"
+  source="lib/trigger in Papermark's repository, 17 Nov 2026"
+/>

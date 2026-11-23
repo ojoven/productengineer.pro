@@ -1,0 +1,52 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Presentation domain data layering (Martin Fowler)
+    url: https://martinfowler.com/bliki/PresentationDomainDataLayering.html
+---
+
+## Why it matters for a product engineer
+
+A predictable structure lets people, and now coding agents, find the right place to change. It
+decides how far a change spreads, how easy the code is to test, and sometimes how the business works:
+which code is free and which is paid, which team owns what. Most of it is cheap to decide early and
+expensive to change later.
+
+## How to do it
+
+1. Group code by feature at the top level, and by technical layer inside each feature.
+2. Put each piece of logic in one place, and let the rest call it.
+3. Make the boundaries visible in folders and imports, so a wrong dependency stands out.
+4. Use names that match the product's words, the same ones users and documents use.
+5. Write a short map of the codebase in the repository, for new people and for agents.
+6. Move code when the structure no longer fits. Do it in small steps, not in one big change.
+
+## Common mistakes
+
+- A `utils` folder that slowly holds everything.
+- Folders by file type only, so one feature is spread across the whole tree.
+- The same rule written in several places.
+- Structure decided once and never revisited.
+- Boundaries that exist in a diagram but not in the imports.
+
+## Example
+
+Papermark's open-core business is drawn in folders. Everything under `ee/` and `app/(ee)` is under a
+commercial licence; the rest of the repository is AGPLv3. Inside `ee/features` are the features people
+pay for: AI, billing, permissions, security, templates and workflows. Background jobs live in
+`lib/trigger`. ([Papermark in In practice](/in-practice/papermark/))
+
+<Anatomy
+  title="Part of Papermark's repository, and what each folder means"
+  as="prompt"
+  parts={[
+    { text: 'app/(ee)/', label: 'Commercial', kind: 'signal', note: 'Paid pages, under the enterprise licence.' },
+    { text: '\nee/features/\n  ai/ billing/ permissions/\n  security/ templates/ workflows/', label: 'Paid features', note: 'What data room customers pay for, one folder each.' },
+    { text: '\nee/stripe/utils.ts', label: 'Prices', note: 'The plan amounts, in public code.' },
+    { text: '\nlib/trigger/', label: 'Background jobs', note: 'PDF pages, videos, bulk downloads, notifications.' },
+    { text: '\nlib/tinybird/', label: 'Analytics events', note: 'Page views per document version.' },
+  ]}
+  caption="The licence line follows the folders, so anyone can see what is free and what is paid."
+  evidence="observed"
+  source="github.com/mfts/papermark, 17 Nov 2026"
+/>

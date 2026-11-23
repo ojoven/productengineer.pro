@@ -1,0 +1,65 @@
+---
+updated: 2026-11-23
+sources:
+  - title: 'AIP-121: resource-oriented design (Google)'
+    url: https://google.aip.dev/121
+---
+
+## Why it matters for a product engineer
+
+An API is a contract that other people's code depends on. Once it is used, every change can break
+someone, so the first design matters more than in most code. For a developer product the API is the
+product: its names, errors and limits are the user experience.
+
+## How to do it
+
+1. Start from what the caller wants to do, and model the resources they think in, not your database
+   tables.
+2. Use a few standard methods on each resource (list, get, create, update, delete) and the same
+   naming everywhere.
+3. Return errors that say what went wrong and how to fix it, with a stable code a program can read.
+4. Add pagination, rate limits and idempotency keys from the start. They are hard to add later.
+5. Plan for change: add fields instead of changing them, and version only when you must.
+6. Write the documentation and one working example before you ship, and try them as a new user.
+
+## Common mistakes
+
+- Exposing the database schema as the API.
+- A different shape for each endpoint, so callers learn every one separately.
+- Errors like "Something went wrong" with no code.
+- Breaking changes without warning or a migration period.
+- Building features in the dashboard first and adding the API later.
+
+## Example
+
+Zernio is an API first. "Most features we no longer build for the UI, only for the API", Miquel
+Palet said, and the site states the rule: if it is not in the API, it does not ship. One posts
+endpoint covers every network. Analytics are stored and refreshed on Zernio's side, so one call
+returns a week across all of a user's accounts. ([Zernio in In practice](/in-practice/zernio/))
+
+<Flow
+  title="One call from a customer's product, and the events that come back"
+  stages={['Customer product', 'Zernio', 'Platforms']}
+  nodes={[
+    { id: 'app', label: 'Your product', detail: 'One API key', col: 0, row: 0 },
+    { id: 'hook', label: 'Your webhook', detail: 'One event shape', col: 0, row: 2 },
+    { id: 'api', label: 'Zernio API', detail: 'One posts endpoint', col: 1, row: 0, tone: 'lit' },
+    { id: 'apps', label: 'Approved apps', detail: 'Reviews, quotas, tokens', col: 1, row: 1, tone: 'signal' },
+    { id: 'queue', label: 'Queues', detail: 'On Cloudflare', col: 1, row: 2, kind: 'store' },
+    { id: 'social', label: '16 networks', detail: 'Instagram, TikTok, X...', col: 2, row: 0, kind: 'external' },
+    { id: 'ads', label: '9 ad networks', detail: 'Meta, Google...', col: 2, row: 1, kind: 'external' },
+    { id: 'events', label: 'Webhooks', detail: 'Messages, comments', col: 2, row: 2, kind: 'external' },
+  ]}
+  edges={[
+    { from: 'app', to: 'api' },
+    { from: 'api', to: 'apps' },
+    { from: 'apps', to: 'social' },
+    { from: 'apps', to: 'ads' },
+    { from: 'social', to: 'events', dashed: true },
+    { from: 'events', to: 'queue' },
+    { from: 'queue', to: 'hook' },
+  ]}
+  caption="The customer's code sees one endpoint and one event shape. The differences between 25 platforms stay behind the API."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast, and zernio.com, read 15 Nov 2026"
+/>

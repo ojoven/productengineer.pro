@@ -1,0 +1,44 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Government communication (Signal)
+    url: https://signal.org/bigbrother/
+  - title: Cryptographic storage cheat sheet (OWASP)
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html
+---
+
+## Why it matters for a product engineer
+
+Personal data creates duties and risks from the moment you collect it: a breach, a legal request, a
+user who asks for deletion. Engineers decide what is collected, where it is copied and how long it
+stays. The strongest protection is not encryption. It is not having the data at all.
+
+## How to do it
+
+1. List the personal data each feature collects, and remove what it does not need.
+2. Map every copy: databases, logs, backups, analytics, caches, third-party services.
+3. Encrypt data in transit and at rest, and keep the keys separate from the data.
+4. Give access only to the people and services that need it, and log that access.
+5. Set a retention period for each kind of data, and delete it automatically when it ends.
+6. Build deletion so it reaches every copy, and test it.
+
+## Common mistakes
+
+- Collecting data "in case it is useful later".
+- Personal data in logs and error reports.
+- Deleting a user from the main database and not from backups, analytics or search indexes.
+- Treating encryption as the whole answer.
+- Sending personal data to a third party without knowing what it keeps.
+
+## Example
+
+Signal designed its service to keep as little as possible about its users. When a federal grand jury
+subpoena asked for information about two users, Signal could only give two facts per account: when it
+registered and when it last connected. There was nothing else to hand over, because Signal never
+stored it.
+
+<Quote
+  text="We've designed the Signal service to minimize the data we retain about Signal users, so the only information we can produce in response to a request like this is the date and time a user registered with Signal and the last date of a user's connectivity to the Signal service."
+  who="Signal"
+  context="On a subpoena for information about two users, published at signal.org/bigbrother"
+/>

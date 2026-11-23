@@ -1,0 +1,49 @@
+---
+updated: 2026-11-23
+sources:
+  - title: The system design primer (Donne Martin)
+    url: https://github.com/donnemartin/system-design-primer
+---
+
+## Why it matters for a product engineer
+
+Scalability is knowing where your system will break as usage grows, and how you will move that limit
+when you need to. Building for a million users before you have a hundred wastes months. Not knowing
+your limits at all means finding them during your best week. The skill is scaling just in time.
+
+## How to do it
+
+1. Write down the expected load for the next year: users, requests, data, peaks.
+2. Find the first bottleneck: often the database, a third-party rate limit, or a job that runs
+   inside a request.
+3. Measure it with a load test that looks like real traffic, before customers find it.
+4. Fix the bottleneck with the simplest change: an index, a cache, a queue, a bigger machine.
+5. Keep the parts that grow separate, so you can scale one without the rest.
+6. Test again after each big change, and on a schedule.
+
+## Common mistakes
+
+- Microservices and sharding for a product with a few hundred users.
+- Load tests that call one endpoint in a loop, nothing like real use.
+- Forgetting the limits of the services you depend on.
+- Scaling the web servers while the database is the limit.
+- No idea of the current limit, only a feeling that it is "fine".
+
+## Example
+
+Zernio handles about 100,000 posts a day and a constant flow of webhooks from the platforms, with
+six developers. The first scaling change was not a rewrite: platform events moved from cron jobs to
+queues. Mamitsu's maker runs load tests every day, because holding load was his condition for selling
+the product. ([Zernio](/in-practice/zernio/), [Mamitsu](/in-practice/mamitsu/))
+
+<StatRow
+  title="Zernio's load, November 2026"
+  stats={[
+    { value: '~100k', label: 'Posts a day', signal: true },
+    { value: 25, label: 'Networks behind one API', note: '16 social, 9 ad networks' },
+    { value: 6, label: 'Developers', note: 'All remote, in Spain' },
+  ]}
+  caption="A small team carries this load because the spiky part, the webhooks, runs on queues."
+  evidence="reported"
+  source="Miquel Palet on the Itnig podcast; network counts from zernio.com, 15 Nov 2026"
+/>
