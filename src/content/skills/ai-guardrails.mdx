@@ -1,0 +1,59 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "GitHub MCP exploited: accessing private repositories via MCP (Invariant Labs)"
+    url: https://invariantlabs.ai/blog/mcp-github-vulnerability
+  - title: "GitHub MCP exploited: accessing private repositories via MCP (Simon Willison)"
+    url: https://simonwillison.net/2025/May/26/github-mcp-exploited/
+  - title: Prompt injection (OWASP GenAI Security Project)
+    url: https://genai.owasp.org/glossary/prompt-injection/
+---
+
+## Why it matters for a product engineer
+
+A language model follows instructions, and it cannot reliably tell your instructions from instructions
+hidden in an email, a web page or a support ticket. When its output reaches users, or when it can call
+tools, that weakness becomes a product risk. Input and output checks catch many problems, but not all
+of them. Product engineers decide the parts that do not depend on the model: what the agent can
+access, what it can do without approval, and where its output can go.
+
+## How to do it
+
+1. List what the feature can read, what it can change, and where it can send data.
+2. Give the agent its own credentials, limited to the data and actions the task needs.
+3. Ask a person to confirm actions that cannot be undone or that send data outside.
+4. Check outputs before they reach users: format, links, personal data, policy topics.
+5. Test with attacks: put hostile instructions in documents, issues and web pages the agent reads.
+
+## Common mistakes
+
+- Trusting the system prompt to stop a determined attacker.
+- Giving an agent the user's full access because it is easier to set up.
+- Combining private data, untrusted content and a way to send data out in one agent.
+- Checking the user's message but not the documents and tool results the agent reads.
+
+## Example
+
+In May 2025, researchers at Invariant Labs showed an attack on GitHub's official MCP server. They put
+a malicious issue in a public repository. It asked the agent to add information about the author,
+including "all other repos the user is working on", to the README. The user only asked the agent to
+look at the open issues. The agent read private repositories and published their details in a public
+pull request. The researchers used a well-aligned model, Claude 4 Opus.
+
+<Flow
+  title="How a public issue led to a private data leak"
+  nodes={[
+    { id: 'issue', label: 'Public issue', detail: 'Hidden request', col: 0, row: 0, tone: 'signal' },
+    { id: 'private', label: 'Private repos', detail: 'Full user access', col: 0, row: 1, kind: 'store' },
+    { id: 'agent', label: 'Agent', detail: 'Reads both', col: 1, row: 0, kind: 'decision' },
+    { id: 'pr', label: 'Public PR', detail: 'Data published', col: 2, row: 0 },
+  ]}
+  edges={[
+    { from: 'issue', to: 'agent' },
+    { from: 'private', to: 'agent' },
+    { from: 'agent', to: 'pr' },
+  ]}
+  caption="The model did what the text asked. The fix the researchers suggest is about access: limit the agent to the repository it is working on."
+  evidence="reported"
+  source="Invariant Labs, 26 May 2025"
+/>

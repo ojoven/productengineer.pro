@@ -1,0 +1,54 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Why your IT project may be riskier than you think (Flyvbjerg and Budzier, Harvard Business Review, 2011; author copy)
+    url: https://arxiv.org/abs/1304.0265
+  - title: Confirmation bias in UX (NN/g)
+    url: https://www.nngroup.com/articles/confirmation-bias-ux/
+  - title: Confirmation bias and the power of disconfirming evidence (Farnam Street)
+    url: https://fs.blog/confirmation-bias/
+---
+
+## Why it matters for a product engineer
+
+Some errors in thinking are not random. They push in the same direction again and again. We notice
+evidence that agrees with us (confirmation bias). We keep funding a project because of what it already
+cost (sunk cost). We stay close to the first number we hear (anchoring). We plan as if our project
+will go better than similar ones (the planning fallacy). Knowing these names does not protect you. A
+process that checks your thinking at the right moment does.
+
+## How to do it
+
+1. Write down your prediction before you see the results of a test or a launch.
+2. Before you estimate, look at how long similar projects really took, then adjust from there.
+3. Ask what evidence would change your mind, and look for it on purpose.
+4. When you decide whether to continue a project, ignore what it has already cost.
+5. Ask someone with no stake in the idea to argue against it.
+
+## Common mistakes
+
+- Thinking that knowing about biases makes you free of them.
+- Looking only at the average result of past projects, not the worst ones.
+- Reading user research only for quotes that support the plan.
+- Calling it "commitment" when it is sunk cost.
+
+## Example
+
+In 2003, Levi Strauss started moving to a single SAP system, with a budget of less than $5 million.
+In 2008, it took a $192.5 million charge for the project. Researchers at Oxford studied 1,471 IT projects.
+The average cost overrun was 27%, but one project in six overran by 200% on average. They recommend
+reference class forecasting, a method based on the work of Kahneman and Tversky: estimate from the
+results of similar projects, not from your own plan.
+
+<StatRow
+  title="Cost and schedule overruns in 1,471 IT projects"
+  stats={[
+    { value: 27, unit: '%', label: 'Average cost overrun' },
+    { value: '1 in 6', label: 'Projects with an extreme overrun', signal: true },
+    { value: 200, unit: '%', label: 'Their average cost overrun' },
+    { value: '~70', unit: '%', label: 'Their average schedule overrun' },
+  ]}
+  caption="The average looks manageable. The risk is in the tail, which an optimistic plan does not include."
+  evidence="reported"
+  source="Flyvbjerg and Budzier, Harvard Business Review, September 2011"
+/>

@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Shape Up, chapter 2: principles of shaping (Ryan Singer, Basecamp)"
+    url: https://basecamp.com/shapeup/1.1-chapter-02
+  - title: "Shape Up, chapter 3: set boundaries (Ryan Singer, Basecamp)"
+    url: https://basecamp.com/shapeup/1.2-chapter-03
+  - title: The XY problem (xyproblem.info)
+    url: https://xyproblem.info/
+---
+
+## Why it matters for a product engineer
+
+A requirement often arrives as a solution: "add a calendar", "export to Excel", "send a notification".
+Behind it there is a problem that nobody wrote down. If you build the solution as asked, you may build
+something big that solves the problem badly. If you find the problem first, the answer is often
+smaller and better. Product engineers see the cost of each option, so they are in a good position to
+ask the question, as long as they ask it to help, not to block.
+
+## How to do it
+
+1. Ask about the moment of need: "When did you need this? What were you trying to do?"
+2. Write the problem in one sentence, separate from the requested solution.
+3. Check how many people have the problem, and how they solve it today.
+4. Propose the smallest solution that solves that problem, with its cost.
+5. Agree on the problem with the person who asked before you build anything.
+
+## Common mistakes
+
+- Building exactly what was asked because it is faster than asking.
+- Asking "why?" in a way that sounds like a refusal.
+- Asking people to describe the solution they want instead of what happened.
+- Challenging every request, including small, clear ones.
+
+## Example
+
+Soon after Basecamp 3 launched without a calendar, customers asked for one. A full calendar could take
+six months or more, and only about 10% of customers had used the calendars in past versions. So the
+team called a customer and asked when she had wanted a calendar. She had driven to her office to check
+a wall calendar for free meeting rooms. The real need was to see free days. The team built the Dot
+Grid, a much smaller calendar, in a six-week cycle.
+
+<Compare
+  title="Basecamp's calendar request, before and after asking"
+  subjects={['As requested', 'As built']}
+  highlight={1}
+  rows={[
+    { label: 'Need', values: ['Everything a calendar does', 'See free days'] },
+    { label: 'Time to build', values: ['Six months or more', 'Six weeks'] },
+    { label: 'Based on', values: ['The word "calendar"', 'One real story'] },
+  ]}
+  caption="The question was not why she wanted a calendar, but when she needed one. The answer made the project much smaller."
+  evidence="reported"
+  source="Ryan Singer, Shape Up, chapters 2 and 3"
+/>

@@ -682,14 +682,14 @@ skills. `mvp` already has a sample body in [skill-bodies.md](skill-bodies.md).
 
 ### Batch 37 · AI + Cross-cutting · 8 skills
 
-- [ ] `11.1.1` [LLM integration](https://productengineer.pro/skills-map/ai/ai-engineering/llm-integration/) · `llm-integration` · has evidence, technicalLeverage
-- [ ] `11.1.8` [AI observability](https://productengineer.pro/skills-map/ai/ai-engineering/llm-observability/) · `llm-observability` · has evidence, technicalLeverage
-- [ ] `11.1.9` [Guardrails](https://productengineer.pro/skills-map/ai/ai-engineering/ai-guardrails/) · `ai-guardrails` · has evidence, technicalLeverage
-- [ ] `11.1.10` [AI and language model fundamentals](https://productengineer.pro/skills-map/ai/ai-engineering/llm-fundamentals/) · `llm-fundamentals` · has evidence, technicalLeverage; 1 resource
-- [ ] `X.1.1` [Evidence versus assumptions](https://productengineer.pro/skills-map/cross-cutting/critical-thinking/evidence-vs-assumptions/) · `evidence-vs-assumptions` · has evidence, technicalLeverage, aiLeverage
-- [ ] `X.1.2` [Cognitive biases](https://productengineer.pro/skills-map/cross-cutting/critical-thinking/cognitive-biases/) · `cognitive-biases` · map coverage
-- [ ] `X.1.3` [Challenging requirements](https://productengineer.pro/skills-map/cross-cutting/critical-thinking/challenging-requirements/) · `challenging-requirements` · map coverage
-- [ ] `X.1.4` [Verification](https://productengineer.pro/skills-map/cross-cutting/critical-thinking/verification/) · `verification` · has evidence, technicalLeverage
+- [x] `11.1.1` [LLM integration](https://productengineer.pro/skills-map/ai/ai-engineering/llm-integration/) · `llm-integration` · has evidence, technicalLeverage
+- [x] `11.1.8` [AI observability](https://productengineer.pro/skills-map/ai/ai-engineering/llm-observability/) · `llm-observability` · has evidence, technicalLeverage
+- [x] `11.1.9` [Guardrails](https://productengineer.pro/skills-map/ai/ai-engineering/ai-guardrails/) · `ai-guardrails` · has evidence, technicalLeverage
+- [x] `11.1.10` [AI and language model fundamentals](https://productengineer.pro/skills-map/ai/ai-engineering/llm-fundamentals/) · `llm-fundamentals` · has evidence, technicalLeverage; 1 resource
+- [x] `X.1.1` [Evidence versus assumptions](https://productengineer.pro/skills-map/cross-cutting/critical-thinking/evidence-vs-assumptions/) · `evidence-vs-assumptions` · has evidence, technicalLeverage, aiLeverage
+- [x] `X.1.2` [Cognitive biases](https://productengineer.pro/skills-map/cross-cutting/critical-thinking/cognitive-biases/) · `cognitive-biases` · map coverage
+- [x] `X.1.3` [Challenging requirements](https://productengineer.pro/skills-map/cross-cutting/critical-thinking/challenging-requirements/) · `challenging-requirements` · map coverage
+- [x] `X.1.4` [Verification](https://productengineer.pro/skills-map/cross-cutting/critical-thinking/verification/) · `verification` · has evidence, technicalLeverage
 
 ### Batch 38 · Cross-cutting · 9 skills
 

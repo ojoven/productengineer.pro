@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Belief and evidence in empirical software engineering (Devanbu, Zimmermann and Bird, ICSE 2016)
+    url: https://thomas-zimmermann.com/publications/files/devanbu-icse-2016.pdf
+  - title: "Assumption testing: everything you need to know to get started (Teresa Torres, Product Talk)"
+    url: https://www.producttalk.org/assumption-testing/
+---
+
+## Why it matters for a product engineer
+
+Every plan rests on beliefs: users want this, the old system is the bottleneck, this change will not
+hurt conversion. Some of these beliefs come from data. Many come from one memorable experience, a
+colleague's opinion, or simple repetition. They feel the same from the inside. Writing "evidence" or
+"assumption" next to each claim makes the difference visible, and shows which assumptions could sink
+the plan if they are wrong. Product engineers can often turn an assumption into evidence quickly, with
+a query or a small test.
+
+## How to do it
+
+1. Write the claims behind a decision as short sentences.
+2. Mark each one: evidence (with its source) or assumption.
+3. For each piece of evidence, ask how strong it is: one anecdote, a survey, or real usage data.
+4. Rank the assumptions by risk: how likely they are to be wrong, and how much that would cost.
+5. Test the riskiest one first, with the cheapest check that could prove it wrong.
+
+## Common mistakes
+
+- Treating something repeated often as something proven.
+- Counting your own experience as evidence for everyone.
+- Testing the safe assumptions, because they are easier, and skipping the risky one.
+- Keeping an old conclusion after new data contradicts it.
+
+## Example
+
+Microsoft researchers asked 564 developers about common claims in software engineering. The main
+source of their beliefs was personal experience. Research papers came second to last. The team then
+picked one claim: that distributed teams write code as good as teams in one place. Developers on one
+large project mostly disagreed, and on another they mostly agreed. Data from both projects showed only
+a very small effect, and not always in the same direction.
+
+<Compare
+  title="Two Microsoft projects, one belief about distributed teams"
+  subjects={['Project A', 'Project B']}
+  highlight={0}
+  rows={[
+    { label: 'Product', values: ['Operating system', 'Web service'] },
+    { label: 'Developers', values: ['About 8,000', 'About 8,000'] },
+    { label: 'Most believed', values: ['Distance hurts quality', 'Distance does not matter'] },
+    { label: 'Project data', values: ['Very small effect', 'Very small effect'] },
+    { label: 'Belief matched data', values: ['No', 'Yes'] },
+  ]}
+  caption="Both teams were sure, and both had experience. Only one team's belief matched what its own data showed."
+  evidence="measured"
+  source="Devanbu, Zimmermann and Bird, ICSE 2016"
+/>

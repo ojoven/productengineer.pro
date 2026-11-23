@@ -1,0 +1,57 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "Lost in the middle: how language models use long contexts (Liu et al., TACL 2024)"
+    url: https://arxiv.org/abs/2307.03172
+  - title: Introduction to large language models (Google Machine Learning Crash Course)
+    url: https://developers.google.com/machine-learning/crash-course/llm
+---
+
+## Why it matters for a product engineer
+
+A language model predicts the next token from the tokens before it. That simple fact explains most of
+what it does well and most of what goes wrong. It knows what was in its training data, plus what you
+put in the context. It writes fluent text even when it has no good answer. Its context window has a
+limit, and even inside that limit, attention is not equal. Product engineers who understand this
+design better prompts, choose better data to send, and know when a rule or a person is the better
+choice.
+
+## How to do it
+
+1. Separate what the model must know from training, and what you must give it in the context.
+2. Count tokens for real inputs, and plan for the longest cases, not the average.
+3. Put the most important information at the start or the end of the context.
+4. Send fewer, more relevant documents instead of everything that might help.
+5. Compare the model with a simple baseline, such as a rule or a search, on the same test cases.
+
+## Common mistakes
+
+- Treating the model as a database of facts.
+- Assuming that a bigger context window means the model uses all of it well.
+- Judging a model from a few good examples.
+- Using a model where a fixed rule would be cheaper and always correct.
+
+## Example
+
+In 2023, researchers at Stanford and elsewhere gave models a question and 20 documents, only one of
+which contained the answer. They moved that document to different positions. GPT-3.5-Turbo answered
+correctly 75.8% of the time when it was first, and 53.8% when it was in the middle. With no documents
+at all, it scored 56.1%. These were 2023 models, so test your own. The lesson
+is the same: where you put information can matter.
+
+<Bars
+  title="GPT-3.5-Turbo accuracy by position of the document with the answer, out of 20"
+  unit="%"
+  digits={1}
+  items={[
+    { label: '1st document', value: 75.8 },
+    { label: '5th document', value: 57.2 },
+    { label: '10th document', value: 53.8, highlight: true },
+    { label: '15th document', value: 55.4 },
+    { label: '20th document', value: 63.2 },
+    { label: 'No documents', value: 56.1 },
+  ]}
+  caption="With the answer in the middle, the model did worse than with no documents at all."
+  evidence="measured"
+  source="Liu et al., Lost in the middle, 2023"
+/>

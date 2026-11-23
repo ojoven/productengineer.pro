@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: A postmortem of three recent issues (Anthropic)
+    url: https://www.anthropic.com/research/a-postmortem-of-three-recent-issues
+  - title: A field guide to rapidly improving AI products (Hamel Husain)
+    url: https://hamel.dev/blog/posts/field-guide/
+  - title: An introduction to observability for LLM-based applications (OpenTelemetry)
+    url: https://opentelemetry.io/blog/2024/llm-observability/
+---
+
+## Why it matters for a product engineer
+
+An AI feature can fail without an error. The request succeeds, the response is fast, and the answer is
+wrong, off topic, or worse than last week. Normal monitoring does not see this. You need a record of
+each request: the prompt, the context, the model, the output, the tool calls, the tokens and the time.
+With that record, a vague complaint becomes a case you can read, reproduce and add to your tests.
+
+## How to do it
+
+1. Record a trace for each AI request, with each model and tool call as a step.
+2. Store the model version and prompt version with every trace.
+3. Give users a simple way to flag a bad answer, and link the flag to the trace.
+4. Read real traces every week, group the failures, and turn each group into test cases.
+5. Remove or mask personal data before storage, and limit who can read traces.
+
+## Common mistakes
+
+- Logging only errors and latency, so wrong answers are invisible.
+- Traces that nobody reads until there is an incident.
+- No link between a trace and the deploy or config change that came before it.
+- Storing full prompts with personal data that nobody is allowed to see.
+
+## Example
+
+In August 2025, three separate infrastructure bugs reduced the quality of some Claude responses. The
+first started on 5 August and affected about 0.8% of Sonnet 4 requests. A routine load-balancing change
+on 29 August made it worse: at the worst hour, 16% were affected. Anthropic's evaluations did not catch
+the problem, and privacy controls limited what engineers could read. User reports were the signal.
+Anthropic now runs quality evaluations continuously on production systems.
+
+<Timeline
+  title="How one routing bug grew before anyone could see it, 2025"
+  events={[
+    { when: '5 Aug', title: 'Routing bug starts', note: '0.8% of Sonnet 4 requests', kind: 'problem' },
+    { when: 'Early Aug', title: 'First user reports', note: 'Hard to tell from normal variation' },
+    { when: '25–26 Aug', title: 'Two more bugs deployed', kind: 'problem' },
+    { when: '29 Aug', title: 'Load-balancing change', note: 'More requests misrouted', kind: 'problem' },
+    { when: '31 Aug', title: 'Worst hour', note: '16% of Sonnet 4 requests' },
+    { when: '4 Sep', title: 'Routing fix deployed', kind: 'ship' },
+    { when: '17 Sep', title: 'Postmortem published', note: 'Evaluations on production', kind: 'result' },
+  ]}
+  caption="The requests did not fail. Only output quality changed, and only some users saw it, so the signal came from people, not from monitoring."
+  evidence="reported"
+  source="Anthropic, A postmortem of three recent issues, September 2025"
+/>

@@ -1,0 +1,55 @@
+---
+updated: 2026-11-23
+sources:
+  - title: "API, ChatGPT & Sora facing issues: write-up (OpenAI Status)"
+    url: https://status.openai.com/incidents/ctrsv3lwd797/write-up
+  - title: Building effective AI agents (Anthropic)
+    url: https://www.anthropic.com/research/building-effective-agents
+  - title: Prompt engineering overview (Anthropic docs)
+    url: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview
+---
+
+## Why it matters for a product engineer
+
+A model call looks like one line of code, but it behaves like a slow, expensive and sometimes
+unreliable service. Answers can take seconds, the provider can be down, limits can block you, and the
+same prompt can give a different answer after a model update. The product around the call decides
+what users see in each of these cases. Product engineers own that product: the prompt, the model
+choice, the waiting state, and what happens when the call fails.
+
+## How to do it
+
+1. Start with the simplest design that works: one well-written prompt before chains or agents.
+2. Keep prompts in version control, next to a small set of test inputs with expected results.
+3. Pin a model version, and run the tests before you switch to a new one.
+4. Stream long answers, so users see progress instead of a spinner.
+5. Plan for failure: a second model or provider, a cached answer, or the feature without AI.
+
+## Common mistakes
+
+- Prompts written as strings inside the code, changed without any test.
+- Using an alias that points to the newest model, so behavior changes without a deploy.
+- Unlimited retries that multiply cost during a provider outage.
+- Treating model output as trusted, valid data without checking its format.
+
+## Example
+
+On 11 December 2024, every OpenAI service, including the API, was degraded or unavailable for about
+four hours and twenty minutes. The cause was inside OpenAI: a new telemetry service overloaded the
+control plane of its large Kubernetes clusters. The API was mostly back after about two hours and
+twenty minutes, and fully back for all models at 7:38 PM PST. A product that called only this API
+could not fix anything. It could only decide what its users saw while it waited.
+
+<Timeline
+  title="OpenAI's outage, 11 December 2024 (PST)"
+  events={[
+    { when: '3:12 PM', title: 'Telemetry service deployed', note: 'Tested in staging the day before' },
+    { when: '3:16 PM', title: 'All services start to degrade', kind: 'problem' },
+    { when: '3:40 PM', title: 'Maximum customer impact', kind: 'problem' },
+    { when: '5:36 PM', title: 'API mostly recovered' },
+    { when: '7:38 PM', title: 'All models recovered', kind: 'result' },
+  ]}
+  caption="For a product that depends on one provider, an outage like this lasts hours. Only timeouts and a fallback decide what users see during it."
+  evidence="reported"
+  source="OpenAI Status, incident write-up, December 2024"
+/>

@@ -1,0 +1,56 @@
+---
+updated: 2026-11-23
+sources:
+  - title: Mata v. Avianca, opinion and order on sanctions (US District Court, Southern District of New York, 22 June 2023)
+    url: https://www.nhd.uscourts.gov/sites/default/files/pdf/Mata-v-Avianca-sanctions-order.PDF
+  - title: Hallucinations in code are the least dangerous form of LLM mistakes (Simon Willison)
+    url: https://simonwillison.net/2025/Mar/2/hallucinations-in-code/
+  - title: Your AI product needs evals (Hamel Husain)
+    url: https://hamel.dev/blog/posts/evals/
+---
+
+## Why it matters for a product engineer
+
+Writing code, a query or a report is not the same as knowing that it is right. This was always true,
+and AI makes it more important: it produces large amounts of work that looks correct. Some errors fail
+loudly, such as a function that does not exist. Others run without errors and give a wrong result.
+Product engineers are responsible for what ships, whoever or whatever wrote it. So "done" has to mean
+"checked", with evidence that someone else can see.
+
+## How to do it
+
+1. Before you start, write what "correct" means: the requirement and a few cases with known answers.
+2. Run the work. Do not trust a description of what it does, including your own.
+3. Check against a source outside the work: real data, the original document, a second method.
+4. Look hardest at the parts that would fail silently: numbers, edge cases, quotes and references.
+5. Record what you checked and what you did not, so others know what is still open.
+
+## Common mistakes
+
+- Reading the code or text and judging it by how plausible it looks.
+- Asking the same tool that produced the work whether it is right.
+- Checking the easy parts and assuming the rest.
+- Treating passing tests as proof when the tests do not cover the requirement.
+
+## Example
+
+On 1 March 2023, lawyers in a New York case against the airline Avianca filed a brief that cited court
+decisions created by ChatGPT. The other side's lawyers could not find most of the cases. When doubts
+grew, one of the lawyers asked ChatGPT whether one case was real. It said the case "does indeed exist".
+The lawyers continued to stand by the cases until late May. On 22 June, the court fined them and their
+firm $5,000.
+
+<Timeline
+  title="How fake cases stayed in a court case for three months, 2023"
+  events={[
+    { when: '1 Mar', title: 'Brief filed', note: 'With cases ChatGPT made up', kind: 'problem' },
+    { when: '15 Mar', title: 'Other side cannot find them', note: 'Most of the cited cases' },
+    { when: '11–12 Apr', title: 'Court asks for copies', kind: 'decision' },
+    { when: '25 Apr', title: 'Fake decisions filed', note: 'Excerpts, still from ChatGPT', kind: 'problem' },
+    { when: '25 May', title: 'Lawyers explain', note: 'The cases came from ChatGPT' },
+    { when: '22 Jun', title: 'Sanctions', note: '$5,000 fine', kind: 'result' },
+  ]}
+  caption="The lawyers checked with the same tool that produced the error. The other side found the problem by searching for the cases."
+  evidence="reported"
+  source="Mata v. Avianca, order on sanctions, 22 June 2023"
+/>
